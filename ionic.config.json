@@ -1,0 +1,7 @@
+{
+	"name": "walletamous",
+	"integrations": {
+		"capacitor": {}
+	},
+	"type": "custom"
+}
