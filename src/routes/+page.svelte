@@ -39,6 +39,14 @@ Then print the 'keyring'
 		</ion-card-content>
 	</ion-item>
 
+    <ion-card-content>
+		This HOW-TO shows how to implement ionic tabs.
+		<ion-item>
+			<ion-label>Click here to navigate to the tabs</ion-label>
+			<ion-button href="/tabs" fill="outline" slot="end">Go to Tabs</ion-button>
+		</ion-item>
+	</ion-card-content>
+
 	<ion-item>
 		<ion-label>Visit Ionic component docs</ion-label>
 		<ion-button href="https://ionicframework.com/docs/components" target="_new" fill="outline" slot="end"

@@ -14,10 +14,12 @@
 		"lint": "prettier --plugin-search-dir . --check .",
 		"format": "prettier --plugin-search-dir . --write .",
 		"ionic:build": "npm run build",
-		"ionic:serve": "npm run dev -- --host"
+		"ionic:serve": "npm run dev -- --host",
+		"ios": "ionic cap run ios -l",
+		"android": "ionic cap run android -l --external"
 	},
 	"devDependencies": {
-		"@capacitor/cli": "5.4.1",
+		"@capacitor/cli": "5.4.2",
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-static": "^2.0.3",
 		"@sveltejs/kit": "^1.20.4",
@@ -29,21 +31,24 @@
 		"svelte-preprocess": "^5.0.4",
 		"tslib": "^2.4.1",
 		"typescript": "^5.0.0",
-		"vite": "^4.4.9",
-		"vitest": "^0.34.5"
+		"vite": "^4.4.10",
+		"vitest": "^0.34.6"
 	},
 	"type": "module",
 	"dependencies": {
-		"@capacitor/android": "^5.4.1",
+		"@capacitor/android": "^5.4.2",
 		"@capacitor/app": "5.0.6",
-		"@capacitor/core": "5.4.1",
+		"@capacitor/camera": "^5.0.7",
+		"@capacitor/core": "5.4.2",
+		"@capacitor/filesystem": "^5.1.4",
 		"@capacitor/haptics": "5.0.6",
-		"@capacitor/ios": "^5.4.1",
+		"@capacitor/ios": "^5.4.2",
 		"@capacitor/keyboard": "5.0.6",
+		"@capacitor/preferences": "^5.0.6",
 		"@capacitor/status-bar": "5.0.6",
-		"@ionic/core": "^7.2.1",
+		"@ionic/core": "^7.4.3",
 		"ionic-svelte": "^0.5.82",
 		"ionicons": "^7.1.2",
-		"zenroom": "^3.18.1"
+		"zenroom": "^3.22.2"
 	}
 }
