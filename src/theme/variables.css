@@ -10,6 +10,23 @@
     --ion-safe-area-bottom: 16px;
 }
 
+body.barcode-scanner-active {
+    visibility: hidden;
+    --background: transparent;
+    --ion-background-color: transparent;
+}
+
+.barcode-scanner-modal {
+    visibility: visible;
+}
+
+@media (prefers-color-scheme: dark) {
+    .barcode-scanner-modal {
+        --background: transparent;
+        --ion-background-color: transparent;
+    }
+}
+
 /** Ionic CSS Variables **/
 :root {
 	/** primary **/
