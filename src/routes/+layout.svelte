@@ -1,6 +1,8 @@
-<script lang='ts'>
+<script lang="ts">
 	import { setupIonicBase } from 'ionic-svelte';
-
+	import { contractOutline, walletOutline, personOutline } from 'ionicons/icons';
+	//@ts-ignore
+	import IonTabs from 'ionic-svelte/components/IonTabs.svelte';
 	/* Call Ionic's setup routine */
 	setupIonicBase();
 
@@ -44,5 +46,14 @@
 </script>
 
 <ion-app>
-	<slot />
+	<IonTabs
+		slot="bottom"
+		tabs={[
+			{ label: 'Services', icon: contractOutline, tab: 'services' },
+			{ label: 'Wallet', icon: walletOutline, tab: 'wallet' },
+			{ label: 'My Profile', icon: personOutline, tab: 'profile' }
+		]}
+	>
+		<slot />
+	</IonTabs>
 </ion-app>

@@ -1,6 +1,15 @@
 /* Ionic Variables and Theming. For more info, please see:
   http://ionicframework.com/docs/theming/ */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ios {
+    --ion-safe-area-top: 28px;
+    --ion-safe-area-bottom: 16px;
+}
+
 /** Ionic CSS Variables **/
 :root {
 	/** primary **/
@@ -384,3 +393,4 @@ body.dark.md {
 
 	--ion-card-background: #1e1e1e;
 }
+

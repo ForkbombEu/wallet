@@ -15,7 +15,7 @@
 	};
 </script>
 
-<ion-tab tab="scanner">
+<ion-tab tab="profile">
 	<ion-header translucent={true}>
 		<ion-toolbar>
 			<ion-buttons slot="start">
