@@ -57,6 +57,7 @@
 		"@ionic/core": "^7.4.3",
 		"ionic-svelte": "^0.5.82",
 		"ionicons": "^7.1.2",
-		"zenroom": "^3.22.2"
+		"zenroom": "^3.22.2",
+		"zod": "^3.22.4"
 	}
 }

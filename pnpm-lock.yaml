@@ -53,6 +53,9 @@ dependencies:
   zenroom:
     specifier: ^3.22.2
     version: 3.22.2
+  zod:
+    specifier: ^3.22.4
+    version: 3.22.4
 
 devDependencies:
   '@capacitor/cli':
@@ -5122,4 +5125,8 @@ packages:
     resolution: {integrity: sha512-HD3wSyzpmjtu2AAlWbtGXyAX7VXvfvlLhQ9150CBbWcZFFhnoVEYVK6aiAUW7CM1bTI7ORJ6bgJ6eQblaeAz5Q==}
     dependencies:
       yarn: 1.22.19
+    dev: false
+
+  /zod@3.22.4:
+    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
     dev: false
