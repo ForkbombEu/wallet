@@ -23,15 +23,18 @@ export interface Keypair {
 	ethereum_address: string;
 }
 
+
 //
+
+const serverSideSalt: string = 'cGlwcG8gY29tZSBzdGE/';
 
 async function zencodeExec<T>(contract: string, data: Record<string, unknown>): Promise<T> {
 	const { result } = await zencode_exec(contract, { data: JSON.stringify(data) });
 	return JSON.parse(result);
 }
 
-export async function generateKeypair(email: string, answers: UserAnswers): Promise<Keypair> {
-	const HMAC = await generateHMAC(email);
+export async function generateKeypair(answers: UserAnswers): Promise<Keypair> {
+	const HMAC = await generateHMAC(answers.email!);
 	console.log(answers);
 	return await zencodeExec<Keypair>(keypairoomClient, {
 		userChallenges: {
@@ -41,7 +44,7 @@ export async function generateKeypair(email: string, answers: UserAnswers): Prom
 			whereHomeTown: answers.question4,
 			nameMotherMaid: answers.question5
 		},
-		username: email,
+		username: answers.email!,
 		'seedServerSideShard.HMAC': HMAC
 	});
 }
@@ -59,7 +62,7 @@ export async function regenerateKeypair(email: string, seed: string): Promise<Ke
 export async function generateHMAC(email: string): Promise<string> {
 	const response = await zencodeExec<string>(keypairoomGenerateHMAC, {
 		userData: { email: email },
-		serverSideSalt: 'cGlwcG8gY29tZSBzdGE/'
+		serverSideSalt
 	});
 	console.log('hmac', response);
 	//@ts-ignore

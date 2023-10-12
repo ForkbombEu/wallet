@@ -23,8 +23,6 @@ export const userQuestions: Array<{ id: UserQuestionsKey; text: string }> = [
 
 //
 
-export type UserAnswers = Record<UserQuestionsKey, string>;
-
 export const userAnswersSchema = (
 	z.object({
 		email: z.string().email(),
@@ -33,10 +31,14 @@ export const userAnswersSchema = (
 		question3: z.string(),
 		question4: z.string(),
 		question5: z.string()
-	}) satisfies z.ZodType<UserAnswers>
+	})
 )
 	.partial()
 	.refine((v) => {
 		//@ts-ignore
 		return Object.keys(v).filter((k) => k !== "email" && Boolean(v[k])).length >= 3;
 	}, 'AT_LEAST_THREE_QUESTIONS');
+	
+
+	export type UserAnswersZod = typeof userAnswersSchema;
+	export type UserAnswers = z.infer<typeof userAnswersSchema>;
