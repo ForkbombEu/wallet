@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Questions from '$lib/loginSteps/Questions.svelte';
-	import Email from '$lib/loginSteps/email.svelte';
 	import { Stepper, makeStep } from '@efstajas/svelte-stepper';
     import type { PageData } from '../../routes/$types';
 
