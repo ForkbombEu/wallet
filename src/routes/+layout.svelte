@@ -52,7 +52,8 @@
 			{ label: 'Services', icon: contractOutline, tab: 'services' },
 			{ label: 'Wallet', icon: walletOutline, tab: 'wallet' },
 			{ label: 'Native Functions', icon: phonePortrait, tab: 'native'},
-			{ label: 'My Profile', icon: personOutline, tab: 'profile' }
+			{ label: 'My Profile', icon: personOutline, tab: 'profile' },
+			{label: 'Login', icon: personOutline, tab: 'login'}
 		]}
 	>
 		<slot />
