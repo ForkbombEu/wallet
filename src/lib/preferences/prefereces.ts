@@ -7,11 +7,12 @@ export const setPreference = async (key: string, value: string) => {
 	});
 };
 
-const getPreference = async (key: string) => {
+export const getPreference = async (key: string) => {
 	const { value } = await Preferences.get({ key });
+    console.log(value);
 	return value;
 };
 
-const removeName = async (key: string) => {
+export const removePreference = async (key: string) => {
 	await Preferences.remove({ key });
 };

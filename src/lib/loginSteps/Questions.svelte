@@ -4,6 +4,7 @@
 	import {  generateKeypair } from '$lib/keypairoom/keypair';
 	import { userAnswersSchema, userQuestions } from '$lib/keypairoom/userQuestions';
 	import { setPreference } from '$lib/preferences/prefereces';
+	import { goto } from '$app/navigation';
 
 	
 	const schemaValidated = superValidateSync({}, userAnswersSchema, { errors: false });
@@ -29,8 +30,8 @@
 
         //@ts-ignore
 		const keypair = await generateKeypair($form.email!, $form);
-        console.log(keypair)
         setPreference("keyring", JSON.stringify(keypair))
+        goto("/r/wallet")
 	};
 	async function checkInput(e: any) {
 		if (e.target.name in $form) {
