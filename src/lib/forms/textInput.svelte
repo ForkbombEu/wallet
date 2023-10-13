@@ -5,8 +5,7 @@
 	export let type: 'email' | 'text' = 'text';
 	export let form: any; //  Writable<SuperForm<UserAnswersZod>>
 	export let errors: any; // Writable<ValidationErrors<>>
-	
-    const onInput = (
+	const onInput = (
 		e: CustomEvent & {
 			target: HTMLIonInputElement;
 		}

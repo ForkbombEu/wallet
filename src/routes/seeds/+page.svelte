@@ -1,5 +1,6 @@
 <script lang="ts">
-	import Questions from '$lib/keypairoom/Questions.svelte';
+	import Seeds from "$lib/keypairoom/Seeds.svelte";
+
 </script>
 
 <ion-header translucent={true}>
@@ -12,5 +13,5 @@
 </ion-header>
 
 <ion-content fullscreen class="ion-padding">
-	<Questions />
+	<Seeds/>
 </ion-content>

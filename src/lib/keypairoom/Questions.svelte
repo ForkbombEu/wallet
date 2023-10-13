@@ -42,9 +42,14 @@
 		{/each}
 	</ion-list>
 	{#if $errors._errors?.length}
-		<ion-text color="danger">
-			{$errors._errors[0]}
-		</ion-text>
+		<ion-item>
+			<ion-text color="danger">
+				{$errors._errors[0]}
+			</ion-text>
+		</ion-item>
 	{/if}
 	<ion-button role="button" type="submit" tabindex={0}>login</ion-button>
+	<ion-item>
+		<ion-text color="secondary"><a href="/seeds">Do you want to login with your mnemonic? Tap here</a></ion-text>
+	</ion-item>
 </form>
