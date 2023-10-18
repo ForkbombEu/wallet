@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { camera } from 'ionicons/icons';
+	import { camera, key } from 'ionicons/icons';
 
 	import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-	import { Filesystem, Directory } from '@capacitor/filesystem';
-	import { Preferences } from '@capacitor/preferences';
-	import { Capacitor } from '@capacitor/core';
+	import { getStructuredPreferences } from '$lib/preferences/prefereces';
+	import type { Keypair } from '$lib/keypairoom/keypair';
 
 	const takePhoto = async () => {
 		const take = await Camera.getPhoto({
@@ -13,6 +12,7 @@
 			quality: 100
 		});
 	};
+	const getKeypair = getStructuredPreferences<Keypair>('keyring');
 </script>
 
 <ion-tab tab="profile">
@@ -26,6 +26,13 @@
 	</ion-header>
 
 	<ion-content fullscreen class="ion-padding">
+		{#await getKeypair}
+			Loading profile..
+		{:then keypair}
+			<pre>{JSON.stringify(keypair, null, 2)}</pre>
+		{:catch someError}
+			System error: {someError.message}.
+		{/await}
 		<ion-fab vertical="bottom" horizontal="center" slot="fixed">
 			<ion-fab-button
 				role="button"
