@@ -34,22 +34,17 @@ public class TEE extends Plugin {
     private static final int AES_KEY_BIT = 256;
     private static final String ENCODING = "UTF-8";
 
-    public static byte[] getRandomNonce() {
-        byte[] nonce = new byte[IV_LENGTH_BYTE];
-        new SecureRandom().nextBytes(nonce);
-        return nonce;
-    }
-    private static Pair encrypt(byte[] pText, SecretKey secret, byte[] iv) throws Exception {
+    private static Pair encrypt(byte[] pText, SecretKey secret) throws Exception {
         Cipher cipher = Cipher.getInstance(CIPHER);
         cipher.init(Cipher.ENCRYPT_MODE, secret);
-        iv = cipher.getIV();
+        byte[] iv = cipher.getIV();
         return new Pair(cipher.doFinal(pText), iv);
     }
     // prefix IV length + IV bytes to cipher text
-    public static byte[] encryptWithPrefixIV(byte[] pText, SecretKey secret, byte[] iv) throws Exception {
-        Pair p = encrypt(pText, secret, iv);
+    public static byte[] encryptWithPrefixIV(byte[] pText, SecretKey secret) throws Exception {
+        Pair p = encrypt(pText, secret);
         byte[] cipherText = (byte[])p.first;
-        iv = (byte[])p.second;
+        byte[] iv = (byte[])p.second;
 
         return ByteBuffer.allocate(iv.length + cipherText.length)
                 .put(iv)
@@ -141,13 +136,13 @@ public class TEE extends Plugin {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
                 throw new OldAndroidVersionException();
             }
-            byte[] msg = Base64.getDecoder().decode(call.getString("msg"));
+            byte[] msg = call.getString("msg").getBytes(ENCODING);
 
             KeyStore keyStore = KeyStore.getInstance("AndroidKeyStore");
             keyStore.load(null);
             SecretKey sk = (SecretKey) keyStore.getKey(ALIAS, null);
 
-            byte[] encr = encryptWithPrefixIV(msg, sk, getRandomNonce());
+            byte[] encr = encryptWithPrefixIV(msg, sk);
             byte[] encoded = Base64.getEncoder().encode(encr);
 
             ret.put("result", new String(encoded));
@@ -174,9 +169,8 @@ public class TEE extends Plugin {
             SecretKey sk = (SecretKey) keyStore.getKey(ALIAS, null);
 
             byte[] decr = decryptWithPrefixIV(msg, sk);
-            byte[] encoded = Base64.getEncoder().encode(decr);
 
-            ret.put("result", new String(encoded));
+            ret.put("result", new String(decr, ENCODING));
         } catch(Exception e) {
             ret.put("success", false);
             ret.put("error", e.getMessage());

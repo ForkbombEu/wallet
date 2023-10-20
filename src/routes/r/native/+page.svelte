@@ -25,10 +25,10 @@
     }
     const callEncrypt = async ()=> {
 		try {
-			const res = await TEE.doEncrypt({ msg: "TXV5IGJpZW4=" });
+			const res = await TEE.doEncrypt({ msg: "Muy bien!" });
 			if(res.success) {
 				const res2 = await TEE.doDecrypt({ msg: res.result });
-				response = res2.success ? `Success: ${res2.result}` : `Error(decrypt): ${res2.error}`;
+				response = res2.success ? `Success: ${res.result} --> ${res2.result}` : `Error(decrypt): ${res2.error}`;
 			} else {
 				response = `Error(encrypt): ${res.error}`;
 

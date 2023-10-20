@@ -12,7 +12,7 @@
 			quality: 100
 		});
 	};
-	const getKeypair = getStructuredPreferences<Keypair>('keyring');
+	const getKeypair = getStructuredPreferences<Keypair>('keyring', true);
 </script>
 
 <ion-tab tab="profile">
@@ -33,17 +33,5 @@
 		{:catch someError}
 			System error: {someError.message}.
 		{/await}
-		<ion-fab vertical="bottom" horizontal="center" slot="fixed">
-			<ion-fab-button
-				role="button"
-				tabindex="0"
-				on:click={() => takePhoto()}
-				on:keypress={(e) => {
-					if (e.key === 'Enter') takePhoto();
-				}}
-			>
-				<ion-icon icon={camera} />
-			</ion-fab-button>
-		</ion-fab>
 	</ion-content>
 </ion-tab>
