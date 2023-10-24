@@ -14,6 +14,8 @@
 		504EC30F1FED79650016851F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30E1FED79650016851F /* Assets.xcassets */; };
 		504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		50B271D11FEDC1A000F3C39B /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
+		713CA9D12AE6BD2B00F3E271 /* TEEPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713CA9D02AE6BD2B00F3E271 /* TEEPlugin.swift */; };
+		713CA9D32AE6C2D500F3E271 /* TEEPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 713CA9D22AE6C2D500F3E271 /* TEEPlugin.m */; };
 		A084ECDBA7D38E1E42DFC39D /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */; };
 		CD32423A2AD06B17004AD8B0 /* EchoPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3242382AD06B17004AD8B0 /* EchoPlugin.m */; };
 		CD32423B2AD06B17004AD8B0 /* EchoPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3242392AD06B17004AD8B0 /* EchoPlugin.swift */; };
@@ -29,6 +31,8 @@
 		504EC3111FED79650016851F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		504EC3131FED79650016851F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B271D01FEDC1A000F3C39B /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
+		713CA9D02AE6BD2B00F3E271 /* TEEPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEEPlugin.swift; sourceTree = "<group>"; };
+		713CA9D22AE6C2D500F3E271 /* TEEPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TEEPlugin.m; sourceTree = "<group>"; };
 		AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF51FD2D460BCFE21FA515B2 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		CD3242372AD06B16004AD8B0 /* App-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "App-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -89,6 +93,8 @@
 				2FAD9762203C412B000D30F8 /* config.xml */,
 				50B271D01FEDC1A000F3C39B /* public */,
 				CD3242372AD06B16004AD8B0 /* App-Bridging-Header.h */,
+				713CA9D02AE6BD2B00F3E271 /* TEEPlugin.swift */,
+				713CA9D22AE6C2D500F3E271 /* TEEPlugin.m */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -216,7 +222,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
+				713CA9D32AE6C2D500F3E271 /* TEEPlugin.m in Sources */,
 				CD32423B2AD06B17004AD8B0 /* EchoPlugin.swift in Sources */,
+				713CA9D12AE6BD2B00F3E271 /* TEEPlugin.swift in Sources */,
 				CD32423A2AD06B17004AD8B0 /* EchoPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
