@@ -10,4 +10,6 @@
 
 CAP_PLUGIN(TEEPlugin, "TEE",
     CAP_PLUGIN_METHOD(generateKey, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(doEncrypt, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(doDecrypt, CAPPluginReturnPromise);
 )
