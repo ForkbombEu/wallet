@@ -1,7 +1,10 @@
+import { showProfile } from './endpoints';
 //@ts-ignore
 import { Slangroom } from '@slangroom/core';
 //@ts-ignore
 import { http } from '@slangroom/http';
+import { apiByIdContract, authWithPasswordContract, updateProfileContract } from './contracts';
+import { organizationAuthorizations, servicesByOrganization, webauthnCredentials, webauthnSessions } from './endpoints';
 
 export type BaseSystemFields<T = never> = {
 	id: string;
@@ -32,17 +35,7 @@ export interface SlangroomRequest<T = undefined> {
 }
 
 export const authWithPassword = async (username: string, password: string) => {
-	const script = `
-Rule unknown ignore
-
-Given I have a 'string' named 'pb'
-Given I have a 'string dictionary' named 'auth'
-When I write string 'api/collections/users/auth-with-password' in 'path'
-When I append 'path' to 'pb'
-Then print data
-Then I connect to 'pb' and send object 'auth' and do post and output into 'auth_token'
-`;
-	const res = await slangroom.execute(script, {
+	const res = await slangroom.execute(authWithPasswordContract, {
 		data: {
 			pb: PB,
 			auth: { identity: username, password }
@@ -58,23 +51,8 @@ const apiById = async (
 	token: string,
 	rest?: FormData | Record<string, string>
 ): SlangroomResponse<PBResponse> => {
-	const script = `
-Rule unknown ignore
-
-Given I have a 'string' named 'pb'
-Given I have a 'string' named 'id'
-Given I have a 'string dictionary' named 'headers'
-When I write string '${before}' in 'path'
-When I write string '${after}' in 'end_filter'
-When I append 'path' to 'pb'
-When I append 'id' to 'pb'
-When I append 'end_filter' to 'pb'
-Then print data
-Then I connect to 'pb' and send headers 'headers' and do get and output into 'http_result'
-`;
 	try {
-		console.log(PB, token, rest)
-		const res = await slangroom.execute(script, {
+		const res = await slangroom.execute(apiByIdContract(before, after), {
 			data: {
 				pb: PB,
 				headers: {
@@ -97,9 +75,11 @@ Then I connect to 'pb' and send headers 'headers' and do get and output into 'ht
 // TODO: manage pagination
 export const organizationServices = async (req: SlangroomRequest): Slangroom<PBResponse> => {
 	const { id, token } = req;
-	return apiById('api/collections/services/records?filters=(organization="', '")', token, {
-		id: id
-	});
+	return apiById(
+		servicesByOrganization[0], 
+		servicesByOrganization[1], 
+		token, 
+		{id: id});
 };
 
 // List of the orgs I'm part of
@@ -107,8 +87,8 @@ export const organizationServices = async (req: SlangroomRequest): Slangroom<PBR
 export const orgAuthorizations = async (req: SlangroomRequest): Slangroom<PBResponse> => {
 	const { id, token } = req;
 	return apiById(
-		'api/collections/orgAuthorizations/records?filter=(user="',
-		'")&&expand=organization&&fields=expand.organization.name,expand.organization.id',
+		organizationAuthorizations[0], 
+		organizationAuthorizations[1],
 		token,
 		{ id: id }
 	);
@@ -118,13 +98,13 @@ export const orgAuthorizations = async (req: SlangroomRequest): Slangroom<PBResp
 // TODO: manage pagination
 export const webauthnCreds = async (req: SlangroomRequest): Slangroom<PBResponse> => {
 	const { id, token } = req;
-	return apiById('api/collections/webauthnCredentials/records?filter=(user="', '")', token, {
+	return apiById(webauthnCredentials[0], webauthnCredentials[1], token, {
 		id: id
 	});
 };
-export const webauthnSessions = async (req: SlangroomRequest): Slangroom<PBResponse> => {
+export const webauthnSess = async (req: SlangroomRequest): Slangroom<PBResponse> => {
 	const { id, token } = req;
-	return apiById('api/collections/sessionDataWebauthn/records?filter=(user="', '")', token, {
+	return apiById(webauthnSessions[0], webauthnSessions[1], token, {
 		id: id
 	});
 };
@@ -132,24 +112,11 @@ export const webauthnSessions = async (req: SlangroomRequest): Slangroom<PBRespo
 // My profile info
 export const myProfile = async (req: SlangroomRequest): Slangroom<PBResponse> => {
 	const { id, token } = req;
-	return apiById('api/collections/users/records/', '', token, { id: id });
+	return apiById(showProfile[0], showProfile[1], token, { id: id });
 };
 export const updateProfile = async (req: SlangroomRequest<FormData | Record<string, string>>) => {
 	const { id, token, data } = req;
-	const script = `
-Rule caller restroom-mw
-
-Given I have a 'string' named 'pb'
-Given I have a 'string' named 'id'
-Given I have a 'string dictionary' named 'headers'
-Given I have a 'string dictionary' named 'user_data'
-When I write string 'api/collections/users/records/' in 'path'
-When I append 'path' to 'pb'
-When I append 'id' to 'pb'
-Then print data
-Then I connect to 'pb' and send headers 'headers' and send object 'user_data' and do patch and output into 'http_result'
-`;
-	const res = await slangroom.execute(script, {
+	const res = await slangroom.execute(updateProfileContract, {
 		data: {
 			pb: PB,
 			headers: {
