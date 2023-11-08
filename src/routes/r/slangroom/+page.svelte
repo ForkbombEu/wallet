@@ -17,11 +17,11 @@
 
 	const getSlangroomResult = async () => {
 		const res: Record<Key, any> = {} as Record<Key, any>;
-		if (userId && token) {
-			for (const key of slangroomKeys) {
-				res[key] = await slangroom[key as Key]({ id: userId!, token: token! });
-			}
+		if (!(userId && token)) throw new Error('userId or token missing');
+		for (const key of slangroomKeys) {
+			res[key] = await slangroom[key as Key]({ id: userId!, token: token! });
 		}
+		if (!slangroomKeys.find((key) => res[key] !== undefined)) throw new Error();
 		return res;
 	};
 
@@ -83,7 +83,7 @@
 		<ion-item-divider />
 		{#if slangroomPromise}
 			{#await slangroomPromise}
-				if
+				waiting
 			{:then slangroomResponse}
 				<ion-accordion-group>
 					{#each slangroomKeys as k}
