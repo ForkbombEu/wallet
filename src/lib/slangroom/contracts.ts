@@ -5,7 +5,7 @@ Rule unknown ignore
 
 Given I have a 'string' named 'pb'
 Given I have a 'string dictionary' named 'auth'
-When I write string ${authWithPassword} in 'path'
+When I write string '${authWithPassword}' in 'path'
 When I append 'path' to 'pb'
 Then print data
 Then I connect to 'pb' and send object 'auth' and do post and output into 'auth_token'

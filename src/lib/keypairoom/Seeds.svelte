@@ -2,7 +2,6 @@
 	import TextInput from '$lib/forms/textInput.svelte';
 	import { superForm, superValidateSync } from 'sveltekit-superforms/client';
 	import { regenerateKeypair } from '$lib/keypairoom/keypair';
-	import { userAnswersSchema, userQuestions } from '$lib/keypairoom/userQuestions';
 	import { setPreference } from '$lib/preferences/prefereces';
 	import { goto } from '$app/navigation';
 	import { z } from 'zod';

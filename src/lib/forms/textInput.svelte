@@ -2,7 +2,7 @@
 	export let label: string | undefined = undefined;
 	export let name: string;
 	export let helperText: string | undefined = undefined;
-	export let type: 'email' | 'text' = 'text';
+	export let type: 'email' | 'text' | 'password' = 'text';
 	export let form: any; //  Writable<SuperForm<UserAnswersZod>>
 	export let errors: any; // Writable<ValidationErrors<>>
 	const onInput = (
