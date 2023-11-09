@@ -4,20 +4,21 @@
 	import { superForm, superValidateSync } from 'sveltekit-superforms/client';
 	import { z } from 'zod';
 
-	let slangroomPromise: Promise<Record<Key, any>> | undefined;
+	let slangroomPromise: Promise<Record<SlangroomKeys, any>> | undefined;
 	let userId: string | undefined;
 	let token: string | undefined;
 	let loginError: string | undefined;
 
 	const keysToExclude = ['authWithPassword', 'updateProfile', 'organizationServices'] as const;
 	type KeysToExclude = (typeof keysToExclude)[number];
+	type SlangroomKeys = Exclude<keyof typeof slangroom, KeysToExclude>;
+		
 	const slangroomKeys = Object.keys(slangroom).filter(
 		(key) => !keysToExclude.includes(key as KeysToExclude)
-	) as Exclude<keyof typeof slangroom, (typeof keysToExclude)[number]>[];
-	type Key = (typeof slangroomKeys)[number];
-
+	) as SlangroomKeys[];
+	
 	const getSlangroomResult = async () => {
-		const res: Record<Key, any> = {} as Record<Key, any>;
+		const res: Record<SlangroomKeys, any> = {} as Record<SlangroomKeys, any>;
 		if (!(userId && token)) throw new Error('userId or token missing');
 		for (const key of slangroomKeys) {
 			res[key] = await slangroom[key]({ id: userId!, token: token! });
