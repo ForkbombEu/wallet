@@ -35,7 +35,6 @@ export interface SlangroomRequest<T = undefined> {
 }
 
 export const authWithPassword = async (username: string, password: string):Promise<any> => {
-	console.log({ identity: username, password })
 	const res = await slangroom.execute(authWithPasswordContract, {
 		data: {
 			pb: PB,
@@ -63,8 +62,6 @@ const apiById = async (
 			}
 		});
 		// TODO: check errors
-		console.log(res)
-
 		return res.result.http_result.result;
 	} catch (e: any) {
 		console.log(e);
