@@ -7,21 +7,22 @@
 	let slangroomPromise: Promise<Record<Key, any>> | undefined;
 	let userId: string | undefined;
 	let token: string | undefined;
+	let loginError: string | undefined;
 
 	const keysToExclude = ['authWithPassword', 'updateProfile', 'organizationServices'] as const;
 	type KeysToExclude = (typeof keysToExclude)[number];
 	const slangroomKeys = Object.keys(slangroom).filter(
 		(key) => !keysToExclude.includes(key as KeysToExclude)
-	) as unknown as Exclude<keyof typeof slangroom, (typeof keysToExclude)[number]>[];
+	) as Exclude<keyof typeof slangroom, (typeof keysToExclude)[number]>[];
 	type Key = (typeof slangroomKeys)[number];
 
 	const getSlangroomResult = async () => {
 		const res: Record<Key, any> = {} as Record<Key, any>;
 		if (!(userId && token)) throw new Error('userId or token missing');
 		for (const key of slangroomKeys) {
-			res[key] = await slangroom[key as Key]({ id: userId!, token: token! });
+			res[key] = await slangroom[key]({ id: userId!, token: token! });
 		}
-		if (!slangroomKeys.find((key) => res[key] !== undefined)) throw new Error();
+		if (!slangroomKeys.some((key) => res[key] !== undefined)) throw new Error();
 		return res;
 	};
 
@@ -47,8 +48,15 @@
 		},
 		validationMethod: 'oninput'
 	});
-	const submit = async () => {
+
+	const login = async () => {
+		loginError = undefined;
 		const res = await slangroom.authWithPassword($form.email, $form.password);
+		if (res.status !== 200) {
+			loginError = `login failed: ${res.status} error`;
+			slangroomPromise = undefined;
+			return;
+		}
 		userId = res.result.record.id;
 		token = res.result.token;
 		slangroomPromise = getSlangroomResult();
@@ -67,18 +75,23 @@
 
 	<ion-content fullscreen class="ion-padding">
 		<h1 class="mb-10 text-3xl font-bold">Test Slangroom calls</h1>
-		<form on:submit={submit}>
+		<form on:submit={login}>
 			<ion-list lines="full" class="ion-no-margin ion-no-padding">
 				<TextInput type="email" label="email" name="email" {form} {errors} />
 				<TextInput type="password" label="password" name="password" {form} {errors} />
 			</ion-list>
 
+			<ion-button role="button" type="submit" tabindex={0}>login</ion-button>
 			{#if $errors._errors?.length}
 				<ion-text color="danger">
 					{$errors._errors[0]}
 				</ion-text>
 			{/if}
-			<ion-button role="button" type="submit" tabindex={0}>login</ion-button>
+			{#if loginError}
+				<ion-text color="danger">
+					{loginError}
+				</ion-text>
+			{/if}
 		</form>
 		<ion-item-divider />
 		{#if slangroomPromise}

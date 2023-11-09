@@ -74,7 +74,7 @@ const apiById = async (
 
 // List of services of my org
 // TODO: manage pagination
-export const organizationServices = async (req: SlangroomRequest): Slangroom<PBResponse> => {
+export const organizationServices = async (req: SlangroomRequest): SlangroomResponse<PBResponse> => {
 	const { id, token } = req;
 	return apiById(
 		servicesByOrganization[0], 
@@ -85,7 +85,7 @@ export const organizationServices = async (req: SlangroomRequest): Slangroom<PBR
 
 // List of the orgs I'm part of
 // TODO: manage pagination
-export const orgAuthorizations = async (req: SlangroomRequest): Slangroom<PBResponse> => {
+export const orgAuthorizations = async (req: SlangroomRequest): SlangroomResponse<PBResponse> => {
 	const { id, token } = req;
 	return apiById(
 		organizationAuthorizations[0], 
@@ -97,13 +97,13 @@ export const orgAuthorizations = async (req: SlangroomRequest): Slangroom<PBResp
 
 // List of WebAuthn sessions/devices
 // TODO: manage pagination
-export const webauthnCreds = async (req: SlangroomRequest): Slangroom<PBResponse> => {
+export const webauthnCreds = async (req: SlangroomRequest): SlangroomResponse<PBResponse> => {
 	const { id, token } = req;
 	return apiById(webauthnCredentials[0], webauthnCredentials[1], token, {
 		id: id
 	});
 };
-export const webauthnSess = async (req: SlangroomRequest): Slangroom<PBResponse> => {
+export const webauthnSess = async (req: SlangroomRequest): SlangroomResponse<PBResponse> => {
 	const { id, token } = req;
 	return apiById(webauthnSessions[0], webauthnSessions[1], token, {
 		id: id
@@ -111,7 +111,7 @@ export const webauthnSess = async (req: SlangroomRequest): Slangroom<PBResponse>
 };
 
 // My profile info
-export const myProfile = async (req: SlangroomRequest): Slangroom<PBResponse> => {
+export const myProfile = async (req: SlangroomRequest): SlangroomResponse<PBResponse> => {
 	const { id, token } = req;
 	return apiById(showProfile[0], showProfile[1], token, { id: id });
 };
