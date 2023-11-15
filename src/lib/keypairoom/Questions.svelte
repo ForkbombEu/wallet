@@ -29,8 +29,12 @@
 
 		//@ts-ignore
 		const keypair = await generateKeypair($form);
-		setPreference('keyring', JSON.stringify(keypair));
-		goto('/r/wallet');
+		try {
+			setPreference('keyring', JSON.stringify(keypair), true);
+			goto('/r/wallet');
+		} catch(e) {
+			goto('/login');
+		}
 	};
 </script>
 
