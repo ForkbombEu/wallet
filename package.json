@@ -56,10 +56,12 @@
 		"@capacitor/status-bar": "5.0.6",
 		"@efstajas/svelte-stepper": "^0.1.5",
 		"@ionic/core": "^7.4.3",
+		"@slangroom/core": "^1.6.0",
+		"@slangroom/http": "^1.6.0",
 		"ionic-svelte": "^0.5.82",
 		"ionicons": "^7.1.2",
 		"sveltekit-superforms": "^1.8.0",
-		"zenroom": "^3.22.2",
+		"zenroom": "^4.0.0",
 		"zod": "^3.22.4"
 	}
 }

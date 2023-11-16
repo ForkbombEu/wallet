@@ -12,6 +12,7 @@
 		{ label: 'Native Functions', icon: phonePortrait, tab: 'native' },
 		{ label: 'Notifications', icon: notifications, tab: 'notifications' },
 		{ label: 'My Profile', icon: personOutline, tab: 'profile' },
+		{ label: 'Slangroom', icon: personOutline, tab: 'slangroom' },
 		{ label: 'Logout', icon: personRemove, tab: 'logout' }
 	]}
 >
