@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { contractOutline, walletOutline, personOutline, phonePortrait, personRemove } from 'ionicons/icons';
+	import { contractOutline, walletOutline, personOutline, phonePortrait, personRemove, notifications } from 'ionicons/icons';
 	//@ts-ignore
 	import IonTabs from 'ionic-svelte/components/IonTabs.svelte';
 </script>
@@ -10,6 +10,7 @@
 		{ label: 'Services', icon: contractOutline, tab: 'services' },
 		{ label: 'Wallet', icon: walletOutline, tab: 'wallet' },
 		{ label: 'Native Functions', icon: phonePortrait, tab: 'native' },
+		{ label: 'Notifications', icon: notifications, tab: 'notifications' },
 		{ label: 'My Profile', icon: personOutline, tab: 'profile' },
 		{ label: 'Logout', icon: personRemove, tab: 'logout' }
 	]}

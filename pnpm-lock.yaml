@@ -35,6 +35,9 @@ dependencies:
   '@capacitor/preferences':
     specifier: ^5.0.6
     version: 5.0.6(@capacitor/core@5.4.2)
+  '@capacitor/push-notifications':
+    specifier: ^5.1.0
+    version: 5.1.0(@capacitor/core@5.4.2)
   '@capacitor/status-bar':
     specifier: 5.0.6
     version: 5.0.6(@capacitor/core@5.4.2)
@@ -1397,6 +1400,14 @@ packages:
 
   /@capacitor/preferences@5.0.6(@capacitor/core@5.4.2):
     resolution: {integrity: sha512-aDe4wGTVSAIue6XXdUFgyz7SGszxK/Ptt/iWTydMpzc1PlZXw1XTTnciM+S+SLLNZFzXlkpXT3wMnh9t0DojUA==}
+    peerDependencies:
+      '@capacitor/core': ^5.0.0
+    dependencies:
+      '@capacitor/core': 5.4.2
+    dev: false
+
+  /@capacitor/push-notifications@5.1.0(@capacitor/core@5.4.2):
+    resolution: {integrity: sha512-Laxi5TQbwTqQFNJZdyyfJJqb+OVZz+0VRtW4uhM+u5TKWuXCYw/yrctXuIpG+VFUptvtPG7ic7+0WcBs+sQ17Q==}
     peerDependencies:
       '@capacitor/core': ^5.0.0
     dependencies:
