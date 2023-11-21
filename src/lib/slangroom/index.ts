@@ -153,7 +153,6 @@ export const updateProfile = async (req: SlangroomRequest<FormData | Record<stri
 	return res.result;
 };
 
-export const getTemplates = (req: SlangroomRequest): SlangroomResponse<PBResponse> => {
-	const { token } = req;
-	return api(fetchTemplates, token);
+export const getTemplates = (req?: Partial<SlangroomRequest>): SlangroomResponse<PBResponse> => {
+	return api(fetchTemplates, req?.token);
 };
