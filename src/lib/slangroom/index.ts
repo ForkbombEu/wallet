@@ -1,9 +1,9 @@
-import { showProfile } from './endpoints';
+import { fetchTemplates, showProfile } from './endpoints';
 //@ts-ignore
 import { Slangroom } from '@slangroom/core';
 //@ts-ignore
 import { http } from '@slangroom/http';
-import { apiByIdContract, authWithPasswordContract, updateProfileContract } from './contracts';
+import { apiByIdContract, apiContract, authWithPasswordContract, updateProfileContract } from './contracts';
 import { organizationAuthorizations, servicesByOrganization, webauthnCredentials, webauthnSessions } from './endpoints';
 
 export type BaseSystemFields<T = never> = {
@@ -19,7 +19,7 @@ export type PBExpand<T extends PBRecord = PBRecord> = Record<string, T | T[]>;
 
 export type PBResponse<R extends PBRecord = PBRecord, E extends PBExpand = PBExpand> = R & BaseSystemFields<E>;
 
-const PB = 'http://localhost:8090/';
+const PB = 'http://192.168.1.36:8090/';
 
 const slangroom = new Slangroom(http);
 
@@ -53,6 +53,29 @@ const apiById = async (
 ): SlangroomResponse<PBResponse> => {
 	try {
 		const res = await slangroom.execute(apiByIdContract(before, after), {
+			data: {
+				pb: PB,
+				headers: {
+					authorization: 'Bearer ' + token
+				},
+				...rest
+			}
+		});
+		// TODO: check errors
+		return res.result.http_result.result;
+	} catch (e: any) {
+		console.log(e);
+		throw new Error(e);
+	}
+};
+
+const api = async (
+	url: string,
+	token: string,
+	rest?: FormData | Record<string, string>
+): SlangroomResponse<PBResponse> => {
+	try {
+		const res = await slangroom.execute(apiContract(url), {
 			data: {
 				pb: PB,
 				headers: {
@@ -126,4 +149,9 @@ export const updateProfile = async (req: SlangroomRequest<FormData | Record<stri
 	});
 	// TODO: check errors
 	return res.result;
+};
+
+export const getTemplates = (req: SlangroomRequest): SlangroomResponse<PBResponse> => {
+	const { token } = req
+	return api(fetchTemplates, token)
 };
