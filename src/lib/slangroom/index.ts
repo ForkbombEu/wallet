@@ -34,7 +34,12 @@ export interface SlangroomRequest<T = undefined> {
 	data?: T;
 }
 
-export const authWithPassword = async (username: string, password: string):Promise<any> => {
+export interface SlangroomApiData {
+	pb: string;
+	headers?: { authorization: `Bearer ${string}` };
+}
+
+export const authWithPassword = async (username: string, password: string): Promise<any> => {
 	const res = await slangroom.execute(authWithPasswordContract, {
 		data: {
 			pb: PB,
@@ -69,11 +74,17 @@ const apiById = async (
 	}
 };
 
+// WARNING: not safe against injection
 const api = async (
 	url: string,
-	token: string,
+	token?: string,
 	rest?: FormData | Record<string, string>
 ): SlangroomResponse<PBResponse> => {
+	const data: SlangroomApiData = {
+		pb: PB,
+		...rest
+	};
+	if (token) data.headers = { authorization: `Bearer ${token}` };
 	try {
 		const res = await slangroom.execute(apiContract(url), {
 			data: {
@@ -96,23 +107,14 @@ const api = async (
 // TODO: manage pagination
 export const organizationServices = async (req: SlangroomRequest): SlangroomResponse<PBResponse> => {
 	const { id, token } = req;
-	return apiById(
-		servicesByOrganization[0], 
-		servicesByOrganization[1], 
-		token, 
-		{id: id});
+	return apiById(servicesByOrganization[0], servicesByOrganization[1], token, { id: id });
 };
 
 // List of the orgs I'm part of
 // TODO: manage pagination
 export const orgAuthorizations = async (req: SlangroomRequest): SlangroomResponse<PBResponse> => {
 	const { id, token } = req;
-	return apiById(
-		organizationAuthorizations[0], 
-		organizationAuthorizations[1],
-		token,
-		{ id: id }
-	);
+	return apiById(organizationAuthorizations[0], organizationAuthorizations[1], token, { id: id });
 };
 
 // List of WebAuthn sessions/devices
@@ -152,6 +154,6 @@ export const updateProfile = async (req: SlangroomRequest<FormData | Record<stri
 };
 
 export const getTemplates = (req: SlangroomRequest): SlangroomResponse<PBResponse> => {
-	const { token } = req
-	return api(fetchTemplates, token)
+	const { token } = req;
+	return api(fetchTemplates, token);
 };
