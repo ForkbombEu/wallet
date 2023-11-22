@@ -58,6 +58,7 @@
 		"@ionic/core": "^7.4.3",
 		"@slangroom/core": "^1.6.0",
 		"@slangroom/http": "^1.6.0",
+		"ajv": "^8.12.0",
 		"ionic-svelte": "^0.5.82",
 		"ionicons": "^7.1.2",
 		"sveltekit-superforms": "^1.8.0",
