@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1003776255673",
+    "project_id": "didroom",
+    "storage_bucket": "didroom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003776255673:android:5dda47ce79fb8bb8841d68",
+        "android_client_info": {
+          "package_name": "walletamous.ionic.io"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA4NUieMlC3dVBPrPk1RYWjZWOBb44ge8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
