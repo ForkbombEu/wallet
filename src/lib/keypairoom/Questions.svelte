@@ -30,7 +30,7 @@
 		//@ts-ignore
 		const keypair = await generateKeypair($form);
 		try {
-			setPreference('keyring', JSON.stringify(keypair), true);
+			setPreference('keyring', JSON.stringify(keypair));
 			goto('/r/wallet');
 		} catch(e) {
 			goto('/login');
