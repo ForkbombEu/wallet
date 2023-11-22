@@ -1,3 +1,5 @@
+import { PUBLIC_BACKEND_URL } from '$env/static/public';
+
 import { fetchTemplates, showProfile } from './endpoints';
 //@ts-ignore
 import { Slangroom } from '@slangroom/core';
@@ -19,7 +21,7 @@ export type PBExpand<T extends PBRecord = PBRecord> = Record<string, T | T[]>;
 
 export type PBResponse<R extends PBRecord = PBRecord, E extends PBExpand = PBExpand> = R & BaseSystemFields<E>;
 
-const PB = 'http://192.168.1.36:8090/';
+const PB = PUBLIC_BACKEND_URL;
 
 const slangroom = new Slangroom(http);
 
