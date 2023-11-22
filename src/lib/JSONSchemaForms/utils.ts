@@ -1,6 +1,6 @@
 import Ajv from 'ajv';
 import type { JSONSchema } from './types';
-import z from 'zod';
+import type z from 'zod';
 import type { SuperValidated, Validator, ZodValidation } from 'sveltekit-superforms';
 
 //
@@ -35,15 +35,12 @@ export function genericSuperValidated(): SuperValidated<ZodValidation<z.AnyZodOb
 type SuperformsValidator = Validator<unknown>;
 type SuperformsValidators = Record<string, Validator<unknown>>;
 
+// Instead of jsonschema, better to pass the compiled validator
 export function JSONSchemaToSuperformsValidator(schema: JSONSchema): SuperformsValidators {
 	let validationObject: Record<string, SuperformsValidator> = {};
 
 	for (const [propertyName, property] of Object.entries(schema.properties)) {
-		// let schema: z.ZodType
-		// if (property.type == 'string') schema = z.string();
-		// else if (property.type == 'integer') schema = z.number().int()
-		// else if (property.type == 'number') schema = z.number()
-		// else schema = z.any()
+		// Validate globally, then extract the keys
 		validationObject[propertyName] = () => null;
 	}
 
