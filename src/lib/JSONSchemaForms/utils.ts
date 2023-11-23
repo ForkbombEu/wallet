@@ -46,3 +46,14 @@ export function JSONSchemaToSuperformsValidator(schema: JSONSchema): SuperformsV
 
 	return validationObject;
 }
+
+// export function JSONSchemaToSuperformsValidator(schema: JSONSchema): SuperformsValidators {
+// 	let validationObject: SuperformsValidators = {};
+
+// 	for (const [propertyName, property] of Object.entries(schema.properties)) {
+// 		if (property.type != 'object' && property.type != 'array') validationObject[propertyName] = () => null;
+// 		else if (property.type == 'object') validationObject[propertyName] = JSONSchemaToSuperformsValidator(property);
+// 	}
+
+// 	return validationObject;
+// }

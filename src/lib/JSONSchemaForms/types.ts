@@ -9,10 +9,7 @@ export type StringField = BaseJSONSchemaField<'string'>;
 export type NumberField = BaseJSONSchemaField<'number'>;
 export type IntegerField = BaseJSONSchemaField<'integer'>;
 export type BooleanField = BaseJSONSchemaField<'boolean'>;
-
-export interface ObjectField extends BaseJSONSchemaField<'object'> {
-	properties: Record<string, JSONSchemaField>;
-}
+export type ObjectField = BaseJSONSchemaField<'object'> & JSONSchema;
 
 export interface ArrayField extends BaseJSONSchemaField<'array'> {
 	items: {
