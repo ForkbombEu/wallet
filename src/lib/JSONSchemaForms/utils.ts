@@ -1,4 +1,4 @@
-import Ajv from 'ajv';
+import Ajv, { type ValidateFunction } from 'ajv';
 import type { JSONSchema } from './types';
 import type z from 'zod';
 import type { SuperValidated, Validator, ZodValidation } from 'sveltekit-superforms';
@@ -35,25 +35,35 @@ export function genericSuperValidated(): SuperValidated<ZodValidation<z.AnyZodOb
 type SuperformsValidator = Validator<unknown>;
 type SuperformsValidators = Record<string, Validator<unknown>>;
 
-// Instead of jsonschema, better to pass the compiled validator
-export function JSONSchemaToSuperformsValidator(schema: JSONSchema): SuperformsValidators {
+export function JSONSchemaToSuperformsValidators(schema: JSONSchema): SuperformsValidators {
+	const ajv = new Ajv({ allErrors: true });
+	const validate = ajv.compile(schema);
+
 	let validationObject: Record<string, SuperformsValidator> = {};
 
 	for (const [propertyName, property] of Object.entries(schema.properties)) {
 		// Validate globally, then extract the keys
-		validationObject[propertyName] = () => null;
+		validationObject[propertyName] = (v) => {
+			if (validate({ [propertyName]: v })) return null;
+			else {
+				// console.log(v);
+				// return null;
+				console.log(propertyName, v, validate.errors);
+				return 'error';
+			}
+		};
 	}
 
 	return validationObject;
 }
 
-// export function JSONSchemaToSuperformsValidator(schema: JSONSchema): SuperformsValidators {
-// 	let validationObject: SuperformsValidators = {};
+type AjvErrors = ValidateFunction['errors'];
 
-// 	for (const [propertyName, property] of Object.entries(schema.properties)) {
-// 		if (property.type != 'object' && property.type != 'array') validationObject[propertyName] = () => null;
-// 		else if (property.type == 'object') validationObject[propertyName] = JSONSchemaToSuperformsValidator(property);
-// 	}
+export function extractFieldErrorsFromAjv(errors: AjvErrors, field: string) {
+	if (!errors) return;
 
-// 	return validationObject;
-// }
+	// Finding required
+	errors.find((e) => e.schemaPath === '#/required' && e.params.missingProperty === field)?.message;
+
+	// Finding path-specific
+}
