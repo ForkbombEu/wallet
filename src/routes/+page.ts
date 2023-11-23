@@ -2,5 +2,5 @@ import { redirect } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async () => {
-    throw redirect(301, 'login');
+    throw redirect(301, 'r/wallet');
 };
