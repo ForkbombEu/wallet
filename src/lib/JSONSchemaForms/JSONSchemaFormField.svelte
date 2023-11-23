@@ -14,7 +14,19 @@
 	const { type, description } = field;
 
 	const required = schema.required?.includes(fieldName);
-	const label = description ?? fieldName.split('.').at(-1);
+	const label = description ?? getLabelFromFieldName(fieldName);
+
+	function getLabelFromFieldName(fieldName: string) {
+		return (
+			fieldName
+				// Object field handling
+				.split('.')
+				.at(-1)
+				// Array field handling
+				?.split('[')
+				.at(0)
+		);
+	}
 </script>
 
 {#if type == 'string'}
