@@ -4,7 +4,6 @@
 	import type { JSONSchema } from './types';
 	import { JSONSchemaToSuperformsValidators, genericSuperValidated } from './utils';
 	import Superform from '$lib/forms/superform.svelte';
-	import Ajv from 'ajv';
 
 	export let schema: JSONSchema;
 	export let onSubmit: (data: Record<string, unknown>) => Promise<void> | void = () => {};
@@ -18,7 +17,7 @@
 		taintedMessage: null
 	});
 
-	const { validate } = superform;
+	const { validate, form } = superform;
 
 	async function v() {
 		const res = await validate();
@@ -26,12 +25,19 @@
 </script>
 
 <Superform {superform}>
-	<ion-list>
+	<div class="space-y-4">
 		{#each Object.entries(schema.properties) as [fieldName, field]}
-			<JSONSchemaFormField {superform} {schema} {fieldName} {field} />
+			<JSONSchemaFormField {superform} {schema} fieldPath={fieldName} {field} />
 		{/each}
-	</ion-list>
+	</div>
 	<ion-item>
 		<ion-button on:click={v}> validate </ion-button>
+		<ion-button
+			on:click={() => {
+				console.log($form);
+			}}
+		>
+			miao
+		</ion-button>
 	</ion-item>
 </Superform>

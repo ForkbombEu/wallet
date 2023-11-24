@@ -5,16 +5,17 @@
 	import { removeOutline } from 'ionicons/icons';
 	import type { ZodValidation } from 'sveltekit-superforms';
 	import type { AnyZodObject } from 'zod';
+	import ArrayFieldsController from '$lib/forms/arrayFieldsController.svelte';
 
 	export let superform: SuperForm<ZodValidation<AnyZodObject>>;
 	export let schema: JSONSchema;
-	export let fieldName: string;
+	export let fieldPath: string;
 	export let field: JSONSchemaField;
 
 	const { type, description } = field;
 
-	const required = schema.required?.includes(fieldName);
-	const label = description ?? getLabelFromFieldName(fieldName);
+	const required = schema.required?.includes(fieldPath);
+	const label = description ?? getLabelFromFieldName(fieldPath);
 
 	function getLabelFromFieldName(fieldName: string) {
 		return (
@@ -30,11 +31,11 @@
 </script>
 
 {#if type == 'string'}
-	<FieldController {superform} field={fieldName} let:value let:updateValue>
+	<FieldController {superform} {fieldPath} let:value let:updateValue>
 		<ion-item>
 			<ion-input
 				type="text"
-				name={fieldName}
+				name={fieldPath}
 				{label}
 				aria-label={label}
 				{required}
@@ -46,11 +47,11 @@
 		</ion-item>
 	</FieldController>
 {:else if type == 'number'}
-	<FieldController {superform} field={fieldName} let:value let:updateValue>
+	<FieldController {superform} {fieldPath} let:value let:updateValue>
 		<ion-item>
 			<ion-input
 				type="number"
-				name={fieldName}
+				name={fieldPath}
 				{label}
 				aria-label={label}
 				{required}
@@ -62,11 +63,11 @@
 		</ion-item>
 	</FieldController>
 {:else if type == 'integer'}
-	<FieldController {superform} field={fieldName} let:value let:updateValue>
+	<FieldController {superform} {fieldPath} let:value let:updateValue>
 		<ion-item>
 			<ion-input
 				type="number"
-				name={fieldName}
+				name={fieldPath}
 				{label}
 				aria-label={label}
 				{required}
@@ -80,11 +81,11 @@
 		</ion-item>
 	</FieldController>
 {:else if type == 'boolean'}
-	<FieldController {superform} field={fieldName} let:value let:updateValue>
+	<FieldController {superform} {fieldPath} let:value let:updateValue>
 		<ion-item>
 			<ion-checkbox
 				label-placement="start"
-				name={fieldName}
+				name={fieldPath}
 				aria-label={label}
 				checked={value}
 				on:ionChange={(e) => {
@@ -96,47 +97,38 @@
 		</ion-item>
 	</FieldController>
 {:else if type == 'object'}
-	<FieldController {superform} field={fieldName} nested="object">
-		<ion-item>
-			<ion-label>{label}</ion-label>
-		</ion-item>
-		<ion-list class="pl-4">
-			{#each Object.entries(field.properties) as [nestedFieldName, f]}
-				{@const path = `${fieldName}.${nestedFieldName}`}
-				<svelte:self {superform} {schema} fieldName={path} field={f} />
-			{/each}
-		</ion-list>
+	<FieldController {superform} {fieldPath} nested="object">
+		<div>
+			<ion-item>
+				<ion-label>{label}</ion-label>
+			</ion-item>
+			<ion-list class="pl-4">
+				{#each Object.entries(field.properties) as [nestedFieldName, f]}
+					{@const path = `${fieldPath}.${nestedFieldName}`}
+					<svelte:self {superform} {schema} fieldPath={path} field={f} />
+				{/each}
+			</ion-list>
+		</div>
 	</FieldController>
 {:else if type == 'array'}
-	<FieldController {superform} field={fieldName} nested="array" let:value let:updateValue>
-		{@const length = Number(value.length) + 1}
-		<ion-item>
-			<ion-label>{label}</ion-label>
-		</ion-item>
-		<ion-list>
-			{#each { length } as _, i}
-				{@const path = `${fieldName}[${i}]`}
-				<ion-item>
-					<svelte:self {superform} {schema} fieldName={path} field={field.items} />
-					{#if i !== length - 1}
-						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
-						<ion-button
-							slot="end"
-							shape="round"
-							color="medium"
-							on:click={() => {
-								if (Array.isArray(value)) {
-									const newArray = [...value];
-									newArray.splice(i, 1);
-									updateValue(newArray);
-								}
-							}}
-						>
-							<ion-icon slot="icon-only" icon={removeOutline} />
-						</ion-button>
-					{/if}
-				</ion-item>
-			{/each}
-		</ion-list>
+	<FieldController {superform} {fieldPath} nested="array" let:value let:updateValue>
+		<div>
+			<ion-item>
+				<ion-label>{label}</ion-label>
+			</ion-item>
+			<ion-list>
+				<ArrayFieldsController {fieldPath} {value} {updateValue} let:removeItem let:itemFieldPath let:last>
+					<ion-item>
+						<svelte:self {superform} {schema} fieldPath={itemFieldPath} field={field.items} />
+						{#if !last}
+							<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+							<ion-button slot="end" shape="round" color="medium" on:click={removeItem}>
+								<ion-icon slot="icon-only" icon={removeOutline} />
+							</ion-button>
+						{/if}
+					</ion-item>
+				</ArrayFieldsController>
+			</ion-list>
+		</div>
 	</FieldController>
 {/if}

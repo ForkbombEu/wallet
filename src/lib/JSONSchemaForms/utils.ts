@@ -48,7 +48,7 @@ export function JSONSchemaToSuperformsValidators(schema: JSONSchema): Superforms
 			else {
 				// console.log(v);
 				// return null;
-				console.log(propertyName, v, validate.errors);
+				// console.log(propertyName, v, validate.errors);
 				return 'error';
 			}
 		};
