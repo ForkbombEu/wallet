@@ -14,7 +14,7 @@
 	export let fieldPath: FormPathLeaves<z.infer<T>>;
 	export let nested: undefined | 'object' | 'array' = undefined;
 
-	const { validate, errors: allErrors } = superform;
+	const { validate } = superform;
 	const { value, errors, constraints } = formFieldProxy(superform, fieldPath);
 
 	//

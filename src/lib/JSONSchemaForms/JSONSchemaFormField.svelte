@@ -32,6 +32,7 @@
 
 {#if type == 'string'}
 	<FieldController {superform} {fieldPath} let:value let:updateValue let:errors>
+		{@const e = JSON.stringify(errors?.['_errors']?.join(' | '))}
 		<ion-item>
 			<ion-input
 				type="text"
@@ -45,6 +46,7 @@
 				on:ionInput={(e) => updateValue(e.target.value)}
 				class:ion-invalid={errors}
 				class:ion-touched={errors}
+				error-text={e}
 			/>
 		</ion-item>
 	</FieldController>
