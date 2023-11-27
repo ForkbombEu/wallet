@@ -1,15 +1,14 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
 	import JSONSchemaFormField from './JSONSchemaFormField.svelte';
-	import type { JSONSchema } from './types';
-	import { JSONSchemaToSuperformsValidators, genericSuperValidated } from './utils';
+	import type { ObjectSchema } from './types';
+	import { createAjv, genericSuperValidated, transformAjvErrors } from './utils';
 	import Superform from '$lib/forms/superform.svelte';
 
-	export let schema: JSONSchema;
+	export let schema: ObjectSchema;
 	export let onSubmit: (data: Record<string, unknown>) => Promise<void> | void = () => {};
 
 	const superform = superForm(genericSuperValidated(), {
-		validators: JSONSchemaToSuperformsValidators(schema),
 		dataType: 'json',
 		onUpdate: async ({ form }) => {
 			await onSubmit(form.data);
@@ -17,10 +16,15 @@
 		taintedMessage: null
 	});
 
-	const { validate, form } = superform;
+	const { form, errors } = superform;
 
-	async function v() {
-		const res = await validate();
+	// Writing errors when form changes
+	const ajv = createAjv({ allErrors: true, allowDate: true });
+	const validate = ajv.compile(schema);
+
+	$: if ($form) {
+		validate($form);
+		if (validate.errors) $errors = transformAjvErrors(validate.errors);
 	}
 </script>
 
@@ -31,7 +35,7 @@
 		{/each}
 	</div>
 	<ion-item>
-		<ion-button on:click={v}> validate </ion-button>
+		<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
 		<ion-button
 			on:click={() => {
 				console.log($form);

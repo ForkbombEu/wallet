@@ -1,21 +1,27 @@
-import Ajv, { type ValidateFunction } from 'ajv';
+import Ajv, { type Options, type ValidateFunction } from 'ajv';
+import addFormats from 'ajv-formats';
 import type { JSONSchema } from './types';
+import type { SuperValidated, ZodValidation } from 'sveltekit-superforms';
 import type z from 'zod';
-import type { SuperValidated, Validator, ZodValidation } from 'sveltekit-superforms';
 
 //
+
+export function createAjv(options: Options = {}) {
+	const ajv = new Ajv(options);
+	addFormats(ajv);
+	return ajv;
+}
 
 export function parseJSON(value: string) {
 	return JSON.parse(value) as JSON;
 }
 
 export function createSchema(schema: JSON) {
-	const ajv = new Ajv();
-	return ajv.compile(schema);
+	return createAjv().compile(schema);
 }
 
 export function validateJSONSchema(JSON: JSON) {
-	createSchema(JSON);
+	createAjv().validateSchema(JSON);
 	return JSON as unknown as JSONSchema;
 }
 
@@ -32,38 +38,39 @@ export function genericSuperValidated(): SuperValidated<ZodValidation<z.AnyZodOb
 	};
 }
 
-type SuperformsValidator = Validator<unknown>;
-type SuperformsValidators = Record<string, Validator<unknown>>;
+//
 
-export function JSONSchemaToSuperformsValidators(schema: JSONSchema): SuperformsValidators {
-	const ajv = new Ajv({ allErrors: true });
-	const validate = ajv.compile(schema);
-
-	let validationObject: Record<string, SuperformsValidator> = {};
-
-	for (const [propertyName, property] of Object.entries(schema.properties)) {
-		// Validate globally, then extract the keys
-		validationObject[propertyName] = (v) => {
-			if (validate({ [propertyName]: v })) return null;
-			else {
-				// console.log(v);
-				// return null;
-				// console.log(propertyName, v, validate.errors);
-				return 'error';
-			}
-		};
-	}
-
-	return validationObject;
+type AjvErrors = NonNullable<ValidateFunction['errors']>;
+interface SuperformsErrors {
+	[x: string]: string[] | SuperformsErrors;
 }
 
-type AjvErrors = ValidateFunction['errors'];
+export function transformAjvErrors(errors: AjvErrors) {
+	let errorsObject: SuperformsErrors = {};
+	// console.log('-'.repeat(20));
 
-export function extractFieldErrorsFromAjv(errors: AjvErrors, field: string) {
-	if (!errors) return;
+	errors.forEach((error) => {
+		// console.log(error);
+		// Create a path array (e.g., 'address.city' becomes ['address', 'city'])
+		const path = error.instancePath.split('/').filter((p) => p);
 
-	// Finding required
-	errors.find((e) => e.schemaPath === '#/required' && e.params.missingProperty === field)?.message;
+		if (error.keyword === 'required') {
+			path.push(error.params.missingProperty);
+		}
 
-	// Finding path-specific
+		// Build nested structure based on path
+		let current: SuperformsErrors = errorsObject;
+		for (let i = 0; i < path.length; i++) {
+			if (i === path.length - 1) {
+				current[path[i]] = { _errors: [error.message] }; // Set the error message at the leaf
+			} else {
+				current[path[i]] = current[path[i]] || {}; // Create nested object if necessary
+				current = current[path[i]];
+			}
+		}
+	});
+
+	// console.log(errorsObject);
+
+	return errorsObject;
 }

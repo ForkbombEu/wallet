@@ -1,16 +1,16 @@
 <script lang="ts">
 	import FieldController from '$lib/forms/fieldController.svelte';
 	import type { SuperForm } from 'sveltekit-superforms/client';
-	import type { JSONSchema, JSONSchemaField } from './types';
+	import type { JSONSchema, ObjectSchema } from './types';
 	import { removeOutline } from 'ionicons/icons';
 	import type { ZodValidation } from 'sveltekit-superforms';
 	import type { AnyZodObject } from 'zod';
 	import ArrayFieldsController from '$lib/forms/arrayFieldsController.svelte';
 
 	export let superform: SuperForm<ZodValidation<AnyZodObject>>;
-	export let schema: JSONSchema;
+	export let schema: ObjectSchema;
 	export let fieldPath: string;
-	export let field: JSONSchemaField;
+	export let field: JSONSchema;
 
 	const { type, description } = field;
 
@@ -31,7 +31,7 @@
 </script>
 
 {#if type == 'string'}
-	<FieldController {superform} {fieldPath} let:value let:updateValue>
+	<FieldController {superform} {fieldPath} let:value let:updateValue let:errors>
 		<ion-item>
 			<ion-input
 				type="text"
@@ -43,11 +43,13 @@
 				clear-input
 				{value}
 				on:ionInput={(e) => updateValue(e.target.value)}
+				class:ion-invalid={errors}
+				class:ion-touched={errors}
 			/>
 		</ion-item>
 	</FieldController>
 {:else if type == 'number'}
-	<FieldController {superform} {fieldPath} let:value let:updateValue>
+	<FieldController {superform} {fieldPath} let:value let:updateValue let:errors>
 		<ion-item>
 			<ion-input
 				type="number"
@@ -59,11 +61,13 @@
 				clear-input
 				{value}
 				on:ionInput={(e) => updateValue(Number(e.target.value))}
+				class:ion-invalid={errors}
+				class:ion-touched={errors}
 			/>
 		</ion-item>
 	</FieldController>
 {:else if type == 'integer'}
-	<FieldController {superform} {fieldPath} let:value let:updateValue>
+	<FieldController {superform} {fieldPath} let:value let:updateValue let:errors>
 		<ion-item>
 			<ion-input
 				type="number"
@@ -77,11 +81,13 @@
 				pattern="^\d+$"
 				{value}
 				on:ionInput={(e) => updateValue(Number(e.target.value))}
+				class:ion-invalid={errors}
+				class:ion-touched={errors}
 			/>
 		</ion-item>
 	</FieldController>
 {:else if type == 'boolean'}
-	<FieldController {superform} {fieldPath} let:value let:updateValue>
+	<FieldController {superform} {fieldPath} let:value let:updateValue let:errors>
 		<ion-item>
 			<ion-checkbox
 				label-placement="start"
@@ -91,6 +97,8 @@
 				on:ionChange={(e) => {
 					updateValue(e.target.checked);
 				}}
+				class:ion-invalid={errors}
+				class:ion-touched={errors}
 			>
 				{label}
 			</ion-checkbox>
