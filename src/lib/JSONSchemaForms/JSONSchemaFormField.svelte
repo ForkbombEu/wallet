@@ -14,8 +14,11 @@
 
 	const { type, description } = field;
 
-	const required = schema.required?.includes(fieldPath);
+	const required = false;
+	// const required = schema.required?.includes(fieldPath);
 	const label = description ?? getLabelFromFieldName(fieldPath);
+
+	const nested = field.type == 'array' || field.type == 'object' ? field.type : undefined;
 
 	function getLabelFromFieldName(fieldName: string) {
 		return (
@@ -30,8 +33,8 @@
 	}
 </script>
 
-{#if type == 'string'}
-	<FieldController {superform} {fieldPath} let:value let:updateValue let:errors>
+<FieldController {superform} {fieldPath} {nested} let:value let:updateValue let:errors>
+	{#if type == 'string'}
 		{@const e = JSON.stringify(errors?.['_errors']?.join(' | '))}
 		<ion-item>
 			<ion-input
@@ -49,9 +52,7 @@
 				error-text={e}
 			/>
 		</ion-item>
-	</FieldController>
-{:else if type == 'number'}
-	<FieldController {superform} {fieldPath} let:value let:updateValue let:errors>
+	{:else if type == 'number'}
 		<ion-item>
 			<ion-input
 				type="number"
@@ -67,9 +68,7 @@
 				class:ion-touched={errors}
 			/>
 		</ion-item>
-	</FieldController>
-{:else if type == 'integer'}
-	<FieldController {superform} {fieldPath} let:value let:updateValue let:errors>
+	{:else if type == 'integer'}
 		<ion-item>
 			<ion-input
 				type="number"
@@ -87,9 +86,7 @@
 				class:ion-touched={errors}
 			/>
 		</ion-item>
-	</FieldController>
-{:else if type == 'boolean'}
-	<FieldController {superform} {fieldPath} let:value let:updateValue let:errors>
+	{:else if type == 'boolean'}
 		<ion-item>
 			<ion-checkbox
 				label-placement="start"
@@ -105,9 +102,7 @@
 				{label}
 			</ion-checkbox>
 		</ion-item>
-	</FieldController>
-{:else if type == 'object'}
-	<FieldController {superform} {fieldPath} nested="object">
+	{:else if type == 'object'}
 		<div>
 			<ion-item>
 				<ion-label>{label}</ion-label>
@@ -119,9 +114,7 @@
 				{/each}
 			</ion-list>
 		</div>
-	</FieldController>
-{:else if type == 'array'}
-	<FieldController {superform} {fieldPath} nested="array" let:value let:updateValue>
+	{:else if type == 'array'}
 		<div>
 			<ion-item>
 				<ion-label>{label}</ion-label>
@@ -140,5 +133,5 @@
 				</ArrayFieldsController>
 			</ion-list>
 		</div>
-	</FieldController>
-{/if}
+	{/if}
+</FieldController>
