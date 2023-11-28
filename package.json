@@ -25,6 +25,7 @@
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-static": "^2.0.3",
 		"@sveltejs/kit": "^1.20.4",
+		"@types/lodash": "^4.14.202",
 		"@vite-pwa/sveltekit": "^0.2.7",
 		"autoprefixer": "^10.4.16",
 		"postcss": "^8.4.31",
@@ -37,7 +38,7 @@
 		"svelte-preprocess": "^5.0.4",
 		"tailwindcss": "^3.3.3",
 		"tslib": "^2.4.1",
-		"typescript": "^5.0.0",
+		"typescript": "^5.0.2",
 		"vite": "^4.4.10",
 		"vitest": "^0.34.6"
 	},
@@ -62,7 +63,8 @@
 		"ajv-formats": "^2.1.1",
 		"ionic-svelte": "^0.5.82",
 		"ionicons": "^7.1.2",
-		"sveltekit-superforms": "^1.8.0",
+		"lodash": "^4.17.21",
+		"sveltekit-superforms": "^1.11.0",
 		"zenroom": "^4.0.0",
 		"zod": "^3.22.4"
 	}

@@ -18,8 +18,6 @@
 	// const required = schema.required?.includes(fieldPath);
 	const label = description ?? getLabelFromFieldName(fieldPath);
 
-	const nested = field.type == 'array' || field.type == 'object' ? field.type : undefined;
-
 	function getLabelFromFieldName(fieldName: string) {
 		return (
 			fieldName
@@ -33,7 +31,7 @@
 	}
 </script>
 
-<FieldController {superform} {fieldPath} {nested} let:value let:updateValue let:errors>
+<FieldController {superform} {fieldPath} let:value let:updateValue let:errors>
 	{#if type == 'string'}
 		{@const e = JSON.stringify(errors?.['_errors']?.join(' | '))}
 		<ion-item>

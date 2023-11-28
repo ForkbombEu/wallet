@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { getAllContexts, setContext } from 'svelte';
-
 	import type { SuperformGeneric } from './types';
 	import type { z } from 'zod';
 	import type { FormPathLeaves } from 'sveltekit-superforms';
 	import { formFieldProxy } from 'sveltekit-superforms/client';
+	import _ from 'lodash';
 
 	//
 
@@ -12,33 +11,25 @@
 
 	export let superform: SuperformGeneric<T>;
 	export let fieldPath: FormPathLeaves<z.infer<T>>;
-	export let nested: undefined | 'object' | 'array' = undefined;
 
-	const { validate } = superform;
+	//
+
+	const { form } = superform;
 	const { value, errors, constraints } = formFieldProxy(superform, fieldPath);
 
-	//
-
-	const initValueContexts = getAllContexts<Map<string, typeof initValue>>();
-	const parents = Array.from(initValueContexts.entries());
-	const lastInitValue = parents.at(-1)?.[1];
-	const firstParent = parents[0]?.[0];
-
-	function initValue() {
-		if (Boolean($value)) return;
-		if (lastInitValue) lastInitValue();
-		if (nested == 'array') value.set([] as any);
-		else if (nested == 'object') value.set({} as any);
+	function updateValue(newValue: typeof $value) {
+		if (isNestedField(fieldPath)) _.set($form, fieldPath, newValue);
+		/**
+		 * Lodash "_.set" is needed because creates parent objects if missing.
+		 * This is needed because superforms didn't do this before v1.11.0
+		 * Superforms v1.11 now also this feature, but it doesn't seem to work with objects within arrays
+		 * Reference: https://github.com/ciscoheat/sveltekit-superforms/releases/tag/v1.11.0
+		 */
+		value.set(newValue);
 	}
 
-	if (nested) setContext(fieldPath, initValue);
-
-	//
-
-	function updateValue(newValue: typeof $value) {
-		if (lastInitValue) lastInitValue();
-		value.set(newValue);
-		if (firstParent) validate(firstParent as any); // Validating root parent, sometimes useful
+	function isNestedField(fieldPath: string) {
+		return fieldPath.includes('.') || fieldPath.includes('[');
 	}
 </script>
 
