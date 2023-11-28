@@ -3,11 +3,13 @@
 	"properties": {
 		"name": {
 			"type": "string",
-			"description": "Name of the employee"
+			"description": "Name of the employee",
+			"minLength": 3
 		},
 		"surname": {
 			"type": "string",
-			"description": "Surname of the employee"
+			"description": "Surname of the employee",
+			"minLength": 3
 		},
 		"age": {
 			"type": "number",
