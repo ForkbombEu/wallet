@@ -1,9 +1,15 @@
+<script lang="ts" context="module">
+	export function isNestedField(fieldPath: string) {
+		return fieldPath.includes('.') || fieldPath.includes('[');
+	}
+</script>
+
 <script lang="ts">
 	import type { SuperformGeneric } from './types';
 	import type { z } from 'zod';
 	import type { FormPathLeaves } from 'sveltekit-superforms';
 	import { formFieldProxy } from 'sveltekit-superforms/client';
-	import _ from 'lodash';
+	import { isObject, set, has, get, isArray } from 'lodash';
 
 	//
 
@@ -18,7 +24,7 @@
 	const { value, errors, constraints } = formFieldProxy(superform, fieldPath);
 
 	function updateValue(newValue: typeof $value) {
-		if (isNestedField(fieldPath)) _.set($form, fieldPath, newValue);
+		if (isNestedField(fieldPath)) set($form, fieldPath, newValue);
 		/**
 		 * Lodash "_.set" is needed because creates parent objects if missing.
 		 * This is needed because superforms didn't do this before v1.11.0
@@ -28,9 +34,31 @@
 		value.set(newValue);
 	}
 
-	function isNestedField(fieldPath: string) {
-		return fieldPath.includes('.') || fieldPath.includes('[');
+	$: extractedErrors = extractErrors($errors);
+	function extractErrors(errors: unknown): string[] | undefined {
+		if (isObject(errors) && has(errors, '_errors')) {
+			const _errors = get(errors, '_errors');
+			if (isArray(_errors)) return _errors;
+			else return undefined;
+		} else if (isArray(errors)) {
+			return errors;
+		} else {
+			return undefined;
+		}
+	}
+
+	$: errorsText = getErrorText(extractedErrors);
+	function getErrorText(errors: ReturnType<typeof extractErrors>): string | undefined {
+		if (!errors) return undefined;
+		return errors.join('\n');
 	}
 </script>
 
-<slot field={fieldPath} value={$value} {updateValue} errors={$errors} constraints={$constraints} />
+<slot
+	field={fieldPath}
+	value={$value}
+	{updateValue}
+	errors={extractedErrors}
+	errorText={errorsText}
+	constraints={$constraints}
+/>
