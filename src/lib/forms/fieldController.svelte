@@ -37,8 +37,8 @@
 
 	function updateValue(newValue: typeof $value) {
 		if (lastInitValue) lastInitValue();
-		if (firstParent) validate(firstParent as any); // Validating root parent, sometimes useful
 		value.set(newValue);
+		if (firstParent) validate(firstParent as any); // Validating root parent, sometimes useful
 	}
 </script>
 

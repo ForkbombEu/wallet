@@ -41,31 +41,33 @@ export function genericSuperValidated(): SuperValidated<ZodValidation<z.AnyZodOb
 //
 
 type AjvErrors = NonNullable<ValidateFunction['errors']>;
-interface SuperformsErrors {
-	[x: string]: string[] | SuperformsErrors;
+type AjvError = AjvErrors[number];
+
+export interface SuperformErrors {
+	[x: string]: string[] | SuperformErrors;
 }
 
-export function transformAjvErrors(errors: AjvErrors) {
-	let errorsObject: SuperformsErrors = {};
-	// console.log('-'.repeat(20));
+export function ajvErrorsToSuperformsErrors(errors: AjvError[]): SuperformErrors {
+	let errorsObject: SuperformErrors = {};
+	console.log('');
+	console.log('-'.repeat(20));
 
 	errors.forEach((error) => {
-		// console.log(error);
-		// Create a path array (e.g., 'address.city' becomes ['address', 'city'])
-		const path = error.instancePath.split('/').filter((p) => p);
+		console.log(error);
+		const errorPathArray = error.instancePath.split('/').filter((p) => p);
 
 		if (error.keyword === 'required') {
-			path.push(error.params.missingProperty);
+			errorPathArray.push(error.params.missingProperty);
 		}
 
 		// Build nested structure based on path
-		let current: SuperformsErrors = errorsObject;
-		for (let i = 0; i < path.length; i++) {
-			if (i === path.length - 1) {
-				current[path[i]] = { _errors: [error.message] }; // Set the error message at the leaf
+		let current: SuperformErrors = errorsObject;
+		for (let i = 0; i < errorPathArray.length; i++) {
+			if (i === errorPathArray.length - 1) {
+				current[errorPathArray[i]] = { _errors: [error.message] }; // Set the error message at the leaf
 			} else {
-				current[path[i]] = current[path[i]] || {}; // Create nested object if necessary
-				current = current[path[i]];
+				current[errorPathArray[i]] = current[errorPathArray[i]] || {}; // Create nested object if necessary
+				current = current[errorPathArray[i]];
 			}
 		}
 	});
@@ -73,4 +75,8 @@ export function transformAjvErrors(errors: AjvErrors) {
 	// console.log(errorsObject);
 
 	return errorsObject;
+}
+
+export function getTaintedFieldsAjvErrors(ajvErrors: AjvError[], taintedFieldsPaths: string[]): AjvError[] {
+	return ajvErrors.filter((error) => taintedFieldsPaths.some((path) => error.instancePath.includes(path)));
 }

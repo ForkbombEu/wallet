@@ -5,18 +5,13 @@
 	type SchemaGeneric = $$Generic<AnyZodObject>;
 	export let superform: SuperformGeneric<SchemaGeneric>;
 
-	const { enhance, delayed, form, errors } = superform;
+	const { enhance, delayed } = superform;
 </script>
 
 <form method="post" use:enhance>
-	<slot />
+	<slot delayed={$delayed} />
 </form>
 
 {#if $delayed}
-	loading...
+	<slot name="loading" />
 {/if}
-
-<div class="flex">
-	<pre>{JSON.stringify($form, null, 2)}</pre>
-	<pre>{JSON.stringify($errors, null, 2)}</pre>
-</div>
