@@ -1,13 +1,11 @@
 <script lang="ts">
 	import FieldController from '$lib/forms/fieldController.svelte';
-	import type { SuperForm } from 'sveltekit-superforms/client';
 	import type { JSONSchema, ObjectSchema } from './types';
 	import { removeOutline } from 'ionicons/icons';
-	import type { ZodValidation } from 'sveltekit-superforms';
-	import type { AnyZodObject } from 'zod';
 	import ArrayFieldsController from '$lib/forms/arrayFieldsController.svelte';
+	import type { SuperformGeneric } from '$lib/forms/types';
 
-	export let superform: SuperForm<ZodValidation<AnyZodObject>>;
+	export let superform: SuperformGeneric;
 	export let schema: ObjectSchema;
 	export let fieldPath: string;
 	export let field: JSONSchema;
@@ -31,9 +29,8 @@
 	}
 </script>
 
-<FieldController {superform} {fieldPath} let:value let:updateValue let:errors>
+<FieldController {superform} {fieldPath} let:value let:updateValue let:errors let:errorText>
 	{#if type == 'string'}
-		{@const e = JSON.stringify(errors?.['_errors']?.join(' | '))}
 		<ion-item>
 			<ion-input
 				type="text"
@@ -47,7 +44,7 @@
 				on:ionInput={(e) => updateValue(e.target.value)}
 				class:ion-invalid={errors}
 				class:ion-touched={errors}
-				error-text={e}
+				error-text={errorText}
 			/>
 		</ion-item>
 	{:else if type == 'number'}
@@ -64,6 +61,7 @@
 				on:ionInput={(e) => updateValue(Number(e.target.value))}
 				class:ion-invalid={errors}
 				class:ion-touched={errors}
+				error-text={errorText}
 			/>
 		</ion-item>
 	{:else if type == 'integer'}
@@ -82,6 +80,7 @@
 				on:ionInput={(e) => updateValue(Number(e.target.value))}
 				class:ion-invalid={errors}
 				class:ion-touched={errors}
+				error-text={errorText}
 			/>
 		</ion-item>
 	{:else if type == 'boolean'}
@@ -98,6 +97,7 @@
 				class:ion-touched={errors}
 			>
 				{label}
+				<!-- TODO: Display error properly -->
 			</ion-checkbox>
 		</ion-item>
 	{:else if type == 'object'}
