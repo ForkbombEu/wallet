@@ -1,10 +1,7 @@
 <script lang="ts">
 	import JSONSchemaForm from '$lib/JSONSchemaForms/JSONSchemaForm.svelte';
 	import JSONSchemaParser from '$lib/JSONSchemaForms/JSONSchemaParser.svelte';
-
-	export let data;
-
-	const templates = data.templates.items;
+	import schema from './schema.json?raw';
 </script>
 
 <ion-header translucent={true}>
@@ -14,10 +11,7 @@
 </ion-header>
 
 <ion-content fullscreen class="ion-padding space-y-10">
-	{#each templates as template}
-		{@const schemaString = template.schema}
-		<JSONSchemaParser {schemaString} let:schema>
-			<JSONSchemaForm {schema} />
-		</JSONSchemaParser>
-	{/each}
+	<JSONSchemaParser schemaString={schema} let:schema>
+		<JSONSchemaForm {schema} />
+	</JSONSchemaParser>
 </ion-content>
