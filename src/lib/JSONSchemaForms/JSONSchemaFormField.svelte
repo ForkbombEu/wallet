@@ -7,9 +7,9 @@
 
 	export let superform: SuperformGeneric;
 	export let fieldPath: string;
-	export let field: JSONSchema;
+	export let schema: JSONSchema;
 
-	const { type, description } = field;
+	const { type, description } = schema;
 
 	const required = false;
 	// const required = schema.required?.includes(fieldPath);
@@ -105,9 +105,9 @@
 				<ion-label>{label}</ion-label>
 			</ion-item>
 			<ion-list class="pl-4">
-				{#each Object.entries(field.properties) as [nestedFieldName, f]}
+				{#each Object.entries(schema.properties) as [nestedFieldName, f]}
 					{@const path = `${fieldPath}.${nestedFieldName}`}
-					<svelte:self {superform} fieldPath={path} field={f} />
+					<svelte:self {superform} fieldPath={path} schema={f} />
 				{/each}
 			</ion-list>
 		</div>
@@ -119,7 +119,7 @@
 			<ion-list>
 				<ArrayFieldsController {fieldPath} {value} {updateValue} let:removeItem let:itemFieldPath let:last>
 					<ion-item>
-						<svelte:self {superform} fieldPath={itemFieldPath} field={field.items} />
+						<svelte:self {superform} fieldPath={itemFieldPath} schema={schema.items} />
 						{#if !last}
 							<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
 							<ion-button slot="end" shape="round" color="medium" on:click={removeItem}>
