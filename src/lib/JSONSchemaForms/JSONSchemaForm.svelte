@@ -2,13 +2,7 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import JSONSchemaFormField from './JSONSchemaFormField.svelte';
 	import type { ObjectSchema } from './types';
-	import {
-		createAjv,
-		genericSuperValidated,
-		getTaintedFieldsAjvErrors,
-		ajvErrorsToSuperformsErrors,
-		type SuperformErrors
-	} from './utils';
+	import { createAjv, genericSuperValidated, getTaintedFieldsAjvErrors, ajvErrorsToSuperformsErrors } from './utils';
 	import Superform from '$lib/forms/superform.svelte';
 
 	//
@@ -18,16 +12,23 @@
 
 	//
 
-	const superform = superForm(genericSuperValidated(), {
-		dataType: 'json',
-		SPA: true,
-		validators: false,
-		onUpdate: async ({ form, cancel }) => {
-			await validateForm(form.data);
-			await onSubmit(form.data);
-		},
-		taintedMessage: null
-	});
+	const superform = superForm(
+		genericSuperValidated(), // reference: https://superforms.rocks/concepts/spa#trimming-down-the-bundle-size
+		{
+			dataType: 'json', // To allow nested fields
+			SPA: true,
+			validators: false, // Bypassing superforms validation because we're using ajv externally
+			onUpdate: async ({ form, cancel }) => {
+				try {
+					await validateForm(form.data);
+					await onSubmit(form.data);
+				} catch (e) {
+					cancel();
+				}
+			},
+			taintedMessage: null
+		}
+	);
 
 	const { form, errors, tainted } = superform;
 
@@ -36,14 +37,15 @@
 
 	//
 
-	$: $errors = validateTaintedFields($form, $tainted);
+	$: validateTaintedFields($form, $tainted);
 
-	function validateTaintedFields(form: typeof $form, taintedFields: typeof $tainted): SuperformErrors {
+	function validateTaintedFields(form: typeof $form, taintedFields: typeof $tainted) {
 		validate(form);
 		const ajvErrors = validate.errors ?? [];
 		const taintedFieldsPaths = Object.keys(taintedFields ?? []);
 		const taintedFieldsAjvErrors = getTaintedFieldsAjvErrors(ajvErrors, taintedFieldsPaths);
-		return ajvErrorsToSuperformsErrors(taintedFieldsAjvErrors);
+		const superformErrors = ajvErrorsToSuperformsErrors(taintedFieldsAjvErrors);
+		errors.set(superformErrors);
 	}
 
 	async function validateForm(form: typeof $form) {

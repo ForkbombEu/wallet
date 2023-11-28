@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { parseJSON, validateJSONSchema } from './utils';
-	import type { JSONSchema } from './types';
+	import type { ObjectSchema } from './types';
 	import Error from '$lib/components/error.svelte';
 
 	export let schemaString: string;
 
-	let schema: JSONSchema;
+	let schema: ObjectSchema;
 	let schemaError: Error;
 
 	onMount(() => {

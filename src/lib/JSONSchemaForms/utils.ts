@@ -1,6 +1,6 @@
 import Ajv, { type Options, type ValidateFunction } from 'ajv';
 import addFormats from 'ajv-formats';
-import type { JSONSchema } from './types';
+import type { JSONSchema, ObjectSchema } from './types';
 import type { SuperValidated, ZodValidation } from 'sveltekit-superforms';
 import type z from 'zod';
 
@@ -22,7 +22,7 @@ export function createSchema(schema: JSON) {
 
 export function validateJSONSchema(JSON: JSON) {
 	createAjv().validateSchema(JSON);
-	return JSON as unknown as JSONSchema;
+	return JSON as unknown as ObjectSchema;
 }
 
 //
