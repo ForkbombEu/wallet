@@ -19,4 +19,15 @@ export type ArraySchema = BaseSchema<'array'> & {
 	items: JSONSchema;
 };
 
-export type JSONSchema = StringSchema | NumberSchema | IntegerSchema | BooleanSchema | ObjectSchema | ArraySchema;
+export type DateSchema = BaseSchema<'string'> & {
+	format: 'date';
+};
+
+export type JSONSchema =
+	| StringSchema
+	| NumberSchema
+	| IntegerSchema
+	| BooleanSchema
+	| ObjectSchema
+	| ArraySchema
+	| DateSchema;
