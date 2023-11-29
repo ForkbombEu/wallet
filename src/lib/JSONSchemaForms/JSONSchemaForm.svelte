@@ -73,7 +73,8 @@
 <Superform {superform}>
 	<div class="space-y-4">
 		{#each Object.entries(schema.properties) as [fieldName, field]}
-			<JSONSchemaFormField {superform} fieldPath={fieldName} schema={field} />
+			{@const required = schema.required?.includes(fieldName)}
+			<JSONSchemaFormField {superform} fieldPath={fieldName} schema={field} {required} />
 		{/each}
 		<ion-item>
 			<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
