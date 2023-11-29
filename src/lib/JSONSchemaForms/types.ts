@@ -5,7 +5,10 @@ export interface BaseSchema<T extends JSONType> {
 	description?: string;
 }
 
-export type StringSchema = BaseSchema<'string'>;
+export type StringSchema = BaseSchema<'string'> & {
+	format?: 'date' | undefined;
+};
+
 export type NumberSchema = BaseSchema<'number'>;
 export type IntegerSchema = BaseSchema<'integer'>;
 export type BooleanSchema = BaseSchema<'boolean'>;
@@ -19,15 +22,4 @@ export type ArraySchema = BaseSchema<'array'> & {
 	items: JSONSchema;
 };
 
-export type DateSchema = BaseSchema<'string'> & {
-	format: 'date';
-};
-
-export type JSONSchema =
-	| StringSchema
-	| NumberSchema
-	| IntegerSchema
-	| BooleanSchema
-	| ObjectSchema
-	| ArraySchema
-	| DateSchema;
+export type JSONSchema = StringSchema | NumberSchema | IntegerSchema | BooleanSchema | ObjectSchema | ArraySchema;

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import FieldController from '$lib/forms/fieldController.svelte';
-	import type { JSONSchema, ObjectSchema } from './types';
+	import type { JSONSchema } from './types';
 	import { removeOutline } from 'ionicons/icons';
 	import ArrayFieldsController from '$lib/forms/arrayFieldsController.svelte';
 	import type { SuperformGeneric } from '$lib/forms/types';
@@ -8,12 +8,12 @@
 	export let superform: SuperformGeneric;
 	export let fieldPath: string;
 	export let schema: JSONSchema;
+	export let required = false;
 
 	const { type, description } = schema;
 
-	const required = false;
-	// const required = schema.required?.includes(fieldPath);
-	const label = description ?? getLabelFromFieldName(fieldPath);
+	let label = description ?? getLabelFromFieldName(fieldPath);
+	if (required) label += ' *';
 
 	function getLabelFromFieldName(fieldName: string) {
 		return (
@@ -30,22 +30,41 @@
 
 <FieldController {superform} {fieldPath} let:value let:updateValue let:errors let:errorText>
 	{#if type == 'string'}
-		<ion-item>
-			<ion-input
-				type="text"
-				name={fieldPath}
-				{label}
-				aria-label={label}
-				{required}
-				label-placement="floating"
-				clear-input
-				{value}
-				on:ionInput={(e) => updateValue(e.target.value)}
-				class:ion-invalid={errors}
-				class:ion-touched={errors}
-				error-text={errorText}
-			/>
-		</ion-item>
+		{#if schema.format == 'date'}
+			<ion-item>
+				<ion-label>{label}</ion-label>
+				<ion-datetime-button slot="end" datetime={fieldPath} />
+				<ion-modal>
+					<ion-datetime
+						id={fieldPath}
+						presentation="date"
+						{value}
+						minute-values="0"
+						hour-values="0"
+						aria-required={required}
+						on:ionChange={(e) => updateValue(e.target.value)}
+						show-default-buttons={true}
+					/>
+				</ion-modal>
+			</ion-item>
+		{:else}
+			<ion-item>
+				<ion-input
+					type="text"
+					name={fieldPath}
+					{label}
+					aria-label={label}
+					aria-required={required}
+					clear-input
+					label-placement="floating"
+					{value}
+					on:ionInput={(e) => updateValue(e.target.value)}
+					class:ion-invalid={errors}
+					class:ion-touched={errors}
+					error-text={errorText}
+				/>
+			</ion-item>
+		{/if}
 	{:else if type == 'number'}
 		<ion-item>
 			<ion-input
@@ -54,7 +73,6 @@
 				{label}
 				aria-label={label}
 				{required}
-				label-placement="floating"
 				clear-input
 				{value}
 				on:ionInput={(e) => updateValue(Number(e.target.value))}
@@ -107,7 +125,8 @@
 			<ion-list class="pl-4">
 				{#each Object.entries(schema.properties) as [nestedFieldName, f]}
 					{@const path = `${fieldPath}.${nestedFieldName}`}
-					<svelte:self {superform} fieldPath={path} schema={f} />
+					{@const required = schema.required?.includes(nestedFieldName)}
+					<svelte:self {superform} fieldPath={path} schema={f} {required} />
 				{/each}
 			</ion-list>
 		</div>
