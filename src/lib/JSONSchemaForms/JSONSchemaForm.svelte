@@ -2,7 +2,8 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import JSONSchemaFormField from './JSONSchemaFormField.svelte';
 	import type { ObjectSchema } from './types';
-	import { createAjv, genericSuperValidated, getTaintedFieldsAjvErrors, ajvErrorsToSuperformsErrors } from './utils';
+	import { ajvErrorsToSuperformsErrors } from './errors';
+	import { createAjv, genericSuperValidated } from './utils';
 	import Superform from '$lib/forms/superform.svelte';
 
 	//
@@ -40,12 +41,24 @@
 	$: validateTaintedFields($form, $tainted);
 
 	function validateTaintedFields(form: typeof $form, taintedFields: typeof $tainted) {
+		if (!tainted) return;
+
 		validate(form);
-		const ajvErrors = validate.errors ?? [];
-		const taintedFieldsPaths = Object.keys(taintedFields ?? []);
-		const taintedFieldsAjvErrors = getTaintedFieldsAjvErrors(ajvErrors, taintedFieldsPaths);
-		const superformErrors = ajvErrorsToSuperformsErrors(taintedFieldsAjvErrors);
-		errors.set(superformErrors);
+		if (!validate.errors) return;
+
+		const ajvErrors = validate.errors;
+
+		console.log(ajvErrors);
+		console.log(taintedFields);
+
+		// This filtering works only for the first level keys
+		// const taintedFieldsPaths = Object.keys(taintedFields ?? []);
+		// const taintedFieldsAjvErrors = ajvErrors.filter((error) =>
+		// 	taintedFieldsPaths.some((path) => error.instancePath.includes(path))
+		// );
+
+		// const superformErrors = ajvErrorsToSuperformsErrors(taintedFieldsAjvErrors);
+		// errors.set(superformErrors);
 	}
 
 	async function validateForm(form: typeof $form) {
