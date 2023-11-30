@@ -33,7 +33,7 @@
 
 	//
 
-	$: canAdd = inputsCount == valuesCount;
+	$: canAdd = inputsCount <= valuesCount;
 
 	function addItem() {
 		if (canAdd) inputsCount += 1;
