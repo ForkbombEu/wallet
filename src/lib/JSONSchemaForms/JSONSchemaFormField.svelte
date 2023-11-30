@@ -2,7 +2,7 @@
 	import FieldController from '$lib/forms/fieldController.svelte';
 	import type { JSONSchema } from './types';
 	import { removeOutline, addOutline } from 'ionicons/icons';
-	import ArrayFieldsController from '$lib/forms/arrayFieldsController.svelte';
+	import ArrayFieldController from '$lib/forms/arrayFieldController.svelte';
 	import type { SuperformGeneric } from '$lib/forms/types';
 	import IonItemWrapper from './fieldWrappers/ionItemWrapper.svelte';
 	import SlotWrapper from './fieldWrappers/slotWrapper.svelte';
@@ -52,6 +52,7 @@
 				{label}
 				placeholder="Select an item"
 				label-placement="stacked"
+				{value}
 				on:ionChange={(e) => updateValue(e.target.value)}
 			>
 				{#each schema.enum as value}
@@ -164,7 +165,7 @@
 		</ion-list>
 	{:else if type == 'array'}
 		<ion-list class="grow">
-			<ArrayFieldsController {fieldPath} {value} {updateValue} noFirstDefault>
+			<ArrayFieldController {fieldPath} {value} {updateValue}>
 				<svelte:fragment slot="before-items" let:addItem let:canAdd>
 					<ion-item>
 						<ion-label>{label}</ion-label>
@@ -198,7 +199,7 @@
 						</ion-item>
 					{/if}
 				</svelte:fragment>
-			</ArrayFieldsController>
+			</ArrayFieldController>
 		</ion-list>
 	{/if}
 </FieldController>
