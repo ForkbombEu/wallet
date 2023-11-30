@@ -13,13 +13,12 @@
 	}
 </script>
 
-<ion-header translucent={true}>
-	<ion-toolbar>
-		<ion-title>Ciao</ion-title>
-	</ion-toolbar>
-</ion-header>
-
 <ion-tab tab="json">
+	<ion-header translucent={true}>
+		<ion-toolbar>
+			<ion-title>Ciao</ion-title>
+		</ion-toolbar>
+	</ion-header>
 	<ion-content fullscreen class="ion-padding space-y-10">
 		<JSONSchemaParser schema={testSchema} let:schema>
 			<JSONSchemaForm {schema} onSubmit={handleSubmit} />
