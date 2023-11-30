@@ -5,10 +5,10 @@
 
 // //
 
-export type SuperformError = string[];
-export type SuperformErrors = {
-	[x: string]: SuperformError | SuperformErrors;
-};
+// export type SuperformError = string[];
+// export type SuperformErrors = {
+// 	[x: string]: SuperformError | SuperformErrors;
+// };
 
 // type SuperformsValidator = (value: unknown) => string[] | null | undefined
 // type SuperformsValidators = Record<string, SuperformsValidator>

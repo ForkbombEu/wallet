@@ -10,9 +10,7 @@
 	//
 
 	export let schema: ObjectSchema;
-	export let onSubmit: (data: Record<string, unknown>) => Promise<void> | void = () => {
-		throw new Error('ne');
-	};
+	export let onSubmit: (data: Record<string, unknown>) => Promise<void> | void = () => {};
 
 	//
 
@@ -38,8 +36,6 @@
 		else if (e instanceof Error) return e.message;
 		else return 'FORM_SUBMIT_ERROR';
 	}
-
-	const { form, errors } = superform;
 </script>
 
 <Superform {superform}>
@@ -57,10 +53,5 @@
 			<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
 			<ion-button type="submit"> Submit </ion-button>
 		</div>
-	</div>
-
-	<div class="flex">
-		<pre>{JSON.stringify($form, null, 2)}</pre>
-		<pre>{JSON.stringify($errors, null, 2)}</pre>
 	</div>
 </Superform>
