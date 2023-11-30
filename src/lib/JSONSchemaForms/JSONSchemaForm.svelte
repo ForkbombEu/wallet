@@ -6,6 +6,7 @@
 	import Superform from '$lib/forms/superform.svelte';
 	import FormError from '$lib/forms/formError.svelte';
 	import ErrorDisplay from '$lib/components/errorDisplay.svelte';
+	import { objectSchemaToSuperformsValidators } from './errors';
 
 	//
 
@@ -19,7 +20,8 @@
 		{
 			dataType: 'json', // To allow nested fields
 			SPA: true,
-			validators: false, // Bypassing superforms validation because we're using ajv externally
+			// validators: false, // Bypassing superforms validation because we're using ajv externally
+			validators: objectSchemaToSuperformsValidators(schema),
 			onUpdate: async ({ form }) => {
 				try {
 					await onSubmit(form.data);
