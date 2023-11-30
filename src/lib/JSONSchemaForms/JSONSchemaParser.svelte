@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { createAjv } from './utils';
 	import type { JSONSchema, ObjectSchema } from './types';
-	import ErrorDisplay from '$lib/components/error.svelte';
+	import ErrorDisplay from '$lib/components/errorDisplay.svelte';
 
 	export let schema: string | Object | JSON | ObjectSchema | JSONSchema;
 
@@ -39,7 +39,7 @@
 </script>
 
 {#if schemaError}
-	<ErrorDisplay name={schemaError.name} message={schemaError.message} />
+	<slot name="error" error={schemaError} />
 {:else if objectSchema}
 	<slot schema={objectSchema} />
 {/if}

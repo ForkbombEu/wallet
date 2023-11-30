@@ -1,15 +1,18 @@
 <script lang="ts">
-	import { superForm } from 'sveltekit-superforms/client';
+	import { superForm, setError } from 'sveltekit-superforms/client';
 	import JSONSchemaFormField from './JSONSchemaFormField.svelte';
 	import type { ObjectSchema } from './types';
-	import { ajvErrorsToSuperformsErrors } from './errors';
-	import { createAjv, genericSuperValidated } from './utils';
+	import { genericSuperValidated } from './utils';
 	import Superform from '$lib/forms/superform.svelte';
+	import FormError from '$lib/forms/formError.svelte';
+	import ErrorDisplay from '$lib/components/errorDisplay.svelte';
 
 	//
 
 	export let schema: ObjectSchema;
-	export let onSubmit: (data: Record<string, unknown>) => Promise<void> | void = () => {};
+	export let onSubmit: (data: Record<string, unknown>) => Promise<void> | void = () => {
+		throw new Error('ne');
+	};
 
 	//
 
@@ -19,55 +22,24 @@
 			dataType: 'json', // To allow nested fields
 			SPA: true,
 			validators: false, // Bypassing superforms validation because we're using ajv externally
-			onUpdate: async ({ form, cancel }) => {
+			onUpdate: async ({ form }) => {
 				try {
-					await validateForm(form.data);
 					await onSubmit(form.data);
 				} catch (e) {
-					cancel();
+					setError(form, parseFormException(e));
 				}
 			},
 			taintedMessage: null
 		}
 	);
 
-	const { form, errors, tainted } = superform;
-
-	const ajv = createAjv({ allErrors: true });
-	const validate = ajv.compile(schema);
-
-	//
-
-	$: validateTaintedFields($form, $tainted);
-
-	function validateTaintedFields(form: typeof $form, taintedFields: typeof $tainted) {
-		if (!tainted) return;
-
-		validate(form);
-		if (!validate.errors) return;
-
-		const ajvErrors = validate.errors;
-
-		console.log(ajvErrors);
-		console.log(taintedFields);
-
-		// This filtering works only for the first level keys
-		// const taintedFieldsPaths = Object.keys(taintedFields ?? []);
-		// const taintedFieldsAjvErrors = ajvErrors.filter((error) =>
-		// 	taintedFieldsPaths.some((path) => error.instancePath.includes(path))
-		// );
-
-		// const superformErrors = ajvErrorsToSuperformsErrors(taintedFieldsAjvErrors);
-		// errors.set(superformErrors);
+	function parseFormException(e: unknown): string {
+		if (typeof e === 'string') return e;
+		else if (e instanceof Error) return e.message;
+		else return 'FORM_SUBMIT_ERROR';
 	}
 
-	async function validateForm(form: typeof $form) {
-		validate(form);
-		const ajvErrors = validate.errors ?? [];
-		const superformErrors = ajvErrorsToSuperformsErrors(ajvErrors);
-		errors.set(superformErrors);
-		if (ajvErrors.length > 0) throw new Error();
-	}
+	const { form, errors } = superform;
 </script>
 
 <Superform {superform}>
@@ -76,10 +48,15 @@
 			{@const required = schema.required?.includes(fieldName)}
 			<JSONSchemaFormField {superform} fieldPath={fieldName} schema={field} {required} />
 		{/each}
-		<ion-item>
+
+		<FormError {superform} let:errorMessage>
+			<ErrorDisplay name="Form Error" message={errorMessage} />
+		</FormError>
+
+		<div class="flex justify-end">
 			<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
-			<ion-button type="submit"> miao </ion-button>
-		</ion-item>
+			<ion-button type="submit"> Submit </ion-button>
+		</div>
 	</div>
 
 	<div class="flex">
