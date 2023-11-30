@@ -1,9 +1,3 @@
-<script lang="ts" context="module">
-	export function isNestedField(fieldPath: string) {
-		return fieldPath.includes('.') || fieldPath.includes('[');
-	}
-</script>
-
 <script lang="ts">
 	import type { SuperformGeneric } from './types';
 	import type { z } from 'zod';
@@ -18,10 +12,10 @@
 	export let superform: SuperformGeneric<T>;
 	export let fieldPath: FormPathLeaves<z.infer<T>>;
 
-	//
-
 	const { form } = superform;
 	const { value, errors, constraints } = formFieldProxy(superform, fieldPath);
+
+	//
 
 	function updateValue(newValue: typeof $value) {
 		if (isNestedField(fieldPath)) set($form, fieldPath, newValue);
@@ -33,6 +27,12 @@
 		 */
 		value.set(newValue);
 	}
+
+	function isNestedField(fieldPath: string) {
+		return fieldPath.includes('.') || fieldPath.includes('[');
+	}
+
+	//
 
 	$: extractedErrors = extractErrors($errors);
 	function extractErrors(errors: unknown): string[] | undefined {
