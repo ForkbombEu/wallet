@@ -4,6 +4,8 @@
 	import { removeOutline, addOutline } from 'ionicons/icons';
 	import ArrayFieldsController from '$lib/forms/arrayFieldsController.svelte';
 	import type { SuperformGeneric } from '$lib/forms/types';
+	import IonItemWrapper from './fieldWrappers/ionItemWrapper.svelte';
+	import SlotWrapper from './fieldWrappers/slotWrapper.svelte';
 
 	export let superform: SuperformGeneric;
 	export let fieldPath: string;
@@ -12,6 +14,7 @@
 	export let hideLabel = false;
 
 	export let inputAttributes: svelteHTML.IonInput = {};
+	export let fieldWrapper: typeof IonItemWrapper = IonItemWrapper;
 
 	let fieldLabel: string | undefined = undefined;
 	export { fieldLabel as label };
@@ -44,7 +47,7 @@
 
 <FieldController {superform} {fieldPath} let:value let:updateValue let:errors let:errorText>
 	{#if schema.enum}
-		<ion-item>
+		<svelte:component this={fieldWrapper}>
 			<ion-select
 				{label}
 				placeholder="Select an item"
@@ -55,10 +58,10 @@
 					<ion-select-option {value}>{value}</ion-select-option>
 				{/each}
 			</ion-select>
-		</ion-item>
+		</svelte:component>
 	{:else if type == 'string'}
 		{#if schema.format == 'date'}
-			<ion-item>
+			<svelte:component this={fieldWrapper}>
 				<ion-label>{label}</ion-label>
 				<ion-datetime-button slot="end" datetime={fieldPath} />
 				<ion-modal>
@@ -73,9 +76,9 @@
 						show-default-buttons={true}
 					/>
 				</ion-modal>
-			</ion-item>
+			</svelte:component>
 		{:else}
-			<ion-item>
+			<svelte:component this={fieldWrapper}>
 				<ion-input
 					type="text"
 					name={fieldPath}
@@ -91,10 +94,10 @@
 					class:ion-touched={errors}
 					error-text={errorText}
 				/>
-			</ion-item>
+			</svelte:component>
 		{/if}
 	{:else if type == 'number'}
-		<ion-item>
+		<svelte:component this={fieldWrapper}>
 			<ion-input
 				type="number"
 				name={fieldPath}
@@ -109,9 +112,9 @@
 				class:ion-touched={errors}
 				error-text={errorText}
 			/>
-		</ion-item>
+		</svelte:component>
 	{:else if type == 'integer'}
-		<ion-item>
+		<svelte:component this={fieldWrapper}>
 			<ion-input
 				type="number"
 				name={fieldPath}
@@ -128,9 +131,9 @@
 				class:ion-touched={errors}
 				error-text={errorText}
 			/>
-		</ion-item>
+		</svelte:component>
 	{:else if type == 'boolean'}
-		<ion-item>
+		<svelte:component this={fieldWrapper}>
 			<ion-checkbox
 				label-placement="start"
 				name={fieldPath}
@@ -145,22 +148,22 @@
 				{label}
 				<!-- TODO: Display error properly -->
 			</ion-checkbox>
-		</ion-item>
+		</svelte:component>
 	{:else if type == 'object'}
-		<div>
-			<ion-item>
-				<ion-label>{label}</ion-label>
-			</ion-item>
-			<ion-list class="pl-4">
-				{#each Object.entries(schema.properties) as [nestedFieldName, f]}
-					{@const path = `${fieldPath}.${nestedFieldName}`}
-					{@const required = schema.required?.includes(nestedFieldName)}
-					<svelte:self {superform} fieldPath={path} schema={f} {required} />
-				{/each}
-			</ion-list>
-		</div>
+		<ion-list class="grow pl-4" class:mt-0={!hideLabel}>
+			{#if !hideLabel}
+				<ion-item class="-ml-4">
+					<ion-label>{label}</ion-label>
+				</ion-item>
+			{/if}
+			{#each Object.entries(schema.properties) as [nestedFieldName, f]}
+				{@const path = `${fieldPath}.${nestedFieldName}`}
+				{@const required = schema.required?.includes(nestedFieldName)}
+				<svelte:self {superform} fieldPath={path} schema={f} {required} />
+			{/each}
+		</ion-list>
 	{:else if type == 'array'}
-		<div>
+		<ion-list class="grow">
 			<ArrayFieldsController {fieldPath} {value} {updateValue}>
 				<svelte:fragment slot="before-items" let:addItem let:canAdd>
 					<ion-item>
@@ -171,7 +174,7 @@
 						</ion-button>
 					</ion-item>
 				</svelte:fragment>
-				<svelte:fragment slot="item" let:itemFieldPath let:removeItem let:isLast>
+				<svelte:fragment slot="item" let:itemFieldPath let:removeItem>
 					<ion-item>
 						<svelte:self
 							{superform}
@@ -180,6 +183,7 @@
 							hideLabel
 							{required}
 							inputAttributes={{ placeholder: 'Add an item', ['label-placement']: 'stacked', class: 'grow' }}
+							fieldWrapper={SlotWrapper}
 						/>
 						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
 						<ion-button slot="end" shape="round" color="medium" on:click={removeItem}>
@@ -188,6 +192,6 @@
 					</ion-item>
 				</svelte:fragment>
 			</ArrayFieldsController>
-		</div>
+		</ion-list>
 	{/if}
 </FieldController>
