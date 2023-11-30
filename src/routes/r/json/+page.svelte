@@ -19,11 +19,13 @@
 	</ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen class="ion-padding space-y-10">
-	<JSONSchemaParser schema={testSchema} let:schema>
-		<JSONSchemaForm {schema} onSubmit={handleSubmit} />
-		<svelte:fragment slot="error" let:error>
-			<ErrorDisplay name={error.name} message={error.message} />
-		</svelte:fragment>
-	</JSONSchemaParser>
-</ion-content>
+<ion-tab tab="json">
+	<ion-content fullscreen class="ion-padding space-y-10">
+		<JSONSchemaParser schema={testSchema} let:schema>
+			<JSONSchemaForm {schema} onSubmit={handleSubmit} />
+			<svelte:fragment slot="error" let:error>
+				<ErrorDisplay name={error.name} message={error.message} />
+			</svelte:fragment>
+		</JSONSchemaParser>
+	</ion-content>
+</ion-tab>
