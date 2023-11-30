@@ -1,7 +1,7 @@
 <script lang="ts">
 	import FieldController from '$lib/forms/fieldController.svelte';
 	import type { JSONSchema } from './types';
-	import { removeOutline } from 'ionicons/icons';
+	import { removeOutline, addOutline } from 'ionicons/icons';
 	import ArrayFieldsController from '$lib/forms/arrayFieldsController.svelte';
 	import type { SuperformGeneric } from '$lib/forms/types';
 
@@ -9,11 +9,25 @@
 	export let fieldPath: string;
 	export let schema: JSONSchema;
 	export let required = false;
+	export let hideLabel = false;
 
-	const { type, description } = schema;
+	export let inputAttributes: svelteHTML.IonInput = {};
 
-	let label = description ?? getLabelFromFieldName(fieldPath);
-	if (required) label += ' *';
+	let fieldLabel: string | undefined = undefined;
+	export { fieldLabel as label };
+
+	//
+
+	const { type } = schema;
+
+	const label = getLabel();
+
+	function getLabel() {
+		if (hideLabel) return undefined;
+		let baseLabel = fieldLabel ?? schema.description ?? getLabelFromFieldName(fieldPath);
+		if (required) baseLabel += ' *';
+		return baseLabel;
+	}
 
 	function getLabelFromFieldName(fieldName: string) {
 		return (
@@ -29,7 +43,20 @@
 </script>
 
 <FieldController {superform} {fieldPath} let:value let:updateValue let:errors let:errorText>
-	{#if type == 'string'}
+	{#if schema.enum}
+		<ion-item>
+			<ion-select
+				{label}
+				placeholder="Select an item"
+				label-placement="stacked"
+				on:ionChange={(e) => updateValue(e.target.value)}
+			>
+				{#each schema.enum as value}
+					<ion-select-option {value}>{value}</ion-select-option>
+				{/each}
+			</ion-select>
+		</ion-item>
+	{:else if type == 'string'}
 		{#if schema.format == 'date'}
 			<ion-item>
 				<ion-label>{label}</ion-label>
@@ -53,10 +80,11 @@
 					type="text"
 					name={fieldPath}
 					{label}
+					placeholder={inputAttributes.placeholder}
 					aria-label={label}
 					aria-required={required}
 					clear-input
-					label-placement="floating"
+					label-placement={inputAttributes['label-placement'] ?? 'floating'}
 					{value}
 					on:ionInput={(e) => updateValue(e.target.value)}
 					class:ion-invalid={errors}
@@ -73,6 +101,7 @@
 				{label}
 				aria-label={label}
 				{required}
+				label-placement="floating"
 				clear-input
 				{value}
 				on:ionInput={(e) => updateValue(Number(e.target.value))}
@@ -132,22 +161,33 @@
 		</div>
 	{:else if type == 'array'}
 		<div>
-			<ion-item>
-				<ion-label>{label}</ion-label>
-			</ion-item>
-			<ion-list>
-				<ArrayFieldsController {fieldPath} {value} {updateValue} let:removeItem let:itemFieldPath let:last>
+			<ArrayFieldsController {fieldPath} {value} {updateValue}>
+				<svelte:fragment slot="before-items" let:addItem let:canAdd>
 					<ion-item>
-						<svelte:self {superform} fieldPath={itemFieldPath} schema={schema.items} />
-						{#if !last}
-							<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
-							<ion-button slot="end" shape="round" color="medium" on:click={removeItem}>
-								<ion-icon slot="icon-only" icon={removeOutline} />
-							</ion-button>
-						{/if}
+						<ion-label>{label}</ion-label>
+						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+						<ion-button slot="end" shape="round" color="medium" disabled={!canAdd} on:click={addItem}>
+							<ion-icon slot="icon-only" icon={addOutline} />
+						</ion-button>
 					</ion-item>
-				</ArrayFieldsController>
-			</ion-list>
+				</svelte:fragment>
+				<svelte:fragment slot="item" let:itemFieldPath let:removeItem let:isLast>
+					<ion-item>
+						<svelte:self
+							{superform}
+							fieldPath={itemFieldPath}
+							schema={schema.items}
+							hideLabel
+							{required}
+							inputAttributes={{ placeholder: 'Add an item', ['label-placement']: 'stacked', class: 'grow' }}
+						/>
+						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+						<ion-button slot="end" shape="round" color="medium" on:click={removeItem}>
+							<ion-icon slot="icon-only" icon={removeOutline} />
+						</ion-button>
+					</ion-item>
+				</svelte:fragment>
+			</ArrayFieldsController>
 		</div>
 	{/if}
 </FieldController>

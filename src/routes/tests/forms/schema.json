@@ -28,7 +28,8 @@
 		"roles": {
 			"type": "array",
 			"items": {
-				"type": "string"
+				"type": "string",
+				"enum": ["manager", "developer", "officer", "sheriff"]
 			},
 			"minItems": 2
 		},
