@@ -147,7 +147,9 @@
 				class:ion-touched={errors}
 			>
 				{label}
-				<!-- TODO: Display error properly -->
+				{#if errorText}
+					<span class="ion-text-danger ml-2 text-xs">{errorText}</span>
+				{/if}
 			</ion-checkbox>
 		</svelte:component>
 	{:else if type == 'object'}
@@ -203,3 +205,9 @@
 		</ion-list>
 	{/if}
 </FieldController>
+
+<style>
+	.ion-text-danger {
+		color: var(--ion-color-danger);
+	}
+</style>
