@@ -3,6 +3,14 @@
 	import JSONSchemaParser from '$lib/JSONSchemaForms/JSONSchemaParser.svelte';
 	import ErrorDisplay from '$lib/components/errorDisplay.svelte';
 	import testSchema from './schema.json?raw';
+
+	function handleSubmit(data: unknown) {
+		console.log(data);
+	}
+
+	function handleSubmitError(data: unknown) {
+		throw new Error('errore del form!');
+	}
 </script>
 
 <ion-header translucent={true}>
@@ -13,7 +21,7 @@
 
 <ion-content fullscreen class="ion-padding space-y-10">
 	<JSONSchemaParser schema={testSchema} let:schema>
-		<JSONSchemaForm {schema} />
+		<JSONSchemaForm {schema} onSubmit={handleSubmit} />
 		<svelte:fragment slot="error" let:error>
 			<ErrorDisplay name={error.name} message={error.message} />
 		</svelte:fragment>
