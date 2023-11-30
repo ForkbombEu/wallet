@@ -164,14 +164,10 @@
 		</ion-list>
 	{:else if type == 'array'}
 		<ion-list class="grow">
-			<ArrayFieldsController {fieldPath} {value} {updateValue}>
+			<ArrayFieldsController {fieldPath} {value} {updateValue} noFirstDefault>
 				<svelte:fragment slot="before-items" let:addItem let:canAdd>
 					<ion-item>
 						<ion-label>{label}</ion-label>
-						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
-						<ion-button slot="end" shape="round" color="medium" disabled={!canAdd} on:click={addItem}>
-							<ion-icon slot="icon-only" icon={addOutline} />
-						</ion-button>
 					</ion-item>
 				</svelte:fragment>
 				<svelte:fragment slot="item" let:itemFieldPath let:removeItem>
@@ -190,6 +186,17 @@
 							<ion-icon slot="icon-only" icon={removeOutline} />
 						</ion-button>
 					</ion-item>
+				</svelte:fragment>
+				<svelte:fragment slot="after-items" let:addItem let:canAdd>
+					{#if canAdd}
+						<ion-item>
+							<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
+							<ion-button class="grow" expand="full" shape="round" color="light" disabled={!canAdd} on:click={addItem}>
+								<ion-icon slot="start" icon={addOutline} />
+								Add an item
+							</ion-button>
+						</ion-item>
+					{/if}
 				</svelte:fragment>
 			</ArrayFieldsController>
 		</ion-list>
