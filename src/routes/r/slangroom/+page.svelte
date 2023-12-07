@@ -12,11 +12,11 @@
 	const keysToExclude = ['authWithPassword', 'updateProfile', 'organizationServices'] as const;
 	type KeysToExclude = (typeof keysToExclude)[number];
 	type SlangroomKeys = Exclude<keyof typeof slangroom, KeysToExclude>;
-		
+
 	const slangroomKeys = Object.keys(slangroom).filter(
 		(key) => !keysToExclude.includes(key as KeysToExclude)
 	) as SlangroomKeys[];
-	
+
 	const getSlangroomResult = async () => {
 		const res: Record<SlangroomKeys, any> = {} as Record<SlangroomKeys, any>;
 		if (!(userId && token)) throw new Error('userId or token missing');
@@ -106,9 +106,7 @@
 								<ion-label>{k}</ion-label>
 							</ion-item>
 							<div class="ion-padding" slot="content">
-								<pre>
-                                {JSON.stringify(slangroomResponse?.[k], null, 2)}
-                            </pre>
+								<pre>{JSON.stringify(slangroomResponse?.[k], null, 2)}</pre>
 							</div>
 						</ion-accordion>
 					{/each}

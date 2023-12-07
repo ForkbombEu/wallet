@@ -25,7 +25,7 @@ Then print data
 Then I connect to 'pb' and send headers 'headers' and do get and output into 'http_result'
 `
 export const updateProfileContract = `
-Rule caller restroom-mw
+Rule unknown ignore
 
 Given I have a 'string' named 'pb'
 Given I have a 'string' named 'id'
@@ -36,4 +36,15 @@ When I append 'path' to 'pb'
 When I append 'id' to 'pb'
 Then print data
 Then I connect to 'pb' and send headers 'headers' and send object 'user_data' and do patch and output into 'http_result'
-`
+`;
+
+export const apiContract = (url: string) => `
+Rule unknown ignore
+
+Given I have a 'string' named 'pb'
+Given I have a 'string dictionary' named 'headers'
+When I write string '${url}' in 'path'
+When I append 'path' to 'pb'
+Then print data
+Then I connect to 'pb' and send headers 'headers' and do get and output into 'http_result'
+`;
