@@ -6,29 +6,35 @@
 @tailwind utilities;
 
 .ios {
-    --ion-safe-area-top: 28px;
-    --ion-safe-area-bottom: 16px;
+	--ion-safe-area-top: 28px;
+	--ion-safe-area-bottom: 16px;
 }
 
 body.barcode-scanner-active {
-    visibility: hidden;
-    --background: transparent;
-    --ion-background-color: transparent;
+	visibility: hidden;
+	--background: transparent;
+	--ion-background-color: transparent;
 }
 
 .barcode-scanner-modal {
-    visibility: visible;
+	visibility: visible;
 }
 
 @media (prefers-color-scheme: dark) {
-    .barcode-scanner-modal {
-        --background: transparent;
-        --ion-background-color: transparent;
-    }
+	.barcode-scanner-modal {
+		--background: transparent;
+		--ion-background-color: transparent;
+	}
+}
+
+.header-md {
+	box-shadow: none;
+	@apply py-3;
 }
 
 /** Ionic CSS Variables **/
 :root {
+	--ion-font-family: Poppins;
 	/** primary **/
 	--ion-color-primary: #3880ff;
 	--ion-color-primary-rgb: 56, 128, 255;
@@ -171,6 +177,17 @@ body.barcode-scanner-active {
 		--ion-color-light-contrast-rgb: 255, 255, 255;
 		--ion-color-light-shade: #1e2023;
 		--ion-color-light-tint: #383a3e;
+
+		--ion-background-color: linear-gradient(0deg, rgba(127, 89, 167, 0.20) 0%, rgba(127, 89, 167, 0.20) 100%), linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), #1F2A37;
+		--ion-background-color-rgb: 127, 89, 167;
+
+		--ion-text-color: #E8D2FF;
+		--ion-text-color-rgb: 232, 210, 255;
+
+		--ion-text-color: #EEE;
+		--ion-text-color-rgb: 238, 238, 238;
+
+		--ion-tab-bar-background: #1F2A37;
 	}
 
 	/*
@@ -179,11 +196,7 @@ body.barcode-scanner-active {
      */
 
 	.ios body {
-		--ion-background-color: #000000;
-		--ion-background-color-rgb: 0, 0, 0;
 
-		--ion-text-color: #ffffff;
-		--ion-text-color-rgb: 255, 255, 255;
 
 		--ion-color-step-50: #0d0d0d;
 		--ion-color-step-100: #1a1a1a;
@@ -222,12 +235,6 @@ body.barcode-scanner-active {
      */
 
 	.md body {
-		--ion-background-color: #121212;
-		--ion-background-color-rgb: 18, 18, 18;
-
-		--ion-text-color: #ffffff;
-		--ion-text-color-rgb: 255, 255, 255;
-
 		--ion-border-color: #222222;
 
 		--ion-color-step-50: #1e1e1e;
@@ -252,9 +259,8 @@ body.barcode-scanner-active {
 
 		--ion-item-background: #1e1e1e;
 
-		--ion-toolbar-background: #1f1f1f;
+		--ion-toolbar-background: none;
 
-		--ion-tab-bar-background: #1f1f1f;
 
 		--ion-card-background: #1e1e1e;
 	}
@@ -336,8 +342,8 @@ body.dark {
 }
 
 body.dark.ios {
-	--ion-background-color: #000000;
-	--ion-background-color-rgb: 0, 0, 0;
+	--ion-background-color: background: linear-gradient(0deg, rgba(127, 89, 167, 0.20) 0%, rgba(127, 89, 167, 0.20) 100%), linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), #1F2A37;
+	--ion-background-color-rgb: 127, 89, 167;
 
 	--ion-text-color: #ffffff;
 	--ion-text-color-rgb: 255, 255, 255;
@@ -374,8 +380,9 @@ body.dark.ios ion-modal {
 }
 
 body.dark.md {
-	--ion-background-color: #121212;
-	--ion-background-color-rgb: 18, 18, 18;
+	--ion-background-color: background: linear-gradient(0deg, rgba(127, 89, 167, 0.20) 0%, rgba(127, 89, 167, 0.20) 100%), linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), #1F2A37;
+	--ion-background-color-rgb: 127, 89, 167;
+
 
 	--ion-text-color: #ffffff;
 	--ion-text-color-rgb: 255, 255, 255;
@@ -410,4 +417,3 @@ body.dark.md {
 
 	--ion-card-background: #1e1e1e;
 }
-
