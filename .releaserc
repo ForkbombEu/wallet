@@ -1,0 +1,10 @@
+{
+  "repositoryUrl": "git@github.com:ForkbombEu/wallet.git",
+  "dryRun": false,
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+  ],
+  "branches": ["main"]
+}
