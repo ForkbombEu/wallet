@@ -41,6 +41,9 @@ dependencies:
   '@efstajas/svelte-stepper':
     specifier: ^0.1.5
     version: 0.1.5(svelte@4.0.5)
+  '@fontsource/poppins':
+    specifier: ^5.0.8
+    version: 5.0.8
   '@ionic/core':
     specifier: ^7.4.3
     version: 7.4.3
@@ -79,6 +82,9 @@ devDependencies:
   '@capacitor/cli':
     specifier: 5.4.2
     version: 5.4.2
+  '@faker-js/faker':
+    specifier: ^8.3.1
+    version: 8.3.1
   '@playwright/test':
     specifier: ^1.28.1
     version: 1.28.1
@@ -1666,6 +1672,15 @@ packages:
     os: [win32]
     requiresBuild: true
     optional: true
+
+  /@faker-js/faker@8.3.1:
+    resolution: {integrity: sha512-FdgpFxY6V6rLZE9mmIBb9hM0xpfvQOSNOLnzolzKwsE1DH+gC7lEKV1p1IbR0lAYyvYd5a4u3qWJzowUkw1bIw==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0, npm: '>=6.14.13'}
+    dev: true
+
+  /@fontsource/poppins@5.0.8:
+    resolution: {integrity: sha512-P8owfYWluoUY5Nyzk4gT/L6LmLmseP6ezFWhj6VBUa5pRIdnCvNJpoQ6i/vhekjtJOfqX6nKlB+LCttoUl2GQQ==}
+    dev: false
 
   /@ionic/cli-framework-output@2.2.7:
     resolution: {integrity: sha512-/BXeclqu3y+bsBF7VFRS9xtNbrXf2JYCj/LeJoyLpWA9PeXNfvFrn91W2lwS2HVDjEDWKl4Ye6edJDdtn76EnA==}

@@ -22,6 +22,7 @@
 	},
 	"devDependencies": {
 		"@capacitor/cli": "5.4.2",
+		"@faker-js/faker": "^8.3.1",
 		"@playwright/test": "^1.28.1",
 		"@semantic-release/changelog": "^6.0.3",
 		"@semantic-release/commit-analyzer": "^11.1.0",
@@ -60,6 +61,7 @@
 		"@capacitor/preferences": "^5.0.6",
 		"@capacitor/status-bar": "5.0.6",
 		"@efstajas/svelte-stepper": "^0.1.5",
+		"@fontsource/poppins": "^5.0.8",
 		"@ionic/core": "^7.4.3",
 		"@slangroom/core": "^1.6.0",
 		"@slangroom/http": "^1.6.0",
