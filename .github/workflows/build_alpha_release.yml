@@ -1,0 +1,120 @@
+name: Build alpha release
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  build_android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Setup java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: '17'
+      - name: Decode Keystore File
+        uses: timheuer/base64-to-file@v1
+        id: android_keystore
+        with:
+          fileName: android_keystore.keystore
+          encodedString: ${{ secrets.ANDROID_KEYSTORE_FILE }}
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
+      - uses: maierj/fastlane-action@v3.0.0
+        env:
+          KEYSTORE_PATH: ${{ steps.android_keystore.outputs.filePath }}
+          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
+        with:
+          lane: alpha
+      - run: mv release noctule.apk
+      - name: upload binary artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: wallet
+          path: |
+            release/wallet.apk
+
+  semantic-release:
+    permissions:
+      contents: write
+    needs: build_android
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    outputs:
+      release: ${{ steps.tag_release.outputs.release }}
+      version: ${{ steps.tag_release.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8
+      - name: Install deps
+        run: |
+          pnpm i
+      - name: Tag release
+        id: tag_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npx semantic-release >semantic-release.log
+          cat semantic-release.log
+          if [[ `git tag --points-at HEAD` == "" ]]; then
+            echo "release=False" >> $GITHUB_OUTPUT
+          else
+            echo "release=True" >> $GITHUB_OUTPUT
+            awk '/Published release/ { printf("version=v%s\n",$8) }' semantic-release.log >> $GITHUB_OUTPUT
+          fi
+          echo "Result"
+          cat $GITHUB_OUTPUT
+  
+  draft-release:
+    permissions:
+      contents: write
+    needs: semantic-release
+    runs-on: ubuntu-latest
+    if: ${{ needs.semantic-release.outputs.release == 'True' }}
+    steps:
+      - name: download binary artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: |
+            wallet-release
+      - name: relase all binary artifacts
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            wallet-release/wallet/*
+          draft: false
+          prerelease: false
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+          tag_name: ${{ needs.semantic-release.outputs.version }}
