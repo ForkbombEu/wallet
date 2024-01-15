@@ -53,6 +53,10 @@
 	};
 	const closeModal = () => (isModalOpen = false);
 	const openModal = () => (isModalOpen = true);
+	const request = () => {
+		isModalOpen = false;
+		goto('/r/request');
+	};
 </script>
 
 <ion-header>
@@ -87,8 +91,8 @@
 				<div class="ion-margin-top">
 					<ion-label>Over 18</ion-label>
 					<ion-label>Issued by Italian governament.</ion-label>
-					<br/>
-					<ion-button>Get this credential</ion-button>
+					<br />
+					<ion-button on:click={request} on:keydown={request} aria-hidden>Get this credential</ion-button>
 					<pre>{JSON.stringify(barcode, null, 2)}</pre>
 				</div>
 			{:else}
@@ -96,9 +100,9 @@
 					<ion-label>Over 18</ion-label>
 					<ion-label>Issued by Italian governament.</ion-label>
 					<ion-label>Ready for verification</ion-label>
-					<br/>
+					<br />
 					<ion-button>Confirm</ion-button>
-					<pre>{JSON.stringify(barcode,  null, 2)}</pre>
+					<pre>{JSON.stringify(barcode, null, 2)}</pre>
 				</div>
 			{/if}
 		</ion-content>
