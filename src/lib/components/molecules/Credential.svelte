@@ -1,9 +1,15 @@
+<script lang="ts">
+	export let content:string = "you looser";
+	export let title:string = "You have notghing";
+	export let action:string;
+
+</script>
 <div class="card">
-	<div class="text-center text-3xl">+</div>
+	<div class="text-center text-3xl">{action}</div>
 	<br />
-	<span class="c-title">You have nothing</span>
+	<span class="c-title">{title}</span>
 	<br />
-	<span class="c-content">You loser</span>
+	<span class="c-content">{content}</span>
 </div>
 
 <style lang="postcss">

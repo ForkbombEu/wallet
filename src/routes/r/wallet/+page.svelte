@@ -1,7 +1,13 @@
 <script lang="ts">
+	import TabPage from '$lib/components/organisms/TabPage.svelte';
+	import Credential from '$lib/components/molecules/Credential.svelte';
 	import { generateKeyring } from '$lib/zencodes';
 </script>
 
+<TabPage tabId="wallet" title="Your Credentials">
+	<Credential action="+"/>
+</TabPage>
+<!-- 
 <ion-tab tab="wallet">
 	<ion-header translucent={true}>
 		<ion-toolbar>
@@ -22,4 +28,4 @@
 			<p style="color: red">{error.message}</p>
 		{/await}
 	</ion-content>
-</ion-tab>
+</ion-tab> -->

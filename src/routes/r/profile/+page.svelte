@@ -1,10 +1,7 @@
 <script lang="ts">
+	import TabPage from '$lib/components/organisms/TabPage.svelte';
 </script>
 
-<ion-tab tab="profile">
-    <div slot="title">Profile</div>
-
-	<ion-content fullscreen class="ion-padding space-y-10">
-
-	</ion-content>
-</ion-tab>
+<TabPage tabId="profile" title="Profile">
+	pp
+</TabPage>
