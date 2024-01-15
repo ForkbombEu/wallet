@@ -1,16 +1,14 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { BarcodeScanner, BarcodeFormat, LensFacing, type Barcode } from '@capacitor-mlkit/barcode-scanning';
+	import { BarcodeScanner, type Barcode } from '@capacitor-mlkit/barcode-scanning';
 
 	let barcode: Barcode;
 	let isModalOpen: boolean;
-	$: {
-		if (barcode) {
-			// verify that the url matches the verifier pattern
-			isModalOpen = true;
-			// goto("/r/verify");
-		}
-	}
+	let randomNumber: number = 0;
+
+	const fakeResponse = () => {
+		randomNumber = Math.floor(Math.random() * 3);
+	};
 
 	const stopScan = async () => {
 		// Make all elements in the WebView visible again
@@ -24,10 +22,10 @@
 	};
 
 	const scanSingleBarcode = async () => {
-		await requestPermissions();
+		const allowed = await checkPermissions();
+		if (!allowed) await requestPermissions();
 		return new Promise(async (resolve) => {
 			document.querySelector('body')?.classList.add('barcode-scanner-active');
-
 			const listener = await BarcodeScanner.addListener('barcodeScanned', async (result) => {
 				await listener.remove();
 				document.querySelector('body')?.classList.remove('barcode-scanner-active');
@@ -39,20 +37,22 @@
 		});
 	};
 	const scan = () => {
+		fakeResponse();
 		scanSingleBarcode().then((result) => (barcode = result as Barcode));
+		openModal();
 	};
+
 	const checkPermissions = async () => {
 		const { camera } = await BarcodeScanner.checkPermissions();
 		return camera;
 	};
 
 	const requestPermissions = async () => {
-		console.log('Requesting permissions');
 		const { camera } = await BarcodeScanner.requestPermissions();
-		console.log(camera);
 		return camera;
 	};
 	const closeModal = () => (isModalOpen = false);
+	const openModal = () => (isModalOpen = true);
 </script>
 
 <ion-header>
@@ -67,23 +67,40 @@
 <ion-content>
 	<ion-card>
 		<ion-card-content>
-			<ion-button color="primary" expand="block" on:keydown={scan} on:click={scan} aria-hidden
-				>Scan Single Barcode</ion-button
-			>
-			<!-- {barcode.displayValue} -->
+			<ion-button color="primary" expand="block" on:keydown={scan} on:click={scan} aria-hidden>start scan</ion-button>
 		</ion-card-content>
 	</ion-card>
-	<ion-modal is-open={isModalOpen} initial-breakpoint={0.25} backdrop-dismiss={false} backdrop-breakpoint={0.5}>
+	<ion-modal is-open={isModalOpen} backdrop-dismiss={false} backdrop-breakpoint={0.8}>
 		<ion-content class="ion-padding">
 			<ion-toolbar>
-				<ion-title>Over 18</ion-title>
+				<ion-title>Results</ion-title>
 				<ion-buttons slot="end">
-					<ion-button color="light" on:click={closeModal} on:keydown={closeModal} aria-hidden> Close </ion-button>
+					<ion-button color="danger" on:click={closeModal} on:keydown={closeModal} aria-hidden>Close</ion-button>
 				</ion-buttons>
 			</ion-toolbar>
-			<div class="ion-margin-top">
-				<ion-label>Issued by Italian governament.</ion-label>
-			</div>
+			{#if (randomNumber = 0)}
+				<div class="ion-margin-top">
+					<ion-label>Invalid</ion-label>
+					<ion-label>Invalid qrCode</ion-label>
+				</div>
+			{:else if (randomNumber = 1)}
+				<div class="ion-margin-top">
+					<ion-label>Over 18</ion-label>
+					<ion-label>Issued by Italian governament.</ion-label>
+					<br/>
+					<ion-button>Get this credential</ion-button>
+					<pre>{JSON.stringify(barcode, null, 2)}</pre>
+				</div>
+			{:else}
+				<div class="ion-margin-top">
+					<ion-label>Over 18</ion-label>
+					<ion-label>Issued by Italian governament.</ion-label>
+					<ion-label>Ready for verification</ion-label>
+					<br/>
+					<ion-button>Confirm</ion-button>
+					<pre>{JSON.stringify(barcode,  null, 2)}</pre>
+				</div>
+			{/if}
 		</ion-content>
 	</ion-modal>
 </ion-content>
