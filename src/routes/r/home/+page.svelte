@@ -8,7 +8,7 @@
 <TabPage tabId="home" title="Available claims">
 	{#each fakeCredentials as credential}
 		<Card title={credential.title} content={credential.issuedBy}>
-			<ion-button href={`/r/request/${0}`}>Available</ion-button>
+			<ion-button href={`/r/request/`}>Available</ion-button>
 		</Card>
 	{/each}
 	<ScanButton />

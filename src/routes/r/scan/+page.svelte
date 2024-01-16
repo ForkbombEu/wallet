@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { BarcodeScanner, type Barcode } from '@capacitor-mlkit/barcode-scanning';
+	import { chevronBackOutline } from 'ionicons/icons';
 	import { fly } from 'svelte/transition';
 
 	let barcode: Barcode;
 	let isModalOpen: boolean;
 	let randomNumber: number = 0;
+	let controls: 'hidden' | 'visible' = 'hidden';
 
 	const fakeResponse = () => {
 		randomNumber = Math.floor(Math.random() * 3);
@@ -20,6 +22,8 @@
 
 		// Stop the barcode scanner
 		await BarcodeScanner.stopScan();
+
+		controls = "hidden"
 	};
 
 	const scanSingleBarcode = async () => {
@@ -27,6 +31,7 @@
 		if (!allowed) await requestPermissions();
 		return new Promise(async (resolve) => {
 			document.querySelector('body')?.classList.add('barcode-scanner-active');
+			controls = 'visible';
 			const listener = await BarcodeScanner.addListener('barcodeScanned', async (result) => {
 				await listener.remove();
 				document.querySelector('body')?.classList.remove('barcode-scanner-active');
@@ -39,8 +44,10 @@
 	};
 	const scan = () => {
 		fakeResponse();
-		scanSingleBarcode().then((result) => (barcode = result as Barcode));
-		openModal();
+		scanSingleBarcode().then((result) => {
+			barcode = result as Barcode;
+			openModal();
+		});
 	};
 
 	const checkPermissions = async () => {
@@ -70,8 +77,19 @@
 </ion-header>
 
 <ion-content>
+	<div class={`${controls} w-full py-8`}>
+		<ion-button on:click={stopScan} on:keydown={stopScan} aria-hidden class="opacity-50" 
+			><ion-icon icon={chevronBackOutline} slot="icon-only" /></ion-button
+		>
+	</div>
 	<ion-button color="primary" expand="block" on:keydown={scan} on:click={scan} aria-hidden>start scan</ion-button>
-	<ion-modal is-open={isModalOpen} backdrop-dismiss={false} initial-breakpoint={0.6} backdrop-breakpoint={0.8} transition:fly>
+	<ion-modal
+		is-open={isModalOpen}
+		backdrop-dismiss={false}
+		initial-breakpoint={0.6}
+		backdrop-breakpoint={0.8}
+		transition:fly
+	>
 		<ion-content class="ion-padding">
 			<ion-toolbar>
 				<ion-title>Results</ion-title>
