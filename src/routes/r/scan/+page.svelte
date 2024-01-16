@@ -85,7 +85,7 @@
 			{#if (randomNumber = 0)}
 				<div class="ion-margin-top">
 					<ion-label>Invalid</ion-label>
-					<ion-label>Invalid qrCode</ion-label>
+					<ion-label>Invalid qr code</ion-label>
 				</div>
 			{:else if (randomNumber = 1)}
 				<div class="ion-margin-top">

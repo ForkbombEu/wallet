@@ -3,15 +3,16 @@
 	import { qrCode } from 'ionicons/icons';
 </script>
 
-<ion-fab-button>
-	<ion-icon icon={qrCode} on:click={() => goto('/r/scan')} class="nob" translucent/>
+<ion-fab-button href='/r/scan'>
+	<ion-icon icon={qrCode} translucent/>
 </ion-fab-button>
 
 <style lang="postcss">
 	ion-fab-button {
         --border-radius:10%;
-        position: absolute;
+		opacity: 0.8;
+        position: fixed;
         right:20px;
-        bottom: 80px;
+        bottom: 40px;
 	}
 </style>

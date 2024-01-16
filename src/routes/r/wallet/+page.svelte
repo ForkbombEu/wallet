@@ -1,11 +1,15 @@
 <script lang="ts">
 	import TabPage from '$lib/components/organisms/TabPage.svelte';
-	import Credential from '$lib/components/molecules/Credential.svelte';
-	import { generateKeyring } from '$lib/zencodes';
 	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
+	import Card from '$lib/components/molecules/Card.svelte';
+	import fakeCredentials from '$lib/fakeCredentials';
 </script>
 
 <TabPage tabId="wallet" title="Your Credentials">
-	<Credential action="+"/>
-	<ScanButton/>
+	{#each fakeCredentials as credential}
+		<Card title={credential.title} content={credential.issuedBy}>
+			<ion-button href={`/r/scan`}>Verify</ion-button>
+		</Card>
+	{/each}
+	<ScanButton />
 </TabPage>
