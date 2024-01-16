@@ -6,7 +6,7 @@
 
 	let barcode: Barcode;
 	let isModalOpen: boolean;
-	let randomNumber: number = 0;
+	let randomNumber: number;
 	let controls: 'hidden' | 'visible' = 'hidden';
 
 	const fakeResponse = () => {
@@ -23,7 +23,7 @@
 		// Stop the barcode scanner
 		await BarcodeScanner.stopScan();
 
-		controls = "hidden"
+		controls = 'hidden';
 	};
 
 	const scanSingleBarcode = async () => {
@@ -78,7 +78,7 @@
 
 <ion-content>
 	<div class={`${controls} w-full py-8`}>
-		<ion-button on:click={stopScan} on:keydown={stopScan} aria-hidden class="opacity-50" 
+		<ion-button on:click={stopScan} on:keydown={stopScan} aria-hidden class="opacity-50"
 			><ion-icon icon={chevronBackOutline} slot="icon-only" /></ion-button
 		>
 	</div>
@@ -90,6 +90,7 @@
 		backdrop-breakpoint={0.8}
 		transition:fly
 	>
+		<hr />
 		<ion-content class="ion-padding">
 			<ion-toolbar>
 				<ion-title>Results</ion-title>
@@ -97,22 +98,22 @@
 					<ion-button color="danger" on:click={closeModal} on:keydown={closeModal} aria-hidden>Close</ion-button>
 				</ion-buttons>
 			</ion-toolbar>
-			{#if (randomNumber = 0)}
-				<div class="ion-margin-top">
-					<ion-label>Invalid</ion-label>
+			{#if (randomNumber == 0)}
+				<div class="mt-4 flex flex-col gap-2">
+					<ion-title>Invalid</ion-title>
 					<ion-label>Invalid qr code</ion-label>
 				</div>
-			{:else if (randomNumber = 1)}
-				<div class="ion-margin-top">
-					<ion-label>Over 18</ion-label>
+			{:else if (randomNumber == 1)}
+				<div class="mt-4 flex flex-col gap-2">
+					<ion-title>Over 18</ion-title>
 					<ion-label>Issued by Italian governament.</ion-label>
 					<br />
 					<ion-button on:click={request} on:keydown={request} aria-hidden>Get this credential</ion-button>
 					<!-- <pre>{JSON.stringify(barcode, null, 2)}</pre> -->
 				</div>
 			{:else}
-				<div class="ion-margin-top">
-					<ion-label>Over 18</ion-label>
+				<div class="mt-4 flex flex-col gap-2">
+					<ion-title>Over 18</ion-title>
 					<ion-label>Issued by Italian governament.</ion-label>
 					<ion-label>Ready for verification</ion-label>
 					<br />
