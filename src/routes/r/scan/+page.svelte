@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { BarcodeScanner, type Barcode } from '@capacitor-mlkit/barcode-scanning';
+	import { fly } from 'svelte/transition';
 
 	let barcode: Barcode;
 	let isModalOpen: boolean;
@@ -64,17 +65,13 @@
 		<ion-buttons slot="start">
 			<ion-back-button />
 		</ion-buttons>
-		<ion-title>Qrcode Scanning</ion-title>
+		<ion-title>Claim o verify credential</ion-title>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-	<ion-card>
-		<ion-card-content>
-			<ion-button color="primary" expand="block" on:keydown={scan} on:click={scan} aria-hidden>start scan</ion-button>
-		</ion-card-content>
-	</ion-card>
-	<ion-modal is-open={isModalOpen} backdrop-dismiss={false} backdrop-breakpoint={0.8}>
+	<ion-button color="primary" expand="block" on:keydown={scan} on:click={scan} aria-hidden>start scan</ion-button>
+	<ion-modal is-open={isModalOpen} backdrop-dismiss={false} initial-breakpoint={0.6} backdrop-breakpoint={0.8} transition:fly>
 		<ion-content class="ion-padding">
 			<ion-toolbar>
 				<ion-title>Results</ion-title>
@@ -93,7 +90,7 @@
 					<ion-label>Issued by Italian governament.</ion-label>
 					<br />
 					<ion-button on:click={request} on:keydown={request} aria-hidden>Get this credential</ion-button>
-					<pre>{JSON.stringify(barcode, null, 2)}</pre>
+					<!-- <pre>{JSON.stringify(barcode, null, 2)}</pre> -->
 				</div>
 			{:else}
 				<div class="ion-margin-top">
@@ -102,7 +99,7 @@
 					<ion-label>Ready for verification</ion-label>
 					<br />
 					<ion-button>Confirm</ion-button>
-					<pre>{JSON.stringify(barcode, null, 2)}</pre>
+					<!-- <pre>{JSON.stringify(barcode, null, 2)}</pre> -->
 				</div>
 			{/if}
 		</ion-content>
