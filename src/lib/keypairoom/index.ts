@@ -5,6 +5,8 @@ import keypairoomClientRecreateKeys from '../../../zenflows-crypto/src/keypairoo
 import keypairoomGenerateHMAC from '../../../zenflows-crypto/src/keypairoomServer-6-7.zen?raw';
 //
 
+export const KEYRING_PREFERENCES_KEY = 'keyring';
+
 export interface Keyring {
 	eddsa: string;
 	ethereum: string;
@@ -22,7 +24,6 @@ export interface Keypair {
 	reflow_public_key: string;
 	ethereum_address: string;
 }
-
 
 //
 
