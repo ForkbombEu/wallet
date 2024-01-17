@@ -1,3 +1,0 @@
-[submodule "zenflows-crypto"]
-	path = zenflows-crypto
-	url = git@github.com:interfacerproject/zenflows-crypto.git
