@@ -1,7 +1,7 @@
 <script lang="ts">
 	import TextInput from '$lib/forms/textInput.svelte';
 	import { superForm, superValidateSync } from 'sveltekit-superforms/client';
-	import { generateKeypair } from '$lib/keypairoom/keypair';
+	import { generateKeypair } from '$lib/keypairoom';
 	import { userAnswersSchema, userQuestions } from '$lib/keypairoom/userQuestions';
 	import { setPreference } from '$lib/preferences/prefereces';
 	import { goto } from '$app/navigation';
@@ -32,7 +32,7 @@
 		try {
 			setPreference('keyring', JSON.stringify(keypair), true);
 			goto('/r/wallet');
-		} catch(e) {
+		} catch (e) {
 			goto('/login');
 		}
 	};

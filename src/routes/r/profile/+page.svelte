@@ -3,7 +3,7 @@
 
 	import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 	import { getStructuredPreferences } from '$lib/preferences/prefereces';
-	import type { Keypair } from '$lib/keypairoom/keypair';
+	import type { Keypair } from '$lib/keypairoom';
 
 	const getKeypair = getStructuredPreferences<Keypair>('keyring', true);
 </script>
