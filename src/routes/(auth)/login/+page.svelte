@@ -3,7 +3,7 @@
 	import Logo from '$lib/components/atoms/Logo.svelte';
 	import { z } from 'zod';
 	import { Form, createForm } from '$lib/forms';
-	import Input from '$lib/ionic/input.svelte';
+	import Input from '$lib/ionic/forms/input.svelte';
 
 	const schema = z.object({
 		email: z.string().email(),
