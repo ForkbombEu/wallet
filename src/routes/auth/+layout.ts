@@ -4,5 +4,5 @@ import { redirect } from '@sveltejs/kit';
 
 export const load = async () => {
 	const keyring = await getPreference(KEYRING_PREFERENCES_KEY);
-	if (Boolean(keyring)) throw redirect(303, '/home');
+	if (Boolean(keyring)) throw redirect(303, '/r/wallet');
 };
