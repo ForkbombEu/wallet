@@ -15,7 +15,7 @@
 		"format": "prettier --plugin-search-dir . --write .",
 		"ionic:build": "npm run build",
 		"ionic:serve": "npm run dev -- --host",
-		"ios": "ionic cap run ios -l",
+		"ios": "ionic cap run ios -l --external",
 		"android": "ionic cap run android -l --external",
 		"apk": "ionic capacitor copy android && cd android && ./gradlew assembleDebug && ./gradlew installDebug && cd ..",
 		"web": "ionic serve"

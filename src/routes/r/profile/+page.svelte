@@ -13,5 +13,6 @@
 		<br />
 		<ion-label>Public Key:</ion-label>
 		<div class="select-all p-1 bg-slate-400 border-slate-700 border-2 rounded-md">63FaC9201494f0bd17B9892B9fae4d52fe3BD377</div>
+    <ion-button href="/r/logout">Logout</ion-button>
 	</div>
 </TabPage>
