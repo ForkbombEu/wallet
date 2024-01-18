@@ -4,9 +4,9 @@
 	import type { AnyZodObject } from 'zod';
 
 	type SchemaGeneric = $$Generic<AnyZodObject>;
-	export let superform: SuperformGeneric<SchemaGeneric>;
+	export let form: SuperformGeneric<SchemaGeneric>;
 
-	const { errors } = superform;
+	const { errors } = form;
 
 	$: errorMessage = getFormErrorMessage($errors);
 
