@@ -1,24 +1,20 @@
 <script lang="ts">
-	import { BarcodeScanner, BarcodeFormat, LensFacing, type Barcode } from '@capacitor-mlkit/barcode-scanning';
+	import { goto } from '$app/navigation';
+	import { BarcodeScanner, type Barcode } from '@capacitor-mlkit/barcode-scanning';
+	import { chevronBackOutline } from 'ionicons/icons';
+	import { onMount } from 'svelte';
+	import { fly } from 'svelte/transition';
 
-    let barcodes:Barcode[]
-	const startScan = async () => {
-		await requestPermissions()
-		// The camera is visible behind the WebView, so that you can customize the UI in the WebView.
-		// However, this means that you have to hide all elements that should not be visible.
-		// You can find an example in our demo repository.
-		// In this case we set a class `barcode-scanner-active`, which then contains certain CSS rules for our app.
-		document.querySelector('body')?.classList.add('barcode-scanner-active');
+	let barcode: Barcode;
+	let isModalOpen: boolean;
+	let randomNumber: number;
 
-		// Add the `barcodeScanned` listener
-		const listener = await BarcodeScanner.addListener('barcodeScanned', async (result) => {
-			console.log(result.barcode);
-            barcodes.push(result.barcode);
-		});
-
-		// Start the barcode scanner
-		await BarcodeScanner.startScan();
+	const fakeResponse = () => {
+		randomNumber = Math.floor(Math.random() * 3);
 	};
+	onMount(async () => {
+		scan()
+	});
 
 	const stopScan = async () => {
 		// Make all elements in the WebView visible again
@@ -29,12 +25,16 @@
 
 		// Stop the barcode scanner
 		await BarcodeScanner.stopScan();
+
+		goto("/r/home")
 	};
 
 	const scanSingleBarcode = async () => {
+		const allowed = await checkPermissions();
+		if (!allowed) await requestPermissions();
 		return new Promise(async (resolve) => {
 			document.querySelector('body')?.classList.add('barcode-scanner-active');
-
+			// controls = 'visible';
 			const listener = await BarcodeScanner.addListener('barcodeScanned', async (result) => {
 				await listener.remove();
 				document.querySelector('body')?.classList.remove('barcode-scanner-active');
@@ -42,56 +42,15 @@
 				resolve(result.barcode);
 			});
 
-			await BarcodeScanner.startScan();
+			await BarcodeScanner.startScan(); //
 		});
 	};
-
-	const scan = async () => {
-		const { barcodes } = await BarcodeScanner.scan({
-			formats: [BarcodeFormat.QrCode]
-			// lensFacing: LensFacing.Back,
+	const scan = () => {
+		fakeResponse();
+		scanSingleBarcode().then((result) => {
+			barcode = result as Barcode;
+			openModal();
 		});
-		return barcodes;
-	};
-
-	const isSupported = async () => {
-		const { supported } = await BarcodeScanner.isSupported();
-		return supported;
-	};
-
-	const enableTorch = async () => {
-		await BarcodeScanner.enableTorch();
-	};
-
-	const disableTorch = async () => {
-		await BarcodeScanner.disableTorch();
-	};
-
-	const toggleTorch = async () => {
-		await BarcodeScanner.toggleTorch();
-	};
-
-	const isTorchEnabled = async () => {
-		const { enabled } = await BarcodeScanner.isTorchEnabled();
-		return enabled;
-	};
-
-	const isTorchAvailable = async () => {
-		const { available } = await BarcodeScanner.isTorchAvailable();
-		return available;
-	};
-
-	const openSettings = async () => {
-		await BarcodeScanner.openSettings();
-	};
-
-	const isGoogleBarcodeScannerModuleAvailable = async () => {
-		const { available } = await BarcodeScanner.isGoogleBarcodeScannerModuleAvailable();
-		return available;
-	};
-
-	const installGoogleBarcodeScannerModule = async () => {
-		await BarcodeScanner.installGoogleBarcodeScannerModule();
 	};
 
 	const checkPermissions = async () => {
@@ -100,32 +59,73 @@
 	};
 
 	const requestPermissions = async () => {
-		console.log("Requesting permissions")
 		const { camera } = await BarcodeScanner.requestPermissions();
-		console.log(camera)
 		return camera;
+	};
+	const closeModal = () => {
+		isModalOpen = false;
+		scan();
+	}
+	const openModal = () => (isModalOpen = true);
+	const request = () => {
+		isModalOpen = false;
+		goto('/r/request');
 	};
 </script>
 
-<ion-header>
+<ion-header class="visible">
 	<ion-toolbar>
 		<ion-buttons slot="start">
 			<ion-back-button />
 		</ion-buttons>
-		<ion-title>Qrcode Scanning</ion-title>
+		<ion-title>Claim o verify credential</ion-title>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card>
-        <ion-card-content>
-            <ion-button
-            color="primary"
-            expand="block"
-            on:keydown={startScan}
-            on:click={startScan}
-            aria-hidden
-            >Scan Single Barcode</ion-button>
-        </ion-card-content>
-    </ion-card>
+	<div class={`visible w-full py-8`}>
+		<ion-button on:click={stopScan} on:keydown={stopScan} aria-hidden class="opacity-50"
+			><ion-icon icon={chevronBackOutline} slot="icon-only" /></ion-button
+		>
+	</div>
+	<ion-modal
+		is-open={isModalOpen}
+		backdrop-dismiss={false}
+		initial-breakpoint={0.6}
+		backdrop-breakpoint={0.8}
+		transition:fly
+		class="visible"
+	>
+		<hr />
+		<ion-content class="ion-padding visible">
+			<ion-toolbar>
+				<ion-title>Results</ion-title>
+				<ion-buttons slot="end">
+					<ion-button color="danger" on:click={closeModal} on:keydown={closeModal} aria-hidden>Close</ion-button>
+				</ion-buttons>
+			</ion-toolbar>
+			{#if (randomNumber == 0)}
+				<div class="mt-4 flex flex-col gap-2">
+					<ion-title>Invalid</ion-title>
+					<ion-label>Invalid qr code</ion-label>
+				</div>
+			{:else if (randomNumber == 1)}
+				<div class="mt-4 flex flex-col gap-2">
+					<ion-title>Over 18</ion-title>
+					<ion-label>Issued by Italian governament.</ion-label>
+					<br />
+					<ion-button on:click={request} on:keydown={request} aria-hidden>Get this credential</ion-button>
+				</div>
+			{:else}
+				<div class="mt-4 flex flex-col gap-2">
+					<ion-title>Over 18</ion-title>
+					<ion-label>Issued by Italian governament.</ion-label>
+					<ion-label>Ready for verification</ion-label>
+					<br />
+					<ion-button>Confirm</ion-button>
+					<!-- <pre>{JSON.stringify(barcode, null, 2)}</pre> -->
+				</div>
+			{/if}
+		</ion-content>
+	</ion-modal>
 </ion-content>
