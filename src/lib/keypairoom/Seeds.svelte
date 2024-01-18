@@ -2,7 +2,7 @@
 	import TextInput from '$lib/forms/textInput.svelte';
 	import { superForm, superValidateSync } from 'sveltekit-superforms/client';
 	import { regenerateKeypair } from '$lib/keypairoom';
-	import { setPreference } from '$lib/preferences/prefereces';
+	import { setPreference } from '$lib/preferences';
 	import { goto } from '$app/navigation';
 	import { z } from 'zod';
 
@@ -32,7 +32,7 @@
 	const submit = async () => {
 		const keypair = await regenerateKeypair($form.email!, $form.seed!);
 		setPreference('keyring', JSON.stringify(keypair));
-		goto('/r/wallet');
+		goto('/wallet');
 	};
 </script>
 

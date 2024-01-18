@@ -3,7 +3,7 @@
 	import { faker } from '@faker-js/faker';
 </script>
 
-i<TabPage tabId="notifications" title="My notifications">
+<TabPage tabId="notifications" title="My notifications">
 	<ion-list>
 		<ion-list-header>Recent Conversations</ion-list-header>
 		{#each Array(10) as _}
