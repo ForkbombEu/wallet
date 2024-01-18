@@ -1,25 +1,15 @@
 <script lang="ts">
-	import { generateKeyring } from '$lib/zencodes';
+	import TabPage from '$lib/components/organisms/TabPage.svelte';
+	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
+	import Card from '$lib/components/molecules/Card.svelte';
+	import fakeCredentials from '$lib/fakeCredentials';
 </script>
 
-<ion-tab tab="wallet">
-	<ion-header translucent={true}>
-		<ion-toolbar>
-			<ion-buttons slot="start">
-				<ion-menu-button />
-				<ion-back-button default-href="/services" />
-			</ion-buttons>
-			<ion-title>Wallet</ion-title>
-		</ion-toolbar>
-	</ion-header>
-
-	<ion-content fullscreen class="ion-padding">
-		{#await generateKeyring()}
-			<p>...waiting</p>
-		{:then keyring}
-			<pre>{keyring}</pre>
-		{:catch error}
-			<p style="color: red">{error.message}</p>
-		{/await}
-	</ion-content>
-</ion-tab>
+<TabPage tabId="wallet" title="Your Credentials">
+	{#each fakeCredentials as credential}
+		<Card title={credential.title} content={credential.issuedBy}>
+			<ion-button href={`/r/scan`}>Verify</ion-button>
+		</Card>
+	{/each}
+	<ScanButton />
+</TabPage>
