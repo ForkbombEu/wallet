@@ -1,5 +1,5 @@
 import { KEYRING_PREFERENCES_KEY } from '$lib/keypairoom';
-import { getPreference } from '$lib/preferences/prefereces';
+import { getPreference } from '$lib/preferences';
 import { redirect } from '@sveltejs/kit';
 
 export const load = async () => {

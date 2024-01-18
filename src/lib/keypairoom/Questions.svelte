@@ -3,7 +3,7 @@
 	import { superForm, superValidateSync } from 'sveltekit-superforms/client';
 	import { generateKeypair } from '$lib/keypairoom';
 	import { userAnswersSchema, userQuestions } from '$lib/keypairoom/userQuestions';
-	import { setPreference } from '$lib/preferences/prefereces';
+	import { setPreference } from '$lib/preferences';
 	import { goto } from '$app/navigation';
 
 	const schemaValidated = superValidateSync({}, userAnswersSchema, { errors: false });
