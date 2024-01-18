@@ -45,7 +45,7 @@
 	}
 </script>
 
-<FieldController {superform} {fieldPath} let:value let:updateValue let:errors let:errorText>
+<FieldController form={superform} {fieldPath} let:value let:updateValue let:errors let:errorText>
 	{#if schema.enum}
 		<svelte:component this={fieldWrapper}>
 			<ion-select
