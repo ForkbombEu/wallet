@@ -50,7 +50,7 @@ jobs:
           KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
         with:
           lane: alpha
-      - run: mv release noctule.apk
+      - run: mv release wallet.apk
       - name: upload binary artifacts
         uses: actions/upload-artifact@v4
         with:
