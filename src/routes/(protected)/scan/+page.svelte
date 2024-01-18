@@ -13,7 +13,7 @@
 		randomNumber = Math.floor(Math.random() * 3);
 	};
 	onMount(async () => {
-		scan()
+		scan();
 	});
 
 	const stopScan = async () => {
@@ -26,7 +26,7 @@
 		// Stop the barcode scanner
 		await BarcodeScanner.stopScan();
 
-		goto("/r/home")
+		goto('/home');
 	};
 
 	const scanSingleBarcode = async () => {
@@ -65,11 +65,11 @@
 	const closeModal = () => {
 		isModalOpen = false;
 		scan();
-	}
+	};
 	const openModal = () => (isModalOpen = true);
 	const request = () => {
 		isModalOpen = false;
-		goto('/r/request');
+		goto('/request');
 	};
 </script>
 
@@ -104,12 +104,12 @@
 					<ion-button color="danger" on:click={closeModal} on:keydown={closeModal} aria-hidden>Close</ion-button>
 				</ion-buttons>
 			</ion-toolbar>
-			{#if (randomNumber == 0)}
+			{#if randomNumber == 0}
 				<div class="mt-4 flex flex-col gap-2">
 					<ion-title>Invalid</ion-title>
 					<ion-label>Invalid qr code</ion-label>
 				</div>
-			{:else if (randomNumber == 1)}
+			{:else if randomNumber == 1}
 				<div class="mt-4 flex flex-col gap-2">
 					<ion-title>Over 18</ion-title>
 					<ion-label>Issued by Italian governament.</ion-label>

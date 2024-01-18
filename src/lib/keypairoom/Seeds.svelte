@@ -32,7 +32,7 @@
 	const submit = async () => {
 		const keypair = await regenerateKeypair($form.email!, $form.seed!);
 		setPreference('keyring', JSON.stringify(keypair));
-		goto('/r/wallet');
+		goto('/wallet');
 	};
 </script>
 

@@ -1,14 +1,14 @@
 <script lang="ts">
-	import Card from '$lib/components/molecules/Card.svelte';
-	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
 	import TabPage from '$lib/components/organisms/TabPage.svelte';
+	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
+	import Card from '$lib/components/molecules/Card.svelte';
 	import fakeCredentials from '$lib/fakeCredentials';
 </script>
 
-<TabPage tabId="home" title="Available claims">
+<TabPage tabId="wallet" title="Your Credentials">
 	{#each fakeCredentials as credential}
 		<Card title={credential.title} content={credential.issuedBy}>
-			<ion-button href={`/r/request/`}>Available</ion-button>
+			<ion-button href="/scan">Verify</ion-button>
 		</Card>
 	{/each}
 	<ScanButton />

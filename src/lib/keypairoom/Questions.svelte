@@ -31,9 +31,9 @@
 		const keypair = await generateKeypair($form);
 		try {
 			setPreference('keyring', JSON.stringify(keypair), true);
-			goto('/r/wallet');
+			goto('/wallet');
 		} catch (e) {
-			goto('/login');
+			goto('/auth');
 		}
 	};
 </script>
