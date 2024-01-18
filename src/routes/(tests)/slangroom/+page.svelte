@@ -1,5 +1,5 @@
 <script lang="ts">
-	import TextInput from '$lib/forms/textInput.svelte';
+	import TextInput from '$lib/ionic/forms/input.svelte';
 	import * as slangroom from '$lib/slangroom';
 	import { superForm, superValidateSync } from 'sveltekit-superforms/client';
 	import { z } from 'zod';
@@ -76,10 +76,12 @@
 
 	<ion-content fullscreen class="ion-padding">
 		<h1 class="mb-10 text-3xl font-bold">Test Slangroom calls</h1>
+
+		<!-- TODO - implement <Form /> component -->
 		<form on:submit={login}>
 			<ion-list lines="full" class="ion-no-margin ion-no-padding">
-				<TextInput type="email" label="email" name="email" {form} {errors} />
-				<TextInput type="password" label="password" name="password" {form} {errors} />
+				<!-- <TextInput type="email" label="email" name="email" {form} {errors} />
+				<TextInput type="password" label="password" name="password" {form} {errors} /> -->
 			</ion-list>
 
 			<ion-button role="button" type="submit" tabindex={0}>login</ion-button>
