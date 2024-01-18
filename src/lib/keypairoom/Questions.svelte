@@ -33,7 +33,7 @@
 			setPreference('keyring', JSON.stringify(keypair), true);
 			goto('/wallet');
 		} catch (e) {
-			goto('/auth');
+			goto('/register');
 		}
 	};
 </script>
