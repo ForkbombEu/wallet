@@ -29,4 +29,6 @@
 			System error: {someError.message}.
 		{/await}
 	</ion-content>
+
+	<ion-button href="/r/logout">Logout</ion-button>
 </ion-tab>
