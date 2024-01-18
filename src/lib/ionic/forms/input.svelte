@@ -13,6 +13,7 @@
 	export let type: 'email' | 'text' | 'password' = 'text';
 	export let label: string | undefined = undefined;
 	export let helperText: string | undefined = undefined;
+	export let placeholder: string | undefined = undefined;
 </script>
 
 <FieldController {form} {fieldPath} let:value let:errorText let:updateValue>
@@ -20,6 +21,7 @@
 		{type}
 		name={fieldPath}
 		{label}
+		{placeholder}
 		helper-text={helperText}
 		error-text={errorText}
 		class:ion-invalid={errorText}
