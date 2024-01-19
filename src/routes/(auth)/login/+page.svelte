@@ -1,8 +1,3 @@
-<script lang="ts" context="module">
-	import { writable } from 'svelte/store';
-	export const userEmailStore = writable<string | undefined>();
-</script>
-
 <script lang="ts">
 	import { IonPage } from 'ionic-svelte';
 	import Logo from '$lib/components/atoms/Logo.svelte';
@@ -11,6 +6,7 @@
 	import Input from '$lib/ionic/forms/input.svelte';
 	import SubmitButton from '$lib/ionic/forms/submitButton.svelte';
 	import { goto } from '$app/navigation';
+	import { userEmailStore } from './_lib';
 
 	//
 

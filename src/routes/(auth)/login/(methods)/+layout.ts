@@ -1,6 +1,6 @@
 import { get } from 'svelte/store';
-import { userEmailStore } from '../+page.svelte';
 import { redirect } from '@sveltejs/kit';
+import { userEmailStore } from '../_lib';
 
 export const load = async () => {
 	const userEmail = get(userEmailStore);
