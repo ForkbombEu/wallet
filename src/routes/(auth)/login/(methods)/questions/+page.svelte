@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { generateKeypair, type UserChallengesAnswers } from '$lib/keypairoom';
 	import { setPreference } from '$lib/preferences';
-	import { goto } from '$app/navigation';
 	import { Form, createForm } from '$lib/forms';
 	import { Input } from '$lib/ionic/forms';
 	import FormError from '$lib/forms/formError.svelte';
@@ -10,11 +9,16 @@
 	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
 	import TEE from '$lib/nativeHooks/TEEPlugin';
 	import { KEYRING_PREFERENCES_KEY } from '$lib/utils/constants';
+	import CopyButton from '$lib/components/copyButton.svelte';
 
 	//
 
 	export let data;
 	let { userEmail } = data;
+
+	//
+
+	let seed: string | undefined = undefined;
 
 	//
 
@@ -53,7 +57,19 @@
 				const keypair = await generateKeypair(userEmail, formattedAnswers as UserChallengesAnswers);
 				await TEE.generateKey();
 				await setPreference(KEYRING_PREFERENCES_KEY, JSON.stringify(keypair), true);
-				goto('/wallet');
+				seed = keypair.seed;
+
+				/**
+				 * Note
+				 *
+				 * It seems that setting a preference reloads the app
+				 * it re-runs all the load functions
+				 *
+				 * This means that once the keyring preference is set
+				 * login/+layout  in throws the user inside /wallet
+				 *
+				 * For this reason, that layout is temp commented
+				 */
 			} catch (e) {
 				throw new Error('KEYPAIR_GENERATION_ERROR');
 			}
@@ -71,32 +87,56 @@
 	}
 </script>
 
-<Form {form}>
-	<div class="space-y-6">
-		<div class="space-y-3">
-			{#each questions as question}
-				<Input {form} fieldPath={question.id} label={question.text} />
-			{/each}
-		</div>
+{#if !seed}
+	<Form {form}>
+		<div class="space-y-6">
+			<div class="space-y-3">
+				{#each questions as question}
+					<Input {form} fieldPath={question.id} label={question.text} />
+				{/each}
+			</div>
 
-		<FormError {form} let:errorMessage>
-			<ion-item>
-				<ion-text color="danger">
-					{errorMessage}
+			<FormError {form} let:errorMessage>
+				<ion-item>
+					<ion-text color="danger">
+						{errorMessage}
+					</ion-text>
+				</ion-item>
+			</FormError>
+
+			<div class="flex justify-end">
+				<ion-button role="button" type="submit" tabindex={0}>login</ion-button>
+			</div>
+
+			<hr />
+
+			<div>
+				<ion-text color="secondary">
+					<a href="/login/passphrase" class="text-sm">Login with your passphrase? Tap here</a>
 				</ion-text>
-			</ion-item>
-		</FormError>
-
-		<div class="flex justify-end">
-			<ion-button role="button" type="submit" tabindex={0}>login</ion-button>
+			</div>
 		</div>
-
-		<hr />
+	</Form>
+{:else}
+	<div class="space-y-6">
+		<h1 class="text-lg font-bold">Keypair creation successful!</h1>
 
 		<div>
-			<ion-text color="secondary">
-				<a href="/login/passphrase" class="text-sm">Login with your passphrase? Tap here</a>
+			<ion-text>
+				Please store this in a safe place to recover your account in the future, this passphrase will be shown only one
+				time!
 			</ion-text>
 		</div>
+
+		<div class="rounded-lg border border-white p-4 font-mono">
+			<div>
+				{seed}
+			</div>
+			<div class="flex justify-end pt-4">
+				<CopyButton textToCopy={seed}>Copy seed</CopyButton>
+			</div>
+		</div>
+
+		<ion-button href="/wallet" expand="full">Go to wallet</ion-button>
 	</div>
-</Form>
+{/if}
