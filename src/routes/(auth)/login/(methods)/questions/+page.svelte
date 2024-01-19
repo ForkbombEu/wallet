@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { generateKeypair } from '$lib/keypairoom';
+	import { generateKeypair, type UserChallengesAnswers } from '$lib/keypairoom';
 	import { setPreference } from '$lib/preferences';
 	import { goto } from '$app/navigation';
 	import { Form, createForm } from '$lib/forms';
@@ -8,6 +8,13 @@
 
 	import { z } from 'zod';
 	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
+	import TEE from '$lib/nativeHooks/TEEPlugin';
+	import { KEYRING_PREFERENCES_KEY } from '$lib/utils/constants';
+
+	//
+
+	export let data;
+	let { userEmail } = data;
 
 	//
 
@@ -41,20 +48,27 @@
 	const form = createForm({
 		schema: answersSchema,
 		onSubmit: async ({ form }) => {
-			let data = form.data;
-			for (let [key, value] of Object.entries(data)) {
-				//@ts-ignore
-				if (!value) data[key] = 'null';
-			}
-			// const keypair = await generateKeypair(data);
 			try {
-				// setPreference('keyring', JSON.stringify(keypair), true);
+				const formattedAnswers = convertUndefinedToNullString(form.data);
+				const keypair = await generateKeypair(userEmail, formattedAnswers as UserChallengesAnswers);
+				await TEE.generateKey();
+				await setPreference(KEYRING_PREFERENCES_KEY, JSON.stringify(keypair), true);
 				goto('/wallet');
 			} catch (e) {
-				goto('/register');
+				throw new Error('KEYPAIR_GENERATION_ERROR');
 			}
 		}
 	});
+
+	// Zencode requires undefined js value in input data to be set as 'null' (as a string)
+	function convertUndefinedToNullString<T>(record: Record<string, T | undefined>): Record<string, T> {
+		const newRecord: Record<string, T> = {};
+		for (const [key, value] of Object.entries(record)) {
+			// @ts-ignore
+			newRecord[key] = value || 'null';
+		}
+		return newRecord;
+	}
 </script>
 
 <Form {form}>
