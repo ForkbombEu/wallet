@@ -25,7 +25,8 @@
 			validators: schema,
 			onUpdate: async (input) => {
 				try {
-					await onSubmit(input);
+					if (input.form.valid) await onSubmit(input);
+					else throw new Error('INVALID_FORM');
 				} catch (e) {
 					console.log(e);
 				}
