@@ -26,22 +26,28 @@
 </script>
 
 <Form {form}>
-	<ion-list lines="full" class="ion-no-margin ion-no-padding">
-		<!-- <TextInput type="email" label="email" name="email" {form} {errors} /> -->
-		<!-- <TextInput label="seed" name="seed" {form} {errors} /> -->
-	</ion-list>
+	<div class="space-y-6">
+		<ion-list lines="full" class="ion-no-margin ion-no-padding">
+			<!-- <TextInput type="email" label="email" name="email" {form} {errors} /> -->
+			<!-- <TextInput label="seed" name="seed" {form} {errors} /> -->
+		</ion-list>
 
-	<FormError {form} let:errorMessage>
-		<ion-text color="danger">
-			{errorMessage}
-		</ion-text>
-	</FormError>
+		<FormError {form} let:errorMessage>
+			<ion-text color="danger">
+				{errorMessage}
+			</ion-text>
+		</FormError>
 
-	<ion-button role="button" type="submit" tabindex={0}>login</ion-button>
+		<div class="flex justify-end">
+			<ion-button role="button" type="submit" tabindex={0}>Login</ion-button>
+		</div>
 
-	<ion-item>
-		<ion-text color="secondary">
-			<a href="/login">Do you want to login answering your personal question? tap here</a>
-		</ion-text>
-	</ion-item>
+		<hr />
+
+		<div>
+			<ion-text color="secondary">
+				<a href="/login/questions" class="text-sm">Login with your personal questions? Tap here</a>
+			</ion-text>
+		</div>
+	</div>
 </Form>

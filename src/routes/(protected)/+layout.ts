@@ -1,4 +1,4 @@
-import { KEYRING_PREFERENCES_KEY } from '$lib/keypairoom';
+import { KEYRING_PREFERENCES_KEY } from '$lib/utils/constants';
 import { getPreference } from '$lib/preferences';
 import { redirect } from '@sveltejs/kit';
 

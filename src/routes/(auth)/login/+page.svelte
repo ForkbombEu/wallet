@@ -6,6 +6,7 @@
 	import Input from '$lib/ionic/forms/input.svelte';
 	import SubmitButton from '$lib/ionic/forms/submitButton.svelte';
 	import { goto } from '$app/navigation';
+	import { userEmailStore } from './_lib';
 
 	//
 
@@ -17,7 +18,7 @@
 	const form = createForm({
 		schema,
 		onSubmit: async ({ form }) => {
-			console.log(form.data);
+			userEmailStore.set(form.data.email);
 			await goto('/login/questions');
 		}
 	});
