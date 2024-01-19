@@ -4,5 +4,6 @@ import { redirect } from '@sveltejs/kit';
 
 export const load = async () => {
 	const userEmail = get(userEmailStore);
-	if (!Boolean(userEmail)) throw redirect(303, '/login');
+	if (!userEmail) throw redirect(303, '/login');
+	return { userEmail };
 };
