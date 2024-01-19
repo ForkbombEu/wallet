@@ -3,8 +3,7 @@
 	import JSONSchemaFormField from './JSONSchemaFormField.svelte';
 	import type { ObjectSchema } from './types';
 	import { genericSuperValidated } from './utils';
-	import Superform from '$lib/forms/superform.svelte';
-	import FormError from '$lib/forms/formError.svelte';
+	import { Form, FormError } from '$lib/forms';
 	import ErrorDisplay from '$lib/components/errorDisplay.svelte';
 	import { objectSchemaToSuperformsValidators } from './errors';
 
@@ -15,7 +14,7 @@
 
 	//
 
-	const superform = superForm(
+	const form = superForm(
 		genericSuperValidated(), // reference: https://superforms.rocks/concepts/spa#trimming-down-the-bundle-size
 		{
 			dataType: 'json', // To allow nested fields
@@ -40,14 +39,14 @@
 	}
 </script>
 
-<Superform {superform}>
+<Form {form}>
 	<div class="space-y-4">
 		{#each Object.entries(schema.properties) as [fieldName, field]}
 			{@const required = schema.required?.includes(fieldName)}
-			<JSONSchemaFormField {superform} fieldPath={fieldName} schema={field} {required} />
+			<JSONSchemaFormField {form} fieldPath={fieldName} schema={field} {required} />
 		{/each}
 
-		<FormError {superform} let:errorMessage>
+		<FormError {form} let:errorMessage>
 			<ErrorDisplay name="Form Error" message={errorMessage} />
 		</FormError>
 
@@ -56,4 +55,4 @@
 			<ion-button type="submit"> Submit </ion-button>
 		</div>
 	</div>
-</Superform>
+</Form>
