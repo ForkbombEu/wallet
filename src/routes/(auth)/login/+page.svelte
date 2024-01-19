@@ -1,3 +1,8 @@
+<script lang="ts" context="module">
+	import { writable } from 'svelte/store';
+	export const userEmailStore = writable<string | undefined>();
+</script>
+
 <script lang="ts">
 	import { IonPage } from 'ionic-svelte';
 	import Logo from '$lib/components/atoms/Logo.svelte';
@@ -17,7 +22,7 @@
 	const form = createForm({
 		schema,
 		onSubmit: async ({ form }) => {
-			console.log(form.data);
+			userEmailStore.set(form.data.email);
 			await goto('/login/questions');
 		}
 	});
