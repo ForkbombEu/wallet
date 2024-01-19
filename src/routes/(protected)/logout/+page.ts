@@ -4,5 +4,5 @@ import { redirect } from '@sveltejs/kit';
 
 export const load = async () => {
 	await removePreference(KEYRING_PREFERENCES_KEY);
-	throw redirect(303, '/register');
+	throw redirect(303, '/login');
 };
