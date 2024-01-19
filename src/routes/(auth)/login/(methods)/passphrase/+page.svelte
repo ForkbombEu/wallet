@@ -1,14 +1,18 @@
 <script lang="ts">
-	import TextInput from '$lib/ionic/forms/input.svelte';
-	import { superForm, superValidateSync } from 'sveltekit-superforms/client';
 	import { regenerateKeypair } from '$lib/keypairoom';
-	import { setPreference } from '$lib/preferences';
 	import { goto } from '$app/navigation';
 	import { z } from 'zod';
-	import { createForm, Form, FormError } from '$lib/forms';
+	import { createForm, FieldController, Form, FormError } from '$lib/forms';
+	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 
-	const seedAnswersSchema = z.object({
-		email: z.string().min(1).email(),
+	//
+
+	export let data;
+	let { userEmail } = data;
+
+	//
+
+	const passphraseSchema = z.object({
 		seed: z
 			.string()
 			.min(1)
@@ -16,21 +20,28 @@
 	});
 
 	const form = createForm({
-		schema: seedAnswersSchema,
-		onSubmit: async () => {
-			// 	const keypair = await regenerateKeypair($form.email!, $form.seed!);
-			// setPreference('keyring', JSON.stringify(keypair));
-			// goto('/wallet');
+		schema: passphraseSchema,
+		onSubmit: async ({ form }) => {
+			try {
+				const keypair = await regenerateKeypair(userEmail, form.data.seed);
+				await setKeypairPreference(keypair);
+				await goto('/wallet'); // Note: `goto` needs `await`!
+			} catch (e) {
+				throw new Error('KEYPAIR_REGENERATION_ERROR');
+			}
 		}
 	});
+
+	//
+
+	const seedPlaceholder = 'skin buyer sunset person run push elevator under debris soft surge man';
 </script>
 
 <Form {form}>
 	<div class="space-y-6">
-		<ion-list lines="full" class="ion-no-margin ion-no-padding">
-			<!-- <TextInput type="email" label="email" name="email" {form} {errors} /> -->
-			<!-- <TextInput label="seed" name="seed" {form} {errors} /> -->
-		</ion-list>
+		<FieldController {form} fieldPath="seed" let:value let:updateValue>
+			<ion-textarea placeholder={seedPlaceholder} {value} on:ionChange={(e) => updateValue(e.target.value)} />
+		</FieldController>
 
 		<FormError {form} let:errorMessage>
 			<ion-text color="danger">

@@ -1,15 +1,13 @@
 <script lang="ts">
 	import { generateKeypair, type UserChallengesAnswers } from '$lib/keypairoom';
-	import { setPreference } from '$lib/preferences';
 	import { Form, createForm } from '$lib/forms';
 	import { Input } from '$lib/ionic/forms';
 	import FormError from '$lib/forms/formError.svelte';
 
 	import { z } from 'zod';
 	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
-	import TEE from '$lib/nativeHooks/TEEPlugin';
-	import { KEYRING_PREFERENCES_KEY } from '$lib/utils/constants';
 	import CopyButton from '$lib/components/copyButton.svelte';
+	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 
 	//
 
@@ -55,8 +53,7 @@
 			try {
 				const formattedAnswers = convertUndefinedToNullString(form.data);
 				const keypair = await generateKeypair(userEmail, formattedAnswers as UserChallengesAnswers);
-				await TEE.generateKey();
-				await setPreference(KEYRING_PREFERENCES_KEY, JSON.stringify(keypair), true);
+				await setKeypairPreference(keypair);
 				seed = keypair.seed;
 
 				/**
