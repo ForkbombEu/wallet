@@ -1,14 +1,19 @@
 <script lang="ts">
 	import TextInput from '$lib/ionic/forms/input.svelte';
-	import { superForm, superValidateSync } from 'sveltekit-superforms/client';
 	import { regenerateKeypair } from '$lib/keypairoom';
-	import { setPreference } from '$lib/preferences';
 	import { goto } from '$app/navigation';
 	import { z } from 'zod';
 	import { createForm, Form, FormError } from '$lib/forms';
+	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 
-	const seedAnswersSchema = z.object({
-		email: z.string().min(1).email(),
+	//
+
+	export let data;
+	let { userEmail } = data;
+
+	//
+
+	const passphraseSchema = z.object({
 		seed: z
 			.string()
 			.min(1)
@@ -16,11 +21,11 @@
 	});
 
 	const form = createForm({
-		schema: seedAnswersSchema,
-		onSubmit: async () => {
-			// 	const keypair = await regenerateKeypair($form.email!, $form.seed!);
-			// setPreference('keyring', JSON.stringify(keypair));
-			// goto('/wallet');
+		schema: passphraseSchema,
+		onSubmit: async ({ form }) => {
+			const keypair = await regenerateKeypair(userEmail, form.data.seed);
+			await setKeypairPreference(keypair);
+			goto('/wallet');
 		}
 	});
 </script>
