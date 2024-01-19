@@ -1,4 +1,6 @@
 PODS:
+  - AparajitaCapacitorBiometricAuth (7.1.0):
+    - Capacitor
   - Capacitor (5.4.2):
     - CapacitorCordova
   - CapacitorApp (5.0.6):
@@ -77,6 +79,7 @@ PODS:
   - PromisesObjC (2.3.1)
 
 DEPENDENCIES:
+  - "AparajitaCapacitorBiometricAuth (from `../../node_modules/.pnpm/@aparajita+capacitor-biometric-auth@7.1.0/node_modules/@aparajita/capacitor-biometric-auth`)"
   - "Capacitor (from `../../node_modules/.pnpm/@capacitor+ios@5.4.2_@capacitor+core@5.4.2/node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../node_modules/.pnpm/@capacitor+app@5.0.6_@capacitor+core@5.4.2/node_modules/@capacitor/app`)"
   - "CapacitorCamera (from `../../node_modules/.pnpm/@capacitor+camera@5.0.7_@capacitor+core@5.4.2/node_modules/@capacitor/camera`)"
@@ -105,6 +108,8 @@ SPEC REPOS:
     - PromisesObjC
 
 EXTERNAL SOURCES:
+  AparajitaCapacitorBiometricAuth:
+    :path: "../../node_modules/.pnpm/@aparajita+capacitor-biometric-auth@7.1.0/node_modules/@aparajita/capacitor-biometric-auth"
   Capacitor:
     :path: "../../node_modules/.pnpm/@capacitor+ios@5.4.2_@capacitor+core@5.4.2/node_modules/@capacitor/ios"
   CapacitorApp:
@@ -129,6 +134,7 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/.pnpm/@capacitor+status-bar@5.0.6_@capacitor+core@5.4.2/node_modules/@capacitor/status-bar"
 
 SPEC CHECKSUMS:
+  AparajitaCapacitorBiometricAuth: 468c0227b8f6c3433788aa7fb033947efa8e3f9b
   Capacitor: 8a9db42d105f55843cd8ed2a3cb54e2b78e7f102
   CapacitorApp: 024e1b1bea5f883d79f6330d309bc441c88ad04a
   CapacitorCamera: 084b0b228bba7d00587910337b1c89e93b1d32ab
@@ -153,6 +159,6 @@ SPEC CHECKSUMS:
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
 
-PODFILE CHECKSUM: d2589c70f0a20796040ab676c4a235242a8470e5
+PODFILE CHECKSUM: 459162f3c1c83c047243cd2d6de9d2eadccb6992
 
 COCOAPODS: 1.14.3

@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@aparajita/capacitor-biometric-auth':
+    specifier: ^7.1.0
+    version: 7.1.0
   '@capacitor-mlkit/barcode-scanning':
     specifier: ^5.3.0
     version: 5.3.0(@capacitor/core@5.4.2)
@@ -171,6 +174,16 @@ packages:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.20
+
+  /@aparajita/capacitor-biometric-auth@7.1.0:
+    resolution: {integrity: sha512-jOQ4nONNJF1KMNJnenfCf2mYU4SNpWvhpXGYT3uDIuYPH6llh6iYWOgrBAxUdD7bgNX46ieX/GVhtYd7VBurYw==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@capacitor/android': 5.6.0(@capacitor/core@5.6.0)
+      '@capacitor/app': 5.0.6(@capacitor/core@5.6.0)
+      '@capacitor/core': 5.6.0
+      '@capacitor/ios': 5.6.0(@capacitor/core@5.6.0)
+    dev: false
 
   /@apideck/better-ajv-errors@0.3.6(ajv@8.12.0):
     resolution: {integrity: sha512-P+ZygBLZtkp0qqOAJJVX4oX/sFo5JR3eBWwwuqHHhK0GIgQOKWrAfiAaWX0aArHkRWHMuggFEgAZNxVPwPZYaA==}
@@ -1365,12 +1378,28 @@ packages:
       '@capacitor/core': 5.4.2
     dev: false
 
+  /@capacitor/android@5.6.0(@capacitor/core@5.6.0):
+    resolution: {integrity: sha512-6O7xV6K6c8WvQzKxOe7fnhRyoVpS3TNDXy1FyfhvOvclBvu+1JddSdFvW4e4dSL60s2c00sCzNRgYhm+cn0/dQ==}
+    peerDependencies:
+      '@capacitor/core': ^5.6.0
+    dependencies:
+      '@capacitor/core': 5.6.0
+    dev: false
+
   /@capacitor/app@5.0.6(@capacitor/core@5.4.2):
     resolution: {integrity: sha512-6ZXVdnNmaYILasC/RjQw+yfTmq2ZO7Q3v5lFcDVfq3PFGnybyYQh+RstBrYri+376OmXOXxBD7E6UxBhrMzXGA==}
     peerDependencies:
       '@capacitor/core': ^5.0.0
     dependencies:
       '@capacitor/core': 5.4.2
+    dev: false
+
+  /@capacitor/app@5.0.6(@capacitor/core@5.6.0):
+    resolution: {integrity: sha512-6ZXVdnNmaYILasC/RjQw+yfTmq2ZO7Q3v5lFcDVfq3PFGnybyYQh+RstBrYri+376OmXOXxBD7E6UxBhrMzXGA==}
+    peerDependencies:
+      '@capacitor/core': ^5.0.0
+    dependencies:
+      '@capacitor/core': 5.6.0
     dev: false
 
   /@capacitor/camera@5.0.7(@capacitor/core@5.4.2):
@@ -1421,6 +1450,12 @@ packages:
       tslib: 2.4.1
     dev: false
 
+  /@capacitor/core@5.6.0:
+    resolution: {integrity: sha512-xJhCOUGPHw0QYDA3YH+CmL6qiV9DH4Ij3yPxSenymjrtLuXI197u9ddCZwGEwgVIkh9kGZBBKzsNkn89SZ2gdQ==}
+    dependencies:
+      tslib: 2.4.1
+    dev: false
+
   /@capacitor/filesystem@5.1.4(@capacitor/core@5.4.2):
     resolution: {integrity: sha512-10EM1KvFMs+pTzxkcflspzxBWcX9sOnS9nTP5Afjr5hn4OxLrwTFySw2Z12Uv6jdN4OnhY3jXtDKXPljXvXILg==}
     peerDependencies:
@@ -1443,6 +1478,14 @@ packages:
       '@capacitor/core': ^5.4.0
     dependencies:
       '@capacitor/core': 5.4.2
+    dev: false
+
+  /@capacitor/ios@5.6.0(@capacitor/core@5.6.0):
+    resolution: {integrity: sha512-iswpOcD5us10hIF5zS4w6k/ekW0A+2pXhDV4AHOBXR4VOkOMI8QJaavgl9JvZ/NVvVNJdEN2rOKCMNh4AH08sw==}
+    peerDependencies:
+      '@capacitor/core': ^5.6.0
+    dependencies:
+      '@capacitor/core': 5.6.0
     dev: false
 
   /@capacitor/keyboard@5.0.6(@capacitor/core@5.4.2):
