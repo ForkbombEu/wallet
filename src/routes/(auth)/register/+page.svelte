@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Questions from '$lib/keypairoom/Questions.svelte';
+	import Questions from '$lib/keypairoomForms/QuestionsForm.svelte';
 </script>
 
 <ion-header translucent={true}>

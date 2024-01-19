@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { generateKeypair } from '$lib/keypairoom';
-	import { userAnswersSchema, userQuestions } from '$lib/keypairoom/userQuestions';
+	import { answersSchema, questions } from '$lib/keypairoomForms';
 	import { setPreference } from '$lib/preferences';
 	import { goto } from '$app/navigation';
 	import { Form, createForm } from '$lib/forms';
@@ -10,17 +10,16 @@
 	//
 
 	const form = createForm({
-		schema: userAnswersSchema,
+		schema: answersSchema,
 		onSubmit: async ({ form }) => {
 			let data = form.data;
 			for (let [key, value] of Object.entries(data)) {
 				//@ts-ignore
 				if (!value) data[key] = 'null';
 			}
-			//@ts-ignore
-			const keypair = await generateKeypair(data);
+			// const keypair = await generateKeypair(data);
 			try {
-				setPreference('keyring', JSON.stringify(keypair), true);
+				// setPreference('keyring', JSON.stringify(keypair), true);
 				goto('/wallet');
 			} catch (e) {
 				goto('/register');
@@ -30,12 +29,11 @@
 </script>
 
 <Form {form}>
-	<ion-list lines="full" class="ion-no-margin ion-no-padding">
-		<Input {form} fieldPath="email" type="email" label="email" />
-		{#each userQuestions as question}
+	<div>
+		{#each questions as question}
 			<Input {form} fieldPath={question.id} label={question.text} />
 		{/each}
-	</ion-list>
+	</div>
 
 	<FormError {form} let:errorMessage>
 		<ion-item>
