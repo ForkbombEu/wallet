@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { setLockedPreference } from '$lib/preferences/locked.js';
+	import { setLockedPreference, unlockApp } from '$lib/preferences/locked.js';
 	import { BiometricAuth, AndroidBiometryStrength } from '@aparajita/capacitor-biometric-auth';
 	// @ts-ignore
 	import IonPage from 'ionic-svelte/components/IonPage.svelte';
@@ -10,6 +10,16 @@
 	let error: string | undefined = undefined;
 
 	async function unlock() {
+		try {
+			await authenticate();
+			await unlockApp();
+			await goto('/wallet');
+		} catch (e) {
+			error = 'BIOMETRY_ERROR';
+		}
+	}
+
+	async function authenticate() {
 		try {
 			await BiometricAuth.authenticate({
 				reason: 'Please authenticate',
@@ -21,10 +31,8 @@
 				androidConfirmationRequired: false,
 				androidBiometryStrength: AndroidBiometryStrength.weak
 			});
-			await setLockedPreference(false);
-			await goto('/wallet');
 		} catch (e) {
-			error = 'BIOMETRY_ERROR';
+			throw e;
 		}
 	}
 </script>

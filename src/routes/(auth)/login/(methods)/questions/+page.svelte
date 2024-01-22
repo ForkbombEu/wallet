@@ -8,6 +8,7 @@
 	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
 	import CopyButton from '$lib/components/copyButton.svelte';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
+	import { unlockApp } from '$lib/preferences/locked.js';
 
 	//
 
@@ -54,6 +55,7 @@
 				const formattedAnswers = convertUndefinedToNullString(form.data);
 				const keypair = await generateKeypair(userEmail, formattedAnswers as UserChallengesAnswers);
 				await setKeypairPreference(keypair);
+				await unlockApp();
 				seed = keypair.seed;
 
 				/**
