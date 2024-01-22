@@ -110,12 +110,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: |
-            wallet-release
+            release
       - name: relase all binary artifacts
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            wallet-release/wallet/*
+            release/*
           draft: false
           prerelease: false
           fail_on_unmatched_files: true
