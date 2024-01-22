@@ -52,11 +52,6 @@
 	};
 </script>
 
-<!-- <div class={`visible fixed top-20 flex w-full flex-row justify-between px-6`}>
-	<ion-button on:click={stopScan} on:keydown={stopScan} aria-hidden class="opacity-50"
-		><ion-icon icon={chevronBackOutline} slot="icon-only" /></ion-button
-	>
-</div> -->
 <ion-header class="visible">
 	<ion-toolbar>
 		<ion-buttons slot="start">

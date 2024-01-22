@@ -1,4 +1,9 @@
 import { z } from 'zod';
+//@ts-ignore
+import { Slangroom } from '@slangroom/core';
+//@ts-ignore
+import { http } from '@slangroom/http';
+import { CapacitorHttp, type HttpResponse } from '@capacitor/core';
 
 export type ParseQrResults =
 	| {
@@ -8,8 +13,7 @@ export type ParseQrResults =
 	| {
 			result: 'ok';
 			credential: Credential;
-	  }
-	| undefined;
+	  };
 
 const credentialSchema = z.object({
 	name: z.string(),
@@ -20,16 +24,10 @@ const credentialSchema = z.object({
 
 export type Credential = z.infer<typeof credentialSchema>;
 
-const allowedDomains = ['http://localhost', 'https://beta.signroom.io'];
+const allowedDomains = ['http://localhost:3000/verify-credentials', 'https://beta.signroom.io'];
 
 function isUrlAllowed(url: string): boolean {
-	const urlObject = new URL(url);
-	const urlHost = urlObject.hostname;
-
-	return allowedDomains.some((domain) => {
-		const regex = new RegExp(`^${domain.replace(/\./g, '\\.')}(\\.\\w+)*$`, 'i');
-		return regex.test(urlHost);
-	});
+	return allowedDomains.includes(url);
 }
 
 export const parseQr = (value: string): ParseQrResults => {
@@ -49,4 +47,32 @@ export const parseQr = (value: string): ParseQrResults => {
 		return { result: 'error', message: 'not allowed verifier url' };
 	}
 	return { result: 'ok', credential: parsedValue as Credential };
+};
+
+// const verifyContract = `
+// Rule unknown ignore
+
+// Given I have a 'string dictionary' named 'headers'
+// Then I connect to 'url' and send object 'dict' and send headers 'headers' and do post and output into 'results'
+// `;
+
+// const slangroom = new Slangroom(http);
+
+export const verifyCredential = async (credential: Credential) => {
+	// const res = await slangroom.execute(verifyContract(credential.url, credential.registrationToken), {
+	// 	data: {
+	// 		url: credential.url,
+	// 		dict: {registrationToken:credential.registrationToken}
+	// 	},
+	// });
+	const options = {
+		url: credential.url,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		data: { registrationToken: credential.registrationToken, message: 'ok' }
+	};
+
+	const response: HttpResponse = await CapacitorHttp.post(options);
+	return response;
 };
