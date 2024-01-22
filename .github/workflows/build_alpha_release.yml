@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Git Sumbodule Update
+        run: |
+          git submodule update --init
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
@@ -50,7 +53,7 @@ jobs:
           KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
         with:
           lane: alpha
-      - run: mv release noctule.apk
+      - run: mv release wallet.apk
       - name: upload binary artifacts
         uses: actions/upload-artifact@v4
         with:

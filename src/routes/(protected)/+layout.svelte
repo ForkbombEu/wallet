@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { home, walletOutline, personOutline, notificationsOutline } from 'ionicons/icons';
+
+	// Note – IonTabs must be imported this way, otherwise the app breaks
 	//@ts-ignore
 	import IonTabs from 'ionic-svelte/components/IonTabs.svelte';
 </script>
