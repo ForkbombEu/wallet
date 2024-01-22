@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-	appId: 'org.dyne.wallet',
-	appName: 'wallet',
+	appId: 'eu.forkbomb.didroom',
+	appName: 'didroom',
 	webDir: 'build',
 	// Note – This breaks the app
 	// plugins: {

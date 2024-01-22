@@ -1,4 +1,4 @@
-package walletamous.ionic.io;
+package didroom.forkbomb.eu;
 
 import android.os.Bundle;
 

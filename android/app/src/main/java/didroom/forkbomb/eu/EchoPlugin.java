@@ -1,4 +1,4 @@
-package walletamous.ionic.io;
+package didroom.forkbomb.eu;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;

@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "walletamous.ionic.io"
+    namespace "didroom.forkbomb.eu"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "walletamous.ionic.io"
+        applicationId "didroom.forkbomb.eu"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
