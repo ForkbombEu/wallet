@@ -1,9 +1,11 @@
-import { showProfile } from './endpoints';
+// import { PUBLIC_BACKEND_URL } from '$env/static/public';
+
+import { fetchTemplates, showProfile } from './endpoints';
 //@ts-ignore
 import { Slangroom } from '@slangroom/core';
 //@ts-ignore
 import { http } from '@slangroom/http';
-import { apiByIdContract, authWithPasswordContract, updateProfileContract } from './contracts';
+import { apiByIdContract, apiContract, authWithPasswordContract, updateProfileContract } from './contracts';
 import { organizationAuthorizations, servicesByOrganization, webauthnCredentials, webauthnSessions } from './endpoints';
 
 export type BaseSystemFields<T = never> = {
@@ -19,7 +21,8 @@ export type PBExpand<T extends PBRecord = PBRecord> = Record<string, T | T[]>;
 
 export type PBResponse<R extends PBRecord = PBRecord, E extends PBExpand = PBExpand> = R & BaseSystemFields<E>;
 
-const PB = 'http://localhost:8090/';
+//const PB = PUBLIC_BACKEND_URL;
+const PB = ""
 
 const slangroom = new Slangroom(http);
 
@@ -34,7 +37,12 @@ export interface SlangroomRequest<T = undefined> {
 	data?: T;
 }
 
-export const authWithPassword = async (username: string, password: string):Promise<any> => {
+export interface SlangroomApiData {
+	pb: string;
+	headers?: { authorization: `Bearer ${string}` };
+}
+
+export const authWithPassword = async (username: string, password: string): Promise<any> => {
 	const res = await slangroom.execute(authWithPasswordContract, {
 		data: {
 			pb: PB,
@@ -69,27 +77,47 @@ const apiById = async (
 	}
 };
 
+// WARNING: not safe against injection
+const api = async (
+	url: string,
+	token?: string,
+	rest?: FormData | Record<string, string>
+): SlangroomResponse<PBResponse> => {
+	const data: SlangroomApiData = {
+		pb: PB,
+		...rest
+	};
+	if (token) data.headers = { authorization: `Bearer ${token}` };
+	try {
+		const res = await slangroom.execute(apiContract(url), {
+			data: {
+				pb: PB,
+				headers: {
+					authorization: 'Bearer ' + token
+				},
+				...rest
+			}
+		});
+		// TODO: check errors
+		return res.result.http_result.result;
+	} catch (e: any) {
+		console.log(e);
+		throw new Error(e);
+	}
+};
+
 // List of services of my org
 // TODO: manage pagination
 export const organizationServices = async (req: SlangroomRequest): SlangroomResponse<PBResponse> => {
 	const { id, token } = req;
-	return apiById(
-		servicesByOrganization[0], 
-		servicesByOrganization[1], 
-		token, 
-		{id: id});
+	return apiById(servicesByOrganization[0], servicesByOrganization[1], token, { id: id });
 };
 
 // List of the orgs I'm part of
 // TODO: manage pagination
 export const orgAuthorizations = async (req: SlangroomRequest): SlangroomResponse<PBResponse> => {
 	const { id, token } = req;
-	return apiById(
-		organizationAuthorizations[0], 
-		organizationAuthorizations[1],
-		token,
-		{ id: id }
-	);
+	return apiById(organizationAuthorizations[0], organizationAuthorizations[1], token, { id: id });
 };
 
 // List of WebAuthn sessions/devices
@@ -126,4 +154,8 @@ export const updateProfile = async (req: SlangroomRequest<FormData | Record<stri
 	});
 	// TODO: check errors
 	return res.result;
+};
+
+export const getTemplates = (req?: Partial<SlangroomRequest>): SlangroomResponse<PBResponse> => {
+	return api(fetchTemplates, req?.token);
 };

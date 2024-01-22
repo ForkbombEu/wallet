@@ -6,3 +6,4 @@ export const organizationAuthorizations = ['api/collections/orgAuthorizations/re
 export const webauthnCredentials = ['api/collections/webauthnCredentials/records?filter=(user="', '")']
 export const webauthnSessions = ['api/collections/sessionDataWebauthn/records?filter=(user="', '")']
 export const showProfile = ['api/collections/users/records/', '']
+export const fetchTemplates = 'api/collections/templates/records'

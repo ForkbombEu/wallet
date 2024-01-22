@@ -1,0 +1,72 @@
+{
+	"type": "object",
+	"properties": {
+		"name": {
+			"type": "string",
+			"description": "Name of the employee",
+			"minLength": 3
+		},
+		"surname": {
+			"type": "string",
+			"description": "Surname of the employee",
+			"minLength": 3
+		},
+		"age": {
+			"type": "number",
+			"description": "Age of the employee",
+			"minimum": 16
+		},
+		"verified": {
+			"type": "boolean",
+			"description": "Verify user"
+		},
+		"employment_date": {
+			"type": "string",
+			"description": "Date of join",
+			"format": "date"
+		},
+		"roles": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"enum": ["manager", "developer", "officer", "sheriff"]
+			},
+			"minItems": 2
+		},
+		"curriculum": {
+			"type": "object",
+			"properties": {
+				"title": {
+					"type": "string"
+				},
+				"release_date": {
+					"type": "string",
+					"format": "date"
+				},
+				"work_experiences": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"employer_name": {
+								"type": "string"
+							},
+							"short_description": {
+								"type": "string"
+							},
+							"roles": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							}
+						},
+						"required": ["employer_name"]
+					}
+				}
+			},
+			"required": ["title"]
+		}
+	},
+	"required": ["name", "surname"]
+}
