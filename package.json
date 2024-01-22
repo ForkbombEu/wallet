@@ -18,9 +18,11 @@
 		"ios": "ionic cap run ios -l --external",
 		"android": "ionic cap run android -l --external",
 		"apk": "ionic capacitor copy android && cd android && ./gradlew assembleDebug && ./gradlew installDebug && cd ..",
-		"web": "ionic serve"
+		"web": "ionic serve",
+		"icons": "npx capacitor-assets generate --ios --android"
 	},
 	"devDependencies": {
+		"@capacitor/assets": "^3.0.4",
 		"@capacitor/cli": "5.4.2",
 		"@faker-js/faker": "^8.3.1",
 		"@playwright/test": "^1.28.1",
