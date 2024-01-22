@@ -1,11 +1,10 @@
 <script lang="ts">
 	export let content:string = "you looser";
 	export let title:string = "You have nothing";
-	export let action:string;
 
 </script>
 <div class="card">
-	<div class="text-center text-3xl">{action}</div>
+	<div class="text-right"><slot/></div>
 	<br />
 	<span class="c-title">{title}</span>
 	<br />
