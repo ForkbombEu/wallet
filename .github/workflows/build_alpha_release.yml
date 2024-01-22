@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Git Sumbodule Update
+        run: |
+          git submodule update --init
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
