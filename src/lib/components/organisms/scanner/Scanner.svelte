@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { BarcodeScanner, type Barcode } from '@capacitor-mlkit/barcode-scanning';
-	import { chevronBackOutline } from 'ionicons/icons';
+	import { backspaceOutline, chevronBackOutline, refreshOutline, searchOutline } from 'ionicons/icons';
 	import { createEventDispatcher, onMount } from 'svelte';
 
 	const dispatch = createEventDispatcher();
@@ -15,16 +15,9 @@
 	});
 
 	const stopScan = async () => {
-		// Make all elements in the WebView visible again
-        
-		// Remove all listeners
 		await BarcodeScanner.removeAllListeners();
-        
-		// Stop the barcode scanner
 		await BarcodeScanner.stopScan();
-        
 		document.querySelector('body')?.classList.remove('barcode-scanner-active');
-		// goto("/r/home")
 		window.history.back();
 	};
 
@@ -59,9 +52,31 @@
 	};
 </script>
 
-<div class={`visible w-full fixed top-20 px-6 flex flex-row justify-between`}>
+<!-- <div class={`visible fixed top-20 flex w-full flex-row justify-between px-6`}>
 	<ion-button on:click={stopScan} on:keydown={stopScan} aria-hidden class="opacity-50"
 		><ion-icon icon={chevronBackOutline} slot="icon-only" /></ion-button
 	>
-</div>
-<slot {scan} {stopScan} />
+</div> -->
+<ion-header class="visible">
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button />
+		</ion-buttons>
+		<ion-title>Claim o verify credential</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<slot {scan} {stopScan} />
+</ion-content>
+<ion-tab-bar class="visible fixed bottom-0 mb-[-60px] w-full">
+	<ion-tab-button tab="account" on:click={stopScan} on:keydown={stopScan} aria-hidden>
+		<ion-icon icon={backspaceOutline}></ion-icon>
+	</ion-tab-button>
+	<ion-tab-button tab="contact">
+		<ion-icon icon={refreshOutline}></ion-icon>
+	</ion-tab-button>
+	<ion-tab-button tab="settings">
+		<ion-icon icon={searchOutline}></ion-icon>
+	</ion-tab-button>
+</ion-tab-bar>
