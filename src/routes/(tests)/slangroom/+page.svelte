@@ -1,8 +1,10 @@
 <script lang="ts">
-	import TextInput from '$lib/forms/textInput.svelte';
+	import { Form, FormError, createForm } from '$lib/forms';
+	import { Input } from '$lib/ionic/forms';
 	import * as slangroom from '$lib/slangroom';
-	import { superForm, superValidateSync } from 'sveltekit-superforms/client';
 	import { z } from 'zod';
+
+	//
 
 	let slangroomPromise: Promise<Record<SlangroomKeys, any>> | undefined;
 	let userId: string | undefined;
@@ -34,34 +36,21 @@
 		password: z.string().min(1)
 	});
 
-	const schemaValidated = superValidateSync({}, loginSchema, { errors: false });
-
-	const { form, errors } = superForm(schemaValidated, {
-		SPA: true,
-		validators: loginSchema,
-
-		onError({ result, message }) {
-			console.log('ERROR received', result, message);
-			message.set(result.error.message);
-		},
-		onUpdate(form) {
-			console.log('SUBMIT clicked, received form', form);
-		},
-		validationMethod: 'oninput'
-	});
-
-	const login = async () => {
-		loginError = undefined;
-		const res = await slangroom.authWithPassword($form.email, $form.password);
-		if (res.status !== 200) {
-			loginError = `login failed: ${res.status} error`;
-			slangroomPromise = undefined;
-			return;
+	const form = createForm({
+		schema: loginSchema,
+		onSubmit: async ({ form }) => {
+			loginError = undefined;
+			const res = await slangroom.authWithPassword(form.data.email, form.data.password);
+			if (res.status !== 200) {
+				loginError = `login failed: ${res.status} error`;
+				slangroomPromise = undefined;
+				return;
+			}
+			userId = res.result.record.id;
+			token = res.result.token;
+			slangroomPromise = getSlangroomResult();
 		}
-		userId = res.result.record.id;
-		token = res.result.token;
-		slangroomPromise = getSlangroomResult();
-	};
+	});
 </script>
 
 <ion-tab tab="slangroom">
@@ -76,24 +65,28 @@
 
 	<ion-content fullscreen class="ion-padding">
 		<h1 class="mb-10 text-3xl font-bold">Test Slangroom calls</h1>
-		<form on:submit={login}>
+
+		<Form {form}>
 			<ion-list lines="full" class="ion-no-margin ion-no-padding">
-				<TextInput type="email" label="email" name="email" {form} {errors} />
-				<TextInput type="password" label="password" name="password" {form} {errors} />
+				<Input {form} fieldPath="email" type="email" />
+				<Input {form} fieldPath="password" type="password" />
 			</ion-list>
 
 			<ion-button role="button" type="submit" tabindex={0}>login</ion-button>
-			{#if $errors._errors?.length}
+
+			<FormError {form} let:errorMessage>
 				<ion-text color="danger">
-					{$errors._errors[0]}
+					{errorMessage}
 				</ion-text>
-			{/if}
+			</FormError>
+
 			{#if loginError}
 				<ion-text color="danger">
 					{loginError}
 				</ion-text>
 			{/if}
-		</form>
+		</Form>
+
 		<ion-item-divider />
 		{#if slangroomPromise}
 			{#await slangroomPromise}
