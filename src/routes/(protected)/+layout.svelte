@@ -11,8 +11,8 @@
 	tabs={[
 		{ label: 'Home', icon: home, tab: 'home' },
 		{ label: 'Wallet', icon: walletOutline, tab: 'wallet' },
+		{ label: 'Notifications', icon: notificationsOutline, tab: 'notifications' },
 		{ label: 'Profile', icon: personOutline, tab: 'profile' }
-		// { label: 'Notifications', icon: notificationsOutline, tab: 'notifications' },
 	]}
 >
 	<slot />
