@@ -10,7 +10,6 @@
 
 	const request = async (credential:Credential) => {
 		// isModalOpen = false;
-		res = "ccccc"
 		res = await verifyCredential(credential)
 	};
 </script>

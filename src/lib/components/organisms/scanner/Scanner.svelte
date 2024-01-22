@@ -52,26 +52,17 @@
 	};
 </script>
 
-<ion-header class="visible">
+<ion-header class="visible bg-white">
 	<ion-toolbar>
-		<ion-buttons slot="start">
-			<ion-back-button />
-		</ion-buttons>
-		<ion-title>Claim o verify credential</ion-title>
+		<div class="flex flex-row">
+			<ion-button tab="account" on:click={stopScan} on:keydown={stopScan} aria-hidden fill="clear">
+				<ion-icon icon={backspaceOutline}></ion-icon>
+			</ion-button>
+			<ion-title>Claim o verify credential</ion-title>
+		</div>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content>
 	<slot {scan} {stopScan} />
 </ion-content>
-<ion-tab-bar class="visible fixed bottom-0 mb-[-60px] w-full">
-	<ion-tab-button tab="account" on:click={stopScan} on:keydown={stopScan} aria-hidden>
-		<ion-icon icon={backspaceOutline}></ion-icon>
-	</ion-tab-button>
-	<ion-tab-button tab="contact">
-		<ion-icon icon={refreshOutline}></ion-icon>
-	</ion-tab-button>
-	<ion-tab-button tab="settings">
-		<ion-icon icon={searchOutline}></ion-icon>
-	</ion-tab-button>
-</ion-tab-bar>
