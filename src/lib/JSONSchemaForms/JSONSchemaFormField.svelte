@@ -7,7 +7,7 @@
 	import IonItemWrapper from './fieldWrappers/ionItemWrapper.svelte';
 	import SlotWrapper from './fieldWrappers/slotWrapper.svelte';
 
-	export let superform: SuperformGeneric;
+	export let form: SuperformGeneric;
 	export let fieldPath: string;
 	export let schema: JSONSchema;
 	export let required = false;
@@ -45,7 +45,7 @@
 	}
 </script>
 
-<FieldController {superform} {fieldPath} let:value let:updateValue let:errors let:errorText>
+<FieldController {form} {fieldPath} let:value let:updateValue let:errors let:errorText>
 	{#if schema.enum}
 		<svelte:component this={fieldWrapper}>
 			<ion-select
@@ -162,7 +162,7 @@
 			{#each Object.entries(schema.properties) as [nestedFieldName, f]}
 				{@const path = `${fieldPath}.${nestedFieldName}`}
 				{@const required = schema.required?.includes(nestedFieldName)}
-				<svelte:self {superform} fieldPath={path} schema={f} {required} />
+				<svelte:self superform={form} fieldPath={path} schema={f} {required} />
 			{/each}
 		</ion-list>
 	{:else if type == 'array'}
@@ -176,7 +176,7 @@
 				<svelte:fragment slot="item" let:itemFieldPath let:removeItem>
 					<ion-item>
 						<svelte:self
-							{superform}
+							superform={form}
 							fieldPath={itemFieldPath}
 							schema={schema.items}
 							hideLabel

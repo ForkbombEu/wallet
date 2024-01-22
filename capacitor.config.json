@@ -1,0 +1,7 @@
+{
+  "plugins": {
+    "CapacitorHttp": {
+      "enabled": true
+    }
+  }
+}

@@ -9,16 +9,16 @@
 
 	type T = $$Generic<z.AnyZodObject>;
 
-	export let superform: SuperformGeneric<T>;
+	export let form: SuperformGeneric<T>;
 	export let fieldPath: FormPathLeaves<z.infer<T>>;
 
-	const { form } = superform;
-	const { value, errors, constraints } = formFieldProxy(superform, fieldPath);
+	const { form: formStore } = form;
+	const { value, errors, constraints } = formFieldProxy(form, fieldPath);
 
 	//
 
-	function updateValue(newValue: typeof $value) {
-		if (isNestedField(fieldPath)) set($form, fieldPath, newValue);
+	function updateValue(newValue: any) {
+		if (isNestedField(fieldPath)) set($formStore, fieldPath, newValue);
 		/**
 		 * Lodash "_.set" is needed because creates parent objects if missing.
 		 * This is needed because superforms didn't do this before v1.11.0
@@ -52,11 +52,16 @@
 		if (!errors) return undefined;
 		return errors.join('\n');
 	}
+
+	//
+
+	let untypedValue: any;
+	$: untypedValue = $value;
 </script>
 
 <slot
 	field={fieldPath}
-	value={$value}
+	value={untypedValue}
 	{updateValue}
 	errors={extractedErrors}
 	errorText={errorsText}
