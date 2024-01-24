@@ -6,6 +6,7 @@
 	import '@fontsource/poppins';
 	import 'ionic-svelte/components/all';
 	import '../theme/variables.css';
+	import '../theme/custom.css';
 </script>
 
 <svelte:head>
