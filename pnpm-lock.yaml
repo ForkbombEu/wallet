@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@aparajita/capacitor-biometric-auth':
+    specifier: ^7.1.0
+    version: 7.1.0
   '@capacitor-mlkit/barcode-scanning':
     specifier: ^5.3.0
     version: 5.3.0(@capacitor/core@5.4.2)
@@ -174,6 +177,16 @@ packages:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.20
+
+  /@aparajita/capacitor-biometric-auth@7.1.0:
+    resolution: {integrity: sha512-jOQ4nONNJF1KMNJnenfCf2mYU4SNpWvhpXGYT3uDIuYPH6llh6iYWOgrBAxUdD7bgNX46ieX/GVhtYd7VBurYw==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@capacitor/android': 5.6.0(@capacitor/core@5.6.0)
+      '@capacitor/app': 5.0.6(@capacitor/core@5.6.0)
+      '@capacitor/core': 5.6.0
+      '@capacitor/ios': 5.6.0(@capacitor/core@5.6.0)
+    dev: false
 
   /@apideck/better-ajv-errors@0.3.6(ajv@8.12.0):
     resolution: {integrity: sha512-P+ZygBLZtkp0qqOAJJVX4oX/sFo5JR3eBWwwuqHHhK0GIgQOKWrAfiAaWX0aArHkRWHMuggFEgAZNxVPwPZYaA==}
@@ -1368,6 +1381,14 @@ packages:
       '@capacitor/core': 5.4.2
     dev: false
 
+  /@capacitor/android@5.6.0(@capacitor/core@5.6.0):
+    resolution: {integrity: sha512-6O7xV6K6c8WvQzKxOe7fnhRyoVpS3TNDXy1FyfhvOvclBvu+1JddSdFvW4e4dSL60s2c00sCzNRgYhm+cn0/dQ==}
+    peerDependencies:
+      '@capacitor/core': ^5.6.0
+    dependencies:
+      '@capacitor/core': 5.6.0
+    dev: false
+
   /@capacitor/app@5.0.6(@capacitor/core@5.4.2):
     resolution: {integrity: sha512-6ZXVdnNmaYILasC/RjQw+yfTmq2ZO7Q3v5lFcDVfq3PFGnybyYQh+RstBrYri+376OmXOXxBD7E6UxBhrMzXGA==}
     peerDependencies:
@@ -1376,31 +1397,13 @@ packages:
       '@capacitor/core': 5.4.2
     dev: false
 
-  /@capacitor/assets@3.0.4(@types/node@20.10.0)(typescript@5.0.2):
-    resolution: {integrity: sha512-9t/u2i9vSEWDfarzDJmQEgi07Tozyw2mKZYTkybb2Zkc8ufqR0S6ZzDBmWbsTtOTVwRr0uU9Rx3c8AVbA1xDtA==}
-    engines: {node: '>=10.3.0'}
-    hasBin: true
+  /@capacitor/app@5.0.6(@capacitor/core@5.6.0):
+    resolution: {integrity: sha512-6ZXVdnNmaYILasC/RjQw+yfTmq2ZO7Q3v5lFcDVfq3PFGnybyYQh+RstBrYri+376OmXOXxBD7E6UxBhrMzXGA==}
+    peerDependencies:
+      '@capacitor/core': ^5.0.0
     dependencies:
-      '@capacitor/cli': 5.4.2
-      '@ionic/utils-array': 2.1.6
-      '@ionic/utils-fs': 3.1.7
-      '@trapezedev/project': 7.0.10(@types/node@20.10.0)(typescript@5.0.2)
-      commander: 8.3.0
-      debug: 4.3.4
-      fs-extra: 10.1.0
-      node-fetch: 2.7.0
-      node-html-parser: 5.4.2
-      sharp: 0.32.6
-      tslib: 2.6.2
-      yargs: 17.7.2
-    transitivePeerDependencies:
-      - '@swc/core'
-      - '@swc/wasm'
-      - '@types/node'
-      - encoding
-      - supports-color
-      - typescript
-    dev: true
+      '@capacitor/core': 5.6.0
+    dev: false
 
   /@capacitor/camera@5.0.7(@capacitor/core@5.4.2):
     resolution: {integrity: sha512-1Wk3Dk0UhhNHdBB07UrPvUOSL7Wi5gFZRyLY1LZL2awt34iqy2cnajtfJplFmEZHk8lD0i7NAl3HbkWm4td4OQ==}
@@ -1450,6 +1453,12 @@ packages:
       tslib: 2.4.1
     dev: false
 
+  /@capacitor/core@5.6.0:
+    resolution: {integrity: sha512-xJhCOUGPHw0QYDA3YH+CmL6qiV9DH4Ij3yPxSenymjrtLuXI197u9ddCZwGEwgVIkh9kGZBBKzsNkn89SZ2gdQ==}
+    dependencies:
+      tslib: 2.4.1
+    dev: false
+
   /@capacitor/filesystem@5.1.4(@capacitor/core@5.4.2):
     resolution: {integrity: sha512-10EM1KvFMs+pTzxkcflspzxBWcX9sOnS9nTP5Afjr5hn4OxLrwTFySw2Z12Uv6jdN4OnhY3jXtDKXPljXvXILg==}
     peerDependencies:
@@ -1472,6 +1481,14 @@ packages:
       '@capacitor/core': ^5.4.0
     dependencies:
       '@capacitor/core': 5.4.2
+    dev: false
+
+  /@capacitor/ios@5.6.0(@capacitor/core@5.6.0):
+    resolution: {integrity: sha512-iswpOcD5us10hIF5zS4w6k/ekW0A+2pXhDV4AHOBXR4VOkOMI8QJaavgl9JvZ/NVvVNJdEN2rOKCMNh4AH08sw==}
+    peerDependencies:
+      '@capacitor/core': ^5.6.0
+    dependencies:
+      '@capacitor/core': 5.6.0
     dev: false
 
   /@capacitor/keyboard@5.0.6(@capacitor/core@5.4.2):

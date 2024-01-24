@@ -1,6 +1,7 @@
 <script>
 	import BackButton from '$lib/ionic/backButton.svelte';
-	import { IonPage } from 'ionic-svelte';
+	// @ts-ignore
+	import IonPage from 'ionic-svelte/components/IonPage.svelte';
 </script>
 
 <IonPage>

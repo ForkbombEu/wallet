@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { IonPage } from 'ionic-svelte';
+	// @ts-ignore
+	import IonPage from 'ionic-svelte/components/IonPage.svelte';
 	import Logo from '$lib/components/atoms/Logo.svelte';
 	import { z } from 'zod';
 	import { Form, createForm } from '$lib/forms';

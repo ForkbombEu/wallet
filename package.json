@@ -51,6 +51,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@aparajita/capacitor-biometric-auth": "^7.1.0",
 		"@capacitor-mlkit/barcode-scanning": "^5.3.0",
 		"@capacitor/android": "^5.4.2",
 		"@capacitor/app": "5.0.6",

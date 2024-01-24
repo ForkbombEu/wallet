@@ -4,6 +4,7 @@
 	import { z } from 'zod';
 	import { createForm, FieldController, Form, FormError } from '$lib/forms';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
+	import { unlockApp } from '$lib/preferences/locked.js';
 
 	//
 
@@ -25,6 +26,7 @@
 			try {
 				const keypair = await regenerateKeypair(userEmail, form.data.seed);
 				await setKeypairPreference(keypair);
+				await unlockApp();
 				await goto('/wallet'); // Note: `goto` needs `await`!
 			} catch (e) {
 				throw new Error('KEYPAIR_REGENERATION_ERROR');
