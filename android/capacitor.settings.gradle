@@ -2,6 +2,9 @@
 include ':capacitor-android'
 project(':capacitor-android').projectDir = new File('../node_modules/.pnpm/@capacitor+android@5.4.2_@capacitor+core@5.4.2/node_modules/@capacitor/android/capacitor')
 
+include ':aparajita-capacitor-biometric-auth'
+project(':aparajita-capacitor-biometric-auth').projectDir = new File('../node_modules/.pnpm/@aparajita+capacitor-biometric-auth@7.1.0/node_modules/@aparajita/capacitor-biometric-auth/android')
+
 include ':capacitor-mlkit-barcode-scanning'
 project(':capacitor-mlkit-barcode-scanning').projectDir = new File('../node_modules/.pnpm/@capacitor-mlkit+barcode-scanning@5.3.0_@capacitor+core@5.4.2/node_modules/@capacitor-mlkit/barcode-scanning/android')
 
