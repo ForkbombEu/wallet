@@ -1,9 +1,9 @@
 <script lang="ts">
-	import TabPage from '$lib/components/organisms/TabPage.svelte';
+	import TabPage from '$lib/tabs/TabPage.svelte';
 	import { faker } from '@faker-js/faker';
 </script>
 
-<TabPage tabId="notifications" title="My notifications">
+<TabPage tab="notifications" title="NOTIFICATIONS">
 	<ion-list>
 		<ion-list-header>Recent Conversations</ion-list-header>
 		{#each Array(10) as _}
