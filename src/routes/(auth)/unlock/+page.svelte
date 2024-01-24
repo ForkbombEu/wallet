@@ -36,6 +36,13 @@
 			throw e;
 		}
 	}
+
+	//
+
+	async function testUnlock() {
+		await unlockApp();
+		await goto('/wallet');
+	}
 </script>
 
 <IonPage>
@@ -43,7 +50,7 @@
 		<div class="flex h-full w-full flex-col items-center justify-center gap-4 p-6">
 			<div class="flex flex-col items-center gap-2">
 				<Logo />
-				<h1 class="text-2xl">Welcome!</h1>
+				<ion-text class="text-2xl">Welcome!</ion-text>
 			</div>
 
 			{#if data.biometryCheckResult.isAvailable}
@@ -58,6 +65,7 @@
 				{/if}
 			{:else}
 				<ion-text>Biometry not available!</ion-text>
+				<ion-button on:click={testUnlock}>Test unlock</ion-button>
 			{/if}
 		</div>
 	</ion-content>
