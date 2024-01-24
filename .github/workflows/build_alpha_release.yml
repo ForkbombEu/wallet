@@ -59,7 +59,7 @@ jobs:
         with:
           name: wallet
           path: |
-            release/wallet.apk
+            wallet.apk
 
   semantic-release:
     permissions:
@@ -115,7 +115,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            release/*
+            release/wallet/*
           draft: false
           prerelease: false
           fail_on_unmatched_files: true

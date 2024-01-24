@@ -11,7 +11,7 @@
 			<ion-title>
 				<div class="flex items-center gap-2">
 					<Logo />
-					<h1 class="text-2xl">Wallet</h1>
+					<h1 class="text-2xl">Didroom wallet</h1>
 				</div>
 			</ion-title>
 		</ion-toolbar>
