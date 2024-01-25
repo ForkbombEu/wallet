@@ -1,4 +1,4 @@
-// import { PUBLIC_BACKEND_URL } from '$env/static/public';
+import { PUBLIC_BACKEND_URL } from '$env/static/public';
 
 import { fetchTemplates, showProfile } from './endpoints';
 //@ts-ignore
@@ -21,8 +21,7 @@ export type PBExpand<T extends PBRecord = PBRecord> = Record<string, T | T[]>;
 
 export type PBResponse<R extends PBRecord = PBRecord, E extends PBExpand = PBExpand> = R & BaseSystemFields<E>;
 
-//const PB = PUBLIC_BACKEND_URL;
-export const PB = "https://admin.signroom.io/"
+const PB = PUBLIC_BACKEND_URL;
 
 export const slangroom = new Slangroom(http);
 

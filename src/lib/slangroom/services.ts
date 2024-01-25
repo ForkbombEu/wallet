@@ -1,5 +1,7 @@
-import { PB, slangroom } from '.';
+import { slangroom } from '.';
+import { PUBLIC_BACKEND_URL } from '$env/static/public';
 
+const pb = PUBLIC_BACKEND_URL;
 export interface Response {
 	page: number;
 	perPage: number;
@@ -22,7 +24,10 @@ export interface Service {
 	updated: string;
 }
 
-export const servicesContract = `
+export const getServices = async (): Promise<Response> => {
+	try {
+		const res = await slangroom.execute(
+			`
 Rule unknown ignore
 
 Given I have a 'string' named 'pb'
@@ -30,13 +35,11 @@ When I write string 'api/collections/services/records?expand=issuer' in 'path'
 When I append 'path' to 'pb'
 Then print data
 Then I connect to 'pb' and do get and output into 'http_result'
-`;
-
-export const getServices = async (): Promise<Response> => {
-	try {
-		const res = await slangroom.execute(servicesContract, {
-			data: { pb: PB }
-		});
+`,
+			{
+				data: { pb }
+			}
+		);
 		return res.result.http_result.result;
 	} catch (e: any) {
 		console.log(e);
@@ -44,7 +47,10 @@ export const getServices = async (): Promise<Response> => {
 	}
 };
 
-export const serviceContract =(id:string)=> `
+export const getService = async (id: string): Promise<Response> => {
+	try {
+		const res = await slangroom.execute(
+			`
 Rule unknown ignore
 
 Given I have a 'string' named 'pb'
@@ -52,18 +58,14 @@ When I write string 'api/collections/services/records/${id}?expand=templates' in
 When I append 'path' to 'pb'
 Then print data
 Then I connect to 'pb' and do get and output into 'http_result'
-`;
-
-export const getService = async (id:string): Promise<Response> => {
-	try {
-		const res = await slangroom.execute(serviceContract(id), {
-			data: { pb: PB }
-		});
+`,
+			{
+				data: { pb }
+			}
+		);
 		return res.result.http_result.result;
 	} catch (e: any) {
 		console.log(e);
 		throw new Error(e);
 	}
 };
-
-
