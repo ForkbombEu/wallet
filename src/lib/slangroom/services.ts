@@ -1,16 +1,20 @@
 import { slangroom } from '.';
 import { PUBLIC_BACKEND_URL } from '$env/static/public';
 
-const pb = PUBLIC_BACKEND_URL;
-export interface Response {
+export type PaginatedResult<T> = {
 	page: number;
 	perPage: number;
 	totalItems: number;
 	totalPages: number;
-	items: Service[];
-}
+	items: T[];
+};
 
-export interface Service {
+export type Response<T> = {
+	result: T;
+	status: number;
+};
+
+export type Service = {
 	add_ons: boolean;
 	collectionId: string;
 	collectionName: string;
@@ -22,45 +26,38 @@ export interface Service {
 	published: boolean;
 	templates: string[];
 	updated: string;
-}
+};
 
-export const getServices = async (): Promise<Response> => {
+export const getServices = async (): Promise<Response<PaginatedResult<Service>>> => {
 	try {
 		const res = await slangroom.execute(
-			`
-Rule unknown ignore
+			`Rule unknown ignore
 
-Given I have a 'string' named 'pb'
-When I write string 'api/collections/services/records?expand=issuer' in 'path'
-When I append 'path' to 'pb'
+Given I connect to 'path' and do get and output into 'http_result'
+Given I have a 'string dictionary' named 'http_result'
 Then print data
-Then I connect to 'pb' and do get and output into 'http_result'
 `,
 			{
-				data: { pb }
+				data: { path: `${PUBLIC_BACKEND_URL}/api/collections/services/records?expand=issuer` }
 			}
 		);
-		return res.result.http_result.result;
+		return res.result.http_result;
 	} catch (e: any) {
 		console.log(e);
-		throw new Error(e);
+		throw new Error(JSON.stringify(e));
 	}
 };
 
 export const getService = async (id: string): Promise<Response> => {
 	try {
 		const res = await slangroom.execute(
-			`
-Rule unknown ignore
+			`Rule unknown ignore
 
-Given I have a 'string' named 'pb'
-When I write string 'api/collections/services/records/${id}?expand=templates' in 'path'
-When I append 'path' to 'pb'
-Then print data
-Then I connect to 'pb' and do get and output into 'http_result'
-`,
+Given I connect to 'path' and do get and output into 'http_result'
+Given I have a 'string dictionary' named 'http_result'
+Then print data`,
 			{
-				data: { pb }
+				data: { path: `${PUBLIC_BACKEND_URL}/api/collections/services/records/${id}?expand=templates` }
 			}
 		);
 		return res.result.http_result.result;

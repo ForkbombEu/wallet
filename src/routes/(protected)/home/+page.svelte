@@ -8,7 +8,7 @@
 	{#await getServices()}
 		<ion-spinner />
 	{:then res}
-		{@const services = res.items}
+		{@const services = res.result.items}
 		<div class="flex flex-col gap-2 px-4">
 			{#each services as service}
 				<d-credential-service name={service.name} issuer={service.issuer} href={`/request/${service.id}`} />
