@@ -1,0 +1,12 @@
+ion-content::part(background) {
+	background-color: var(--surface);
+}
+
+ion-text {
+	color: var(--on-primary);
+}
+
+ion-button::part(native) {
+	background-color: var(--inverted-primary);
+    color: var(--inverted-on-primary)
+}

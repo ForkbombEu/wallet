@@ -1,8 +1,8 @@
 <script lang="ts">
-	import TabPage from '$lib/components/organisms/TabPage.svelte';
+	import TabPage from '$lib/tabs/TabPage.svelte';
 </script>
 
-<TabPage tabId="profile" title="Profile">
+<TabPage tab="profile" title="PROFILE">
 	<div class="flex-col gap-2">
 		<ion-label>Badges:</ion-label>
 		<div class="mt-2 flex-row gap-2">
