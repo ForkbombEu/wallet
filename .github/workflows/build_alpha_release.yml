@@ -7,6 +7,7 @@ on:
 jobs:
   build_android:
     runs-on: ubuntu-latest
+    environment: test
     steps:
       - uses: actions/checkout@v4
       - name: Git Sumbodule Update

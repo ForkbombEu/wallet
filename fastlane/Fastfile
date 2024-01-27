@@ -29,8 +29,7 @@ platform :android do
   lane :alpha do
     sh "pnpm install -g @ionic/cli"
     sh "pnpm install"
-    # sh "echo 'PUBLIC_BACKEND_URL=#{ENV["PUBLIC_BACKEND_URL"]}' > .env"
-    sh "cp ../.env.example .env"
+    # sh "cp ../.env.example .env"
     sh "ionic cap sync android"
     sh "ionic cap build android --no-open"
     gradle(
