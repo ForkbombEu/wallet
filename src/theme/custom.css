@@ -1,12 +1,13 @@
-ion-content::part(background) {
-	background-color: var(--surface);
-}
-
-ion-text {
-	color: var(--on-primary);
-}
-
-ion-button::part(native) {
-	background-color: var(--inverted-primary);
-    color: var(--inverted-on-primary)
+.material-symbols-rounded {
+	font-family: 'Material Symbols Rounded';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px; /* Preferred icon size */
+	display: inline-block;
+	line-height: 1;
+	text-transform: none;
+	letter-spacing: normal;
+	word-wrap: normal;
+	white-space: nowrap;
+	direction: ltr;
 }

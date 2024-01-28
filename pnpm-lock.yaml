@@ -47,9 +47,9 @@ dependencies:
   '@efstajas/svelte-stepper':
     specifier: ^0.1.5
     version: 0.1.5(svelte@4.0.5)
-  '@fontsource/poppins':
-    specifier: ^5.0.8
-    version: 5.0.8
+  '@fontsource-variable/gantari':
+    specifier: ^5.0.9
+    version: 5.0.9
   '@ionic/core':
     specifier: ^7.4.3
     version: 7.4.3
@@ -1768,8 +1768,8 @@ packages:
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0, npm: '>=6.14.13'}
     dev: true
 
-  /@fontsource/poppins@5.0.8:
-    resolution: {integrity: sha512-P8owfYWluoUY5Nyzk4gT/L6LmLmseP6ezFWhj6VBUa5pRIdnCvNJpoQ6i/vhekjtJOfqX6nKlB+LCttoUl2GQQ==}
+  /@fontsource-variable/gantari@5.0.9:
+    resolution: {integrity: sha512-Hr5QT0GA183E8kLFQVhQXP7LnuQTqVvCoyYworozOPRZkMFvo/OKFBOhXmbSj84Ok8ECmHypw2c7j2k7mQbkuQ==}
     dev: false
 
   /@hutson/parse-repository-url@3.0.2:

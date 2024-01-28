@@ -38,7 +38,9 @@ Given I have a 'string dictionary' named 'http_result'
 Then print data
 `,
 			{
-				data: { path: `${PUBLIC_BACKEND_URL}/api/collections/services/records?expand=issuer` }
+				data: {
+					path: `${PUBLIC_BACKEND_URL}/api/collections/services/records?expand=issuer&sort=-updated&filter=(organization='6snnqkixx6eszue')`
+				}
 			}
 		);
 		return res.result.http_result;

@@ -1,5 +1,5 @@
 import { redirect } from '@sveltejs/kit';
 
 export const load = async () => {
-	throw redirect(301, '/wallet');
+	throw redirect(301, '/home');
 };

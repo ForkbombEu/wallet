@@ -2,21 +2,19 @@
 	import type { Tab } from '.';
 
 	export let tab: Tab;
-	export let title: string | undefined = undefined;
+	export let title: string;
 </script>
 
 <ion-tab {tab}>
-	{#if title}
-		<ion-header>
-			<ion-toolbar>
-				<ion-title>
-					{title}
-				</ion-title>
-			</ion-toolbar>
-		</ion-header>
-	{/if}
+	<ion-header>
+		<ion-toolbar>
+			<ion-title>{title}</ion-title>
+		</ion-toolbar>
+	</ion-header>
 
 	<ion-content fullscreen>
-		<slot />
+		<div class="p-4">
+			<slot />
+		</div>
 	</ion-content>
 </ion-tab>
