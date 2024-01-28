@@ -77,11 +77,7 @@ const apiById = async (
 };
 
 // WARNING: not safe against injection
-const api = async (
-	url: string,
-	token?: string,
-	rest?: FormData | Record<string, string>
-): Promise<PBResponse> => {
+const api = async (url: string, token?: string, rest?: FormData | Record<string, string>): Promise<PBResponse> => {
 	const data: SlangroomApiData = {
 		pb: PB,
 		...rest
@@ -152,7 +148,7 @@ export const updateProfile = async (req: SlangroomRequest<FormData | Record<stri
 		}
 	});
 	// TODO: check errors
-	return res.result;
+	return { status: res.status, result: res.result };
 };
 
 export const getTemplates = (req?: Partial<SlangroomRequest>): SlangroomResponse<PBResponse> => {
