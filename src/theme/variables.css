@@ -22,6 +22,7 @@ body.barcode-scanner-active {
 	visibility: hidden;
 	--background: transparent;
 	--ion-background-color: transparent;
+	--surface: transparent;
 }
 
 .barcode-scanner-modal {
