@@ -65,7 +65,7 @@
 
 <ion-content>
 	<slot {scan} {stopScan} />
-	<div class="visible fixed bottom-0 h-48 mb-[-70px] px-4 bg-[#d2d7e5] flex flex-col gap-2">
+	<div class="visible absolute bottom-0 flex h-48 flex-col gap-2 bg-[#d2d7e5] px-4 pt-4">
 		<d-heading size="s">
 			<h2>Scan QR to verify or obtain credentials...</h2>
 		</d-heading>
