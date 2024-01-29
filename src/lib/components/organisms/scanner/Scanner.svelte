@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { BarcodeScanner, type Barcode } from '@capacitor-mlkit/barcode-scanning';
-	import { backspaceOutline, chevronBackOutline, refreshOutline, searchOutline } from 'ionicons/icons';
+	import { close } from 'ionicons/icons';
 	import { createEventDispatcher, onMount } from 'svelte';
 
 	const dispatch = createEventDispatcher();
@@ -52,17 +52,23 @@
 	};
 </script>
 
-<ion-header class="visible bg-white">
+<ion-header class="visible bg-[#d2d7e5]">
 	<ion-toolbar>
 		<div class="flex flex-row">
+			<ion-title>QR SCAN</ion-title>
 			<ion-button tab="account" on:click={stopScan} on:keydown={stopScan} aria-hidden fill="clear">
-				<ion-icon icon={backspaceOutline}></ion-icon>
+				<ion-icon icon={close}></ion-icon>
 			</ion-button>
-			<ion-title>Claim o verify credential</ion-title>
 		</div>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content>
 	<slot {scan} {stopScan} />
+	<div class="visible absolute bottom-0 flex h-48 flex-col gap-2 bg-[#d2d7e5] px-4 pt-4">
+		<d-heading size="s">
+			<h2>Scan QR to verify or obtain credentials...</h2>
+		</d-heading>
+		<d-text size="l"> <p class="pb-4">Make sure to scan the full QR surface...</p></d-text>
+	</div>
 </ion-content>
