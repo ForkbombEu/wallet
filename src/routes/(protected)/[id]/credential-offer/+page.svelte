@@ -10,17 +10,17 @@
 	const { credential } = data;
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
-	$: {
-		if (isModalOpen) {
-			setInterval(() => {
+
+	const getCredential = ()=>  {
+			isModalOpen = true
+			setTimeout(() => {
 				isCredentialVerified = true;
-				setInterval(() => {
+				setTimeout(() => {
 					isModalOpen = false;
-					goto("/home")
+					goto('/home');
 				}, 3000);
 			}, 5000);
 		}
-	}
 </script>
 
 <ion-header>
@@ -39,16 +39,14 @@
 		<div>
 			<div class="text-on flex items-center gap-2 text-xl font-semibold not-italic">
 				<d-avatar name={credential.name}></d-avatar>
-				<span class="text-2xl font-semibold not-italic leading-[20.5px] tracking-[-0.5px]">{credential.name}</span>
+				<d-heading size="s">{credential.name}</d-heading>
 			</div>
 			<div class="mt-2 flex flex-col gap-2">
-				<span class="text-on text-xl font-medium not-italic leading-[20.5px] tracking-[-0.5px]"
-					>{credential.expand.templates[0].name}</span
-				>
+				<d-text size="l">{credential.expand.templates[0].name}</d-text>
 				<div class="flex flex-col gap-4">
-					<span class="text-on-alt text-sm font-normal not-italic leading-[150%] tracking-[-0.5px]"
+					<d-text size="s"
 						>Lorem ipsum dolor sit amet consectetur. Leo ultricies pellentesque morbi in eu metus commodo felis.
-						Pellentesque facilisis a auctor enim lectus. Nulla dolor cras viverra massa.</span
+						Pellentesque facilisis a auctor enim lectus. Nulla dolor cras viverra massa.</d-text
 					>
 				</div>
 			</div>
@@ -64,9 +62,9 @@
 		<div class="w-full">
 			<ion-button
 				expand="block"
-				on:click={() => {
-					isModalOpen = true;
-				}}>Get this credential</ion-button
+				on:click={getCredential}
+				on:keydown={getCredential}
+				aria-hidden>Get this credential</ion-button
 			>
 			<ion-button expand="block" href="/home">decline</ion-button>
 		</div>
@@ -79,7 +77,9 @@
 						We are generating this credential
 						<d-credential-card name={credential.name} issuer={credential.issuer} description={credential.description} />
 					{:else}
+					<div class="flex w-full justify-around">
 						<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"></ion-icon>
+						</div>
 					{/if}
 				</div>
 			</div>
