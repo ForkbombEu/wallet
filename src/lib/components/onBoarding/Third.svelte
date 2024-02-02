@@ -10,5 +10,5 @@
 <div class="flex h-full flex-col justify-around items-center">
 	<d-heading size="xl">3</d-heading>
 	<d-heading size="m">On-boarding</d-heading>
-  <ion-button on:click={completeOnBoarding}>Complete on boarding</ion-button>
+  <ion-button on:click={()=>completeOnBoarding()}>Complete on boarding</ion-button>
 </div>
