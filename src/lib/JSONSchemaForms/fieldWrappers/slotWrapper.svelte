@@ -1,2 +1,0 @@
-<slot />
-<slot name="end" />

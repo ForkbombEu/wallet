@@ -1,7 +1,0 @@
-{
-	"name": "didroom",
-	"integrations": {
-		"capacitor": {}
-	},
-	"type": "custom"
-}
