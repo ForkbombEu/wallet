@@ -103,6 +103,9 @@ devDependencies:
   '@semantic-release/commit-analyzer':
     specifier: ^11.1.0
     version: 11.1.0(semantic-release@23.0.0)
+  '@semantic-release/release-notes-generator':
+    specifier: ^12.1.0
+    version: 12.1.0(semantic-release@23.0.0)
   '@sveltejs/adapter-static':
     specifier: ^3.0.1
     version: 3.0.1(@sveltejs/kit@2.5.0)
@@ -157,6 +160,9 @@ devDependencies:
   prettier-plugin-tailwindcss:
     specifier: ^0.5.9
     version: 0.5.11(prettier-plugin-organize-imports@3.2.4)(prettier-plugin-svelte@3.1.2)(prettier@3.2.4)
+  semantic-release:
+    specifier: ^23.0.0
+    version: 23.0.0(typescript@5.3.3)
   svelte:
     specifier: ^4.2.7
     version: 4.2.9
