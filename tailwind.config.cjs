@@ -1,12 +1,14 @@
-/** @type {import('tailwindcss').Config}*/
-const config = {
+/** @type {import('tailwindcss').Config} */
+
+export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
-
+	safelist: ['main'],
 	theme: {
-		extend: {}
+		extend: {
+			fontFamily: {
+				sans: 'Poppins'
+			}
+		}
 	},
-
 	plugins: []
 };
-
-module.exports = config;

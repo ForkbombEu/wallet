@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Didroom</string>
+    <string name="title_activity_main">Didroom</string>
+    <string name="package_name">didroom.forkbomb.eu</string>
+    <string name="custom_url_scheme">didroom.forkbomb.eu</string>
+</resources>

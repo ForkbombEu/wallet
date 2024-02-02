@@ -1,0 +1,37 @@
+/* Ionic Variables and Theming. For more info, please see:
+  http://ionicframework.com/docs/theming/ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--ion-background-color: var(--surface);
+	--ion-text-color: var(--on);
+	--ion-tab-bar-background: var(--primary);
+	--ion-default-font: 'Gantari Variable';
+	--ion-font-family: 'Gantari Variable';
+}
+
+.ios {
+	--ion-safe-area-top: 28px;
+	--ion-safe-area-bottom: 16px;
+}
+
+body.barcode-scanner-active {
+	visibility: hidden;
+	--background: transparent;
+	--ion-background-color: transparent;
+	--surface: transparent;
+}
+
+.barcode-scanner-modal {
+	visibility: visible;
+}
+
+@media (prefers-color-scheme: dark) {
+	.barcode-scanner-modal {
+		--background: transparent;
+		--ion-background-color: transparent;
+	}
+}
