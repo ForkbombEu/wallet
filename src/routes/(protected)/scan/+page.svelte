@@ -4,7 +4,7 @@
 	import { parseQr, verifyCredential, type Credential } from '$lib/components/organisms/scanner/tools';
 
 	let barcode: string;
-	let isModalOpen: boolean = true
+	let isModalOpen: boolean;
 	let res: any;
 
 	const request = async (credential: Credential) => {
