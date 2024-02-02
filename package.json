@@ -24,6 +24,7 @@
 	"devDependencies": {
 		"@capacitor/assets": "^3.0.4",
 		"@faker-js/faker": "^8.4.0",
+		"@lottiefiles/svelte-lottie-player": "^0.3.1",
 		"@playwright/test": "^1.28.1",
 		"@semantic-release/changelog": "^6.0.3",
 		"@semantic-release/commit-analyzer": "^11.1.0",
@@ -34,6 +35,7 @@
 		"@types/lodash": "^4.14.202",
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
 		"@typescript-eslint/parser": "^6.0.0",
+		"@vite-pwa/sveltekit": "^0.3.0",
 		"autoprefixer": "^10.4.16",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
@@ -50,7 +52,6 @@
 		"tslib": "^2.4.1",
 		"typescript": "^5.0.0",
 		"vite": "^5.0.3",
-		"@vite-pwa/sveltekit": "^0.3.0",
 		"vitest": "^1.2.0"
 	},
 	"type": "module",
@@ -71,8 +72,6 @@
 		"@capacitor/status-bar": "^5.0.7",
 		"@efstajas/svelte-stepper": "^0.2.1",
 		"@fontsource-variable/gantari": "^5.0.9",
-		"@ionic/core": "^7.4.3",
-		"@lottiefiles/svelte-lottie-player": "^0.3.1",
 		"@ionic/core": "^7.7.0",
 		"@slangroom/core": "^1.13.0",
 		"@slangroom/http": "^1.13.0",
