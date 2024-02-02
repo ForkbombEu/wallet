@@ -73,10 +73,10 @@ jobs:
       version: ${{ steps.tag_release.outputs.version }}
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node.js 18
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 20.8.1
       - uses: pnpm/action-setup@v2
         name: Install pnpm
         with:
