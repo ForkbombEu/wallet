@@ -6,21 +6,22 @@
 	import { fly } from 'svelte/transition';
 	import { thumbsUpOutline } from 'ionicons/icons';
 	import { goto } from '$app/navigation';
+	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	export let data: any;
 	const { credential } = data;
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
 
-	const getCredential = ()=>  {
-			isModalOpen = true
+	const getCredential = () => {
+		isModalOpen = true;
+		setTimeout(() => {
+			isCredentialVerified = true;
 			setTimeout(() => {
-				isCredentialVerified = true;
-				setTimeout(() => {
-					isModalOpen = false;
-					goto('/home');
-				}, 3000);
-			}, 5000);
-		}
+				isModalOpen = false;
+				goto('/home');
+			}, 3000);
+		}, 5000);
+	};
 </script>
 
 <ion-header>
@@ -60,11 +61,8 @@
 		</JSONSchemaParser>
 		<pre>{credential.expand.templates[0].schema}</pre>
 		<div class="w-full">
-			<ion-button
-				expand="block"
-				on:click={getCredential}
-				on:keydown={getCredential}
-				aria-hidden>Get this credential</ion-button
+			<ion-button expand="block" on:click={getCredential} on:keydown={getCredential} aria-hidden
+				>Get this credential</ion-button
 			>
 			<ion-button expand="block" href="/home">decline</ion-button>
 		</div>
@@ -76,9 +74,16 @@
 					{#if !isCredentialVerified}
 						We are generating this credential
 						<d-credential-card name={credential.name} issuer={credential.issuer} description={credential.description} />
+						<LottiePlayer
+							src="https://assets2.lottiefiles.com/packages/lf20_wxUJzo.json"
+							autoplay={true}
+							loop={true}
+							renderer="svg"
+							background="transparent"
+						/>
 					{:else}
-					<div class="flex w-full justify-around">
-						<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"></ion-icon>
+						<div class="flex w-full justify-around">
+							<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"></ion-icon>
 						</div>
 					{/if}
 				</div>

@@ -67,6 +67,7 @@
 		"@efstajas/svelte-stepper": "^0.1.5",
 		"@fontsource-variable/gantari": "^5.0.9",
 		"@ionic/core": "^7.4.3",
+		"@lottiefiles/svelte-lottie-player": "^0.3.1",
 		"@slangroom/core": "^1.6.0",
 		"@slangroom/http": "^1.6.0",
 		"ajv": "^8.12.0",
