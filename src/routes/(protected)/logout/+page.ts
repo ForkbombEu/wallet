@@ -6,5 +6,5 @@ import { lockApp } from '$lib/preferences/locked';
 export const load = async () => {
 	await removePreference(KEYPAIR_PREFERENCES_KEY);
 	await lockApp();
-	throw redirect(303, '/login');
+	redirect(303, '/login');
 };
