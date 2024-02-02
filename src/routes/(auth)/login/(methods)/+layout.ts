@@ -4,6 +4,6 @@ import { userEmailStore } from '../_lib';
 
 export const load = async () => {
 	const userEmail = get(userEmailStore);
-	if (!userEmail) throw redirect(303, '/login');
+	if (!userEmail) redirect(303, '/login');
 	return { userEmail };
 };

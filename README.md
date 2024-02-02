@@ -2,7 +2,6 @@
 
 ![qr (1)](https://github.com/ForkbombEu/wallet/assets/10379/5bf716ee-f74e-48fd-a1d6-0911f00d99d3)
 
-
 ### Notes
 
 **Path bug**
