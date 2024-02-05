@@ -1,5 +1,6 @@
 <script>
-	import BackButton from '$lib/ionic/backButton.svelte';
+	import { r } from '$lib/i18n';
+import BackButton from '$lib/ionic/backButton.svelte';
 	// @ts-ignore
 	import IonPage from 'ionic-svelte/components/IonPage.svelte';
 </script>
@@ -8,7 +9,7 @@
 	<ion-header>
 		<ion-toolbar>
 			<ion-buttons slot="start">
-				<BackButton href="/login" />
+				<BackButton href={r("/login")} />
 			</ion-buttons>
 		</ion-toolbar>
 	</ion-header>
