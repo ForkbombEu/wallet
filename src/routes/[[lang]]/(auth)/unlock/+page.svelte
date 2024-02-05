@@ -15,7 +15,7 @@
 		try {
 			await authenticate();
 			await unlockApp();
-			await goto(i18n.resolveRoute('/wallet'));
+			await goto('/wallet');
 		} catch (e) {
 			error = 'BIOMETRY_ERROR';
 		}
@@ -42,7 +42,7 @@
 
 	async function testUnlock() {
 		await unlockApp();
-		await goto(i18n.resolveRoute('/home'));
+		await goto('/home');
 	}
 </script>
 
