@@ -2,7 +2,6 @@
 	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import { getServices } from '$lib/slangroom/services';
-	import LanguageSwitcher from '$lib/components/languageSwitcher.svelte';
 	import { r, m } from '$lib/i18n';
 </script>
 
@@ -27,7 +26,6 @@
 				/>
 			{/each}
 		</div>
-		<LanguageSwitcher></LanguageSwitcher>
 	{/await}
 	<ScanButton />
 </TabPage>
