@@ -4,6 +4,7 @@
 	import { getServices } from '$lib/slangroom/services';
 	import LanguageSwitcher from '$lib/components/languageSwitcher.svelte';
 	import * as m from "$paraglide/messages"
+	import { i18n } from '$lib/i18n';
 </script>
 
 <TabPage tab="home" title="HOME">
@@ -23,12 +24,11 @@
 				<d-credential-service
 					name={service.name}
 					issuer={service.issuer}
-					href={`/request/${service.id}`}
+					href={i18n.resolveRoute(`/request/${service.id}`)}
 				/>
 			{/each}
 		</div>
 		<LanguageSwitcher></LanguageSwitcher>
-		<a href="/it/home" hreflang="it">Über uns</a>
 	{/await}
 	<ScanButton />
 </TabPage>

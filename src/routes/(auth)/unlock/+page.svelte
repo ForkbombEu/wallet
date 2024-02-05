@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Logo from '$lib/components/atoms/Logo.svelte';
+	import { i18n } from '$lib/i18n/index.js';
 	import { setLockedPreference, unlockApp } from '$lib/preferences/locked.js';
 	import { BiometricAuth, AndroidBiometryStrength } from '@aparajita/capacitor-biometric-auth';
 	// @ts-ignore
@@ -41,7 +42,7 @@
 
 	async function testUnlock() {
 		await unlockApp();
-		await goto('/it/home');
+		await goto(i18n.resolveRoute('/home'));
 	}
 </script>
 
