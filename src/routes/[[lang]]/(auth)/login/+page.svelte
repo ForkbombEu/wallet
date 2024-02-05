@@ -6,7 +6,7 @@
 	import { Form, createForm } from '$lib/forms';
 	import Input from '$lib/ionic/forms/input.svelte';
 	import SubmitButton from '$lib/ionic/forms/submitButton.svelte';
-	import { goto } from '$app/navigation';
+	import { goto } from '$lib/i18n';
 	import { userEmailStore } from './_lib';
 
 	//

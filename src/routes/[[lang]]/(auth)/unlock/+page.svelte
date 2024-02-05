@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto } from '$lib/i18n';
 	import Logo from '$lib/components/atoms/Logo.svelte';
 	import { i18n } from '$lib/i18n/index.js';
 	import { setLockedPreference, unlockApp } from '$lib/preferences/locked.js';
@@ -15,7 +15,7 @@
 		try {
 			await authenticate();
 			await unlockApp();
-			await goto('/wallet');
+			await goto(i18n.resolveRoute('/wallet'));
 		} catch (e) {
 			error = 'BIOMETRY_ERROR';
 		}

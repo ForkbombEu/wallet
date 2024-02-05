@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Logo from '$lib/components/atoms/Logo.svelte';
-	import * as m from "$paraglide/messages"
+	import {m} from '$lib/i18n'
 
 	export let data:string
 </script>

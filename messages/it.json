@@ -1,5 +1,6 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"Claim_credential": "Richiedi credenziale",
-	"Wallet": "Portafoglio"
+	"Wallet": "Portafoglio",
+	"Scan_QR_code_to_claim_credential_or_request_one_below": "Scennerizza il QR code per ottenere una credenziale o verificarne una"
 }

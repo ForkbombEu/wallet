@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { regenerateKeypair } from '$lib/keypairoom';
-	import { goto } from '$app/navigation';
+	import { goto } from '$lib/i18n';
 	import { z } from 'zod';
 	import { createForm, FieldController, Form, FormError } from '$lib/forms';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
@@ -42,7 +42,11 @@
 <Form {form}>
 	<div class="space-y-6">
 		<FieldController {form} fieldPath="seed" let:value let:updateValue>
-			<ion-textarea placeholder={seedPlaceholder} {value} on:ionChange={(e) => updateValue(e.target.value)} />
+			<ion-textarea
+				placeholder={seedPlaceholder}
+				{value}
+				on:ionChange={(e) => updateValue(e.target.value)}
+			/>
 		</FieldController>
 
 		<FormError {form} let:errorMessage>
