@@ -3,6 +3,7 @@
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import { getServices } from '$lib/slangroom/services';
 	import LanguageSwitcher from '$lib/components/languageSwitcher.svelte';
+	import * as m from "$paraglide/messages"
 </script>
 
 <TabPage tab="home" title="HOME">
@@ -11,7 +12,7 @@
 	{:then res}
 		{@const services = res.result.items}
 		<d-heading>
-			<h1>Claim credential</h1>
+			<h1>{m.Claim_credential()}</h1>
 		</d-heading>
 		<d-text size="l">
 			<p class="pb-4">Scan QR code to claim credential or request one below</p></d-text
@@ -27,6 +28,7 @@
 			{/each}
 		</div>
 		<LanguageSwitcher></LanguageSwitcher>
+		<a href="/it/home" hreflang="it">Über uns</a>
 	{/await}
 	<ScanButton />
 </TabPage>

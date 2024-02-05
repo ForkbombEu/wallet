@@ -41,7 +41,7 @@
 
 	async function testUnlock() {
 		await unlockApp();
-		await goto('/home');
+		await goto('/it/home');
 	}
 </script>
 

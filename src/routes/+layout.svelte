@@ -9,7 +9,7 @@
 	import '../theme/custom.css';
 
 	import { ParaglideJS } from '@inlang/paraglide-js-adapter-sveltekit';
-	import { i18n } from '$lib/i18n';
+	import { i18n } from '$lib/i18np';
 </script>
 
 <svelte:head>
@@ -27,8 +27,8 @@
 	/>
 </svelte:head>
 
-<ParaglideJS {i18n}>
-	<ion-app>
+<ion-app>
+		<ParaglideJS {i18n}>
 		<slot />
+	</ParaglideJS>
 	</ion-app>
-</ParaglideJS>
