@@ -29,6 +29,9 @@ dependencies:
   '@capacitor/core':
     specifier: ^5.6.0
     version: 5.6.0
+  '@capacitor/device':
+    specifier: ^5.0.7
+    version: 5.0.7(@capacitor/core@5.6.0)
   '@capacitor/filesystem':
     specifier: ^5.2.1
     version: 5.2.1(@capacitor/core@5.6.0)
@@ -1492,6 +1495,14 @@ packages:
     resolution: {integrity: sha512-xJhCOUGPHw0QYDA3YH+CmL6qiV9DH4Ij3yPxSenymjrtLuXI197u9ddCZwGEwgVIkh9kGZBBKzsNkn89SZ2gdQ==}
     dependencies:
       tslib: 2.6.2
+    dev: false
+
+  /@capacitor/device@5.0.7(@capacitor/core@5.6.0):
+    resolution: {integrity: sha512-sTYzGktRVK6giQCsoFtw+IGkEPGmFvIwi0pfFej5TRND1UHidkNZSpgMFBbjCYPbwsqXTcR3boYPcmxvl5iuJg==}
+    peerDependencies:
+      '@capacitor/core': ^5.0.0
+    dependencies:
+      '@capacitor/core': 5.6.0
     dev: false
 
   /@capacitor/filesystem@5.2.1(@capacitor/core@5.6.0):

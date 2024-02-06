@@ -26,7 +26,7 @@ export const i18n = createI18n(runtime, {
 	}
 });
 
-type Langs = ReturnType<typeof i18n.getLanguageFromUrl> 
+export type Langs = ReturnType<typeof i18n.getLanguageFromUrl> 
 export const m = messages
 export const r = (link: string, tag?:Langs) => i18n.resolveRoute(link, tag);
 export const goto = (link: string, tag?: Langs) => svelteGoto(r(link, tag));
