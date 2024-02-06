@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import Modal from '$lib/components/molecules/Modal.svelte';
 	import Scanner from '$lib/components/organisms/scanner/Scanner.svelte';
 	import { parseQr, verifyCredential, type Credential } from '$lib/components/organisms/scanner/tools';
@@ -9,7 +8,6 @@
 	let res: any;
 
 	const request = async (credential: Credential) => {
-		// isModalOpen = false;
 		res = await verifyCredential(credential);
 	};
 </script>
@@ -21,12 +19,10 @@
 		isModalOpen = true;
 	}}
 >
-	<!-- {JSON.stringify(res)} -->
 	<Modal {isModalOpen} closeCb={scan}>
 		{@const parsedQr = parseQr(barcode)}
 		{#if !(parsedQr?.result === 'ok')}
 			<ion-title>{parsedQr?.message || 'error'}</ion-title>
-			<!-- {barcode} -->
 		{:else}
 			{@const { name, issuedBy, url } = parsedQr.credential}
 			<ion-title>{name}</ion-title>

@@ -16,7 +16,7 @@
 
 		<div class="flex flex-col gap-2">
 			{#each services as service}
-				<d-credential-service name={service.name} issuer={service.issuer} href={`/request/${service.id}`} />
+				<d-credential-service name={service.name} issuer={service.issuer} href={`/${service.id}/credential-offer`} />
 			{/each}
 		</div>
 	{/await}
