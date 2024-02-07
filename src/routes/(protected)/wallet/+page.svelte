@@ -11,13 +11,15 @@
 	<d-text size="l"> <p class="pb-4">Explore and manage your verified credentials</p></d-text>
 	<div class="flex flex-col gap-2">
 		{#each fakeCredentials as credential}
-			<d-credential-card
-				name={credential.name}
-				issuer={credential.issuer}
-				description={credential.description}
-				expiration-date={credential.expirationDate}
-				verified={credential.verified}
-			/>
+			<a href="/{credential.id}/detail">
+				<d-credential-card
+					name={credential.name}
+					issuer={credential.issuer}
+					description={credential.description}
+					expiration-date={credential.expirationDate}
+					verified={credential.verified}
+				/>
+			</a>
 		{/each}
 	</div>
 	<ScanButton />
