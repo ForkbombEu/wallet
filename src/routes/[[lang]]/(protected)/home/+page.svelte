@@ -22,7 +22,7 @@
 				<d-credential-service
 					name={service.name}
 					issuer={service.issuer}
-					href={r(`/request/${service.id}`)}
+          href={`/${service.id}/credential-offer`} 
 				/>
 			{/each}
 		</div>

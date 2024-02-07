@@ -24,12 +24,10 @@
 		isModalOpen = true;
 	}}
 >
-	<!-- {JSON.stringify(res)} -->
 	<Modal {isModalOpen} closeCb={scan}>
 		{@const parsedQr = parseQr(barcode)}
 		{#if !(parsedQr?.result === 'ok')}
 			<ion-title>{parsedQr?.message || 'error'}</ion-title>
-			<!-- {barcode} -->
 		{:else}
 			{@const { name, issuedBy, url } = parsedQr.credential}
 			<ion-title>{name}</ion-title>
