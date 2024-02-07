@@ -2,5 +2,6 @@
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"Claim_credential": "Claim credential",
 	"Wallet": "Wallet",
-	"Scan_QR_code_to_claim_credential_or_request_one_below": "Scan QR code to claim credential or request one below"
+	"Scan_QR_code_to_claim_credential_or_request_one_below": "Scan QR code to claim credential or request one below",
+	"Language": "Language"
 }
