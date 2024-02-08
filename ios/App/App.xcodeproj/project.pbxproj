@@ -38,7 +38,7 @@
 		713CA9D02AE6BD2B00F3E271 /* TEEPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TEEPlugin.swift; sourceTree = "<group>"; };
 		713CA9D22AE6C2D500F3E271 /* TEEPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TEEPlugin.m; sourceTree = "<group>"; };
 		71A4E4FA2B06526D0007058E /* App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
-		71A4E4FB2B0655000007058E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		71A4E4FB2B0655000007058E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C571C87CFE27B4D4C6EEF62 /* Pods_Didroom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Didroom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF51FD2D460BCFE21FA515B2 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
