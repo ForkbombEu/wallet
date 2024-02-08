@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">Didroom</string>
     <string name="title_activity_main">Didroom</string>
-    <string name="package_name">didroom.forkbomb.eu</string>
-    <string name="custom_url_scheme">didroom.forkbomb.eu</string>
+    <string name="package_name">eu.forkbomb.didroom</string>
+    <string name="custom_url_scheme">eu.forkbomb.didroom</string>
 </resources>

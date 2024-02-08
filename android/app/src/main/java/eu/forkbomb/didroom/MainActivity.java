@@ -1,4 +1,4 @@
-package didroom.forkbomb.eu;
+package eu.forkbomb.didroom;
 
 import android.os.Bundle;
 

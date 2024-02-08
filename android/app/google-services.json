@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1003776255673:android:5dda47ce79fb8bb8841d68",
+        "mobilesdk_app_id": "1:1003776255673:android:3cf2b194c98d8155841d68",
         "android_client_info": {
-          "package_name": "walletamous.ionic.io"
+          "package_name": "eu.forkbomb.didroom"
         }
       },
       "oauth_client": [],
