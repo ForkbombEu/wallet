@@ -1,82 +1,64 @@
 <script lang="ts">
-	import TabPage from '$lib/tabs/TabPage.svelte';
-	import { faker } from '@faker-js/faker';
 	import {
-		PushNotifications,
-		type DeliveredNotifications,
-		type PushNotificationSchema
-	} from '@capacitor/push-notifications';
+		fetchDeliveredNotifications,
+		listenPushNotificationActionPerformed,
+		registerNotifications,
 
-	let incomingNotification: PushNotificationSchema;
-	let notificationsList: DeliveredNotifications;
+		stopListen
 
-	const addListeners = async () => {
-		await PushNotifications.addListener('pushNotificationReceived', (notification) => {
-			incomingNotification = notification;
-			console.log('Push notification received: ', notification);
+	} from '$lib/notifications';
+	import TabPage from '$lib/tabs/TabPage.svelte';
+	import { type ActionPerformed, type PushNotificationSchema } from '@capacitor/push-notifications';
+	import { onDestroy, onMount } from 'svelte';
+
+	// let incomingNotification: PushNotificationSchema;
+	let action: ActionPerformed;
+	let notificationsListPromise = fetchDeliveredNotifications();
+
+	onMount(async () => {
+		await registerNotifications();
+		listenPushNotificationActionPerformed((a) => {
+			action = a;
+			notificationsListPromise = fetchDeliveredNotifications();
 		});
+	});
 
-		await PushNotifications.addListener('pushNotificationActionPerformed', (notification) => {
-			console.log(
-				'Push notification action performed',
-				notification.actionId,
-				notification.inputValue
-			);
-		});
-	};
+	onDestroy(async () => {
+		await stopListen()
+	});
 
-	const registerNotifications = async () => {
-		let permStatus = await PushNotifications.checkPermissions();
-
-		if (permStatus.receive === 'prompt') {
-			permStatus = await PushNotifications.requestPermissions();
-		}
-
-		if (permStatus.receive !== 'granted') {
-			throw new Error('User denied permissions!');
-		}
-
-		await PushNotifications.register();
-	};
-
-	const getDeliveredNotifications = async () => {
-		const notificationList = await PushNotifications.getDeliveredNotifications();
-		console.log('delivered notifications', notificationList);
-	};
-
-	registerNotifications();
-	addListeners();
-	$: getDeliveredNotifications();
+	
 </script>
 
 <TabPage tab="notifications" title="NOTIFICATIONS">
 	<ion-list>
 		<ion-list-header>Recent Conversations</ion-list-header>
-		{#each Array(10) as _}
+		{#await notificationsListPromise}
 			<ion-item>
-				<ion-avatar slot="start">
-					<img alt="avatar" src={`https://i.pravatar.cc/40?u=${faker.person.firstName()}`} />
-				</ion-avatar>
+				<ion-label>
+					<h2>Loading...</h2>
+				</ion-label>
+			</ion-item>
+		{:then notificationsList}
+			{#each notificationsList.notifications as n}
+			<ion-item>
+				<!-- <ion-avatar slot="start">
+					<img alt="avatar" src={n.data.img} />
+				</ion-avatar> -->
+				<d-avatar text={n.title} />
 
 				<ion-label>
-					<h2>{faker.person.fullName()}</h2>
-
-					<h3>{faker.lorem.sentence()}</h3>
-
-					<p>{faker.lorem.paragraph()}</p>
+					<h2>{n.title}</h2>
+					<h3>{n.body}</h3>
 				</ion-label>
 			</ion-item>
 		{/each}
+		{:catch error}
+			<ion-item>
+				<ion-label>
+					<h2>Error: {error.message}</h2>
+				</ion-label>
+			</ion-item>
+		{/await}
 	</ion-list>
-
-	{#if incomingNotification}
-		<pre>
-				{JSON.stringify(incomingNotification, null, 2)}
-			</pre>
-	{/if}
-	{#if notificationsList}
-		<pre>
-				{JSON.stringify(notificationsList, null, 2)}
-			</pre>
-	{/if}
 </TabPage>
