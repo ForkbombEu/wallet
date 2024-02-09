@@ -1,7 +1,12 @@
 <script lang="ts">
+	import { goto } from '$lib/i18n';
 	import Modal from '$lib/components/molecules/Modal.svelte';
 	import Scanner from '$lib/components/organisms/scanner/Scanner.svelte';
-	import { parseQr, verifyCredential, type Credential } from '$lib/components/organisms/scanner/tools';
+	import {
+		parseQr,
+		verifyCredential,
+		type Credential
+	} from '$lib/components/organisms/scanner/tools';
 
 	let barcode: string;
 	let isModalOpen: boolean;

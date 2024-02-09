@@ -9,6 +9,7 @@
 	import CopyButton from '$lib/components/copyButton.svelte';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { unlockApp } from '$lib/preferences/locked.js';
+	import { r } from '$lib/i18n';
 
 	//
 
@@ -111,7 +112,7 @@
 
 			<div>
 				<ion-text color="secondary">
-					<a href="/login/passphrase" class="text-sm">Login with your passphrase? Tap here</a>
+					<a href={r("/login/passphrase")} class="text-sm">Login with your passphrase? Tap here</a>
 				</ion-text>
 			</div>
 		</div>
@@ -136,6 +137,6 @@
 			</div>
 		</div>
 
-		<ion-button href="/wallet" expand="full">Go to wallet</ion-button>
+		<ion-button href={r("/wallet")} expand="full">Go to wallet</ion-button>
 	</div>
 {/if}

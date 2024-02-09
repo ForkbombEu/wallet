@@ -13,7 +13,8 @@ const config = {
 			precompress: false
 		}),
 		alias: {
-			$ui: './src/components'
+			$ui: './src/components',
+			$paraglide: './src/paraglide'
 		}
 	}
 };
