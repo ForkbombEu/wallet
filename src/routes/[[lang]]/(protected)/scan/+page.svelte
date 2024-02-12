@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$lib/i18n';
 	import Modal from '$lib/components/molecules/Modal.svelte';
 	import Scanner from '$lib/components/organisms/scanner/Scanner.svelte';
 	import {
@@ -7,6 +6,7 @@
 		verifyCredential,
 		type Credential
 	} from '$lib/components/organisms/scanner/tools';
+	import { m } from '$lib/i18n';
 
 	let barcode: string;
 	let isModalOpen: boolean;
@@ -36,7 +36,7 @@
 			<ion-button
 				on:click={() => request(parsedQr.credential)}
 				on:keydown={() => request(parsedQr.credential)}
-				aria-hidden>Verify</ion-button
+				aria-hidden>{m.Verify()}</ion-button
 			>
 		{/if}
 	</Modal>
