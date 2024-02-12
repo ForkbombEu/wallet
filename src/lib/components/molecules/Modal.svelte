@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-    export let isModalOpen: boolean
-    export let closeCb: () => void
-    const closeModal = () => {
+	import { m } from '$lib/i18n';
+	
+	export let isModalOpen: boolean;
+	export let closeCb: () => void;
+	const closeModal = () => {
 		isModalOpen = false;
 		closeCb();
-	}
+	};
 </script>
 
 <ion-modal
@@ -19,13 +21,15 @@
 	<hr />
 	<ion-content class="ion-padding visible">
 		<ion-toolbar>
-			<ion-title>Results</ion-title>
+			<ion-title>{m.Results()}</ion-title>
 			<ion-buttons slot="end">
-				<ion-button color="danger" on:click={closeModal} on:keydown={closeModal} aria-hidden>Close</ion-button>
+				<ion-button color="danger" on:click={closeModal} on:keydown={closeModal} aria-hidden
+					>{m.Close()}</ion-button
+				>
 			</ion-buttons>
 		</ion-toolbar>
-			<div class="mt-4 flex flex-col gap-2">
-                <slot/>
-			</div>
+		<div class="mt-4 flex flex-col gap-2">
+			<slot />
+		</div>
 	</ion-content>
 </ion-modal>
