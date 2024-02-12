@@ -3,5 +3,8 @@
 	"Claim_credential": "Claim credential",
 	"Wallet": "Wallet",
 	"Scan_QR_code_to_claim_credential_or_request_one_below": "Scan QR code to claim credential or request one below",
-	"Language": "Language"
+	"Language": "Language",
+	"DidroomWallet": "DidroomWallet",
+	"Open_Wallet": "Open Wallet",
+	"Biometry_not_available": "Biometry not available!"
 }

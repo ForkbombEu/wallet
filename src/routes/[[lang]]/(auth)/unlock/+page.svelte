@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { goto } from '$lib/i18n';
-	import Logo from '$lib/components/atoms/Logo.svelte';
+	import LogoAccent from '$lib/components/atoms/LogoAccent.svelte';
 	import { unlockApp } from '$lib/preferences/locked.js';
 	import { BiometricAuth, AndroidBiometryStrength } from '@aparajita/capacitor-biometric-auth';
+	import { m } from '$lib/i18n';
 	// @ts-ignore
 	import IonPage from 'ionic-svelte/components/IonPage.svelte';
 
@@ -47,16 +48,17 @@
 
 <IonPage>
 	<ion-content fullscreen>
-		<div class="flex h-full w-full flex-col items-center justify-center gap-4 p-6">
+		<div class="flex h-full w-full flex-col items-center justify-center gap-2 p-6">
 			<div class="flex flex-col items-center gap-2">
-				<Logo />
-				<ion-text class="text-2xl">Welcome!</ion-text>
+				<LogoAccent />
+				<d-heading size="xs">{m.DidroomWallet()}</d-heading>
 			</div>
 
 			{#if data.biometryCheckResult.isAvailable}
-				<div class="w-full">
-					<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
-					<ion-button on:click={unlock} expand="full">Unlock!</ion-button>
+				<div class="fixed bottom-4 w-full px-4">
+					<d-button color="accent" on:click={unlock} on:keydown={unlock} aria-hidden expand="full"
+						>{m.Open_Wallet()}</d-button
+					>
 				</div>
 				{#if error}
 					<div>
@@ -64,8 +66,16 @@
 					</div>
 				{/if}
 			{:else}
-				<ion-text>Biometry not available!</ion-text>
-				<ion-button on:click={testUnlock}>Test unlock</ion-button>
+				<ion-text>{m.Biometry_not_available()}</ion-text>
+				<div class="fixed bottom-4 w-full px-4">
+					<d-button
+						color="accent"
+						on:click={testUnlock}
+						on:keydown={testUnlock}
+						aria-hidden
+						expand="full">{m.Open_Wallet()}</d-button
+					>
+				</div>
 			{/if}
 		</div>
 	</ion-content>
