@@ -3,5 +3,17 @@
 	"Claim_credential": "Claim credential",
 	"Wallet": "Wallet",
 	"Scan_QR_code_to_claim_credential_or_request_one_below": "Scan QR code to claim credential or request one below",
-	"Language": "Language"
+	"Language": "Language",
+	"Login": "Login",
+	"Login_with_your_personal_questions_Tap_here": "Login with your personal questions? Tap here",
+	"Where_did_your_parents_meet": "",
+	"What_is_the_name_of_your_first_pet": "What is the name of your first pet?",
+	"What_is_your_home_town": "What is your home town?",
+	"What_is_the_name_of_your_first_teacher": "What is the name of your first teacher?",
+	"What_is_the_surname_of_your_mother_before_wedding": "What is the surname of your mother before wedding?",
+	"Login_with_your_passphrase_Tap_here": "Login with your passphrase? Tap here",
+	"Keypair_creation_successful": "Keypair creation successful!",
+	"Please_store_this_in_a_safe_place_to_recover_your_account_in_the_future_this_passphrase_will_be_shown_only_one_time": "Please store this in a safe place to recover your account in the future, this passphrase will be shown only one\n\t\t\t\ttime!",
+	"Copy_seed": "Copy seed",
+	"Go_to_wallet": "Go to wallet"
 }
