@@ -4,6 +4,9 @@
 	"Wallet": "Wallet",
 	"Scan_QR_code_to_claim_credential_or_request_one_below": "Scan QR code to claim credential or request one below",
 	"Language": "Language",
+	"DidroomWallet": "DidroomWallet",
+	"Open_Wallet": "Open Wallet",
+	"Biometry_not_available": "Biometry not available!"
 	"Login": "Login",
 	"Login_with_your_personal_questions_Tap_here": "Login with your personal questions? Tap here",
 	"Where_did_your_parents_meet": "",

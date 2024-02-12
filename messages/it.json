@@ -3,5 +3,8 @@
 	"Claim_credential": "Richiedi credenziale",
 	"Wallet": "Portafoglio",
 	"Scan_QR_code_to_claim_credential_or_request_one_below": "Scennerizza il QR code per ottenere una credenziale o verificarne una",
-	"Language": "Lingua"
+	"Language": "Lingua",
+	"DidroomWallet": "DidroomWallet",
+	"Open_Wallet": "Apri il Wallet",
+	"Biometry_not_available": "Biometria non disponibile!"
 }
