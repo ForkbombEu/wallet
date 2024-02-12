@@ -15,5 +15,15 @@
 	"Keypair_creation_successful": "Keypair creation successful!",
 	"Please_store_this_in_a_safe_place_to_recover_your_account_in_the_future_this_passphrase_will_be_shown_only_one_time": "Please store this in a safe place to recover your account in the future, this passphrase will be shown only one\n\t\t\t\ttime!",
 	"Copy_seed": "Copy seed",
-	"Go_to_wallet": "Go to wallet"
+	"Go_to_wallet": "Go to wallet",
+	"Recent_Conversations": "Recent Conversations",
+	"Badges": "Badges:",
+	"Public_Key": "Public Key:",
+	"Logout": "Logout",
+	"Verify": "Verify",
+	"My_issued_credentials": "My issued credentials",
+	"Explore_and_manage_your_verified_credentials": "Explore and manage your verified credentials",
+	"Home": "Home",
+	"Notifications": "Notifications",
+	"Profile": "Profile'"
 }
