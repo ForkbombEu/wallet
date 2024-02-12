@@ -1,11 +1,12 @@
 <script lang="ts">
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import { faker } from '@faker-js/faker';
+	import { m } from '$lib/i18n';
 </script>
 
 <TabPage tab="notifications" title="NOTIFICATIONS">
 	<ion-list>
-		<ion-list-header>Recent Conversations</ion-list-header>
+		<ion-list-header>{m.Recent_Conversations()}</ion-list-header>
 		{#each Array(10) as _}
 			<ion-item>
 				<ion-avatar slot="start">

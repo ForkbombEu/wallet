@@ -6,6 +6,7 @@
 	import { Form, FormError } from '$lib/forms';
 	import ErrorDisplay from '$lib/components/errorDisplay.svelte';
 	import { objectSchemaToSuperformsValidators } from './errors';
+	import { m } from '$lib/i18n';
 
 	//
 
@@ -52,7 +53,7 @@
 
 		<div class="flex justify-end">
 			<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
-			<ion-button type="submit"> Submit </ion-button>
+			<ion-button type="submit">{m.Submit()}</ion-button>
 		</div>
 	</div>
 </Form>

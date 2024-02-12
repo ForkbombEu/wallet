@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Logo from '$lib/components/atoms/Logo.svelte';
-	import {m} from '$lib/i18n'
+	import { m } from '$lib/i18n';
 
-	export let data:string
+	export let data: string;
 </script>
 
 <ion-header>
