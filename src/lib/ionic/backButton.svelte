@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto, r } from '$lib/i18n'
+	import { goto, r } from '$lib/i18n';
 
 	export let href: string;
 </script>

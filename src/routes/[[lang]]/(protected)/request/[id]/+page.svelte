@@ -1,15 +1,13 @@
 <script lang="ts">
-	import Logo from '$lib/components/atoms/Logo.svelte';
-	import {m} from '$lib/i18n'
+	import { m } from '$lib/i18n';
 
-	export let data:string
+	export let data: string;
 </script>
 
 <ion-header>
 	<ion-toolbar>
 		<ion-title>
 			<div class="flex items-center gap-2">
-				<Logo />
 				<h1 class="text-2xl">{m.Wallet()}</h1>
 			</div>
 		</ion-title>

@@ -9,7 +9,7 @@
 	import CopyButton from '$lib/components/copyButton.svelte';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { unlockApp } from '$lib/preferences/locked.js';
-	import { r } from '$lib/i18n';
+	import { r, m } from '$lib/i18n';
 
 	//
 
@@ -23,11 +23,11 @@
 	//
 
 	export const questions: Array<{ id: UserChallenge; text: string }> = [
-		{ id: C.whereParentsMet, text: 'Where did your parents meet?' },
-		{ id: C.nameFirstPet, text: 'What is the name of your first pet?' },
-		{ id: C.whereHomeTown, text: 'What is your home town?' },
-		{ id: C.nameFirstTeacher, text: 'What is the name of your first teacher?' },
-		{ id: C.nameMotherMaid, text: 'What is the surname of your mother before wedding?' }
+		{ id: C.whereParentsMet, text: m.Where_did_your_parents_meet() },
+		{ id: C.nameFirstPet, text: m.What_is_the_name_of_your_first_pet() },
+		{ id: C.whereHomeTown, text: m.What_is_your_home_town() },
+		{ id: C.nameFirstTeacher, text: m.What_is_the_name_of_your_first_teacher() },
+		{ id: C.nameMotherMaid, text: m.What_is_the_surname_of_your_mother_before_wedding() }
 	];
 
 	//
@@ -77,7 +77,9 @@
 	});
 
 	// Zencode requires undefined js value in input data to be set as 'null' (as a string)
-	function convertUndefinedToNullString<T>(record: Record<string, T | undefined>): Record<string, T> {
+	function convertUndefinedToNullString<T>(
+		record: Record<string, T | undefined>
+	): Record<string, T> {
 		const newRecord: Record<string, T> = {};
 		for (const [key, value] of Object.entries(record)) {
 			// @ts-ignore
@@ -105,26 +107,27 @@
 			</FormError>
 
 			<div class="flex justify-end">
-				<ion-button role="button" type="submit" tabindex={0}>login</ion-button>
+				<ion-button role="button" type="submit" tabindex={0}>{m.Login()}</ion-button>
 			</div>
 
 			<hr />
 
 			<div>
 				<ion-text color="secondary">
-					<a href={r("/login/passphrase")} class="text-sm">Login with your passphrase? Tap here</a>
+					<a href={r('/login/passphrase')} class="text-sm"
+						>{m.Login_with_your_passphrase_Tap_here()}</a
+					>
 				</ion-text>
 			</div>
 		</div>
 	</Form>
 {:else}
 	<div class="space-y-6">
-		<h1 class="text-lg font-bold">Keypair creation successful!</h1>
+		<h1 class="text-lg font-bold">{m.Keypair_creation_successful()}</h1>
 
 		<div>
 			<ion-text>
-				Please store this in a safe place to recover your account in the future, this passphrase will be shown only one
-				time!
+				{m.Please_store_this_in_a_safe_place_to_recover_your_account_in_the_future_this_passphrase_will_be_shown_only_one_time()}
 			</ion-text>
 		</div>
 
@@ -133,10 +136,10 @@
 				{seed}
 			</div>
 			<div class="flex justify-end pt-4">
-				<CopyButton textToCopy={seed}>Copy seed</CopyButton>
+				<CopyButton textToCopy={seed}>{m.Copy_seed()}</CopyButton>
 			</div>
 		</div>
 
-		<ion-button href={r("/wallet")} expand="full">Go to wallet</ion-button>
+		<ion-button href={r('/wallet')} expand="full">{m.Go_to_wallet()}</ion-button>
 	</div>
 {/if}
