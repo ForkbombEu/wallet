@@ -38,7 +38,7 @@
 <ion-content fullscreen class="ion-padding">
 	<div class="flex h-full flex-col justify-between pb-16">
 		<div>
-			<div class="text-on flex items-center gap-2 text-xl font-semibold not-italic">
+			<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
 				<d-avatar name={credential.name}></d-avatar>
 				<d-heading size="s">{credential.name}</d-heading>
 			</div>
@@ -46,8 +46,9 @@
 				<d-text size="l">{credential.expand.templates[0].name}</d-text>
 				<div class="flex flex-col gap-4">
 					<d-text size="s"
-						>Lorem ipsum dolor sit amet consectetur. Leo ultricies pellentesque morbi in eu metus commodo felis.
-						Pellentesque facilisis a auctor enim lectus. Nulla dolor cras viverra massa.</d-text
+						>Lorem ipsum dolor sit amet consectetur. Leo ultricies pellentesque morbi in eu metus
+						commodo felis. Pellentesque facilisis a auctor enim lectus. Nulla dolor cras viverra
+						massa.</d-text
 					>
 				</div>
 			</div>
@@ -73,7 +74,11 @@
 				<div>
 					{#if !isCredentialVerified}
 						We are generating this credential
-						<d-credential-card name={credential.name} issuer={credential.issuer} description={credential.description} />
+						<d-credential-card
+							name={credential.name}
+							issuer={credential.issuer}
+							description={credential.description}
+						/>
 						<LottiePlayer
 							src="https://assets2.lottiefiles.com/packages/lf20_wxUJzo.json"
 							autoplay={true}
@@ -83,7 +88,8 @@
 						/>
 					{:else}
 						<div class="flex w-full justify-around">
-							<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"></ion-icon>
+							<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"
+							></ion-icon>
 						</div>
 					{/if}
 				</div>

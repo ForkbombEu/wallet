@@ -12,7 +12,7 @@ const setInitialLanguage = async () => {
 
 const getLang = async () => {
 	const lang = await getLanguagePreference();
-	if (lang&&["it", "en"].includes(lang)) return lang as Langs;
+	if (lang && ['it', 'en'].includes(lang)) return lang as Langs;
 	return 'en' as Langs;
 };
 

@@ -77,7 +77,9 @@
 	});
 
 	// Zencode requires undefined js value in input data to be set as 'null' (as a string)
-	function convertUndefinedToNullString<T>(record: Record<string, T | undefined>): Record<string, T> {
+	function convertUndefinedToNullString<T>(
+		record: Record<string, T | undefined>
+	): Record<string, T> {
 		const newRecord: Record<string, T> = {};
 		for (const [key, value] of Object.entries(record)) {
 			// @ts-ignore
@@ -112,7 +114,9 @@
 
 			<div>
 				<ion-text color="secondary">
-					<a href={r("/login/passphrase")} class="text-sm">{m.Login_with_your_passphrase_Tap_here()}</a>
+					<a href={r('/login/passphrase')} class="text-sm"
+						>{m.Login_with_your_passphrase_Tap_here()}</a
+					>
 				</ion-text>
 			</div>
 		</div>
@@ -136,6 +140,6 @@
 			</div>
 		</div>
 
-		<ion-button href={r("/wallet")} expand="full">{m.Go_to_wallet()}</ion-button>
+		<ion-button href={r('/wallet')} expand="full">{m.Go_to_wallet()}</ion-button>
 	</div>
 {/if}

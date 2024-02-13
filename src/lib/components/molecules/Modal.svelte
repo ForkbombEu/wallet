@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { m } from '$lib/i18n';
-	
+
 	export let isModalOpen: boolean;
 	export let closeCb: () => void;
 	const closeModal = () => {

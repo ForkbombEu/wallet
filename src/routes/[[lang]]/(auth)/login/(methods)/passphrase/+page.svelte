@@ -64,7 +64,9 @@
 
 		<div>
 			<ion-text color="secondary">
-				<a href={r("/login/questions")} class="text-sm">{m.Login_with_your_personal_questions_Tap_here()}</a>
+				<a href={r('/login/questions')} class="text-sm"
+					>{m.Login_with_your_personal_questions_Tap_here()}</a
+				>
 			</ion-text>
 		</div>
 	</div>
