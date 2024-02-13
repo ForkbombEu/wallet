@@ -55,7 +55,12 @@
 		d="M2.76566e-05 10.5742L2.76566e-05 -0.000105858L10.4657 -0.000105858L2.76566e-05 10.5742Z"
 		fill="#E8D2FF"
 	/>
-	<path fill-rule="evenodd" clip-rule="evenodd" d="M28.2323 42V31.4257H38.6979L28.2323 42Z" fill="#E8D2FF" />
+	<path
+		fill-rule="evenodd"
+		clip-rule="evenodd"
+		d="M28.2323 42V31.4257H38.6979L28.2323 42Z"
+		fill="#E8D2FF"
+	/>
 	<path
 		fill-rule="evenodd"
 		clip-rule="evenodd"

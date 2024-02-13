@@ -19,7 +19,10 @@ export function objectSchemaToSuperformsValidators(schema: ObjectSchema): Valida
 	return validators;
 }
 
-function objectSchemaToSuperformValidator(schema: ObjectSchema, propertyName: string): Validator<unknown> {
+function objectSchemaToSuperformValidator(
+	schema: ObjectSchema,
+	propertyName: string
+): Validator<unknown> {
 	const ajv = createAjv({ allErrors: true });
 	const validate = ajv.compile(schema);
 
@@ -39,5 +42,8 @@ function isPropertyRequired(schema: ObjectSchema, propertyName: string): boolean
 
 function isAjvErrorAboutProperty(error: AjvError, propertyName: string): boolean {
 	const { keyword, params, instancePath } = error;
-	return (keyword === 'required' && params['missingProperty'] === propertyName) || instancePath.includes(propertyName);
+	return (
+		(keyword === 'required' && params['missingProperty'] === propertyName) ||
+		instancePath.includes(propertyName)
+	);
 }

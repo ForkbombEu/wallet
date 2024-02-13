@@ -1,8 +1,9 @@
 <script lang="ts">
+	import { r } from '$lib/i18n';
 	import { qrCode } from 'ionicons/icons';
 </script>
 
-<ion-fab-button href="/scan">
+<ion-fab-button href={r('/scan')}>
 	<ion-icon icon={qrCode} translucent />
 </ion-fab-button>
 

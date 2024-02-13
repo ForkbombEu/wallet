@@ -1,0 +1,82 @@
+<script lang="ts">
+	import { goto } from '$lib/i18n';
+	import LogoAccent from '$lib/components/atoms/LogoAccent.svelte';
+	import { unlockApp } from '$lib/preferences/locked.js';
+	import { BiometricAuth, AndroidBiometryStrength } from '@aparajita/capacitor-biometric-auth';
+	import { m } from '$lib/i18n';
+	// @ts-ignore
+	import IonPage from 'ionic-svelte/components/IonPage.svelte';
+
+	export let data;
+
+	let error: string | undefined = undefined;
+
+	async function unlock() {
+		try {
+			await authenticate();
+			await unlockApp();
+			await goto('/wallet');
+		} catch (e) {
+			error = 'BIOMETRY_ERROR';
+		}
+	}
+
+	async function authenticate() {
+		try {
+			await BiometricAuth.authenticate({
+				reason: 'Please authenticate',
+				cancelTitle: 'Cancel',
+				allowDeviceCredential: true,
+				iosFallbackTitle: 'Use passcode',
+				androidTitle: 'Biometric login',
+				androidSubtitle: 'Log in using biometric authentication',
+				androidConfirmationRequired: false,
+				androidBiometryStrength: AndroidBiometryStrength.weak
+			});
+		} catch (e) {
+			throw e;
+		}
+	}
+
+	//
+
+	async function testUnlock() {
+		await unlockApp();
+		await goto('/home');
+	}
+</script>
+
+<IonPage>
+	<ion-content fullscreen>
+		<div class="flex h-full w-full flex-col items-center justify-center gap-2 p-6">
+			<div class="flex flex-col items-center gap-2">
+				<LogoAccent />
+				<d-heading size="xs">{m.DidroomWallet()}</d-heading>
+			</div>
+
+			{#if data.biometryCheckResult.isAvailable}
+				<div class="fixed bottom-4 w-full px-4">
+					<d-button color="accent" on:click={unlock} on:keydown={unlock} aria-hidden expand="full"
+						>{m.Open_Wallet()}</d-button
+					>
+				</div>
+				{#if error}
+					<div>
+						<ion-text>{error}</ion-text>
+					</div>
+				{/if}
+			{:else}
+				<ion-text>{m.Biometry_not_available()}</ion-text>
+				<div class="fixed bottom-4 w-full px-4">
+					<d-button
+						color="accent"
+						on:click={testUnlock}
+						on:keydown={testUnlock}
+						aria-hidden
+						expand="full">{m.Open_Wallet()}</d-button
+					>
+				</div>
+			{/if}
+		</div>
+	</ion-content>
+</IonPage>

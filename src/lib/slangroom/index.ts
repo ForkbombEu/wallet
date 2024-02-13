@@ -5,8 +5,18 @@ import { fetchTemplates, showProfile } from './endpoints';
 import { Slangroom } from '@slangroom/core';
 //@ts-ignore
 import { http } from '@slangroom/http';
-import { apiByIdContract, apiContract, authWithPasswordContract, updateProfileContract } from './contracts';
-import { organizationAuthorizations, servicesByOrganization, webauthnCredentials, webauthnSessions } from './endpoints';
+import {
+	apiByIdContract,
+	apiContract,
+	authWithPasswordContract,
+	updateProfileContract
+} from './contracts';
+import {
+	organizationAuthorizations,
+	servicesByOrganization,
+	webauthnCredentials,
+	webauthnSessions
+} from './endpoints';
 
 export type BaseSystemFields<T = never> = {
 	id: string;
@@ -19,7 +29,8 @@ export type BaseSystemFields<T = never> = {
 export type PBRecord = Record<string, unknown>;
 export type PBExpand<T extends PBRecord = PBRecord> = Record<string, T | T[]>;
 
-export type PBResponse<R extends PBRecord = PBRecord, E extends PBExpand = PBExpand> = R & BaseSystemFields<E>;
+export type PBResponse<R extends PBRecord = PBRecord, E extends PBExpand = PBExpand> = R &
+	BaseSystemFields<E>;
 
 const PB = PUBLIC_BACKEND_URL;
 
@@ -77,7 +88,11 @@ const apiById = async (
 };
 
 // WARNING: not safe against injection
-const api = async (url: string, token?: string, rest?: FormData | Record<string, string>): Promise<PBResponse> => {
+const api = async (
+	url: string,
+	token?: string,
+	rest?: FormData | Record<string, string>
+): Promise<PBResponse> => {
 	const data: SlangroomApiData = {
 		pb: PB,
 		...rest
@@ -103,7 +118,9 @@ const api = async (url: string, token?: string, rest?: FormData | Record<string,
 
 // List of services of my org
 // TODO: manage pagination
-export const organizationServices = async (req: SlangroomRequest): SlangroomResponse<PBResponse> => {
+export const organizationServices = async (
+	req: SlangroomRequest
+): SlangroomResponse<PBResponse> => {
 	const { id, token } = req;
 	return apiById(servicesByOrganization[0], servicesByOrganization[1], token, { id: id });
 };

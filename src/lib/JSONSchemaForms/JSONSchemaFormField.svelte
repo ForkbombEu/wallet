@@ -6,6 +6,7 @@
 	import type { SuperformGeneric } from '$lib/forms/types';
 	import IonItemWrapper from './fieldWrappers/ionItemWrapper.svelte';
 	import SlotWrapper from './fieldWrappers/slotWrapper.svelte';
+	import { m } from '$lib/i18n';
 
 	export let form: SuperformGeneric;
 	export let fieldPath: string;
@@ -181,7 +182,11 @@
 							schema={schema.items}
 							hideLabel
 							{required}
-							inputAttributes={{ placeholder: 'Add an item', ['label-placement']: 'stacked', class: 'grow' }}
+							inputAttributes={{
+								placeholder: m.Add_an_item(),
+								['label-placement']: 'stacked',
+								class: 'grow'
+							}}
 							fieldWrapper={SlotWrapper}
 						/>
 						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
@@ -194,9 +199,16 @@
 					{#if canAdd}
 						<ion-item>
 							<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
-							<ion-button class="grow" expand="full" shape="round" color="light" disabled={!canAdd} on:click={addItem}>
+							<ion-button
+								class="grow"
+								expand="full"
+								shape="round"
+								color="light"
+								disabled={!canAdd}
+								on:click={addItem}
+							>
 								<ion-icon slot="start" icon={addOutline} />
-								Add an item
+								{m.Add_an_item()}
 							</ion-button>
 						</ion-item>
 					{/if}

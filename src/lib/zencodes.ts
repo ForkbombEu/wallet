@@ -1,7 +1,7 @@
-import { zencode_exec } from "zenroom";
+import { zencode_exec } from 'zenroom';
 
 export const generateKeyring = async () => {
-    const CONTRACT = `Scenario 'ecdh': Create the key
+	const CONTRACT = `Scenario 'ecdh': Create the key
     Scenario 'ethereum': Create key
     Scenario 'reflow': Create the key
     Scenario 'schnorr': Create the key
@@ -23,6 +23,6 @@ export const generateKeyring = async () => {
     
     Then print the 'keyring'`;
 
-    const { result } = await zencode_exec(CONTRACT);
-    return JSON.stringify(JSON.parse(result), null, 2);
-}
+	const { result } = await zencode_exec(CONTRACT);
+	return JSON.stringify(JSON.parse(result), null, 2);
+};

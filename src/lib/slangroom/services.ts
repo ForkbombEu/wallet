@@ -50,7 +50,7 @@ Then print data
 	}
 };
 
-export const getService = async (id: string): Promise<Response> => {
+export const getService = async (id: string): Promise<Response<Service>> => {
 	try {
 		const res = await slangroom.execute(
 			`Rule unknown ignore
@@ -59,7 +59,9 @@ Given I connect to 'path' and do get and output into 'http_result'
 Given I have a 'string dictionary' named 'http_result'
 Then print data`,
 			{
-				data: { path: `${PUBLIC_BACKEND_URL}/api/collections/services/records/${id}?expand=templates` }
+				data: {
+					path: `${PUBLIC_BACKEND_URL}/api/collections/services/records/${id}?expand=templates`
+				}
 			}
 		);
 		return res.result.http_result.result;
