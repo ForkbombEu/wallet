@@ -99,7 +99,7 @@ jobs:
           fi
           echo "Result"
           cat $GITHUB_OUTPUT
-  
+
   draft-release:
     permissions:
       contents: write

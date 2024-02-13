@@ -10,6 +10,8 @@
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import { type ActionPerformed, type PushNotificationSchema } from '@capacitor/push-notifications';
 	import { onDestroy, onMount } from 'svelte';
+	import { m } from '$lib/i18n';
+
 
 	// let incomingNotification: PushNotificationSchema;
 	let action: ActionPerformed;
@@ -32,7 +34,7 @@
 
 <TabPage tab="notifications" title="NOTIFICATIONS">
 	<ion-list>
-		<ion-list-header>Recent Conversations</ion-list-header>
+		<ion-list-header>{m.Recent_Conversations()}</ion-list-header>
 		{#await notificationsListPromise}
 			<ion-item>
 				<ion-label>

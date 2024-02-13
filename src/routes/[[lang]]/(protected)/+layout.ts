@@ -9,7 +9,7 @@ const getLang = async () => {
 	const lang = await getLanguagePreference();
 	//@ts-ignore
 	if (lang && availableLanguageTags.includes(lang)) return lang as Langs;
-	return undefined
+	return undefined;
 };
 
 export const load = async () => {

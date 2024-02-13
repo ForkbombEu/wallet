@@ -5,6 +5,7 @@
 	import { createForm, FieldController, Form, FormError } from '$lib/forms';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { unlockApp } from '$lib/preferences/locked.js';
+	import { m } from '$lib/i18n';
 
 	//
 
@@ -56,14 +57,16 @@
 		</FormError>
 
 		<div class="flex justify-end">
-			<ion-button role="button" type="submit" tabindex={0}>Login</ion-button>
+			<ion-button role="button" type="submit" tabindex={0}>{m.Login()}</ion-button>
 		</div>
 
 		<hr />
 
 		<div>
 			<ion-text color="secondary">
-				<a href={r("/login/questions")} class="text-sm">Login with your personal questions? Tap here</a>
+				<a href={r('/login/questions')} class="text-sm"
+					>{m.Login_with_your_personal_questions_Tap_here()}</a
+				>
 			</ion-text>
 		</div>
 	</div>

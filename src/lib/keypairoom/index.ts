@@ -13,10 +13,13 @@ const HMAC_KEY = 'seedServerSideShard.HMAC';
 /* - HMAC generation - */
 
 export async function generateHMAC(email: string): Promise<string> {
-	const response = await zencodeExec<KeypairoomGenerateHMACData, KeypairoomGenerateHMACOutput>(keypairoomGenerateHMAC, {
-		userData: { email },
-		serverSideSalt: SERVER_SIDE_SALT
-	});
+	const response = await zencodeExec<KeypairoomGenerateHMACData, KeypairoomGenerateHMACOutput>(
+		keypairoomGenerateHMAC,
+		{
+			userData: { email },
+			serverSideSalt: SERVER_SIDE_SALT
+		}
+	);
 	return response[HMAC_KEY];
 }
 
@@ -29,7 +32,10 @@ type KeypairoomGenerateHMACOutput = { [HMAC_KEY]: string };
 
 /* - Keypair generation - */
 
-export async function generateKeypair(email: string, answers: UserChallengesAnswers): Promise<Keypair> {
+export async function generateKeypair(
+	email: string,
+	answers: UserChallengesAnswers
+): Promise<Keypair> {
 	const HMAC = await generateHMAC(email);
 	return await zencodeExec<KeypairoomClientData, KeypairoomClientOutput>(keypairoomClient, {
 		userChallenges: answers,
@@ -50,10 +56,13 @@ type KeypairoomClientOutput = Keypair;
 
 export async function regenerateKeypair(email: string, seed: string): Promise<Keypair> {
 	const HMAC = await generateHMAC(email);
-	return await zencodeExec<RegenerateKeypairData, RegenerateKeypairOutput>(keypairoomClientRecreateKeys, {
-		seed,
-		[HMAC_KEY]: HMAC
-	});
+	return await zencodeExec<RegenerateKeypairData, RegenerateKeypairOutput>(
+		keypairoomClientRecreateKeys,
+		{
+			seed,
+			[HMAC_KEY]: HMAC
+		}
+	);
 }
 
 type RegenerateKeypairData = {

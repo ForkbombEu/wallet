@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Clipboard } from '@capacitor/clipboard';
+	import { m } from '$lib/i18n';
 
 	export let textToCopy: string;
 	export let delay = 2000;
@@ -26,6 +27,6 @@
 			<slot />
 		</span>
 	{:else}
-		<span class="whitespace-nowrap">✅ Copied!</span>
+		<span class="whitespace-nowrap">✅ {m.Copied()}</span>
 	{/if}
 </ion-button>

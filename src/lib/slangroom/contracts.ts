@@ -1,4 +1,4 @@
-import { authWithPassword, updateProfile } from "./endpoints"
+import { authWithPassword, updateProfile } from './endpoints';
 
 export const authWithPasswordContract = `
 Rule unknown ignore
@@ -9,8 +9,8 @@ When I write string '${authWithPassword}' in 'path'
 When I append 'path' to 'pb'
 Then print data
 Then I connect to 'pb' and send object 'auth' and do post and output into 'auth_token'
-`
-export const apiByIdContract = (before:string, after:string) => `
+`;
+export const apiByIdContract = (before: string, after: string) => `
 Rule unknown ignore
 
 Given I have a 'string' named 'pb'
@@ -23,7 +23,7 @@ When I append 'id' to 'pb'
 When I append 'end_filter' to 'pb'
 Then print data
 Then I connect to 'pb' and send headers 'headers' and do get and output into 'http_result'
-`
+`;
 export const updateProfileContract = `
 Rule unknown ignore
 

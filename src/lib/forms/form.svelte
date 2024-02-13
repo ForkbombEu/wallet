@@ -1,9 +1,16 @@
 <script lang="ts" context="module">
-	import { superValidateSync, type FormOptions, type SuperForm, superForm } from 'sveltekit-superforms/client';
+	import {
+		superValidateSync,
+		type FormOptions,
+		type SuperForm,
+		superForm
+	} from 'sveltekit-superforms/client';
 	import { z, type AnyZodObject, type ZodEffects } from 'zod';
 	import type { ZodValidation } from 'sveltekit-superforms';
 
-	export type SubmitFunction<T extends AnyZodObject> = NonNullable<FormOptions<ZodValidation<T>, unknown>['onUpdate']>;
+	export type SubmitFunction<T extends AnyZodObject> = NonNullable<
+		FormOptions<ZodValidation<T>, unknown>['onUpdate']
+	>;
 
 	interface CreateFormParameters<T extends AnyZodObject> {
 		schema: T | ZodEffects<T>;
@@ -13,7 +20,12 @@
 	}
 
 	export function createForm<T extends AnyZodObject>(parameters: Partial<CreateFormParameters<T>>) {
-		const { schema = z.object({}), initialData = {}, options = {}, onSubmit = () => {} } = parameters;
+		const {
+			schema = z.object({}),
+			initialData = {},
+			options = {},
+			onSubmit = () => {}
+		} = parameters;
 
 		const form = superValidateSync(initialData, schema, { errors: false });
 
