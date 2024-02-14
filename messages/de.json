@@ -1,0 +1,23 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"Claim_credential": "Credential anfordern",
+	"Wallet": "Wallet",
+	"Scan_QR_code_to_claim_credential_or_request_one_below": "Scannen Sie den QR-Code, um ein Credential anzufordern, oder überprüfen Sie das unten",
+	"Language": "Sprache",
+	"DidroomWallet": "Didroom Wallet",
+	"Open_Wallet": "Öffnen Sie das Wallet",
+	"Biometry_not_available": "Biometrie nicht verfügbar!",
+	"Login": "Anmeldung",
+	"Login_with_your_personal_questions_Tap_here": "Melden Sie sich mit Ihren persönlichen Fragen an? Bitte hier drücken",
+	"Where_did_your_parents_meet": "Wo haben sich deine Eltern getroffen?",
+	"What_is_the_name_of_your_first_pet": "Wie heißt Ihr erstes Haustier?",
+	"What_is_your_home_town": "Was ist deine Heimatstadt?",
+	"What_is_the_name_of_your_first_teacher": "Wie heißt Ihr erster Lehrer?",
+	"What_is_the_surname_of_your_mother_before_wedding": "Wie lautete der Nachname Ihrer Mutter vor der Hochzeit?",
+	"Login_with_your_passphrase_Tap_here": "Mit Ihrem Passwort anmelden? Bitte hier drücken",
+	"Keypair_creation_successful": "Keyring-Erstellung erfolgreich!",
+	"Please_store_this_in_a_safe_place_to_recover_your_account_in_the_future_this_passphrase_will_be_shown_only_one_time": "Bitte bewahren Sie die Passphrase an einem sicheren Ort auf, um Ihr Konto in Zukunft wiederherzustellen. Diese Passphrase wird nur dieses Mal angezeigt!",
+	"Copy_seed": "Passphrase kopieren",
+	"Go_to_wallet": "Zur Wallet",
+	"Recent_Conversations": "Aktuelle Gespräche"
+}

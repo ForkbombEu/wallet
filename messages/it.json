@@ -1,10 +1,23 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"Claim_credential": "Richiedi credenziale",
-	"Wallet": "Portafoglio",
+	"Wallet": "Wallet",
 	"Scan_QR_code_to_claim_credential_or_request_one_below": "Scennerizza il QR code per ottenere una credenziale o verificarne una",
 	"Language": "Lingua",
-	"DidroomWallet": "DidroomWallet",
+	"DidroomWallet": "Didroom Wallet",
 	"Open_Wallet": "Apri il Wallet",
-	"Biometry_not_available": "Biometria non disponibile!"
+	"Biometry_not_available": "Biometria non disponibile!",
+	"Login": "Login",
+	"Login_with_your_personal_questions_Tap_here": "Accedi utilizzando le tue domande personali? Premi qui",
+	"Where_did_your_parents_meet": "Dove si sono conosciuti i tuoi genitori?",
+	"What_is_the_name_of_your_first_pet": "Qual'è il nome del tuo primo animale domestico?",
+	"What_is_your_home_town": "In che città sei nato/a?",
+	"What_is_the_name_of_your_first_teacher": "Come si chiama il tuo primo insegnante?",
+	"What_is_the_surname_of_your_mother_before_wedding": "Qual era il cognome di tua madre prima del matrimonio?",
+	"Login_with_your_passphrase_Tap_here": "Accedi con la tua passphrase? Premi qui",
+	"Keypair_creation_successful": "Creazione del keyring riuscita!",
+	"Please_store_this_in_a_safe_place_to_recover_your_account_in_the_future_this_passphrase_will_be_shown_only_one_time": "Conserva la passphrase in un luogo sicuro per recuperare il tuo account in futuro, questa passphrase verrà mostrata solo questa volta!",
+	"Copy_seed": "Copia la passphrase",
+	"Go_to_wallet": "Vai al Wallet",
+	"Recent_Conversations": "Conversazioni recenti"
 }
