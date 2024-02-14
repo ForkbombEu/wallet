@@ -19,5 +19,22 @@
 	"Please_store_this_in_a_safe_place_to_recover_your_account_in_the_future_this_passphrase_will_be_shown_only_one_time": "Veuillez conserver la phrase secrète dans un endroit sûr pour récupérer votre compte à l'avenir, cette phrase secrète ne sera affichée que cette fois !",
 	"Copy_seed": "Copier la phrase secrète",
 	"Go_to_wallet": "Au Wallet",
-	"Recent_Conversations": "Conversations récentes"
+	"Recent_Conversations": "Conversations récentes",
+	"Badges": "Badges:",
+	"Public_Key": "Clé publique:",
+	"Logout": "Se déconnecter",
+	"Verify": "Vérifier",
+	"My_issued_credentials": "Mes credentials délivrées",
+	"Explore_and_manage_your_verified_credentials": "Explorez et gérez vos credentials",
+	"Home": "Accueil",
+	"Notifications": "Notifications",
+	"Profile": "Profil",
+	"Results": "Résultats",
+	"Close": "Fermer",
+	"QR_SCAN": "QR Scanner",
+	"Scan_QR_to_verify_or_obtain_credentials_": "Scannez le QR pour présenter ou demander une credential...",
+	"Make_sure_to_scan_the_full_QR_surface_": "Scannez toute la surface du QR ",
+	"Copied": "Copié!",
+	"Submit": "Envoyer",
+	"Add_an_item": "Ajouter un élément"
 }
