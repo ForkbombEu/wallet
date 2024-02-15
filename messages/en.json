@@ -36,5 +36,9 @@
 	"Make_sure_to_scan_the_full_QR_surface_": "Scan the full QR surface ",
 	"Copied": "Copied!",
 	"Submit": "Submit",
-	"Add_an_item": "Add an item"
+	"Add_an_item": "Add an item",
+	"Credential_offer": "Credential offer",
+	"Get_this_credential": "Get this credential",
+	"Decline": "Decline",
+	"Scan": "Scan"
 }
