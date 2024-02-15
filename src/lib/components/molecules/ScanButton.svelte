@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { r } from '$lib/i18n';
 	import { qrCode } from 'ionicons/icons';
+	import { m } from '$lib/i18n';
 </script>
 
 <d-button href={r('/scan')} color="accent" size="large">
 	<ion-icon icon={qrCode} slot="start" />
-	Scan
+	{m.Scan()}
 </d-button>
 
 <style lang="postcss">

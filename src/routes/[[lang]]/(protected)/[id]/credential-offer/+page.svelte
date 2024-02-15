@@ -7,6 +7,7 @@
 	import { thumbsUpOutline } from 'ionicons/icons';
 	import { goto } from '$app/navigation';
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
+	import { m } from '$lib/i18n';
 	export let data: any;
 	const { credential } = data;
 	let isModalOpen: boolean = false;
@@ -29,7 +30,7 @@
 		<ion-title>
 			<div class="flex items-center gap-2">
 				<Logo />
-				<h1 class="text-2xl">Credential offer</h1>
+				<h1 class="text-2xl">{m.Credential_offer()}</h1>
 			</div>
 		</ion-title>
 	</ion-toolbar>
@@ -62,10 +63,10 @@
 		</JSONSchemaParser>
 		<pre>{credential.expand.templates[0].schema}</pre>
 		<div class="w-full">
-			<ion-button expand="block" on:click={getCredential} on:keydown={getCredential} aria-hidden
-				>Get this credential</ion-button
+			<d-button expand on:click={getCredential} on:keydown={getCredential} aria-hidden
+				>{m.Get_this_credential()}</d-button
 			>
-			<d-button expand href="/home">decline</d-button>
+			<d-button expand href="/home">{m.Decline()}</d-button>
 		</div>
 	</div>
 	<ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly class="visible">
