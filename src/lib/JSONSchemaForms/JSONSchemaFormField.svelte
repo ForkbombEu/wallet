@@ -190,26 +190,25 @@
 							fieldWrapper={SlotWrapper}
 						/>
 						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
-						<ion-button slot="end" shape="round" color="medium" on:click={removeItem}>
+						<d-button slot="end" color="primary" on:click={removeItem}>
 							<ion-icon slot="icon-only" icon={removeOutline} />
-						</ion-button>
+						</d-button>
 					</ion-item>
 				</svelte:fragment>
 				<svelte:fragment slot="after-items" let:addItem let:canAdd>
 					{#if canAdd}
 						<ion-item>
-							<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
-							<ion-button
-								class="grow"
-								expand="full"
-								shape="round"
-								color="light"
+							<d-button
+								expand
+								color="accent"
 								disabled={!canAdd}
 								on:click={addItem}
+								on:keydown={addItem}
+								aria-hidden
 							>
 								<ion-icon slot="start" icon={addOutline} />
 								{m.Add_an_item()}
-							</ion-button>
+							</d-button>
 						</ion-item>
 					{/if}
 				</svelte:fragment>

@@ -107,7 +107,7 @@
 			</FormError>
 
 			<div class="flex justify-end">
-				<ion-button role="button" type="submit" tabindex={0}>{m.Login()}</ion-button>
+				<d-button color="accent" role="button" type="submit" tabindex={0}>{m.Login()}</d-button>
 			</div>
 
 			<hr />
@@ -140,6 +140,6 @@
 			</div>
 		</div>
 
-		<ion-button href={r('/wallet')} expand="full">{m.Go_to_wallet()}</ion-button>
+		<d-button color="accent" href={r('/wallet')} expand>{m.Go_to_wallet()}</d-button>
 	</div>
 {/if}

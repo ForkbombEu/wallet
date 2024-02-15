@@ -65,7 +65,7 @@
 			<ion-button expand="block" on:click={getCredential} on:keydown={getCredential} aria-hidden
 				>Get this credential</ion-button
 			>
-			<ion-button expand="block" href="/home">decline</ion-button>
+			<d-button expand href="/home">decline</d-button>
 		</div>
 	</div>
 	<ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly class="visible">

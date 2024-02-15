@@ -72,7 +72,7 @@
 				<Input {form} fieldPath="password" type="password" />
 			</ion-list>
 
-			<ion-button role="button" type="submit" tabindex={0}>login</ion-button>
+			<d-button role="button" type="submit" tabindex={0}>login</d-button>
 
 			<FormError {form} let:errorMessage>
 				<ion-text color="danger">
