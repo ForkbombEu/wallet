@@ -52,8 +52,7 @@
 		</FormError>
 
 		<div class="flex justify-end">
-			<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
-			<ion-button type="submit">{m.Submit()}</ion-button>
+			<d-button type="submit">{m.Submit()}</d-button>
 		</div>
 	</div>
 </Form>

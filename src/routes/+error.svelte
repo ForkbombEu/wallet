@@ -4,4 +4,4 @@
 </script>
 
 <h1>{$page.status}: {$page.error?.message}</h1>
-<ion-button href={r('/')}>Go to home</ion-button>
+<d-button href={r('/')} expand>Go to home</d-button>
