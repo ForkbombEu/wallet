@@ -1,5 +1,4 @@
 <script lang="ts">
-	import LanguageSwitcher from '$lib/components/languageSwitcher.svelte';
 	import Header from '$lib/components/molecules/Header.svelte';
 	import type { Tab } from '.';
 
