@@ -57,7 +57,7 @@
 		</FormError>
 
 		<div class="flex justify-end">
-			<ion-button role="button" type="submit" tabindex={0}>{m.Login()}</ion-button>
+			<d-button role="button" type="submit" tabindex={0}>{m.Login()}</d-button>
 		</div>
 
 		<hr />

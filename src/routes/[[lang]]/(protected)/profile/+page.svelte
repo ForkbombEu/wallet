@@ -16,6 +16,6 @@
 		<div class="select-all rounded-md border-2 border-slate-700 bg-slate-400 p-1">
 			63FaC9201494f0bd17B9892B9fae4d52fe3BD377
 		</div>
-		<ion-button href="/logout">{m.Logout()}</ion-button>
+		<d-button href="/logout">{m.Logout()}</d-button>
 	</div>
 </TabPage>
