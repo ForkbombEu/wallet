@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Logo from '$lib/components/atoms/Logo.svelte';
 	import JSONSchemaForm from '$lib/JSONSchemaForms/JSONSchemaForm.svelte';
 	import JSONSchemaParser from '$lib/JSONSchemaForms/JSONSchemaParser.svelte';
 	import ErrorDisplay from '$lib/components/errorDisplay.svelte';
@@ -8,6 +7,7 @@
 	import { goto } from '$app/navigation';
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import { m } from '$lib/i18n';
+	import Header from '$lib/components/molecules/Header.svelte';
 	export let data: any;
 	const { credential } = data;
 	let isModalOpen: boolean = false;
@@ -25,16 +25,7 @@
 	};
 </script>
 
-<ion-header>
-	<ion-toolbar>
-		<ion-title>
-			<div class="flex items-center gap-2">
-				<Logo />
-				<h1 class="text-2xl">{m.Credential_offer()}</h1>
-			</div>
-		</ion-title>
-	</ion-toolbar>
-</ion-header>
+<Header>{m.Credential_offer()}</Header>
 
 <ion-content fullscreen class="ion-padding">
 	<div class="flex h-full flex-col justify-between pb-16">
