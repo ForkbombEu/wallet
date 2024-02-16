@@ -34,9 +34,7 @@
 			<Form {form}>
 				<p class="opacity-60">Enter your email to get started</p>
 				<Input {form} fieldPath="email" placeholder="email@example.com" />
-				<button type="submit">
-					<d-button>Next</d-button>
-				</button>
+				<d-button size="default" color="accent" type="submit" class="mt-4">Next</d-button>
 			</Form>
 		</div>
 	</ion-content>

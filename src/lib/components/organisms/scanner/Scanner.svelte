@@ -57,9 +57,9 @@
 	<ion-toolbar>
 		<div class="flex flex-row">
 			<ion-title>{m.QR_SCAN()}</ion-title>
-			<ion-button tab="account" on:click={stopScan} on:keydown={stopScan} aria-hidden fill="clear">
+			<button on:click={stopScan} on:keydown={stopScan} aria-hidden>
 				<ion-icon icon={close}></ion-icon>
-			</ion-button>
+			</button>
 		</div>
 	</ion-toolbar>
 </ion-header>

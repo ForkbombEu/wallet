@@ -20,13 +20,12 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-interactive-supports-focus -->
-<ion-button role="button" on:click={copyText} color="light">
+<d-button role="button" on:click={copyText} color="accent">
 	{#if !isCopied}
-		<span>📄</span>
-		<span class="ml-2">
-			<slot />
-		</span>
+		<span slot="start">📄</span>
+		<slot />
 	{:else}
-		<span class="whitespace-nowrap">✅ {m.Copied()}</span>
+		<span slot="start">✅</span>
+		{m.Copied()}
 	{/if}
-</ion-button>
+</d-button>
