@@ -1,8 +1,4 @@
 import { z } from 'zod';
-//@ts-ignore
-import { Slangroom } from '@slangroom/core';
-//@ts-ignore
-import { http } from '@slangroom/http';
 import { CapacitorHttp, type HttpResponse } from '@capacitor/core';
 
 export type ParseQrResults =
@@ -12,7 +8,7 @@ export type ParseQrResults =
 	  }
 	| {
 			result: 'ok';
-			credential: Credential;
+			data: Data;
 	  };
 
 const credentialSchema = z.object({
@@ -21,8 +17,25 @@ const credentialSchema = z.object({
 	url: z.string().url(),
 	registrationToken: z.string()
 });
+const serviceSchema = z.object({
+	id: z.string(),
+	relying_party: z.string().url(),
+	issuer: z.string().url(),
+	authorization_server: z.string().url()
+});
 
 export type Credential = z.infer<typeof credentialSchema>;
+export type Service = z.infer<typeof serviceSchema>;
+
+export type Data =
+	| {
+			type: 'credential';
+			credential: Credential;
+	  }
+	| {
+			type: 'service';
+			service: Service;
+	  };
 
 const allowedDomains = ['http://192.168.1.36:3000/verify-credential', 'https://beta.signroom.io'];
 
@@ -33,38 +46,34 @@ function isUrlAllowed(url: string): boolean {
 export const parseQr = (value: string): ParseQrResults => {
 	const notValidQr = 'not valid qr';
 	let parsedValue: Record<string, unknown>;
+	let type: 'credential' | 'service';
 	try {
 		parsedValue = JSON.parse(value);
 	} catch (e) {
 		return { result: 'error', message: notValidQr };
 	}
-	try {
-		credentialSchema.parse(parsedValue);
-	} catch (e) {
+	if (credentialSchema.safeParse(parsedValue).success) {
+		type = 'credential';
+		parsedValue.type = 'credential';
+	} else if (serviceSchema.safeParse(parsedValue).success) {
+		type = 'service';
+		parsedValue.type = 'service';
+	} else {
 		return { result: 'error', message: notValidQr };
 	}
-	if (!isUrlAllowed(parsedValue.url as string)) {
+
+	if (type == 'service' && !isUrlAllowed(parsedValue.url as string)) {
 		return { result: 'error', message: 'not allowed verifier url' };
 	}
-	return { result: 'ok', credential: parsedValue as Credential };
+	//todo: validate service urls
+	if (type == 'service') {
+		return { result: 'ok', data: { type, service: parsedValue as Service } };
+	} else {
+		return { result: 'ok', data: { type, credential: parsedValue as Credential } };
+	}
 };
 
-// const verifyContract = `
-// Rule unknown ignore
-
-// Given I have a 'string dictionary' named 'headers'
-// Then I connect to 'url' and send object 'dict' and send headers 'headers' and do post and output into 'results'
-// `;
-
-// const slangroom = new Slangroom(http);
-
 export const verifyCredential = async (credential: Credential) => {
-	// const res = await slangroom.execute(verifyContract(credential.url, credential.registrationToken), {
-	// 	data: {
-	// 		url: credential.url,
-	// 		dict: {registrationToken:credential.registrationToken}
-	// 	},
-	// });
 	const options = {
 		url: credential.url,
 		headers: {
