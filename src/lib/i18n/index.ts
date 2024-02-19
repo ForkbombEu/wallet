@@ -18,11 +18,7 @@ export const i18n = createI18n(runtime, {
 		// 	it: '/richiesta/[id]'
 		// }
 	},
-	prefixDefaultLanguage: 'always',
-	textDirection: {
-		en: 'ltr',
-		it: 'ltr'
-	}
+	prefixDefaultLanguage: 'always'
 });
 
 export type Langs = ReturnType<typeof i18n.getLanguageFromUrl>;
