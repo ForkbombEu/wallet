@@ -6,8 +6,8 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['"Gantari Variable"', 'sans-serif'],
-				icon: ['"Material Symbols Rounded"']
+				sans: 'var(--sans-font-family)',
+				icon: 'var(--icon-font-family)'
 			},
 			colors: {
 				surface: 'var(--surface)',
