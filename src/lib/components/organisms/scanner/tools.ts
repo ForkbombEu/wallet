@@ -37,7 +37,7 @@ export type Data =
 			service: Service;
 	  };
 
-const allowedDomains = ['http://192.168.1.36:3000/verify-credential', 'https://beta.signroom.io'];
+const allowedDomains = ['http://oracle1.zenswarm.forkbomb.eu:3366/verify-credential', 'https://beta.signroom.io'];
 
 function isUrlAllowed(url: string): boolean {
 	return allowedDomains.includes(url);
