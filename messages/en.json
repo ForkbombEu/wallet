@@ -40,5 +40,7 @@
 	"Credential_offer": "Credential offer",
 	"Get_this_credential": "Get this credential",
 	"Decline": "Decline",
-	"Scan": "Scan"
+	"Scan": "Scan",
+	"No_camera_access": "No camera access",
+	"To_scan_QR_codes_allow_us_to_use_your_camera_in_Settings": "o scan QR codes allow us to use your camera in Settings > Privacy > Camera"
 }
