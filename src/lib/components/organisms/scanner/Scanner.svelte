@@ -65,7 +65,7 @@
 		<div class="flex flex-row">
 			<ion-title>{m.QR_SCAN()}</ion-title>
 			<d-button on:click={stopScan} on:keydown={stopScan} aria-hidden clear>
-				<ion-icon icon={close} slot="icon-only" class="text-black"></ion-icon>
+				<ion-icon icon={close} slot="icon-only" class="text-on"></ion-icon>
 			</d-button>
 		</div>
 	</ion-toolbar>
@@ -73,7 +73,9 @@
 
 <ion-content>
 	{#await awaitPermissions()}
-		<ion-spinner />
+		<div class="flex h-full w-full items-center justify-center">
+			<ion-spinner />
+		</div>
 	{:then permissionsGranted}
 		{#if !permissionsGranted}
 			<div
