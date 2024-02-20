@@ -40,5 +40,6 @@
 	"Credential_offer": "Credential offer",
 	"Get_this_credential": "Get this credential",
 	"Decline": "Decline",
-	"Scan": "Scan"
+	"Scan": "Scan",
+	"We_are_generating_this_credential": "We are generating this credential"
 }

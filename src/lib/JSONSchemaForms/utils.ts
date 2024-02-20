@@ -1,12 +1,14 @@
-import Ajv, { type Options } from 'ajv';
+import { type Options } from 'ajv';
 import addFormats from 'ajv-formats';
 import type { SuperValidated, ZodValidation } from 'sveltekit-superforms';
 import type z from 'zod';
+import Ajv2020 from 'ajv/dist/2020';
+
 
 //
 
-export function createAjv(options: Options = {}): Ajv {
-	const ajv = new Ajv(options);
+export function createAjv(options: Options = {}): Ajv2020 {
+	const ajv = new Ajv2020(options);
 	addFormats(ajv);
 	return ajv;
 }

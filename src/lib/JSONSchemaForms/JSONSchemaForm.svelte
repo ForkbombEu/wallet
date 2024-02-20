@@ -6,11 +6,12 @@
 	import { Form, FormError } from '$lib/forms';
 	import ErrorDisplay from '$lib/components/errorDisplay.svelte';
 	import { objectSchemaToSuperformsValidators } from './errors';
-	import { m } from '$lib/i18n';
+	import { unlockApp } from '$lib/preferences/locked';
 
 	//
 
 	export let schema: ObjectSchema;
+	export let id: string;
 	export let onSubmit: (data: Record<string, unknown>) => Promise<void> | void = () => {};
 
 	//
@@ -24,7 +25,9 @@
 			validators: objectSchemaToSuperformsValidators(schema),
 			onUpdate: async ({ form }) => {
 				try {
+					await unlockApp();
 					await onSubmit(form.data);
+
 				} catch (e) {
 					setError(form, parseFormException(e));
 				}
@@ -40,7 +43,7 @@
 	}
 </script>
 
-<Form {form}>
+<Form {form} {id}>
 	<div class="space-y-4">
 		{#each Object.entries(schema.properties) as [fieldName, field]}
 			{@const required = schema.required?.includes(fieldName)}
@@ -50,9 +53,5 @@
 		<FormError {form} let:errorMessage>
 			<ErrorDisplay name="Form Error" message={errorMessage} />
 		</FormError>
-
-		<div class="flex justify-end">
-			<d-button type="submit">{m.Submit()}</d-button>
-		</div>
 	</div>
 </Form>
