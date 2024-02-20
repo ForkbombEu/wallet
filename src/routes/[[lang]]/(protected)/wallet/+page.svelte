@@ -1,8 +1,10 @@
 <script lang="ts">
 	import TabPage from '$lib/tabs/TabPage.svelte';
-	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
-	import fakeCredentials from '$lib/fakeCredentials';
-	import { m } from '$lib/i18n';
+	import { m, r } from '$lib/i18n';
+	import empty from '$lib/assets/empty.png';
+	import { arrowForwardOutline } from 'ionicons/icons';
+
+	let credentials: Credential[] | undefined;
 </script>
 
 <TabPage tab="wallet" title="WALLET">
@@ -10,16 +12,26 @@
 		<h1>{m.My_issued_credentials()}</h1>
 	</d-heading>
 	<d-text size="l"> <p class="pb-4">{m.Explore_and_manage_your_verified_credentials()}</p></d-text>
-	<div class="flex flex-col gap-2">
-		{#each fakeCredentials as credential}
-			<d-credential-card
-				name={credential.name}
-				issuer={credential.issuer}
-				description={credential.description}
-				expiration-date={credential.expirationDate}
-				verified={credential.verified}
-			/>
-		{/each}
-	</div>
-	<ScanButton />
+	{#if credentials}
+		<div class="flex flex-col gap-2">
+			<!-- {#each credentials as credential}
+				<d-credential-card
+					name={credential.name}
+					issuer={credential.issuer}
+					description={credential.description}
+					expiration-date={credential.expirationDate}
+					verified={credential.verified}
+				/>
+			{/each} -->
+		</div>
+	{:else}
+		<div class="flex h-3/5 flex-col items-center justify-center gap-1">
+			<img src={empty} alt="empty" class="w-1/2 max-w-64" />
+			<d-heading size="s">Nothing in your wallet</d-heading>
+			<d-text size="l" class="pb-4">Start getting your first credential.</d-text>
+			<d-button expand color="accent" href={r('/home')}>
+				See issuance services <ion-icon slot="end" icon={arrowForwardOutline} />
+			</d-button>
+		</div>
+	{/if}
 </TabPage>
