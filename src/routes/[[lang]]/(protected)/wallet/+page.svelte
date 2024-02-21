@@ -19,10 +19,10 @@
 		{#if !credentials}
 			<div class="flex h-3/5 flex-col items-center justify-center gap-1">
 				<img src={empty} alt="empty" class="w-1/2 max-w-64" />
-				<d-heading size="s">Nothing in your wallet</d-heading>
-				<d-text size="l" class="pb-4">Start getting your first credential.</d-text>
+				<d-heading size="s">{m.Nothing_in_your_wallet()}</d-heading>
+				<d-text size="l" class="pb-4">{m.Start_getting_your_first_credential()}</d-text>
 				<d-button expand color="accent" href={r('/home')}>
-					See issuance services <ion-icon slot="end" icon={arrowForwardOutline} />
+					{m.See_issuance_services()} <ion-icon slot="end" icon={arrowForwardOutline} />
 				</d-button>
 			</div>
 		{:else}
