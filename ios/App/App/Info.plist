@@ -4,8 +4,8 @@
 <dict>
 	<key>NSFaceIDUsageDescription</key>
 	<string>For a secure log in.</string>
-  <key>NSCameraUsageDescription</key>
-  <string>The app enables the scanning of various barcodes.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>The app needs camera usage for scanning credentials qrcode.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
