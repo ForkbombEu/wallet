@@ -9,9 +9,7 @@
 <ion-tab {tab}>
 	<Header>{title}</Header>
 
-	<ion-content fullscreen>
-		<div class="p-4">
-			<slot />
-		</div>
+	<ion-content fullscreen class="ion-padding">
+		<slot />
 	</ion-content>
 </ion-tab>
