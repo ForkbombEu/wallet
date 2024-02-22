@@ -40,5 +40,8 @@
 	"Credential_offer": "Credential offer",
 	"Get_this_credential": "Get this credential",
 	"Decline": "Decline",
-	"Scan": "Scan"
+	"Scan": "Scan",
+	"Nothing_in_your_wallet": "Nothing in your wallet",
+	"Start_getting_your_first_credential": "Start getting your first credential",
+	"See_issuance_services": "See issuance services"
 }
