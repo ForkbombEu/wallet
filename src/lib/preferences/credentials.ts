@@ -1,4 +1,3 @@
-import TEE from '$lib/nativeHooks/TEEPlugin';
 import { getStructuredPreferences, setStructuredPreferences } from '.';
 
 //
@@ -25,8 +24,6 @@ const generateId = (credentials?: Credential[]) => {
 };
 
 export async function setCredentialPreference(credential: Omit<Credential, 'id'>) {
-	await TEE.generateKey();
-
 	const credentials = await getCredentialsPreference();
 	const c = {
 		...credential,
