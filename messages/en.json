@@ -41,5 +41,8 @@
 	"Get_this_credential": "Get this credential",
 	"Decline": "Decline",
 	"Scan": "Scan",
-	"We_are_generating_this_credential": "We are generating this credential"
+	"We_are_generating_this_credential": "We are generating this credential",
+	"Nothing_in_your_wallet": "Nothing in your wallet",
+	"Start_getting_your_first_credential": "Start getting your first credential",
+	"See_issuance_services": "See issuance services"
 }

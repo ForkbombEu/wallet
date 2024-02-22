@@ -8,15 +8,38 @@
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import { m } from '$lib/i18n';
 	import Header from '$lib/components/molecules/Header.svelte';
+	import { setCredentialPreference } from '$lib/preferences/credentials';
 	export let data: any;
 	const { credential } = data;
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
 
+	function getRandomExpirationDate() {
+		const currentDate = new Date();
+		const futureDate = new Date(
+			currentDate.getFullYear() + Math.floor(Math.random() * 5),
+			Math.floor(Math.random() * 12),
+			Math.floor(Math.random() * 28) + 1
+		);
+
+		const year = futureDate.getFullYear();
+		const month = (futureDate.getMonth() + 1).toString().padStart(2, '0');
+		const day = futureDate.getDate().toString().padStart(2, '0');
+
+		return `${year}-${day}-${month}`;
+	}
+
 	const getCredential = () => {
 		isModalOpen = true;
 		setTimeout(() => {
 			isCredentialVerified = true;
+			setCredentialPreference({
+				name: credential.name,
+				issuer: credential.issuer,
+				description: credential.description,
+				verified: Boolean(Math.random() < 0.6), // 80% chance of being verified
+				expirationDate: getRandomExpirationDate()
+			});
 			setTimeout(() => {
 				isModalOpen = false;
 				goto('/home');

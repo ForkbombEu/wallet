@@ -46,3 +46,12 @@ export const getStructuredPreferences = async <T>(
 	}
 	return undefined;
 };
+
+export const setStructuredPreferences = async <T>(
+	key: string,
+	value: T,
+	confidential: boolean = false
+) => {
+	await setPreference(key, JSON.stringify(value), confidential);
+}
+
