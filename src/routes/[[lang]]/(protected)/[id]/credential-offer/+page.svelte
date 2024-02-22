@@ -46,6 +46,11 @@
 			}, 3000);
 		}, 5000);
 	};
+
+	const cleanSchema = () => {
+		const schema = credential.expand.templates[0].schema;
+		schema;
+	};
 </script>
 
 <Header>{m.Credential_offer()}</Header>
@@ -69,15 +74,16 @@
 			</div>
 		</div>
 
-		<JSONSchemaParser schema={credential.expand.templates[0].schema} let:schema>
-			<JSONSchemaForm {schema} onSubmit={() => {}} />
-			<svelte:fragment slot="error" let:error>
-				<ErrorDisplay name={error.name} message={error.message} />
-			</svelte:fragment>
-		</JSONSchemaParser>
-		<pre>{credential.expand.templates[0].schema}</pre>
+		<div class="rounded-md bg-primary p-4">
+			<JSONSchemaParser schema={credential.expand.templates[0].schema} let:schema>
+				<JSONSchemaForm {schema} onSubmit={getCredential} id="schemaForm" />
+				<svelte:fragment slot="error" let:error>
+					<ErrorDisplay name={error.name} message={error.message} />
+				</svelte:fragment>
+			</JSONSchemaParser>
+		</div>
 		<div class="w-full">
-			<d-button expand on:click={getCredential} on:keydown={getCredential} aria-hidden
+			<d-button expand type="submit" form="schemaForm" aria-hidden
 				>{m.Get_this_credential()}</d-button
 			>
 			<d-button expand href="/home">{m.Decline()}</d-button>
@@ -88,7 +94,7 @@
 			<div class="flex h-full flex-col justify-around">
 				<div>
 					{#if !isCredentialVerified}
-						We are generating this credential
+						 {m.We_are_generating_this_credential()}
 						<d-credential-card
 							name={credential.name}
 							issuer={credential.issuer}
