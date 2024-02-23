@@ -8,20 +8,48 @@
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import { m } from '$lib/i18n';
 	import Header from '$lib/components/molecules/Header.svelte';
+	import { setCredentialPreference } from '$lib/preferences/credentials';
 	export let data: any;
 	const { credential } = data;
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
 
+	function getRandomExpirationDate() {
+		const currentDate = new Date();
+		const futureDate = new Date(
+			currentDate.getFullYear() + Math.floor(Math.random() * 5),
+			Math.floor(Math.random() * 12),
+			Math.floor(Math.random() * 28) + 1
+		);
+
+		const year = futureDate.getFullYear();
+		const month = (futureDate.getMonth() + 1).toString().padStart(2, '0');
+		const day = futureDate.getDate().toString().padStart(2, '0');
+
+		return `${year}-${day}-${month}`;
+	}
+
 	const getCredential = () => {
 		isModalOpen = true;
 		setTimeout(() => {
 			isCredentialVerified = true;
+			setCredentialPreference({
+				name: credential.name,
+				issuer: credential.issuer,
+				description: credential.description,
+				verified: Boolean(Math.random() < 0.6), // 80% chance of being verified
+				expirationDate: getRandomExpirationDate()
+			});
 			setTimeout(() => {
 				isModalOpen = false;
 				goto('/home');
 			}, 3000);
 		}, 5000);
+	};
+
+	const cleanSchema = () => {
+		const schema = credential.expand.templates[0].schema;
+		schema;
 	};
 </script>
 
@@ -46,15 +74,16 @@
 			</div>
 		</div>
 
-		<JSONSchemaParser schema={credential.expand.templates[0].schema} let:schema>
-			<JSONSchemaForm {schema} onSubmit={() => {}} />
-			<svelte:fragment slot="error" let:error>
-				<ErrorDisplay name={error.name} message={error.message} />
-			</svelte:fragment>
-		</JSONSchemaParser>
-		<pre>{credential.expand.templates[0].schema}</pre>
+		<div class="rounded-md bg-primary p-4">
+			<JSONSchemaParser schema={credential.expand.templates[0].schema} let:schema>
+				<JSONSchemaForm {schema} onSubmit={getCredential} id="schemaForm" />
+				<svelte:fragment slot="error" let:error>
+					<ErrorDisplay name={error.name} message={error.message} />
+				</svelte:fragment>
+			</JSONSchemaParser>
+		</div>
 		<div class="w-full">
-			<d-button expand on:click={getCredential} on:keydown={getCredential} aria-hidden
+			<d-button expand type="submit" form="schemaForm" aria-hidden
 				>{m.Get_this_credential()}</d-button
 			>
 			<d-button expand href="/home">{m.Decline()}</d-button>
@@ -65,7 +94,7 @@
 			<div class="flex h-full flex-col justify-around">
 				<div>
 					{#if !isCredentialVerified}
-						We are generating this credential
+						 {m.We_are_generating_this_credential()}
 						<d-credential-card
 							name={credential.name}
 							issuer={credential.issuer}
