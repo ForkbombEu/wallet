@@ -27,9 +27,26 @@
 		class:ion-invalid={errorText}
 		class:ion-touched={errorText}
 		label-placement="stacked"
+		fill="outline"
+		class="custom"
 		{value}
 		on:ionInput={(e) => {
 			updateValue(e.detail.value);
 		}}
 	/>
 </FieldController>
+<style>
+  ion-input.custom {
+    --background: #373737;
+    --color: #fff;
+    --placeholder-color: #ddd;
+    --placeholder-opacity: 0.8;
+
+    --padding-bottom: 10px;
+    --padding-end: 10px;
+    --padding-start: 10px;
+    --padding-top: 10px;
+  }
+
+  
+</style>

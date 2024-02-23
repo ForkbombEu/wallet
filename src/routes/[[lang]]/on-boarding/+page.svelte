@@ -7,17 +7,17 @@
 	const steps = [
 		makeStep({
 			component: First,
-			props: undefined
+			props: {index: 0, total: 3}
 		}),
 		makeStep({
 			component: Second,
-			props: undefined
+			props: {index: 1, total: 3}
 		}),
 		makeStep({
 			component: Third,
-			props: undefined
+			props: {index: 2, total: 3}
 		})
 	];
 </script>
 
-<Stepper {steps} />
+<Stepper {steps} disableTransitions />
