@@ -46,5 +46,9 @@
 	"We_are_generating_this_credential": "We are generating this credential",
 	"Nothing_in_your_wallet": "Nothing in your wallet",
 	"Start_getting_your_first_credential": "Start getting your first credential",
-	"See_issuance_services": "See issuance services"
+	"See_issuance_services": "See issuance services",
+	"Welcome_to_DID_Wallet": "Welcome to DID Wallet",
+	"your_friendly_and_trustable_opensource_wallet_": "your friendly and trustable open-source wallet.",
+	"Create_your_DID": "Create your DID",
+	"Manage_VC_verifiable_credentials_in_one_place": "Manage VC (verifiable credentials) in one place"
 }
