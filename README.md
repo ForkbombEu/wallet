@@ -23,12 +23,20 @@ npm i -g pnpm
 pnpm env use --global 20
 pnpm add -g pnpm
 ```
-intstall ionic cli
+
+Then setup submodules and .env
 ```
-npm i -g @ionic/cli
+git submodule update --init --recursive
+mv .env.example .env
 ```
 
-Then:
+intstall ionic cli with pnpm
+```
+pnpm i -g @ionic/cli
+ionic cap sync
+```
+
+Then install the node submodules
 ```
 pnpm i
 ```
