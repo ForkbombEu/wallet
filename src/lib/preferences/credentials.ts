@@ -23,11 +23,10 @@ const generateId = (credentials?: Credential[]) => {
 	return id;
 };
 
-export async function setCredentialPreference(credential: Omit<Credential, 'id'>) {
+export async function setCredentialPreference(credential: Credential) {
 	const credentials = await getCredentialsPreference();
 	const c = {
 		...credential,
-		id: generateId(credentials)
 	};
 	if (credentials) {
 		credentials.push(c);
