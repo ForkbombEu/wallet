@@ -1,13 +1,35 @@
+import { getPublicKeysFromKeypair } from '$lib/keypairoom';
+import { setDIDPreference } from '$lib/preferences/did';
+import { getKeypairPreference } from '$lib/preferences/keypair';
 import { getUser, setUser } from '$lib/preferences/signroomUser';
 import { Slangroom } from '@slangroom/core';
 import { pocketbase } from '@slangroom/pocketbase';
 import { writable } from 'svelte/store';
+
+//
+
+//@ts-expect-error - Slangroom has no types
+const slangroom = new Slangroom(pocketbase);
+
+const pb_address: string = 'https://admin.signroom.io';
+
 export const userEmailStore = writable<string | undefined>();
+
+//
 
 const scriptGenerateUser = `
     Rule unknown ignore
     Given I send pb_address 'pb_address' and create pb_client
     Given I send create_parameters 'create_parameters' and send record_parameters 'record_parameters' and create record and output into 'output'
+    Given I have a 'string dictionary' named 'output'
+    Then print data
+    `;
+
+const scriptUpdate = `
+    Rule unknown ignore
+    Given I send pb_address 'pb_address' and create pb_client
+    Given I send my_credentials 'my_credentials' and login
+    Given I send update_parameters 'update_parameters' and send record_parameters 'record_parameters' and update record and output into 'output'
     Given I have a 'string dictionary' named 'output'
     Then print data
     `;
@@ -21,10 +43,7 @@ const scriptGenerateDid = `
 	Then print data
 `;
 
-//@ts-ignore
-const slangroom = new Slangroom(pocketbase);
-
-const pb_address: string = 'https://admin.signroom.io';
+//
 
 export const generateSignroomUser = async (email: string) => {
 	const password = 'pppppppp';
@@ -48,15 +67,50 @@ export const generateSignroomUser = async (email: string) => {
 		data
 	});
 
-	//@ts-ignore
+	//@ts-expect-error - Slangroom has no types
 	setUser(res.result.output?.id, password, email);
 
 	return res.result.output;
 };
 
+//
+
+export const uploadPublicKeys = async () => {
+	const { id, email, password } = (await getUser())!;
+	const keypair = await getKeypairPreference();
+	const public_keys = getPublicKeysFromKeypair(keypair!);
+
+	const dataUpdate = {
+		pb_address,
+		update_parameters: {
+			id,
+			collection: 'users',
+			record: public_keys
+		},
+		record_parameters: {
+			expand: null,
+			requestKey: null,
+			fields: null
+		},
+		my_credentials: {
+			email,
+			password
+		}
+	};
+
+	const res = await slangroom.execute(scriptUpdate, {
+		data: dataUpdate
+	});
+
+	console.log(res);
+};
+
+//
+
 export const generateDid = async () => {
-	//@ts-ignore
-	const { id, email, password } = await getUser();
+	//@ts-expect-error - Slangroom has no types
+	const { email, password } = await getUser();
+
 	const data = {
 		pb_address,
 		my_credentials: {
@@ -66,9 +120,21 @@ export const generateDid = async () => {
 		url: '/api/did',
 		send_parameters: {}
 	};
-	const res = await slangroom.execute(scriptGenerateDid, {
+
+	type DIDResponse = {
+		result: {
+			output: {
+				created: boolean;
+				did: object;
+			};
+		};
+	};
+
+	const res = (await slangroom.execute(scriptGenerateDid, {
 		data
-	});
-	console.log(res);
+	})) as unknown as DIDResponse;
+
+	await setDIDPreference(res.result.output.did);
+
 	return res.result.output;
 };
