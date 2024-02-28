@@ -10,6 +10,7 @@
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { unlockApp } from '$lib/preferences/locked.js';
 	import { r, m } from '$lib/i18n';
+	import { generateDid, generateSignroomUser } from '../../_lib';
 
 	//
 
@@ -55,6 +56,11 @@
 			try {
 				const formattedAnswers = convertUndefinedToNullString(form.data);
 				const keypair = await generateKeypair(userEmail, formattedAnswers as UserChallengesAnswers);
+				
+				const user = await generateSignroomUser(userEmail)
+				const did = await generateDid()
+				console.log('user', user)
+
 				await setKeypairPreference(keypair);
 				await unlockApp();
 				seed = keypair.seed;
