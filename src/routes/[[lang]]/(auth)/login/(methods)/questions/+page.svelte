@@ -13,6 +13,7 @@
 	import { r, m } from '$lib/i18n';
 	import { alarm } from 'ionicons/icons';
 	import { generateDid, generateSignroomUser } from '../../_lib';
+	import fingerPrint from '$lib/assets/fingerPrint.png';
 
 	//
 
@@ -67,10 +68,7 @@
 
 				await unlockApp();
 				seed = keypair.seed;
-				setInterval(() => {
-					loading = false;
-				}, 2000);
-
+				loading = false;
 				/**
 				 * Note
 				 *
@@ -83,6 +81,7 @@
 				 * For this reason, that layout is temp commented
 				 */
 			} catch (e) {
+				loading = false;
 				throw new Error('KEYPAIR_GENERATION_ERROR');
 			}
 		}
@@ -105,7 +104,14 @@
 
 <ion-content fullscreen class="h-full">
 	<div class="flex h-full w-full flex-col gap-4 px-4">
-		{#if !seed}
+		{#if loading}
+			<div class="flex h-full flex-col items-center justify-around">
+				<div class="flex flex-col items-center gap-8">
+					<img src={fingerPrint} alt="fingerPrint" class="w-32" />
+					<d-heading size="s">Generating Keypair...</d-heading>
+				</div>
+			</div>
+		{:else if !seed}
 			<div class="flex flex-col gap-2 bg-primary">
 				<d-heading sixe="s">Answer to these questions,</d-heading>
 				<d-text size="l"
@@ -156,10 +162,6 @@
 			<d-button color="accent" role="button" type="submit" form="questions" expand tabindex={0}
 				>{m.Next()}</d-button
 			>
-		{:else if loading}
-			<div class="flex h-full flex-col items-center justify-around">
-				<ion-text>Generating Keypair...</ion-text>
-			</div>
 		{:else}
 			<div class="flex flex-col gap-2 bg-primary">
 				<d-heading sixe="s">Store this keypair,</d-heading>
