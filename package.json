@@ -79,15 +79,17 @@
 		"@fontsource-variable/gantari": "^5.0.9",
 		"@inlang/paraglide-js-adapter-sveltekit": "^0.3.3",
 		"@ionic/core": "^7.7.0",
-		"@slangroom/core": "^1.13.0",
-		"@slangroom/http": "^1.13.0",
+		"@slangroom/core": "latest",
+		"@slangroom/http": "latest",
+		"@slangroom/pocketbase": "latest",
+		"@slangroom/zencode": "latest",
 		"ajv": "^8.12.0",
 		"ajv-formats": "^2.1.1",
 		"ionic-svelte": "^0.5.82",
 		"ionicons": "^7.2.2",
 		"lodash": "^4.17.21",
 		"sveltekit-superforms": "^1.13.4",
-		"zenroom": "^4.12.0",
+		"zenroom": "latest",
 		"zod": "^3.22.4"
 	}
 }

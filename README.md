@@ -13,3 +13,35 @@ SDK location not found. Define a valid SDK location with an ANDROID_HOME environ
 ```
 
 duplicate `android/local.properties.example` as `android/local.properties` and set correct path
+
+
+## Run in web browser
+
+First install pnpm and configure so that it uses node 20
+```
+npm i -g pnpm
+pnpm env use --global 20
+pnpm add -g pnpm
+```
+
+Then setup submodules and .env
+```
+git submodule update --init --recursive
+mv .env.example .env
+```
+
+install ionic cli with pnpm
+```
+pnpm i -g @ionic/cli
+ionic cap sync
+```
+
+Then install the node submodules
+```
+pnpm i
+```
+To launch in browser: 
+
+```
+pnpm web
+```

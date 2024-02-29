@@ -12,6 +12,7 @@
 	import { unlockApp } from '$lib/preferences/locked.js';
 	import { r, m } from '$lib/i18n';
 	import { alarm } from 'ionicons/icons';
+	import { generateDid, generateSignroomUser } from '../../_lib';
 
 	//
 
@@ -52,7 +53,6 @@
 		}, answersSchemaError);
 
 	//
-
 	const form = createForm({
 		schema: answersSchema,
 		onSubmit: async ({ form }) => {
@@ -60,7 +60,11 @@
 				loading = true;
 				const formattedAnswers = convertUndefinedToNullString(form.data);
 				const keypair = await generateKeypair(userEmail, formattedAnswers as UserChallengesAnswers);
+
 				await setKeypairPreference(keypair);
+				await generateSignroomUser(userEmail);
+				await generateDid();
+
 				await unlockApp();
 				seed = keypair.seed;
 				setInterval(() => {

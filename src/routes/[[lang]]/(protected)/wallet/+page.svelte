@@ -5,6 +5,7 @@
 	import { arrowForwardOutline } from 'ionicons/icons';
 	import { getCredentialsPreference } from '$lib/preferences/credentials';
 	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
+
 </script>
 
 <TabPage tab="wallet" title="WALLET">
