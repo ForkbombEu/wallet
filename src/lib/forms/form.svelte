@@ -52,11 +52,12 @@
 <script lang="ts">
 	type SchemaGeneric = $$Generic<AnyZodObject>;
 	export let form: SuperForm<SchemaGeneric>;
+	export let id: string | undefined = undefined
 
 	const { enhance, delayed } = form;
 </script>
 
-<form method="post" use:enhance>
+<form {id} method="post" use:enhance>
 	<slot delayed={$delayed} />
 </form>
 
