@@ -30,7 +30,7 @@ git submodule update --init --recursive
 mv .env.example .env
 ```
 
-intstall ionic cli with pnpm
+install ionic cli with pnpm
 ```
 pnpm i -g @ionic/cli
 ionic cap sync
