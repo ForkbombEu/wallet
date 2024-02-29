@@ -1,6 +1,7 @@
 <script lang="ts">
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import { m } from '$lib/i18n';
+	import { getDIDPreference } from '$lib/preferences/did';
 </script>
 
 <TabPage tab="profile" title="PROFILE">
@@ -17,5 +18,12 @@
 			63FaC9201494f0bd17B9892B9fae4d52fe3BD377
 		</div>
 		<d-button href="/logout">{m.Logout()}</d-button>
+
+		{#await getDIDPreference() then did}
+			<div>
+				<p>DID</p>
+				<pre>{JSON.stringify(did, null, 2)}</pre>
+			</div>
+		{/await}
 	</div>
 </TabPage>
