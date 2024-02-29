@@ -4,6 +4,7 @@
 	import empty from '$lib/assets/empty.png';
 	import { arrowForwardOutline } from 'ionicons/icons';
 	import { getCredentialsPreference } from '$lib/preferences/credentials';
+	
 </script>
 
 <TabPage tab="wallet" title="WALLET">
