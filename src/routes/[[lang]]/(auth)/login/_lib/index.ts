@@ -25,28 +25,41 @@ const scriptGenerateUser = `
     Then print data
     `;
 
-const scriptUpdate = `
-    Rule unknown ignore
-    Given I send pb_address 'pb_address' and create pb_client
-    Given I send my_credentials 'my_credentials' and login
-    Given I send update_parameters 'update_parameters' and send record_parameters 'record_parameters' and update record and output into 'output'
-    Given I have a 'string dictionary' named 'output'
-    Then print data
-    `;
+// const scriptUpdate = `
+//     Rule unknown ignore
+//     Given I send pb_address 'pb_address' and create pb_client
+//     Given I send my_credentials 'my_credentials' and login
+//     Given I send update_parameters 'update_parameters' and send record_parameters 'record_parameters' and update record and output into 'output'
+//     Given I have a 'string dictionary' named 'output'
+//     Then print data
+//     `;
 
 const scriptGenerateDid = `
     Rule unknown ignore
 	Given I send pb_address 'pb_address' and create pb_client
-	Given I send my_credentials 'my_credentials' and login
-	Given I send url 'url' and send send_parameters 'send_parameters' and send request and output into 'output'
-	Given I have a 'string dictionary' named 'output'
-	Then print data
+	Given I send my_credentials 'my_credentials' and login and output into 'login_output'
+    Given I have a 'string dictionary' named 'login_output'
+    Given I have a 'string' named 'url'
+    When I pickup from path 'login_output.token' 
+    and I rename 'token' to 'Authorization'
+
+    When I create the 'string dictionary' named 'headers' 
+    and I move 'Authorization' in 'headers'
+
+    When I create the 'string dictionary' named 'send_parameters' 
+    and I move 'headers' in 'send_parameters'
+    
+    Then I print 'url'
+    and I print 'send_parameters'
+	Then I send url 'url' and send send_parameters 'send_parameters' and send request and output into 'output'
 `;
 
 //
 
 export const generateSignroomUser = async (email: string) => {
 	const password = 'pppppppp';
+    const keypair = await getKeypairPreference();
+	const public_keys = getPublicKeysFromKeypair(keypair!);
 	const data = {
 		pb_address,
 		create_parameters: {
@@ -54,7 +67,8 @@ export const generateSignroomUser = async (email: string) => {
 			record: {
 				email,
 				password,
-				passwordConfirm: password
+				passwordConfirm: password,
+                ...public_keys
 			}
 		},
 		record_parameters: {
@@ -68,42 +82,42 @@ export const generateSignroomUser = async (email: string) => {
 	});
 
 	//@ts-expect-error - Slangroom has no types
-	setUser(res.result.output?.id, password, email);
+	await setUser(res.result.output?.id, password, email);
 
 	return res.result.output;
 };
 
 //
 
-export const uploadPublicKeys = async () => {
-	const { id, email, password } = (await getUser())!;
-	const keypair = await getKeypairPreference();
-	const public_keys = getPublicKeysFromKeypair(keypair!);
+// export const uploadPublicKeys = async () => {
+// 	const { id, email, password } = (await getUser())!;
+// 	const keypair = await getKeypairPreference();
+// 	const public_keys = getPublicKeysFromKeypair(keypair!);
 
-	const dataUpdate = {
-		pb_address,
-		update_parameters: {
-			id,
-			collection: 'users',
-			record: public_keys
-		},
-		record_parameters: {
-			expand: null,
-			requestKey: null,
-			fields: null
-		},
-		my_credentials: {
-			email,
-			password
-		}
-	};
+// 	const dataUpdate = {
+// 		pb_address,
+// 		update_parameters: {
+// 			id,
+// 			collection: 'users',
+// 			record: public_keys
+// 		},
+// 		record_parameters: {
+// 			expand: null,
+// 			requestKey: null,
+// 			fields: null
+// 		},
+// 		my_credentials: {
+// 			email,
+// 			password
+// 		}
+// 	};
 
-	const res = await slangroom.execute(scriptUpdate, {
-		data: dataUpdate
-	});
+// 	const res = await slangroom.execute(scriptUpdate, {
+// 		data: dataUpdate
+// 	});
 
-	console.log(res);
-};
+// 	console.log(res);
+// };
 
 //
 
@@ -118,7 +132,6 @@ export const generateDid = async () => {
 			password
 		},
 		url: '/api/did',
-		send_parameters: {}
 	};
 
 	type DIDResponse = {
