@@ -3,6 +3,7 @@ import keypairoomClient from '../../../zenflows-crypto/src/keypairoomClient-8-9-
 import keypairoomClientRecreateKeys from '../../../zenflows-crypto/src/keypairoomClientRecreateKeys.zen?raw';
 import { zencodeExec } from './zencode';
 import type { ValueOf } from '$lib/utils/types';
+import _ from 'lodash';
 
 //
 
@@ -105,5 +106,15 @@ export type Keypair = {
 	bitcoin_public_key: string;
 	eddsa_public_key: string;
 	reflow_public_key: string;
+	es256_public_key: string;
 	ethereum_address: string;
 };
+
+export type PublicKeys = Omit<Keypair, 'keyring' | 'seed'>;
+
+export function getPublicKeysFromKeypair(keypair: Keypair): PublicKeys {
+	const keypair_clone = _.cloneDeep(keypair);
+	_.unset(keypair_clone, 'seed');
+	_.unset(keypair_clone, 'keyring');
+	return keypair_clone;
+}
