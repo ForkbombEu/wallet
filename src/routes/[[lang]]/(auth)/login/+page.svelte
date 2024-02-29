@@ -58,9 +58,9 @@
 				</Form>
 				<div class="absolute bottom-4 flex flex-col items-center gap-2">
 					<div class="flex items-center gap-2">
-						<d-logo /> <d-heading size="xs">DID Wallet</d-heading>
+						<d-logo /> <d-heading size="xs">{m.DID_Wallet()}</d-heading>
 					</div>
-					<d-text size="l">Developed by Forkbomb BV</d-text>
+					<d-text size="l">{m.Developed_by_Forkbomb_BV()}</d-text>
 					<d-text size="m">V 0.1.0123456</d-text>
 				</div>
 			</div>

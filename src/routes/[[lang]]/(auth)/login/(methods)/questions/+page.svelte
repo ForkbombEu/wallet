@@ -100,7 +100,7 @@
 	}
 </script>
 
-<Header>SECURITY QUESTIONS</Header>
+<Header>{m.SECURITY_QUESTIONS()}</Header>
 
 <ion-content fullscreen class="h-full">
 	<div class="flex h-full w-full flex-col gap-4 px-4">
@@ -108,15 +108,14 @@
 			<div class="flex h-full flex-col items-center justify-around">
 				<div class="flex flex-col items-center gap-8">
 					<img src={fingerPrint} alt="fingerPrint" class="w-32" />
-					<d-heading size="s">Generating Keypair...</d-heading>
+					<d-heading size="s">{m.Generating_Keypair_()}</d-heading>
 				</div>
 			</div>
 		{:else if !seed}
 			<div class="flex flex-col gap-2 bg-primary">
-				<d-heading sixe="s">Answer to these questions,</d-heading>
+				<d-heading sixe="s">{m.Answer_to_these_questions()}</d-heading>
 				<d-text size="l"
-					>to ensure the security of your account and simplify key recovery, please answer the
-					following questions.</d-text
+					>{m.to_ensure_the_security_of_your_account_and_simplify_key_recovery_please_answer_the_following_questions_()}</d-text
 				>
 				<!-- <d-logo /> -->
 			</div>
@@ -129,8 +128,7 @@
 				<div class="flex gap-2">
 					<d-text size="l" class="text-error"> <ion-icon icon={alarm} /></d-text>
 					<d-text
-						>Please choose both secure and easily memorable answers. Your answers will be
-						case-sensitive.</d-text
+						>{m.Please_choose_both_secure_and_easily_memorable_answers_Your_answers_will_be_casesensitive_()}</d-text
 					>
 				</div>
 				<div class="space-y-6">
@@ -164,18 +162,18 @@
 			>
 		{:else}
 			<div class="flex flex-col gap-2 bg-primary">
-				<d-heading sixe="s">Store this keypair,</d-heading>
-				<d-text size="l">your unique keypair has been generated successfully. </d-text>
+				<d-heading sixe="s">{m.Store_this_keypair()}</d-heading>
+				<d-text size="l">{m.your_unique_keypair_has_been_generated_successfully_()}</d-text>
 				<!-- <d-logo /> -->
 			</div>
 
 			<div class="flex w-full flex-col space-y-8 rounded bg-surface px-4 pb-6 pt-4">
 				<div class="flex gap-2">
 					<d-text size="l" class="text-error"> <ion-icon icon={alarm} /></d-text>
-					<d-text>Make sure to store it in a safe location.</d-text>
+					<d-text>{m.Make_sure_to_store_it_in_a_safe_location_()}</d-text>
 				</div>
 				<div class="space-y-6">
-					<d-text>Your keypair</d-text>
+					<d-text>{m.Your_keypair()}</d-text>
 
 					<div>
 						<ion-text>

@@ -26,7 +26,7 @@
 	});
 </script>
 
-<Header>REGISTER</Header>
+<Header>{m.REGISTER()}</Header>
 
 <ion-content fullscreen class="h-full">
 	<div class="flex flex-col">
@@ -38,8 +38,8 @@
 		</div>
 		<div class="flex w-full flex-col items-center gap-6 px-8">
 			<div class="flex w-full flex-col gap-2 bg-primary py-8">
-				<d-heading sixe="s">Confirm your email</d-heading>
-				<d-text size="l">Re-enter your email address to confirm registration.</d-text>
+				<d-heading sixe="s">{m.Confirm_your_email()}</d-heading>
+				<d-text size="l">{m.Reenter_your_email_address_to_confirm_registration_()}</d-text>
 			</div>
 
 			<Form {form} formClass="flex flex-col  gap-8 rounded bg-surface px-4 pb-6 pt-4 w-full">
