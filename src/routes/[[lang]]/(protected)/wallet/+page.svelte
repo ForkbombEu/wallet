@@ -4,7 +4,8 @@
 	import empty from '$lib/assets/empty.png';
 	import { arrowForwardOutline } from 'ionicons/icons';
 	import { getCredentialsPreference } from '$lib/preferences/credentials';
-	
+	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
+
 </script>
 
 <TabPage tab="wallet" title="WALLET">
@@ -45,4 +46,5 @@
 			<d-text size="l" class="pb-4">{error.message}</d-text>
 		</div>
 	{/await}
+	<ScanButton />
 </TabPage>
