@@ -1,6 +1,7 @@
 import { getService } from '$lib/slangroom/services.js';
 
 export const load = async ({ params }) => {
-	const credential = await getService(params.id);
+	const id = params['id'];
+	const credential = await getService(id);
 	return { credential };
 };

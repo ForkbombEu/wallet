@@ -1,14 +1,16 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import Modal from '$lib/components/molecules/Modal.svelte';
 	import Scanner from '$lib/components/organisms/scanner/Scanner.svelte';
 	import {
 		parseQr,
 		verifyCredential,
-		type Credential
+		type Credential,
+		type ParseQrResults
 	} from '$lib/components/organisms/scanner/tools';
 	import { m } from '$lib/i18n';
 
-	let barcode: string;
+	let barcodeResult: ParseQrResults;
 	let isModalOpen: boolean;
 	let res: any;
 
@@ -19,23 +21,26 @@
 
 <Scanner
 	let:scan
-	on:success={(e) => {
-		barcode = e.detail.qr;
+	on:success={async (e) => {
+		barcodeResult = parseQr(e.detail.qr);
+		if (barcodeResult.result === 'ok' && barcodeResult.data.type === 'service') {
+			return await goto(`/${barcodeResult.data.service.id}/credential-offer`);
+		}
 		isModalOpen = true;
 	}}
 >
 	<Modal {isModalOpen} closeCb={scan}>
-		{@const parsedQr = parseQr(barcode)}
-		{#if !(parsedQr?.result === 'ok')}
-			<ion-title>{parsedQr?.message || 'error'}</ion-title>
-		{:else}
-			{@const { name, issuedBy, url } = parsedQr.credential}
+		{#if !(barcodeResult?.result === 'ok')}
+			<ion-title>{barcodeResult?.message || 'error'}</ion-title>
+		{:else if barcodeResult.data.type === 'credential'}
+			{@const credential = barcodeResult.data.credential}
+			{@const { name, issuedBy, url } = credential}
 			<ion-title>{name}</ion-title>
 			<ion-label>{issuedBy}</ion-label>
 			<br />
 			<ion-button
-				on:click={() => request(parsedQr.credential)}
-				on:keydown={() => request(parsedQr.credential)}
+				on:click={() => request(credential)}
+				on:keydown={() => request(credential)}
 				aria-hidden>{m.Verify()}</ion-button
 			>
 		{/if}

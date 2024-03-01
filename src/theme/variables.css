@@ -6,7 +6,7 @@
 @tailwind utilities;
 
 :root {
-	--ion-background-color: var(--surface);
+	--ion-background-color: var(--primary);
 	--ion-text-color: var(--on);
 	--ion-tab-bar-background: var(--primary);
 	--ion-default-font: 'Gantari Variable';
