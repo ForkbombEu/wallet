@@ -4,7 +4,7 @@
 	import empty from '$lib/assets/empty.png';
 	import { arrowForwardOutline } from 'ionicons/icons';
 	import { getCredentialsPreference } from '$lib/preferences/credentials';
-	
+	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
 </script>
 
 <TabPage tab="wallet" title="WALLET">
@@ -29,13 +29,15 @@
 		{:else}
 			<div class="flex flex-col gap-2">
 				{#each credentials as credential}
-					<d-credential-card
-						name={credential.name}
-						issuer={credential.issuer}
-						description={credential.description}
-						expiration-date={credential.expirationDate}
-						verified={credential.verified}
-					/>
+					<a href={r(`/${credential.id}/credential-detail`)}>
+						<d-credential-card
+							name={credential.name}
+							issuer={credential.issuer}
+							description={credential.description}
+							expiration-date={credential.expirationDate}
+							verified={credential.verified}
+						/>
+					</a>
 				{/each}
 			</div>
 		{/if}
@@ -45,4 +47,5 @@
 			<d-text size="l" class="pb-4">{error.message}</d-text>
 		</div>
 	{/await}
+	<ScanButton />
 </TabPage>

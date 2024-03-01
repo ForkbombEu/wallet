@@ -17,19 +17,19 @@
 </script>
 
 <FieldController {form} {fieldPath} let:value let:errorText let:updateValue>
-	<ion-input
+	<d-input
 		{type}
 		name={fieldPath}
 		{label}
 		{placeholder}
 		helper-text={helperText}
 		error-text={errorText}
-		class:ion-invalid={errorText}
-		class:ion-touched={errorText}
+		class:d-invalid={errorText}
+		class:d-touched={errorText}
 		label-placement="stacked"
 		{value}
-		on:ionInput={(e) => {
-			updateValue(e.detail.value);
+		on:dInput={(e) => {
+			updateValue(e.detail);
 		}}
 	/>
 </FieldController>

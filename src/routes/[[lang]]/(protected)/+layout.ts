@@ -4,6 +4,7 @@ import { getLanguagePreference } from '$lib/preferences/lang';
 import { isAppLocked, lockApp } from '$lib/preferences/locked.js';
 import { redirect } from '@sveltejs/kit';
 import { availableLanguageTags } from '$paraglide/runtime';
+import { isAlreadyBoarded } from '$lib/components/onBoarding/utils';
 
 const getLang = async () => {
 	const lang = await getLanguagePreference();
@@ -14,6 +15,8 @@ const getLang = async () => {
 
 export const load = async () => {
 	const lang = await getLang();
+	const boarded = await isAlreadyBoarded();
+	if (!Boolean(boarded)) throw redirect(303, r('/on-boarding', lang));
 	const keypair = await getKeypairPreference();
 	if (!keypair) redirect(303, r('/login', lang));
 
