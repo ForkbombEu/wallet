@@ -4,7 +4,7 @@
 	import ErrorDisplay from '$lib/components/errorDisplay.svelte';
 	import { fly } from 'svelte/transition';
 	import { thumbsUpOutline } from 'ionicons/icons';
-	import { goto } from '$app/navigation';
+	import { goto } from '$lib/i18n';
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import { m } from '$lib/i18n';
 	import Header from '$lib/components/molecules/Header.svelte';
@@ -34,6 +34,7 @@
 		setTimeout(() => {
 			isCredentialVerified = true;
 			setCredentialPreference({
+				id: credential.id,
 				name: credential.name,
 				issuer: credential.issuer,
 				description: credential.description,
@@ -42,7 +43,7 @@
 			});
 			setTimeout(() => {
 				isModalOpen = false;
-				goto('/home');
+				goto(`/${credential.id}/credential-detail`);
 			}, 3000);
 		}, 5000);
 	};
