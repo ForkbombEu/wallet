@@ -9,6 +9,7 @@
 		type ParseQrResults
 	} from '$lib/components/organisms/scanner/tools';
 	import { m } from '$lib/i18n';
+	import { askCredential } from '$lib/openId4vci';
 
 	let barcodeResult: ParseQrResults;
 	let isModalOpen: boolean;
@@ -24,6 +25,12 @@
 	on:success={async (e) => {
 		barcodeResult = parseQr(e.detail.qr);
 		if (barcodeResult.result === 'ok' && barcodeResult.data.type === 'service') {
+			console.log(await askCredential({
+				scope: "Auth1",
+				relying_party:  barcodeResult.data.service.relying_party,
+				resource:  barcodeResult.data.service.issuer,
+				authorization_server:  barcodeResult.data.service.authorization_server
+			}))
 			return await goto(`/${barcodeResult.data.service.id}/credential-offer`);
 		}
 		isModalOpen = true;

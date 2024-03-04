@@ -4,20 +4,6 @@ import * as messages from '$paraglide/messages';
 import { goto as svelteGoto } from '$app/navigation';
 
 export const i18n = createI18n(runtime, {
-	pathnames: {
-		// '/home': {
-		// 	en: '/home',
-		// 	it: '/casa'
-		// },
-		// '/wallet': {
-		//     en: '/wallet',
-		//     it: '/portafoglio'
-		// },
-		// '/request/[id]': {
-		// 	en: '/request/[id]',
-		// 	it: '/richiesta/[id]'
-		// }
-	},
 	prefixDefaultLanguage: 'always'
 });
 
