@@ -7,10 +7,17 @@ import type { Keyring } from '$lib/keypairoom';
 
 const slangroom = new Slangroom(http);
 
-const p = await getKeypairPreference();
-const keyring = p!.keyring;
-//@ts-expect-error we shall have a type for the Did object or save just the id
-const client_id = (await getDIDPreference())?.result?.didDocument.id;
+export const getKeys = async ()=> {
+	//@ts-expect-error we shall have a type for the Did object or save just the id
+	const client_id = (await getDIDPreference())?.result?.didDocument.id;
+	const p = await getKeypairPreference();
+	const keyring =  p!.keyring;
+	return {
+		keyring,
+		client_id
+	}
+}
+
 
 export type ExternalQrCodeContent = {
 	scope: string;
@@ -29,10 +36,7 @@ export const askCredential = async (
 		resource: 'https://issuer1.zenswarm.forkbomb.eu:3100/',
 		authorization_server: 'https://authz-server1.zenswarm.forkbomb.eu'
 	},
-	keys: Keys = {
-		keyring,
-		client_id
-	}
+	keys: Keys
 ) => {
 	const request = await slangroom.execute(holder_to_authorize_on_authz_server, {
 		data: {

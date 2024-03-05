@@ -14,7 +14,7 @@
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
 	import { page } from '$app/stores';
-	import { askCredential } from '$lib/openId4vci';
+	import { askCredential, getKeys } from '$lib/openId4vci';
 
 	const url = $page.url;
 	const service = url.searchParams.get('service');
@@ -39,7 +39,7 @@
 		isModalOpen = true;
 		if (service) {
 			const parsedService = JSON.parse(service);
-			const res = await askCredential(parsedService);
+			const res = await askCredential(parsedService, await getKeys());
 			serviceResponse = await res.json();
 		}
 		setTimeout(() => {
