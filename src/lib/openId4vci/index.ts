@@ -10,7 +10,7 @@ const slangroom = new Slangroom(http);
 const p = await getKeypairPreference();
 const keyring = p!.keyring;
 //@ts-expect-error we shall have a type for the Did object or save just the id
-const client_id = (await getDIDPreference())!.result.didDocument.id;
+const client_id = (await getDIDPreference())?.result?.didDocument.id;
 
 export type ExternalQrCodeContent = {
 	scope: string;
@@ -23,20 +23,20 @@ export type Keys = {
 	client_id: string;
 };
 export const askCredential = async (
-	qr: ExternalQrCodeContent,
+	qr: ExternalQrCodeContent = {
+		scope: 'Auth1',
+		relying_party: 'https://relying-party1.zenswarm.forkbomb.eu:3100',
+		resource: 'https://issuer1.zenswarm.forkbomb.eu:3100/',
+		authorization_server: 'https://authz-server1.zenswarm.forkbomb.eu'
+	},
 	keys: Keys = {
 		keyring,
 		client_id
 	}
-) =>
-	await slangroom.execute(holder_to_authorize_on_authz_server, {
+) => {
+	const request = await slangroom.execute(holder_to_authorize_on_authz_server, {
 		data: {
-			'!external-qr-code-content': {
-				scope: 'Auth1',
-				relying_party: 'http://relying-party1.zenswarm.forkbomb.eu:3100',
-				resource: 'http://issuer1.zenswarm.forkbomb.eu:3100/',
-				authorization_server: 'http://authz-server1.zenswarm.forkbomb.eu:3100'
-			},
+			'!external-qr-code-content': qr,
 			credential_request_specific_data: {
 				'jwt-body-params': {
 					response_type: 'code',
@@ -57,3 +57,11 @@ export const askCredential = async (
 		},
 		keys
 	});
+	const res = await fetch(qr.authorization_server + '/authz_server/par', {
+		method: 'POST',
+		body: JSON.stringify(request.result)
+	});
+
+	const data = await res.json();
+	return data;
+};

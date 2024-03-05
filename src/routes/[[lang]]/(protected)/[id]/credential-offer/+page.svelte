@@ -13,6 +13,12 @@
 	const { credential } = data;
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
+	import { page } from '$app/stores';
+	import { askCredential } from '$lib/openId4vci';
+
+	const url = $page.url;
+	const service = url.searchParams.get('service');
+	let serviceResponse: any;
 
 	function getRandomExpirationDate() {
 		const currentDate = new Date();
@@ -29,8 +35,13 @@
 		return `${year}-${day}-${month}`;
 	}
 
-	const getCredential = () => {
+	const getCredential = async () => {
 		isModalOpen = true;
+		if (service) {
+			const parsedService = JSON.parse(service);
+			const res = await askCredential(parsedService);
+			serviceResponse = await res.json();
+		}
 		setTimeout(() => {
 			isCredentialVerified = true;
 			setCredentialPreference({
@@ -41,16 +52,11 @@
 				verified: Boolean(Math.random() < 0.6), // 80% chance of being verified
 				expirationDate: getRandomExpirationDate()
 			});
-			setTimeout(() => {
+			setTimeout(async () => {
 				isModalOpen = false;
-				goto(`/${credential.id}/credential-detail`);
+				await goto(`/${credential.id}/credential-detail`);
 			}, 3000);
 		}, 5000);
-	};
-
-	const cleanSchema = () => {
-		const schema = credential.expand.templates[0].schema;
-		schema;
 	};
 </script>
 
@@ -95,7 +101,7 @@
 			<div class="flex h-full flex-col justify-around">
 				<div>
 					{#if !isCredentialVerified}
-						 {m.We_are_generating_this_credential()}
+						{m.We_are_generating_this_credential()}
 						<d-credential-card
 							name={credential.name}
 							issuer={credential.issuer}
@@ -112,6 +118,9 @@
 						<div class="flex w-full justify-around">
 							<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"
 							></ion-icon>
+							<pre>
+								{JSON.stringify(serviceResponse, null, 2)}
+							</pre>
 						</div>
 					{/if}
 				</div>

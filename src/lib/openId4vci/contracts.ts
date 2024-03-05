@@ -78,3 +78,7 @@ then print the 'code_verifier'
 # code verifier will be sent authz server in a later stage
 then print the 'request'  
 then print the 'client'`;
+
+export const callAuthServer = `
+
+`
