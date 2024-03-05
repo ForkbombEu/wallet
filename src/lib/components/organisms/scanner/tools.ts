@@ -18,6 +18,7 @@ const credentialSchema = z.object({
 	registrationToken: z.string()
 });
 const serviceSchema = z.object({
+	scope: z.string(),
 	id: z.string(),
 	relying_party: z.string().url(),
 	issuer: z.string().url(),
