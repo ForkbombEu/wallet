@@ -19,13 +19,14 @@
 	};
 
 </script>
-
 <Scanner
 	let:scan
 	on:success={async (e) => {
 		barcodeResult = parseQr(e.detail.qr);
 		if (barcodeResult.result === 'ok' && barcodeResult.data.type === 'service') {
-			return await goto(`/${barcodeResult.data.service.id}/credential-offer?service=${encodeURI(JSON.stringify(barcodeResult.data.service))}}`);
+			return await goto(
+				`/${barcodeResult.data.service.id}/credential-offer?service=${encodeURI(JSON.stringify(barcodeResult.data.service))}`
+			);
 		}
 		isModalOpen = true;
 	}}

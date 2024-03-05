@@ -39,11 +39,10 @@
 		isModalOpen = true;
 		if (service) {
 			const parsedService = JSON.parse(service);
-			const res = await askCredential(parsedService, await getKeys());
-			serviceResponse = await res.json();
+			serviceResponse = await askCredential(parsedService, await getKeys());
 		}
+		isCredentialVerified = true;
 		setTimeout(() => {
-			isCredentialVerified = true;
 			setCredentialPreference({
 				id: credential.id,
 				name: credential.name,
@@ -52,11 +51,9 @@
 				verified: Boolean(Math.random() < 0.6), // 80% chance of being verified
 				expirationDate: getRandomExpirationDate()
 			});
-			setTimeout(async () => {
-				isModalOpen = false;
-				await goto(`/${credential.id}/credential-detail`);
-			}, 3000);
-		}, 5000);
+			isModalOpen = false;
+			goto(`/${credential.id}/credential-detail`);
+		}, 3000);
 	};
 </script>
 
