@@ -2,7 +2,7 @@
 	import { regenerateKeypair } from '$lib/keypairoom';
 	import { goto, r } from '$lib/i18n';
 	import { z } from 'zod';
-	import { createForm, FieldController, Form, FormError } from '$lib/forms';
+	import { createForm, FieldController, Form, FormError } from '$lib/components/organisms/forms';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { unlockApp } from '$lib/preferences/locked.js';
 	import { m } from '$lib/i18n';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import TabPage from '$lib/tabs/TabPage.svelte';
+	import TabPage from '$lib/components/organisms/tabs/TabPage.svelte';
 	import { faker } from '@faker-js/faker';
 	import { m } from '$lib/i18n';
 </script>
