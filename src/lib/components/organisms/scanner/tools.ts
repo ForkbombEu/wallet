@@ -21,7 +21,7 @@ const serviceSchema = z.object({
 	scope: z.string(),
 	id: z.string(),
 	relying_party: z.string().url(),
-	issuer: z.string().url(),
+	resource: z.string().url(),
 	authorization_server: z.string().url()
 });
 
