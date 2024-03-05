@@ -63,7 +63,7 @@ export const parseQr = (value: string): ParseQrResults => {
 		return { result: 'error', message: notValidQr };
 	}
 
-	if (type == 'service' && !isUrlAllowed(parsedValue.url as string)) {
+	if (type == 'credential' && !isUrlAllowed(parsedValue.url as string)) {
 		return { result: 'error', message: 'not allowed verifier url' };
 	}
 	//todo: validate service urls
