@@ -17,7 +17,7 @@
 
 </script>
 
-<div class="flex-col fixed bottom-4 flex items-center">
+<div class="flex-col flex items-center">
 	<div class="flex gap-2">
 		{#each Array.from(Array(total).keys()) as page}
 			{#if page === index}
