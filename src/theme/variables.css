@@ -6,9 +6,9 @@
 @tailwind utilities;
 
 :root {
-	--ion-background-color: var(--primary);
+	--ion-background-color: var(--surface);
 	--ion-text-color: var(--on);
-	--ion-tab-bar-background: var(--primary);
+	--ion-tab-bar-background: var(--surface);
 	--ion-default-font: 'Gantari Variable';
 	--ion-font-family: 'Gantari Variable';
 }
