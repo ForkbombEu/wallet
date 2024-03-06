@@ -20,6 +20,10 @@ duplicate `android/local.properties.example` as `android/local.properties` and s
 First install pnpm and configure so that it uses node 20
 ```
 npm i -g pnpm
+```
+
+Pin pnpm to node 20, but skip this step if using NVM
+```
 pnpm env use --global 20
 pnpm add -g pnpm
 ```
@@ -33,6 +37,10 @@ mv .env.example .env
 install ionic cli with pnpm
 ```
 pnpm i -g @ionic/cli
+```
+
+to import packages for native platforms (not needed in all cases):
+```
 ionic cap sync
 ```
 
