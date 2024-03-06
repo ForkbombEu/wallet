@@ -66,8 +66,10 @@ export const generateSignroomUser = async (email: string) => {
 			collection: 'users',
 			record: {
 				email,
+				name: email,
 				password,
 				passwordConfirm: password,
+				acceptTerms:true,
                 ...public_keys
 			}
 		},
