@@ -1,4 +1,4 @@
-export const holder_to_authorize_on_authz_server = `Scenario 'http' : create GET
+Scenario 'http' : create GET
 Scenario 'w3c' : create JWS
 
 Given I have a 'string dictionary' named '!external-qr-code-content'
@@ -55,8 +55,4 @@ then print the 'resource'
 
 then print the 'code_verifier'
 # this needs to saved into a state for later usage
-# code verifier will be sent authz server in a later stage`;
-
-export const callAuthServer = `
-
-`
+# code verifier will be sent authz server in a later stage
