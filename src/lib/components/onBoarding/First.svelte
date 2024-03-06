@@ -2,7 +2,7 @@
 	import { createStepController } from '@efstajas/svelte-stepper';
 	import StepsController from './StepsController.svelte';
 	import { m } from '$lib/i18n';
-	import Illustration from './Illustration.svelte';
+	import Illustration from '../molecules/Illustration.svelte';
 	export let index: number;
 	export let total: number;
 	const stepController = createStepController();
