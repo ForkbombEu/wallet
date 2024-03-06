@@ -22,7 +22,7 @@
 
 	//
 
-	let seed: string | undefined = 'undefined';
+	let seed: string | undefined = undefined;
 
 	let loading: boolean = false;
 
