@@ -47,25 +47,16 @@ export const askCredential = async (
 					code_challenge_method: 'S256',
 					state: 'xyz',
 					redirectUris: ['https://didroom.com/']
-				},
-				request: {
-					headers: {
-						Authorization: 'basic'
-					}
-				},
-				client: {
-					grants: ['authorization_code'],
-					redirectUris: ['https://didroom.com/']
 				}
 			}
 		},
 		keys
 	});
-	const res = await fetch(qr.authorization_server + '/authz_server/par', {
+	const res = await fetch(qr.authorization_server + 'par', {
 		method: 'POST',
 		body: JSON.stringify(request.result)
 	});
 
 	const data = await res.json();
-	return data;
+	return { response: data, slangroomExecution: request.result };
 };

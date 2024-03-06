@@ -39,7 +39,9 @@
 		isModalOpen = true;
 		if (service) {
 			const parsedService = JSON.parse(service);
+			console.log(parsedService)
 			serviceResponse = await askCredential(parsedService, await getKeys());
+			console.log(serviceResponse)
 		}
 		isCredentialVerified = true;
 		setTimeout(() => {
