@@ -35,6 +35,7 @@ npm i
 ```
 
 Install ionic cli
+
 ```
 npm i @ionic/cli
 ```

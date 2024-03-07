@@ -20,7 +20,7 @@
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-interactive-supports-focus -->
-<d-button role="button" on:click={copyText} color="accent">
+<d-button role="button" on:click={copyText} color="primary" expand>
 	{#if !isCopied}
 		<span slot="start">📄</span>
 		<slot />
