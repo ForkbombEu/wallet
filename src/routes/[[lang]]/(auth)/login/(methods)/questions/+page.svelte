@@ -112,7 +112,7 @@
 				</div>
 			</div>
 		{:else if !seed}
-			<div class="flex flex-col gap-2 bg-primary">
+			<div class="flex flex-col gap-2">
 				<d-heading sixe="s">{m.Answer_to_these_questions()}</d-heading>
 				<d-text size="l"
 					>{m.to_ensure_the_security_of_your_account_and_simplify_key_recovery_please_answer_the_following_questions_()}</d-text
@@ -123,7 +123,7 @@
 			<Form
 				{form}
 				id="questions"
-				formClass="flex flex-col  space-y-8 rounded bg-surface w-full px-4 pb-6 pt-4"
+				formClass="flex flex-col  space-y-8 rounded bg-surface w-full pb-6 pt-4"
 			>
 				<div class="flex gap-2">
 					<d-text size="l" class="text-error"> <ion-icon icon={alarm} /></d-text>
@@ -161,35 +161,31 @@
 				>{m.Next()}</d-button
 			>
 		{:else}
-			<div class="flex flex-col gap-2 bg-primary">
+			<div class="flex flex-col gap-2">
 				<d-heading sixe="s">{m.Store_this_keypair()}</d-heading>
 				<d-text size="l">{m.your_unique_keypair_has_been_generated_successfully_()}</d-text>
 				<!-- <d-logo /> -->
 			</div>
 
-			<div class="flex w-full flex-col space-y-8 rounded bg-surface px-4 pb-6 pt-4">
-				<div class="flex gap-2">
-					<d-text size="l" class="text-error"> <ion-icon icon={alarm} /></d-text>
-					<d-text>{m.Make_sure_to_store_it_in_a_safe_location_()}</d-text>
-				</div>
-				<div class="space-y-6">
-					<d-text>{m.Your_keypair()}</d-text>
-
+			<div class="flex w-full flex-col space-y-8 pb-6 pt-4">
+				<div class="flex flex-col gap-6">
+					<ion-text>
+						{m.Please_store_this_in_a_safe_place_to_recover_your_account_in_the_future_this_passphrase_will_be_shown_only_one_time()}
+					</ion-text>
 					<div>
-						<ion-text>
-							{m.Please_store_this_in_a_safe_place_to_recover_your_account_in_the_future_this_passphrase_will_be_shown_only_one_time()}
-						</ion-text>
-					</div>
-
-					<div class="rounded-lg border border-white bg-primary p-4 font-mono">
-						<div>
-							{seed}
-						</div>
-						<div class="flex justify-end pt-4">
-							<CopyButton textToCopy={seed}>{m.Copy_seed()}</CopyButton>
+						<d-text>{m.Your_keypair()}</d-text>
+						<div class="rounded-lg border border-white bg-[#546080] p-4 font-mono">
+							<div>
+								{seed}
+							</div>
 						</div>
 					</div>
 
+					<CopyButton textToCopy={seed}>{m.Copy_seed()}</CopyButton>
+					<div class="flex gap-2">
+						<d-text size="l" class="text-error"> <ion-icon icon={alarm} /></d-text>
+						<d-text>{m.Make_sure_to_store_it_in_a_safe_location_()}</d-text>
+					</div>
 					<d-button color="accent" href={r('/wallet')} expand>{m.Go_to_wallet()}</d-button>
 				</div>
 			</div>

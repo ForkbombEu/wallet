@@ -13,15 +13,6 @@ export type Credential = {
 	verified: boolean;
 };
 
-const generateId = (credentials?: Credential[]) => {
-	let id = Math.random().toString(36).substring(7);
-	if (!credentials) return id;
-	const ids = credentials.map((c) => c.id);
-	while (ids.includes(id)) {
-		id = Math.random().toString(36).substring(7);
-	}
-	return id;
-};
 
 export async function setCredentialPreference(credential: Credential) {
 	const credentials = await getCredentialsPreference();

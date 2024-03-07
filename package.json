@@ -90,6 +90,7 @@
 		"ionicons": "^7.2.2",
 		"lodash": "^4.17.21",
 		"sveltekit-superforms": "^1.13.4",
+		"vite-plugin-plain-text": "^1.4.2",
 		"zenroom": "latest",
 		"zod": "^3.22.4"
 	}

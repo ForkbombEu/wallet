@@ -1,9 +1,7 @@
 import { PUBLIC_BACKEND_URL } from '$env/static/public';
 
 import { fetchTemplates, showProfile } from './endpoints';
-//@ts-ignore
 import { Slangroom } from '@slangroom/core';
-//@ts-ignore
 import { http } from '@slangroom/http';
 import {
 	apiByIdContract,
