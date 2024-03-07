@@ -17,39 +17,40 @@ duplicate `android/local.properties.example` as `android/local.properties` and s
 
 ## Run in web browser
 
-First install pnpm and configure so that it uses node 20
-```
-npm i -g pnpm
-```
+Use node 20 and npm.
 
-Pin pnpm to node 20, but skip this step if using NVM
-```
-pnpm env use --global 20
-pnpm add -g pnpm
-```
-
-Then setup submodules and .env
+Update all submodules.
 ```
 git submodule update --init --recursive
-mv .env.example .env
 ```
 
-install ionic cli with pnpm
+Copy configuration in place
 ```
-pnpm i -g @ionic/cli
-```
-
-to import packages for native platforms (not needed in all cases):
-```
-ionic cap sync
+cp .env.example .env
 ```
 
-Then install the node submodules
+Install the node submodules
 ```
-pnpm i
+npm i
 ```
+
+Install ionic cli
+```
+npm i @ionic/cli
+```
+
+Import packages for native platforms (not needed in all cases):
+```
+./node_modules/.bin/ionic cap sync
+```
+
 To launch in browser: 
+```
+./node_modules/.bin/ionic serve
+```
 
+To open in Android Studio
 ```
-pnpm web
+./node_modules/.bin/ionic cap open android
 ```
+
