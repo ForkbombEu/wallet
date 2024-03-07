@@ -29,6 +29,9 @@ project(':capacitor-haptics').projectDir = new File('../node_modules/.pnpm/@capa
 include ':capacitor-keyboard'
 project(':capacitor-keyboard').projectDir = new File('../node_modules/.pnpm/@capacitor+keyboard@5.0.8_@capacitor+core@5.6.0/node_modules/@capacitor/keyboard/android')
 
+include ':capacitor-push-notifications'
+project(':capacitor-push-notifications').projectDir = new File('../node_modules/.pnpm/@capacitor+push-notifications@5.1.0_@capacitor+core@5.6.0/node_modules/@capacitor/push-notifications/android')
+
 include ':capacitor-preferences'
 project(':capacitor-preferences').projectDir = new File('../node_modules/.pnpm/@capacitor+preferences@5.0.7_@capacitor+core@5.6.0/node_modules/@capacitor/preferences/android')
 

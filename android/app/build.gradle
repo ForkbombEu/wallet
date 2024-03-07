@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "didroom.forkbomb.eu"
+    namespace "eu.forkbomb.didroom"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "didroom.forkbomb.eu"
+        applicationId "eu.forkbomb.didroom"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
