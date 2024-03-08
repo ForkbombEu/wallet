@@ -33,8 +33,6 @@ export type Keys = {
 	client_id: string;
 };
 export const askCredential = async (qr: Service, keys: Keys) => {
-	console.log('keys', keys);
-	console.table({ ...JSON.parse(holder_request_keys), ...keys })
 	const request = await slangroom.execute(holder_request_authorizationCode, {
 		data: {
 			'!external-qr-code-content': qr,
