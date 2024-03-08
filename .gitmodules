@@ -3,4 +3,4 @@
 	url = https://github.com/interfacerproject/zenflows-crypto
 [submodule "mobile_zencode"]
 	path = mobile_zencode
-	url = git@github.com:ForkbombEu/mobile_zencode.git
+	url = https://github.com/ForkbombEu/mobile_zencode
