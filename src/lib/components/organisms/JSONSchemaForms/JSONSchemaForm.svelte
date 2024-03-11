@@ -3,8 +3,8 @@
 	import JSONSchemaFormField from './JSONSchemaFormField.svelte';
 	import type { ObjectSchema } from './types';
 	import { genericSuperValidated } from './utils';
-	import { Form, FormError } from '$lib/forms';
-	import ErrorDisplay from '$lib/components/errorDisplay.svelte';
+	import { Form, FormError } from '$lib/components/organisms/forms';
+	import ErrorDisplay from '$lib/components/molecules/errorDisplay.svelte';
 	import { objectSchemaToSuperformsValidators } from './errors';
 	import { unlockApp } from '$lib/preferences/locked';
 
@@ -27,7 +27,6 @@
 				try {
 					await unlockApp();
 					await onSubmit(form.data);
-
 				} catch (e) {
 					setError(form, parseFormException(e));
 				}

@@ -2,7 +2,7 @@
 	import type { z } from 'zod';
 	import type { FormPathLeaves } from 'sveltekit-superforms';
 	import type { SuperForm } from 'sveltekit-superforms/client';
-	import { FieldController } from '$lib/forms';
+	import { FieldController } from '$lib/components/organisms/forms';
 
 	//
 

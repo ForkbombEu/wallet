@@ -3,8 +3,8 @@
 	import IonPage from 'ionic-svelte/components/IonPage.svelte';
 	import Header from '$lib/components/molecules/Header.svelte';
 	import { z } from 'zod';
-	import { Form, createForm } from '$lib/forms';
-	import Input from '$lib/ionic/forms/input.svelte';
+	import { Form, createForm } from '$lib/components/organisms/forms';
+	import Input from '$lib/components/organisms/forms/input.svelte';
 	import { goto } from '$lib/i18n';
 	import { userEmailStore } from '../../_lib';
 	import { m } from '$lib/i18n';

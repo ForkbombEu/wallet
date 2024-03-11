@@ -4,7 +4,7 @@
 	// Note – IonTabs must be imported this way, otherwise the app breaks
 	//@ts-ignore
 	import IonTabs from 'ionic-svelte/components/IonTabs.svelte';
-	import { type IonTabProps, Tabs } from '$lib/tabs';
+	import { type IonTabProps, Tabs } from '$lib/components/organisms/tabs';
 	import { m } from '$lib/i18n';
 
 	//

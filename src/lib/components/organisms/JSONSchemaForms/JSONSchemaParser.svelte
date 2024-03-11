@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { createAjv } from './utils';
 	import type { JSONSchema, ObjectSchema } from './types';
-	import ErrorDisplay from '$lib/components/errorDisplay.svelte';
+	import ErrorDisplay from '$lib/components/molecules/errorDisplay.svelte';
 
 	export let schema: string | Object | JSON | ObjectSchema | JSONSchema;
 

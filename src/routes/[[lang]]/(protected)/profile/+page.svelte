@@ -1,5 +1,5 @@
 <script lang="ts">
-	import TabPage from '$lib/tabs/TabPage.svelte';
+	import TabPage from '$lib/components/organisms/tabs/TabPage.svelte';
 	import { m } from '$lib/i18n';
 	import { getDIDPreference } from '$lib/preferences/did';
 </script>

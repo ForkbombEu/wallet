@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { generateKeypair, type UserChallengesAnswers } from '$lib/keypairoom';
-	import { Form, createForm } from '$lib/forms';
-	import { Input } from '$lib/ionic/forms';
-	import FormError from '$lib/forms/formError.svelte';
+	import { Form, createForm, FormError } from '$lib/components/organisms/forms';
+	import Input from '$lib/components/organisms/forms/input.svelte';
 	import Header from '$lib/components/molecules/Header.svelte';
 
 	import { z } from 'zod';
 	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
-	import CopyButton from '$lib/components/copyButton.svelte';
+	import CopyButton from '$lib/components/atoms/copyButton.svelte';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { unlockApp } from '$lib/preferences/locked.js';
 	import { r, m } from '$lib/i18n';

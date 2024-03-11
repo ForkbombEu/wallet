@@ -1,7 +1,7 @@
 <script lang="ts">
-	import JSONSchemaForm from '$lib/JSONSchemaForms/JSONSchemaForm.svelte';
-	import JSONSchemaParser from '$lib/JSONSchemaForms/JSONSchemaParser.svelte';
-	import ErrorDisplay from '$lib/components/errorDisplay.svelte';
+	import JSONSchemaForm from '$lib/components/organisms/JSONSchemaForms/JSONSchemaForm.svelte';
+	import JSONSchemaParser from '$lib/components/organisms/JSONSchemaForms/JSONSchemaParser.svelte';
+	import ErrorDisplay from '$lib/components/molecules/errorDisplay.svelte';
 	import { fly } from 'svelte/transition';
 	import { thumbsUpOutline } from 'ionicons/icons';
 	import { goto } from '$lib/i18n';

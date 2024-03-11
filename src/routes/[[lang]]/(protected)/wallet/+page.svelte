@@ -1,10 +1,10 @@
 <script lang="ts">
-	import TabPage from '$lib/tabs/TabPage.svelte';
+	import TabPage from '$lib/components/organisms/tabs/TabPage.svelte';
 	import { m, r } from '$lib/i18n';
 	import empty from '$lib/assets/empty.png';
 	import { arrowForwardOutline } from 'ionicons/icons';
 	import { getCredentialsPreference } from '$lib/preferences/credentials';
-	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
+	import ScanButton from '$lib/components/atoms/ScanButton.svelte';
 </script>
 
 <TabPage tab="wallet" title="WALLET">

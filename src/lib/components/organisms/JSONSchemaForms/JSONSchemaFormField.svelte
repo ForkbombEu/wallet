@@ -1,9 +1,9 @@
 <script lang="ts">
-	import FieldController from '$lib/forms/fieldController.svelte';
+	import FieldController from '$lib/components/organisms/forms/fieldController.svelte';
 	import type { JSONSchema } from './types';
 	import { removeOutline, addOutline } from 'ionicons/icons';
-	import ArrayFieldController from '$lib/forms/arrayFieldController.svelte';
-	import type { SuperformGeneric } from '$lib/forms/types';
+	import ArrayFieldController from '$lib/components/organisms/forms/arrayFieldController.svelte';
+	import type { SuperformGeneric } from '$lib/components/organisms/forms/types';
 	import IonItemWrapper from './fieldWrappers/ionItemWrapper.svelte';
 	import SlotWrapper from './fieldWrappers/slotWrapper.svelte';
 	import { m } from '$lib/i18n';
