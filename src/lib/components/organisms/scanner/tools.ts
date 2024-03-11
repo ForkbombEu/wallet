@@ -18,9 +18,10 @@ const credentialSchema = z.object({
 	registrationToken: z.string()
 });
 const serviceSchema = z.object({
+	scope: z.string(),
 	id: z.string(),
 	relying_party: z.string().url(),
-	issuer: z.string().url(),
+	resource: z.string().url(),
 	authorization_server: z.string().url()
 });
 
@@ -62,7 +63,7 @@ export const parseQr = (value: string): ParseQrResults => {
 		return { result: 'error', message: notValidQr };
 	}
 
-	if (type == 'service' && !isUrlAllowed(parsedValue.url as string)) {
+	if (type == 'credential' && !isUrlAllowed(parsedValue.url as string)) {
 		return { result: 'error', message: 'not allowed verifier url' };
 	}
 	//todo: validate service urls

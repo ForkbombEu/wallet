@@ -80,15 +80,17 @@
 		"@inlang/paraglide-js-adapter-sveltekit": "^0.3.3",
 		"@ionic/core": "^7.7.0",
 		"@slangroom/core": "latest",
+		"@slangroom/helpers": "^1.27.0",
 		"@slangroom/http": "latest",
 		"@slangroom/pocketbase": "latest",
-		"@slangroom/zencode": "latest",
+		"@slangroom/zencode": "^1.27.0",
 		"ajv": "^8.12.0",
 		"ajv-formats": "^2.1.1",
 		"ionic-svelte": "^0.5.82",
 		"ionicons": "^7.2.2",
 		"lodash": "^4.17.21",
 		"sveltekit-superforms": "^1.13.4",
+		"vite-plugin-plain-text": "^1.4.2",
 		"zenroom": "latest",
 		"zod": "^3.22.4"
 	}

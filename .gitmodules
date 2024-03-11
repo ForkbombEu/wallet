@@ -1,3 +1,6 @@
 [submodule "zenflows-crypto"]
 	path = zenflows-crypto
 	url = https://github.com/interfacerproject/zenflows-crypto
+[submodule "mobile_zencode"]
+	path = mobile_zencode
+	url = https://github.com/ForkbombEu/mobile_zencode

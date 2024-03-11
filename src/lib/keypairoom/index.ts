@@ -97,6 +97,7 @@ export type Keyring = {
 	reflow: string;
 	bitcoin: string;
 	ecdh: string;
+	es256: string;
 };
 
 export type Keypair = {
