@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { goto } from '$lib/i18n';
 	import LogoAccent from '$lib/components/atoms/LogoAccent.svelte';
+	import { goto, m } from '$lib/i18n';
 	import { unlockApp } from '$lib/preferences/locked.js';
-	import { BiometricAuth, AndroidBiometryStrength } from '@aparajita/capacitor-biometric-auth';
-	import { m } from '$lib/i18n';
-	// @ts-ignore
+	import { AndroidBiometryStrength, BiometricAuth } from '@aparajita/capacitor-biometric-auth';
+// @ts-ignore
 	import IonPage from 'ionic-svelte/components/IonPage.svelte';
 
 	export let data;
@@ -67,7 +66,7 @@
 				{/if}
 			{:else}
 				<ion-text>{m.Biometry_not_available()}</ion-text>
-				<div class="fixed bottom-4 w-full px-4">
+				<div class="fixed bottom-4 w-full px-4 pb-24">
 					<d-button
 						color="accent"
 						on:click={testUnlock}
