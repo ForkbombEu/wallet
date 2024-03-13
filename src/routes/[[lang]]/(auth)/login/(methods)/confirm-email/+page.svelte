@@ -1,17 +1,13 @@
 <script lang="ts">
 	// @ts-ignore
-	import IonPage from 'ionic-svelte/components/IonPage.svelte';
 	import Header from '$lib/components/molecules/Header.svelte';
-	import { z } from 'zod';
-	import { Form, createForm } from '$lib/forms';
-	import Input from '$lib/ionic/forms/input.svelte';
-	import { goto } from '$lib/i18n';
-	import { userEmailStore } from '../../_lib';
-	import { m } from '$lib/i18n';
-	import { arrowForward } from 'ionicons/icons';
 	import Illustration from '$lib/components/molecules/Illustration.svelte';
-	import illustrations2 from '$lib/assets/Illustrations2.png';
-	import vector from '$lib/assets/Vector.png';
+	import { Form, createForm } from '$lib/forms';
+	import { goto, m } from '$lib/i18n';
+	import Input from '$lib/ionic/forms/input.svelte';
+	import { arrowForward } from 'ionicons/icons';
+	import { z } from 'zod';
+	import { userEmailStore } from '../../_lib';
 
 	const schema = z.object({
 		email: z.literal($userEmailStore),

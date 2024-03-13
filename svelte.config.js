@@ -12,6 +12,9 @@ const config = {
 			fallback: 'index.html',
 			precompress: false
 		}),
+		version: {
+			name: process.env.npm_package_version
+		},
 		alias: {
 			$ui: './src/components',
 			$paraglide: './src/paraglide'
