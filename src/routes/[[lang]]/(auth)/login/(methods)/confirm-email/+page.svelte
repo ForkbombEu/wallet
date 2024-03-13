@@ -4,7 +4,7 @@
 	import Illustration from '$lib/components/molecules/Illustration.svelte';
 	import { Form, createForm } from '$lib/forms';
 	import { goto, m } from '$lib/i18n';
-	import Input from '$lib/ionic/forms/input.svelte';
+	import { Input } from '$lib/ionic/forms';
 	import { arrowForward } from 'ionicons/icons';
 	import { z } from 'zod';
 	import { userEmailStore } from '../../_lib';
@@ -25,20 +25,26 @@
 
 <Header>{m.REGISTER()}</Header>
 
-<ion-content fullscreen>
-	<div class="flex flex-col">
+<div class="flex h-screen flex-col">
+	<div class="relative min-h-[40vh]">
+		<img
+			src="/src/lib/assets/bg-5.svg"
+			class="w-full shrink-0 fill-[var(--highlight)] opacity-50"
+			alt="background"
+		/>
 		<Illustration img="chat" />
+	</div>
+	<div>
 		<div class="flex w-full flex-col items-center gap-6 px-8">
 			<d-heading sixe="s">{m.Confirm_your_email()}</d-heading>
 			<d-text size="l">{m.Reenter_your_email_address_to_confirm_registration_()}</d-text>
 
 			<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
-				<d-text size="s" class="opacity-30">{m.Email()}</d-text>
 				<Input
 					{form}
 					fieldPath="email"
 					placeholder={m.emailexample_com()}
-					label={m.type_your_email()}
+					label={m.Email()}
 				/>
 				<d-button size="default" color="accent" type="submit" expand class="mt-4">
 					{m.Next()}
@@ -46,5 +52,5 @@
 				</d-button>
 			</Form>
 		</div>
-	</div></ion-content
->
+	</div>
+</div>

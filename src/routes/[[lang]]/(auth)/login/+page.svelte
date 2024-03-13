@@ -27,7 +27,7 @@
 
 <div class="flex h-screen flex-col place-content-between">
 	<div>
-		<div class="relative">
+		<div class="relative min-h-[40vh]">
 			<img
 				src="/src/lib/assets/bg-4.svg"
 				class="max-h-[50vh] w-full shrink-0 fill-[var(--highlight)] opacity-50"
