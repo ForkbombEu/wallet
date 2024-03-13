@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { createStepController } from '@efstajas/svelte-stepper';
+	import { createEventDispatcher } from 'svelte';
 	import Dot from './dot.svelte';
 	import { completeOnBoarding } from './utils';
-	import { createEventDispatcher } from 'svelte';
 
 	export let index: number;
 	export let total: number;

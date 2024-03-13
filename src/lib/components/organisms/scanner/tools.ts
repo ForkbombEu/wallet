@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import { CapacitorHttp, type HttpResponse } from '@capacitor/core';
+import { z } from 'zod';
 
 export type ParseQrResults =
 	| {
@@ -24,10 +24,8 @@ const serviceSchema = z.object({
 	resource: z.string().url(),
 	authorization_server: z.string().url()
 });
-
 export type Credential = z.infer<typeof credentialSchema>;
 export type Service = z.infer<typeof serviceSchema>;
-
 export type Data =
 	| {
 			type: 'credential';
