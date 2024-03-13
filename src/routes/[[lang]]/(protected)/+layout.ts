@@ -1,10 +1,10 @@
+import { isAlreadyBoarded } from '$lib/components/onBoarding/utils';
 import { r, type Langs } from '$lib/i18n';
 import { getKeypairPreference } from '$lib/preferences/keypair';
 import { getLanguagePreference } from '$lib/preferences/lang';
 import { isAppLocked, lockApp } from '$lib/preferences/locked.js';
-import { redirect } from '@sveltejs/kit';
 import { availableLanguageTags } from '$paraglide/runtime';
-import { isAlreadyBoarded } from '$lib/components/onBoarding/utils';
+import { redirect } from '@sveltejs/kit';
 
 const getLang = async () => {
 	const lang = await getLanguagePreference();

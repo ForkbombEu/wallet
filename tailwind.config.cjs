@@ -16,6 +16,8 @@ export default {
 				'on-alt': 'var(--on-alt)',
 				accent: 'var(--accent)',
 				'on-accent': 'var(--on-accent)',
+				highlight: 'var(--highlight)',
+				stroke: 'var(--stroke)',
 				success: 'var(--success)',
 				warning: 'var(--warning)',
 				error: 'var(--error)'

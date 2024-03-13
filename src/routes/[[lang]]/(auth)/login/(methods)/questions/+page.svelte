@@ -1,19 +1,18 @@
 <script lang="ts">
-	import { generateKeypair, type UserChallengesAnswers } from '$lib/keypairoom';
-	import { Form, createForm } from '$lib/forms';
-	import { Input } from '$lib/ionic/forms';
+	import { createForm, Form } from '$lib/forms';
 	import FormError from '$lib/forms/formError.svelte';
-	import Header from '$lib/components/molecules/Header.svelte';
+	import { Input } from '$lib/ionic/forms';
+	import { generateKeypair, type UserChallengesAnswers } from '$lib/keypairoom';
 
-	import { z } from 'zod';
-	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
+	import fingerPrint from '$lib/assets/fingerPrint.png';
 	import CopyButton from '$lib/components/copyButton.svelte';
+	import { m, r } from '$lib/i18n';
+	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { unlockApp } from '$lib/preferences/locked.js';
-	import { r, m } from '$lib/i18n';
-	import { alarm } from 'ionicons/icons';
+	import { alertCircleOutline } from 'ionicons/icons';
+	import { z } from 'zod';
 	import { generateDid, generateSignroomUser } from '../../_lib';
-	import fingerPrint from '$lib/assets/fingerPrint.png';
 
 	//
 
@@ -100,95 +99,98 @@
 	}
 </script>
 
-<Header>{m.SECURITY_QUESTIONS()}</Header>
-
-<ion-content fullscreen class="h-full">
-	<div class="flex h-full w-full flex-col gap-4 px-4">
-		{#if loading}
-			<div class="flex h-full flex-col items-center justify-around">
-				<div class="flex flex-col items-center gap-8">
-					<img src={fingerPrint} alt="fingerPrint" class="w-32" />
-					<d-heading size="s">{m.Generating_Keypair_()}</d-heading>
-				</div>
+<div class="flex h-full w-full flex-col gap-4 px-4">
+	{#if loading}
+		<div class="flex h-full flex-col items-center justify-around">
+			<div class="flex flex-col items-center gap-8">
+				<img src={fingerPrint} alt="fingerPrint" class="w-32" />
+				<d-heading size="s">{m.Generating_Keypair_()}</d-heading>
 			</div>
-		{:else if !seed}
-			<div class="flex flex-col gap-2">
-				<d-heading sixe="s">{m.Answer_to_these_questions()}</d-heading>
-				<d-text size="l"
-					>{m.to_ensure_the_security_of_your_account_and_simplify_key_recovery_please_answer_the_following_questions_()}</d-text
+		</div>
+	{:else if !seed}
+		<div class="flex flex-col gap-2">
+			<d-heading sixe="s">{m.Answer_to_these_questions()}</d-heading>
+			<d-text size="l"
+				>{m.to_ensure_the_security_of_your_account_and_simplify_key_recovery_please_answer_the_following_questions_()}</d-text
+			>
+		</div>
+
+		<Form
+			{form}
+			id="questions"
+			formClass="flex flex-col  space-y-8 rounded bg-surface w-full pb-6 pt-4"
+		>
+			<div class="flex gap-2">
+				<d-text size="l" class="text-error"> <ion-icon icon={alertCircleOutline} /></d-text>
+				<d-text
+					>{m.Please_choose_both_secure_and_easily_memorable_answers_Your_answers_will_be_casesensitive_()}</d-text
 				>
-				<!-- <d-logo /> -->
 			</div>
-
-			<Form
-				{form}
-				id="questions"
-				formClass="flex flex-col  space-y-8 rounded bg-surface w-full pb-6 pt-4"
-			>
-				<div class="flex gap-2">
-					<d-text size="l" class="text-error"> <ion-icon icon={alarm} /></d-text>
-					<d-text
-						>{m.Please_choose_both_secure_and_easily_memorable_answers_Your_answers_will_be_casesensitive_()}</d-text
-					>
+			<div class="space-y-6">
+				<div class="space-y-3">
+					{#each questions as question}
+						<Input {form} fieldPath={question.id} label={question.text} />
+					{/each}
 				</div>
-				<div class="space-y-6">
-					<div class="space-y-3">
-						{#each questions as question}
-							<Input {form} fieldPath={question.id} label={question.text} />
-						{/each}
-					</div>
 
-					<FormError {form} let:errorMessage>
-						<ion-item>
-							<ion-text color="danger">
-								{errorMessage}
-							</ion-text>
-						</ion-item>
-					</FormError>
-
-					<hr />
-
-					<div>
-						<ion-text color="secondary">
-							<a href={r('/login/passphrase')} class="text-sm"
-								>{m.Login_with_your_passphrase_Tap_here()}</a
-							>
+				<FormError {form} let:errorMessage>
+					<ion-item>
+						<ion-text color="danger">
+							{errorMessage}
 						</ion-text>
-					</div>
-				</div>
-			</Form>
-			<d-button color="accent" role="button" type="submit" form="questions" expand tabindex={0}
-				>{m.Next()}</d-button
-			>
-		{:else}
-			<div class="flex flex-col gap-2">
-				<d-heading sixe="s">{m.Store_this_keypair()}</d-heading>
-				<d-text size="l">{m.your_unique_keypair_has_been_generated_successfully_()}</d-text>
-				<!-- <d-logo /> -->
-			</div>
+					</ion-item>
+				</FormError>
 
-			<div class="flex w-full flex-col space-y-8 pb-6 pt-4">
-				<div class="flex flex-col gap-6">
-					<ion-text>
-						{m.Please_store_this_in_a_safe_place_to_recover_your_account_in_the_future_this_passphrase_will_be_shown_only_one_time()}
+				<hr />
+
+				<div>
+					<ion-text color="secondary">
+						<a href={r('/login/passphrase')} class="text-sm"
+							>{m.Login_with_your_passphrase_Tap_here()}</a
+						>
 					</ion-text>
-					<div>
-						<d-text>{m.Your_keypair()}</d-text>
-						<div class="rounded-lg border border-white bg-[#546080] p-4 font-mono">
-							<div>
-								{seed}
+				</div>
+			</div>
+		</Form>
+		<d-button color="accent" role="button" type="submit" form="questions" expand tabindex={0}>
+			{m.Next()}
+		</d-button>
+	{:else}
+		<div class="flex h-screen flex-col place-content-between">
+			<div>
+				<div class="flex flex-col gap-2 pt-11">
+					<d-heading sixe="s">{m.Store_this_keypair()}</d-heading>
+					<d-text size="l">{m.your_unique_keypair_has_been_generated_successfully_()}</d-text>
+				</div>
+
+				<div class="flex w-full flex-col space-y-8 pb-6 pt-4">
+					<div class="flex flex-col gap-6">
+						<div>
+							<d-text>{m.Your_keypair()}</d-text>
+							<div class="rounded-lg border border-on bg-highlight p-4 font-mono">
+								<div>
+									{seed}
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<CopyButton textToCopy={seed}>{m.Copy_seed()}</CopyButton>
-					<div class="flex gap-2">
-						<d-text size="l" class="text-error"> <ion-icon icon={alarm} /></d-text>
-						<d-text>{m.Make_sure_to_store_it_in_a_safe_location_()}</d-text>
+						<CopyButton textToCopy={seed}>{m.Copy_seed()}</CopyButton>
+
+						<div class="flex gap-2">
+							<d-text size="l" class="text-error"> <ion-icon icon={alertCircleOutline} /></d-text>
+							<d-text
+								>{m.Please_store_this_in_a_safe_place_to_recover_your_account_in_the_future_this_passphrase_will_be_shown_only_one_time()}</d-text
+							>
+						</div>
 					</div>
-					<d-button color="accent" href={r('/wallet')} expand>{m.Go_to_wallet()}</d-button>
 				</div>
 			</div>
-		{/if}
-	</div>
-</ion-content>
+			<div class="flex flex-col gap-3 pb-24">
+				<d-text size="m"
+					>{m.You_can_recover_your_keypair_by_answering_the_registration_questions_correctly_again()}</d-text
+				>
+				<d-button color="accent" href={r('/wallet')} expand>{m.Go_to_wallet()}</d-button>
+			</div>
+		</div>
+	{/if}
+</div>

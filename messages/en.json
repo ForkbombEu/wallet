@@ -52,11 +52,11 @@
 	"Create_your_DID": "Create your DID",
 	"Manage_VC_verifiable_credentials_in_one_place": "Manage VC (verifiable credentials) in one place",
 	"Enter_your_email": "Enter your email",
-    "enter_your_email_to_get_started": "enter your email to get started",
-    "Email": "Email",
-    "emailexample_com": "email@example.com",
-    "type_your_email": "type your email",
-    "Next": "Next",
+	"enter_your_email_to_get_started": "enter your email to get started",
+	"Email": "Email",
+	"emailexample_com": "email@example.com",
+	"type_your_email": "type your email",
+	"Next": "Next",
 	"SECURITY_QUESTIONS": "SECURITY QUESTIONS",
 	"Generating_Keypair_": "Generating Keypair...",
 	"Answer_to_these_questions": "Answer to these questions,",
@@ -70,5 +70,6 @@
 	"Developed_by_Forkbomb_BV": "Developed by Forkbomb BV",
 	"Confirm_your_email": "Confirm your email",
 	"Reenter_your_email_address_to_confirm_registration_": "Re-enter your email address to confirm registration.",
-	"REGISTER": "REGISTER"
+	"REGISTER": "REGISTER",
+	"You_can_recover_your_keypair_by_answering_the_registration_questions_correctly_again": "You can recover your keypair by answering the registration questions correctly again."
 }
