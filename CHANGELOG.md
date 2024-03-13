@@ -1,3 +1,11 @@
+## [1.17.3](https://github.com/ForkbombEu/wallet/compare/v1.17.2...v1.17.3) (2024-03-13)
+
+
+### Bug Fixes
+
+* fix the questions page ([8fc8575](https://github.com/ForkbombEu/wallet/commit/8fc857526eadac76bc06a8f29cd7ce466587d965))
+* the style of the unlock page ([40eb7b7](https://github.com/ForkbombEu/wallet/commit/40eb7b7b9f91039c3f47df04b021a170291f16f8))
+
 ## [1.17.2](https://github.com/ForkbombEu/wallet/compare/v1.17.1...v1.17.2) (2024-03-13)
 
 
