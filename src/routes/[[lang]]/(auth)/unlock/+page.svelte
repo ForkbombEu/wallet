@@ -1,5 +1,4 @@
 <script lang="ts">
-	import LogoAccent from '$lib/components/atoms/LogoAccent.svelte';
 	import { goto, m } from '$lib/i18n';
 	import { unlockApp } from '$lib/preferences/locked.js';
 	import { AndroidBiometryStrength, BiometricAuth } from '@aparajita/capacitor-biometric-auth';
@@ -48,10 +47,7 @@
 <IonPage>
 	<ion-content fullscreen>
 		<div class="flex h-full w-full flex-col items-center justify-center gap-2 p-6">
-			<div class="flex flex-col items-center gap-2">
-				<LogoAccent />
-				<d-heading size="xs">{m.DidroomWallet()}</d-heading>
-			</div>
+			<d-logo />
 
 			{#if data.biometryCheckResult.isAvailable}
 				<div class="fixed bottom-4 w-full px-4">

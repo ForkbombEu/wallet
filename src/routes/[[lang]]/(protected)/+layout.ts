@@ -18,7 +18,7 @@ export const load = async () => {
 	const boarded = await isAlreadyBoarded();
 	if (!Boolean(boarded)) throw redirect(303, r('/on-boarding', lang));
 	const keypair = await getKeypairPreference();
-	if (!keypair) redirect(303, r('/login', lang));
+	if (!keypair) redirect(303, r('/register-login', lang));
 
 	const isLocked = await isAppLocked();
 	if (isLocked) redirect(303, r('/unlock', lang));

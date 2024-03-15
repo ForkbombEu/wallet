@@ -1,6 +1,5 @@
 <script lang="ts">
-	// @ts-ignore
-	import { version } from '$app/environment';
+	import AppDetails from '$lib/components/AppDetails.svelte';
 	import Illustration from '$lib/components/molecules/Illustration.svelte';
 	import { Form, createForm } from '$lib/forms';
 	import { goto, m } from '$lib/i18n';
@@ -54,8 +53,5 @@
 			</div>
 		</div>
 	</div>
-	<div class="flex flex-col items-center gap-2 p-6">
-		<d-text size="l">{m.Developed_by_Forkbomb_BV()}</d-text>
-		<d-text size="m">v {version}</d-text>
-	</div>
+	<AppDetails />
 </div>
