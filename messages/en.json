@@ -71,5 +71,7 @@
 	"Confirm_your_email": "Confirm your email",
 	"Reenter_your_email_address_to_confirm_registration_": "Re-enter your email address to confirm registration.",
 	"REGISTER": "REGISTER",
-	"You_can_recover_your_keypair_by_answering_the_registration_questions_correctly_again": "You can recover your keypair by answering the registration questions correctly again."
+	"You_can_recover_your_keypair_by_answering_the_registration_questions_correctly_again": "You can recover your keypair by answering the registration questions correctly again.",
+	"SCAN_QR": "SCAN QR",
+	"Go_to_issuance_services": "GO TO ISSUANCE SERVICES"
 }

@@ -9,6 +9,8 @@
 	--ion-background-color: var(--surface);
 	--ion-text-color: var(--on);
 	--ion-tab-bar-background: var(--surface);
+	--ion-tab-bar-color-selected: var(--on);
+	--ion-tab-bar-color: var(--on-alt);
 	--ion-default-font: 'Gantari Variable';
 	--ion-font-family: 'Gantari Variable';
 }
@@ -34,4 +36,8 @@ body.barcode-scanner-active {
 		--background: transparent;
 		--ion-background-color: transparent;
 	}
+}
+
+.outline {
+	outline-style: none;
 }
