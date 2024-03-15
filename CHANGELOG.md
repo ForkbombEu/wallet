@@ -1,3 +1,17 @@
+# [1.18.0](https://github.com/ForkbombEu/wallet/compare/v1.17.3...v1.18.0) (2024-03-15)
+
+
+### Bug Fixes
+
+* on logout remove signroom user and did ([#195](https://github.com/ForkbombEu/wallet/issues/195)) ([e1ab266](https://github.com/ForkbombEu/wallet/commit/e1ab2667fb86ba14416ec16b9e238651130c6b45))
+* rollaback superforms until we fix syncValidation ([d7da1a8](https://github.com/ForkbombEu/wallet/commit/d7da1a8159cd8b849881e9e5d7ef80b6b6ec6c6f))
+* update deps and chore fixes ([#193](https://github.com/ForkbombEu/wallet/issues/193)) ([30072e5](https://github.com/ForkbombEu/wallet/commit/30072e5b064d409f640fe37700e4c9b633656da1))
+
+
+### Features
+
+* pre-login page register/login ([#197](https://github.com/ForkbombEu/wallet/issues/197)) ([1cc7f62](https://github.com/ForkbombEu/wallet/commit/1cc7f6214d5378ac2b959ac93e80a1a8fa44ff96))
+
 ## [1.17.3](https://github.com/ForkbombEu/wallet/compare/v1.17.2...v1.17.3) (2024-03-13)
 
 
