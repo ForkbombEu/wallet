@@ -73,5 +73,8 @@
 	"REGISTER": "REGISTER",
 	"You_can_recover_your_keypair_by_answering_the_registration_questions_correctly_again": "You can recover your keypair by answering the registration questions correctly again.",
 	"SCAN_QR": "SCAN QR",
-	"Go_to_issuance_services": "GO TO ISSUANCE SERVICES"
+	"Go_to_issuance_services": "GO TO ISSUANCE SERVICES",
+	"You_can_recover_your_keypair_by_answering_the_registration_questions_correctly_again": "You can recover your keypair by answering the registration questions correctly again.",
+	"CREATE_AN_ACCOUNT": "CREATE AN ACCOUNT",
+	"LOGIN": "LOGIN"
 }
