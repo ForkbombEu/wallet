@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/ForkbombEu/wallet/compare/v1.18.0...v1.19.0) (2024-03-16)
+
+
+### Features
+
+* double path. registration + login ([#198](https://github.com/ForkbombEu/wallet/issues/198)) ([bfaeaa2](https://github.com/ForkbombEu/wallet/commit/bfaeaa27376619eb24f7db21c2b0f832b686aa35))
+
 # [1.18.0](https://github.com/ForkbombEu/wallet/compare/v1.17.3...v1.18.0) (2024-03-15)
 
 
