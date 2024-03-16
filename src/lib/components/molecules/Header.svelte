@@ -9,7 +9,7 @@
 	//TODO: fix background color with actual token
 </script>
 
-<ion-header class="bg-primary shadow-none">
+<ion-header class="shadow-none" translucent>
 	<ion-toolbar>
 		{#if backButton}
 			<ion-buttons slot="start">
