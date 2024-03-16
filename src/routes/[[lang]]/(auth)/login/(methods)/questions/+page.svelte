@@ -6,6 +6,7 @@
 
 	import fingerPrint from '$lib/assets/fingerPrint.png';
 	import CopyButton from '$lib/components/copyButton.svelte';
+	import Header from '$lib/components/molecules/Header.svelte';
 	import { m, r } from '$lib/i18n';
 	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
@@ -13,6 +14,7 @@
 	import { alertCircleOutline } from 'ionicons/icons';
 	import { z } from 'zod';
 	import { generateDid, generateSignroomUser } from '../../_lib';
+
 
 	//
 
@@ -99,6 +101,8 @@
 	}
 </script>
 
+<Header>{m.SECURITY_QUESTIONS()}</Header>
+
 <div class="flex h-full w-full flex-col gap-4 px-4">
 	{#if loading}
 		<div class="flex h-full flex-col items-center justify-around">
@@ -152,7 +156,7 @@
 				</div>
 			</div>
 		</Form>
-		<d-button color="accent" role="button" type="submit" form="questions" expand tabindex={0}>
+		<d-button color="accent" role="button" type="submit" form="questions" expand tabindex={0} class="pb-10">
 			{m.Next()}
 		</d-button>
 	{:else}

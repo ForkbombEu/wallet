@@ -25,7 +25,7 @@
 
 <Header>{m.REGISTER()}</Header>
 
-<div class="flex h-screen flex-col">
+<div class="flex flex-col">
 	<div class="relative min-h-[40vh]">
 		<img
 			src="/src/lib/assets/bg-5.svg"
