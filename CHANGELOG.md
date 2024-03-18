@@ -1,3 +1,15 @@
+# [1.21.0](https://github.com/ForkbombEu/wallet/compare/v1.20.0...v1.21.0) (2024-03-18)
+
+
+### Bug Fixes
+
+* remove obsolote preference key on logout ([#204](https://github.com/ForkbombEu/wallet/issues/204)) ([7d0b946](https://github.com/ForkbombEu/wallet/commit/7d0b946bb614593bf63a7940edbd856aa2d49410))
+
+
+### Features
+
+* login for already registered user ([#203](https://github.com/ForkbombEu/wallet/issues/203)) ([b60eebe](https://github.com/ForkbombEu/wallet/commit/b60eebea5f2f34a0a2a1634774b83a8d73bce5f8))
+
 # [1.20.0](https://github.com/ForkbombEu/wallet/compare/v1.19.0...v1.20.0) (2024-03-18)
 
 
