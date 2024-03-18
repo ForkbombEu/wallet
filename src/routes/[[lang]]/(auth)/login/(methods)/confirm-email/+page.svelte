@@ -1,5 +1,4 @@
 <script lang="ts">
-	// @ts-ignore
 	import Header from '$lib/components/molecules/Header.svelte';
 	import Illustration from '$lib/components/molecules/Illustration.svelte';
 	import { Form, createForm } from '$lib/forms';

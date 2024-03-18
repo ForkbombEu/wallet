@@ -1,0 +1,5 @@
+ Rule unknown ignore
+Given I send pb_address 'pb_address' and create pb_client
+Given I send create_parameters 'create_parameters' and send record_parameters 'record_parameters' and create record and output into 'output'
+Given I have a 'string dictionary' named 'output'
+Then print data
