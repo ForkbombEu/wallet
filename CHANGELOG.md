@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/ForkbombEu/wallet/compare/v1.19.0...v1.20.0) (2024-03-18)
+
+
+### Features
+
+* lottie animation on signup ([#200](https://github.com/ForkbombEu/wallet/issues/200)) ([a5487ae](https://github.com/ForkbombEu/wallet/commit/a5487ae7d88b0e7bdf7c96323969f0f0cc4f6f3b)), closes [#199](https://github.com/ForkbombEu/wallet/issues/199)
+
 # [1.19.0](https://github.com/ForkbombEu/wallet/compare/v1.18.0...v1.19.0) (2024-03-16)
 
 
