@@ -19,7 +19,7 @@
 	//
 
 	export let data;
-	let { userEmail } = data;
+	let { userEmail, registration } = data;
 
 	//
 
@@ -64,8 +64,8 @@
 				const keypair = await generateKeypair(userEmail, formattedAnswers as UserChallengesAnswers);
 
 				await setKeypairPreference(keypair);
-				await generateSignroomUser(userEmail);
-				await generateDid();
+				if (registration) await generateSignroomUser(userEmail);
+				await generateDid(userEmail);
 
 				await unlockApp();
 				seed = keypair.seed;

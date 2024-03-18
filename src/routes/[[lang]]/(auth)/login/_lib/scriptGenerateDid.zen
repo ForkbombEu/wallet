@@ -1,0 +1,17 @@
+ Rule unknown ignore
+Given I send pb_address 'pb_address' and create pb_client
+Given I send my_credentials 'my_credentials' and login and output into 'login_output'
+Given I have a 'string dictionary' named 'login_output'
+Given I have a 'string' named 'url'
+When I pickup from path 'login_output.token' 
+and I rename 'token' to 'Authorization'
+
+When I create the 'string dictionary' named 'headers' 
+and I move 'Authorization' in 'headers'
+
+When I create the 'string dictionary' named 'send_parameters' 
+and I move 'headers' in 'send_parameters'
+
+Then I print 'url'
+and I print 'send_parameters'
+Then I send url 'url' and send send_parameters 'send_parameters' and send request and output into 'output'
