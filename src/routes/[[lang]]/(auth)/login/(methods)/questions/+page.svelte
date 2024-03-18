@@ -18,7 +18,7 @@
 
 	//
 
-	export let data
+	export let data;
 	let { userEmail, registration } = data;
 
 	//
