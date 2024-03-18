@@ -64,8 +64,6 @@
 				const keypair = await generateKeypair(userEmail, formattedAnswers as UserChallengesAnswers);
 
 				await setKeypairPreference(keypair);
-				console.log('registration', registration);
-				console.log('keypair', keypair);
 				if (registration) await generateSignroomUser(userEmail);
 				await generateDid(userEmail);
 
