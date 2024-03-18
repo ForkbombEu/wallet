@@ -1,7 +1,6 @@
 import { getPublicKeysFromKeypair } from '$lib/keypairoom';
 import { setDIDPreference } from '$lib/preferences/did';
 import { getKeypairPreference } from '$lib/preferences/keypair';
-import { getUser, setUser } from '$lib/preferences/signroomUser';
 import { Slangroom } from '@slangroom/core';
 import { pocketbase } from '@slangroom/pocketbase';
 import { writable } from 'svelte/store';
@@ -43,9 +42,6 @@ export const generateSignroomUser = async (email: string) => {
 	const res = await slangroom.execute(scriptGenerateUser, {
 		data
 	});
-
-	//@ts-expect-error - Slangroom has no types
-	await setUser(res.result.output?.id, password, email);
 
 	return res.result.output;
 };
