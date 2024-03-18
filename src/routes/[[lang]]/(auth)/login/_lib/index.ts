@@ -15,11 +15,11 @@ const slangroom = new Slangroom(pocketbase);
 
 const pb_address: string = 'https://admin.signroom.io';
 
-export const userEmailStore = writable<string | undefined>();
+export const userEmailStore = writable<{email:string | undefined, registration:boolean}>();
 
 export const generateSignroomUser = async (email: string) => {
-	const password = 'pppppppp';
-    const keypair = await getKeypairPreference();
+	const keypair = await getKeypairPreference();
+	const password = keypair!.seed;
 	const public_keys = getPublicKeysFromKeypair(keypair!);
 	const data = {
 		pb_address,
@@ -50,9 +50,10 @@ export const generateSignroomUser = async (email: string) => {
 	return res.result.output;
 };
 
-export const generateDid = async () => {
+export const generateDid = async (email:string) => {
 	//@ts-expect-error - Slangroom has no types
-	const { email, password } = await getUser();
+	const keypair = await getKeypairPreference();
+	const password = keypair!.seed;
 
 	const data = {
 		pb_address,

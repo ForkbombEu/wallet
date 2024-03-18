@@ -5,6 +5,7 @@
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { unlockApp } from '$lib/preferences/locked.js';
 	import { z } from 'zod';
+	import { generateDid } from '../../_lib/index.js';
 
 	//
 
@@ -26,6 +27,7 @@
 			try {
 				const keypair = await regenerateKeypair(userEmail, form.data.seed);
 				await setKeypairPreference(keypair);
+				await generateDid(userEmail);
 				await unlockApp();
 				await goto('/wallet'); // Note: `goto` needs `await`!
 			} catch (e) {

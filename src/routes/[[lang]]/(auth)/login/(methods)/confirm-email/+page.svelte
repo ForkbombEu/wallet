@@ -9,14 +9,14 @@
 	import { userEmailStore } from '../../_lib';
 
 	const schema = z.object({
-		email: z.literal($userEmailStore),
+		email: z.literal($userEmailStore.email),
 		rememberEmail: z.boolean().optional()
 	});
 
 	const form = createForm({
 		schema,
 		onSubmit: async ({ form }) => {
-			userEmailStore.set(form.data.email);
+			userEmailStore.set({ email: form.data.email, registration: false });
 			await goto('/login/questions');
 		}
 	});
@@ -39,12 +39,7 @@
 			<d-text size="l">{m.Reenter_your_email_address_to_confirm_registration_()}</d-text>
 
 			<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
-				<Input
-					{form}
-					fieldPath="email"
-					placeholder={m.emailexample_com()}
-					label={m.Email()}
-				/>
+				<Input {form} fieldPath="email" placeholder={m.emailexample_com()} label={m.Email()} />
 				<d-button size="default" color="accent" type="submit" expand class="mt-4">
 					{m.Next()}
 					<ion-icon icon={arrowForward} slot="end" />
