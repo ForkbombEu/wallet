@@ -7,6 +7,8 @@ import { helpers } from '@slangroom/helpers';
 import { http } from '@slangroom/http';
 import { zencode } from '@slangroom/zencode';
 import holder_request_keys from '../../../mobile_zencode/wallet/holder_request_authorizationCode.keys.json?raw';
+import holder_qr_to_well_known_test from '../../../mobile_zencode/wallet/holder_qr_to_well-known-test.zen?raw';
+import holder_qr_to_well_known_test_keys from '../../../mobile_zencode/wallet/holder_qr_to_well-known-test.keys.json?raw';
 import holder_request_authorizationCode from '../../../mobile_zencode/wallet/holder_request_authorizationCode.zen?raw';
 
 const slangroom = new Slangroom([http, helpers, zencode]);
@@ -32,31 +34,48 @@ export type Keys = {
 	keyring: Keyring;
 	client_id: string;
 };
-export const askCredential = async (qr: Service, keys: Keys) => {
+export const askCredential = async (
+	qr: Service,
+	keys: Keys,
+	wellKnown:any,
+	holder_claims: any = {
+		given_name: 'Pippo',
+		family_name: 'Peppe',
+		is_human: true
+	}
+) => {
 	const request = await slangroom.execute(holder_request_authorizationCode, {
 		data: {
 			'!external-qr-code-content': qr,
+			...wellKnown,
 			oauth_flow_parameters: {
-				"authorize_endpoint": "/authorize",
-				"par_endpoint": "/par",
-				"token_endpoint": "/token",
-				"grant_type": "authorization_code",
-				"credential_endpoint": "/credential",
-				"jwt-body-params": {
-					"response_type": "code",
-					"code_challenge_method": "S256",
-					"state": "xyz",
-					"redirectUris": [
-						"https://didroom.com/"
-					]
+				authorize_endpoint: '/authorize',
+				par_endpoint: '/par',
+				token_endpoint: '/token',
+				grant_type: 'authorization_code',
+				credential_endpoint: '/credential',
+				'jwt-body-params': {
+					response_type: 'code',
+					code_challenge_method: 'S256',
+					state: 'xyz',
+					redirectUris: ['https://didroom.com/']
 				},
-				"format": "vc+sd-jwt",
-				"vct": "SD_JWT_VC_Auth1",
-				"Authorization": "BEARER "
-			}
+				format: 'vc+sd-jwt',
+				vct: 'Auth1',
+				Authorization: 'BEARER '
+			},
+			holder_claims
 		},
 		keys: { ...JSON.parse(holder_request_keys), ...keys }
 	});
 
 	return request.result;
+};
+
+export const fromQrToWellKnown = async (qr: Service) => {
+	console.log(qr, JSON.parse(holder_qr_to_well_known_test_keys));
+	return await slangroom.execute(holder_qr_to_well_known_test, {
+		data: qr,
+		keys: JSON.parse(holder_qr_to_well_known_test_keys)
+	});
 };
