@@ -2,5 +2,5 @@
 	path = zenflows-crypto
 	url = https://github.com/interfacerproject/zenflows-crypto
 [submodule "mobile_zencode"]
-	path = mobile_zencode
+	path = src/lib/mobile_zencode/mobile_zencode
 	url = https://github.com/ForkbombEu/mobile_zencode

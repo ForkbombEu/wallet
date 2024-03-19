@@ -6,10 +6,10 @@ import { Slangroom } from '@slangroom/core';
 import { helpers } from '@slangroom/helpers';
 import { http } from '@slangroom/http';
 import { zencode } from '@slangroom/zencode';
-import holder_request_keys from '../../../mobile_zencode/wallet/holder_request_authorizationCode.keys.json?raw';
-import holder_qr_to_well_known_test from '../../../mobile_zencode/wallet/holder_qr_to_well-known-test.zen?raw';
-import holder_qr_to_well_known_test_keys from '../../../mobile_zencode/wallet/holder_qr_to_well-known-test.keys.json?raw';
-import holder_request_authorizationCode from '../../../mobile_zencode/wallet/holder_request_authorizationCode.zen?raw';
+import holder_request_keys from '$lib/mobile_zencode/wallet/holder_request_authorizationCode.keys.json?raw';
+import holder_qr_to_well_known_test from '$lib/mobile_zencode/wallet/holder_qr_to_well-known-test.zen?raw';
+import holder_qr_to_well_known_test_keys from '$lib/mobile_zencode/wallet/holder_qr_to_well-known-test.keys.json?raw';
+import holder_request_authorizationCode from '$lib/mobile_zencode/wallet/holder_request_authorizationCode.zen?raw';
 
 const slangroom = new Slangroom([http, helpers, zencode]);
 
