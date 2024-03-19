@@ -47,8 +47,8 @@ export const askCredential = async (
 	const request = await slangroom.execute(holder_request_authorizationCode, {
 		data: {
 			'!external-qr-code-content': qr,
-			...wellKnown,
 			oauth_flow_parameters: {
+				// ...wellKnown,
 				authorize_endpoint: '/authorize',
 				par_endpoint: '/par',
 				token_endpoint: '/token',
@@ -64,7 +64,10 @@ export const askCredential = async (
 				vct: 'Auth1',
 				Authorization: 'BEARER '
 			},
-			holder_claims
+			holder_claims:{
+				...holder_claims,
+				is_human: true
+			}
 		},
 		keys: { ...JSON.parse(holder_request_keys), ...keys }
 	});
