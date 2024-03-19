@@ -9,7 +9,7 @@
 	import { m } from '$lib/i18n';
 	import Header from '$lib/components/molecules/Header.svelte';
 	import { setCredentialPreference } from '$lib/preferences/credentials';
-	import { fromQrToWellKnown } from '$lib/openId4vci';
+	import { fromQrToWellKnown, type WellKnown } from '$lib/openId4vci';
 
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
@@ -18,34 +18,14 @@
 
 	const url = $page.url;
 	const service = url.searchParams.get('service');
-	const wellKnown = async()=>await fromQrToWellKnown(JSON.parse(service!));
-	$: (async () => console.log(service, await wellKnown))();
+	const wellKnown = async () => await fromQrToWellKnown(JSON.parse(service!));
 	let serviceResponse: any;
 
-	function getRandomExpirationDate() {
-		const currentDate = new Date();
-		const futureDate = new Date(
-			currentDate.getFullYear() + Math.floor(Math.random() * 5),
-			Math.floor(Math.random() * 12),
-			Math.floor(Math.random() * 28) + 1
-		);
-
-		const year = futureDate.getFullYear();
-		const month = (futureDate.getMonth() + 1).toString().padStart(2, '0');
-		const day = futureDate.getDate().toString().padStart(2, '0');
-
-		return `${year}-${day}-${month}`;
-	}
-
-	const getCredential = async (formData: any, wellKnown:any) => {
-		console.log(formData);
+	const getCredential = async (formData: any, wellKnown: any) => {
 		isModalOpen = true;
 		if (service) {
 			const parsedService = JSON.parse(service);
-			// debugger;
-			console.log(parsedService);
 			serviceResponse = await askCredential(parsedService, await getKeys(), wellKnown, formData);
-			console.log(serviceResponse);
 		}
 		isCredentialVerified = true;
 		// setTimeout(() => {
@@ -69,13 +49,14 @@
 	{#await wellKnown()}
 		waiting
 	{:then wn}
-		{@const credentialInfo = wn.result['credential_requested']['display'][0]}
-		{@const credentialSchema = wn.result['credential_requested']['credential_definition']['credentialSubject']}
+		{@const credentialInfo = wn['credential_requested']['display'][0]}
+		{@const credentialSchema =
+			wn['credential_requested']['credential_definition']['credentialSubject']}
 		<div class="flex h-full flex-col justify-between pb-16">
 			<div>
 				<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
 					<!-- <d-avatar name={credential.name}></d-avatar> -->
-					<img src={credentialInfo.logo.url} alt={credentialInfo.logo.alt_text} width="42"/>
+					<img src={credentialInfo.logo.url} alt={credentialInfo.logo.alt_text} width="42" />
 					<d-heading size="s">{credentialInfo.name}</d-heading>
 				</div>
 				<!-- <div class="mt-2 flex flex-col gap-2">
@@ -91,11 +72,8 @@
 			</div>
 
 			<div class="rounded-md bg-primary p-4">
-				<JSONSchemaParser
-					schema={credentialSchema}
-					let:schema
-				>
-					<JSONSchemaForm {schema} onSubmit={(d)=>getCredential(d, wn.result)} id="schemaForm" />
+				<JSONSchemaParser schema={credentialSchema} let:schema>
+					<JSONSchemaForm {schema} onSubmit={(d) => getCredential(d, wn)} id="schemaForm" />
 					<svelte:fragment slot="error" let:error>
 						<ErrorDisplay name={error.name} message={error.message} />
 					</svelte:fragment>

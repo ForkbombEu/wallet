@@ -44,6 +44,7 @@ export const askCredential = async (
 		is_human: true
 	}
 ) => {
+	console.log("ask credential",qr, wellKnown, keys, holder_claims);
 	const request = await slangroom.execute(holder_request_authorizationCode, {
 		data: {
 			'!external-qr-code-content': qr,
@@ -76,9 +77,106 @@ export const askCredential = async (
 };
 
 export const fromQrToWellKnown = async (qr: Service) => {
-	console.log(qr, JSON.parse(holder_qr_to_well_known_test_keys));
-	return await slangroom.execute(holder_qr_to_well_known_test, {
+	return (await slangroom.execute(holder_qr_to_well_known_test, {
 		data: qr,
 		keys: JSON.parse(holder_qr_to_well_known_test_keys)
-	});
+	})).result as WellKnown
 };
+
+export type JWKSKey = {
+	alg: string;
+	crv: string;
+	kid: string;
+	kty: string;
+};
+
+export type CredentialDefinition = {
+	credentialSubject: {
+		[key: string]: {
+			display: { locale: string; name: string }[];
+			mandatory: boolean;
+			value_type: string;
+		};
+	};
+	type: string[];
+};
+
+export type CredentialConfiguration = {
+	credential_definition: CredentialDefinition;
+	credential_signing_alg_values_supported: string[];
+	cryptographic_binding_methods_supported: string[];
+	display: {
+		background_color: string;
+		locale: string;
+		logo: { alt_text: string; url: string };
+		name: string;
+		text_color: string;
+	}[];
+	format: string;
+	proof_types_supported: {
+		jwt: { proof_signing_alg_values_supported: string[] };
+	};
+};
+
+export type AuthorizationServer = {
+	authorization_details_types_supported: string[];
+	authorization_endpoint: string;
+	client_registration_types_supported: string[];
+	code_challenge_methods_supported: string[];
+	dpop_signing_alg_values_supported: string[];
+	grant_types_supported: string[];
+	issuer: string;
+	jwks: { keys: JWKSKey[] };
+	pushed_authorization_request_endpoint: string;
+	request_object_signing_alg_values_supported: string[];
+	request_parameter_supported: boolean;
+	request_uri_parameter_supported: boolean;
+	response_types_supported: string[];
+	scopes_supported: string[];
+	subject_types_supported: string[];
+	token_endpoint: string;
+	token_endpoint_auth_methods_supported: string[];
+	token_endpoint_auth_signing_alg_values_supported: string[];
+};
+
+export type CredentialRequested = {
+	credential_definition: CredentialDefinition;
+	credential_signing_alg_values_supported: string[];
+	cryptographic_binding_methods_supported: string[];
+	display: {
+		background_color: string;
+		locale: string;
+		logo: { alt_text: string; url: string };
+		name: string;
+		text_color: string;
+	}[];
+	format: string;
+	proof_types_supported: {
+		jwt: { proof_signing_alg_values_supported: string[] };
+	};
+};
+
+export type ExternalQRCodeContent = {
+	credential_configuration_ids: string[];
+	credential_issuer: string;
+};
+
+export type OpenIDCredentialIssuer = {
+	authorization_servers: string[];
+	credential_configurations_supported: CredentialConfiguration[];
+	credential_endpoint: string;
+	credential_issuer: string;
+	display: { locale: string; name: string }[];
+	jwks: { keys: JWKSKey[] };
+};
+
+export type WellKnown = {
+	'!external-qr-code-content': ExternalQRCodeContent;
+	credential_parameters: {
+		'oauth-authorization-server': AuthorizationServer;
+		'openid-credential-issuer': OpenIDCredentialIssuer;
+	};
+	credential_requested: CredentialRequested;
+};
+
+
