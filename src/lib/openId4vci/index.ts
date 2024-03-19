@@ -15,7 +15,7 @@ const slangroom = new Slangroom([http, helpers, zencode]);
 
 export const getKeys = async () => {
 	//@ts-expect-error we shall have a type for the Did object or save just the id
-	const client_id = (await getDIDPreference())?.result?.didDocument.id;
+	const client_id = (await getDIDPreference())?.result?.didDocument.id as string
 	const p = await getKeypairPreference();
 	const keyring = p!.keyring;
 	return {
@@ -37,12 +37,8 @@ export type Keys = {
 export const askCredential = async (
 	qr: Service,
 	keys: Keys,
-	wellKnown:any,
-	holder_claims: any = {
-		given_name: 'Pippo',
-		family_name: 'Peppe',
-		is_human: true
-	}
+	wellKnown:WellKnown,
+	holder_claims: any
 ) => {
 	console.log("ask credential",qr, wellKnown, keys, holder_claims);
 	const request = await slangroom.execute(holder_request_authorizationCode, {
@@ -171,7 +167,7 @@ export type OpenIDCredentialIssuer = {
 };
 
 export type WellKnown = {
-	'!external-qr-code-content': ExternalQRCodeContent;
+	'!external-qr-code-content': ExternalQRCodeContent; //Why?
 	credential_parameters: {
 		'oauth-authorization-server': AuthorizationServer;
 		'openid-credential-issuer': OpenIDCredentialIssuer;

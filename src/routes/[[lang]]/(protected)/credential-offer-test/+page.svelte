@@ -28,6 +28,7 @@
 			serviceResponse = await askCredential(parsedService, await getKeys(), wellKnown, formData);
 		}
 		isCredentialVerified = true;
+		console.log('serviceResponse', serviceResponse);
 		// setTimeout(() => {
 		// 	setCredentialPreference({
 		// 		id: credential.id,
@@ -87,7 +88,7 @@
 			</div>
 		</div>
 
-		<!-- <ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly class="visible">
+		<ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly class="visible">
 		<ion-content class="ion-padding">
 			<div class="flex h-full flex-col justify-around">
 				<div>
@@ -117,6 +118,6 @@
 				</div>
 			</div>
 		</ion-content>
-	</ion-modal> -->
+	</ion-modal>
 	{/await}
 </ion-content>
