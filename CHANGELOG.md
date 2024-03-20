@@ -1,3 +1,10 @@
+# [1.22.0](https://github.com/ForkbombEu/wallet/compare/v1.21.0...v1.22.0) (2024-03-20)
+
+
+### Features
+
+* test new get credential flow ([#206](https://github.com/ForkbombEu/wallet/issues/206)) ([ee2bd5b](https://github.com/ForkbombEu/wallet/commit/ee2bd5bfb79ab5118f65d993588d5153de95e09c))
+
 # [1.21.0](https://github.com/ForkbombEu/wallet/compare/v1.20.0...v1.21.0) (2024-03-18)
 
 
