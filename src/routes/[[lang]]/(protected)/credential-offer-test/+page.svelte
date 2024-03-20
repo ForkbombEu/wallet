@@ -10,37 +10,46 @@
 	import Header from '$lib/components/molecules/Header.svelte';
 	import { setCredentialPreference } from '$lib/preferences/credentials';
 	import { holderQrToWellKnown, type QrToWellKnown } from '$lib/openId4vci';
+	import { page } from '$app/stores';
+	import { askCredential, getKeys } from '$lib/openId4vci';
+	import type { Service } from '$lib/components/organisms/scanner/tools';
 
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
-	import { page } from '$app/stores';
-	import { askCredential, getKeys } from '$lib/openId4vci';
+	let serviceResponse: any;
+
+	//
 
 	const url = $page.url;
 	const service = url.searchParams.get('service');
-	const qrToWellKnown = async () => await holderQrToWellKnown(JSON.parse(service!));
-	let serviceResponse: any;
+	const parsedService = JSON.parse(service!) as Service;
+	const qrToWellKnown = async () => await holderQrToWellKnown(parsedService);
+
+	//
 
 	const getCredential = async (formData: any, qrToWellKnown: QrToWellKnown) => {
 		isModalOpen = true;
-		if (service) {
-			// const parsedService = JSON.parse(service);
-			serviceResponse = await askCredential(await getKeys(), qrToWellKnown, formData);
-		}
+		serviceResponse = await askCredential(await getKeys(), qrToWellKnown, formData);
+		if (!serviceResponse) return (isModalOpen = false);
 		isCredentialVerified = true;
 		console.log('serviceResponse: (fine chain)', serviceResponse);
-		// setTimeout(() => {
-		// 	setCredentialPreference({
-		// 		id: credential.id,
-		// 		name: credential.name,
-		// 		issuer: credential.issuer,
-		// 		description: credential.description,
-		// 		verified: Boolean(Math.random() < 0.6), // 80% chance of being verified
-		// 		expirationDate: getRandomExpirationDate()
-		// 	});
-		// 	isModalOpen = false;
-		// 	goto(`/${credential.id}/credential-detail`);
-		// }, 3000);
+		
+		setTimeout(() => {
+			const uuid = crypto.randomUUID();
+			setCredentialPreference({
+				id: uuid,
+				configuration_ids: parsedService.credential_configuration_ids,
+				name: qrToWellKnown.credential_requested.display[0].name,
+				sdJwt: serviceResponse.result,
+				issuer: parsedService.credential_issuer,
+				description: '',
+				verified: false,
+				expirationDate: ''
+			});
+
+			isModalOpen = false;
+			goto(`/${uuid}/credential-detail`);
+		}, 2000);
 	};
 </script>
 

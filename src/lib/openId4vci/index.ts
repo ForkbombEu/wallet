@@ -37,7 +37,7 @@ export type Keys = {
 export const askCredential = async (
 	holderIdentity: Keys,
 	qrToWellKnown: QrToWellKnown,
-	holder_claims: any
+	holder_claims: { [key: string]: string | number }
 ) => {
 	const data = {
 		...qrToWellKnown,
@@ -50,14 +50,14 @@ export const askCredential = async (
 		keys
 	});
 
-	return request.result;
+	return request.result.result as CredentialResult;
 };
 
 export const holderQrToWellKnown = async (qr: Service) => {
 	console.log('start holderQrToWellKnown, qr content:', qr);
 	const result = (
 		await slangroom.execute(holder_qr_to_well_known, {
-			data: {'!external-qr-code-content': qr},
+			data: { '!external-qr-code-content': qr },
 			keys: JSON.parse(holder_qr_to_well_known_keys)
 		})
 	).result as QrToWellKnown;
@@ -158,4 +158,10 @@ export type QrToWellKnown = {
 		'openid-credential-issuer': OpenIDCredentialIssuer;
 	};
 	credential_requested: CredentialRequested;
+};
+
+export type CredentialResult = {
+	c_nonce: string;
+	c_nonce_expires_in: number;
+	credential: string;
 };

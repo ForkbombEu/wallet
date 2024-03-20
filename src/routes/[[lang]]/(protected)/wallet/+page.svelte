@@ -69,12 +69,8 @@
 			<div class="flex flex-col gap-2">
 				{#each credentials as credential}
 					<a href={r(`/${credential.id}/credential-detail`)}>
-						<d-credential-card
-							name={credential.name}
-							issuer={credential.issuer}
-							description={credential.description}
-							expiration-date={credential.expirationDate}
-							verified={credential.verified}
+						<d-credential-card {...credential}
+							issuer={(credential.issuer.length > 18) ? credential.issuer.slice(0, 18) + '...' : credential.issuer}
 						/>
 					</a>
 				{/each}
