@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { m } from '$lib/i18n';
 	import { createStepController } from '@efstajas/svelte-stepper';
+	import background from '$lib/assets/bg-1.svg';
 	import Illustration from '../molecules/Illustration.svelte';
 	import StepsController from './StepsController.svelte';
 	export let index: number;
@@ -11,7 +12,7 @@
 <div class="flex h-screen flex-col justify-between">
 	<div class="relative">
 		<img
-			src="/src/lib/assets/bg-1.svg"
+			src={background}
 			class="max-h-[50vh] w-full shrink-0 fill-[var(--highlight)] opacity-50"
 			alt="background"
 		/>
