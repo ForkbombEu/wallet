@@ -10,6 +10,7 @@ import holder_qr_to_well_known from '$lib/mobile_zencode/wallet/holder_qr_to_wel
 import holder_qr_to_well_known_keys from '$lib/mobile_zencode/wallet/holder_qr_to_well-known.keys.json?raw';
 import holder_request_authorizationCode from '$lib/mobile_zencode/wallet/holder_request_authorizationCode.zen?raw';
 import holder_request_authorizationCode_keys from '$lib/mobile_zencode/wallet/holder_request_authorizationCode.keys.json?raw';
+import utils_print_decoded_sdjwt from '$lib/mobile_zencode/wallet/utils_print_decoded_sdjwt.zen?raw';
 
 const slangroom = new Slangroom([http, helpers, zencode]);
 
@@ -38,7 +39,7 @@ export const askCredential = async (
 	holderIdentity: Keys,
 	qrToWellKnown: QrToWellKnown,
 	holder_claims: { [key: string]: string | number }
-) => {
+):Promise<CredentialResult> => {
 	const data = {
 		...qrToWellKnown,
 		holder_claims
@@ -64,6 +65,15 @@ export const holderQrToWellKnown = async (qr: Service) => {
 	console.log('after holderQrToWellKnown, result:', result);
 	return result;
 };
+
+export const decodeSdJwt = async (sdJwt: string) => {
+	const decoded = await slangroom.execute(utils_print_decoded_sdjwt, {
+		data: {
+			credential: sdJwt
+		}
+	});
+	return decoded.result;
+}
 
 export type JWKSKey = {
 	alg: string;

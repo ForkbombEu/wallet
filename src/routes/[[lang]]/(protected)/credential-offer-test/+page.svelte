@@ -9,14 +9,14 @@
 	import { m } from '$lib/i18n';
 	import Header from '$lib/components/molecules/Header.svelte';
 	import { setCredentialPreference } from '$lib/preferences/credentials';
-	import { holderQrToWellKnown, type QrToWellKnown } from '$lib/openId4vci';
+	import { holderQrToWellKnown, type CredentialResult, type QrToWellKnown } from '$lib/openId4vci';
 	import { page } from '$app/stores';
 	import { askCredential, getKeys } from '$lib/openId4vci';
 	import type { Service } from '$lib/components/organisms/scanner/tools';
 
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
-	let serviceResponse: any;
+	let serviceResponse: CredentialResult;
 
 	//
 
@@ -40,7 +40,7 @@
 				id: uuid,
 				configuration_ids: parsedService.credential_configuration_ids,
 				name: qrToWellKnown.credential_requested.display[0].name,
-				sdJwt: serviceResponse.result,
+				sdJwt: serviceResponse.credential,
 				issuer: parsedService.credential_issuer,
 				description: '',
 				verified: false,
