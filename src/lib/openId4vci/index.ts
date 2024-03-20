@@ -6,7 +6,7 @@ import { Slangroom } from '@slangroom/core';
 import { helpers } from '@slangroom/helpers';
 import { http } from '@slangroom/http';
 import { zencode } from '@slangroom/zencode';
-import holder_request_keys from '$lib/mobile_zencode/wallet/holder_request_authorizationCode.keys.json?raw';
+// import holder_request_keys from '$lib/mobile_zencode/wallet/holder_request_authorizationCode.keys.json?raw';
 import holder_qr_to_well_known_test from '$lib/mobile_zencode/wallet/holder_qr_to_well-known-test.zen?raw';
 import holder_qr_to_well_known_test_keys from '$lib/mobile_zencode/wallet/holder_qr_to_well-known-test.keys.json?raw';
 import holder_request_authorizationCode from '$lib/mobile_zencode/wallet/holder_request_authorizationCode.zen?raw';
@@ -15,7 +15,7 @@ const slangroom = new Slangroom([http, helpers, zencode]);
 
 export const getKeys = async () => {
 	//@ts-expect-error we shall have a type for the Did object or save just the id
-	const client_id = (await getDIDPreference())?.result?.didDocument.id as string
+	const client_id = (await getDIDPreference())?.result?.didDocument.id as string;
 	const p = await getKeypairPreference();
 	const keyring = p!.keyring;
 	return {
@@ -35,48 +35,34 @@ export type Keys = {
 	client_id: string;
 };
 export const askCredential = async (
-	qr: Service,
-	keys: Keys,
-	wellKnown:WellKnown,
+	holderIdentity: Keys,
+	qrToWellKnown: QrToWellKnown,
 	holder_claims: any
 ) => {
-	console.log("ask credential",qr, wellKnown, keys, holder_claims);
+	const data = {
+		...qrToWellKnown,
+		holder_claims
+	};
+	const keys = { ...holderIdentity };
+	console.log('ask credential: (start chain)', 'data:', data, 'keys:', keys);
 	const request = await slangroom.execute(holder_request_authorizationCode, {
-		data: {
-			'!external-qr-code-content': qr,
-			oauth_flow_parameters: {
-				// ...wellKnown,
-				authorize_endpoint: '/authorize',
-				par_endpoint: '/par',
-				token_endpoint: '/token',
-				grant_type: 'authorization_code',
-				credential_endpoint: '/credential',
-				'jwt-body-params': {
-					response_type: 'code',
-					code_challenge_method: 'S256',
-					state: 'xyz',
-					redirectUris: ['https://didroom.com/']
-				},
-				format: 'vc+sd-jwt',
-				vct: 'Auth1',
-				Authorization: 'BEARER '
-			},
-			holder_claims:{
-				...holder_claims,
-				is_human: true
-			}
-		},
-		keys: { ...JSON.parse(holder_request_keys), ...keys }
+		data,
+		keys
 	});
 
 	return request.result;
 };
 
-export const fromQrToWellKnown = async (qr: Service) => {
-	return (await slangroom.execute(holder_qr_to_well_known_test, {
-		data: qr,
-		keys: JSON.parse(holder_qr_to_well_known_test_keys)
-	})).result as WellKnown
+export const holderQrToWellKnown = async (qr: Service) => {
+	console.log('start holderQrToWellKnown, qr content:', qr);
+	const result = (
+		await slangroom.execute(holder_qr_to_well_known_test, {
+			data: qr,
+			keys: JSON.parse(holder_qr_to_well_known_test_keys)
+		})
+	).result as QrToWellKnown;
+	console.log('after holderQrToWellKnown, result:', result);
+	return result;
 };
 
 export type JWKSKey = {
@@ -166,7 +152,7 @@ export type OpenIDCredentialIssuer = {
 	jwks: { keys: JWKSKey[] };
 };
 
-export type WellKnown = {
+export type QrToWellKnown = {
 	'!external-qr-code-content': ExternalQRCodeContent; //Why?
 	credential_parameters: {
 		'oauth-authorization-server': AuthorizationServer;
@@ -174,5 +160,3 @@ export type WellKnown = {
 	};
 	credential_requested: CredentialRequested;
 };
-
-

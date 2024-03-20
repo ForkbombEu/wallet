@@ -20,8 +20,7 @@ const credentialSchema = z.object({
 
 const serviceSchema = z.object({
 	credential_configuration_ids: z.array(z.string()),
-	credential_issuer: z.string().url(),
-	authorization_server: z.string().url()
+	credential_issuer: z.string().url()
 });
 export type Credential = z.infer<typeof credentialSchema>;
 export type Service = z.infer<typeof serviceSchema>;
@@ -68,6 +67,7 @@ export const parseQr = (value: string): ParseQrResults => {
 	}
 	//todo: validate service urls
 	if (type == 'service') {
+		delete parsedValue.type
 		return { result: 'ok', data: { type, service: parsedValue as Service } };
 	} else {
 		return { result: 'ok', data: { type, credential: parsedValue as Credential } };
