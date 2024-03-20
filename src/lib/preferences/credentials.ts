@@ -13,13 +13,13 @@ export type Credential = {
 	description: string;
 	expirationDate: string;
 	verified: boolean;
+	logo: { url: string; alt_text: string };
 };
-
 
 export async function setCredentialPreference(credential: Credential) {
 	const credentials = await getCredentialsPreference();
 	const c = {
-		...credential,
+		...credential
 	};
 	if (credentials) {
 		credentials.push(c);

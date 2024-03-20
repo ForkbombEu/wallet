@@ -33,7 +33,7 @@
 		if (!serviceResponse) return (isModalOpen = false);
 		isCredentialVerified = true;
 		console.log('serviceResponse: (fine chain)', serviceResponse);
-		
+
 		setTimeout(() => {
 			const uuid = crypto.randomUUID();
 			setCredentialPreference({
@@ -44,7 +44,8 @@
 				issuer: parsedService.credential_issuer,
 				description: '',
 				verified: false,
-				expirationDate: ''
+				expirationDate: '',
+				logo: qrToWellKnown.credential_requested.display[0].logo
 			});
 
 			isModalOpen = false;
@@ -65,8 +66,8 @@
 		<div class="flex h-full flex-col justify-between pb-16">
 			<div>
 				<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
-					<!-- <d-avatar name={credential.name}></d-avatar> -->
-					<img src={credentialInfo.logo.url} alt={credentialInfo.logo.alt_text} width="42" />
+					<d-avatar src={credentialInfo.logo.url} alt={credentialInfo.logo.alt_text}
+					></d-avatar>
 					<d-heading size="s">{credentialInfo.name}</d-heading>
 				</div>
 				<!-- <div class="mt-2 flex flex-col gap-2">
