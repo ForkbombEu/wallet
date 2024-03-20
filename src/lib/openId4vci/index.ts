@@ -6,10 +6,10 @@ import { Slangroom } from '@slangroom/core';
 import { helpers } from '@slangroom/helpers';
 import { http } from '@slangroom/http';
 import { zencode } from '@slangroom/zencode';
-// import holder_request_keys from '$lib/mobile_zencode/wallet/holder_request_authorizationCode.keys.json?raw';
-import holder_qr_to_well_known_test from '$lib/mobile_zencode/wallet/holder_qr_to_well-known-test.zen?raw';
-import holder_qr_to_well_known_test_keys from '$lib/mobile_zencode/wallet/holder_qr_to_well-known-test.keys.json?raw';
+import holder_qr_to_well_known from '$lib/mobile_zencode/wallet/holder_qr_to_well-known.zen?raw';
+import holder_qr_to_well_known_keys from '$lib/mobile_zencode/wallet/holder_qr_to_well-known.keys.json?raw';
 import holder_request_authorizationCode from '$lib/mobile_zencode/wallet/holder_request_authorizationCode.zen?raw';
+import holder_request_authorizationCode_keys from '$lib/mobile_zencode/wallet/holder_request_authorizationCode.keys.json?raw';
 
 const slangroom = new Slangroom([http, helpers, zencode]);
 
@@ -43,7 +43,7 @@ export const askCredential = async (
 		...qrToWellKnown,
 		holder_claims
 	};
-	const keys = { ...holderIdentity };
+	const keys = { ...JSON.parse(holder_request_authorizationCode_keys), ...holderIdentity };
 	console.log('ask credential: (start chain)', 'data:', data, 'keys:', keys);
 	const request = await slangroom.execute(holder_request_authorizationCode, {
 		data,
@@ -56,9 +56,9 @@ export const askCredential = async (
 export const holderQrToWellKnown = async (qr: Service) => {
 	console.log('start holderQrToWellKnown, qr content:', qr);
 	const result = (
-		await slangroom.execute(holder_qr_to_well_known_test, {
-			data: qr,
-			keys: JSON.parse(holder_qr_to_well_known_test_keys)
+		await slangroom.execute(holder_qr_to_well_known, {
+			data: {'!external-qr-code-content': qr},
+			keys: JSON.parse(holder_qr_to_well_known_keys)
 		})
 	).result as QrToWellKnown;
 	console.log('after holderQrToWellKnown, result:', result);
@@ -153,7 +153,6 @@ export type OpenIDCredentialIssuer = {
 };
 
 export type QrToWellKnown = {
-	'!external-qr-code-content': ExternalQRCodeContent; //Why?
 	credential_parameters: {
 		'oauth-authorization-server': AuthorizationServer;
 		'openid-credential-issuer': OpenIDCredentialIssuer;
