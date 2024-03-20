@@ -6,18 +6,20 @@ export const CREDENTIALS_PREFERENCES_KEY = 'credentials';
 
 export type Credential = {
 	id: string;
+	configuration_ids: string[];
+	sdJwt: string;
 	issuer: string;
 	name: string;
 	description: string;
 	expirationDate: string;
 	verified: boolean;
+	logo: { url: string; alt_text: string };
 };
-
 
 export async function setCredentialPreference(credential: Credential) {
 	const credentials = await getCredentialsPreference();
 	const c = {
-		...credential,
+		...credential
 	};
 	if (credentials) {
 		credentials.push(c);

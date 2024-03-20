@@ -79,5 +79,6 @@
 	"Enter_your_keypair": "Enter your keypair,",
 	"if_you_have_stored_your_keypair_securely_you_can_enter_it_below_to_access_your_wallet_": "if you have stored your keypair securely, you can enter it below to access your wallet.",
 	"Login_using_your_keypair": "Login using your keypair",
-	"KEYPAIR_RECOVERY": "KEYPAIR RECOVERY"
+	"KEYPAIR_RECOVERY": "KEYPAIR RECOVERY",
+	"Work_in_progress": "Work in progress"
 }
