@@ -1,3 +1,10 @@
+## [1.22.1](https://github.com/ForkbombEu/wallet/compare/v1.22.0...v1.22.1) (2024-03-21)
+
+
+### Bug Fixes
+
+* missing illustrations in apk ([#207](https://github.com/ForkbombEu/wallet/issues/207)) ([2529c81](https://github.com/ForkbombEu/wallet/commit/2529c81bc46dc460271493a7b55cbc1ca3272726))
+
 # [1.22.0](https://github.com/ForkbombEu/wallet/compare/v1.21.0...v1.22.0) (2024-03-20)
 
 
