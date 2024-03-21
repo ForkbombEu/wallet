@@ -39,7 +39,7 @@ Then print data
 `,
 			{
 				data: {
-					path: `${PUBLIC_BACKEND_URL}/api/collections/services/records?expand=issuer&sort=-updated&filter=(organization='6snnqkixx6eszue')`
+					path: `${PUBLIC_BACKEND_URL}/api/collections/services/records?expand=issuer&sort=-updated`
 				}
 			}
 		);
