@@ -17,6 +17,7 @@
 	import pidgeonDark from '$lib/assets/pidgeon-dark.svg';
 	import search from '$lib/assets/search.svg';
 	import searchDark from '$lib/assets/search-dark.svg';
+	import { isDark } from '$lib/isDark';
 
 	export let img:
 		| 'bell'
@@ -29,7 +30,7 @@
 		| 'pidgeon'
 		| 'search';
 	const suffix =
-		window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? '-dark' : '';
+		isDark ? '-dark' : '';
 </script>
 
 <div class="absolute top-0 w-full">
