@@ -13,12 +13,12 @@ import scriptGenerateDid from './scriptGenerateDid.zen?raw';
 const slangroom = new Slangroom(pocketbase);
 
 const pb_address: string = 'https://admin.signroom.io';
+const password = 'CiccioLiam12345!'
 
 export const userEmailStore = writable<{email:string | undefined, registration:boolean}>();
 
 export const generateSignroomUser = async (email: string) => {
 	const keypair = await getKeypairPreference();
-	const password = keypair!.seed;
 	const public_keys = getPublicKeysFromKeypair(keypair!);
 	const data = {
 		pb_address,
@@ -47,10 +47,6 @@ export const generateSignroomUser = async (email: string) => {
 };
 
 export const generateDid = async (email:string) => {
-	//@ts-expect-error - Slangroom has no types
-	const keypair = await getKeypairPreference();
-	const password = keypair!.seed;
-
 	const data = {
 		pb_address,
 		my_credentials: {
