@@ -13,6 +13,7 @@
 	import { page } from '$app/stores';
 	import { askCredential, getKeys } from '$lib/openId4vci';
 	import type { Service } from '$lib/components/organisms/scanner/tools';
+	import { log } from '$lib/log';
 
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
@@ -32,7 +33,7 @@
 		serviceResponse = await askCredential(await getKeys(), qrToWellKnown, formData);
 		if (!serviceResponse) return (isModalOpen = false);
 		isCredentialVerified = true;
-		console.log('serviceResponse: (fine chain)', serviceResponse);
+		log('serviceResponse: (fine chain)', serviceResponse);
 
 		setTimeout(() => {
 			const uuid = crypto.randomUUID();
