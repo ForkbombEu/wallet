@@ -11,11 +11,45 @@
 
 	onMount(() => {
 		try {
-			objectSchema = objectSchemaOrThrow(validateJSONSchema(getObjectFromProp(schema)));
+			objectSchema = objectSchemaOrThrow(
+				validateJSONSchema(convertJsonToSchema(getObjectFromProp(schema)))
+			);
 		} catch (e) {
 			if (e instanceof Error) schemaError = e;
 		}
 	});
+
+	function convertJsonToSchema(json: Object): Object {
+		const schema = {
+			$schema: 'http://json-schema.org/draft-07/schema#',
+			type: 'object',
+			properties: {},
+			required: []
+		};
+
+		for (const key in json) {
+			//@ts-ignore
+			const property = json[key];
+			const valueType = property.value_type || 'string';
+
+			//@ts-ignore
+			schema.properties[key] = {
+				type: valueType
+			};
+
+			if (property.mandatory) {
+				//@ts-ignore
+				schema.required.push(key);
+			}
+
+			if (property.display && property.display.length > 0) {
+				//@ts-ignore
+				schema.properties[key].title = property.display[0].name;
+			}
+		}
+
+		return schema;
+	}
 
 	function getObjectFromProp(s: typeof schema): Object {
 		if (typeof s === 'string') {

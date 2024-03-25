@@ -1,6 +1,6 @@
 {
 	"name": "wallet",
-	"version": "1.17.3",
+	"version": "1.23.1",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --host",
@@ -92,8 +92,7 @@
 		"ionic-svelte": "^0.5.82",
 		"ionicons": "^7.2.2",
 		"lodash": "^4.17.21",
-		"sveltekit-superforms": "^2.9.0",
-		"vite-plugin-plain-text": "^1.4.2",
+		"sveltekit-superforms": "1.13.4",
 		"zenroom": "^4.20.0",
 		"zod": "^3.22.4"
 	}

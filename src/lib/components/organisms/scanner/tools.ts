@@ -17,12 +17,10 @@ const credentialSchema = z.object({
 	url: z.string().url(),
 	registrationToken: z.string()
 });
+
 const serviceSchema = z.object({
-	scope: z.string(),
-	id: z.string(),
-	relying_party: z.string().url(),
-	resource: z.string().url(),
-	authorization_server: z.string().url()
+	credential_configuration_ids: z.array(z.string()),
+	credential_issuer: z.string().url()
 });
 export type Credential = z.infer<typeof credentialSchema>;
 export type Service = z.infer<typeof serviceSchema>;
@@ -36,7 +34,10 @@ export type Data =
 			service: Service;
 	  };
 
-const allowedDomains = ['http://oracle1.zenswarm.forkbomb.eu:3366/verify-credential', 'https://beta.signroom.io'];
+const allowedDomains = [
+	'http://oracle1.zenswarm.forkbomb.eu:3366/verify-credential',
+	'https://beta.signroom.io'
+];
 
 function isUrlAllowed(url: string): boolean {
 	return allowedDomains.includes(url);
@@ -66,6 +67,7 @@ export const parseQr = (value: string): ParseQrResults => {
 	}
 	//todo: validate service urls
 	if (type == 'service') {
+		delete parsedValue.type
 		return { result: 'ok', data: { type, service: parsedValue as Service } };
 	} else {
 		return { result: 'ok', data: { type, credential: parsedValue as Credential } };

@@ -4,8 +4,8 @@
 	import { Input } from '$lib/ionic/forms';
 	import { generateKeypair, type UserChallengesAnswers } from '$lib/keypairoom';
 
-	import fingerPrint from '$lib/assets/fingerPrint.png';
 	import CopyButton from '$lib/components/copyButton.svelte';
+	import Header from '$lib/components/molecules/Header.svelte';
 	import { m, r } from '$lib/i18n';
 	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
@@ -13,11 +13,15 @@
 	import { alertCircleOutline } from 'ionicons/icons';
 	import { z } from 'zod';
 	import { generateDid, generateSignroomUser } from '../../_lib';
+	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
+	import fingerPrintLottie from '$lib/assets/fingerPrintLottie.json?url';
+	import fingerPrintLottieLight from '$lib/assets/fingerPrintLottieLight.json?url';
+	import { isDark } from '$lib/isDark';
 
 	//
 
 	export let data;
-	let { userEmail } = data;
+	let { userEmail, registration } = data;
 
 	//
 
@@ -62,8 +66,8 @@
 				const keypair = await generateKeypair(userEmail, formattedAnswers as UserChallengesAnswers);
 
 				await setKeypairPreference(keypair);
-				await generateSignroomUser(userEmail);
-				await generateDid();
+				if (registration) await generateSignroomUser(userEmail);
+				await generateDid(userEmail);
 
 				await unlockApp();
 				seed = keypair.seed;
@@ -99,15 +103,27 @@
 	}
 </script>
 
-<div class="flex h-full w-full flex-col gap-4 px-4">
+<Header>{m.SECURITY_QUESTIONS()}</Header>
+
+<div class="flex h-full w-screen flex-col gap-4 px-4">
 	{#if loading}
-		<div class="flex h-full flex-col items-center justify-around">
-			<div class="flex flex-col items-center gap-8">
-				<img src={fingerPrint} alt="fingerPrint" class="w-32" />
-				<d-heading size="s">{m.Generating_Keypair_()}</d-heading>
+		<div class="fixed z-50 h-full w-full bg-surface opacity-90">
+			<div class="flex h-full flex-col items-center justify-around">
+				<div class="flex flex-col items-center gap-8">
+					<LottiePlayer
+						src={isDark ? fingerPrintLottie : fingerPrintLottieLight}
+						autoplay={true}
+						loop={true}
+						renderer="svg"
+						background="transparent"
+						width={120}
+					/>
+					<d-heading size="s">{m.Generating_Keypair_()}</d-heading>
+				</div>
 			</div>
 		</div>
-	{:else if !seed}
+	{/if}
+	{#if !seed}
 		<div class="flex flex-col gap-2">
 			<d-heading sixe="s">{m.Answer_to_these_questions()}</d-heading>
 			<d-text size="l"
@@ -152,7 +168,15 @@
 				</div>
 			</div>
 		</Form>
-		<d-button color="accent" role="button" type="submit" form="questions" expand tabindex={0}>
+		<d-button
+			color="accent"
+			role="button"
+			type="submit"
+			form="questions"
+			expand
+			tabindex={0}
+			class="pb-10"
+		>
 			{m.Next()}
 		</d-button>
 	{:else}
