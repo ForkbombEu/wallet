@@ -1,3 +1,11 @@
+## [1.23.4](https://github.com/ForkbombEu/wallet/compare/v1.23.3...v1.23.4) (2024-03-25)
+
+
+### Bug Fixes
+
+* remove uselles anf harmfull await then svelte constructor in credential detail ([f1323be](https://github.com/ForkbombEu/wallet/commit/f1323be24ea82646ce3a93e0316f008ed015b4fa))
+* remove uselles anf harmfull await then svelte constructor in credential detail ([#214](https://github.com/ForkbombEu/wallet/issues/214)) ([7a69de1](https://github.com/ForkbombEu/wallet/commit/7a69de191723443cb4dfb6a9097fa6c5131d5cab))
+
 ## [1.23.3](https://github.com/ForkbombEu/wallet/compare/v1.23.2...v1.23.3) (2024-03-25)
 
 
