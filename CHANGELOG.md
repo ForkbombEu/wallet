@@ -1,3 +1,11 @@
+## [1.23.5](https://github.com/ForkbombEu/wallet/compare/v1.23.4...v1.23.5) (2024-03-25)
+
+
+### Bug Fixes
+
+* credential logo inside cards ([e190c08](https://github.com/ForkbombEu/wallet/commit/e190c0844f0f96ccbb51202a2c688c81f9851f80))
+* credential logo inside cards ([#215](https://github.com/ForkbombEu/wallet/issues/215)) ([9dbfa64](https://github.com/ForkbombEu/wallet/commit/9dbfa646ddd4bb627d5e483aacbccfd6f2fc7a5d))
+
 ## [1.23.4](https://github.com/ForkbombEu/wallet/compare/v1.23.3...v1.23.4) (2024-03-25)
 
 
