@@ -14,7 +14,11 @@
 			: credential.issuer}
 	/>
 	<div class="bg-tab fixed bottom-0 left-0 w-full">
-		<d-credential-detail {...credential} description={credential.sdJwt}>
+		<d-credential-detail
+			{...credential}
+			description={credential.sdJwt}
+			logoSrc={credential.logo.url}
+		>
 			<d-button color="accent" href={r('/scan/')} expand>Verify</d-button>
 		</d-credential-detail>
 	</div>
