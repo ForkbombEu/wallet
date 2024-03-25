@@ -1,3 +1,13 @@
+## [1.23.2](https://github.com/ForkbombEu/wallet/compare/v1.23.1...v1.23.2) (2024-03-25)
+
+
+### Bug Fixes
+
+* after get a credential the released applications freezed ([37ba0bd](https://github.com/ForkbombEu/wallet/commit/37ba0bd10b1eb51ec72608a41e5b5ae15b7a8a1d))
+* after get a credential the released applications freezed ([#211](https://github.com/ForkbombEu/wallet/issues/211)) ([7330d9d](https://github.com/ForkbombEu/wallet/commit/7330d9d206bc4a13277624c1c65355eb5bd7e453))
+* remove didroom organization filter and fetch all sr credential issuer ([9e8863c](https://github.com/ForkbombEu/wallet/commit/9e8863c2a89eb6b9759e1bbcefdab60415344396))
+* remove didroom organization filter and fetch all sr credential issuer ([#210](https://github.com/ForkbombEu/wallet/issues/210)) ([2077f51](https://github.com/ForkbombEu/wallet/commit/2077f51aeb81512233e31ce6e5d9d60564f3ab48))
+
 ## [1.23.1](https://github.com/ForkbombEu/wallet/compare/v1.23.0...v1.23.1) (2024-03-25)
 
 
