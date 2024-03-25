@@ -65,8 +65,7 @@
 		<div class="flex h-full flex-col justify-between pb-16">
 			<div>
 				<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
-					<d-avatar src={credentialInfo.logo.url} alt={credentialInfo.logo.alt_text}
-					></d-avatar>
+					<d-avatar src={credentialInfo.logo.url} alt={credentialInfo.logo.alt_text}></d-avatar>
 					<d-heading size="s">{credentialInfo.name}</d-heading>
 				</div>
 				<!-- <div class="mt-2 flex flex-col gap-2">
@@ -107,6 +106,7 @@
 								name={credentialInfo.name}
 								issuer={credentialInfo.name}
 								description={credentialInfo.name}
+								logoSrc={credentialInfo.logo.url}
 							/>
 							<LottiePlayer
 								src="https://assets2.lottiefiles.com/packages/lf20_wxUJzo.json"

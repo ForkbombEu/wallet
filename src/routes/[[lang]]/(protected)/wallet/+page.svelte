@@ -74,6 +74,7 @@
 							issuer={credential.issuer.length > 18
 								? credential.issuer.slice(0, 18) + '...'
 								: credential.issuer}
+							logoSrc={credential.logo.url}
 						/>
 					</a>
 				{/each}
