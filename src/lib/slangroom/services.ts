@@ -1,5 +1,6 @@
 import { slangroom } from '.';
 import { PUBLIC_BACKEND_URL } from '$env/static/public';
+import { log } from '$lib/log';
 
 export type PaginatedResult<T> = {
 	page: number;
@@ -45,7 +46,7 @@ Then print data
 		);
 		return res.result.http_result;
 	} catch (e: any) {
-		console.log(e);
+		log(e);
 		throw new Error(JSON.stringify(e));
 	}
 };
@@ -66,7 +67,7 @@ Then print data`,
 		);
 		return res.result.http_result.result;
 	} catch (e: any) {
-		console.log(e);
+		log(e);
 		throw new Error(e);
 	}
 };

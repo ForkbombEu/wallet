@@ -1,3 +1,23 @@
+## [1.23.1](https://github.com/ForkbombEu/wallet/compare/v1.23.0...v1.23.1) (2024-03-25)
+
+
+### Bug Fixes
+
+* shorter password for signroom registration ([d075e30](https://github.com/ForkbombEu/wallet/commit/d075e3085975f39e53ee8c257c60aea4a2e24219))
+* shorter password for signroom registration ([#209](https://github.com/ForkbombEu/wallet/issues/209)) ([7ae2622](https://github.com/ForkbombEu/wallet/commit/7ae262221cc4ae2181770d34039d6d824a673ba9))
+
+# [1.23.0](https://github.com/ForkbombEu/wallet/compare/v1.22.1...v1.23.0) (2024-03-23)
+
+
+### Bug Fixes
+
+* add login animation for light mode ([#212](https://github.com/ForkbombEu/wallet/issues/212)) ([e4efbce](https://github.com/ForkbombEu/wallet/commit/e4efbce4da2504f1baf20e922b66d2dbe4208abd))
+
+
+### Features
+
+* use logs only in development ([#208](https://github.com/ForkbombEu/wallet/issues/208)) ([80a888c](https://github.com/ForkbombEu/wallet/commit/80a888cb4de9cf71b03cdb783083faeb02361118))
+
 ## [1.22.1](https://github.com/ForkbombEu/wallet/compare/v1.22.0...v1.22.1) (2024-03-21)
 
 
