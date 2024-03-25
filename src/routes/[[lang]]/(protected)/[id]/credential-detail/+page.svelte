@@ -1,11 +1,9 @@
 <script lang="ts">
 	import Header from '$lib/components/molecules/Header.svelte';
 	import { r } from '$lib/i18n';
-	import { decodeSdJwt } from '$lib/openId4vci';
 	export let data: any;
 	const { credential } = data;
 
-	const description = decodeSdJwt(credential.sdJwt);
 </script>
 
 <Header>Credential detail</Header>
@@ -18,7 +16,7 @@
 	/>
 	<div class="bg-tab fixed bottom-0 left-0 w-full">
 		{#await description then description}
-			<d-credential-detail {...credential} description={JSON.stringify(description)}>
+			<d-credential-detail {...credential} description={credential.sdJwt}>
 				<d-button color="accent" href={r('/scan/')} expand>Verify</d-button>
 			</d-credential-detail>
 		{/await}
