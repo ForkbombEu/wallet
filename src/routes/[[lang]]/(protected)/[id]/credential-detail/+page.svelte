@@ -3,7 +3,6 @@
 	import { r } from '$lib/i18n';
 	export let data: any;
 	const { credential } = data;
-
 </script>
 
 <Header>Credential detail</Header>
@@ -15,10 +14,8 @@
 			: credential.issuer}
 	/>
 	<div class="bg-tab fixed bottom-0 left-0 w-full">
-		{#await description then description}
-			<d-credential-detail {...credential} description={credential.sdJwt}>
-				<d-button color="accent" href={r('/scan/')} expand>Verify</d-button>
-			</d-credential-detail>
-		{/await}
+		<d-credential-detail {...credential} description={credential.sdJwt}>
+			<d-button color="accent" href={r('/scan/')} expand>Verify</d-button>
+		</d-credential-detail>
 	</div>
 </ion-content>
