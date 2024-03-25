@@ -35,10 +35,8 @@
 		isCredentialVerified = true;
 		log('serviceResponse: (fine chain)', serviceResponse);
 
-		setTimeout(() => {
-			const uuid = crypto.randomUUID();
-			setCredentialPreference({
-				id: uuid,
+		setTimeout(async () => {
+			const savedCredential = await setCredentialPreference({
 				configuration_ids: parsedService.credential_configuration_ids,
 				name: qrToWellKnown.credential_requested.display[0].name,
 				sdJwt: serviceResponse.credential,
@@ -50,7 +48,7 @@
 			});
 
 			isModalOpen = false;
-			goto(`/${uuid}/credential-detail`);
+			await goto(`/${savedCredential.id}/credential-detail`);
 		}, 2000);
 	};
 </script>
