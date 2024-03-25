@@ -1,3 +1,11 @@
+## [1.23.1](https://github.com/ForkbombEu/wallet/compare/v1.23.0...v1.23.1) (2024-03-25)
+
+
+### Bug Fixes
+
+* shorter password for signroom registration ([d075e30](https://github.com/ForkbombEu/wallet/commit/d075e3085975f39e53ee8c257c60aea4a2e24219))
+* shorter password for signroom registration ([#209](https://github.com/ForkbombEu/wallet/issues/209)) ([7ae2622](https://github.com/ForkbombEu/wallet/commit/7ae262221cc4ae2181770d34039d6d824a673ba9))
+
 # [1.23.0](https://github.com/ForkbombEu/wallet/compare/v1.22.1...v1.23.0) (2024-03-23)
 
 
