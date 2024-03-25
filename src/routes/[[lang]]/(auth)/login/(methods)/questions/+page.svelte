@@ -4,7 +4,6 @@
 	import { Input } from '$lib/ionic/forms';
 	import { generateKeypair, type UserChallengesAnswers } from '$lib/keypairoom';
 
-	import fingerPrintLottie from '$lib/assets/fingerPrintLottie.json';
 	import CopyButton from '$lib/components/copyButton.svelte';
 	import Header from '$lib/components/molecules/Header.svelte';
 	import { m, r } from '$lib/i18n';
@@ -15,6 +14,9 @@
 	import { z } from 'zod';
 	import { generateDid, generateSignroomUser } from '../../_lib';
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
+	import fingerPrintLottie from '$lib/assets/fingerPrintLottie.json?url';
+	import fingerPrintLottieLight from '$lib/assets/fingerPrintLottieLight.json?url';
+	import { isDark } from '$lib/isDark';
 
 	//
 
@@ -109,7 +111,7 @@
 			<div class="flex h-full flex-col items-center justify-around">
 				<div class="flex flex-col items-center gap-8">
 					<LottiePlayer
-						src={fingerPrintLottie}
+						src={isDark ? fingerPrintLottie : fingerPrintLottieLight}
 						autoplay={true}
 						loop={true}
 						renderer="svg"

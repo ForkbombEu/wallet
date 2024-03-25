@@ -11,6 +11,7 @@ import holder_qr_to_well_known_keys from '$lib/mobile_zencode/wallet/holder_qr_t
 import holder_request_authorizationCode from '$lib/mobile_zencode/wallet/holder_request_authorizationCode.zen?raw';
 import holder_request_authorizationCode_keys from '$lib/mobile_zencode/wallet/holder_request_authorizationCode.keys.json?raw';
 import utils_print_decoded_sdjwt from '$lib/mobile_zencode/wallet/utils_print_decoded_sdjwt.zen?raw';
+import { log } from '$lib/log';
 
 const slangroom = new Slangroom([http, helpers, zencode]);
 
@@ -45,7 +46,7 @@ export const askCredential = async (
 		holder_claims
 	};
 	const keys = { ...JSON.parse(holder_request_authorizationCode_keys), ...holderIdentity };
-	console.log('ask credential: (start chain)', 'data:', data, 'keys:', keys);
+	log('ask credential: (start chain)', 'data:', data, 'keys:', keys);
 	const request = await slangroom.execute(holder_request_authorizationCode, {
 		data,
 		keys
@@ -55,14 +56,14 @@ export const askCredential = async (
 };
 
 export const holderQrToWellKnown = async (qr: Service) => {
-	console.log('start holderQrToWellKnown, qr content:', qr);
+	log('start holderQrToWellKnown, qr content:', qr);
 	const result = (
 		await slangroom.execute(holder_qr_to_well_known, {
 			data: { '!external-qr-code-content': qr },
 			keys: JSON.parse(holder_qr_to_well_known_keys)
 		})
 	).result as QrToWellKnown;
-	console.log('after holderQrToWellKnown, result:', result);
+	log('after holderQrToWellKnown, result:', result);
 	return result;
 };
 
