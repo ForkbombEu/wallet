@@ -1,3 +1,11 @@
+## [1.23.3](https://github.com/ForkbombEu/wallet/compare/v1.23.2...v1.23.3) (2024-03-25)
+
+
+### Bug Fixes
+
+* shoe only sdjwt in credential detail ([4de90f0](https://github.com/ForkbombEu/wallet/commit/4de90f02da5c18d27e39162f580d569c5ca87161))
+* show only sdjwt in credential detail ([#213](https://github.com/ForkbombEu/wallet/issues/213)) ([aac2493](https://github.com/ForkbombEu/wallet/commit/aac24931a4a37e8fa292a3ce751ae942157838ce))
+
 ## [1.23.2](https://github.com/ForkbombEu/wallet/compare/v1.23.1...v1.23.2) (2024-03-25)
 
 
