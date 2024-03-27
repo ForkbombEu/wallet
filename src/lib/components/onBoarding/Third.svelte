@@ -3,6 +3,7 @@
 	import { createStepController } from '@efstajas/svelte-stepper';
 	import Illustration from '../molecules/Illustration.svelte';
 	import StepsController from './StepsController.svelte';
+	import background from '$lib/assets/bg-3.svg';
 
 	export let index: number;
 	export let total: number;
@@ -13,7 +14,7 @@
 <div class="flex h-screen flex-col justify-between">
 	<div class="relative">
 		<img
-			src="/src/lib/assets/bg-3.svg"
+			src={background}
 			class="max-h-[50vh] w-full fill-[var(--highlight)] opacity-50"
 			alt="background"
 		/>

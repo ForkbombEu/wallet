@@ -1,4 +1,6 @@
 <script lang="ts" context="module">
+	import { log } from '$lib/log';
+
 	import {
 		superValidateSync,
 		type FormOptions,
@@ -40,7 +42,7 @@
 					if (input.form.valid) await onSubmit(input);
 					else throw new Error('INVALID_FORM');
 				} catch (e) {
-					console.log(e);
+					log(e);
 				}
 			},
 			taintedMessage: null,

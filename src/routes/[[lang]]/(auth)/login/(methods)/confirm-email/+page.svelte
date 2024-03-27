@@ -7,6 +7,8 @@
 	import { arrowForward } from 'ionicons/icons';
 	import { z } from 'zod';
 	import { userEmailStore } from '../../_lib';
+	import background from '$lib/assets/bg-5.svg';
+
 
 	const schema = z.object({
 		email: z.literal($userEmailStore.email),
@@ -27,7 +29,7 @@
 <div class="flex flex-col">
 	<div class="relative min-h-[40vh]">
 		<img
-			src="/src/lib/assets/bg-5.svg"
+			src={background}
 			class="w-full shrink-0 fill-[var(--highlight)] opacity-50"
 			alt="background"
 		/>

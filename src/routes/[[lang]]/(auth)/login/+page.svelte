@@ -7,6 +7,8 @@
 	import { arrowForward } from 'ionicons/icons';
 	import { z } from 'zod';
 	import { userEmailStore } from './_lib';
+	import background from '$lib/assets/bg-4.svg';
+
 //
 
 	import { page } from '$app/stores';
@@ -31,7 +33,7 @@
 	<div class="grow">
 		<div class="relative min-h-[38vh]">
 			<img
-				src="/src/lib/assets/bg-4.svg"
+				src={background}
 				class="w-full shrink-0 fill-[var(--highlight)] opacity-50"
 				alt="background"
 			/>

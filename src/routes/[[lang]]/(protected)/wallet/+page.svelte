@@ -70,11 +70,11 @@
 				{#each credentials as credential}
 					<a href={r(`/${credential.id}/credential-detail`)}>
 						<d-credential-card
-							name={credential.name}
-							issuer={credential.issuer}
-							description={credential.description}
-							expiration-date={credential.expirationDate}
-							verified={credential.verified}
+							{...credential}
+							issuer={credential.issuer.length > 18
+								? credential.issuer.slice(0, 18) + '...'
+								: credential.issuer}
+							logoSrc={credential.logo.url}
 						/>
 					</a>
 				{/each}

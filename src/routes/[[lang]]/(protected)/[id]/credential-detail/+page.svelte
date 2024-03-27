@@ -1,16 +1,25 @@
 <script lang="ts">
 	import Header from '$lib/components/molecules/Header.svelte';
-	import { r,  m } from '$lib/i18n';
+	import { r } from '$lib/i18n';
 	export let data: any;
 	const { credential } = data;
 </script>
 
 <Header>Credential detail</Header>
 <ion-content fullscreen class="ion-padding">
-	<d-credential-card {...credential} expiration-date="2017-01-01" verified="false"> </d-credential-card>
+	<d-credential-card
+		{...credential}
+		issuer={credential.issuer.length > 18
+			? credential.issuer.slice(0, 18) + '...'
+			: credential.issuer}
+	/>
 	<div class="bg-tab fixed bottom-0 left-0 w-full">
-		<d-credential-detail {...credential} description={credential.expand.templates[0].name}>
-			<d-button color="accent" href={r('/scan/')}>Verify</d-button>
+		<d-credential-detail
+			{...credential}
+			description={credential.sdJwt}
+			logoSrc={credential.logo.url}
+		>
+			<d-button color="accent" href={r('/scan/')} expand>Verify</d-button>
 		</d-credential-detail>
 	</div>
 </ion-content>

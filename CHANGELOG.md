@@ -1,3 +1,71 @@
+## [1.23.5](https://github.com/ForkbombEu/wallet/compare/v1.23.4...v1.23.5) (2024-03-25)
+
+
+### Bug Fixes
+
+* credential logo inside cards ([e190c08](https://github.com/ForkbombEu/wallet/commit/e190c0844f0f96ccbb51202a2c688c81f9851f80))
+* credential logo inside cards ([#215](https://github.com/ForkbombEu/wallet/issues/215)) ([9dbfa64](https://github.com/ForkbombEu/wallet/commit/9dbfa646ddd4bb627d5e483aacbccfd6f2fc7a5d))
+
+## [1.23.4](https://github.com/ForkbombEu/wallet/compare/v1.23.3...v1.23.4) (2024-03-25)
+
+
+### Bug Fixes
+
+* remove uselles anf harmfull await then svelte constructor in credential detail ([f1323be](https://github.com/ForkbombEu/wallet/commit/f1323be24ea82646ce3a93e0316f008ed015b4fa))
+* remove uselles anf harmfull await then svelte constructor in credential detail ([#214](https://github.com/ForkbombEu/wallet/issues/214)) ([7a69de1](https://github.com/ForkbombEu/wallet/commit/7a69de191723443cb4dfb6a9097fa6c5131d5cab))
+
+## [1.23.3](https://github.com/ForkbombEu/wallet/compare/v1.23.2...v1.23.3) (2024-03-25)
+
+
+### Bug Fixes
+
+* shoe only sdjwt in credential detail ([4de90f0](https://github.com/ForkbombEu/wallet/commit/4de90f02da5c18d27e39162f580d569c5ca87161))
+* show only sdjwt in credential detail ([#213](https://github.com/ForkbombEu/wallet/issues/213)) ([aac2493](https://github.com/ForkbombEu/wallet/commit/aac24931a4a37e8fa292a3ce751ae942157838ce))
+
+## [1.23.2](https://github.com/ForkbombEu/wallet/compare/v1.23.1...v1.23.2) (2024-03-25)
+
+
+### Bug Fixes
+
+* after get a credential the released applications freezed ([37ba0bd](https://github.com/ForkbombEu/wallet/commit/37ba0bd10b1eb51ec72608a41e5b5ae15b7a8a1d))
+* after get a credential the released applications freezed ([#211](https://github.com/ForkbombEu/wallet/issues/211)) ([7330d9d](https://github.com/ForkbombEu/wallet/commit/7330d9d206bc4a13277624c1c65355eb5bd7e453))
+* remove didroom organization filter and fetch all sr credential issuer ([9e8863c](https://github.com/ForkbombEu/wallet/commit/9e8863c2a89eb6b9759e1bbcefdab60415344396))
+* remove didroom organization filter and fetch all sr credential issuer ([#210](https://github.com/ForkbombEu/wallet/issues/210)) ([2077f51](https://github.com/ForkbombEu/wallet/commit/2077f51aeb81512233e31ce6e5d9d60564f3ab48))
+
+## [1.23.1](https://github.com/ForkbombEu/wallet/compare/v1.23.0...v1.23.1) (2024-03-25)
+
+
+### Bug Fixes
+
+* shorter password for signroom registration ([d075e30](https://github.com/ForkbombEu/wallet/commit/d075e3085975f39e53ee8c257c60aea4a2e24219))
+* shorter password for signroom registration ([#209](https://github.com/ForkbombEu/wallet/issues/209)) ([7ae2622](https://github.com/ForkbombEu/wallet/commit/7ae262221cc4ae2181770d34039d6d824a673ba9))
+
+# [1.23.0](https://github.com/ForkbombEu/wallet/compare/v1.22.1...v1.23.0) (2024-03-23)
+
+
+### Bug Fixes
+
+* add login animation for light mode ([#212](https://github.com/ForkbombEu/wallet/issues/212)) ([e4efbce](https://github.com/ForkbombEu/wallet/commit/e4efbce4da2504f1baf20e922b66d2dbe4208abd))
+
+
+### Features
+
+* use logs only in development ([#208](https://github.com/ForkbombEu/wallet/issues/208)) ([80a888c](https://github.com/ForkbombEu/wallet/commit/80a888cb4de9cf71b03cdb783083faeb02361118))
+
+## [1.22.1](https://github.com/ForkbombEu/wallet/compare/v1.22.0...v1.22.1) (2024-03-21)
+
+
+### Bug Fixes
+
+* missing illustrations in apk ([#207](https://github.com/ForkbombEu/wallet/issues/207)) ([2529c81](https://github.com/ForkbombEu/wallet/commit/2529c81bc46dc460271493a7b55cbc1ca3272726))
+
+# [1.22.0](https://github.com/ForkbombEu/wallet/compare/v1.21.0...v1.22.0) (2024-03-20)
+
+
+### Features
+
+* test new get credential flow ([#206](https://github.com/ForkbombEu/wallet/issues/206)) ([ee2bd5b](https://github.com/ForkbombEu/wallet/commit/ee2bd5bfb79ab5118f65d993588d5153de95e09c))
+
 # [1.21.0](https://github.com/ForkbombEu/wallet/compare/v1.20.0...v1.21.0) (2024-03-18)
 
 
