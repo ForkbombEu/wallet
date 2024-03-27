@@ -8,6 +8,8 @@
 	import { Slangroom } from '@slangroom/core';
 	import { getUser } from '$lib/preferences/user';
 	import { getKeypairPreference } from '$lib/preferences/keypair';
+	import IconKey from '$lib/assets/IconKey.svelte';
+	import { log } from '$lib/log';
 
 	const slangroom = new Slangroom(pocketbase);
 
@@ -16,15 +18,15 @@
 		return getPublicKeysFromKeypair(keypair!);
 	};
 
-	const organizations = async () => {
+	const organizations = async (k = '1') => {
 		const user = await getUser();
 		const data: { pb_address: ServerUrl; list_parameters: ListParameters } = {
 			pb_address: 'https://admin.signroom.io/',
 			list_parameters: {
 				type: 'all',
 				collection: 'orgJoinRequests',
-				expand: null,
-				requestKey: null,
+				expand: 'organization',
+				requestKey: k,
 				fields: null,
 				sort: null,
 				filter: `user.id = "${user!.id}" && status != "pending"`
@@ -39,42 +41,54 @@
     Then print data
     `;
 
-		return await slangroom.execute(script, { data });
+		// @ts-ignore
+		return (await slangroom.execute(script, { data })).result.output?.records;
 	};
+
+	$: (async () =>
+		log('profile', await getDIDPreference(), await keys(), await organizations('2')))();
 </script>
 
 <TabPage tab="profile" title="PROFILE">
-	<div class="flex-col gap-2">
-		<ion-label>{m.Badges()}</ion-label>
-		<div class="mt-2 flex-row gap-2">
-			<ion-badge class="p-4" color="primary">Dyne.org</ion-badge>
-			<ion-badge class="p-4" color="secondary">Forkbomb</ion-badge>
-			<ion-badge class="p-4" color="tertiary">Acme</ion-badge>
-		</div>
-		<br />
-		<ion-label>{m.Public_Key()}</ion-label>
-		<div class="select-all rounded-md border-2 border-slate-700 bg-slate-400 p-1">
-			63FaC9201494f0bd17B9892B9fae4d52fe3BD377
-		</div>
-		<d-button href="/logout">{m.Logout()}</d-button>
-
+	<div class="flex flex-col items-center gap-2 pt-16 text-center">
+		<d-heading size="s" class="w-full text-center">Alessandro CognomeLunghissimo</d-heading>
 		{#await getDIDPreference() then did}
-			<div>
-				<p>DID</p>
-				<pre>{JSON.stringify(did, null, 2)}</pre>
+			<div class="flex w-full items-center justify-center gap-2">
+				<IconKey />
+				<d-text>{m.Public_Key()}: {did.result.didDocument.id.substring(0, 25)}</d-text>
 			</div>
 		{/await}
-		{#await organizations() then result}
-			<div>
-				<p>Organizations</p>
-				<pre>{JSON.stringify(result, null, 2)}</pre>
+
+		{#await organizations() then authorizations}
+			<d-heading size="xs" class="mt-16 w-full text-center">{m.Badges()}</d-heading>
+			<div class="mx-auto mt-8 flex w-3/5 flex-wrap items-center justify-between gap-8">
+				{#if authorizations}
+					{#each authorizations as a}
+						{@const org = a.expand.organization}
+						<d-avatar
+							src={`https://admin.signroom.io/api/files/${org.collectionId}/${org.id}/${org.avatar}`}
+							alt={org.name}
+							size="xl"
+						/>
+						<d-avatar
+							src={`https://admin.signroom.io/api/files/${org.collectionId}/${org.id}/${org.avatar}`}
+							alt={org.name}
+							size="xl"
+						/>
+						<d-avatar
+							src={`https://admin.signroom.io/api/files/${org.collectionId}/${org.id}/${org.avatar}`}
+							alt={org.name}
+							size="xl"
+						/>
+						<d-avatar
+							src={`https://admin.signroom.io/api/files/${org.collectionId}/${org.id}/${org.avatar}`}
+							alt={org.name}
+							size="xl"
+						/>
+					{/each}
+				{/if}
 			</div>
 		{/await}
-		{#await keys() then result}
-			<div>
-				<p>Keys</p>
-				<pre>{JSON.stringify(result, null, 2)}</pre>
-			</div>
-		{/await}
+		<d-button href="/logout" class="mt-20">{m.Logout()}</d-button>
 	</div>
 </TabPage>
