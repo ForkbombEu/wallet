@@ -51,7 +51,6 @@ export const askCredential = async (
 		data,
 		keys
 	});
-
 	return request.result.result as CredentialResult;
 };
 

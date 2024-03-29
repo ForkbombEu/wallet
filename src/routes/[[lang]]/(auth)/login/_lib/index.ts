@@ -9,7 +9,6 @@ import scriptGenerateDid from './scriptGenerateDid.zen?raw';
 
 //
 
-//@ts-expect-error - Slangroom has no types
 const slangroom = new Slangroom(pocketbase);
 
 const pb_address: string = 'https://admin.signroom.io';

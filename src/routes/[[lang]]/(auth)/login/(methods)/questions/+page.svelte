@@ -17,6 +17,7 @@
 	import fingerPrintLottie from '$lib/assets/fingerPrintLottie.json?url';
 	import fingerPrintLottieLight from '$lib/assets/fingerPrintLottieLight.json?url';
 	import { isDark } from '$lib/isDark';
+	import type { Feedback } from '$lib/utils/types';
 
 	//
 
@@ -28,6 +29,8 @@
 	let seed: string | undefined = undefined;
 
 	let loading: boolean = false;
+
+	let feedback: Feedback = {};
 
 	//
 
@@ -85,6 +88,11 @@
 				 */
 			} catch (e) {
 				loading = false;
+				feedback = {
+					type: 'error',
+					message: JSON.stringify(e),
+					feedback: 'error while generating keypair'
+				};
 				throw new Error('KEYPAIR_GENERATION_ERROR');
 			}
 		}
@@ -106,6 +114,7 @@
 <Header>{m.SECURITY_QUESTIONS()}</Header>
 
 <div class="flex h-full w-screen flex-col gap-4 px-4">
+	<d-feedback {...feedback} />
 	{#if loading}
 		<div class="fixed z-50 h-full w-full bg-surface opacity-90">
 			<div class="flex h-full flex-col items-center justify-around">
