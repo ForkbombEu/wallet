@@ -56,5 +56,11 @@
 	"Email": "E-mail",
 	"emailexample_com": "email@example.com",
 	"type_your_email": "digita la tua email",
-	"Next": "Avanti"
+	"Next": "Avanti",
+	"SECURITY_QUESTIONS": "DOMANDE DI SICUREZZA",
+	"Generating_Keypair_": "Generazione del keyring in corso...",
+	"Answer_to_these_questions": "Genera chiavi segrete",
+	"to_ensure_the_security_of_your_account_and_simplify_key_recovery_please_answer_the_following_questions_": "Nessuno può leggere le tue risposte! Le risposte vengono utilizzate per generare (e successivamente rigenerare) le tue chiavi segrete. NON vengono archiviate NÉ comunicati a nessuno.",
+	"Please_choose_both_secure_and_easily_memorable_answers_Your_answers_will_be_casesensitive_": "Puoi rispondere fornendo informazioni corrette, oppure semplicemente scrivere del testo (se lo fai, annota le tue risposte). Le risposte saranno nuovamente necessarie per accedere su un dispositivo diverso.",
+	"Store_this_keypair": "Conserva questo keyring,"
 }
