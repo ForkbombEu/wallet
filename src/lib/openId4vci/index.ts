@@ -94,42 +94,25 @@ export type CredentialDefinition = {
 	type: string[];
 };
 
-export type CredentialConfiguration = {
-	credential_definition: CredentialDefinition;
-	credential_signing_alg_values_supported: string[];
-	cryptographic_binding_methods_supported: string[];
-	display: {
-		background_color: string;
-		locale: string;
-		logo: { alt_text: string; url: string };
-		name: string;
-		text_color: string;
-	}[];
-	format: string;
-	proof_types_supported: {
-		jwt: { proof_signing_alg_values_supported: string[] };
-	};
+export type AuthorizationServerInfo = {
+	authorization_servers: string[];
+	credential_endpoint: string;
+	credential_issuer: string;
+	display: { locale: string; name: string }[];
+	jwks: { keys: JWKSKey[] };
 };
 
-export type AuthorizationServer = {
-	authorization_details_types_supported: string[];
+export type CredentialParameters = {
 	authorization_endpoint: string;
-	client_registration_types_supported: string[];
-	code_challenge_methods_supported: string[];
-	dpop_signing_alg_values_supported: string[];
-	grant_types_supported: string[];
-	issuer: string;
-	jwks: { keys: JWKSKey[] };
-	pushed_authorization_request_endpoint: string;
-	request_object_signing_alg_values_supported: string[];
-	request_parameter_supported: boolean;
-	request_uri_parameter_supported: boolean;
-	response_types_supported: string[];
-	scopes_supported: string[];
-	subject_types_supported: string[];
+	authorization_server_endpoint_par: string;
+	code_challenge_method: string;
+	credential_endpoint: string;
+	credential_issuer: string;
+	format: string;
+	grant_type: string;
+	response_type: string;
 	token_endpoint: string;
-	token_endpoint_auth_methods_supported: string[];
-	token_endpoint_auth_signing_alg_values_supported: string[];
+	vct: string;
 };
 
 export type CredentialRequested = {
@@ -138,6 +121,7 @@ export type CredentialRequested = {
 	cryptographic_binding_methods_supported: string[];
 	display: {
 		background_color: string;
+		description: string;
 		locale: string;
 		logo: { alt_text: string; url: string };
 		name: string;
@@ -149,27 +133,12 @@ export type CredentialRequested = {
 	};
 };
 
-export type ExternalQRCodeContent = {
-	credential_configuration_ids: string[];
-	credential_issuer: string;
-};
-
-export type OpenIDCredentialIssuer = {
-	authorization_servers: string[];
-	credential_configurations_supported: CredentialConfiguration[];
-	credential_endpoint: string;
-	credential_issuer: string;
-	display: { locale: string; name: string }[];
-	jwks: { keys: JWKSKey[] };
-};
-
 export type QrToWellKnown = {
-	credential_parameters: {
-		'oauth-authorization-server': AuthorizationServer;
-		'openid-credential-issuer': OpenIDCredentialIssuer;
-	};
+	credential_issuer_information: AuthorizationServerInfo;
+	credential_parameters: CredentialParameters;
 	credential_requested: CredentialRequested;
 };
+
 
 export type CredentialResult = {
 	c_nonce: string;
