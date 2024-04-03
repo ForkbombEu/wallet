@@ -1,3 +1,10 @@
+## [1.25.2](https://github.com/ForkbombEu/wallet/compare/v1.25.1...v1.25.2) (2024-04-03)
+
+
+### Bug Fixes
+
+* missing constrains on claims form ([#234](https://github.com/ForkbombEu/wallet/issues/234)) ([779b137](https://github.com/ForkbombEu/wallet/commit/779b1373eca885d9f82d0766599edda30a80e83c))
+
 ## [1.25.1](https://github.com/ForkbombEu/wallet/compare/v1.25.0...v1.25.1) (2024-04-03)
 
 
