@@ -1,3 +1,11 @@
+## [1.25.3](https://github.com/ForkbombEu/wallet/compare/v1.25.2...v1.25.3) (2024-04-03)
+
+
+### Bug Fixes
+
+* remove useless link to passphrase method in login ([#236](https://github.com/ForkbombEu/wallet/issues/236)) ([06e8b77](https://github.com/ForkbombEu/wallet/commit/06e8b7753f3c2ad67dda5b66e355bf11ae2448c7))
+* translate skip onboarding ([#235](https://github.com/ForkbombEu/wallet/issues/235)) ([3726b82](https://github.com/ForkbombEu/wallet/commit/3726b825142abd6ed0ebebae124a57540383f736))
+
 ## [1.25.2](https://github.com/ForkbombEu/wallet/compare/v1.25.1...v1.25.2) (2024-04-03)
 
 
