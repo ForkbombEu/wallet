@@ -1,3 +1,11 @@
+## [1.25.1](https://github.com/ForkbombEu/wallet/compare/v1.25.0...v1.25.1) (2024-04-03)
+
+
+### Bug Fixes
+
+* pocketbase slangroom plugin version ([#232](https://github.com/ForkbombEu/wallet/issues/232)) ([2b6b442](https://github.com/ForkbombEu/wallet/commit/2b6b44208ed69c394ebb6c40ca66f0a16adb4adb))
+* slangroom http version ([#229](https://github.com/ForkbombEu/wallet/issues/229)) ([30c07ec](https://github.com/ForkbombEu/wallet/commit/30c07ecfeaef0ac70b0883ec2abdf012190d937e))
+
 # [1.25.0](https://github.com/ForkbombEu/wallet/compare/v1.24.0...v1.25.0) (2024-04-03)
 
 
