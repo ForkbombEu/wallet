@@ -1,3 +1,24 @@
+# [1.25.0](https://github.com/ForkbombEu/wallet/compare/v1.24.0...v1.25.0) (2024-04-03)
+
+
+### Features
+
+* 🐦 update translations ([#231](https://github.com/ForkbombEu/wallet/issues/231)) ([de77094](https://github.com/ForkbombEu/wallet/commit/de7709467e2c462f4f368555a53e07df0ef3497f))
+
+# [1.24.0](https://github.com/ForkbombEu/wallet/compare/v1.23.6...v1.24.0) (2024-04-03)
+
+
+### Bug Fixes
+
+* add actual description to credential ([b5d7bfd](https://github.com/ForkbombEu/wallet/commit/b5d7bfd50ace5eb3d4a430a8d3f46889dae7b61d))
+
+
+### Features
+
+* add swipe navigation ([#227](https://github.com/ForkbombEu/wallet/issues/227)) ([5b645da](https://github.com/ForkbombEu/wallet/commit/5b645da6335c6dd2bd0fb1b9f3aca40eaf70f719))
+* add swipe navigation to credential detail ([67a1b7c](https://github.com/ForkbombEu/wallet/commit/67a1b7c148d872f1b918d500c3441164ced8f3f7))
+* swipe navigation in onboarding ([02ae757](https://github.com/ForkbombEu/wallet/commit/02ae7578790078b54a280d4578d1c41e65a8f49c))
+
 ## [1.23.6](https://github.com/ForkbombEu/wallet/compare/v1.23.5...v1.23.6) (2024-03-29)
 
 

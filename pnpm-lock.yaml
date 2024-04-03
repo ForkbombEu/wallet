@@ -69,8 +69,8 @@ dependencies:
     specifier: 1.27.6
     version: 1.27.6(zenroom@4.20.0)
   '@slangroom/pocketbase':
-    specifier: latest
-    version: 1.28.0(@capacitor/core@5.7.2)(zenroom@4.20.0)
+    specifier: 1.27.6
+    version: 1.27.6(zenroom@4.20.0)
   '@slangroom/zencode':
     specifier: ^1.27.0
     version: 1.27.0(zenroom@4.20.0)
@@ -2965,17 +2965,15 @@ packages:
       - zenroom
     dev: false
 
-  /@slangroom/pocketbase@1.28.0(@capacitor/core@5.7.2)(zenroom@4.20.0):
-    resolution: {integrity: sha512-sb8iMV7W/RcGBQRU9Jk+elYkmdKqdVSDecU44x5eeGoKAgObScLBh7Ln6wRLks7yBJP/lQ4Xgc815OPCd+MgYw==}
+  /@slangroom/pocketbase@1.27.6(zenroom@4.20.0):
+    resolution: {integrity: sha512-CRmHwHjzIr73CkaEzJLNx58S+RfApSiPHXY6eE7JJijzRypr14yTqDuPTcCIL90+DRJkRRTREAjQSfZdOJoFkw==}
     dependencies:
-      '@capacitor/preferences': 5.0.7(@capacitor/core@5.7.2)
       '@slangroom/core': 1.27.6(zenroom@4.20.0)
       '@slangroom/shared': 1.27.6(zenroom@4.20.0)
       dotenv: 16.4.5
       pocketbase: 0.19.0
       zod: 3.22.4
     transitivePeerDependencies:
-      - '@capacitor/core'
       - zenroom
     dev: false
 
