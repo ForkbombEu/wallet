@@ -1,3 +1,25 @@
+## [1.25.4](https://github.com/ForkbombEu/wallet/compare/v1.25.3...v1.25.4) (2024-04-03)
+
+
+### Bug Fixes
+
+* bump mobile_zencode to latest commit ([#220](https://github.com/ForkbombEu/wallet/issues/220)) ([c23584b](https://github.com/ForkbombEu/wallet/commit/c23584bf27aa43d1ebe38d246889208698a01d5d))
+
+## [1.25.3](https://github.com/ForkbombEu/wallet/compare/v1.25.2...v1.25.3) (2024-04-03)
+
+
+### Bug Fixes
+
+* remove useless link to passphrase method in login ([#236](https://github.com/ForkbombEu/wallet/issues/236)) ([06e8b77](https://github.com/ForkbombEu/wallet/commit/06e8b7753f3c2ad67dda5b66e355bf11ae2448c7))
+* translate skip onboarding ([#235](https://github.com/ForkbombEu/wallet/issues/235)) ([3726b82](https://github.com/ForkbombEu/wallet/commit/3726b825142abd6ed0ebebae124a57540383f736))
+
+## [1.25.2](https://github.com/ForkbombEu/wallet/compare/v1.25.1...v1.25.2) (2024-04-03)
+
+
+### Bug Fixes
+
+* missing constrains on claims form ([#234](https://github.com/ForkbombEu/wallet/issues/234)) ([779b137](https://github.com/ForkbombEu/wallet/commit/779b1373eca885d9f82d0766599edda30a80e83c))
+
 ## [1.25.1](https://github.com/ForkbombEu/wallet/compare/v1.25.0...v1.25.1) (2024-04-03)
 
 

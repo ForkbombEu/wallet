@@ -3,6 +3,7 @@
 	import Second from '$lib/components/onBoarding/Second.svelte';
 	import Third from '$lib/components/onBoarding/Third.svelte';
 	import { completeOnBoarding } from '$lib/components/onBoarding/utils';
+	import { m } from '$lib/i18n';
 	import { register } from 'swiper/element/bundle';
 
 	register();
@@ -28,7 +29,7 @@
 			on:click={completeOnBoarding}
 			on:keydown={completeOnBoarding}
 		>
-			Complete
+			{m.SKIP()}
 		</d-button>
 	</div>
 </ion-content>
