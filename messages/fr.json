@@ -59,7 +59,7 @@
 	"Next": "Prochain",
 	"SECURITY_QUESTIONS": "QUESTIONS DE SÉCURITÉ",
 	"Generating_Keypair_": "Génération du keyring...",
-	"Answer_to_these_questions": "Générer des clés secrètes",
+	"Answer_to_these_questions": "Génération des clés secrètes",
 	"to_ensure_the_security_of_your_account_and_simplify_key_recovery_please_answer_the_following_questions_": "Personne ne peut lire vos réponses ! Les réponses sont utilisées pour générer (et aprés régénérer) vos clés secrètes. Elles ne sont PAS stockés NI communiqués à quiconque.",
 	"Please_choose_both_secure_and_easily_memorable_answers_Your_answers_will_be_casesensitive_": "Vous pouvez répondre en fournissant des informations correctes ou simplement écrire du texte (veuillez noter vos réponses si vous le faites). Les réponses seront à nouveau nécessaires pour vous connecter sur un autre appareil.",
 	"Store_this_keypair": "Rangez ce keyring,",
