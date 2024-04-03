@@ -2,22 +2,33 @@
 	import First from '$lib/components/onBoarding/First.svelte';
 	import Second from '$lib/components/onBoarding/Second.svelte';
 	import Third from '$lib/components/onBoarding/Third.svelte';
-	import { Stepper, makeStep } from '@efstajas/svelte-stepper';
+	import { completeOnBoarding } from '$lib/components/onBoarding/utils';
+	import { register } from 'swiper/element/bundle';
 
-	const steps = [
-		makeStep({
-			component: First,
-			props: { index: 0, total: 3 }
-		}),
-		makeStep({
-			component: Second,
-			props: { index: 1, total: 3 }
-		}),
-		makeStep({
-			component: Third,
-			props: { index: 2, total: 3 }
-		})
-	];
+	register();
 </script>
 
-<Stepper {steps} />
+<ion-content fullscreen>
+	<swiper-container
+		centered-slides={true}
+		pagination={true}
+		centeredSlides={true}
+		class="mt-8 h-5/6"
+	>
+		<swiper-slide class="h-full"><First /> </swiper-slide>
+		<swiper-slide class="h-full"><Second /> </swiper-slide>
+		<swiper-slide class="h-full"><Third /> </swiper-slide>
+	</swiper-container>
+	<div class="flex justify-center">
+		<d-button
+			aria-hidden
+			clear
+			color="accent"
+			class="underline"
+			on:click={completeOnBoarding}
+			on:keydown={completeOnBoarding}
+		>
+			Complete
+		</d-button>
+	</div>
+</ion-content>
