@@ -60,7 +60,7 @@
 	"SECURITY_QUESTIONS": "SICHERHEITSFRAGEN",
 	"Generating_Keypair_": "Keyring wird generiert ...",
 	"Answer_to_these_questions": "Geheime Schlüssel generieren",
-	"to_ensure_the_security_of_your_account_and_simplify_key_recovery_please_answer_the_following_questions_": "Niemand kann Ihre Antworten lesen! Die Antworten werden verwendet, um Ihre geheimen Schlüssel zu generieren (und später neu zu generieren). Sie werden NICHT gespeichert NOCH an irgendjemanden weitergegeben.",
+	"to_ensure_the_security_of_your_account_and_simplify_key_recovery_please_answer_the_following_questions_": "Niemand kann Ihre Antworten lesen! Die Antworten werden verwendet, um Ihre geheimen Schlüssel zu generieren (und später neu zu generieren). Sie werden weder gespeichert noch an irgendjemanden weitergegeben.",
 	"Please_choose_both_secure_and_easily_memorable_answers_Your_answers_will_be_casesensitive_": "Sie können mit korrekten Informationen antworten oder einfach irgendwelche Text verwenden (bitte notieren Sie sich Ihre Antworten, wenn Sie dies tun). Die Antworten werden erneut benötigt, um sich auf einem anderen Gerät anzumelden.",
 	"Store_this_keypair": "Du hast einen Keyring!",
 	"your_unique_keypair_has_been_generated_successfully_": "Ihr Keyring, der alle Ihre geheimen Schlüssel enthält, wurde erfolgreich generiert.",
