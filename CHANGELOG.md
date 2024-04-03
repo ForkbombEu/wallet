@@ -1,3 +1,10 @@
+## [1.25.5](https://github.com/ForkbombEu/wallet/compare/v1.25.4...v1.25.5) (2024-04-03)
+
+
+### Bug Fixes
+
+* improve i18n copy ([#238](https://github.com/ForkbombEu/wallet/issues/238)) ([2033f1e](https://github.com/ForkbombEu/wallet/commit/2033f1e0d9c6b92b03bdae71877bb03a6c30c941))
+
 ## [1.25.4](https://github.com/ForkbombEu/wallet/compare/v1.25.3...v1.25.4) (2024-04-03)
 
 
