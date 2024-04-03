@@ -1,3 +1,10 @@
+## [1.23.6](https://github.com/ForkbombEu/wallet/compare/v1.23.5...v1.23.6) (2024-03-29)
+
+
+### Bug Fixes
+
+* after logout go to right page and clear all app storage ([#222](https://github.com/ForkbombEu/wallet/issues/222)) ([7baa1cb](https://github.com/ForkbombEu/wallet/commit/7baa1cb5d988457e85d0faadaedb040cd532c62c))
+
 ## [1.23.5](https://github.com/ForkbombEu/wallet/compare/v1.23.4...v1.23.5) (2024-03-25)
 
 

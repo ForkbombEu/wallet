@@ -31,6 +31,10 @@ export const removePreference = async (key: string) => {
 	await Preferences.remove({ key });
 };
 
+export const clearPreferences = async () => {
+	await Preferences.clear();
+}
+
 export const getStructuredPreferences = async <T>(
 	key: string,
 	confidential: boolean = false
