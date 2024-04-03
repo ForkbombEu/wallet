@@ -1,3 +1,10 @@
+# [1.25.0](https://github.com/ForkbombEu/wallet/compare/v1.24.0...v1.25.0) (2024-04-03)
+
+
+### Features
+
+* 🐦 update translations ([#231](https://github.com/ForkbombEu/wallet/issues/231)) ([de77094](https://github.com/ForkbombEu/wallet/commit/de7709467e2c462f4f368555a53e07df0ef3497f))
+
 # [1.24.0](https://github.com/ForkbombEu/wallet/compare/v1.23.6...v1.24.0) (2024-04-03)
 
 
