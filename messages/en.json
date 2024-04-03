@@ -77,11 +77,12 @@
 	"CREATE_AN_ACCOUNT": "CREATE AN ACCOUNT",
 	"LOGIN": "LOGIN",
 	"on_boarding_subtitle_1": "DIDroom supports multiple standards like EUDI-ARF (eIDAS 2.0), W3C-VC, W3C-DID and BBS zero-knowledge proofs.",
-	"on_boarding_subtitle_2": "Use DIDroom to create a decentralized identity using W3C-DID (or EUDI-ARF).",
+    "on_boarding_subtitle_2": "Use DIDroom to create a decentralized identity using W3C-DID (or EUDI-ARF).",
 	"on_boarding_subtitle_3": "Request and store credentials with the DIDroom wallet, create issuance and verification services with the DIDroom dashboard and microservices. ",
 	"Enter_your_keypair": "Enter your passphrase,",
 	"if_you_have_stored_your_keypair_securely_you_can_enter_it_below_to_access_your_wallet_": "if you have stored your passphrase securely, you can enter it below to access your wallet.",
 	"Login_using_your_keypair": "Login using your passphrase",
 	"KEYPAIR_RECOVERY": "KEYRING RECOVERY",
-	"Work_in_progress": "Work in progress"
+	"Work_in_progress": "Work in progress",
+	"SKIP": "SKIP"
 }
