@@ -19,6 +19,25 @@
 	import searchDark from '$lib/assets/search-dark.svg';
 	import { isDark } from '$lib/isDark';
 
+	bell;
+	bellDark;
+	cardCloud;
+	cardCloudDark;
+	cards;
+	cardsDark;
+	chat;
+	chatDark;
+	handCard;
+	handCardDark;
+	handEllipsis;
+	handEllipsisDark;
+	logoHand;
+	logoHandDark;
+	pidgeon;
+	pidgeonDark;
+	search;
+	searchDark;
+
 	export let img:
 		| 'bell'
 		| 'card-cloud'

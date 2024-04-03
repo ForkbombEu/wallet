@@ -50,9 +50,6 @@ dependencies:
   '@capacitor/status-bar':
     specifier: ^5.0.7
     version: 5.0.7(@capacitor/core@5.7.2)
-  '@efstajas/svelte-stepper':
-    specifier: ^0.2.1
-    version: 0.2.1(svelte@4.2.12)
   '@fontsource-variable/gantari':
     specifier: ^5.0.13
     version: 5.0.13
@@ -1630,15 +1627,6 @@ packages:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
-
-  /@efstajas/svelte-stepper@0.2.1(svelte@4.2.12):
-    resolution: {integrity: sha512-++1nVZ7P/ZpUTxsX5osSuM7VaxqOldWA1UmC9a2WN1QqZyvBd/IUHPc7KIJuQ+RfCMwpNg7mg+tDZwqyZUuMHA==}
-    peerDependencies:
-      svelte: ^4.0.0
-    dependencies:
-      esm-env: 1.0.0
-      svelte: 4.2.12
-    dev: false
 
   /@esbuild/aix-ppc64@0.19.12:
     resolution: {integrity: sha512-bmoCYyWdEL3wDQIVbcyzRyeKLgk2WtWLTWz1ZIAZF/EGbNOwSA6ew3PftJ1PqMiOOGu0OyFMzG53L0zqIpPeNA==}

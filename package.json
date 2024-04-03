@@ -78,7 +78,6 @@
 		"@capacitor/keyboard": "^5.0.8",
 		"@capacitor/preferences": "^5.0.7",
 		"@capacitor/status-bar": "^5.0.7",
-		"@efstajas/svelte-stepper": "^0.2.1",
 		"@fontsource-variable/gantari": "^5.0.13",
 		"@inlang/paraglide-js-adapter-sveltekit": "^0.5.10",
 		"@ionic/core": "^7.8.0",
