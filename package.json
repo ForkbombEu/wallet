@@ -83,7 +83,7 @@
 		"@ionic/core": "^7.8.0",
 		"@slangroom/core": "latest",
 		"@slangroom/helpers": "^1.27.0",
-		"@slangroom/http": "latest",
+		"@slangroom/http": "1.27.6",
 		"@slangroom/pocketbase": "latest",
 		"@slangroom/zencode": "^1.27.0",
 		"ajv": "^8.12.0",

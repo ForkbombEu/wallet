@@ -66,8 +66,8 @@ dependencies:
     specifier: ^1.27.0
     version: 1.27.0(zenroom@4.20.0)
   '@slangroom/http':
-    specifier: latest
-    version: 1.27.7(zenroom@4.20.0)
+    specifier: 1.27.6
+    version: 1.27.6(zenroom@4.20.0)
   '@slangroom/pocketbase':
     specifier: latest
     version: 1.28.0(@capacitor/core@5.7.2)(zenroom@4.20.0)
@@ -2936,12 +2936,14 @@ packages:
       - zenroom
     dev: false
 
-  /@slangroom/http@1.27.7(zenroom@4.20.0):
-    resolution: {integrity: sha512-0SuhdMFfLZkKj6tO9IDQaprBW9KHM1xXWPuQ+ktv8LzC1qBFPofgl1utFrKxpS8q+e4QLXUti4IBzwyjOcUOxA==}
+  /@slangroom/http@1.27.6(zenroom@4.20.0):
+    resolution: {integrity: sha512-vSlcw+5auKhA/LtPC7wWKj0qxbFyRXYBL92Vc9qM0B7LzhT7iuYXL5OejlROhSgTv+cBa68YII7w0doNOTCYkw==}
     dependencies:
       '@slangroom/core': 1.27.6(zenroom@4.20.0)
       '@slangroom/shared': 1.27.6(zenroom@4.20.0)
+      axios: 1.6.7
     transitivePeerDependencies:
+      - debug
       - zenroom
     dev: false
 
