@@ -1,3 +1,10 @@
+## [1.25.4](https://github.com/ForkbombEu/wallet/compare/v1.25.3...v1.25.4) (2024-04-03)
+
+
+### Bug Fixes
+
+* bump mobile_zencode to latest commit ([#220](https://github.com/ForkbombEu/wallet/issues/220)) ([c23584b](https://github.com/ForkbombEu/wallet/commit/c23584bf27aa43d1ebe38d246889208698a01d5d))
+
 ## [1.25.3](https://github.com/ForkbombEu/wallet/compare/v1.25.2...v1.25.3) (2024-04-03)
 
 
