@@ -88,6 +88,7 @@
 					placeholder={inputAttributes.placeholder}
 					aria-label={label}
 					aria-required={required}
+					{required}
 					clear-input
 					label-placement={inputAttributes['label-placement'] ?? 'floating'}
 					{value}
