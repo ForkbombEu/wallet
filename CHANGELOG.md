@@ -1,3 +1,10 @@
+## [1.25.6](https://github.com/ForkbombEu/wallet/compare/v1.25.5...v1.25.6) (2024-04-04)
+
+
+### Bug Fixes
+
+* use always same lottie animations as waiter ([#219](https://github.com/ForkbombEu/wallet/issues/219)) ([72befde](https://github.com/ForkbombEu/wallet/commit/72befde1d9ad5b38ef5e330eb8beaad0a1da297b))
+
 ## [1.25.5](https://github.com/ForkbombEu/wallet/compare/v1.25.4...v1.25.5) (2024-04-03)
 
 
