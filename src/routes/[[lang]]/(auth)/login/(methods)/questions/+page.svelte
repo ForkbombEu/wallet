@@ -14,9 +14,7 @@
 	import { z } from 'zod';
 	import { generateDid, generateSignroomUser } from '../../_lib';
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
-	import fingerPrintLottie from '$lib/assets/fingerPrintLottie.json?url';
-	import fingerPrintLottieLight from '$lib/assets/fingerPrintLottieLight.json?url';
-	import { isDark } from '$lib/isDark';
+	import { getLottieAnimation } from '$lib/getLottieAnimation';
 
 	//
 
@@ -111,7 +109,7 @@
 			<div class="flex h-full flex-col items-center justify-around">
 				<div class="flex flex-col items-center gap-8">
 					<LottiePlayer
-						src={isDark ? fingerPrintLottie : fingerPrintLottieLight}
+						src={getLottieAnimation()}
 						autoplay={true}
 						loop={true}
 						renderer="svg"

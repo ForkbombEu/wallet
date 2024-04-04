@@ -1,14 +1,12 @@
 <script lang="ts">
 	import { m } from '$lib/i18n';
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
-	import fingerPrintLottie from '$lib/assets/fingerPrintLottie.json?url';
-	import fingerPrintLottieLight from '$lib/assets/fingerPrintLottieLight.json?url';
-	import { isDark } from '$lib/isDark';
+	import { getLottieAnimation } from '$lib/getLottieAnimation';
 </script>
 
 <div class="flex h-full flex-col items-center justify-center">
 	<LottiePlayer
-		src={isDark ? fingerPrintLottie : fingerPrintLottieLight}
+		src={getLottieAnimation()}
 		autoplay={true}
 		loop={true}
 		renderer="svg"

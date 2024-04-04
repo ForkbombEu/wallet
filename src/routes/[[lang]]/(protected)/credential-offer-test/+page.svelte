@@ -6,8 +6,6 @@
 	import { thumbsUpOutline } from 'ionicons/icons';
 	import { goto } from '$lib/i18n';
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
-	import fingerPrintLottie from '$lib/assets/fingerPrintLottie.json?url';
-	import fingerPrintLottieLight from '$lib/assets/fingerPrintLottieLight.json?url';
 	import { m } from '$lib/i18n';
 	import Header from '$lib/components/molecules/Header.svelte';
 	import { setCredentialPreference } from '$lib/preferences/credentials';
@@ -16,9 +14,9 @@
 	import { askCredential, getKeys } from '$lib/openId4vci';
 	import type { Service } from '$lib/components/organisms/scanner/tools';
 	import { log } from '$lib/log';
-	import { isDark } from '$lib/isDark';
+	import { getLottieAnimation } from '$lib/getLottieAnimation';
 
-	let isModalOpen: boolean = true;
+	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
 	let serviceResponse: CredentialResult;
 
@@ -113,7 +111,7 @@
 							/>
 							<div class="mx-auto w-fit pt-8">
 								<LottiePlayer
-									src={isDark ? fingerPrintLottie : fingerPrintLottieLight}
+									src={getLottieAnimation()}
 									autoplay={true}
 									loop={true}
 									renderer="svg"
