@@ -155,7 +155,7 @@
 					</ion-item>
 				</FormError>
 
-				<hr />
+				<!-- <hr />
 
 				<div>
 					<ion-text color="secondary">
@@ -163,7 +163,7 @@
 							>{m.Login_with_your_passphrase_Tap_here()}</a
 						>
 					</ion-text>
-				</div>
+				</div> -->
 			</div>
 		</Form>
 		<d-button
