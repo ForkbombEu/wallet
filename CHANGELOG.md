@@ -1,3 +1,75 @@
+## [1.25.6](https://github.com/ForkbombEu/wallet/compare/v1.25.5...v1.25.6) (2024-04-04)
+
+
+### Bug Fixes
+
+* use always same lottie animations as waiter ([#219](https://github.com/ForkbombEu/wallet/issues/219)) ([72befde](https://github.com/ForkbombEu/wallet/commit/72befde1d9ad5b38ef5e330eb8beaad0a1da297b))
+
+## [1.25.5](https://github.com/ForkbombEu/wallet/compare/v1.25.4...v1.25.5) (2024-04-03)
+
+
+### Bug Fixes
+
+* improve i18n copy ([#238](https://github.com/ForkbombEu/wallet/issues/238)) ([2033f1e](https://github.com/ForkbombEu/wallet/commit/2033f1e0d9c6b92b03bdae71877bb03a6c30c941))
+
+## [1.25.4](https://github.com/ForkbombEu/wallet/compare/v1.25.3...v1.25.4) (2024-04-03)
+
+
+### Bug Fixes
+
+* bump mobile_zencode to latest commit ([#220](https://github.com/ForkbombEu/wallet/issues/220)) ([c23584b](https://github.com/ForkbombEu/wallet/commit/c23584bf27aa43d1ebe38d246889208698a01d5d))
+
+## [1.25.3](https://github.com/ForkbombEu/wallet/compare/v1.25.2...v1.25.3) (2024-04-03)
+
+
+### Bug Fixes
+
+* remove useless link to passphrase method in login ([#236](https://github.com/ForkbombEu/wallet/issues/236)) ([06e8b77](https://github.com/ForkbombEu/wallet/commit/06e8b7753f3c2ad67dda5b66e355bf11ae2448c7))
+* translate skip onboarding ([#235](https://github.com/ForkbombEu/wallet/issues/235)) ([3726b82](https://github.com/ForkbombEu/wallet/commit/3726b825142abd6ed0ebebae124a57540383f736))
+
+## [1.25.2](https://github.com/ForkbombEu/wallet/compare/v1.25.1...v1.25.2) (2024-04-03)
+
+
+### Bug Fixes
+
+* missing constrains on claims form ([#234](https://github.com/ForkbombEu/wallet/issues/234)) ([779b137](https://github.com/ForkbombEu/wallet/commit/779b1373eca885d9f82d0766599edda30a80e83c))
+
+## [1.25.1](https://github.com/ForkbombEu/wallet/compare/v1.25.0...v1.25.1) (2024-04-03)
+
+
+### Bug Fixes
+
+* pocketbase slangroom plugin version ([#232](https://github.com/ForkbombEu/wallet/issues/232)) ([2b6b442](https://github.com/ForkbombEu/wallet/commit/2b6b44208ed69c394ebb6c40ca66f0a16adb4adb))
+* slangroom http version ([#229](https://github.com/ForkbombEu/wallet/issues/229)) ([30c07ec](https://github.com/ForkbombEu/wallet/commit/30c07ecfeaef0ac70b0883ec2abdf012190d937e))
+
+# [1.25.0](https://github.com/ForkbombEu/wallet/compare/v1.24.0...v1.25.0) (2024-04-03)
+
+
+### Features
+
+* 🐦 update translations ([#231](https://github.com/ForkbombEu/wallet/issues/231)) ([de77094](https://github.com/ForkbombEu/wallet/commit/de7709467e2c462f4f368555a53e07df0ef3497f))
+
+# [1.24.0](https://github.com/ForkbombEu/wallet/compare/v1.23.6...v1.24.0) (2024-04-03)
+
+
+### Bug Fixes
+
+* add actual description to credential ([b5d7bfd](https://github.com/ForkbombEu/wallet/commit/b5d7bfd50ace5eb3d4a430a8d3f46889dae7b61d))
+
+
+### Features
+
+* add swipe navigation ([#227](https://github.com/ForkbombEu/wallet/issues/227)) ([5b645da](https://github.com/ForkbombEu/wallet/commit/5b645da6335c6dd2bd0fb1b9f3aca40eaf70f719))
+* add swipe navigation to credential detail ([67a1b7c](https://github.com/ForkbombEu/wallet/commit/67a1b7c148d872f1b918d500c3441164ced8f3f7))
+* swipe navigation in onboarding ([02ae757](https://github.com/ForkbombEu/wallet/commit/02ae7578790078b54a280d4578d1c41e65a8f49c))
+
+## [1.23.6](https://github.com/ForkbombEu/wallet/compare/v1.23.5...v1.23.6) (2024-03-29)
+
+
+### Bug Fixes
+
+* after logout go to right page and clear all app storage ([#222](https://github.com/ForkbombEu/wallet/issues/222)) ([7baa1cb](https://github.com/ForkbombEu/wallet/commit/7baa1cb5d988457e85d0faadaedb040cd532c62c))
+
 ## [1.23.5](https://github.com/ForkbombEu/wallet/compare/v1.23.4...v1.23.5) (2024-03-25)
 
 

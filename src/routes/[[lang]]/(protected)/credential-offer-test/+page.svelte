@@ -15,6 +15,7 @@
 	import type { Service } from '$lib/components/organisms/scanner/tools';
 	import { log } from '$lib/log';
 	import type { Feedback } from '$lib/utils/types';
+	import { getLottieAnimation } from '$lib/getLottieAnimation';
 
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
@@ -54,7 +55,7 @@
 				name: qrToWellKnown.credential_requested.display[0].name,
 				sdJwt: serviceResponse.credential,
 				issuer: parsedService.credential_issuer,
-				description: '',
+				description: qrToWellKnown.credential_requested.display[0].description,
 				verified: false,
 				expirationDate: '',
 				logo: qrToWellKnown.credential_requested.display[0].logo
@@ -122,13 +123,16 @@
 								description={credentialInfo.name}
 								logoSrc={credentialInfo.logo.url}
 							/>
-							<LottiePlayer
-								src="https://assets2.lottiefiles.com/packages/lf20_wxUJzo.json"
-								autoplay={true}
-								loop={true}
-								renderer="svg"
-								background="transparent"
-							/>
+							<div class="mx-auto w-fit pt-8">
+								<LottiePlayer
+									src={getLottieAnimation()}
+									autoplay={true}
+									loop={true}
+									renderer="svg"
+									background="transparent"
+									width={120}
+								/>
+							</div>
 						{:else}
 							<div class="flex w-full justify-around">
 								<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"
