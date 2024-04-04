@@ -41,7 +41,7 @@
 				name: qrToWellKnown.credential_requested.display[0].name,
 				sdJwt: serviceResponse.credential,
 				issuer: parsedService.credential_issuer,
-				description: '',
+				description: qrToWellKnown.credential_requested.display[0].description,
 				verified: false,
 				expirationDate: '',
 				logo: qrToWellKnown.credential_requested.display[0].logo
