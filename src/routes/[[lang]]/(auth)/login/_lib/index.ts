@@ -57,6 +57,7 @@ export const generateDid = async (email:string) => {
 	};
 
 	type User = {
+		avatar: string
 		bitcoin_public_key: string;
 		collectionId: string;
 		collectionName: string;
@@ -91,7 +92,8 @@ export const generateDid = async (email:string) => {
 		data
 	})) as unknown as DIDResponse;
 	
-	await setUser(res.result.login_output.record.id, email);
+	const loginOutput = res.result.login_output.record;
+	await setUser(loginOutput.id, email, loginOutput.name, loginOutput.avatar);
 	await setDIDPreference(res.result.output.did);
 
 	return res.result.output;
