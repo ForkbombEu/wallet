@@ -1,3 +1,11 @@
+## [1.25.7](https://github.com/ForkbombEu/wallet/compare/v1.25.6...v1.25.7) (2024-04-08)
+
+
+### Bug Fixes
+
+* app side padding ([#240](https://github.com/ForkbombEu/wallet/issues/240)) ([adf5b7d](https://github.com/ForkbombEu/wallet/commit/adf5b7da186364b3a3e99fdac7bda79d9a4b46c7))
+* on-bording and login illustrations ([#241](https://github.com/ForkbombEu/wallet/issues/241)) ([46a8760](https://github.com/ForkbombEu/wallet/commit/46a8760764b11e40fc952d0f954f05db4041a3a8))
+
 ## [1.25.6](https://github.com/ForkbombEu/wallet/compare/v1.25.5...v1.25.6) (2024-04-04)
 
 
