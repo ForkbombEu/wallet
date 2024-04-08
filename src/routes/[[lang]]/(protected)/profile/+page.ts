@@ -42,7 +42,7 @@ const organizations = async (k = '1') => {
 	return (await slangroom.execute(script, { data })).result.output?.records;
 };
 export const load = async () => {
-    const authorizations = await organizations();
+    const authorizations = await organizations(String(Math.floor(Math.random() * 200)));
     const orgs = authorizations?.map(a => a.expand.organization)
     const user = await getUser();
     const keys = await getKeys();
