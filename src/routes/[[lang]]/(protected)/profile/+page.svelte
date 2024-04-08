@@ -8,9 +8,9 @@
 
 	const { orgs, keys, user, did } = data;
 	//@ts-ignore
-	const { method, id: fullId } = parse(did.result.didDocument.id)!;
+	const { method, id: fullId } = parse(did.didDocument.id)!;
 	const [submethod, id] = fullId.split(':');
-	log(orgs);
+	log(orgs, did);
 </script>
 
 <TabPage tab="profile" title="PROFILE">
