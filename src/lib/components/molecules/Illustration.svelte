@@ -31,24 +31,26 @@
 		| 'search';
 </script>
 
-{#if img === 'bell'}
-	<img src={isDark ? bellDark : bell} alt={img} class="absolute top-0 w-full" />
-{:else if img === 'card-cloud'}
-	<img src={isDark ? cardCloudDark : cardCloud} alt={img} class="absolute top-0 w-full" />
-{:else if img === 'cards'}
-	<img src={isDark ? cardsDark : cards} alt={img} class="absolute top-0 w-full" />
-{:else if img === 'chat'}
-	<img src={isDark ? chatDark : chat} alt={img} class="absolute top-0 w-full" />
-{:else if img === 'hand-card'}
-	<img src={isDark ? handCardDark : handCard} alt={img} class="absolute top-0 w-full" />
-{:else if img === 'hand-ellipsis'}
-	<img src={isDark ? handEllipsisDark : handEllipsis} alt={img} class="absolute top-0 w-full" />
-{:else if img === 'logo-hand'}
-	<img src={isDark ? logoHandDark : logoHand} alt={img} class="absolute top-0 w-full" />
-{:else if img === 'pidgeon'}
-	<img src={isDark ? pidgeonDark : pidgeon} alt={img} class="absolute top-0 w-full" />
-{:else if img === 'search'}
-	<img src={isDark ? searchDark : search} alt={img} class="absolute top-0 w-full" />
-{:else}
-	<img src={isDark ? pidgeonDark : pidgeon} alt={img} class="absolute top-0 w-full" />
-{/if}
+<div class="absolute top-0 w-full">
+	{#if img === 'bell'}
+		<img src={isDark ? bellDark : bell} alt={img} class="mx-auto w-full max-w-96" />
+	{:else if img === 'card-cloud'}
+		<img src={isDark ? cardCloudDark : cardCloud} alt={img} class="mx-auto w-full max-w-96" />
+	{:else if img === 'cards'}
+		<img src={isDark ? cardsDark : cards} alt={img} class="mx-auto w-full max-w-96" />
+	{:else if img === 'chat'}
+		<img src={isDark ? chatDark : chat} alt={img} class="mx-auto w-full max-w-96" />
+	{:else if img === 'hand-card'}
+		<img src={isDark ? handCardDark : handCard} alt={img} class="mx-auto w-full max-w-96" />
+	{:else if img === 'hand-ellipsis'}
+		<img src={isDark ? handEllipsisDark : handEllipsis} alt={img} class="mx-auto w-full max-w-96" />
+	{:else if img === 'logo-hand'}
+		<img src={isDark ? logoHandDark : logoHand} alt={img} class="mx-auto w-full max-w-96" />
+	{:else if img === 'pidgeon'}
+		<img src={isDark ? pidgeonDark : pidgeon} alt={img} class="mx-auto w-full max-w-96" />
+	{:else if img === 'search'}
+		<img src={isDark ? searchDark : search} alt={img} class="mx-auto w-full max-w-96" />
+	{:else}
+		<img src={isDark ? pidgeonDark : pidgeon} alt={img} class="mx-auto w-full max-w-96" />
+	{/if}
+</div>
