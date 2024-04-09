@@ -1,3 +1,10 @@
+# [1.26.0](https://github.com/ForkbombEu/wallet/compare/v1.25.8...v1.26.0) (2024-04-09)
+
+
+### Features
+
+* new profile page ([#205](https://github.com/ForkbombEu/wallet/issues/205)) ([cf3b9f9](https://github.com/ForkbombEu/wallet/commit/cf3b9f9a61710782d3f395d3fa3679ac7b0eed8b))
+
 ## [1.25.8](https://github.com/ForkbombEu/wallet/compare/v1.25.7...v1.25.8) (2024-04-09)
 
 
