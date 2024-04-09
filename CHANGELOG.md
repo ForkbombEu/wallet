@@ -1,3 +1,11 @@
+## [1.27.2](https://github.com/ForkbombEu/wallet/compare/v1.27.1...v1.27.2) (2024-04-09)
+
+
+### Bug Fixes
+
+* credentail offer feedback ([#244](https://github.com/ForkbombEu/wallet/issues/244)) ([7d9431c](https://github.com/ForkbombEu/wallet/commit/7d9431c4f20589370f548a8d474a4125544b3ff8))
+* is login check ([#246](https://github.com/ForkbombEu/wallet/issues/246)) ([83000ea](https://github.com/ForkbombEu/wallet/commit/83000ea64a335717e5c02a8cf47e0f2c7ca2a742))
+
 ## [1.27.1](https://github.com/ForkbombEu/wallet/compare/v1.27.0...v1.27.1) (2024-04-09)
 
 
