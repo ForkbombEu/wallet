@@ -83,5 +83,5 @@
 	"if_you_have_stored_your_keypair_securely_you_can_enter_it_below_to_access_your_wallet_": "si vous avez stocké votre passphrase en toute sécurité, vous pouvez la saisir ci-dessous pour accéder à votre portefeuille.",
 	"Login_using_your_keypair": "Connectez-vous en utilisant votre passphrase",
 	"KEYPAIR_RECOVERY": "RÉCUPÉRATION DU KEYRING",
-	"Work_in_progress": "Travaux en cours"
+	"Work_in_progress": "Pas encore actif, revenez plus tard"
 }
