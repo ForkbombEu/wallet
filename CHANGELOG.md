@@ -1,3 +1,10 @@
+## [1.27.4](https://github.com/ForkbombEu/wallet/compare/v1.27.3...v1.27.4) (2024-04-09)
+
+
+### Bug Fixes
+
+* login background ([#250](https://github.com/ForkbombEu/wallet/issues/250)) ([483565c](https://github.com/ForkbombEu/wallet/commit/483565c6c0ff6ca5a4828e36950710053c774de8))
+
 ## [1.27.3](https://github.com/ForkbombEu/wallet/compare/v1.27.2...v1.27.3) (2024-04-09)
 
 
