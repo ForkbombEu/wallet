@@ -1,3 +1,11 @@
+## [1.27.3](https://github.com/ForkbombEu/wallet/compare/v1.27.2...v1.27.3) (2024-04-09)
+
+
+### Bug Fixes
+
+* on schema generation display right label ([#248](https://github.com/ForkbombEu/wallet/issues/248)) ([4ff112f](https://github.com/ForkbombEu/wallet/commit/4ff112f9120f0c649b2f149bc0d6414d16d36e01))
+* on-boarding illustrations max width ([#249](https://github.com/ForkbombEu/wallet/issues/249)) ([df2d8a9](https://github.com/ForkbombEu/wallet/commit/df2d8a9654cf5fba546265af0e262a5d506d4128))
+
 ## [1.27.2](https://github.com/ForkbombEu/wallet/compare/v1.27.1...v1.27.2) (2024-04-09)
 
 
