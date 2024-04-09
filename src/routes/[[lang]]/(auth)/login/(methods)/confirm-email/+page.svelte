@@ -30,7 +30,7 @@
 	<div class="relative min-h-[40vh]">
 		<img
 			src={background}
-			class="w-full shrink-0 fill-[var(--highlight)] opacity-50"
+			class="max-h-[50vh] w-full shrink-0 fill-highlight opacity-50"
 			alt="background"
 		/>
 		<Illustration img="chat" />
