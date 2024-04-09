@@ -40,7 +40,7 @@ Then print data
 `,
 			{
 				data: {
-					path: `${PUBLIC_BACKEND_URL}/api/collections/services/records?expand=issuer&sort=-updated`
+					path: `${PUBLIC_BACKEND_URL}/api/collections/services/records?expand=issuer&sort=-updated&filter=(public=true)`
 				}
 			}
 		);
