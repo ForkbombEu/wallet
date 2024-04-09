@@ -1,3 +1,10 @@
+# [1.27.0](https://github.com/ForkbombEu/wallet/compare/v1.26.1...v1.27.0) (2024-04-09)
+
+
+### Features
+
+* I18n andrea - improved copy of issuance ([#245](https://github.com/ForkbombEu/wallet/issues/245)) ([833ef7d](https://github.com/ForkbombEu/wallet/commit/833ef7dce9712bae5468713e28c1450a6b357dcb))
+
 ## [1.26.1](https://github.com/ForkbombEu/wallet/compare/v1.26.0...v1.26.1) (2024-04-09)
 
 
