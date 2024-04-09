@@ -1,3 +1,10 @@
+## [1.27.5](https://github.com/ForkbombEu/wallet/compare/v1.27.4...v1.27.5) (2024-04-09)
+
+
+### Bug Fixes
+
+* missing infos in credential well known? ([#251](https://github.com/ForkbombEu/wallet/issues/251)) ([3c5dcf1](https://github.com/ForkbombEu/wallet/commit/3c5dcf10f71568115535bad1795dbe74d7afad41))
+
 ## [1.27.4](https://github.com/ForkbombEu/wallet/compare/v1.27.3...v1.27.4) (2024-04-09)
 
 
