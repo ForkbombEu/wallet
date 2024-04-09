@@ -1,5 +1,4 @@
 <script lang="ts">
-	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
 	import { m, r } from '$lib/i18n';
 	import { getCredentialsPreference } from '$lib/preferences/credentials';
 	import TabPage from '$lib/tabs/TabPage.svelte';
@@ -72,9 +71,6 @@
 						<d-credential-card
 							{...credential}
 							name={credential.display_name}
-							issuer={credential.credential_issuer.length > 18
-								? credential.credential_issuer.slice(0, 18) + '...'
-								: credential.credential_issuer}
 							logoSrc={credential.logo.url}
 						/>
 					</a>
@@ -87,5 +83,4 @@
 			<d-text size="l" class="pb-4">{error.message}</d-text>
 		</div>
 	{/await}
-	<ScanButton />
 </TabPage>
