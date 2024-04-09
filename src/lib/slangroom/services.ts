@@ -21,11 +21,11 @@ export type Service = {
 	collectionName: string;
 	created: string;
 	id: string;
-	issuer: string;
-	name: string;
+	credential_issuer: string;
+	display_name: string;
 	organization: string;
-	published: boolean;
-	templates: string[];
+	public: boolean;
+	credential_templates: string[];
 	updated: string;
 };
 

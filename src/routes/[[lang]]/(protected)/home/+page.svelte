@@ -20,8 +20,8 @@
 		<div class="flex flex-col gap-2">
 			{#each services as service}
 				<d-credential-service
-					name={service.name}
-					issuer={service.issuer}
+					name={service.display_name}
+					issuer={service.credential_issuer}
 					href={r(`/${service.id}/credential-offer`)}
 				/>
 			{/each}
