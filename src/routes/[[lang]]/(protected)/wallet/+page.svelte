@@ -71,9 +71,10 @@
 					<a href={r(`/${credential.id}/credential-detail`)}>
 						<d-credential-card
 							{...credential}
-							issuer={credential.issuer.length > 18
-								? credential.issuer.slice(0, 18) + '...'
-								: credential.issuer}
+							name={credential.display_name}
+							issuer={credential.credential_issuer.length > 18
+								? credential.credential_issuer.slice(0, 18) + '...'
+								: credential.credential_issuer}
 							logoSrc={credential.logo.url}
 						/>
 					</a>

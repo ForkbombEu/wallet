@@ -34,10 +34,11 @@
 			<swiper-slide id={getIndex(credential.id)}
 				><d-credential-card
 					{...credential}
+					name={credential.display_name}
 					description=""
-					issuer={credential.issuer.length > 18
-						? credential.issuer.slice(0, 18) + '...'
-						: credential.issuer}
+					issuer={credential.credential_issuer.length > 18
+						? credential.credential_issuer.slice(0, 18) + '...'
+						: credential.credential_issuer}
 				/>
 			</swiper-slide>
 		{/each}
