@@ -30,7 +30,7 @@ export type PBExpand<T extends PBRecord = PBRecord> = Record<string, T | T[]>;
 export type PBResponse<R extends PBRecord = PBRecord, E extends PBExpand = PBExpand> = R &
 	BaseSystemFields<E>;
 
-const PB = PUBLIC_BACKEND_URL;
+const PB = PUBLIC_BACKEND_URL + '/';
 
 export const slangroom = new Slangroom(http);
 

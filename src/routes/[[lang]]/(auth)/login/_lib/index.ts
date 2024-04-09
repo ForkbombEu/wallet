@@ -13,7 +13,7 @@ import { setUser } from '$lib/preferences/user';
 const slangroom = new Slangroom(pocketbase);
 
 const pb_address: string = 'https://admin.didroom.com';
-const password = 'CiccioLiam12345!'
+export const password = 'CiccioLiam12345!'
 
 export const userEmailStore = writable<{email:string | undefined, registration:boolean}>();
 
