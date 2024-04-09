@@ -36,7 +36,8 @@ export type Data =
 
 const allowedDomains = [
 	'http://oracle1.zenswarm.forkbomb.eu:3366/verify-credential',
-	'https://beta.signroom.io'
+	'https://beta.signroom.io',
+	'https://dashboard.didroom.com'
 ];
 
 function isUrlAllowed(url: string): boolean {

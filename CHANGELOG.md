@@ -1,3 +1,24 @@
+## [1.26.1](https://github.com/ForkbombEu/wallet/compare/v1.26.0...v1.26.1) (2024-04-09)
+
+
+### Bug Fixes
+
+* remove button credential detail ([#243](https://github.com/ForkbombEu/wallet/issues/243)) ([05553af](https://github.com/ForkbombEu/wallet/commit/05553af751855370c516210d9b4c2a2970eff652))
+
+# [1.26.0](https://github.com/ForkbombEu/wallet/compare/v1.25.8...v1.26.0) (2024-04-09)
+
+
+### Features
+
+* new profile page ([#205](https://github.com/ForkbombEu/wallet/issues/205)) ([cf3b9f9](https://github.com/ForkbombEu/wallet/commit/cf3b9f9a61710782d3f395d3fa3679ac7b0eed8b))
+
+## [1.25.8](https://github.com/ForkbombEu/wallet/compare/v1.25.7...v1.25.8) (2024-04-09)
+
+
+### Bug Fixes
+
+* update credential fields ([#242](https://github.com/ForkbombEu/wallet/issues/242)) ([2af76a8](https://github.com/ForkbombEu/wallet/commit/2af76a85991ba529427237b48ceeeb68b5915ad3))
+
 ## [1.25.7](https://github.com/ForkbombEu/wallet/compare/v1.25.6...v1.25.7) (2024-04-08)
 
 

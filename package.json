@@ -1,6 +1,6 @@
 {
 	"name": "wallet",
-	"version": "1.25.7",
+	"version": "1.26.1",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --host",
@@ -88,6 +88,7 @@
 		"@slangroom/zencode": "^1.27.0",
 		"ajv": "^8.12.0",
 		"ajv-formats": "^2.1.1",
+		"did-resolver": "^4.1.0",
 		"ionic-svelte": "^0.5.82",
 		"ionicons": "^7.2.2",
 		"lodash": "^4.17.21",

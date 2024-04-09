@@ -1,4 +1,4 @@
- Rule unknown ignore
+Rule unknown ignore
 Given I send pb_address 'pb_address' and create pb_client
 Given I send my_credentials 'my_credentials' and login and output into 'login_output'
 Given I have a 'string dictionary' named 'login_output'
@@ -14,4 +14,5 @@ and I move 'headers' in 'send_parameters'
 
 Then I print 'url'
 and I print 'send_parameters'
+Then I print 'login_output'
 Then I send url 'url' and send send_parameters 'send_parameters' and send request and output into 'output'
