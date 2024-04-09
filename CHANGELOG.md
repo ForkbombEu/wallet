@@ -1,3 +1,10 @@
+## [1.25.8](https://github.com/ForkbombEu/wallet/compare/v1.25.7...v1.25.8) (2024-04-09)
+
+
+### Bug Fixes
+
+* update credential fields ([#242](https://github.com/ForkbombEu/wallet/issues/242)) ([2af76a8](https://github.com/ForkbombEu/wallet/commit/2af76a85991ba529427237b48ceeeb68b5915ad3))
+
 ## [1.25.7](https://github.com/ForkbombEu/wallet/compare/v1.25.6...v1.25.7) (2024-04-08)
 
 
