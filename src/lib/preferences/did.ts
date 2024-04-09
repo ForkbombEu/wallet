@@ -1,4 +1,3 @@
-import TEE from '$lib/nativeHooks/TEEPlugin';
 import { getPreference, setPreference } from '.';
 
 //
