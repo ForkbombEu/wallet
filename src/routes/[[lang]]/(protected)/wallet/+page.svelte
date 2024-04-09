@@ -72,7 +72,7 @@
 						<d-credential-card
 							{...credential}
 							name={credential.display_name}
-							issuer={credential.credential_issuer.length > 18
+							issuer={credential.credential_issuer?.length > 18
 								? credential.credential_issuer.slice(0, 18) + '...'
 								: credential.credential_issuer}
 							logoSrc={credential.logo.url}
@@ -87,5 +87,4 @@
 			<d-text size="l" class="pb-4">{error.message}</d-text>
 		</div>
 	{/await}
-	<ScanButton />
 </TabPage>

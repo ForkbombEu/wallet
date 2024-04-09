@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Header from '$lib/components/molecules/Header.svelte';
+	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
 	import { r } from '$lib/i18n';
 	export let data: any;
 	const { credential, credentials } = data;
@@ -34,11 +35,10 @@
 			<swiper-slide id={getIndex(credential.id)}
 				><d-credential-card
 					{...credential}
-					name={credential.display_name}
 					description=""
-					issuer={credential.credential_issuer.length > 18
-						? credential.credential_issuer.slice(0, 18) + '...'
-						: credential.credential_issuer}
+					issuer={credential.issuer.length > 18
+						? credential.issuer.slice(0, 18) + '...'
+						: credential.issuer}
 				/>
 			</swiper-slide>
 		{/each}
@@ -49,7 +49,7 @@
 			description={detailCredential.description}
 			logoSrc={detailCredential.logo.url}
 		>
-			<d-button color="accent" href={r('/scan/')} expand>SCAN FOR VERIFICATION</d-button>
 		</d-credential-detail>
 	</div>
+	<ScanButton />
 </ion-content>

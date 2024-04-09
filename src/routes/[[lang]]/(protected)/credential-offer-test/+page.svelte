@@ -123,9 +123,11 @@
 							<div class="flex w-full justify-around">
 								<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"
 								></ion-icon>
-								<pre>
-								{JSON.stringify(serviceResponse, null, 2)}
-							</pre>
+								<div class="flex flex-col gap-2 ion-padding">
+									<d-text class="break-words">credential: {serviceResponse.credential}</d-text>
+									<d-text class="break-words">c_nonce: {serviceResponse.c_nonce}</d-text>
+									<d-text class="break-words">c_nonce_expires_in: {serviceResponse.c_nonce_expires_in}</d-text>
+							</div>
 							</div>
 						{/if}
 					</div>
