@@ -41,7 +41,7 @@
 				configuration_ids: parsedService.credential_configuration_ids,
 				display_name: qrToWellKnown.credential_requested.display[0].name,
 				sdJwt: serviceResponse.credential,
-				issuer: parsedService.credential_issuer,
+				issuer: qrToWellKnown.credential_issuer_information.display[0].name,
 				description: qrToWellKnown.credential_requested.display[0].description,
 				verified: false,
 				expirationDate: '',
