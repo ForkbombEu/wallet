@@ -6,7 +6,7 @@ export const servicesByOrganization = [
 ];
 export const organizationAuthorizations = [
 	'api/collections/orgAuthorizations/records?filter=(user="',
-	'")&&expand=organization&&fields=expand.organization.name,expand.organization.id'
+	'")&&expand=organization'
 ];
 export const webauthnCredentials = [
 	'api/collections/webauthnCredentials/records?filter=(user="',

@@ -1,3 +1,10 @@
+## [1.27.6](https://github.com/ForkbombEu/wallet/compare/v1.27.5...v1.27.6) (2024-04-09)
+
+
+### Bug Fixes
+
+* profile on devices and did after login ([#253](https://github.com/ForkbombEu/wallet/issues/253)) ([455f741](https://github.com/ForkbombEu/wallet/commit/455f741085352806054f1d6374178069583e3319))
+
 ## [1.27.5](https://github.com/ForkbombEu/wallet/compare/v1.27.4...v1.27.5) (2024-04-09)
 
 

@@ -8,7 +8,7 @@
 
 	const { orgs, user, did } = data;
 	//@ts-ignore
-	const { method, id: fullId } = parse(did.result.didDocument.id)!;
+	const { method, id: fullId } = parse(did.result?.didDocument.id || did.didDocument.id)!;
 	const [submethod, id] = fullId.split(':');
 </script>
 
@@ -27,9 +27,9 @@
 			<span>{id}</span></d-text
 		>
 
-		{#if orgs.langht}
+		{#if orgs.length > 0}
 			<d-heading size="xs" class="mt-16 w-full text-center">{m.Badges()}</d-heading>
-			<div class="mx-auto mt-8 flex w-3/5 flex-wrap items-center justify-between gap-8">
+			<div class="mx-auto mt-8 flex w-4/5 flex-wrap items-center justify-between gap-2">
 				{#each orgs as org}
 					<d-avatar
 						src={`https://admin.didroom.com/api/files/${org.collectionId}/${org.id}/${org.avatar}`}
