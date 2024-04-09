@@ -2,6 +2,7 @@ import type { JSONType } from 'ajv/dist/compile/rules';
 
 export interface BaseSchema<T extends JSONType> {
 	type: T;
+	title?: string;
 	description?: string;
 	enum?: unknown[];
 }

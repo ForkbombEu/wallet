@@ -84,7 +84,7 @@
 				<ion-input
 					type="text"
 					name={fieldPath}
-					{label}
+					label={schema.title}
 					placeholder={inputAttributes.placeholder}
 					aria-label={label}
 					aria-required={required}
