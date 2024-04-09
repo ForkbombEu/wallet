@@ -10,7 +10,6 @@
 	//@ts-ignore
 	const { method, id: fullId } = parse(did.result.didDocument.id)!;
 	const [submethod, id] = fullId.split(':');
-	log(orgs, did);
 </script>
 
 <TabPage tab="profile" title="PROFILE">
@@ -33,7 +32,7 @@
 			<div class="mx-auto mt-8 flex w-3/5 flex-wrap items-center justify-between gap-8">
 				{#each orgs as org}
 					<d-avatar
-						src={`https://admin.signroom.io/api/files/${org.collectionId}/${org.id}/${org.avatar}`}
+						src={`https://admin.didroom.com/api/files/${org.collectionId}/${org.id}/${org.avatar}`}
 						alt={org.name}
 						size="xl"
 					/>

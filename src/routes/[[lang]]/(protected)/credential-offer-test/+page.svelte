@@ -39,7 +39,7 @@
 		setTimeout(async () => {
 			const savedCredential = await setCredentialPreference({
 				configuration_ids: parsedService.credential_configuration_ids,
-				name: qrToWellKnown.credential_requested.display[0].name,
+				display_name: qrToWellKnown.credential_requested.display[0].name,
 				sdJwt: serviceResponse.credential,
 				issuer: parsedService.credential_issuer,
 				description: qrToWellKnown.credential_requested.display[0].description,

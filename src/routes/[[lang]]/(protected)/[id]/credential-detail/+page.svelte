@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Header from '$lib/components/molecules/Header.svelte';
 	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
-	import { r } from '$lib/i18n';
 	export let data: any;
 	const { credential, credentials } = data;
 	import { register } from 'swiper/element/bundle';
@@ -32,14 +31,12 @@
 		class="mt-8"
 	>
 		{#each credentials as credential}
-			<swiper-slide id={getIndex(credential.id)}
-				><d-credential-card
+			<swiper-slide id={getIndex(credential.id)}>
+        <d-credential-card
 					{...credential}
 					name={credential.display_name}
+			    logoSrc={credential.logo.url}
 					description=""
-					issuer={credential.credential_issuer.length > 18
-						? credential.credential_issuer.slice(0, 18) + '...'
-						: credential.credential_issuer}
 				/>
 			</swiper-slide>
 		{/each}
@@ -48,6 +45,7 @@
 		<d-credential-detail
 			{...detailCredential}
 			description={detailCredential.description}
+			name={detailCredential.display_name}
 			logoSrc={detailCredential.logo.url}
 		>
 		</d-credential-detail>

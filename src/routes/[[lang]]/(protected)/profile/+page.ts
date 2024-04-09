@@ -19,7 +19,7 @@ const organizations = async (k = '1') => {
 	const user = await getUser();
     if (!user) return;
 	const data: { pb_address: ServerUrl; list_parameters: ListParameters } = {
-		pb_address: 'https://admin.signroom.io/',
+		pb_address: 'https://admin.didroom.com/',
 		list_parameters: {
 			type: 'all',
 			collection: 'orgJoinRequests',
