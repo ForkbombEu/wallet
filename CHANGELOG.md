@@ -1,3 +1,10 @@
+## [1.27.1](https://github.com/ForkbombEu/wallet/compare/v1.27.0...v1.27.1) (2024-04-09)
+
+
+### Bug Fixes
+
+* stored credential issuer name ([#247](https://github.com/ForkbombEu/wallet/issues/247)) ([0669c31](https://github.com/ForkbombEu/wallet/commit/0669c31373a2cbac79b077ed3e7daa17daa656db))
+
 # [1.27.0](https://github.com/ForkbombEu/wallet/compare/v1.26.1...v1.27.0) (2024-04-09)
 
 
