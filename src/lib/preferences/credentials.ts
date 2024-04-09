@@ -8,8 +8,8 @@ export type Credential = {
 	id: number;
 	configuration_ids: string[];
 	sdJwt: string;
-	issuer: string;
-	name: string;
+	credential_issuer: string;
+	display_name: string;
 	description: string;
 	expirationDate: string;
 	verified: boolean;
