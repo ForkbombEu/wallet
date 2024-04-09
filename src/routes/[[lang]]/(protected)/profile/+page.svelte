@@ -1,14 +1,14 @@
 <script lang="ts">
 	import TabPage from '$lib/tabs/TabPage.svelte';
-	import { m, r } from '$lib/i18n';
+	import { m } from '$lib/i18n';
 	import { log } from '$lib/log.js';
 	import { parse } from 'did-resolver';
 
 	export let data;
 
-	const { orgs, keys, user, did } = data;
+	const { orgs, user, did } = data;
 	//@ts-ignore
-	const { method, id: fullId } = parse(did.didDocument.id)!;
+	const { method, id: fullId } = parse(did.result.didDocument.id)!;
 	const [submethod, id] = fullId.split(':');
 	log(orgs, did);
 </script>
