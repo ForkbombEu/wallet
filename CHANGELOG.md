@@ -1,3 +1,10 @@
+## [1.26.1](https://github.com/ForkbombEu/wallet/compare/v1.26.0...v1.26.1) (2024-04-09)
+
+
+### Bug Fixes
+
+* remove button credential detail ([#243](https://github.com/ForkbombEu/wallet/issues/243)) ([05553af](https://github.com/ForkbombEu/wallet/commit/05553af751855370c516210d9b4c2a2970eff652))
+
 # [1.26.0](https://github.com/ForkbombEu/wallet/compare/v1.25.8...v1.26.0) (2024-04-09)
 
 
