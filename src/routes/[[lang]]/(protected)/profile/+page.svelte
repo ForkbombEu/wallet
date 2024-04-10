@@ -14,7 +14,7 @@
 
 <TabPage tab="profile" title="PROFILE">
 	<div class="flex flex-col items-center gap-2 pt-8 text-center">
-		<d-avatar src={`${authFilesUri}/${user?.id}/${user?.logo}`} size="xl"></d-avatar>
+		<d-avatar src={authFilesUri(user?.logo, user?.id)} size="xl"></d-avatar>
 		<d-heading size="s" class="w-full">{user?.name || user?.email}</d-heading>
 		<d-text size="s" class="w-full"
 			><span>did</span>
@@ -31,11 +31,7 @@
 			<d-heading size="xs" class="mt-16 w-full text-center">{m.Badges()}</d-heading>
 			<div class="mx-auto mt-8 flex w-4/5 flex-wrap items-center justify-between gap-2">
 				{#each orgs as org}
-					<d-avatar
-						src={`${filesUri}/${org.collectionId}/${org.id}/${org.avatar}`}
-						alt={org.name}
-						size="xl"
-					/>
+					<d-avatar src={filesUri(org.avatar, org.collectionId, org.id)} alt={org.name} size="xl" />
 				{/each}
 			</div>
 		{/if}
