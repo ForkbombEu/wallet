@@ -9,11 +9,11 @@
 	import { userEmailStore } from './_lib';
 	import background from '$lib/assets/bg-4.svg';
 
-//
+	//
 
 	import { page } from '$app/stores';
 	const registration = $page.url.searchParams.get('registration') === 'true';
-	console.table( $page.url );
+	console.table($page.url);
 
 	const schema = z.object({
 		email: z.string().email(),
@@ -23,22 +23,15 @@
 	const form = createForm({
 		schema,
 		onSubmit: async ({ form }) => {
-			userEmailStore.set({email:form.data.email, registration});
+			userEmailStore.set({ email: form.data.email, registration });
 			await goto(registration ? '/login/confirm-email' : '/login/passphrase');
 		}
 	});
 </script>
 
-<div class="flex flex-col min-h-screen place-content-between">
+<div class="flex min-h-screen flex-col place-content-between">
 	<div class="grow">
-		<div class="relative min-h-[38vh]">
-			<img
-				src={background}
-				class="max-h-[50vh] w-full shrink-0 fill-highlight opacity-50"
-				alt="background"
-			/>
-			<Illustration img="pidgeon" />
-		</div>
+		<Illustration img="pidgeon" {background} />
 		<div>
 			<div class="flex flex-col">
 				<div class="flex w-full flex-col items-center gap-4 px-8">
