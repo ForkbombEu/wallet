@@ -4,10 +4,11 @@
 
 	export let tab: Tab;
 	export let title: string;
+	export let settings = false
 </script>
 
 <ion-tab {tab}>
-	<Header>{title}</Header>
+	<Header backButton={false} {settings}>{title}</Header>
 
 	<ion-content fullscreen class="ion-padding">
 		<slot />
