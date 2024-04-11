@@ -1,3 +1,10 @@
+## [1.27.7](https://github.com/ForkbombEu/wallet/compare/v1.27.6...v1.27.7) (2024-04-11)
+
+
+### Bug Fixes
+
+* header back-button and settings ([#252](https://github.com/ForkbombEu/wallet/issues/252)) ([3e88a45](https://github.com/ForkbombEu/wallet/commit/3e88a45df67d8aee277c8d2601f2c6c35a4992bb))
+
 ## [1.27.6](https://github.com/ForkbombEu/wallet/compare/v1.27.5...v1.27.6) (2024-04-09)
 
 
