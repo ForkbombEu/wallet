@@ -1,8 +1,9 @@
 <script lang="ts">
-	import First from '$lib/components/onBoarding/First.svelte';
-	import Second from '$lib/components/onBoarding/Second.svelte';
-	import Third from '$lib/components/onBoarding/Third.svelte';
 	import { completeOnBoarding } from '$lib/components/onBoarding/utils';
+	import OnBoardingPage from '$lib/components/onBoarding/OnBoardingPage.svelte';
+	import background1 from '$lib/assets/bg-1.svg';
+	import background2 from '$lib/assets/bg-2.svg';
+	import background3 from '$lib/assets/bg-3.svg';
 	import { m } from '$lib/i18n';
 	import { register } from 'swiper/element/bundle';
 
@@ -16,9 +17,25 @@
 		centeredSlides={true}
 		class="mt-8 h-5/6"
 	>
-		<swiper-slide class="h-full"><First /> </swiper-slide>
-		<swiper-slide class="h-full"><Second /> </swiper-slide>
-		<swiper-slide class="h-full"><Third /> </swiper-slide>
+		<OnBoardingPage
+			title={m.Welcome_to_DID_Wallet()}
+			subtitle={m.your_friendly_and_trustable_opensource_wallet_()}
+			description={m.on_boarding_subtitle_1()}
+			img="logo-hand"
+			background={background1}
+		/>
+		<OnBoardingPage
+			title={m.Create_your_DID()}
+			description={m.on_boarding_subtitle_2()}
+			img="hand-ellipsis"
+			background={background2}
+		/>
+		<OnBoardingPage
+			title={m.Manage_VC_verifiable_credentials_in_one_place()}
+			description={m.Manage_VC_verifiable_credentials_in_one_place()}
+			img="hand-card"
+			background={background3}
+		/>
 	</swiper-container>
 	<div class="flex justify-center">
 		<d-button
