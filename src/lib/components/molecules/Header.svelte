@@ -2,6 +2,7 @@
 	import { chevronBackOutline, ellipsisHorizontal } from 'ionicons/icons';
 	import Settings from './Settings.svelte';
 	export let backButton = true;
+	export let settings = false;
 	let isSettingsOpen = false;
 
 	const openSettings = () => (isSettingsOpen = true);
@@ -25,11 +26,13 @@
 		<ion-title class="text-center">
 			<slot />
 		</ion-title>
-		<ion-buttons slot="end">
-			<ion-button on:click={openSettings} on:keydown={openSettings} aria-hidden>
-				<ion-icon icon={ellipsisHorizontal} slot="icon-only"></ion-icon>
-			</ion-button>
-		</ion-buttons>
+		{#if settings}
+			<ion-buttons slot="end">
+				<ion-button on:click={openSettings} on:keydown={openSettings} aria-hidden>
+					<ion-icon icon={ellipsisHorizontal} slot="icon-only"></ion-icon>
+				</ion-button>
+			</ion-buttons>
+		{/if}
 	</ion-toolbar>
 </ion-header>
 <ion-modal is-open={isSettingsOpen}>
