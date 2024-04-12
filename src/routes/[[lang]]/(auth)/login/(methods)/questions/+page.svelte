@@ -16,6 +16,7 @@
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import { getLottieAnimation } from '$lib/getLottieAnimation';
 	import { log } from '$lib/log';
+	import { clearPreferences } from '$lib/preferences';
 
 	//
 
@@ -86,6 +87,7 @@
 			} catch (e) {
 				loading = false;
 				log(e);
+				clearPreferences();
 				throw new Error('KEYPAIR_GENERATION_ERROR');
 			}
 		}
