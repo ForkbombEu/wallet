@@ -12,9 +12,10 @@
 	import { unlockApp } from '$lib/preferences/locked.js';
 	import { alertCircleOutline } from 'ionicons/icons';
 	import { z } from 'zod';
-	import { generateDid, generateSignroomUser } from '../../_lib';
+	import { checkKeypairs, generateDid, generateSignroomUser } from '../../_lib';
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import { getLottieAnimation } from '$lib/getLottieAnimation';
+	import { log } from '$lib/log';
 
 	//
 
@@ -66,6 +67,7 @@
 				await setKeypairPreference(keypair);
 				if (registration) await generateSignroomUser(userEmail);
 				await generateDid(userEmail);
+				if (!registration) await checkKeypairs();
 
 				await unlockApp();
 				seed = keypair.seed;
@@ -83,6 +85,7 @@
 				 */
 			} catch (e) {
 				loading = false;
+				log(e);
 				throw new Error('KEYPAIR_GENERATION_ERROR');
 			}
 		}
