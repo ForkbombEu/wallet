@@ -52,13 +52,13 @@
 		setTimeout(async () => {
 			const savedCredential = await setCredentialPreference({
 				configuration_ids: parsedService.credential_configuration_ids,
-				display_name: qrToWellKnown.credential_requested.display[0].name,
+				display_name: qrToWellKnown.credential_requested.display[0]?.name,
 				sdJwt: serviceResponse.credential,
-				issuer: parsedService.credential_issuer,
-				description: qrToWellKnown.credential_requested.display[0].description,
+				issuer: qrToWellKnown.credential_issuer_information.display[0]?.name,
+				description: qrToWellKnown.credential_requested.display[0]?.description,
 				verified: false,
 				expirationDate: '',
-				logo: qrToWellKnown.credential_requested.display[0].logo
+				logo: qrToWellKnown.credential_requested.display[0]?.logo
 			});
 
 			isModalOpen = false;
@@ -134,14 +134,14 @@
 								/>
 							</div>
 						{:else}
-							<div class="flex w-full justify-around">
+							<div class="flex w-full ion-padding flex-col gap-2">
 								<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"
 								></ion-icon>
-								<div class="flex flex-col gap-2 ion-padding">
-									<d-text class="break-words">credential: {serviceResponse.credential}</d-text>
-									<d-text class="break-words">c_nonce: {serviceResponse.c_nonce}</d-text>
-									<d-text class="break-words">c_nonce_expires_in: {serviceResponse.c_nonce_expires_in}</d-text>
-							</div>
+								<d-text class="break-words">credential: {serviceResponse.credential}</d-text>
+								<d-text class="break-words">c_nonce: {serviceResponse.c_nonce}</d-text>
+								<d-text class="break-words"
+									>c_nonce_expires_in: {serviceResponse.c_nonce_expires_in}</d-text
+								>
 							</div>
 						{/if}
 					</div>

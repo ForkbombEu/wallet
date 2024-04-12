@@ -9,7 +9,6 @@
 	import { userEmailStore } from '../../_lib';
 	import background from '$lib/assets/bg-5.svg';
 
-
 	const schema = z.object({
 		email: z.literal($userEmailStore.email),
 		rememberEmail: z.boolean().optional()
@@ -27,13 +26,8 @@
 <Header>{m.REGISTER()}</Header>
 
 <div class="flex flex-col">
-	<div class="relative min-h-[40vh]">
-		<img
-			src={background}
-			class="w-full shrink-0 fill-[var(--highlight)] opacity-50"
-			alt="background"
-		/>
-		<Illustration img="chat" />
+	<div class="mb-10 sm:mb-0">
+		<Illustration img="chat" {background} />
 	</div>
 	<div>
 		<div class="flex w-full flex-col items-center gap-6 px-8">

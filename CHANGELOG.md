@@ -1,3 +1,61 @@
+## [1.27.7](https://github.com/ForkbombEu/wallet/compare/v1.27.6...v1.27.7) (2024-04-11)
+
+
+### Bug Fixes
+
+* header back-button and settings ([#252](https://github.com/ForkbombEu/wallet/issues/252)) ([3e88a45](https://github.com/ForkbombEu/wallet/commit/3e88a45df67d8aee277c8d2601f2c6c35a4992bb))
+
+## [1.27.6](https://github.com/ForkbombEu/wallet/compare/v1.27.5...v1.27.6) (2024-04-09)
+
+
+### Bug Fixes
+
+* profile on devices and did after login ([#253](https://github.com/ForkbombEu/wallet/issues/253)) ([455f741](https://github.com/ForkbombEu/wallet/commit/455f741085352806054f1d6374178069583e3319))
+
+## [1.27.5](https://github.com/ForkbombEu/wallet/compare/v1.27.4...v1.27.5) (2024-04-09)
+
+
+### Bug Fixes
+
+* missing infos in credential well known? ([#251](https://github.com/ForkbombEu/wallet/issues/251)) ([3c5dcf1](https://github.com/ForkbombEu/wallet/commit/3c5dcf10f71568115535bad1795dbe74d7afad41))
+
+## [1.27.4](https://github.com/ForkbombEu/wallet/compare/v1.27.3...v1.27.4) (2024-04-09)
+
+
+### Bug Fixes
+
+* login background ([#250](https://github.com/ForkbombEu/wallet/issues/250)) ([483565c](https://github.com/ForkbombEu/wallet/commit/483565c6c0ff6ca5a4828e36950710053c774de8))
+
+## [1.27.3](https://github.com/ForkbombEu/wallet/compare/v1.27.2...v1.27.3) (2024-04-09)
+
+
+### Bug Fixes
+
+* on schema generation display right label ([#248](https://github.com/ForkbombEu/wallet/issues/248)) ([4ff112f](https://github.com/ForkbombEu/wallet/commit/4ff112f9120f0c649b2f149bc0d6414d16d36e01))
+* on-boarding illustrations max width ([#249](https://github.com/ForkbombEu/wallet/issues/249)) ([df2d8a9](https://github.com/ForkbombEu/wallet/commit/df2d8a9654cf5fba546265af0e262a5d506d4128))
+
+## [1.27.2](https://github.com/ForkbombEu/wallet/compare/v1.27.1...v1.27.2) (2024-04-09)
+
+
+### Bug Fixes
+
+* credentail offer feedback ([#244](https://github.com/ForkbombEu/wallet/issues/244)) ([7d9431c](https://github.com/ForkbombEu/wallet/commit/7d9431c4f20589370f548a8d474a4125544b3ff8))
+* is login check ([#246](https://github.com/ForkbombEu/wallet/issues/246)) ([83000ea](https://github.com/ForkbombEu/wallet/commit/83000ea64a335717e5c02a8cf47e0f2c7ca2a742))
+
+## [1.27.1](https://github.com/ForkbombEu/wallet/compare/v1.27.0...v1.27.1) (2024-04-09)
+
+
+### Bug Fixes
+
+* stored credential issuer name ([#247](https://github.com/ForkbombEu/wallet/issues/247)) ([0669c31](https://github.com/ForkbombEu/wallet/commit/0669c31373a2cbac79b077ed3e7daa17daa656db))
+
+# [1.27.0](https://github.com/ForkbombEu/wallet/compare/v1.26.1...v1.27.0) (2024-04-09)
+
+
+### Features
+
+* I18n andrea - improved copy of issuance ([#245](https://github.com/ForkbombEu/wallet/issues/245)) ([833ef7d](https://github.com/ForkbombEu/wallet/commit/833ef7dce9712bae5468713e28c1450a6b357dcb))
+
 ## [1.26.1](https://github.com/ForkbombEu/wallet/compare/v1.26.0...v1.26.1) (2024-04-09)
 
 

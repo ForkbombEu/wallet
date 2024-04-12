@@ -7,13 +7,13 @@ import { writable } from 'svelte/store';
 import scriptGenerateUser from './scriptGenerateUser.zen?raw';
 import scriptGenerateDid from './scriptGenerateDid.zen?raw';
 import { setUser } from '$lib/preferences/user';
+import { backendUri } from '$lib/backendUri';
 
 //
 
 const slangroom = new Slangroom(pocketbase);
 
-const pb_address: string = 'https://admin.didroom.com';
-const password = 'CiccioLiam12345!'
+export const password = 'CiccioLiam12345!'
 
 export const userEmailStore = writable<{email:string | undefined, registration:boolean}>();
 
@@ -21,7 +21,7 @@ export const generateSignroomUser = async (email: string) => {
 	const keypair = await getKeypairPreference();
 	const public_keys = getPublicKeysFromKeypair(keypair!);
 	const data = {
-		pb_address,
+		pb_address:backendUri,
 		create_parameters: {
 			collection: 'users',
 			record: {
@@ -48,7 +48,7 @@ export const generateSignroomUser = async (email: string) => {
 
 export const generateDid = async (email:string) => {
 	const data = {
-		pb_address,
+		pb_address:backendUri,
 		my_credentials: {
 			email,
 			password

@@ -1,4 +1,3 @@
-import { PUBLIC_BACKEND_URL } from '$env/static/public';
 
 import { fetchTemplates, showProfile } from './endpoints';
 import { Slangroom } from '@slangroom/core';
@@ -15,6 +14,7 @@ import {
 	webauthnCredentials,
 	webauthnSessions
 } from './endpoints';
+import { backendUri } from '$lib/backendUri';
 
 export type BaseSystemFields<T = never> = {
 	id: string;
@@ -30,7 +30,7 @@ export type PBExpand<T extends PBRecord = PBRecord> = Record<string, T | T[]>;
 export type PBResponse<R extends PBRecord = PBRecord, E extends PBExpand = PBExpand> = R &
 	BaseSystemFields<E>;
 
-const PB = PUBLIC_BACKEND_URL;
+const PB = backendUri + '/';
 
 export const slangroom = new Slangroom(http);
 
