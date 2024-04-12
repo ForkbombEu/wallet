@@ -11,5 +11,6 @@ export async function setDIDPreference(did: object) {
 export async function getDIDPreference(): Promise<object | undefined> {
 	const DIDString = await getPreference(DID_PREFERENCES_KEY, true);
 	if (!DIDString) return undefined;
-	return JSON.parse(DIDString);
+	const parsedDid = JSON.parse(DIDString);
+	return parsedDid.result || parsedDid
 }

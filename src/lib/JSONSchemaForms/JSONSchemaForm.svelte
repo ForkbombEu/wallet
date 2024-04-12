@@ -12,7 +12,7 @@
 
 	export let schema: ObjectSchema;
 	export let id: string;
-	export let onSubmit: (data: Record<string, unknown>) => Promise<void> | void = () => {};
+	export let onSubmit: (data: Record<string, unknown>) => Promise<void | false | undefined> | void = () => {};
 
 	//
 

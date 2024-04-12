@@ -6,10 +6,8 @@ import { pocketbase } from '@slangroom/pocketbase';
 import { writable } from 'svelte/store';
 import scriptGenerateUser from './scriptGenerateUser.zen?raw';
 import scriptGenerateDid from './scriptGenerateDid.zen?raw';
-import { setUser } from '$lib/preferences/user';
 import { backendUri } from '$lib/backendUri';
 import { getUser } from '$lib/preferences/user';
-import { getKeys } from '$lib/openId4vci';
 
 //
 
@@ -55,7 +53,8 @@ export const generateDid = async (email: string) => {
 			email,
 			password
 		},
-		url: '/api/did'
+		url: '/api/did',
+		send_parameters: {}
 	};
 
 	type User = {
@@ -94,8 +93,6 @@ export const generateDid = async (email: string) => {
 		data
 	})) as unknown as DIDResponse;
 
-	const loginOutput = res.result.login_output.record;
-	await setUser(loginOutput.id, email, loginOutput.name, loginOutput.avatar);
 	await setDIDPreference(res.result.output.did);
 
 	return res.result.output;
