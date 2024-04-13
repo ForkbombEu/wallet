@@ -6,8 +6,8 @@ import { pocketbase } from '@slangroom/pocketbase';
 import { writable } from 'svelte/store';
 import scriptGenerateUser from './scriptGenerateUser.zen?raw';
 import scriptGenerateDid from './scriptGenerateDid.zen?raw';
-import { setUser } from '$lib/preferences/user';
 import { backendUri } from '$lib/backendUri';
+import { getUser } from '$lib/preferences/user';
 
 //
 
@@ -21,7 +21,7 @@ export const generateSignroomUser = async (email: string) => {
 	const keypair = await getKeypairPreference();
 	const public_keys = getPublicKeysFromKeypair(keypair!);
 	const data = {
-		pb_address:backendUri,
+		pb_address: backendUri,
 		create_parameters: {
 			collection: 'users',
 			record: {
@@ -48,7 +48,7 @@ export const generateSignroomUser = async (email: string) => {
 
 export const generateDid = async (email: string) => {
 	const data = {
-		pb_address:backendUri,
+		pb_address: backendUri,
 		my_credentials: {
 			email,
 			password
@@ -96,4 +96,18 @@ export const generateDid = async (email: string) => {
 	await setDIDPreference(res.result.output.did);
 
 	return res.result.output;
+};
+
+export const checkKeypairs = async () => {
+	const user = await getUser();
+	const keypairoom = await getKeypairPreference();
+	if (!keypairoom) throw new Error('KEYPAIR_NOT_GENERATED');
+	const keys = getPublicKeysFromKeypair(keypairoom);
+
+	if (!user) throw new Error('MISSING_USER');
+	if (
+		//@ts-expect-error maybe hardcode keys to iterate for
+		Object.keys(keys).some((k) => user[k] != keys[k])
+	)
+		throw new Error('WRONG_KEYPAIR');
 };
