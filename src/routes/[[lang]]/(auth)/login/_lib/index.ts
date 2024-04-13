@@ -13,9 +13,9 @@ import { backendUri } from '$lib/backendUri';
 
 const slangroom = new Slangroom(pocketbase);
 
-export const password = 'CiccioLiam12345!'
+export const password = 'CiccioLiam12345!';
 
-export const userEmailStore = writable<{email:string | undefined, registration:boolean}>();
+export const userEmailStore = writable<{ email: string | undefined; registration: boolean }>();
 
 export const generateSignroomUser = async (email: string) => {
 	const keypair = await getKeypairPreference();
@@ -29,8 +29,8 @@ export const generateSignroomUser = async (email: string) => {
 				name: email,
 				password,
 				passwordConfirm: password,
-				acceptTerms:true,
-                ...public_keys
+				acceptTerms: true,
+				...public_keys
 			}
 		},
 		record_parameters: {
@@ -46,7 +46,7 @@ export const generateSignroomUser = async (email: string) => {
 	return res.result.output;
 };
 
-export const generateDid = async (email:string) => {
+export const generateDid = async (email: string) => {
 	const data = {
 		pb_address:backendUri,
 		my_credentials: {
@@ -54,10 +54,11 @@ export const generateDid = async (email:string) => {
 			password
 		},
 		url: '/api/did',
+		send_parameters: {}
 	};
 
 	type User = {
-		avatar: string
+		avatar: string;
 		bitcoin_public_key: string;
 		collectionId: string;
 		collectionName: string;
@@ -84,16 +85,14 @@ export const generateDid = async (email:string) => {
 			};
 			login_output: {
 				record: User;
-			}
+			};
 		};
 	};
 
 	const res = (await slangroom.execute(scriptGenerateDid, {
 		data
 	})) as unknown as DIDResponse;
-	
-	const loginOutput = res.result.login_output.record;
-	await setUser(loginOutput.id, email, loginOutput.name, loginOutput.avatar);
+
 	await setDIDPreference(res.result.output.did);
 
 	return res.result.output;

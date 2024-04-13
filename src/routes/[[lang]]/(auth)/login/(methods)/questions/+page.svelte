@@ -13,8 +13,10 @@
 	import { alertCircleOutline } from 'ionicons/icons';
 	import { z } from 'zod';
 	import { generateDid, generateSignroomUser } from '../../_lib';
+	//@ts-ignore
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import { getLottieAnimation } from '$lib/getLottieAnimation';
+	import { log } from '$lib/log';
 
 	//
 
@@ -83,6 +85,7 @@
 				 */
 			} catch (e) {
 				loading = false;
+				log(e)
 				throw new Error('KEYPAIR_GENERATION_ERROR');
 			}
 		}
