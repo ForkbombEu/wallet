@@ -1,3 +1,10 @@
+# [1.28.0](https://github.com/ForkbombEu/wallet/compare/v1.27.7...v1.28.0) (2024-04-13)
+
+
+### Features
+
+* the user must generate the right key pair to login ([#262](https://github.com/ForkbombEu/wallet/issues/262)) ([8d97f0b](https://github.com/ForkbombEu/wallet/commit/8d97f0bfaa730303937077f01acc0e868eac50ec)), closes [#260](https://github.com/ForkbombEu/wallet/issues/260)
+
 ## [1.27.7](https://github.com/ForkbombEu/wallet/compare/v1.27.6...v1.27.7) (2024-04-11)
 
 
