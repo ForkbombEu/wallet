@@ -13,6 +13,7 @@
 	import { alertCircleOutline } from 'ionicons/icons';
 	import { z } from 'zod';
 	import { checkKeypairs, generateDid, generateSignroomUser } from '../../_lib';
+  //@ts-ignore
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import { getLottieAnimation } from '$lib/getLottieAnimation';
 	import { log } from '$lib/log';
