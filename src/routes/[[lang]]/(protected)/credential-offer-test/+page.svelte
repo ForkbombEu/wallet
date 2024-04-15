@@ -45,8 +45,8 @@
 			isModalOpen;
 			feedback = {
 				type: 'error',
-				message: JSON.stringify(e),
-				feedback: 'errror while getting credential'
+				message: String(e),
+				feedback: 'error while getting credential'
 			};
 		}
 

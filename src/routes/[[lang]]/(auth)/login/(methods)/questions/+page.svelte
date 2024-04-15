@@ -96,7 +96,7 @@
 					message: String(e),
 					feedback: 'error while generating keyring'
 				};
-				log(e, feedback);
+				log(e);
 				clearPreferences();
 				throw new Error('KEYRING_GENERATION_ERROR');
 			}
