@@ -2,7 +2,7 @@
 	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import { getServices } from '$lib/slangroom/services';
-	import { r, m } from '$lib/i18n';
+	import { r, m } from '$lib/i18n'
 </script>
 
 <TabPage tab="home" title="HOME">

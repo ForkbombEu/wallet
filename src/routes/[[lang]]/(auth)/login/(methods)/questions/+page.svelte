@@ -12,10 +12,13 @@
 	import { unlockApp } from '$lib/preferences/locked.js';
 	import { alertCircleOutline } from 'ionicons/icons';
 	import { z } from 'zod';
-	import { generateDid, generateSignroomUser } from '../../_lib';
+	import { checkKeypairs, generateDid, generateSignroomUser } from '../../_lib';
+  //@ts-ignore
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import type { Feedback } from '$lib/utils/types';
 	import { getLottieAnimation } from '$lib/getLottieAnimation';
+	import { log } from '$lib/log';
+	import { clearPreferences } from '$lib/preferences';
 
 	//
 
@@ -69,6 +72,7 @@
 				await setKeypairPreference(keypair);
 				if (registration) await generateSignroomUser(userEmail);
 				await generateDid(userEmail);
+				if (!registration) await checkKeypairs();
 
 				await unlockApp();
 				seed = keypair.seed;
@@ -91,6 +95,8 @@
 					message: JSON.stringify(e),
 					feedback: 'error while generating keypair'
 				};
+				log(e);
+				clearPreferences();
 				throw new Error('KEYPAIR_GENERATION_ERROR');
 			}
 		}

@@ -17,7 +17,7 @@ const slangroom = new Slangroom([http, helpers, zencode]);
 
 export const getKeys = async () => {
 	//@ts-expect-error we shall have a type for the Did object or save just the id
-	const client_id = (await getDIDPreference())?.result?.didDocument.id as string;
+	const client_id = (await getDIDPreference())?.didDocument.id as string;
 	const p = await getKeypairPreference();
 	const keyring = p!.keyring;
 	return {
@@ -40,7 +40,7 @@ export const askCredential = async (
 	holderIdentity: Keys,
 	qrToWellKnown: QrToWellKnown,
 	holder_claims: { [key: string]: string | number }
-):Promise<CredentialResult> => {
+): Promise<CredentialResult> => {
 	const data = {
 		...qrToWellKnown,
 		holder_claims
@@ -73,7 +73,7 @@ export const decodeSdJwt = async (sdJwt: string) => {
 		}
 	});
 	return decoded.result;
-}
+};
 
 export type JWKSKey = {
 	alg: string;
@@ -137,7 +137,6 @@ export type QrToWellKnown = {
 	credential_parameters: CredentialParameters;
 	credential_requested: CredentialRequested;
 };
-
 
 export type CredentialResult = {
 	c_nonce: string;

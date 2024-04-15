@@ -5,8 +5,9 @@
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { unlockApp } from '$lib/preferences/locked.js';
 	import { z } from 'zod';
-	import { generateDid } from '../../_lib/index.js';
-	import type { Feedback } from '$lib/utils/types.js';
+ 	import type { Feedback } from '$lib/utils/types.js';
+	import { checkKeypairs, generateDid } from '../../_lib/index.js';
+	import { clearPreferences } from '$lib/preferences/index.js';
 
 	//
 
@@ -31,6 +32,7 @@
 				const keypair = await regenerateKeypair(userEmail, form.data.seed);
 				await setKeypairPreference(keypair);
 				await generateDid(userEmail);
+				await checkKeypairs()
 				await unlockApp();
 				await goto('/wallet'); // Note: `goto` needs `await`!
 			} catch (e) {
@@ -39,6 +41,7 @@
 					message: JSON.stringify(e),
 					feedback: 'error while regenerating keypair'
 				};
+				clearPreferences();
 				throw new Error('KEYPAIR_REGENERATION_ERROR');
 			}
 		}

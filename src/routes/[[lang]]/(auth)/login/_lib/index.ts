@@ -6,22 +6,22 @@ import { pocketbase } from '@slangroom/pocketbase';
 import { writable } from 'svelte/store';
 import scriptGenerateUser from './scriptGenerateUser.zen?raw';
 import scriptGenerateDid from './scriptGenerateDid.zen?raw';
-import { setUser } from '$lib/preferences/user';
 import { backendUri } from '$lib/backendUri';
+import { getUser } from '$lib/preferences/user';
 
 //
 
 const slangroom = new Slangroom(pocketbase);
 
-export const password = 'CiccioLiam12345!'
+export const password = 'CiccioLiam12345!';
 
-export const userEmailStore = writable<{email:string | undefined, registration:boolean}>();
+export const userEmailStore = writable<{ email: string | undefined; registration: boolean }>();
 
 export const generateSignroomUser = async (email: string) => {
 	const keypair = await getKeypairPreference();
 	const public_keys = getPublicKeysFromKeypair(keypair!);
 	const data = {
-		pb_address:backendUri,
+		pb_address: backendUri,
 		create_parameters: {
 			collection: 'users',
 			record: {
@@ -29,8 +29,8 @@ export const generateSignroomUser = async (email: string) => {
 				name: email,
 				password,
 				passwordConfirm: password,
-				acceptTerms:true,
-                ...public_keys
+				acceptTerms: true,
+				...public_keys
 			}
 		},
 		record_parameters: {
@@ -46,18 +46,19 @@ export const generateSignroomUser = async (email: string) => {
 	return res.result.output;
 };
 
-export const generateDid = async (email:string) => {
+export const generateDid = async (email: string) => {
 	const data = {
-		pb_address:backendUri,
+		pb_address: backendUri,
 		my_credentials: {
 			email,
 			password
 		},
 		url: '/api/did',
+		send_parameters: {}
 	};
 
 	type User = {
-		avatar: string
+		avatar: string;
 		bitcoin_public_key: string;
 		collectionId: string;
 		collectionName: string;
@@ -84,17 +85,29 @@ export const generateDid = async (email:string) => {
 			};
 			login_output: {
 				record: User;
-			}
+			};
 		};
 	};
 
 	const res = (await slangroom.execute(scriptGenerateDid, {
 		data
 	})) as unknown as DIDResponse;
-	
-	const loginOutput = res.result.login_output.record;
-	await setUser(loginOutput.id, email, loginOutput.name, loginOutput.avatar);
+
 	await setDIDPreference(res.result.output.did);
 
 	return res.result.output;
+};
+
+export const checkKeypairs = async () => {
+	const user = await getUser();
+	const keypairoom = await getKeypairPreference();
+	if (!keypairoom) throw new Error('KEYPAIR_NOT_GENERATED');
+	const keys = getPublicKeysFromKeypair(keypairoom);
+
+	if (!user) throw new Error('MISSING_USER');
+	if (
+		//@ts-expect-error maybe hardcode keys to iterate for
+		Object.keys(keys).some((k) => user[k] != keys[k])
+	)
+		throw new Error('WRONG_KEYPAIR');
 };
