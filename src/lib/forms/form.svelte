@@ -42,7 +42,7 @@
 					if (input.form.valid) await onSubmit(input);
 					else throw new Error('INVALID_FORM');
 				} catch (e) {
-					log(e);
+					await log(e);
 				}
 			},
 			taintedMessage: null,
