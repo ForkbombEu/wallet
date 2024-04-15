@@ -13,11 +13,13 @@
 	import { alertCircleOutline } from 'ionicons/icons';
 	import { z } from 'zod';
 	import { checkKeypairs, generateDid, generateSignroomUser } from '../../_lib';
-  //@ts-ignore
+	//@ts-ignore
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
+	import type { Feedback } from '$lib/utils/types';
 	import { getLottieAnimation } from '$lib/getLottieAnimation';
 	import { log } from '$lib/log';
 	import { clearPreferences } from '$lib/preferences';
+	import { message } from 'sveltekit-superforms/client';
 
 	//
 
@@ -29,6 +31,8 @@
 	let seed: string | undefined = undefined;
 
 	let loading: boolean = false;
+
+	let feedback: Feedback = {};
 
 	//
 
@@ -87,9 +91,14 @@
 				 */
 			} catch (e) {
 				loading = false;
+				feedback = {
+					type: 'error',
+					message: String(e),
+					feedback: 'error while generating keyring'
+				};
 				log(e);
 				clearPreferences();
-				throw new Error('KEYPAIR_GENERATION_ERROR');
+				throw new Error('KEYRING_GENERATION_ERROR');
 			}
 		}
 	});
@@ -110,6 +119,7 @@
 <Header>{m.SECURITY_QUESTIONS()}</Header>
 
 <div class="flex h-full w-screen flex-col gap-4 px-4">
+	<d-feedback {...feedback} />
 	{#if loading}
 		<div class="fixed z-50 h-full w-full bg-surface opacity-90">
 			<div class="flex h-full flex-col items-center justify-around">

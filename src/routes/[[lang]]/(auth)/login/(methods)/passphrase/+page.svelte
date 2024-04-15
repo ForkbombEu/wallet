@@ -5,6 +5,7 @@
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { unlockApp } from '$lib/preferences/locked.js';
 	import { z } from 'zod';
+ 	import type { Feedback } from '$lib/utils/types.js';
 	import { checkKeypairs, generateDid } from '../../_lib/index.js';
 	import { clearPreferences } from '$lib/preferences/index.js';
 
@@ -12,6 +13,8 @@
 
 	export let data;
 	let { userEmail } = data;
+
+	let feedback: Feedback = {};
 
 	//
 
@@ -33,8 +36,13 @@
 				await unlockApp();
 				await goto('/wallet'); // Note: `goto` needs `await`!
 			} catch (e) {
+				feedback = {
+					type: 'error',
+					message: String(e),
+					feedback: 'error while regenerating keyring'
+				};
 				clearPreferences();
-				throw new Error('KEYPAIR_REGENERATION_ERROR');
+				throw new Error('KEYRING_REGENERATION_ERROR');
 			}
 		}
 	});
@@ -45,6 +53,7 @@
 </script>
 
 <div class="ion-padding flex min-h-screen flex-col place-content-between">
+	<d-feedback {...feedback} />
 	<div class="flex flex-col gap-2">
 		<d-heading sixe="s">{m.Enter_your_keypair()}</d-heading>
 		<d-text size="l"

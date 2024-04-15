@@ -15,6 +15,7 @@
 	import { askCredential, getKeys } from '$lib/openId4vci';
 	import type { Service } from '$lib/components/organisms/scanner/tools';
 	import { log } from '$lib/log';
+	import type { Feedback } from '$lib/utils/types';
 	import { getLottieAnimation } from '$lib/getLottieAnimation';
 
 	let isModalOpen: boolean = false;
@@ -28,14 +29,26 @@
 	const parsedService = JSON.parse(service!) as Service;
 	const qrToWellKnown = async () => await holderQrToWellKnown(parsedService);
 
+	let feedback: Feedback = {};
+
 	//
 
 	const getCredential = async (formData: any, qrToWellKnown: QrToWellKnown) => {
 		isModalOpen = true;
-		serviceResponse = await askCredential(await getKeys(), qrToWellKnown, formData);
-		if (!serviceResponse) return (isModalOpen = false);
-		isCredentialVerified = true;
-		log('serviceResponse: (fine chain)', serviceResponse);
+		try {
+			serviceResponse = await askCredential(await getKeys(), qrToWellKnown, formData);
+			if (!serviceResponse) return (isModalOpen = false);
+			isCredentialVerified = true;
+			log('serviceResponse: (fine chain)', serviceResponse);
+		} catch (e) {
+			isCredentialVerified = false;
+			isModalOpen;
+			feedback = {
+				type: 'error',
+				message: String(e),
+				feedback: 'error while getting credential'
+			};
+		}
 
 		setTimeout(async () => {
 			const savedCredential = await setCredentialPreference({
@@ -58,6 +71,7 @@
 <Header>{m.Credential_offer()}</Header>
 
 <ion-content fullscreen class="ion-padding">
+	<d-feedback {...feedback} />
 	{#await qrToWellKnown()}
 		waiting
 	{:then wn}

@@ -19,11 +19,11 @@
 	/>
 	<script
 		type="module"
-		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.14.0/dist/didroom-components/didroom-components.esm.js"
+		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.15.3/dist/didroom-components/didroom-components.esm.js"
 	></script>
 	<link
 		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.14.0/dist/didroom-components/didroom-components.css"
+		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.15.3/dist/didroom-components/didroom-components.css"
 	/>
 </svelte:head>
 
