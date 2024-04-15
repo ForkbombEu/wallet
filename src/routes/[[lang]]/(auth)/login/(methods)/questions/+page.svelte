@@ -19,7 +19,6 @@
 	import { getLottieAnimation } from '$lib/getLottieAnimation';
 	import { log } from '$lib/log';
 	import { clearPreferences } from '$lib/preferences';
-	import { message } from 'sveltekit-superforms/client';
 
 	//
 
