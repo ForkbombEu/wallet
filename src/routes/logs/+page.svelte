@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { r } from '$lib/i18n/index.js';
 	import dayjs from 'dayjs';
 	import { onMount } from 'svelte';
 	export let data;
@@ -12,7 +13,7 @@
 </script>
 
 <div class="ion-padding flex h-screen flex-col gap-4 overflow-auto" bind:this={element}>
-	<d-button on:click={() => window.history.back()}> back </d-button>
+	<d-button href={r('/home')}> back </d-button>
 	{#each logs as log}
 		{@const date = dayjs(log.date)}
 		<div class="flex gap-2 rounded-md border border-on bg-primary p-2">
