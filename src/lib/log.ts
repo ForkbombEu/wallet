@@ -5,7 +5,7 @@ const dev = true;
 
 export const log = dev ? logAndSave : () => {};
 
-function logAndSave(message: string) {
+async function logAndSave(message: string) {
 	const stackTrace = new Error().stack;
 	let callerInfo = '';
 
@@ -25,5 +25,5 @@ function logAndSave(message: string) {
 	}
 	const logMessage = callerInfo ? `${callerInfo}: ${message}` : message;
 	console.log(logMessage);
-	setLogPreference(logMessage);
+	await setLogPreference(logMessage);
 }

@@ -11,6 +11,7 @@
 	import { i18n } from '$lib/i18n';
 	import { ParaglideJS } from '@inlang/paraglide-js-adapter-sveltekit';
 	import HiddenLogsButton from '$lib/components/molecules/HiddenLogsButton.svelte';
+	import { log } from '$lib/log';
 </script>
 
 <svelte:head>
@@ -27,7 +28,10 @@
 		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.15.3/dist/didroom-components/didroom-components.css"
 	/>
 </svelte:head>
-
+<svelte:window
+	on:error|capture={(e) => log(e.error)}
+	on:unhandledrejection|capture={(e) => log(e.reason)}
+/>
 <ParaglideJS {i18n}>
 	<HiddenLogsButton />
 	<ion-app>
