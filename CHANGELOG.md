@@ -1,3 +1,10 @@
+# [1.30.0](https://github.com/ForkbombEu/wallet/compare/v1.29.0...v1.30.0) (2024-04-15)
+
+
+### Features
+
+* add hidden logs page ([#263](https://github.com/ForkbombEu/wallet/issues/263)) ([d6b05f3](https://github.com/ForkbombEu/wallet/commit/d6b05f3c17d88e3bf87d425c02af1efe58cbfb26))
+
 # [1.29.0](https://github.com/ForkbombEu/wallet/compare/v1.28.0...v1.29.0) (2024-04-15)
 
 
