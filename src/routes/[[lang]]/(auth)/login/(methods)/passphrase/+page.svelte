@@ -38,11 +38,11 @@
 			} catch (e) {
 				feedback = {
 					type: 'error',
-					message: JSON.stringify(e),
-					feedback: 'error while regenerating keypair'
+					message: String(e),
+					feedback: 'error while regenerating keyring'
 				};
 				clearPreferences();
-				throw new Error('KEYPAIR_REGENERATION_ERROR');
+				throw new Error('KEYRING_REGENERATION_ERROR');
 			}
 		}
 	});

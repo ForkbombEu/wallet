@@ -109,5 +109,5 @@ export const checkKeypairs = async () => {
 		//@ts-expect-error maybe hardcode keys to iterate for
 		Object.keys(keys).some((k) => user[k] != keys[k])
 	)
-		throw new Error('WRONG_KEYPAIR');
+		throw new Error('WRONG_KEYRING');
 };

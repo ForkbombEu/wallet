@@ -13,12 +13,13 @@
 	import { alertCircleOutline } from 'ionicons/icons';
 	import { z } from 'zod';
 	import { checkKeypairs, generateDid, generateSignroomUser } from '../../_lib';
-  //@ts-ignore
+	//@ts-ignore
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import type { Feedback } from '$lib/utils/types';
 	import { getLottieAnimation } from '$lib/getLottieAnimation';
 	import { log } from '$lib/log';
 	import { clearPreferences } from '$lib/preferences';
+	import { message } from 'sveltekit-superforms/client';
 
 	//
 
@@ -92,12 +93,12 @@
 				loading = false;
 				feedback = {
 					type: 'error',
-					message: JSON.stringify(e),
-					feedback: 'error while generating keypair'
+					message: String(e),
+					feedback: 'error while generating keyring'
 				};
-				log(e);
+				log(e, feedback);
 				clearPreferences();
-				throw new Error('KEYPAIR_GENERATION_ERROR');
+				throw new Error('KEYRING_GENERATION_ERROR');
 			}
 		}
 	});
