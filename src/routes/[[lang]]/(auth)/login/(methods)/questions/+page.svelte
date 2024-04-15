@@ -18,7 +18,7 @@
 	import type { Feedback } from '$lib/utils/types';
 	import { getLottieAnimation } from '$lib/getLottieAnimation';
 	import { log } from '$lib/log';
-	import { clearPreferences } from '$lib/preferences';
+	import { logout } from '$lib/preferences/logout';
 
 	//
 
@@ -96,7 +96,7 @@
 					feedback: 'error while generating keyring'
 				};
 				log(String(e));
-				clearPreferences();
+				logout();
 				throw new Error('KEYRING_GENERATION_ERROR');
 			}
 		}
