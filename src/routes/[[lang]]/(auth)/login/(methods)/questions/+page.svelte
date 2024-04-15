@@ -18,8 +18,7 @@
 	import type { Feedback } from '$lib/utils/types';
 	import { getLottieAnimation } from '$lib/getLottieAnimation';
 	import { log } from '$lib/log';
-	import { clearPreferences } from '$lib/preferences';
-	import { message } from 'sveltekit-superforms/client';
+	import { logout } from '$lib/preferences/logout';
 
 	//
 
@@ -96,8 +95,8 @@
 					message: String(e),
 					feedback: 'error while generating keyring'
 				};
-				log(e);
-				clearPreferences();
+				log(String(e));
+				logout();
 				throw new Error('KEYRING_GENERATION_ERROR');
 			}
 		}

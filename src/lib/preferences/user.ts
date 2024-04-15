@@ -2,7 +2,7 @@ import { getStructuredPreferences } from '.';
 
 //
 
-export const CREDENTIALS_PREFERENCES_KEY = 'pb_auth';
+export const USER_PREFERENCES_KEY = 'pb_auth';
 
 export type UserPreference = {
 	avatar: string;
@@ -25,7 +25,7 @@ export type UserPreference = {
 };
 
 export async function getUser(): Promise<UserPreference | undefined> {
-	const auth = (await getStructuredPreferences(CREDENTIALS_PREFERENCES_KEY, true)) as {
+	const auth = (await getStructuredPreferences(USER_PREFERENCES_KEY, true)) as {
 		model: UserPreference;
 	} | undefined;
 	return auth?.model;

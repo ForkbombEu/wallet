@@ -7,7 +7,7 @@
 	import { z } from 'zod';
  	import type { Feedback } from '$lib/utils/types.js';
 	import { checkKeypairs, generateDid } from '../../_lib/index.js';
-	import { clearPreferences } from '$lib/preferences/index.js';
+	import { logout } from '$lib/preferences/logout.js';
 
 	//
 
@@ -41,7 +41,7 @@
 					message: String(e),
 					feedback: 'error while regenerating keyring'
 				};
-				clearPreferences();
+				logout();
 				throw new Error('KEYRING_REGENERATION_ERROR');
 			}
 		}

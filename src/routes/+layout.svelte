@@ -10,6 +10,7 @@
 
 	import { i18n } from '$lib/i18n';
 	import { ParaglideJS } from '@inlang/paraglide-js-adapter-sveltekit';
+	import HiddenLogsButton from '$lib/components/molecules/HiddenLogsButton.svelte';
 </script>
 
 <svelte:head>
@@ -28,6 +29,7 @@
 </svelte:head>
 
 <ParaglideJS {i18n}>
+	<HiddenLogsButton />
 	<ion-app>
 		<slot />
 	</ion-app>
