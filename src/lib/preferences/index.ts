@@ -1,5 +1,6 @@
 import { Preferences } from '@capacitor/preferences';
 import TEE from '$lib/nativeHooks/TEEPlugin';
+import { log } from '$lib/log';
 
 export const setPreference = async (key: string, value: string, confidential: boolean = false) => {
 	if (confidential) {
@@ -33,7 +34,7 @@ export const removePreference = async (key: string) => {
 
 export const clearPreferences = async () => {
 	await Preferences.clear();
-}
+};
 
 export const getStructuredPreferences = async <T>(
 	key: string,
@@ -47,6 +48,7 @@ export const getStructuredPreferences = async <T>(
 		}
 	} catch (error) {
 		console.error(`Error while getting preference: ${key}`, error);
+		log(`Error while getting preference: ${key} ${error}`);
 	}
 	return undefined;
 };
@@ -57,5 +59,4 @@ export const setStructuredPreferences = async <T>(
 	confidential: boolean = false
 ) => {
 	await setPreference(key, JSON.stringify(value), confidential);
-}
-
+};

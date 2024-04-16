@@ -23,14 +23,14 @@ export async function setLogPreference(message: string): Promise<Log> {
 	};
 	if (logs) {
 		logs.push(c);
-		await setStructuredPreferences(LOGS_PREFERENCES_KEY, logs, true);
+		await setStructuredPreferences(LOGS_PREFERENCES_KEY, logs);
 		return c;
 	}
 
-	await setStructuredPreferences(LOGS_PREFERENCES_KEY, [c], true);
+	await setStructuredPreferences(LOGS_PREFERENCES_KEY, [c]);
 	return c;
 }
 
 export async function getLogsPreference(): Promise<Log[] | undefined> {
-	return await getStructuredPreferences(LOGS_PREFERENCES_KEY, true);
+	return await getStructuredPreferences(LOGS_PREFERENCES_KEY);
 }
