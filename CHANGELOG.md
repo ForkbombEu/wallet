@@ -1,3 +1,10 @@
+## [1.30.1](https://github.com/ForkbombEu/wallet/compare/v1.30.0...v1.30.1) (2024-04-16)
+
+
+### Bug Fixes
+
+* login flow on android ([#265](https://github.com/ForkbombEu/wallet/issues/265)) ([2635859](https://github.com/ForkbombEu/wallet/commit/2635859d035f799f887eb9933822a64bbbe39863))
+
 # [1.30.0](https://github.com/ForkbombEu/wallet/compare/v1.29.0...v1.30.0) (2024-04-15)
 
 
