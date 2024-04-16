@@ -2,7 +2,7 @@
 	import { goto } from "$lib/i18n";
 
     let clicked:number = 0;
-    const clicksNeeded = 10
+    const clicksNeeded = 5
     const onClick = () => {
         clicked++;
         if (clicked === clicksNeeded) {
