@@ -16,18 +16,36 @@ export type Response<T> = {
 };
 
 export type Service = {
-	add_ons: boolean;
-	collectionId: string;
-	collectionName: string;
-	created: string;
-	id: string;
-	credential_issuer: string;
-	display_name: string;
-	organization: string;
-	public: boolean;
-	credential_templates: string[];
-	updated: string;
-};
+	api_available: boolean;
+    authorization_server: string;
+    authorization_template: string;
+    collectionId: string;
+    collectionName: string;
+    created: string;
+    credential_issuer: string;
+    credential_template: string;
+    cryptography: string;
+    description: string;
+    display_name: string;
+    expand: {
+        credential_issuer: {
+            collectionId: string;
+            collectionName: string;
+            created: string;
+            endpoint: string;
+            id: string;
+            name: string;
+            organization: string;
+            updated: string;
+        };
+    };
+    id: string;
+    logo: string;
+    organization: string;
+    public: boolean;
+    type_name: string;
+    updated: string;
+}
 
 export const getServices = async (): Promise<Response<PaginatedResult<Service>>> => {
 	try {
@@ -40,7 +58,7 @@ Then print data
 `,
 			{
 				data: {
-					path: `${PUBLIC_BACKEND_URL}/api/collections/services/records?expand=issuer&sort=-updated&filter=(public=true)`
+					path: `${PUBLIC_BACKEND_URL}/api/collections/services/records?expand=credential_issuer&sort=-updated&filter=(public=true)`
 				}
 			}
 		);
