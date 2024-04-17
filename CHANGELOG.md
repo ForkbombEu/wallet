@@ -1,3 +1,15 @@
+# [1.32.0](https://github.com/ForkbombEu/wallet/compare/v1.31.0...v1.32.0) (2024-04-17)
+
+
+### Bug Fixes
+
+* miising file for home feedback store ([#270](https://github.com/ForkbombEu/wallet/issues/270)) ([199cd27](https://github.com/ForkbombEu/wallet/commit/199cd2796a73e3b249b6c3b5dfc55fc7b0fb546d))
+
+
+### Features
+
+* Credential flow from home, handle errors ([#269](https://github.com/ForkbombEu/wallet/issues/269)) ([3975b52](https://github.com/ForkbombEu/wallet/commit/3975b52da92090c92d64ae789795e77604b89265))
+
 # [1.31.0](https://github.com/ForkbombEu/wallet/compare/v1.30.1...v1.31.0) (2024-04-17)
 
 
