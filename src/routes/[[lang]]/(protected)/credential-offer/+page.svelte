@@ -17,6 +17,7 @@
 	import { log } from '$lib/log';
 	import type { Feedback } from '$lib/utils/types';
 	import { getLottieAnimation } from '$lib/getLottieAnimation';
+	import { homeFeedbackStore } from '$lib/homeFeedbackStore';
 
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
@@ -24,10 +25,26 @@
 
 	//
 
+	let isCredentialIssuerOutOfService: boolean = false;
 	const url = $page.url;
 	const service = url.searchParams.get('service');
 	const parsedService = JSON.parse(service!) as Service;
-	const qrToWellKnown = async () => await holderQrToWellKnown(parsedService);
+	const qrToWellKnown = async () => {
+		try {
+			return await holderQrToWellKnown(parsedService);
+		} catch (e) {
+			log(e);
+			isCredentialIssuerOutOfService = true;
+		}
+	};
+
+	$: if (isCredentialIssuerOutOfService) {
+		homeFeedbackStore.set({
+			type: 'error',
+			feedback: 'the credential issuer is probably out of services'
+		});
+		goto(`/home`);
+	}
 
 	let feedback: Feedback = {};
 
@@ -39,7 +56,7 @@
 			serviceResponse = await askCredential(await getKeys(), qrToWellKnown, formData);
 			if (!serviceResponse) return (isModalOpen = false);
 			isCredentialVerified = true;
-			log('serviceResponse: (fine chain)', serviceResponse);
+			log(`serviceResponse: (fine chain): ${JSON.stringify(serviceResponse, null, 2)}`);
 		} catch (e) {
 			isCredentialVerified = false;
 			isModalOpen;
@@ -135,7 +152,7 @@
 								/>
 							</div>
 						{:else}
-							<div class="flex w-full ion-padding flex-col gap-2">
+							<div class="ion-padding flex w-full flex-col gap-2">
 								<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"
 								></ion-icon>
 								<d-text class="break-words">credential: {serviceResponse.credential}</d-text>

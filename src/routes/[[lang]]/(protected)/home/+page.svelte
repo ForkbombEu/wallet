@@ -3,6 +3,8 @@
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import { getServices } from '$lib/slangroom/services';
 	import { r, m } from '$lib/i18n';
+	import type { Feedback } from '$lib/utils/types';
+	import { homeFeedbackStore } from '$lib/homeFeedbackStore';
 
 	const getOfferUrl = (configurationId: string, issuerUrl: string) =>
 		`/credential-offer?service=${encodeURI(
@@ -11,9 +13,12 @@
 				credential_issuer: issuerUrl
 			})
 		)}`;
+		let feedback: Feedback = $homeFeedbackStore
 </script>
 
 <TabPage tab="home" title="HOME">
+	<d-feedback {...feedback} />
+	<br />
 	{#await getServices()}
 		<ion-spinner />
 	{:then res}
