@@ -84,5 +84,6 @@
 	"Login_using_your_keypair": "Login using your passphrase",
 	"KEYPAIR_RECOVERY": "KEYRING RECOVERY",
 	"Work_in_progress": "Not yet active, come back later",
-	"SKIP": "SKIP"
+	"SKIP": "SKIP",
+	"The_credential_issuer_is_currently_offline_you_may_try_again_later": "The credential issuer is currently offline, you may try again later"
 }
