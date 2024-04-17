@@ -5,7 +5,7 @@
 	import { r, m } from '$lib/i18n';
 
 	const getOfferUrl = (configurationId: string, issuerUrl: string) =>
-		`/credential-offer-test?service=${encodeURI(
+		`/credential-offer?service=${encodeURI(
 			JSON.stringify({
 				credential_configuration_ids: [configurationId],
 				credential_issuer: issuerUrl
