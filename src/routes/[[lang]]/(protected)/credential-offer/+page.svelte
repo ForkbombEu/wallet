@@ -45,6 +45,10 @@
 		});
 		goto(`/home`);
 	}
+	const url = $page.url;
+	const service = url.searchParams.get('service');
+	const parsedService = JSON.parse(service!) as Service;
+	const qrToWellKnown = async () => await holderQrToWellKnown(parsedService);
 
 	let feedback: Feedback = {};
 

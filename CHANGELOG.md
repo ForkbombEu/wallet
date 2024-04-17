@@ -1,3 +1,10 @@
+# [1.31.0](https://github.com/ForkbombEu/wallet/compare/v1.30.1...v1.31.0) (2024-04-17)
+
+
+### Features
+
+* credential flow from home cards ([#268](https://github.com/ForkbombEu/wallet/issues/268)) ([382f19b](https://github.com/ForkbombEu/wallet/commit/382f19b14530d79173c334be3515e718677076a6))
+
 ## [1.30.1](https://github.com/ForkbombEu/wallet/compare/v1.30.0...v1.30.1) (2024-04-16)
 
 
