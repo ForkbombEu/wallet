@@ -25,7 +25,7 @@
 		barcodeResult = parseQr(e.detail.qr);
 		if (barcodeResult.result === 'ok' && barcodeResult.data.type === 'service') {
 			return await goto(
-				`/credential-offer-test?service=${encodeURI(JSON.stringify(barcodeResult.data.service))}`
+				`/credential-offer?service=${encodeURI(JSON.stringify(barcodeResult.data.service))}`
 			);
 		}
 		isModalOpen = true;

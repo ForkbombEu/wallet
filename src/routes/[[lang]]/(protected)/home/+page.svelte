@@ -2,7 +2,15 @@
 	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import { getServices } from '$lib/slangroom/services';
-	import { r, m } from '$lib/i18n'
+	import { r, m } from '$lib/i18n';
+
+	const getOfferUrl = (configurationId: string, issuerUrl: string) =>
+		`/credential-offer?service=${encodeURI(
+			JSON.stringify({
+				credential_configuration_ids: [configurationId],
+				credential_issuer: issuerUrl
+			})
+		)}`;
 </script>
 
 <TabPage tab="home" title="HOME">
@@ -21,8 +29,9 @@
 			{#each services as service}
 				<d-credential-service
 					name={service.display_name}
-					issuer={service.credential_issuer}
-					href={r(`/${service.id}/credential-offer`)}
+					issuer={service.expand.credential_issuer.name}
+					href={r(getOfferUrl(service.type_name, service.expand.credential_issuer.endpoint))}
+					logoSrc={service.logo}
 				/>
 			{/each}
 		</div>
