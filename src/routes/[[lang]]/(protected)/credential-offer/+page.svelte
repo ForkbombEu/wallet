@@ -41,7 +41,7 @@
 	$: if (isCredentialIssuerOutOfService) {
 		homeFeedbackStore.set({
 			type: 'error',
-			feedback: 'the credential issuer is probably out of services'
+			feedback: m.The_credential_issuer_is_currently_offline_you_may_try_again_later()
 		});
 		goto(`/home`);
 	}
