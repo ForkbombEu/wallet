@@ -1,3 +1,10 @@
+## [1.32.1](https://github.com/ForkbombEu/wallet/compare/v1.32.0...v1.32.1) (2024-04-18)
+
+
+### Bug Fixes
+
+* logs display ([#271](https://github.com/ForkbombEu/wallet/issues/271)) ([36e23a6](https://github.com/ForkbombEu/wallet/commit/36e23a6e0acd478be91466341382152d4fca5ee4))
+
 # [1.32.0](https://github.com/ForkbombEu/wallet/compare/v1.31.0...v1.32.0) (2024-04-17)
 
 
