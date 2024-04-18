@@ -22,7 +22,7 @@
 				<div class="text-sm text-on">{date.format('YY/MM/DD')}</div>
 				<div class="text-sm text-on">{date.format('HH:mm:ss')}</div>
 			</div>
-			<div class="text-sm text-on">{log.message}</div>
+			<div class="text-sm text-on break-all">{log.message}</div>
 		</div>
 	{/each}
 	{/if}
