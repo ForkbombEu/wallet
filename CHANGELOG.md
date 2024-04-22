@@ -1,3 +1,10 @@
+## [1.32.3](https://github.com/ForkbombEu/wallet/compare/v1.32.2...v1.32.3) (2024-04-22)
+
+
+### Bug Fixes
+
+* catch slangroom error in qr to well known execution ([1e76d9c](https://github.com/ForkbombEu/wallet/commit/1e76d9ce9c9e287e46db35add1d031c3bd2215bc))
+
 ## [1.32.2](https://github.com/ForkbombEu/wallet/compare/v1.32.1...v1.32.2) (2024-04-22)
 
 
