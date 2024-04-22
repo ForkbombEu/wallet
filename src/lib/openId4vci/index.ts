@@ -55,14 +55,14 @@ export const askCredential = async (
 };
 
 export const holderQrToWellKnown = async (qr: Service) => {
-	log(`start holderQrToWellKnown, qr content:, ${qr}`);
+	log(`start holderQrToWellKnown, qr content:, ${JSON.stringify(qr, null, 2)}`);
 	const result = (
 		await slangroom.execute(holder_qr_to_well_known, {
 			data: { '!external-qr-code-content': qr },
 			keys: JSON.parse(holder_qr_to_well_known_keys)
 		})
 	).result as QrToWellKnown;
-	log(`after holderQrToWellKnown, result: ${result}`);
+	log(`after holderQrToWellKnown, result: ${JSON.stringify(result, null, 2)}`);
 	return result;
 };
 
