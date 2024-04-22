@@ -2,7 +2,7 @@
 	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import { getServices } from '$lib/slangroom/services';
-	import { r, m } from '$lib/i18n';
+	import { m } from '$lib/i18n';
 	import type { Feedback } from '$lib/utils/types';
 	import { homeFeedbackStore } from '$lib/homeFeedbackStore';
 
@@ -35,7 +35,7 @@
 				<d-credential-service
 					name={service.display_name}
 					issuer={service.expand.credential_issuer.name}
-					href={r(getOfferUrl(service.type_name, service.expand.credential_issuer.endpoint))}
+					href={getOfferUrl(service.type_name, service.expand.credential_issuer.endpoint)}
 					logoSrc={service.logo}
 				/>
 			{/each}
