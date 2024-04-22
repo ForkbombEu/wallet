@@ -1,3 +1,10 @@
+## [1.32.4](https://github.com/ForkbombEu/wallet/compare/v1.32.3...v1.32.4) (2024-04-22)
+
+
+### Bug Fixes
+
+* logs keys of qr code to wellknown execution ([5b24245](https://github.com/ForkbombEu/wallet/commit/5b24245031be352249adc26fcfc5beaa3cf2b12e))
+
 ## [1.32.3](https://github.com/ForkbombEu/wallet/compare/v1.32.2...v1.32.3) (2024-04-22)
 
 
