@@ -34,3 +34,7 @@ export async function setLogPreference(message: string): Promise<Log> {
 export async function getLogsPreference(): Promise<Log[] | undefined> {
 	return await getStructuredPreferences(LOGS_PREFERENCES_KEY);
 }
+
+export async function clearLogsPreferences(): Promise<void> {
+	await setStructuredPreferences(LOGS_PREFERENCES_KEY, []);
+}
