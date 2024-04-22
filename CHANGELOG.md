@@ -1,3 +1,10 @@
+## [1.32.5](https://github.com/ForkbombEu/wallet/compare/v1.32.4...v1.32.5) (2024-04-22)
+
+
+### Bug Fixes
+
+* not working services in home ([7c9979f](https://github.com/ForkbombEu/wallet/commit/7c9979f268b47119ac8146721e32e46838b962bf))
+
 ## [1.32.4](https://github.com/ForkbombEu/wallet/compare/v1.32.3...v1.32.4) (2024-04-22)
 
 
