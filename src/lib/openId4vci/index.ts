@@ -56,6 +56,8 @@ export const askCredential = async (
 
 export const holderQrToWellKnown = async (qr: Service) => {
 	await log(`start holderQrToWellKnown, qr content:, ${JSON.stringify(qr, null, 2)}`);
+	await log(`start holderQrToWellKnown, keys:, ${holder_qr_to_well_known_keys}`);
+
 	const r = (
 		await slangroom.execute(holder_qr_to_well_known, {
 			data: { '!external-qr-code-content': qr },
