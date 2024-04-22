@@ -1,3 +1,10 @@
+## [1.32.2](https://github.com/ForkbombEu/wallet/compare/v1.32.1...v1.32.2) (2024-04-22)
+
+
+### Bug Fixes
+
+* improove debug infos for qr to well known step ([81b90b6](https://github.com/ForkbombEu/wallet/commit/81b90b621b06da60c46f3e41f25831e0053f3d8f))
+
 ## [1.32.1](https://github.com/ForkbombEu/wallet/compare/v1.32.0...v1.32.1) (2024-04-18)
 
 
