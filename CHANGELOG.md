@@ -1,3 +1,10 @@
+## [1.32.6](https://github.com/ForkbombEu/wallet/compare/v1.32.5...v1.32.6) (2024-04-22)
+
+
+### Bug Fixes
+
+* add clear button to logs ([#272](https://github.com/ForkbombEu/wallet/issues/272)) ([1a60af3](https://github.com/ForkbombEu/wallet/commit/1a60af3fc91dababc1277524ce5ce763cd676c41))
+
 ## [1.32.5](https://github.com/ForkbombEu/wallet/compare/v1.32.4...v1.32.5) (2024-04-22)
 
 
