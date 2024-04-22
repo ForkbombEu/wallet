@@ -46,7 +46,7 @@ export const askCredential = async (
 		holder_claims
 	};
 	const keys = { ...JSON.parse(holder_request_authorizationCode_keys), ...holderIdentity };
-	log(`ask credential: (start chain)', 'data:', data, 'keys: ${keys}`);
+	await log(`ask credential: (start chain)', 'data:', data, 'keys: ${keys}`);
 	const request = await slangroom.execute(holder_request_authorizationCode, {
 		data,
 		keys
@@ -55,15 +55,16 @@ export const askCredential = async (
 };
 
 export const holderQrToWellKnown = async (qr: Service) => {
-	log(`start holderQrToWellKnown, qr content:, ${JSON.stringify(qr, null, 2)}`);
-	const result = (
+	await log(`start holderQrToWellKnown, qr content:, ${JSON.stringify(qr, null, 2)}`);
+	const r = (
 		await slangroom.execute(holder_qr_to_well_known, {
 			data: { '!external-qr-code-content': qr },
 			keys: JSON.parse(holder_qr_to_well_known_keys)
-		})
-	).result as QrToWellKnown;
-	log(`after holderQrToWellKnown, result: ${JSON.stringify(result, null, 2)}`);
-	return result;
+		}).catch(err => log(`Slangroom exec holder_qr_to_well_known: ${err}`))
+	)
+	await log(`end holderQrToWellKnown: ${JSON.stringify(r, null, 2)}`);
+	await log(`after holderQrToWellKnown, result: ${JSON.stringify(r!.result, null, 2)}`);
+	return r!.result;
 };
 
 export const decodeSdJwt = async (sdJwt: string) => {
