@@ -60,7 +60,6 @@ export const getServices = async (): Promise<Service[]> => {
 				collection: 'services',
 				expand: 'credential_issuer',
 				sort: '-updated',
-				filter: 'public = true',
 				type: 'all'
 			}
 		};
