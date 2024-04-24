@@ -17,12 +17,6 @@ Given I have a 'string dictionary' named 'output'
 Then print data
 `;
 
-// const organizations = async (email: string, id: string) => {
-// 	const token = await authWithPassword(email, password);
-// 	const o = await orgAuthorizations({ token, id });
-// 	//@ts-expect-error wrong typing in $lib/slangroom
-// 	return o?.items.map((a) => a.expand.organization);
-// };
 const organizations = async (user:string)=> {
 	const slangroom = new Slangroom(pocketbase);
 	const data = {

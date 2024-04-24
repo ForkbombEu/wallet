@@ -1,6 +1,7 @@
-import { slangroom } from '.';
 import { PUBLIC_BACKEND_URL } from '$env/static/public';
 import { log } from '$lib/log';
+import { Slangroom } from '@slangroom/core';
+import { http } from '@slangroom/http';
 
 export type PaginatedResult<T> = {
 	page: number;
@@ -46,6 +47,8 @@ export type Service = {
     type_name: string;
     updated: string;
 }
+
+const slangroom = new Slangroom(http);
 
 export const getServices = async (): Promise<Response<PaginatedResult<Service>>> => {
 	try {
