@@ -5,30 +5,25 @@ import { getPublicKeysFromKeypair } from '$lib/keypairoom';
 import { backendUri } from '$lib/backendUri';
 import { Slangroom } from '@slangroom/core';
 import { pocketbase } from '@slangroom/pocketbase';
+import getPbList from '$lib/slangroom/getPbList.zen?raw';
 
 const getKeys = async () => {
 	const keypair = await getKeypairPreference();
 	return getPublicKeysFromKeypair(keypair!);
 };
-const orgContract = `Rule unknown ignore
-Given I connect to 'pb_address' and start capacitor pb client
-Given I send list_parameters 'list_parameters' and get some records and output into 'output'
-Given I have a 'string dictionary' named 'output'
-Then print data
-`;
 
-const organizations = async (user:string)=> {
+const organizations = async (userId:string)=> {
 	const slangroom = new Slangroom(pocketbase);
 	const data = {
 		pb_address: backendUri,
 		list_parameters: {
 			collection: 'orgAuthorizations',
 			expand: 'organization',
-			filter: `user.id = '${user}'`,
+			filter: `user.id = '${userId}'`,
 			type: 'all'
 		}
 	};
-	const orgs = await slangroom.execute(orgContract, {data});
+	const orgs = await slangroom.execute(getPbList, {data});
 	//@ts-expect-error output needs to be typed	
 	return orgs.result?.output?.records.map((a) => a.expand.organization)
 }
