@@ -20,7 +20,7 @@ const organizations = async (userId:string)=> {
 			collection: 'orgAuthorizations',
 			expand: 'organization',
 			filter: `user.id = '${userId}'`,
-			type: 'all'
+			type: 'all',
 		}
 	};
 	const orgs = await slangroom.execute(getPbList, {data});

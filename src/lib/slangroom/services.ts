@@ -1,7 +1,9 @@
-import { PUBLIC_BACKEND_URL } from '$env/static/public';
+import { backendUri } from '$lib/backendUri';
 import { log } from '$lib/log';
 import { Slangroom } from '@slangroom/core';
-import { http } from '@slangroom/http';
+import getPbList from '$lib/slangroom/getPbList.zen?raw';
+import { pocketbase } from '@slangroom/pocketbase';
+
 
 export type PaginatedResult<T> = {
 	page: number;
@@ -48,47 +50,25 @@ export type Service = {
     updated: string;
 }
 
-const slangroom = new Slangroom(http);
+const slangroom = new Slangroom(pocketbase);
 
-export const getServices = async (): Promise<Response<PaginatedResult<Service>>> => {
+export const getServices = async (): Promise<Service[]> => {
 	try {
-		const res = await slangroom.execute(
-			`Rule unknown ignore
-
-Given I connect to 'path' and do get and output into 'http_result'
-Given I have a 'string dictionary' named 'http_result'
-Then print data
-`,
-			{
-				data: {
-					path: `${PUBLIC_BACKEND_URL}/api/collections/services/records?expand=credential_issuer&sort=-updated&filter=(public=true)`
-				}
+		const data = {
+			pb_address: backendUri,
+			list_parameters: {
+				collection: 'services',
+				expand: 'credential_issuer',
+				sort: '-updated',
+				filter: 'public = true',
+				type: 'all'
 			}
-		);
-		return res.result.http_result;
-	} catch (e: any) {
-		log(e);
+		};
+		const res = await slangroom.execute(getPbList, { data });
+		//@ts-expect-error output needs to be typed
+		return res.result?.output?.records;
+	} catch (e: unknown) {
+		log(String(e));
 		throw new Error(JSON.stringify(e));
-	}
-};
-
-export const getService = async (id: string): Promise<Response<Service>> => {
-	try {
-		const res = await slangroom.execute(
-			`Rule unknown ignore
-
-Given I connect to 'path' and do get and output into 'http_result'
-Given I have a 'string dictionary' named 'http_result'
-Then print data`,
-			{
-				data: {
-					path: `${PUBLIC_BACKEND_URL}/api/collections/services/records/${id}?expand=templates`
-				}
-			}
-		);
-		return res.result.http_result.result;
-	} catch (e: any) {
-		log(e);
-		throw new Error(e);
 	}
 };

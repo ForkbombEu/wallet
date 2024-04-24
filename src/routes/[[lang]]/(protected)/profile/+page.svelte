@@ -7,14 +7,14 @@
 	export let data;
 
 	const { orgs, user, did } = data;
-	//@ts-ignore
-	const { method, id: fullId } = parse(did.result?.didDocument.id || did.didDocument.id)!;
+	//@ts-expect-error did needs to be typed
+	const { method, id: fullId } = parse(did?.result?.didDocument.id || did?.didDocument.id)!;
 	const [submethod, id] = fullId.split(':');
 </script>
 
 <TabPage tab="profile" title="PROFILE" settings>
 	<div class="flex flex-col items-center gap-2 pt-8 text-center">
-		<d-avatar src={authFilesUri(user?.logo, user?.id)} size="xl"></d-avatar>
+		<d-avatar src={authFilesUri(user?.avatar, user?.id)} size="xl"></d-avatar>
 		<d-heading size="s" class="w-full">{user?.name || user?.email}</d-heading>
 		<d-text size="s" class="w-full"
 			><span>did</span>
