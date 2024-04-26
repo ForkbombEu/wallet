@@ -21,6 +21,7 @@ const organizations = async (userId:string)=> {
 			expand: 'organization',
 			filter: `user.id = '${userId}'`,
 			type: 'all',
+			requestKey: String(Math.random())
 		}
 	};
 	const orgs = await slangroom.execute(getPbList, {data});
@@ -29,7 +30,7 @@ const organizations = async (userId:string)=> {
 }
 export const load = async () => {
 	const user = await getUser();
-	const orgs = await organizations(user!.id);
+	const orgs = await organizations(user?.id || '');
 	const keys = await getKeys();
 	const did = await getDIDPreference();
 	return { orgs, user, keys, did, logged: Boolean(user && keys && did) };
