@@ -95,7 +95,7 @@
 		"lodash": "^4.17.21",
 		"sveltekit-superforms": "1.13.4",
 		"swiper": "^11.1.0",
-		"zenroom": "^4.20.0",
+		"zenroom": "^4.27.1",
 		"zod": "^3.22.4"
 	}
 }

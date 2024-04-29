@@ -47,6 +47,12 @@ export async function getCredentialsPreference(): Promise<Credential[] | undefin
 	return await getStructuredPreferences(CREDENTIALS_PREFERENCES_KEY, true);
 }
 
+export async function getCredentialsSdjwt(): Promise<string[] | undefined> {
+	const credentials = await getCredentialsPreference();
+	if (!credentials) return;
+	return credentials.map((credential) => credential.sdJwt);
+}
+
 export async function removeCredentialPreference(id: string) {
 	const credentials = await getCredentialsPreference();
 	if (!credentials) return;

@@ -36,10 +36,10 @@
 			<ion-title>{barcodeResult?.message || 'error'}</ion-title>
 		{:else if barcodeResult.data.type === 'credential'}
 			{@const credential = barcodeResult.data.credential}
-			{@const { name, issuedBy, url } = credential}
+			<!-- {@const { name, issuedBy, url } = credential}
 			<ion-title>{name}</ion-title>
 			<ion-label>{issuedBy}</ion-label>
-			<br />
+			<br /> -->
 			<ion-button
 				on:click={() => request(credential)}
 				on:keydown={() => request(credential)}
