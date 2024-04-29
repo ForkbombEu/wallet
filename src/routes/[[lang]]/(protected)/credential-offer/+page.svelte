@@ -101,16 +101,6 @@
 					<d-avatar src={credentialInfo.logo.url} alt={credentialInfo.logo.alt_text}></d-avatar>
 					<d-heading size="s">{credentialInfo.name}</d-heading>
 				</div>
-				<!-- <div class="mt-2 flex flex-col gap-2">
-					<d-text size="l">{credential.expand.templates[0].name}</d-text>
-					<div class="flex flex-col gap-4">
-						<d-text size="s"
-							>Lorem ipsum dolor sit amet consectetur. Leo ultricies pellentesque morbi in eu metus
-							commodo felis. Pellentesque facilisis a auctor enim lectus. Nulla dolor cras viverra
-							massa.</d-text
-						>
-					</div>
-				</div> -->
 			</div>
 
 			<div class="rounded-md bg-primary p-4">

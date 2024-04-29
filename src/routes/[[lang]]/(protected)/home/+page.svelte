@@ -21,8 +21,7 @@
 	<br />
 	{#await getServices()}
 		<ion-spinner />
-	{:then res}
-		{@const services = res.result.items}
+	{:then services}
 		<d-heading>
 			<h1>{m.Claim_credential()}</h1>
 		</d-heading>
