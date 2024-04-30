@@ -1,3 +1,10 @@
+# [1.34.0](https://github.com/ForkbombEu/wallet/compare/v1.33.1...v1.34.0) (2024-04-30)
+
+
+### Features
+
+* add clear storage button ([#277](https://github.com/ForkbombEu/wallet/issues/277)) ([0e58bf2](https://github.com/ForkbombEu/wallet/commit/0e58bf22c21994e1c3621e9b454b8ee6dd0f3a91))
+
 ## [1.33.1](https://github.com/ForkbombEu/wallet/compare/v1.33.0...v1.33.1) (2024-04-30)
 
 
