@@ -1,15 +1,46 @@
 import { getCredentialsSdjwt } from '$lib/preferences/credentials';
-import { CapacitorHttp, type HttpResponse } from '@capacitor/core';
 import { z } from 'zod';
 import { Slangroom } from '@slangroom/core';
 import { helpers } from '@slangroom/helpers';
 import { zencode } from '@slangroom/zencode';
 import { pocketbase } from '@slangroom/pocketbase';
 import { http } from '@slangroom/http';
-import verQrToInfo from '$lib/mobile_zencode/wallet/ver_qr_to_info.zen?raw'
-import verQrToInfoKeys from '$lib/mobile_zencode/wallet/ver_qr_to_info.keys.json?raw'
+import verQrToInfo from '$lib/mobile_zencode/wallet/ver_qr_to_info.zen?raw';
+import verQrToInfoKeys from '$lib/mobile_zencode/wallet/ver_qr_to_info.keys.json?raw';
 
+//@ts-expect-error something is wrong in Slangroom types
 const slangroom = new Slangroom(helpers, zencode, pocketbase, http);
+
+export type QrToInfoResults = {
+	info: Info;
+	post: Post;
+};
+
+export type Info = {
+	asked_claims: AskedClaims;
+	rp_name: string;
+	verifier_name: string;
+};
+
+export type AskedClaims = {
+	properties: Properties;
+	required: string[];
+	type: string;
+};
+
+export type Properties = Record<string, { title: string; type: string }>;
+
+export type Post = {
+	body: Body;
+	url: string;
+};
+
+export type Body = {
+	id: string;
+	m: string;
+	registrationToken: string;
+	vp: string;
+};
 
 export type ParseQrResults =
 	| {
@@ -40,25 +71,25 @@ export type Service = z.infer<typeof serviceSchema>;
 export type Data =
 	| {
 			type: 'credential';
-			credential: Credential;
+			credential: QrToInfoResults;
 	  }
 	| {
 			type: 'service';
 			service: Service;
 	  };
 
-const allowedDomains = [
-	'http://oracle1.zenswarm.forkbomb.eu:3366/verify-credential',
-	'https://beta.signroom.io',
-	'https://dashboard.didroom.com',
-	'htps://admin.didroom.com'
-];
+// const allowedDomains = [
+// 	'http://oracle1.zenswarm.forkbomb.eu:3366/verify-credential',
+// 	'https://beta.signroom.io',
+// 	'https://dashboard.didroom.com',
+// 	'htps://admin.didroom.com'
+// ];
 
-function isUrlAllowed(url: string): boolean {
-	return allowedDomains.includes(url);
-}
+// function isUrlAllowed(url: string): boolean {
+// 	return allowedDomains.includes(url);
+// }
 
-export const parseQr = (value: string): ParseQrResults => {
+export const parseQr = async (value: string): Promise<ParseQrResults> => {
 	const notValidQr = 'not valid qr';
 	let parsedValue: Record<string, unknown>;
 	let type: 'credential' | 'service';
@@ -83,49 +114,35 @@ export const parseQr = (value: string): ParseQrResults => {
 
 	//todo: validate service urls
 	if (type == 'service') {
-		delete parsedValue.type
+		delete parsedValue.type;
 		return { result: 'ok', data: { type, service: parsedValue as Service } };
 	} else {
-		const p = getCredentialQrInfo(parsedValue as Credential)
-		console.log(p);
-		return { result: 'ok', data: { type, credential: parsedValue as Credential } };
+		const credential = await getCredentialQrInfo(parsedValue as Credential);
+		return { result: 'ok', data: { type, credential } };
 	}
 };
 
-export const verifyCredential = async (credential: Credential) => {
-	const options = {
-		url: credential.url,
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		data: { registrationToken: credential.registrationToken, message: 'ok' }
-	};
+export const verifyCredential = async (post: Post) => {
+	const res = await slangroom.execute(
+		`Rule unknown ignore
+	Given I connect to 'url' and send object 'body' and do post and output into 'result'
+	Given I have a 'string dictionary' named 'result'
+	Then print data`,
+		{
+			data: post
+		}
+	);
 
-	const response: HttpResponse = await CapacitorHttp.post(options);
-	return response;
+	return res;
 };
 
-export const getCredentialQrInfo = async (qrJSON:Credential)=> {
-	console.log(qrJSON)
-	const myCredentials = await getCredentialsSdjwt()
-	console.log(myCredentials)
-	if (!myCredentials) return { result: 'error', message: 'no credentials' };
+export const getCredentialQrInfo = async (qrJSON: Credential) => {
+	const myCredentials = await getCredentialsSdjwt();
+	if (!myCredentials) throw new Error('No credentials');
 	const data = {
 		...qrJSON,
 		credential_array: myCredentials
-	}
-	console.log(data)
-
+	};
 	const res = await slangroom.execute(verQrToInfo, { data, keys: JSON.parse(verQrToInfoKeys) });
-	console.log(res)
-	const res2 = await slangroom.execute(`Rule unknown ignore
-	Given I connect to 'url' and send object 'body' and do post and output into 'result'
-	Given I have a 'string dictionary' named 'result'
-	Then print data`, {
-		data: res.result.post
-	})
-
-	console.log(res2)
-	return res;
-}
-
+	return res.result as QrToInfoResults;
+};
