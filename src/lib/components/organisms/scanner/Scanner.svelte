@@ -120,6 +120,6 @@
 				{m.Submit()}
 			</d-button>
 		</div>
-		<slot />
+		<slot {scan} {stopScan}/>
 	{/if}
 </ion-content>
