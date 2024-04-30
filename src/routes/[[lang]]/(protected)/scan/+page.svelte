@@ -40,7 +40,7 @@
 >
 	<Modal {isModalOpen} closeCb={scan}>
 		{#if !(barcodeResult?.result === 'ok')}
-			<ion-title>{barcodeResult?.message || 'error'}</ion-title>
+			<d-text size="m">{barcodeResult?.message || 'error'}</d-text>
 		{:else if barcodeResult.data.type === 'credential'}
 			{@const credential = barcodeResult.data.credential}
 			{@const { info, post } = credential}
@@ -49,6 +49,7 @@
 			{@const propertiesArray = Object.values(properties)}
 			<d-heading size="s">{rp_name}</d-heading>
 			<!-- <ion-label>{verifier_name}</ion-label> -->
+			<d-text>User name: </d-text>
 			<d-text>It will ask you for:</d-text>
 			{#each propertiesArray as property}
 				<d-text>{property.title}</d-text>
