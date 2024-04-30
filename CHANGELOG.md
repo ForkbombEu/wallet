@@ -1,3 +1,10 @@
+## [1.33.1](https://github.com/ForkbombEu/wallet/compare/v1.33.0...v1.33.1) (2024-04-30)
+
+
+### Bug Fixes
+
+* mobile zencode to latest ([#276](https://github.com/ForkbombEu/wallet/issues/276)) ([014487d](https://github.com/ForkbombEu/wallet/commit/014487de9e201381946be2b533da3f85e823a7b3))
+
 # [1.33.0](https://github.com/ForkbombEu/wallet/compare/v1.32.6...v1.33.0) (2024-04-30)
 
 
