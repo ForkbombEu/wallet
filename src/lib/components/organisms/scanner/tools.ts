@@ -7,6 +7,7 @@ import { pocketbase } from '@slangroom/pocketbase';
 import { http } from '@slangroom/http';
 import verQrToInfo from '$lib/mobile_zencode/wallet/ver_qr_to_info.zen?raw';
 import verQrToInfoKeys from '$lib/mobile_zencode/wallet/ver_qr_to_info.keys.json?raw';
+import { log } from '$lib/log';
 
 //@ts-expect-error something is wrong in Slangroom types
 const slangroom = new Slangroom(helpers, zencode, pocketbase, http);
@@ -117,8 +118,12 @@ export const parseQr = async (value: string): Promise<ParseQrResults> => {
 		delete parsedValue.type;
 		return { result: 'ok', data: { type, service: parsedValue as Service } };
 	} else {
+		try {
 		const credential = await getCredentialQrInfo(parsedValue as Credential);
 		return { result: 'ok', data: { type, credential } };
+		} catch (err) {
+			return { result: 'error', message: `error getting credential info: ${err}` };
+		}
 	}
 };
 
@@ -143,6 +148,13 @@ export const getCredentialQrInfo = async (qrJSON: Credential) => {
 		...qrJSON,
 		credential_array: myCredentials
 	};
+	log(JSON.stringify(data))
+	try {
 	const res = await slangroom.execute(verQrToInfo, { data, keys: JSON.parse(verQrToInfoKeys) });
+	log(JSON.stringify(res));
 	return res.result as QrToInfoResults;
+	} catch (err) {
+		log(JSON.stringify(err));
+		throw new Error(`error executing zencode: ${err}`);
+	}
 };
