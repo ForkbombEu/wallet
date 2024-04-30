@@ -1,3 +1,10 @@
+# [1.33.0](https://github.com/ForkbombEu/wallet/compare/v1.32.6...v1.33.0) (2024-04-30)
+
+
+### Features
+
+* verification flow ([#275](https://github.com/ForkbombEu/wallet/issues/275)) ([3a5bc2d](https://github.com/ForkbombEu/wallet/commit/3a5bc2dcc8a180b56673e365efaa795ca40d66d5))
+
 ## [1.32.6](https://github.com/ForkbombEu/wallet/compare/v1.32.5...v1.32.6) (2024-04-22)
 
 
