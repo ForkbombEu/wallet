@@ -25,6 +25,5 @@ async function logAndSave(message: string) {
 	}
 	const logMessage = callerInfo ? `${callerInfo}: ${message}` : message;
 	console.log(logMessage);
-	// console.log.bind(console)
 	await setLogPreference(logMessage);
 }

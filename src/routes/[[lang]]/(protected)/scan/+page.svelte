@@ -49,7 +49,7 @@
 			{@const propertiesArray = Object.values(properties)}
 			<d-heading size="s">{rp_name}</d-heading>
 			<!-- <ion-label>{verifier_name}</ion-label> -->
-			<d-text>User name: </d-text>
+			<d-text>Verifier: ${verifier_name}</d-text>
 			<d-text>It will ask you for:</d-text>
 			{#each propertiesArray as property}
 				<d-text>{property.title}</d-text>
