@@ -13,8 +13,6 @@
 <ion-modal
 	is-open={isModalOpen}
 	backdrop-dismiss={false}
-	initial-breakpoint={0.6}
-	backdrop-breakpoint={0.8}
 	transition:fly
 	class="visible"
 >

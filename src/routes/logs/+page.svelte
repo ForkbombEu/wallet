@@ -3,6 +3,7 @@
 	import dayjs from 'dayjs';
 	import { onMount } from 'svelte';
 	import { clearLogsPreferences } from '$lib/preferences/logs.js';
+	import { clearPreferences } from '$lib/preferences/index.js';
 	export let data;
 	let element: HTMLElement;
 	$: if (logs && element) scrollToBottom(element);
@@ -23,6 +24,7 @@
 	<div class="flex gap-2">
 		<d-button href={r('/home')}> back </d-button>
 		<d-button on:click={clear}> clear </d-button>
+		<d-button on:click={clearPreferences}> clear storage </d-button>
 	</div>
 	{#if logs}
 		{#each logs as log}
