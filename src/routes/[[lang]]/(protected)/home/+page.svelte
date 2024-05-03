@@ -14,10 +14,14 @@
 			})
 		)}`;
 		let feedback: Feedback = $homeFeedbackStore
+
+	const onFeedbackClose = () => {
+		homeFeedbackStore.set({})
+	}
 </script>
 
 <TabPage tab="home" title="HOME">
-	<d-feedback {...feedback} />
+	<d-feedback {...feedback} on:dClose={onFeedbackClose} />
 	<br />
 	{#await getServices()}
 		<ion-spinner />
