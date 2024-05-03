@@ -3,6 +3,7 @@
 	import { m } from '$lib/i18n';
 	import { parse } from 'did-resolver';
 	import { authFilesUri, filesUri } from '$lib/backendUri.js';
+	import AppDetails from '$lib/components/AppDetails.svelte';
 
 	export let data;
 
@@ -36,5 +37,6 @@
 			</div>
 		{/if}
 		<d-button href="/logout" class="mt-20 w-full" color="outline" expand>Logout</d-button>
+		<AppDetails />
 	</div>
 </TabPage>
