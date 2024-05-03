@@ -1,3 +1,10 @@
+# [1.36.0](https://github.com/ForkbombEu/wallet/compare/v1.35.0...v1.36.0) (2024-05-03)
+
+
+### Features
+
+* new verification ui-ux, improved feedbacks ([#279](https://github.com/ForkbombEu/wallet/issues/279)) ([cbab045](https://github.com/ForkbombEu/wallet/commit/cbab045a3cb81512eb6f735b4d0b9743a7c31f31))
+
 # [1.35.0](https://github.com/ForkbombEu/wallet/compare/v1.34.0...v1.35.0) (2024-05-03)
 
 
