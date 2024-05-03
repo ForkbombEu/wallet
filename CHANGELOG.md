@@ -1,3 +1,10 @@
+# [1.35.0](https://github.com/ForkbombEu/wallet/compare/v1.34.0...v1.35.0) (2024-05-03)
+
+
+### Features
+
+* add version number in profile page ([#278](https://github.com/ForkbombEu/wallet/issues/278)) ([2b83e2e](https://github.com/ForkbombEu/wallet/commit/2b83e2ee4ce043056d10b341af432925a7ec2d58))
+
 # [1.34.0](https://github.com/ForkbombEu/wallet/compare/v1.33.1...v1.34.0) (2024-04-30)
 
 
