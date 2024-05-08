@@ -1,3 +1,10 @@
+## [1.36.1](https://github.com/ForkbombEu/wallet/compare/v1.36.0...v1.36.1) (2024-05-08)
+
+
+### Bug Fixes
+
+* on home feedback close the toast should disappear forever ([#280](https://github.com/ForkbombEu/wallet/issues/280)) ([6863914](https://github.com/ForkbombEu/wallet/commit/6863914861a6620413da355a6228db21139f5203))
+
 # [1.36.0](https://github.com/ForkbombEu/wallet/compare/v1.35.0...v1.36.0) (2024-05-03)
 
 
