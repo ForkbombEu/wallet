@@ -55,7 +55,7 @@
 >
 	<slot />
 
-	<ion-tab-bar slot="bottom" class="flex ion-padding justify-between">
+	<ion-tab-bar slot="bottom" class="flex ion-padding py-0 justify-between">
 		{#each tabs as tab}
 			<d-tab-button
 				tab={tab.tab}
