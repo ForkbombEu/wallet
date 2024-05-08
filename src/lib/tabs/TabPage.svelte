@@ -5,6 +5,7 @@
 	export let tab: Tab;
 	export let title: string;
 	export let settings = false
+
 </script>
 
 <ion-tab {tab}>
