@@ -4,7 +4,7 @@
 	import { m } from '$lib/i18n';
 </script>
 
-<TabPage tab="notifications" title="NOTIFICATIONS">
+<TabPage tab="activity" title="ACTIVITY">
 	<ion-list>
 		<ion-list-header>{m.Recent_Conversations()}</ion-list-header>
 		{#each Array(10) as _}
