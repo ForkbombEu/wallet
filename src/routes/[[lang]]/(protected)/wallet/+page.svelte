@@ -68,10 +68,11 @@
 		{:else}
 			<div class="flex flex-col gap-2">
 				{#each credentials as credential}
+				{@const expirationDate = dayjs.unix(credential.expirationDate).format("DD.MM.YYYY HH:mm")}
 					<a href={r(`/${credential.id}/credential-detail`)}>
 						<d-credential-card
 							{...credential}
-							expirationDate={dayjs.unix(credential.expirationDate).toString()}
+							{expirationDate}
 							name={credential.display_name}
 							logoSrc={credential.logo.url}
 						/>

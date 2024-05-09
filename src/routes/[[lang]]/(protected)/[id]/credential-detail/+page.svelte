@@ -32,10 +32,12 @@
 		class="mt-8"
 	>
 		{#each credentials as credential}
+		{@const expirationDate = dayjs.unix(credential.expirationDate).format("DD.MM.YYYY HH:mm")}
+
 			<swiper-slide id={getIndex(credential.id)}>
 				<d-credential-card
 					{...credential}
-					expirationDate={dayjs.unix(credential.expirationDate).toString()}
+					{expirationDate}
 					name={credential.display_name}
 					logoSrc={credential.logo.url}
 					description=""
