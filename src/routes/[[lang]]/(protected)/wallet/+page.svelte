@@ -2,6 +2,7 @@
 	import { m, r } from '$lib/i18n';
 	import { getCredentialsPreference } from '$lib/preferences/credentials';
 	import TabPage from '$lib/tabs/TabPage.svelte';
+	import dayjs from 'dayjs';
 	import { arrowForwardOutline } from 'ionicons/icons';
 </script>
 
@@ -70,6 +71,7 @@
 					<a href={r(`/${credential.id}/credential-detail`)}>
 						<d-credential-card
 							{...credential}
+							expirationDate={dayjs.unix(credential.expirationDate).toString()}
 							name={credential.display_name}
 							logoSrc={credential.logo.url}
 						/>

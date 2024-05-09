@@ -11,7 +11,7 @@ export type Credential = {
 	issuer: string;
 	display_name: string;
 	description: string;
-	expirationDate: string;
+	expirationDate: number;
 	verified: boolean;
 	logo: { url: string; alt_text: string };
 };
