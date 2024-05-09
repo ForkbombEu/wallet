@@ -75,7 +75,30 @@ export const decodeSdJwt = async (sdJwt: string) => {
 			credential: sdJwt
 		}
 	});
-	return decoded.result;
+	return decoded.result as DecodedSDJWT;
+};
+
+export type DecodedSDJWT = {
+	credential: {
+		disclosures: Array<Array<string>>;
+		jwt: {
+			header: {
+				alg: string;
+				typ: string;
+			};
+			payload: {
+				_sd: Array<string>;
+				_sd_alg: string;
+				exp: number;
+				iat: number;
+				iss: string;
+				nbf: number;
+				sub: string;
+				type: string;
+			};
+			signature: string;
+		};
+	};
 };
 
 export type JWKSKey = {

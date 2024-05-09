@@ -10,7 +10,7 @@
 	import { m } from '$lib/i18n';
 	import Header from '$lib/components/molecules/Header.svelte';
 	import { setCredentialPreference } from '$lib/preferences/credentials';
-	import { holderQrToWellKnown, type CredentialResult, type QrToWellKnown } from '$lib/openId4vci';
+	import { decodeSdJwt, holderQrToWellKnown, type CredentialResult, type QrToWellKnown } from '$lib/openId4vci';
 	import { page } from '$app/stores';
 	import { askCredential, getKeys } from '$lib/openId4vci';
 	import type { Service } from '$lib/components/organisms/scanner/tools';
@@ -68,6 +68,7 @@
 		}
 
 		setTimeout(async () => {
+			const dsdjwt = await decodeSdJwt(serviceResponse.credential)
 			const savedCredential = await setCredentialPreference({
 				configuration_ids: parsedService.credential_configuration_ids,
 				display_name: qrToWellKnown.credential_requested.display[0].name,
@@ -75,7 +76,7 @@
 				issuer: qrToWellKnown.credential_issuer_information.display[0].name,
 				description: qrToWellKnown.credential_requested.display[0].description,
 				verified: false,
-				expirationDate: '',
+				expirationDate: dsdjwt.credential.jwt.payload.exp,
 				logo: qrToWellKnown.credential_requested.display[0].logo
 			});
 

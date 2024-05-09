@@ -4,6 +4,7 @@
 	export let data: any;
 	const { credential, credentials } = data;
 	import { register } from 'swiper/element/bundle';
+	import dayjs from 'dayjs';
 
 	const getIndex = (id: string) => credentials.findIndex((c: any) => c.id === id);
 	let index = getIndex(credential.id);
@@ -31,11 +32,14 @@
 		class="mt-8"
 	>
 		{#each credentials as credential}
+		{@const expirationDate = dayjs.unix(credential.expirationDate).format("DD.MM.YYYY HH:mm")}
+
 			<swiper-slide id={getIndex(credential.id)}>
-        <d-credential-card
+				<d-credential-card
 					{...credential}
+					{expirationDate}
 					name={credential.display_name}
-			    logoSrc={credential.logo.url}
+					logoSrc={credential.logo.url}
 					description=""
 				/>
 			</swiper-slide>
