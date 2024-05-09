@@ -36,6 +36,7 @@
 	let date = '';
 	let verificated: boolean;
 	let success: boolean;
+	let verifyIsClicked = false;
 
 	const { info, post } = $verificationStore;
 	const { rp_name, verifier_name, asked_claims } = info;
@@ -44,6 +45,7 @@
 	const verificationFailed = 'verification failed';
 
 	const request = async () => {
+		verifyIsClicked = true;
 		try {
 			verificationResponse = (await verifyCredential(post)) as VerificationResponse;
 			verificated = true;
@@ -131,6 +133,7 @@
 				<d-button
 					on:click={() => request()}
 					on:keydown={() => request()}
+					disabled={verifyIsClicked}
 					aria-hidden
 					expand
 					color="accent">{m.Verify()}</d-button
