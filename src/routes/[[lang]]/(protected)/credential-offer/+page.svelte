@@ -95,7 +95,7 @@
 		{@const credentialInfo = wn['credential_requested']['display'][0]}
 		{@const credentialSchema =
 			wn['credential_requested']['credential_definition']['credentialSubject']}
-		<div class="flex h-full flex-col justify-between pb-16">
+		<div class="flex min-h-full flex-col justify-between pb-14">
 			<div>
 				<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
 					<d-avatar src={credentialInfo.logo.url} alt={credentialInfo.logo.alt_text}></d-avatar>
