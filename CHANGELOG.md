@@ -1,3 +1,17 @@
+# [1.38.0](https://github.com/ForkbombEu/wallet/compare/v1.37.0...v1.38.0) (2024-05-09)
+
+
+### Bug Fixes
+
+* store and show credentials expiration date ([#288](https://github.com/ForkbombEu/wallet/issues/288)) ([37c306f](https://github.com/ForkbombEu/wallet/commit/37c306fcaa1967cfe2b340ac5de4a6f8faebe7a4))
+* tab bar was too height ([#286](https://github.com/ForkbombEu/wallet/issues/286)) ([c6168d2](https://github.com/ForkbombEu/wallet/commit/c6168d2260e78dce41d0aa12bfe6e463baa8be42)), closes [#285](https://github.com/ForkbombEu/wallet/issues/285)
+* the verify button should be pressable only one time ([#287](https://github.com/ForkbombEu/wallet/issues/287)) ([424027b](https://github.com/ForkbombEu/wallet/commit/424027b2ea3f0cdebb3338373195045801649647)), closes [#282](https://github.com/ForkbombEu/wallet/issues/282)
+
+
+### Features
+
+* restyle scanner page ([#289](https://github.com/ForkbombEu/wallet/issues/289)) ([ff5d964](https://github.com/ForkbombEu/wallet/commit/ff5d96489c33f959d956442bc395538eb06e0db4))
+
 # [1.37.0](https://github.com/ForkbombEu/wallet/compare/v1.36.1...v1.37.0) (2024-05-08)
 
 
