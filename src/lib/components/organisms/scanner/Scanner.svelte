@@ -1,12 +1,15 @@
 <script lang="ts">
 	import { BarcodeScanner, type Barcode } from '@capacitor-mlkit/barcode-scanning';
 	import { close } from 'ionicons/icons';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import { m } from '$lib/i18n';
 	import camera from '$lib/assets/camera.png';
 	import { Capacitor } from '@capacitor/core';
 	import { tweened } from 'svelte/motion';
 	import { quartInOut } from 'svelte/easing';
+	import { NativeSettings, AndroidSettings, IOSSettings } from 'capacitor-native-settings';
+	import { arrowForwardOutline } from 'ionicons/icons';
+	import { invalidateAll } from '$app/navigation';
 
 	const dispatch = createEventDispatcher();
 	const qrCodeScanned = (barcode: Barcode) => {
@@ -51,10 +54,8 @@
 	const awaitPermissions = async () => {
 		let permissionsGranted: boolean;
 		const allowed = await checkPermissions();
-		if (allowed == 'denied') {
+		if (allowed !== 'granted') {
 			permissionsGranted = false;
-			const permissions = await requestPermissions();
-			if (permissions !== 'denied') permissionsGranted = true;
 		} else {
 			permissionsGranted = true;
 		}
@@ -71,13 +72,25 @@
 		});
 	};
 
-	
+	onMount(async () => {
+		await requestPermissions();
+	});
+
 	//
 
 	const translateY = tweened(-138, { duration: 2000, easing: quartInOut });
 	$: if ($translateY === -138) translateY.set(+135);
 	$: if ($translateY === +135) translateY.set(-138);
 
+	//
+
+	const openSettings = async () => {
+		await NativeSettings.open({
+			optionAndroid: AndroidSettings.ApplicationDetails,
+			optionIOS: IOSSettings.App
+		});
+		await invalidateAll()
+	};
 </script>
 
 <ion-header class="visible bg-[#d2d7e5]">
@@ -106,18 +119,26 @@
 					<d-heading size="s">
 						<h2 class="text-white">{m.No_camera_access()}</h2>
 					</d-heading>
-					<d-text size="l" class="text-white">
+					<d-text size="l" class="text-white text-center">
 						{m.To_scan_QR_codes_allow_us_to_use_your_camera_in_Settings()}
 					</d-text>
+					<d-button
+						expand
+						on:click={openSettings}
+						on:keydown={openSettings}
+						aria-hidden
+					>
+						NOTIFICATIONS SETTINGS <ion-icon slot="end" icon={arrowForwardOutline} />
+					</d-button>
 				</div>
 			{:else}
 				<slot {scan} {stopScan} />
 				<div
 					class="visible fixed left-0 top-0 z-40 flex h-screen w-full flex-col items-center justify-center"
 				>
-					<div class="min-h-24 w-full flex-grow viewfinderBg" />
+					<div class="viewfinderBg min-h-24 w-full flex-grow" />
 					<div class="flex h-72 w-full">
-						<div class="max-w-1/4 h-full flex-grow viewfinderBg" />
+						<div class="max-w-1/4 viewfinderBg h-full flex-grow" />
 						<div
 							class="viewfinder relative z-50 h-72 w-72 overflow-hidden rounded-md bg-transparent"
 						>
@@ -127,10 +148,10 @@
 								style="transform: translateY({$translateY}px)"
 							></div>
 						</div>
-						<div class="h-full flex-grow viewfinderBg" />
+						<div class="viewfinderBg h-full flex-grow" />
 					</div>
 
-					<div class="w-full flex-grow viewfinderBg">
+					<div class="viewfinderBg w-full flex-grow">
 						<div class="ion-padding">
 							<d-heading size="s">
 								<h2>{m.Scan_QR_to_verify_or_obtain_credentials_()}</h2>
@@ -157,11 +178,10 @@
 
 <style>
 	.viewfinder {
-		--s: 50px; 
-		--t: 8px; 
-		--g: 0px; 
+		--s: 50px;
+		--t: 8px;
 
-		padding: calc(var(--g) + var(--t));
+		padding: calc(var(--t));
 		outline-offset: calc(-1 * var(--t));
 		mask:
 			conic-gradient(at var(--s) var(--s), #0000 75%, #000 0) 0 0 / calc(100% - var(--s))
