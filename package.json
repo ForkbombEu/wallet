@@ -88,6 +88,7 @@
 		"@slangroom/zencode": "^1.27.0",
 		"ajv": "^8.12.0",
 		"ajv-formats": "^2.1.1",
+		"capacitor-native-settings": "^6.0.0",
 		"dayjs": "^1.11.10",
 		"did-resolver": "^4.1.0",
 		"ionic-svelte": "^0.5.82",
