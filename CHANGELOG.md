@@ -1,3 +1,10 @@
+## [1.38.1](https://github.com/ForkbombEu/wallet/compare/v1.38.0...v1.38.1) (2024-05-10)
+
+
+### Bug Fixes
+
+* if user dosent grant permission to camera link him to app settings ([#291](https://github.com/ForkbombEu/wallet/issues/291)) ([941b009](https://github.com/ForkbombEu/wallet/commit/941b00991205fa26213ba501166887413540a518))
+
 # [1.38.0](https://github.com/ForkbombEu/wallet/compare/v1.37.0...v1.38.0) (2024-05-09)
 
 
