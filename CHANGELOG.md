@@ -1,3 +1,10 @@
+## [1.38.2](https://github.com/ForkbombEu/wallet/compare/v1.38.1...v1.38.2) (2024-05-14)
+
+
+### Bug Fixes
+
+* in scanner mode after request permission start to scan ([#294](https://github.com/ForkbombEu/wallet/issues/294)) ([9bc55bc](https://github.com/ForkbombEu/wallet/commit/9bc55bc18a87d017071724cebbb71fa9d5f2803d)), closes [#292](https://github.com/ForkbombEu/wallet/issues/292)
+
 ## [1.38.1](https://github.com/ForkbombEu/wallet/compare/v1.38.0...v1.38.1) (2024-05-10)
 
 
