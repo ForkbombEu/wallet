@@ -1,3 +1,16 @@
+# [1.39.0](https://github.com/ForkbombEu/wallet/compare/v1.38.2...v1.39.0) (2024-05-15)
+
+
+### Bug Fixes
+
+* add scan button in every tab page ([#296](https://github.com/ForkbombEu/wallet/issues/296)) ([d67128b](https://github.com/ForkbombEu/wallet/commit/d67128bd5f381caf2eae66375cc769eae6652ead))
+* organizations tabs spacing ([#297](https://github.com/ForkbombEu/wallet/issues/297)) ([31040d4](https://github.com/ForkbombEu/wallet/commit/31040d41c8fc28677152cba4ec6451f432b9448a))
+
+
+### Features
+
+* app settings ([#295](https://github.com/ForkbombEu/wallet/issues/295)) ([9262460](https://github.com/ForkbombEu/wallet/commit/926246093eb0b360a0f3e62964f9267b6a7ddd40))
+
 ## [1.38.2](https://github.com/ForkbombEu/wallet/compare/v1.38.1...v1.38.2) (2024-05-14)
 
 
