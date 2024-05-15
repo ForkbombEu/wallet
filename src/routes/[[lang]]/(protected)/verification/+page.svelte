@@ -7,6 +7,7 @@
 	import WarningDot from '$lib/components/molecules/WarningDot.svelte';
 	import dayjs from 'dayjs';
 	import { log } from '$lib/log';
+	import { addActivity, type Activity } from '$lib/preferences/activity';
 
 	type VerificationResponse = {
 		result: {
@@ -46,6 +47,7 @@
 
 	const request = async () => {
 		verifyIsClicked = true;
+		let activity: Activity;
 		try {
 			verificationResponse = (await verifyCredential(post)) as VerificationResponse;
 			verificated = true;
@@ -61,6 +63,15 @@
 					feedback: verificationFailed
 				};
 			}
+			activity = {
+				type: 'verification',
+				sid: post.body.id,
+				at: dayjs().unix(),
+				verifier_name,
+				rp_name,
+				properties: propertiesArray.map((property) => property.title),
+				success
+			};
 			log(JSON.stringify(verificationResponse));
 		} catch (e) {
 			verificated = true;
@@ -72,8 +83,18 @@
 				message: JSON.stringify(e),
 				feedback: verificationFailed
 			};
+			activity = {
+				type: 'verification',
+				sid: post.body.id,
+				at: dayjs().unix(),
+				verifier_name,
+				rp_name,
+				properties: propertiesArray.map((property) => property.title),
+				success
+			};
 			log(JSON.stringify(e));
 		}
+		await addActivity(activity);
 	};
 	const decline = async () => {
 		await goto('/');
@@ -84,7 +105,7 @@
 
 <ion-content fullscreen class="ion-padding">
 	{#if verificated}
-		<d-feedback {...feedback} class="break-all"/>
+		<d-feedback {...feedback} class="break-all" />
 
 		<div class="flex w-full justify-around">
 			<d-session-card sid={post.body.id} {date} {success} />

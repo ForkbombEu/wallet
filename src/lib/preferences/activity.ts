@@ -8,9 +8,11 @@ export type IssuedCredential = {
 
 export type Verification = {
 	type: 'verification';
-	sid: string;
+	verifier_name: string;
 	success: boolean;
-	message?: string;
+	rp_name: string;
+    sid: string;
+    properties: string[];
 };
 
 export type Activity = {

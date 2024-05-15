@@ -21,7 +21,7 @@
 </script>
 
 <TabPage tab="activity" title="ACTIVITY">
-	<div class="fllex-col flex">
+	<div class="flex-col flex">
 		{#if !activities}
 			empty state
 		{:else}
@@ -61,7 +61,31 @@
 						</div>
 					{/if}
 				{:else}
-					pp
+					{@const { verifier_name, success, rp_name, sid, properties } = activity}
+					<div class="itens-start border-strocke flex gap-4 border-b py-2">
+						<d-avatar name={verifier_name} shape="square" />
+						<div class="flex flex-col gap-2">
+							<h2>
+								{verifier_name} verified yours: {#each properties as property}
+									{property},{' '}
+								{/each}via {rp_name} and it was a {success? 'success' : 'failure'}
+							</h2>
+							<d-text size="s" class="text-on-alt">session id: {sid}</d-text>
+							<div class="flex items-center gap-2.5">
+								<d-info-led type="warning" />
+								<d-text size="xs">{dayjs().to(dayjs.unix(activity.at))}</d-text>
+							</div>
+							<div class="flex justify-end gap-2.5">
+								<d-button
+									size="small"
+									color="accent"
+									onClick={async () => await cancelActivity(activity)}
+								>
+									remove
+								</d-button>
+							</div>
+						</div>
+					</div>
 				{/if}
 			{/each}
 		{/if}
