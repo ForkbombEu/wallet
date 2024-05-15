@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { BarcodeScanner, type Barcode } from '@capacitor-mlkit/barcode-scanning';
 	import { close } from 'ionicons/icons';
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 	import { m } from '$lib/i18n';
 	import camera from '$lib/assets/camera.png';
 	import { Capacitor } from '@capacitor/core';
@@ -53,13 +53,16 @@
 	};
 	const awaitPermissions = async () => {
 		let permissionsGranted: boolean;
-		const allowed = await checkPermissions();
+		let allowed = await checkPermissions();
 		if (allowed !== 'granted') {
-			permissionsGranted = false;
+			allowed = await requestPermissions();
+			permissionsGranted = allowed === 'granted';
 		} else {
 			permissionsGranted = true;
 		}
-		permissionsGranted && scan();
+		if (permissionsGranted) {
+			scan();
+		}
 		return permissionsGranted;
 	};
 
@@ -71,10 +74,6 @@
 			qr: inputText
 		});
 	};
-
-	onMount(async () => {
-		await requestPermissions();
-	});
 
 	//
 
@@ -89,7 +88,7 @@
 			optionAndroid: AndroidSettings.ApplicationDetails,
 			optionIOS: IOSSettings.App
 		});
-		await invalidateAll()
+		await invalidateAll();
 	};
 </script>
 
@@ -119,15 +118,10 @@
 					<d-heading size="s">
 						<h2 class="text-white">{m.No_camera_access()}</h2>
 					</d-heading>
-					<d-text size="l" class="text-white text-center">
+					<d-text size="l" class="text-center text-white">
 						{m.To_scan_QR_codes_allow_us_to_use_your_camera_in_Settings()}
 					</d-text>
-					<d-button
-						expand
-						on:click={openSettings}
-						on:keydown={openSettings}
-						aria-hidden
-					>
+					<d-button expand on:click={openSettings} on:keydown={openSettings} aria-hidden>
 						NOTIFICATIONS SETTINGS <ion-icon slot="end" icon={arrowForwardOutline} />
 					</d-button>
 				</div>
