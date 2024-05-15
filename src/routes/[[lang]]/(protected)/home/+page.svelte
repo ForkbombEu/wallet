@@ -1,5 +1,4 @@
 <script lang="ts">
-	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import { getServices } from '$lib/slangroom/services';
 	import { m } from '$lib/i18n';
@@ -13,11 +12,11 @@
 				credential_issuer: issuerUrl
 			})
 		)}`;
-		let feedback: Feedback = $homeFeedbackStore
+	let feedback: Feedback = $homeFeedbackStore;
 
 	const onFeedbackClose = () => {
-		homeFeedbackStore.set({})
-	}
+		homeFeedbackStore.set({});
+	};
 </script>
 
 <TabPage tab="home" title="HOME">
@@ -44,5 +43,4 @@
 			{/each}
 		</div>
 	{/await}
-	<ScanButton />
 </TabPage>
