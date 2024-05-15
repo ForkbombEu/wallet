@@ -31,10 +31,12 @@
 	<!-- action clear all activity -->
 
 	<div class="flex flex-col">
-		<div class="flex justify-end gap-2.5 pb-4">
-			<d-button size="small" color="accent" onClick={clear}> clear all </d-button>
-		</div>
-		{#each activities as activity}
+		{#if activities.length > 0}
+			<div class="flex justify-end gap-2.5 pb-4">
+				<d-button size="small" color="accent" onClick={clear}> clear all </d-button>
+			</div>
+		{/if}
+		{#each activities.reverse() as activity}
 			{#if activity.type === 'credential'}
 				{@const credential = credentials?.find((cred) => cred.id === activity.id)}
 				{#if !credential}
