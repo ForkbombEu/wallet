@@ -36,7 +36,6 @@
 				{/each}
 			</div>
 		{/if}
-		<d-button href="/logout" class="mt-20 w-full" color="outline" expand>Logout</d-button>
 		<AppDetails />
 	</div>
 </TabPage>

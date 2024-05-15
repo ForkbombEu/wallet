@@ -49,6 +49,6 @@
 		</ion-toolbar>
 	</ion-header>
 	<ion-content class="ion-padding">
-		<Settings />
+		<Settings {closeSettings}/>
 	</ion-content>
 </ion-modal>
