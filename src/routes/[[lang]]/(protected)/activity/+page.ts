@@ -7,5 +7,5 @@ export const load = async ({ depends }) => {
 	depends(_activityKey);
 	const activities = await getActivities();
 	const credentials = await getCredentialsPreference();
-	return { activities: activities, credentials };
+	return { activities: activities || [], credentials };
 };

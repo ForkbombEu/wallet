@@ -18,63 +18,37 @@
 		await invalidate(_activityKey);
 		activities = data.activities;
 	};
+
+	const clear = async () => {
+		await clearActivities();
+		await invalidate(_activityKey);
+		activities = data.activities;
+	};
 </script>
 
 <TabPage tab="activity" title="ACTIVITY">
-	<div class="flex-col flex">
-		{#if !activities}
-			empty state
-		{:else}
-			{#each activities as activity}
-				{#if activity.type === 'credential'}
-					{@const credential = credentials?.find((cred) => cred.id === activity.id)}
-					{#if !credential}
-						{log(`credential ${activity.id} not found`)}
-					{:else}
-						<div class="itens-start border-strocke flex gap-4 border-b py-2">
-							<d-avatar src={credential.logo} name={credential.display_name} shape="square" />
-							<div class="flex flex-col gap-2">
-								<h2>{credential.issuer} issued {credential.display_name} to you</h2>
-								<d-text size="s" class="text-on-alt">{credential.description}</d-text>
-								<div class="flex items-center gap-2.5">
-									<d-info-led type="warning" />
-									<d-text size="xs">{dayjs().to(dayjs.unix(activity.at))}</d-text>
-								</div>
-								<!-- actions: cancel, goto -->
-								<div class="flex justify-end gap-2.5">
-									<d-button
-										size="small"
-										color="accent"
-										onClick={async () => await cancelActivity(activity)}
-									>
-										remove
-									</d-button>
-									<d-button
-										size="small"
-										color="primary"
-										href={r(`/${activity.id}/credential-detail`)}
-									>
-										show me!
-									</d-button>
-								</div>
-							</div>
-						</div>
-					{/if}
+	<!-- action clear all activity -->
+
+	<div class="flex flex-col">
+		<div class="flex justify-end gap-2.5 pb-4">
+			<d-button size="small" color="accent" onClick={clear}> clear all </d-button>
+		</div>
+		{#each activities as activity}
+			{#if activity.type === 'credential'}
+				{@const credential = credentials?.find((cred) => cred.id === activity.id)}
+				{#if !credential}
+					{log(`credential ${activity.id} not found`)}
 				{:else}
-					{@const { verifier_name, success, rp_name, sid, properties } = activity}
 					<div class="itens-start border-strocke flex gap-4 border-b py-2">
-						<d-avatar name={verifier_name} shape="square" />
+						<d-avatar src={credential.logo} name={credential.display_name} shape="square" />
 						<div class="flex flex-col gap-2">
-							<h2>
-								{verifier_name} verified yours: {#each properties as property}
-									{property},{' '}
-								{/each}via {rp_name} and it was a {success? 'success' : 'failure'}
-							</h2>
-							<d-text size="s" class="text-on-alt">session id: {sid}</d-text>
+							<h2>{credential.issuer} issued {credential.display_name} to you</h2>
+							<d-text size="s" class="text-on-alt">{credential.description}</d-text>
 							<div class="flex items-center gap-2.5">
 								<d-info-led type="warning" />
 								<d-text size="xs">{dayjs().to(dayjs.unix(activity.at))}</d-text>
 							</div>
+							<!-- actions: cancel, goto -->
 							<div class="flex justify-end gap-2.5">
 								<d-button
 									size="small"
@@ -83,11 +57,46 @@
 								>
 									remove
 								</d-button>
+								<d-button
+									size="small"
+									color="primary"
+									href={r(`/${activity.id}/credential-detail`)}
+								>
+									show me!
+								</d-button>
 							</div>
 						</div>
 					</div>
 				{/if}
-			{/each}
-		{/if}
+			{:else}
+				{@const { verifier_name, success, rp_name, sid, properties } = activity}
+				<div class="itens-start border-strocke flex gap-4 border-b py-2">
+					<d-avatar name={verifier_name} shape="square" />
+					<div class="flex flex-col gap-2">
+						<h2>
+							{verifier_name} verified yours: {#each properties as property}
+								{property},{' '}
+							{/each}via {rp_name} and it was a {success ? 'success' : 'failure'}
+						</h2>
+						<d-text size="s" class="text-on-alt">session id: {sid}</d-text>
+						<div class="flex items-center gap-2.5">
+							<d-info-led type="warning" />
+							<d-text size="xs">{dayjs().to(dayjs.unix(activity.at))}</d-text>
+						</div>
+						<div class="flex justify-end gap-2.5">
+							<d-button
+								size="small"
+								color="accent"
+								onClick={async () => await cancelActivity(activity)}
+							>
+								remove
+							</d-button>
+						</div>
+					</div>
+				</div>
+			{/if}
+		{:else}
+			<d-text size="l">No activities yet</d-text>
+		{/each}
 	</div>
 </TabPage>
