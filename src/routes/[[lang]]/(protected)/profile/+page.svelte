@@ -30,7 +30,7 @@
 
 		{#if orgs.length > 0}
 			<d-heading size="xs" class="mt-16 w-full text-center">{m.Badges()}</d-heading>
-			<div class="mx-auto mt-8 flex w-4/5 flex-wrap items-center justify-between gap-2">
+			<div class="mx-auto mt-8 flex w-11/12 flex-wrap items-center justify-between gap-2">
 				{#each orgs as org}
 					<d-avatar src={filesUri(org.avatar, org.collectionId, org.id)} alt={org.name} size="xl" />
 				{/each}
