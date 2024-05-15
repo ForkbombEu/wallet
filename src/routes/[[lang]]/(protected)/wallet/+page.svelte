@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { m, r } from '$lib/i18n';
+	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
+import { m, r } from '$lib/i18n';
 	import { getCredentialsPreference } from '$lib/preferences/credentials';
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import dayjs from 'dayjs';
@@ -86,4 +87,5 @@
 			<d-text size="l" class="pb-4">{error.message}</d-text>
 		</div>
 	{/await}
+	<ScanButton/>
 </TabPage>

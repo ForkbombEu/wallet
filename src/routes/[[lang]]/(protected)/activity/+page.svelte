@@ -2,6 +2,7 @@
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import { faker } from '@faker-js/faker';
 	import { m } from '$lib/i18n';
+	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
 </script>
 
 <TabPage tab="activity" title="ACTIVITY">
@@ -23,4 +24,5 @@
 			</ion-item>
 		{/each}
 	</ion-list>
+	<ScanButton />
 </TabPage>
