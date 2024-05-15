@@ -7,6 +7,7 @@
 	import { log } from '$lib/log.js';
 	import { invalidate } from '$app/navigation';
 	import { _activityKey } from './+page.js';
+	import Bell from '$lib/assets/bell.svelte';
 
 	dayjs.extend(relativeTime);
 
@@ -96,7 +97,15 @@
 				</div>
 			{/if}
 		{:else}
-			<d-text size="l">No activities yet</d-text>
+			<div class="flex h-3/5 flex-col items-center justify-center gap-1">
+				<div>
+					<Bell />
+				</div>
+				<d-heading size="s">No activity yet</d-heading>
+				<d-text size="l" class="pb-4 text-center"
+					>Get alerts on new activities and keep your account up-to-date.</d-text
+				>
+			</div>
 		{/each}
 	</div>
 </TabPage>
