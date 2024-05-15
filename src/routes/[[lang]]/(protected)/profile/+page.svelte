@@ -4,7 +4,6 @@
 	import { parse } from 'did-resolver';
 	import { authFilesUri, filesUri } from '$lib/backendUri.js';
 	import AppDetails from '$lib/components/AppDetails.svelte';
-	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
 
 	export let data;
 
@@ -40,5 +39,4 @@
 		<d-button href="/logout" class="mt-20 w-full" color="outline" expand>Logout</d-button>
 		<AppDetails />
 	</div>
-	<ScanButton />
 </TabPage>

@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Header from '$lib/components/molecules/Header.svelte';
+	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
 	import type { Tab } from '.';
 
 	export let tab: Tab;
 	export let title: string;
-	export let settings = false
-
+	export let settings = false;
 </script>
 
 <ion-tab {tab}>
@@ -13,5 +13,6 @@
 
 	<ion-content fullscreen class="ion-padding">
 		<slot />
+		<ScanButton />
 	</ion-content>
 </ion-tab>
