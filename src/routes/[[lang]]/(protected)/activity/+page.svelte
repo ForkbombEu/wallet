@@ -2,18 +2,26 @@
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import dayjs from 'dayjs';
 	import relativeTime from 'dayjs/plugin/relativeTime';
-	import { removeActivities, clearActivities } from '$lib/preferences/activity';
+	import { removeActivities, clearActivities, type Activity } from '$lib/preferences/activity';
 	import { r } from '$lib/i18n';
 	import { log } from '$lib/log.js';
+	import { invalidate } from '$app/navigation';
+	import { _activityKey } from './+page.js';
 
 	dayjs.extend(relativeTime);
 
 	export let data;
-	const { activities, credentials } = data;
+	let { activities, credentials } = data;
+
+	const cancelActivity = async (activity: Activity) => {
+		await removeActivities([activity.at]);
+		await invalidate(_activityKey);
+		activities = data.activities;
+	};
 </script>
 
 <TabPage tab="activity" title="ACTIVITY">
-	<div class="flex fllex-col">
+	<div class="fllex-col flex">
 		{#if !activities}
 			empty state
 		{:else}
@@ -23,12 +31,8 @@
 					{#if !credential}
 						{log(`credential ${activity.id} not found`)}
 					{:else}
-						<div class="flex itens-start border-strocke border-b py-2 gap-4">
-							<d-avatar
-								src={credential.logo}
-								name={credential.display_name}
-								shape="square"
-							/>
+						<div class="itens-start border-strocke flex gap-4 border-b py-2">
+							<d-avatar src={credential.logo} name={credential.display_name} shape="square" />
 							<div class="flex flex-col gap-2">
 								<h2>{credential.issuer} issued {credential.display_name} to you</h2>
 								<d-text size="s" class="text-on-alt">{credential.description}</d-text>
@@ -41,7 +45,7 @@
 									<d-button
 										size="small"
 										color="accent"
-										onClick={() => removeActivities([activity.at])}
+										onClick={async () => await cancelActivity(activity)}
 									>
 										remove
 									</d-button>
@@ -60,21 +64,6 @@
 					pp
 				{/if}
 			{/each}
-			<!-- <ion-item class="border-b border-strocke">
-		<d-avatar src={''} size="xl" slot="start"/>
-
-				<ion-avatar slot="start">
-					<img alt="avatar" src={`https://i.pravatar.cc/40?u=${faker.person.firstName()}`} name={}/>
-				</ion-avatar>
-
-				<ion-label>
-					<h2>{faker.person.fullName()}</h2>
-
-					<h3>{faker.lorem.sentence()}</h3>
-
-					<p>{faker.lorem.paragraph()}</p>
-				</ion-label>
-			</ion-item> -->
 		{/if}
 	</div>
 </TabPage>
