@@ -1,3 +1,10 @@
+## [1.40.2](https://github.com/ForkbombEu/wallet/compare/v1.40.1...v1.40.2) (2024-05-16)
+
+
+### Bug Fixes
+
+* when decline a credential offer sometimes the app lands on a white page ([#302](https://github.com/ForkbombEu/wallet/issues/302)) ([6b05271](https://github.com/ForkbombEu/wallet/commit/6b05271f732bb604d50f2302f0a457fca73e9790)), closes [#274](https://github.com/ForkbombEu/wallet/issues/274) [#298](https://github.com/ForkbombEu/wallet/issues/298)
+
 ## [1.40.1](https://github.com/ForkbombEu/wallet/compare/v1.40.0...v1.40.1) (2024-05-16)
 
 
