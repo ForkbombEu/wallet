@@ -1,12 +1,12 @@
 <script lang="ts">
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import { getServices } from '$lib/slangroom/services';
-	import { m } from '$lib/i18n';
+	import { m, r } from '$lib/i18n';
 	import type { Feedback } from '$lib/utils/types';
 	import { homeFeedbackStore } from '$lib/homeFeedbackStore';
 
 	const getOfferUrl = (configurationId: string, issuerUrl: string) =>
-		`/credential-offer?service=${encodeURI(
+		`${r('/credential-offer')}?service=${encodeURI(
 			JSON.stringify({
 				credential_configuration_ids: [configurationId],
 				credential_issuer: issuerUrl

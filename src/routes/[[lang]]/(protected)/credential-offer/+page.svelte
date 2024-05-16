@@ -4,7 +4,7 @@
 	import ErrorDisplay from '$lib/components/errorDisplay.svelte';
 	import { fly } from 'svelte/transition';
 	import { thumbsUpOutline } from 'ionicons/icons';
-	import { goto } from '$lib/i18n';
+	import { goto, r } from '$lib/i18n';
 	//@ts-ignore
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import { m } from '$lib/i18n';
@@ -125,7 +125,7 @@
 				<d-button expand type="submit" form="schemaForm" aria-hidden
 					>{m.Get_this_credential()}</d-button
 				>
-				<d-button expand href="/home">{m.Decline()}</d-button>
+				<d-button expand href={r('/home')}>{m.Decline()}</d-button>
 			</div>
 		</div>
 
