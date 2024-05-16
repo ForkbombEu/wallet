@@ -4,7 +4,7 @@
 	import ErrorDisplay from '$lib/components/errorDisplay.svelte';
 	import { fly } from 'svelte/transition';
 	import { thumbsUpOutline } from 'ionicons/icons';
-	import { goto } from '$lib/i18n';
+	import { goto, r } from '$lib/i18n';
 	//@ts-ignore
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import { m } from '$lib/i18n';
@@ -16,9 +16,8 @@
 		type CredentialResult,
 		type QrToWellKnown
 	} from '$lib/openId4vci';
-	import { page } from '$app/stores';
 	import { askCredential, getKeys } from '$lib/openId4vci';
-	import type { Service } from '$lib/components/organisms/scanner/tools';
+	import { credentialOfferStore } from '$lib/credentialOfferStore';
 	import { log } from '$lib/log';
 	import type { Feedback } from '$lib/utils/types';
 	import { getLottieAnimation } from '$lib/getLottieAnimation';
@@ -33,12 +32,9 @@
 	//
 
 	let isCredentialIssuerOutOfService: boolean = false;
-	const url = $page.url;
-	const service = url.searchParams.get('service');
-	const parsedService = JSON.parse(service!) as Service;
 	const qrToWellKnown = async () => {
 		try {
-			return await holderQrToWellKnown(parsedService);
+			return await holderQrToWellKnown($credentialOfferStore);
 		} catch (e) {
 			log(e);
 			isCredentialIssuerOutOfService = true;
@@ -77,7 +73,7 @@
 		setTimeout(async () => {
 			const dsdjwt = await decodeSdJwt(serviceResponse.credential);
 			const { id } = await setCredentialPreference({
-				configuration_ids: parsedService.credential_configuration_ids,
+				configuration_ids: $credentialOfferStore.credential_configuration_ids,
 				display_name: qrToWellKnown.credential_requested.display[0].name,
 				sdJwt: serviceResponse.credential,
 				issuer: qrToWellKnown.credential_issuer_information.display[0].name,
@@ -125,7 +121,7 @@
 				<d-button expand type="submit" form="schemaForm" aria-hidden
 					>{m.Get_this_credential()}</d-button
 				>
-				<d-button expand href="/home">{m.Decline()}</d-button>
+				<d-button expand href={r('/home')}>{m.Decline()}</d-button>
 			</div>
 		</div>
 

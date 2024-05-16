@@ -1,21 +1,25 @@
 <script lang="ts">
 	import TabPage from '$lib/tabs/TabPage.svelte';
-	import { getServices } from '$lib/slangroom/services';
-	import { m } from '$lib/i18n';
+	import { getServices, type Service } from '$lib/slangroom/services';
+	import { goto, m } from '$lib/i18n';
 	import type { Feedback } from '$lib/utils/types';
 	import { homeFeedbackStore } from '$lib/homeFeedbackStore';
+	import { credentialOfferStore } from '$lib/credentialOfferStore';
+	import type { Service as CredentialService } from '$lib/components/organisms/scanner/tools';
 
-	const getOfferUrl = (configurationId: string, issuerUrl: string) =>
-		`/credential-offer?service=${encodeURI(
-			JSON.stringify({
-				credential_configuration_ids: [configurationId],
-				credential_issuer: issuerUrl
-			})
-		)}`;
 	let feedback: Feedback = $homeFeedbackStore;
 
 	const onFeedbackClose = () => {
 		homeFeedbackStore.set({});
+	};
+
+	const gotoCrendentialOffer = async (service: Service) => {
+		const credential: CredentialService = {
+			credential_configuration_ids: [service.type_name],
+			credential_issuer: service.expand.credential_issuer.endpoint
+		};
+		credentialOfferStore.set(credential);
+		await goto('/credential-offer');
 	};
 </script>
 
@@ -34,12 +38,14 @@
 
 		<div class="flex flex-col gap-2">
 			{#each services as service}
-				<d-credential-service
-					name={service.display_name}
-					issuer={service.expand.credential_issuer.name}
-					href={getOfferUrl(service.type_name, service.expand.credential_issuer.endpoint)}
-					logoSrc={service.logo}
-				/>
+				<button on:click={() => gotoCrendentialOffer(service)}>
+					<d-credential-service
+						name={service.display_name}
+						issuer={service.expand.credential_issuer.name}
+						logoSrc={service.logo}
+						href="#"
+					/>
+				</button>
 			{/each}
 		</div>
 	{/await}
