@@ -10,7 +10,12 @@
 	import { m } from '$lib/i18n';
 	import Header from '$lib/components/molecules/Header.svelte';
 	import { setCredentialPreference } from '$lib/preferences/credentials';
-	import { decodeSdJwt, holderQrToWellKnown, type CredentialResult, type QrToWellKnown } from '$lib/openId4vci';
+	import {
+		decodeSdJwt,
+		holderQrToWellKnown,
+		type CredentialResult,
+		type QrToWellKnown
+	} from '$lib/openId4vci';
 	import { page } from '$app/stores';
 	import { askCredential, getKeys } from '$lib/openId4vci';
 	import type { Service } from '$lib/components/organisms/scanner/tools';
@@ -18,6 +23,8 @@
 	import type { Feedback } from '$lib/utils/types';
 	import { getLottieAnimation } from '$lib/getLottieAnimation';
 	import { homeFeedbackStore } from '$lib/homeFeedbackStore';
+	import { addActivity } from '$lib/preferences/activity';
+	import dayjs from 'dayjs';
 
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
@@ -68,8 +75,8 @@
 		}
 
 		setTimeout(async () => {
-			const dsdjwt = await decodeSdJwt(serviceResponse.credential)
-			const savedCredential = await setCredentialPreference({
+			const dsdjwt = await decodeSdJwt(serviceResponse.credential);
+			const { id } = await setCredentialPreference({
 				configuration_ids: parsedService.credential_configuration_ids,
 				display_name: qrToWellKnown.credential_requested.display[0].name,
 				sdJwt: serviceResponse.credential,
@@ -80,8 +87,10 @@
 				logo: qrToWellKnown.credential_requested.display[0].logo
 			});
 
+			await addActivity({ at: dayjs().unix(), id, type: 'credential' });
+
 			isModalOpen = false;
-			await goto(`/${savedCredential.id}/credential-detail`);
+			await goto(`/${id}/credential-detail`);
 		}, 2000);
 	};
 </script>
