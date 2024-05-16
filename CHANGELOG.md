@@ -1,3 +1,10 @@
+## [1.40.1](https://github.com/ForkbombEu/wallet/compare/v1.40.0...v1.40.1) (2024-05-16)
+
+
+### Bug Fixes
+
+* when user scan two times a wrong qr code the scanner stop working without feedbaacks ([#301](https://github.com/ForkbombEu/wallet/issues/301)) ([83d3867](https://github.com/ForkbombEu/wallet/commit/83d386793a06c7d69ebd9208b0baf27b7b3ee5b7))
+
 # [1.40.0](https://github.com/ForkbombEu/wallet/compare/v1.39.0...v1.40.0) (2024-05-16)
 
 
