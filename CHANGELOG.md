@@ -1,3 +1,10 @@
+# [1.40.0](https://github.com/ForkbombEu/wallet/compare/v1.39.0...v1.40.0) (2024-05-16)
+
+
+### Features
+
+* activity ([#299](https://github.com/ForkbombEu/wallet/issues/299)) ([d7c424f](https://github.com/ForkbombEu/wallet/commit/d7c424fa88f6b66918f558106bd1d388df000b06))
+
 # [1.39.0](https://github.com/ForkbombEu/wallet/compare/v1.38.2...v1.39.0) (2024-05-15)
 
 
