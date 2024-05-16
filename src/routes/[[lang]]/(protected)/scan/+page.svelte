@@ -25,7 +25,13 @@
 		isModalOpen = true;
 	}}
 >
-	<Modal {isModalOpen} closeCb={scan}>
+	<Modal
+		{isModalOpen}
+		closeCb={() => {
+			isModalOpen = false;
+			scan();
+		}}
+	>
 		{#if !(barcodeResult?.result === 'ok')}
 			<d-text size="m">{barcodeResult?.message || 'error'}</d-text>
 		{/if}

@@ -5,8 +5,8 @@
 	export let isModalOpen: boolean;
 	export let closeCb: () => void;
 	const closeModal = () => {
-		isModalOpen = false;
 		closeCb();
+		isModalOpen = false;
 	};
 </script>
 
