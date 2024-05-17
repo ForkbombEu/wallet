@@ -38,14 +38,15 @@
 
 		<div class="flex flex-col gap-2">
 			{#each services as service}
-				<button on:click={() => gotoCrendentialOffer(service)}>
-					<d-credential-service
-						name={service.display_name}
-						issuer={service.expand.credential_issuer.name}
-						logoSrc={service.logo}
-						href="#"
-					/>
-				</button>
+				<d-credential-service
+					name={service.display_name}
+					issuer={service.expand.credential_issuer.name}
+					logoSrc={service.logo}
+					href="#"
+					on:click={() => gotoCrendentialOffer(service)}
+					on:keydown={() => gotoCrendentialOffer(service)}
+					aria-hidden
+				/>
 			{/each}
 		</div>
 	{/await}
