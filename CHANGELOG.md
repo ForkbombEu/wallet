@@ -1,3 +1,10 @@
+## [1.40.3](https://github.com/ForkbombEu/wallet/compare/v1.40.2...v1.40.3) (2024-05-17)
+
+
+### Bug Fixes
+
+* credential-service cards in home ([#303](https://github.com/ForkbombEu/wallet/issues/303)) ([5cbcaf6](https://github.com/ForkbombEu/wallet/commit/5cbcaf69e4005edde706a4f33370f901a451b732))
+
 ## [1.40.2](https://github.com/ForkbombEu/wallet/compare/v1.40.1...v1.40.2) (2024-05-16)
 
 
