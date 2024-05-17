@@ -8,6 +8,7 @@
 	import { z } from 'zod';
 	import { userEmailStore } from './_lib';
 	import background from '$lib/assets/bg-4.svg';
+	import Pidgeon from '$lib/assets/Pidgeon.svelte';
 
 	//
 
@@ -31,7 +32,9 @@
 
 <div class="flex min-h-screen flex-col place-content-between">
 	<div class="grow">
-		<Illustration img="pidgeon" {background} />
+		<Illustration img="pidgeon" {background}>
+				<Pidgeon/>
+			</Illustration>
 		<div>
 			<div class="flex flex-col">
 				<div class="flex w-full flex-col items-center gap-4 px-8">
