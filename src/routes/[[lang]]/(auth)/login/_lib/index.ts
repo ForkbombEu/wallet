@@ -13,11 +13,18 @@ import { getUser } from '$lib/preferences/user';
 
 const slangroom = new Slangroom(pocketbase);
 
-export const password = 'CiccioLiam12345!';
+export const userEmailStore = writable<{
+	email: string | undefined;
+	registration: boolean;
+	password: string | undefined;
+	passwordConfirm: string | undefined;
+}>();
 
-export const userEmailStore = writable<{ email: string | undefined; registration: boolean }>();
-
-export const generateSignroomUser = async (email: string) => {
+export const generateSignroomUser = async (
+	email: string,
+	password: string,
+	passwordConfirm: string
+) => {
 	const keypair = await getKeypairPreference();
 	const public_keys = getPublicKeysFromKeypair(keypair!);
 	const data = {
@@ -28,7 +35,7 @@ export const generateSignroomUser = async (email: string) => {
 				email,
 				name: email,
 				password,
-				passwordConfirm: password,
+				passwordConfirm,
 				acceptTerms: true,
 				...public_keys
 			}
@@ -46,7 +53,32 @@ export const generateSignroomUser = async (email: string) => {
 	return res.result.output;
 };
 
-export const generateDid = async (email: string) => {
+export const saveUserPublicKeys = async () => {
+	const keypair = await getKeypairPreference();
+	const public_keys = getPublicKeysFromKeypair(keypair!);
+	const data = {
+		pb_address: backendUri,
+		create_parameters: {
+			collection: 'users_public_keys',
+			record: {
+				...public_keys,
+				owner: 'user.id'
+			}
+		},
+		record_parameters: {
+			expand: null,
+			requestKey: null,
+			fields: null
+		}
+	};
+	const res = await slangroom.execute(scriptGenerateUser, {
+		data
+	});
+
+	return res.result.output;
+};
+
+export const generateDid = async (email: string, password: string) => {
 	const data = {
 		pb_address: backendUri,
 		my_credentials: {

@@ -12,7 +12,7 @@
 	//
 
 	export let data;
-	let { userEmail } = data;
+	let { userEmail, password, passwordConfirm } = data;
 
 	let feedback: Feedback = {};
 
@@ -31,7 +31,7 @@
 			try {
 				const keypair = await regenerateKeypair(userEmail, form.data.seed);
 				await setKeypairPreference(keypair);
-				await generateDid(userEmail);
+				await generateDid(userEmail, password!);
 				await checkKeypairs()
 				await unlockApp();
 				await goto('/wallet'); // Note: `goto` needs `await`!

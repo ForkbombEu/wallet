@@ -17,14 +17,20 @@
 
 	const schema = z.object({
 		email: z.string().email(),
-		rememberEmail: z.boolean().optional()
+		password: z.string().min(8).max(73).optional()
+		// rememberEmail: z.boolean().optional()
 	});
 
 	const form = createForm({
 		schema,
 		onSubmit: async ({ form }) => {
-			userEmailStore.set({ email: form.data.email, registration });
-			await goto(registration ? '/login/confirm-email' : '/login/passphrase');
+			userEmailStore.set({
+				email: form.data.email,
+				registration,
+				password: form.data.password,
+				passwordConfirm: undefined
+			});
+			await goto(registration ? '/login/insert-password' : '/login/passphrase');
 		}
 	});
 </script>
@@ -42,6 +48,15 @@
 
 					<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
 						<Input {form} fieldPath="email" placeholder={m.emailexample_com()} label={m.Email()} />
+						{#if !registration}
+							<Input
+								{form}
+								fieldPath="password"
+								placeholder="password"
+								label="password"
+								type="password"
+							/>
+						{/if}
 						<d-button size="default" color="accent" type="submit" expand class="mt-4">
 							{m.Next()}
 							<ion-icon icon={arrowForward} slot="end" />

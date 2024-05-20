@@ -10,9 +10,9 @@
 	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { unlockApp } from '$lib/preferences/locked.js';
-	import { alertCircleOutline } from 'ionicons/icons';
+	import { alertCircleOutline, key } from 'ionicons/icons';
 	import { z } from 'zod';
-	import { checkKeypairs, generateDid, generateSignroomUser } from '../../_lib';
+	import { checkKeypairs, generateDid, generateSignroomUser, userEmailStore } from '../../_lib';
 	//@ts-ignore
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import type { Feedback } from '$lib/utils/types';
@@ -22,8 +22,9 @@
 
 	//
 
-	export let data;
-	let { userEmail, registration } = data;
+	// export let data;
+	let { email:userEmail, registration, password, passwordConfirm } = $userEmailStore;
+
 
 	//
 
@@ -68,10 +69,11 @@
 				loading = true;
 				const formattedAnswers = convertUndefinedToNullString(form.data);
 				const keypair = await generateKeypair(userEmail, formattedAnswers as UserChallengesAnswers);
-
+				console.log(keypair, registration);
 				await setKeypairPreference(keypair);
-				if (registration) await generateSignroomUser(userEmail);
-				await generateDid(userEmail);
+				console.log(userEmail, password, passwordConfirm)
+				if (registration) await generateSignroomUser(userEmail!, password!, passwordConfirm!);
+				await generateDid(userEmail!, password!);
 				if (!registration) await checkKeypairs();
 
 				await unlockApp();
