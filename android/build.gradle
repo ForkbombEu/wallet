@@ -1,3 +1,7 @@
+tasks.withType(Test) {
+    useJUnitPlatform()
+}
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
@@ -27,3 +31,4 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+

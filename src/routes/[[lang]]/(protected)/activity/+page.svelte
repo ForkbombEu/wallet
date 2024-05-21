@@ -8,6 +8,7 @@
 	import { invalidate } from '$app/navigation';
 	import { _activityKey } from './+page.js';
 	import Bell from '$lib/assets/bell.svelte';
+	import Credential from '$lib/components/molecules/Credential.svelte';
 
 	dayjs.extend(relativeTime);
 
@@ -43,7 +44,7 @@
 					{log(`credential ${activity.id} not found`)}
 				{:else}
 					<div class="itens-start border-strocke flex gap-4 border-b py-2">
-						<d-avatar src={credential.logo} name={credential.display_name} shape="square" />
+						<d-avatar src={credential.logo.url} name={credential.display_name} shape="square" />
 						<div class="flex flex-col gap-2">
 							<h2>{credential.issuer} issued {credential.display_name} to you</h2>
 							<d-text size="s" class="text-on-alt">{credential.description}</d-text>
