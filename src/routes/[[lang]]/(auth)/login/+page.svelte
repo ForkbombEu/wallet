@@ -8,36 +8,28 @@
 	import { z } from 'zod';
 	import { login, userEmailStore } from './_lib';
 	import background from '$lib/assets/bg-4.svg';
-
-	//
-
 	import { page } from '$app/stores';
-	import { Slangroom } from '@slangroom/core';
-	import { pocketbase } from '@slangroom/pocketbase';
-	import { backendUri } from '$lib/backendUri';
-	const registration = $page.url.searchParams.get('registration') === 'true';
-	console.table($page.url);
 
-	const schema = z.object({
+	const registration = $page.url.searchParams.get('registration') === 'true';
+
+	const loginSchema = z.object({
+		registration: z.boolean(),
 		email: z.string().email(),
-		password: z.string().min(8).max(73).optional()
+		password: z
+			.string()
+			.min(8)
+			.max(73)
+			.optional()
+			.refine((arg) => registration ? true : arg, 'Required')
 	});
+
+	const schema = loginSchema;
 
 	const form = createForm({
 		schema,
 		onSubmit: async ({ form }) => {
 			if (!registration) {
-				// const slangroom = new Slangroom(pocketbase);
-				// const data = {
-				// 	pb_address: backendUri,
-				// 	my_credentials: {
-				// 		email: form.data.email,
-				// 		password: form.data.password
-				// 	}
-				// };
-				// const res = await slangroom.execute(login, { data });
-				// if (!res) throw new Error('Failed to login');
-				await login(form.data.email, form.data.password!)
+				await login(form.data.email, form.data.password!);
 			}
 
 			userEmailStore.set({
@@ -62,6 +54,13 @@
 					</div>
 
 					<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
+						<input
+							type="radio"
+							checked={registration}
+							name="registration"
+							value="registration"
+							class="hidden"
+						/>
 						<Input {form} fieldPath="email" placeholder={m.emailexample_com()} label={m.Email()} />
 						{#if !registration}
 							<Input
