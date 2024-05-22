@@ -12,7 +12,7 @@
 	import { unlockApp } from '$lib/preferences/locked.js';
 	import { alertCircleOutline, key } from 'ionicons/icons';
 	import { z } from 'zod';
-	import { checkKeypairs, generateDid, generateSignroomUser, userEmailStore } from '../../_lib';
+	import { checkKeypairs, generateDid, saveUserPublicKeys, userEmailStore } from '../../_lib';
 	//@ts-ignore
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import type { Feedback } from '$lib/utils/types';
@@ -22,8 +22,7 @@
 
 	//
 
-	// export let data;
-	let { email:userEmail, registration, password, passwordConfirm } = $userEmailStore;
+	let { email:userEmail, registration } = $userEmailStore;
 
 
 	//
@@ -68,13 +67,11 @@
 			try {
 				loading = true;
 				const formattedAnswers = convertUndefinedToNullString(form.data);
-				const keypair = await generateKeypair(userEmail, formattedAnswers as UserChallengesAnswers);
-				console.log(keypair, registration);
+				const keypair = await generateKeypair(userEmail!, formattedAnswers as UserChallengesAnswers);
 				await setKeypairPreference(keypair);
-				console.log(userEmail, password, passwordConfirm)
-				if (registration) await generateSignroomUser(userEmail!, password!, passwordConfirm!);
-				await generateDid(userEmail!, password!);
-				if (!registration) await checkKeypairs();
+				if (registration) await saveUserPublicKeys()
+				await generateDid();
+				// if (!registration) await checkKeypairs();
 
 				await unlockApp();
 				seed = keypair.seed;

@@ -5,14 +5,14 @@
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { unlockApp } from '$lib/preferences/locked.js';
 	import { z } from 'zod';
- 	import type { Feedback } from '$lib/utils/types.js';
+	import type { Feedback } from '$lib/utils/types.js';
 	import { checkKeypairs, generateDid } from '../../_lib/index.js';
 	import { logout } from '$lib/preferences/logout.js';
 
 	//
 
 	export let data;
-	let { userEmail, password, passwordConfirm } = data;
+	let { userEmail } = data;
 
 	let feedback: Feedback = {};
 
@@ -31,10 +31,10 @@
 			try {
 				const keypair = await regenerateKeypair(userEmail, form.data.seed);
 				await setKeypairPreference(keypair);
-				await generateDid(userEmail, password!);
-				await checkKeypairs()
+				await generateDid();
+				// await checkKeypairs();
 				await unlockApp();
-				await goto('/wallet'); // Note: `goto` needs `await`!
+				await goto('/wallet');
 			} catch (e) {
 				feedback = {
 					type: 'error',

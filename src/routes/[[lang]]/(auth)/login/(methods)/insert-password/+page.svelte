@@ -6,7 +6,7 @@
 	import { Input } from '$lib/ionic/forms';
 	import { arrowForward } from 'ionicons/icons';
 	import { z } from 'zod';
-	import { userEmailStore } from '../../_lib';
+	import { createUser, login, userEmailStore } from '../../_lib';
 	import background from '$lib/assets/bg-5.svg';
 
 	const schema = z
@@ -26,13 +26,8 @@
 	const form = createForm({
 		schema,
 		onSubmit: async ({ form }) => {
-			userEmailStore.set({
-				email: $userEmailStore.email,
-				registration: true,
-				password: form.data.password,
-				passwordConfirm: form.data.confirmPassword
-			});
-			console.log($userEmailStore)
+			await createUser($userEmailStore.email!, form.data.password, form.data.confirmPassword);
+			await login($userEmailStore.email!, form.data.password)
 			await goto('/login/questions');
 		}
 	});

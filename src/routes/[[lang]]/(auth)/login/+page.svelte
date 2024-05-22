@@ -6,30 +6,45 @@
 	import Input from '$lib/ionic/forms/input.svelte';
 	import { arrowForward } from 'ionicons/icons';
 	import { z } from 'zod';
-	import { userEmailStore } from './_lib';
+	import { login, userEmailStore } from './_lib';
 	import background from '$lib/assets/bg-4.svg';
 
 	//
 
 	import { page } from '$app/stores';
+	import { Slangroom } from '@slangroom/core';
+	import { pocketbase } from '@slangroom/pocketbase';
+	import { backendUri } from '$lib/backendUri';
 	const registration = $page.url.searchParams.get('registration') === 'true';
 	console.table($page.url);
 
 	const schema = z.object({
 		email: z.string().email(),
 		password: z.string().min(8).max(73).optional()
-		// rememberEmail: z.boolean().optional()
 	});
 
 	const form = createForm({
 		schema,
 		onSubmit: async ({ form }) => {
+			if (!registration) {
+				// const slangroom = new Slangroom(pocketbase);
+				// const data = {
+				// 	pb_address: backendUri,
+				// 	my_credentials: {
+				// 		email: form.data.email,
+				// 		password: form.data.password
+				// 	}
+				// };
+				// const res = await slangroom.execute(login, { data });
+				// if (!res) throw new Error('Failed to login');
+				await login(form.data.email, form.data.password!)
+			}
+
 			userEmailStore.set({
 				email: form.data.email,
-				registration,
-				password: form.data.password,
-				passwordConfirm: undefined
+				registration
 			});
+
 			await goto(registration ? '/login/insert-password' : '/login/passphrase');
 		}
 	});
