@@ -1,3 +1,10 @@
+# [1.41.0](https://github.com/ForkbombEu/wallet/compare/v1.40.3...v1.41.0) (2024-05-22)
+
+
+### Features
+
+* new registration and login flow ([#321](https://github.com/ForkbombEu/wallet/issues/321)) ([000a478](https://github.com/ForkbombEu/wallet/commit/000a47854e35da865fe97b81f93895a33f61acdd)), closes [#325](https://github.com/ForkbombEu/wallet/issues/325) [#310](https://github.com/ForkbombEu/wallet/issues/310) [#309](https://github.com/ForkbombEu/wallet/issues/309) [#306](https://github.com/ForkbombEu/wallet/issues/306) [#305](https://github.com/ForkbombEu/wallet/issues/305)
+
 ## [1.40.3](https://github.com/ForkbombEu/wallet/compare/v1.40.2...v1.40.3) (2024-05-17)
 
 
