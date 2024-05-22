@@ -22,8 +22,7 @@
 
 	//
 
-	let { email:userEmail, registration } = $userEmailStore;
-
+	let { email: userEmail, registration } = $userEmailStore;
 
 	//
 
@@ -67,11 +66,14 @@
 			try {
 				loading = true;
 				const formattedAnswers = convertUndefinedToNullString(form.data);
-				const keypair = await generateKeypair(userEmail!, formattedAnswers as UserChallengesAnswers);
+				const keypair = await generateKeypair(
+					userEmail!,
+					formattedAnswers as UserChallengesAnswers
+				);
 				await setKeypairPreference(keypair);
-				if (registration) await saveUserPublicKeys()
+				if (registration) await saveUserPublicKeys();
 				await generateDid();
-				// if (!registration) await checkKeypairs();
+				if (!registration) await checkKeypairs();
 
 				await unlockApp();
 				seed = keypair.seed;
@@ -95,7 +97,6 @@
 					feedback: 'error while generating keyring'
 				};
 				log(String(e));
-				logout();
 				throw new Error('KEYRING_GENERATION_ERROR');
 			}
 		}
@@ -168,16 +169,6 @@
 						</ion-text>
 					</ion-item>
 				</FormError>
-
-				<!-- <hr />
-
-				<div>
-					<ion-text color="secondary">
-						<a href={r('/login/passphrase')} class="text-sm"
-							>{m.Login_with_your_passphrase_Tap_here()}</a
-						>
-					</ion-text>
-				</div> -->
 			</div>
 		</Form>
 		<d-button

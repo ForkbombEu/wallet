@@ -12,6 +12,7 @@ import loginScript from '$lib/slangroom/login.slang?raw';
 import createUserScript from '$lib/slangroom/createUser.slang?raw';
 import savePublicKeysScript from '$lib/slangroom/savePublicKeys.slang?raw';
 import scriptGenerateDid from '$lib/slangroom/scriptGenerateDid.slang?raw';
+import getPublicKeysScript from '$lib/slangroom/getPublicKeys.slang?raw';
 
 //
 
@@ -59,7 +60,6 @@ export const login = async (email: string, password: string) => {
 	const res = await slangroom.execute(loginScript, { data });
 	if (!res) throw new Error('Failed to login');
 };
-
 
 export const saveUserPublicKeys = async () => {
 	const keypair = await getKeypairPreference();
@@ -113,12 +113,27 @@ export const generateDid = async () => {
 
 export const checkKeypairs = async () => {
 	const user = await getUser();
+	const data = {
+		pb_address: backendUri,
+		public_keys: {
+			type: 'first',
+			collection: 'users_public_keys',
+			filter: `owner = "${user?.id}"`
+		}
+	};
+
+	const res = await slangroom.execute(getPublicKeysScript, {data}) 
+
+	//@ts-expect-error needs to add type to response
+	const savedKeys = res.result.public_keys.records
+
+
 	const keypairoom = await getKeypairPreference();
 	if (!keypairoom) throw new Error('KEYPAIR_NOT_GENERATED');
 	const keys = getPublicKeysFromKeypair(keypairoom);
 	if (
 		//@ts-expect-error maybe hardcode keys to iterate for
-		Object.keys(keys).some((k) => user[k] != keys[k])
+		Object.keys(keys).some((k) => savedKeys[k] != keys[k])
 	)
 		throw new Error('WRONG_KEYRING');
 };

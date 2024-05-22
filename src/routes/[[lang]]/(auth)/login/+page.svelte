@@ -12,7 +12,7 @@
 
 	const registration = $page.url.searchParams.get('registration') === 'true';
 
-	const loginSchema = z.object({
+	const schema = z.object({
 		registration: z.boolean(),
 		email: z.string().email(),
 		password: z
@@ -22,8 +22,6 @@
 			.optional()
 			.refine((arg) => registration ? true : arg, 'Required')
 	});
-
-	const schema = loginSchema;
 
 	const form = createForm({
 		schema,

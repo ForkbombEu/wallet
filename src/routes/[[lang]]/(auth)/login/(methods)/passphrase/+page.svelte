@@ -7,7 +7,6 @@
 	import { z } from 'zod';
 	import type { Feedback } from '$lib/utils/types.js';
 	import { checkKeypairs, generateDid } from '../../_lib/index.js';
-	import { logout } from '$lib/preferences/logout.js';
 
 	//
 
@@ -32,7 +31,7 @@
 				const keypair = await regenerateKeypair(userEmail, form.data.seed);
 				await setKeypairPreference(keypair);
 				await generateDid();
-				// await checkKeypairs();
+				await checkKeypairs();
 				await unlockApp();
 				await goto('/wallet');
 			} catch (e) {
@@ -41,7 +40,6 @@
 					message: String(e),
 					feedback: 'error while regenerating keyring'
 				};
-				logout();
 				throw new Error('KEYRING_REGENERATION_ERROR');
 			}
 		}
