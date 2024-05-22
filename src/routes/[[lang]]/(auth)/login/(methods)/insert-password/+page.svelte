@@ -6,18 +6,28 @@
 	import { Input } from '$lib/ionic/forms';
 	import { arrowForward } from 'ionicons/icons';
 	import { z } from 'zod';
-	import { userEmailStore } from '../../_lib';
+	import { createUser, login, userEmailStore } from '../../_lib';
 	import background from '$lib/assets/bg-5.svg';
 
-	const schema = z.object({
-		email: z.literal($userEmailStore.email),
-		rememberEmail: z.boolean().optional()
-	});
+	const schema = z
+		.object({
+			password: z.string().min(8).max(73),
+			confirmPassword: z.string().min(8).max(73)
+		})
+		.superRefine(({ confirmPassword, password }, ctx) => {
+			if (confirmPassword !== password) {
+				ctx.addIssue({
+					code: 'custom',
+					message: 'The passwords did not match'
+				});
+			}
+		});
 
 	const form = createForm({
 		schema,
 		onSubmit: async ({ form }) => {
-			userEmailStore.set({ email: form.data.email, registration: false });
+			await createUser($userEmailStore.email!, form.data.password, form.data.confirmPassword);
+			await login($userEmailStore.email!, form.data.password)
 			await goto('/login/questions');
 		}
 	});
@@ -31,11 +41,25 @@
 	</div>
 	<div>
 		<div class="flex w-full flex-col items-center gap-6 px-8">
-			<d-heading sixe="s">{m.Confirm_your_email()}</d-heading>
-			<d-text size="l">{m.Reenter_your_email_address_to_confirm_registration_()}</d-text>
+			<d-heading sixe="s">Choose your password</d-heading>
+			<d-text size="l">Your password should be between 8 and 73 character</d-text>
 
 			<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
-				<Input {form} fieldPath="email" placeholder={m.emailexample_com()} label={m.Email()} />
+				<Input
+					{form}
+					fieldPath="password"
+					placeholder="password"
+					label="password"
+					type="password"
+				/>
+				<Input
+					{form}
+					fieldPath="confirmPassword"
+					placeholder="password"
+					label="confirm your password"
+					type="password"
+				/>
+
 				<d-button size="default" color="accent" type="submit" expand class="mt-4">
 					{m.Next()}
 					<ion-icon icon={arrowForward} slot="end" />
