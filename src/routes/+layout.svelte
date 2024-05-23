@@ -1,6 +1,9 @@
 <script lang="ts">
 	import '@fontsource-variable/gantari';
 	import { setupIonicBase } from 'ionic-svelte';
+	import { App } from '@capacitor/app';
+	import { r } from '$lib/i18n';
+	// import { BackButtonEvent } from '@ionic/core';
 
 	setupIonicBase();
 
@@ -12,6 +15,17 @@
 	import { ParaglideJS } from '@inlang/paraglide-js-adapter-sveltekit';
 	import HiddenLogsButton from '$lib/components/molecules/HiddenLogsButton.svelte';
 	import { log } from '$lib/log';
+
+	document.addEventListener('ionBackButton', (ev: any) => {
+		ev.detail.register(-1, () => {
+			const path = window.location.pathname;
+			if (path === r('/home') || path === r('/login')) {
+				App.exitApp();
+			} else {
+				window.history.back();
+			}
+		});
+	});
 </script>
 
 <svelte:head>
