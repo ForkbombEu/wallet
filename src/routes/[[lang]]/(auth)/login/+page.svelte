@@ -9,8 +9,11 @@
 	import { login, userEmailStore } from './_lib';
 	import background from '$lib/assets/bg-4.svg';
 	import { page } from '$app/stores';
+	import type { Feedback } from '$lib/utils/types';
 
 	const registration = $page.url.searchParams.get('registration') === 'true';
+
+	let feedback: Feedback;
 
 	const schema = z.object({
 		registration: z.boolean(),
@@ -20,26 +23,35 @@
 			.min(8)
 			.max(73)
 			.optional()
-			.refine((arg) => registration ? true : arg, 'Required')
+			.refine((arg) => (registration ? true : arg), 'Required')
 	});
 
 	const form = createForm({
 		schema,
 		onSubmit: async ({ form }) => {
-			if (!registration) {
-				await login(form.data.email, form.data.password!);
+			try {
+				if (!registration) {
+					await login(form.data.email, form.data.password!);
+				}
+
+				userEmailStore.set({
+					email: form.data.email,
+					registration
+				});
+
+				await goto(registration ? '/login/insert-password' : '/login/passphrase');
+			} catch (e) {
+				feedback = {
+					type: 'error',
+					message: String(e),
+					feedback: 'error while authenticating'
+				};
 			}
-
-			userEmailStore.set({
-				email: form.data.email,
-				registration
-			});
-
-			await goto(registration ? '/login/insert-password' : '/login/passphrase');
 		}
 	});
 </script>
 
+<d-feedback {...feedback} />
 <div class="flex min-h-screen flex-col place-content-between">
 	<div class="grow">
 		<Illustration img="pidgeon" {background} />
