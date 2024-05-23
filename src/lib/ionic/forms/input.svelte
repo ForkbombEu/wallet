@@ -31,5 +31,5 @@
 		on:dInput={(e) => {
 			updateValue(e.detail);
 		}}
-	/>
+	><slot/></d-input>
 </FieldController>

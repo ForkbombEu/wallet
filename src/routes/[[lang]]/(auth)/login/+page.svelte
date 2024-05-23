@@ -2,7 +2,7 @@
 	import AppDetails from '$lib/components/AppDetails.svelte';
 	import Illustration from '$lib/components/molecules/Illustration.svelte';
 	import { Form, createForm } from '$lib/forms';
-	import { goto, m } from '$lib/i18n';
+	import { goto, m, r } from '$lib/i18n';
 	import Input from '$lib/ionic/forms/input.svelte';
 	import { arrowForward } from 'ionicons/icons';
 	import { z } from 'zod';
@@ -20,7 +20,7 @@
 			.min(8)
 			.max(73)
 			.optional()
-			.refine((arg) => registration ? true : arg, 'Required')
+			.refine((arg) => (registration ? true : arg), 'Required')
 	});
 
 	const form = createForm({
@@ -67,7 +67,9 @@
 								placeholder="password"
 								label="password"
 								type="password"
-							/>
+							>
+								<a href={r('/login/reset-password')} class="text-blue-500">forgot your password?</a>
+							</Input>
 						{/if}
 						<d-button size="default" color="accent" type="submit" expand class="mt-4">
 							{m.Next()}

@@ -13,6 +13,7 @@ import createUserScript from '$lib/slangroom/createUser.slang?raw';
 import savePublicKeysScript from '$lib/slangroom/savePublicKeys.slang?raw';
 import scriptGenerateDid from '$lib/slangroom/scriptGenerateDid.slang?raw';
 import getPublicKeysScript from '$lib/slangroom/getPublicKeys.slang?raw';
+import askResetPasswordScript from '$lib/slangroom/askResetPassword.slang?raw';
 
 //
 
@@ -137,3 +138,13 @@ export const checkKeypairs = async () => {
 	)
 		throw new Error('WRONG_KEYRING');
 };
+
+export const askResetPassword = async (email: string) => {
+	const data = {
+		pb_address: backendUri,
+		email
+	};
+	const res = await slangroom.execute(askResetPasswordScript, { data });
+	console.log(res)
+	return res.result.output;
+}
