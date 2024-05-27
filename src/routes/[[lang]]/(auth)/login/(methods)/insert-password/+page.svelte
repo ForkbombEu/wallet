@@ -51,6 +51,7 @@
 					placeholder="password"
 					label="password"
 					type="password"
+					hidable
 				/>
 				<Input
 					{form}
@@ -58,6 +59,7 @@
 					placeholder="password"
 					label="confirm your password"
 					type="password"
+					hidable
 				/>
 
 				<d-button size="default" color="accent" type="submit" expand class="mt-4">
