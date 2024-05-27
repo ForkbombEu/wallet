@@ -8,32 +8,36 @@
 	import { z } from 'zod';
 	import { createUser, login, userEmailStore } from '../../_lib';
 	import background from '$lib/assets/bg-5.svg';
+	import type { Feedback } from '$lib/utils/types';
 
-	const schema = z
-		.object({
-			password: z.string().min(8).max(73),
-			confirmPassword: z.string().min(8).max(73)
-		})
-		.superRefine(({ confirmPassword, password }, ctx) => {
-			if (confirmPassword !== password) {
-				ctx.addIssue({
-					code: 'custom',
-					message: 'The passwords did not match'
-				});
-			}
-		});
+	let feedback: Feedback = {};
+
+	const schema = z.object({
+		password: z.string().min(8).max(73),
+		confirmPassword: z.string().min(8).max(73)
+	});
 
 	const form = createForm({
 		schema,
 		onSubmit: async ({ form }) => {
-			await createUser($userEmailStore.email!, form.data.password, form.data.confirmPassword);
-			await login($userEmailStore.email!, form.data.password)
-			await goto('/login/questions');
+			try {
+				const { password, confirmPassword } = form.data;
+				if (confirmPassword !== password) throw new Error(`The passwords do not match`);
+				await createUser($userEmailStore.email!, password, confirmPassword);
+				await login($userEmailStore.email!, password);
+				await goto('/login/questions');
+			} catch (e) {
+				feedback = {
+					type: 'error',
+					feedback: String(e)
+				};
+			}
 		}
 	});
 </script>
 
 <Header>{m.REGISTER()}</Header>
+<d-feedback {...feedback} />
 
 <div class="flex flex-col">
 	<div class="mb-10 sm:mb-0">
