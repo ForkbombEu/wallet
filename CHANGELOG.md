@@ -1,3 +1,22 @@
+## [1.42.1](https://github.com/ForkbombEu/wallet/compare/v1.42.0...v1.42.1) (2024-05-28)
+
+
+### Bug Fixes
+
+* passhprase view ([#330](https://github.com/ForkbombEu/wallet/issues/330)) ([4a8ca90](https://github.com/ForkbombEu/wallet/commit/4a8ca907b9820cf570a989585b0a290c45cc79cc)), closes [#261](https://github.com/ForkbombEu/wallet/issues/261)
+
+# [1.42.0](https://github.com/ForkbombEu/wallet/compare/v1.41.0...v1.42.0) (2024-05-27)
+
+
+### Bug Fixes
+
+* validate confirm password match the password ([#328](https://github.com/ForkbombEu/wallet/issues/328)) ([b437a97](https://github.com/ForkbombEu/wallet/commit/b437a9710a1d92dfd14300f282b7ec62baca7a08))
+
+
+### Features
+
+* make password inputs showable ([#327](https://github.com/ForkbombEu/wallet/issues/327)) ([9503fd8](https://github.com/ForkbombEu/wallet/commit/9503fd8883d45154f7add747e5f49e0c9f60473d)), closes [#311](https://github.com/ForkbombEu/wallet/issues/311)
+
 # [1.41.0](https://github.com/ForkbombEu/wallet/compare/v1.40.3...v1.41.0) (2024-05-22)
 
 
