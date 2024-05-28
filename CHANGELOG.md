@@ -1,3 +1,10 @@
+## [1.42.1](https://github.com/ForkbombEu/wallet/compare/v1.42.0...v1.42.1) (2024-05-28)
+
+
+### Bug Fixes
+
+* passhprase view ([#330](https://github.com/ForkbombEu/wallet/issues/330)) ([4a8ca90](https://github.com/ForkbombEu/wallet/commit/4a8ca907b9820cf570a989585b0a290c45cc79cc)), closes [#261](https://github.com/ForkbombEu/wallet/issues/261)
+
 # [1.42.0](https://github.com/ForkbombEu/wallet/compare/v1.41.0...v1.42.0) (2024-05-27)
 
 
