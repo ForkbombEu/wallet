@@ -67,6 +67,7 @@
 								placeholder="password"
 								label="password"
 								type="password"
+								hidable
 							>
 								<a href={r('/login/reset-password')} class="text-blue-500">forgot your password?</a>
 							</Input>
