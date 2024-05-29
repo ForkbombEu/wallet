@@ -14,6 +14,7 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 
 import java.nio.ByteBuffer;
 import java.security.KeyStore;
+import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -22,6 +23,7 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.spec.IvParameterSpec;
 
 @CapacitorPlugin(name = "TEE")
 public class TEE extends Plugin {

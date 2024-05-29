@@ -5,3 +5,4 @@ public class OldAndroidVersionException extends Exception {
         super("Android version less than minimum supported");
     }
 }
+
