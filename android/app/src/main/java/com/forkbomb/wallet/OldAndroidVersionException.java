@@ -1,4 +1,4 @@
-package didroom.forkbomb.eu;
+package com.forkbomb.wallet;
 
 public class OldAndroidVersionException extends Exception {
     OldAndroidVersionException() {
