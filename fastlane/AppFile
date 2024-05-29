@@ -1,2 +1,2 @@
-package_name("com.forkbomb.wallet") 
 json_key_file "play-store-credentials.json"
+package_name("com.didroom.wallet") 

@@ -1,11 +1,10 @@
-package com.forkbomb.wallet;
+package com.didroom.wallet;
 
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.util.Pair;
 
-import com.forkbomb.wallet.OldAndroidVersionException;
 import com.getcapacitor.JSArray;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;

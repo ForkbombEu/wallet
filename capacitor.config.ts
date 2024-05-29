@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-	appId: 'com.forkbomb.wallet',
-	appName: 'Didroom',
+	appId: 'com.didroom.wallet',
+	appName: 'DIDroom',
 	webDir: 'build',
 	// Note – This breaks the app
 	// plugins: {
