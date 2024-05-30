@@ -1,3 +1,10 @@
+# [1.44.0](https://github.com/ForkbombEu/wallet/compare/v1.43.0...v1.44.0) (2024-05-30)
+
+
+### Features
+
+* bind hardware back button ([#331](https://github.com/ForkbombEu/wallet/issues/331)) ([fe7eaaa](https://github.com/ForkbombEu/wallet/commit/fe7eaaac187f11b6ba349dd43e1aa242bd2a3da2)), closes [#324](https://github.com/ForkbombEu/wallet/issues/324)
+
 # [1.43.0](https://github.com/ForkbombEu/wallet/compare/v1.42.1...v1.43.0) (2024-05-30)
 
 
