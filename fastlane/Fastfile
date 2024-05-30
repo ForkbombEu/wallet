@@ -19,7 +19,7 @@ KEYSTORE_PATH = ENV["KEYSTORE_PATH"]
 KEYSTORE_KEY_ALIAS = ENV["KEYSTORE_KEY_ALIAS"]
 KEYSTORE_KEY_PASSWORD = ENV["KEYSTORE_KEY_PASSWORD"]
 KEYSTORE_STORE_PASSWORD = ENV["KEYSTORE_STORE_PASSWORD"]
-APK_OUTPUT_PATH = "./release"
+APK_OUTPUT_PATH = "./release.apk"
 CACHE_PATH = "./.cache"
 
 
@@ -86,7 +86,7 @@ platform :android do
     release = firebase_app_distribution(
         app: "1:438470006888:android:1e776045ca0237541b83dd",
         service_credentials_file: "play-store-credentials.json",
-        android_artifact_path: "wallet.apk"
+        android_artifact_path: APK_OUTPUT_PATH
         # testers: "tester1@company.com, tester2@company.com",
         # release_notes: "Lots of amazing new features to test out!"
     )
