@@ -55,4 +55,40 @@ platform :android do
       cache_path: CACHE_PATH
     )
   end
+  lane :distribute do
+    sh "pnpm install -g @ionic/cli"
+    sh "pnpm install"
+    sh "cp ../.env.example ../.env"
+    sh "ionic cap sync android"
+    sh "ionic cap build android --no-open"
+    gradle(
+          task: "clean bundleRelease",
+          project_dir: 'android/',
+          print_command: false,
+          properties: {
+            "android.injected.signing.store.file" => "#{KEYSTORE_PATH}",
+            "android.injected.signing.store.password" => "#{KEYSTORE_STORE_PASSWORD}",
+            "android.injected.signing.key.alias" => "#{KEYSTORE_KEY_ALIAS}",
+            "android.injected.signing.key.password" => "#{KEYSTORE_KEY_PASSWORD}",
+          })
+    aab_path = "android/app/build/outputs/bundle/release/app-release.aab"
+    bundletool(
+      ks_path: KEYSTORE_PATH,
+      ks_password: KEYSTORE_STORE_PASSWORD,
+      ks_key_alias: KEYSTORE_KEY_ALIAS,
+      ks_key_alias_password: KEYSTORE_KEY_PASSWORD,
+      bundletool_version: '1.10.0',
+      aab_path: aab_path,
+      apk_output_path: APK_OUTPUT_PATH,
+      verbose: true,
+      cache_path: CACHE_PATH
+    )
+    release = firebase_app_distribution(
+        app: "1:438470006888:android:1e776045ca0237541b83dd",
+        service_credentials_file: "play-store-credentials.json",
+        android_artifact_path: "wallet.apk"
+        # testers: "tester1@company.com, tester2@company.com",
+        # release_notes: "Lots of amazing new features to test out!"
+    )
+    end
 end
