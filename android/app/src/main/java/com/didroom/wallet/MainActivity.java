@@ -1,4 +1,4 @@
-package didroom.forkbomb.eu;
+package com.didroom.wallet;
 
 import android.os.Bundle;
 
