@@ -88,7 +88,8 @@ platform :android do
     release = firebase_app_distribution(
         app: FIREBASE_APP_ID,
         service_credentials_file: SERVICE_ACCOUNT_PATH,
-        android_artifact_path: APK_OUTPUT_PATH
+        android_artifact_path: APK_OUTPUT_PATH,
+        groups: 'dyne'
         # testers: "tester1@company.com, tester2@company.com",
         # release_notes: "Lots of amazing new features to test out!"
     )
