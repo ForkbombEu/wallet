@@ -46,8 +46,8 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
-        #   bundler-cache: true
-      - uses: maierj/fastlane-action@v3.0.0
+          bundler-cache: true
+      - uses: maierj/fastlane-action@v3.1.0
         env:
           KEYSTORE_PATH: ${{ steps.android_keystore.outputs.filePath }}
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
