@@ -87,6 +87,11 @@ platform :android do
       verbose: true,
       cache_path: CACHE_PATH
     )
+    latest_release = firebase_app_distribution_get_latest_release(
+      app: FIREBASE_APP_ID
+    )
+    increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
+
     release = firebase_app_distribution(
         app: FIREBASE_APP_ID,
         service_credentials_file: SERVICE_ACCOUNT_PATH,
