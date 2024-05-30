@@ -14,7 +14,6 @@ const HMAC_KEY = 'seedServerSideShard.HMAC';
 /* - HMAC generation - */
 
 export async function generateHMAC(email: string): Promise<string> {
-	console.log(await getServerSalt())
 	const response = await zencodeExec<KeypairoomGenerateHMACData, KeypairoomGenerateHMACOutput>(
 		keypairoomGenerateHMAC,
 		{
