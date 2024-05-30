@@ -1,3 +1,16 @@
+# [1.43.0](https://github.com/ForkbombEu/wallet/compare/v1.42.1...v1.43.0) (2024-05-30)
+
+
+### Bug Fixes
+
+* alpha release ([#338](https://github.com/ForkbombEu/wallet/issues/338)) ([3dceae1](https://github.com/ForkbombEu/wallet/commit/3dceae18ebb4b373c5d61793b0d7da3a7c69ed2a))
+* increment test version number ([#339](https://github.com/ForkbombEu/wallet/issues/339)) ([8cd2a9b](https://github.com/ForkbombEu/wallet/commit/8cd2a9b44b554da825139a31c850f263e5744271))
+
+
+### Features
+
+* test app distribution ([#337](https://github.com/ForkbombEu/wallet/issues/337)) ([771d16d](https://github.com/ForkbombEu/wallet/commit/771d16dc63e3e9d2dfa334d8ea18ac180d584b0e))
+
 ## [1.42.1](https://github.com/ForkbombEu/wallet/compare/v1.42.0...v1.42.1) (2024-05-28)
 
 
