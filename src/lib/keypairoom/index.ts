@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 //
 
-const SERVER_SIDE_SALT: string = 'cGlwcG8gY29tZSBzdGE/';
+const SERVER_SIDE_SALT: string = 'bWltbW8K';
 
 const HMAC_KEY = 'seedServerSideShard.HMAC';
 
