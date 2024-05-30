@@ -4,21 +4,22 @@ import keypairoomClientRecreateKeys from '../../../zenflows-crypto/src/keypairoo
 import { zencodeExec } from './zencode';
 import type { ValueOf } from '$lib/utils/types';
 import _ from 'lodash';
+import { getServerSalt } from '$lib/slangroom/salt';
 
 //
 
-const SERVER_SIDE_SALT: string = 'bWltbW8K';
 
 const HMAC_KEY = 'seedServerSideShard.HMAC';
 
 /* - HMAC generation - */
 
 export async function generateHMAC(email: string): Promise<string> {
+	console.log(await getServerSalt())
 	const response = await zencodeExec<KeypairoomGenerateHMACData, KeypairoomGenerateHMACOutput>(
 		keypairoomGenerateHMAC,
 		{
 			userData: { email },
-			serverSideSalt: SERVER_SIDE_SALT
+			serverSideSalt: await getServerSalt()
 		}
 	);
 	return response[HMAC_KEY];
