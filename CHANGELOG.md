@@ -1,3 +1,11 @@
+## [1.45.4](https://github.com/ForkbombEu/wallet/compare/v1.45.3...v1.45.4) (2024-05-31)
+
+
+### Bug Fixes
+
+* add loading ui where it is needed ([#362](https://github.com/ForkbombEu/wallet/issues/362)) ([1a20a72](https://github.com/ForkbombEu/wallet/commit/1a20a72024102d36ec8767016d78cae54f3d598c)), closes [#342](https://github.com/ForkbombEu/wallet/issues/342) [#353](https://github.com/ForkbombEu/wallet/issues/353)
+* enlarge empty wallet button and activity when credential is missing ([#363](https://github.com/ForkbombEu/wallet/issues/363)) ([6f12c04](https://github.com/ForkbombEu/wallet/commit/6f12c043129f0b4740d907658fe266178f1ac93b))
+
 ## [1.45.3](https://github.com/ForkbombEu/wallet/compare/v1.45.2...v1.45.3) (2024-05-31)
 
 
