@@ -10,6 +10,7 @@
 	import { NativeSettings, AndroidSettings, IOSSettings } from 'capacitor-native-settings';
 	import { arrowForwardOutline } from 'ionicons/icons';
 	import { invalidateAll } from '$app/navigation';
+	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 
 	const dispatch = createEventDispatcher();
 	const qrCodeScanned = (barcode: Barcode) => {
@@ -116,7 +117,7 @@
 	{#if !isWeb}
 		{#await awaitPermissions()}
 			<div class="flex h-full w-full items-center justify-center">
-				<ion-spinner />
+				<FingerPrint/>
 			</div>
 		{:then permissionsGranted}
 			{#if !permissionsGranted}

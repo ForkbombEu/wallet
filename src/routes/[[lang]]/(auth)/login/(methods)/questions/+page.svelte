@@ -13,12 +13,9 @@
 	import { alertCircleOutline, key } from 'ionicons/icons';
 	import { z } from 'zod';
 	import { checkKeypairs, generateDid, saveUserPublicKeys, userEmailStore } from '../../_lib';
-	//@ts-ignore
-	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import type { Feedback } from '$lib/utils/types';
-	import { getLottieAnimation } from '$lib/getLottieAnimation';
 	import { log } from '$lib/log';
-	import { logout } from '$lib/preferences/logout';
+	import Loading from '$lib/components/molecules/Loading.svelte';
 
 	//
 
@@ -28,7 +25,7 @@
 
 	let seed: string | undefined = undefined;
 
-	let loading: boolean = false;
+	let loading: boolean = true;
 
 	let feedback: Feedback = {};
 
@@ -64,7 +61,7 @@
 		schema: answersSchema,
 		onSubmit: async ({ form }) => {
 			try {
-				feedback = { type: undefined, message: undefined, feedback: '' };
+				feedback = { feedback: '' };
 				loading = true;
 				const formattedAnswers = convertUndefinedToNullString(form.data);
 				const keypair = await generateKeypair(
@@ -116,27 +113,12 @@
 	}
 </script>
 
+<Loading {loading} message={m.Generating_Keypair_()} />
 <Header backButton={!seed}>{m.SECURITY_QUESTIONS()}</Header>
 
 <div class="flex h-full w-screen flex-col gap-4 px-4">
 	<d-feedback {...feedback} />
-	{#if loading}
-		<div class="fixed z-50 h-full w-full bg-surface opacity-90">
-			<div class="flex h-full flex-col items-center justify-around">
-				<div class="flex flex-col items-center gap-8">
-					<LottiePlayer
-						src={getLottieAnimation()}
-						autoplay={true}
-						loop={true}
-						renderer="svg"
-						background="transparent"
-						width={120}
-					/>
-					<d-heading size="s">{m.Generating_Keypair_()}</d-heading>
-				</div>
-			</div>
-		</div>
-	{/if}
+
 	{#if !seed}
 		<div class="flex flex-col gap-2">
 			<d-heading sixe="s">{m.Answer_to_these_questions()}</d-heading>

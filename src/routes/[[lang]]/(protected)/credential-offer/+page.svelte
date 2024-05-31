@@ -5,8 +5,6 @@
 	import { fly } from 'svelte/transition';
 	import { thumbsUpOutline } from 'ionicons/icons';
 	import { goto, r } from '$lib/i18n';
-	//@ts-ignore
-	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import { m } from '$lib/i18n';
 	import Header from '$lib/components/molecules/Header.svelte';
 	import { setCredentialPreference } from '$lib/preferences/credentials';
@@ -20,10 +18,12 @@
 	import { credentialOfferStore } from '$lib/credentialOfferStore';
 	import { log } from '$lib/log';
 	import type { Feedback } from '$lib/utils/types';
-	import { getLottieAnimation } from '$lib/getLottieAnimation';
 	import { homeFeedbackStore } from '$lib/homeFeedbackStore';
 	import { addActivity } from '$lib/preferences/activity';
 	import dayjs from 'dayjs';
+	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
+	import Loading from '$lib/components/molecules/Loading.svelte';
+
 
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
@@ -96,7 +96,7 @@
 <ion-content fullscreen class="ion-padding">
 	<d-feedback {...feedback} />
 	{#await qrToWellKnown()}
-		waiting
+		<Loading/>
 	{:then wn}
 		{@const credentialInfo = wn['credential_requested']['display'][0]}
 		{@const credentialSchema =
@@ -138,14 +138,7 @@
 								logoSrc={credentialInfo.logo.url}
 							/>
 							<div class="mx-auto w-fit pt-8">
-								<LottiePlayer
-									src={getLottieAnimation()}
-									autoplay={true}
-									loop={true}
-									renderer="svg"
-									background="transparent"
-									width={120}
-								/>
+								<FingerPrint />
 							</div>
 						{:else}
 							<div class="ion-padding flex w-full flex-col gap-2">

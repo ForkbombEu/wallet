@@ -6,6 +6,7 @@
 	import { homeFeedbackStore } from '$lib/homeFeedbackStore';
 	import { credentialOfferStore } from '$lib/credentialOfferStore';
 	import type { Service as CredentialService } from '$lib/components/organisms/scanner/tools';
+	import Loading from '$lib/components/molecules/Loading.svelte';
 
 	let feedback: Feedback = $homeFeedbackStore;
 
@@ -27,7 +28,7 @@
 	<d-feedback {...feedback} on:dClose={onFeedbackClose} />
 	<br />
 	{#await getServices()}
-		<ion-spinner />
+		<Loading />
 	{:then services}
 		<d-heading>
 			<h1>{m.Claim_credential()}</h1>
