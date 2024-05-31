@@ -59,6 +59,7 @@ platform :android do
       cache_path: CACHE_PATH
     )
   end
+
   lane :distribute do
     sh "pnpm install -g @ionic/cli"
     sh "pnpm install"
@@ -66,8 +67,10 @@ platform :android do
     sh "ionic cap sync android"
     sh "ionic cap build android --no-open"
     package = load_json(json_path: "./package.json")
-    versionName = package["version"] + "-" + PULL_REQUEST_NUMBER
-
+    increment_version_name(
+      gradle_file_path: "./android/app/build.gradle",
+      version_name: package["version"] + "-" + PULL_REQUEST_NUMBER
+    )
     gradle(
           task: "clean bundleRelease",
           project_dir: 'android/',
@@ -77,8 +80,6 @@ platform :android do
             "android.injected.signing.store.password" => "#{KEYSTORE_STORE_PASSWORD}",
             "android.injected.signing.key.alias" => "#{KEYSTORE_KEY_ALIAS}",
             "android.injected.signing.key.password" => "#{KEYSTORE_KEY_PASSWORD}",
-            "versionName" => versionName,
-            "versionCode" => versionName
           })
     aab_path = "android/app/build/outputs/bundle/release/app-release.aab"
     bundletool(
@@ -86,16 +87,11 @@ platform :android do
       ks_password: KEYSTORE_STORE_PASSWORD,
       ks_key_alias: KEYSTORE_KEY_ALIAS,
       ks_key_alias_password: KEYSTORE_KEY_PASSWORD,
-      bundletool_version: '1.10.0',
       aab_path: aab_path,
       apk_output_path: APK_OUTPUT_PATH,
       verbose: true,
       cache_path: CACHE_PATH
     )
-    # latest_release = firebase_app_distribution_get_latest_release(
-    #   service_credentials_file: SERVICE_ACCOUNT_PATH,
-    #   app: FIREBASE_APP_ID
-    # )
 
     release = firebase_app_distribution(
         app: FIREBASE_APP_ID,
