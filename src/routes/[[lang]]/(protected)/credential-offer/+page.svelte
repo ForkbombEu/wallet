@@ -62,7 +62,7 @@
 			log(`serviceResponse: (fine chain): ${JSON.stringify(serviceResponse, null, 2)}`);
 		} catch (e) {
 			isCredentialVerified = false;
-			isModalOpen;
+			isModalOpen = false;
 			feedback = {
 				type: 'error',
 				message: String(e),

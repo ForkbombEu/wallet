@@ -1,3 +1,19 @@
+## [1.45.3](https://github.com/ForkbombEu/wallet/compare/v1.45.2...v1.45.3) (2024-05-31)
+
+
+### Bug Fixes
+
+* in /home the description of services are missing ([#361](https://github.com/ForkbombEu/wallet/issues/361)) ([39c745d](https://github.com/ForkbombEu/wallet/commit/39c745d0aad62dc6ec3aeede8211b5863e9775ea)), closes [#347](https://github.com/ForkbombEu/wallet/issues/347)
+
+## [1.45.2](https://github.com/ForkbombEu/wallet/compare/v1.45.1...v1.45.2) (2024-05-31)
+
+
+### Bug Fixes
+
+* feedbacks on login attempt ([#359](https://github.com/ForkbombEu/wallet/issues/359)) ([108b3f0](https://github.com/ForkbombEu/wallet/commit/108b3f0851d90bb0a6ecc50787c2f6cba631e2c9)), closes [#356](https://github.com/ForkbombEu/wallet/issues/356)
+* questions feedback should disappear on correct answers, and feeback if wrong authentication at login ([#332](https://github.com/ForkbombEu/wallet/issues/332)) ([a21b54b](https://github.com/ForkbombEu/wallet/commit/a21b54b7bfc61f4a4bea0ad01a9c8b2019b360f4)), closes [#326](https://github.com/ForkbombEu/wallet/issues/326)
+* remove the dialog/modal when in /credential-offer something goes wrong ([#360](https://github.com/ForkbombEu/wallet/issues/360)) ([9c215f7](https://github.com/ForkbombEu/wallet/commit/9c215f7bc54ac4f310fd0965939b94841a6631e8)), closes [#355](https://github.com/ForkbombEu/wallet/issues/355)
+
 ## [1.45.1](https://github.com/ForkbombEu/wallet/compare/v1.45.0...v1.45.1) (2024-05-31)
 
 

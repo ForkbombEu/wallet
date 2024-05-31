@@ -61,7 +61,7 @@
 		schema: answersSchema,
 		onSubmit: async ({ form }) => {
 			try {
-				feedback = {};
+				feedback = { feedback: '' };
 				loading = true;
 				const formattedAnswers = convertUndefinedToNullString(form.data);
 				const keypair = await generateKeypair(
