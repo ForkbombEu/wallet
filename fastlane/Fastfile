@@ -65,6 +65,9 @@ platform :android do
     sh "cp ../.env.example ../.env"
     sh "ionic cap sync android"
     sh "ionic cap build android --no-open"
+    package = load_json(json_path: "../package.json")
+    versionName = package["version"] + "-" + PULL_REQUEST_NUMBER
+
     gradle(
           task: "clean bundleRelease",
           project_dir: 'android/',
@@ -74,6 +77,8 @@ platform :android do
             "android.injected.signing.store.password" => "#{KEYSTORE_STORE_PASSWORD}",
             "android.injected.signing.key.alias" => "#{KEYSTORE_KEY_ALIAS}",
             "android.injected.signing.key.password" => "#{KEYSTORE_KEY_PASSWORD}",
+            "versionName" => versionName
+            "versionCode" => versionName
           })
     aab_path = "android/app/build/outputs/bundle/release/app-release.aab"
     bundletool(
@@ -87,11 +92,10 @@ platform :android do
       verbose: true,
       cache_path: CACHE_PATH
     )
-    latest_release = firebase_app_distribution_get_latest_release(
-      service_credentials_file: SERVICE_ACCOUNT_PATH,
-      app: FIREBASE_APP_ID
-    )
-    increment_version_code({ version_code: latest_release[:buildVersion] + PULL_REQUEST_NUMBER })
+    # latest_release = firebase_app_distribution_get_latest_release(
+    #   service_credentials_file: SERVICE_ACCOUNT_PATH,
+    #   app: FIREBASE_APP_ID
+    # )
 
     release = firebase_app_distribution(
         app: FIREBASE_APP_ID,
