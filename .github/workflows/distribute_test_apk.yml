@@ -1,16 +1,17 @@
-name: 'Distribute Test APK'
+name: '🧪'
 
 on:
   pull_request:
     branches: [ "main" ]
-  merge_group:
-    types: [checks_requested]
+
 jobs:
   distribute:
     runs-on: ubuntu-latest
     environment: test
     steps:
       - uses: dyne/pnpm@main
+        with:
+          submodules: true
       - uses: actions/cache@v3
         with:
           path: |
