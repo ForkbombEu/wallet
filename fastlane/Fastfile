@@ -52,7 +52,7 @@ platform :android do
       ks_password: KEYSTORE_STORE_PASSWORD,
       ks_key_alias: KEYSTORE_KEY_ALIAS,
       ks_key_alias_password: KEYSTORE_KEY_PASSWORD,
-      bundletool_version: '1.10.0',
+      bundletool_version: '1.16.0',
       aab_path: aab_path,
       apk_output_path: APK_OUTPUT_PATH,
       verbose: true,
@@ -81,6 +81,7 @@ platform :android do
           })
     aab_path = "android/app/build/outputs/bundle/release/app-release.aab"
     bundletool(
+      bundletool_version: '1.16.0',
       ks_path: KEYSTORE_PATH,
       ks_password: KEYSTORE_STORE_PASSWORD,
       ks_key_alias: KEYSTORE_KEY_ALIAS,
