@@ -1,3 +1,10 @@
+## [1.44.1](https://github.com/ForkbombEu/wallet/compare/v1.44.0...v1.44.1) (2024-05-31)
+
+
+### Bug Fixes
+
+* keypairoom salt ([#336](https://github.com/ForkbombEu/wallet/issues/336)) ([c517531](https://github.com/ForkbombEu/wallet/commit/c517531139e0804dd2b83015b69bc2995db75314))
+
 # [1.44.0](https://github.com/ForkbombEu/wallet/compare/v1.43.0...v1.44.0) (2024-05-30)
 
 
