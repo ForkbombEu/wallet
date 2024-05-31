@@ -104,7 +104,7 @@ platform :android do
         service_credentials_file: SERVICE_ACCOUNT_PATH,
         android_artifact_path: APK_OUTPUT_PATH,
         groups: 'dyne',
-        release_notes: "##{PULL_REQUEST_TITLE}"
+        release_notes: "#{PULL_REQUEST_TITLE}"
     )
     end
 end
