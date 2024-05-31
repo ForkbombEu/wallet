@@ -42,6 +42,7 @@
 					name={service.display_name}
 					issuer={service.expand.credential_issuer.name}
 					logoSrc={service.logo}
+					description={service.description}
 					href="#"
 					on:click={() => gotoCrendentialOffer(service)}
 					on:keydown={() => gotoCrendentialOffer(service)}
