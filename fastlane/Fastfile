@@ -91,7 +91,7 @@ platform :android do
       service_credentials_file: SERVICE_ACCOUNT_PATH,
       app: FIREBASE_APP_ID
     )
-    increment_version_code({ version_code: latest_release[:buildVersion].to_i + PULL_REQUEST_NUMBER })
+    increment_version_code({ version_code: latest_release[:buildVersion] + PULL_REQUEST_NUMBER })
 
     release = firebase_app_distribution(
         app: FIREBASE_APP_ID,

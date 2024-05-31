@@ -10,20 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: test
     steps:
-      - uses: actions/checkout@v4
-      - name: Git Sumbodule Update
-        run: |
-          git submodule update --init
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.8.1
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        with:
-          version: 8
-          run_install: false
-
+      - uses: dyne/pnpm@main
       - uses: actions/cache@v3
         with:
           path: |
