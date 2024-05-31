@@ -67,10 +67,6 @@ platform :android do
     sh "ionic cap sync android"
     sh "ionic cap build android --no-open"
     package = load_json(json_path: "./package.json")
-    increment_version_code(
-      gradle_file_path: "./android/app/build.gradle",
-      version_code: package["version"] + "-" + PULL_REQUEST_NUMBER
-    )
     gradle(
           task: "clean bundleRelease",
           project_dir: 'android/',
@@ -80,6 +76,8 @@ platform :android do
             "android.injected.signing.store.password" => "#{KEYSTORE_STORE_PASSWORD}",
             "android.injected.signing.key.alias" => "#{KEYSTORE_KEY_ALIAS}",
             "android.injected.signing.key.password" => "#{KEYSTORE_KEY_PASSWORD}",
+            "android.injected.version.code" => PULL_REQUEST_NUMBER,
+            "android.injected.version.name" => package["version"] + "-" + PULL_REQUEST_NUMBER
           })
     aab_path = "android/app/build/outputs/bundle/release/app-release.aab"
     bundletool(
