@@ -19,8 +19,11 @@ KEYSTORE_PATH = ENV["KEYSTORE_PATH"]
 KEYSTORE_KEY_ALIAS = ENV["KEYSTORE_KEY_ALIAS"]
 KEYSTORE_KEY_PASSWORD = ENV["KEYSTORE_KEY_PASSWORD"]
 KEYSTORE_STORE_PASSWORD = ENV["KEYSTORE_STORE_PASSWORD"]
-APK_OUTPUT_PATH = "./release"
+FIREBASE_APP_ID = ENV["FIREBASE_APP_ID"]
+SERVICE_ACCOUNT_PATH = ENV["SERVICE_ACCOUNT_PATH"]
+APK_OUTPUT_PATH = "./release.apk"
 CACHE_PATH = "./.cache"
+PULL_REQUEST_NUMBER = ENV["PULL_REQUEST_NUMBER"]
 
 
 platform :android do
@@ -32,6 +35,7 @@ platform :android do
     sh "cp ../.env.example ../.env"
     sh "ionic cap sync android"
     sh "ionic cap build android --no-open"
+    sh "echo #{PULL_REQUEST_NUMBER}"
     gradle(
           task: "clean bundleRelease",
           project_dir: 'android/',
@@ -48,11 +52,58 @@ platform :android do
       ks_password: KEYSTORE_STORE_PASSWORD,
       ks_key_alias: KEYSTORE_KEY_ALIAS,
       ks_key_alias_password: KEYSTORE_KEY_PASSWORD,
-      bundletool_version: '1.10.0',
+      bundletool_version: '1.16.0',
       aab_path: aab_path,
       apk_output_path: APK_OUTPUT_PATH,
       verbose: true,
       cache_path: CACHE_PATH
     )
   end
+
+  lane :distribute do
+    sh "pnpm install -g @ionic/cli"
+    sh "pnpm install"
+    sh "cp ../.env.example ../.env"
+    sh "ionic cap sync android"
+    sh "ionic cap build android --no-open"
+    package = load_json(json_path: "./package.json")
+    increment_version_code(
+      gradle_file_path: "./android/app/build.gradle",
+      version_code: PULL_REQUEST_NUMBER
+    )
+    increment_version_name(
+      gradle_file_path: "./android/app/build.gradle",
+      version_name: package['version'] + "-" + PULL_REQUEST_NUMBER
+    )
+    gradle(
+          task: "clean bundleRelease",
+          project_dir: 'android/',
+          print_command: false,
+          properties: {
+            "android.injected.signing.store.file" => "#{KEYSTORE_PATH}",
+            "android.injected.signing.store.password" => "#{KEYSTORE_STORE_PASSWORD}",
+            "android.injected.signing.key.alias" => "#{KEYSTORE_KEY_ALIAS}",
+            "android.injected.signing.key.password" => "#{KEYSTORE_KEY_PASSWORD}",
+          })
+    aab_path = "android/app/build/outputs/bundle/release/app-release.aab"
+    bundletool(
+      bundletool_version: '1.16.0',
+      ks_path: KEYSTORE_PATH,
+      ks_password: KEYSTORE_STORE_PASSWORD,
+      ks_key_alias: KEYSTORE_KEY_ALIAS,
+      ks_key_alias_password: KEYSTORE_KEY_PASSWORD,
+      aab_path: aab_path,
+      apk_output_path: APK_OUTPUT_PATH,
+      verbose: true,
+      cache_path: CACHE_PATH
+    )
+
+    release = firebase_app_distribution(
+        app: FIREBASE_APP_ID,
+        service_credentials_file: SERVICE_ACCOUNT_PATH,
+        android_artifact_path: APK_OUTPUT_PATH,
+        groups: 'dyne',
+        release_notes: "pull request: ##{PULL_REQUEST_NUMBER}"
+    )
+    end
 end
