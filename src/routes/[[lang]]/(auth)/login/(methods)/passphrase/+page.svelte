@@ -11,6 +11,7 @@
 	import Header from '$lib/components/molecules/Header.svelte';
 	import background from '$lib/assets/bg-5.svg';
 	import { Input } from '$lib/ionic/forms/index.js';
+	import Chat from '$lib/assets/Chat.svelte';
 
 	//
 
@@ -59,7 +60,9 @@
 <div class="flex flex-col">
 	<d-feedback {...feedback} />
 	<div class="mb-10 sm:mb-0">
-		<Illustration img="chat" {background} />
+		<Illustration {background}>
+			<Chat />
+		</Illustration>
 	</div>
 	<div>
 		<div class="flex w-full flex-col items-center gap-6 px-8">

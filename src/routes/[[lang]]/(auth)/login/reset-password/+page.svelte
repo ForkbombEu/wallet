@@ -10,6 +10,7 @@
 	import type { Feedback } from '$lib/utils/types';
 	import Header from '$lib/components/molecules/Header.svelte';
 	import CircleCheck from '$lib/assets/CircleCheck.svelte';
+	import Chat from '$lib/assets/Chat.svelte';
 
 	let feedback: Feedback = {};
 	let loading = false;
@@ -49,7 +50,9 @@
 <div class="flex min-h-screen flex-col place-content-between">
 	<d-feedback {...feedback} />
 	<div class="grow">
-		<Illustration img="chat" {background} />
+		<Illustration {background}>
+			<Chat />
+		</Illustration>
 		<div>
 			{#if requestSent}
 				<div class="mt-8 flex flex-col">

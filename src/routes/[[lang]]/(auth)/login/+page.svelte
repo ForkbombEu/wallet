@@ -14,10 +14,9 @@
 
 	//
 
-
 	const registration = $page.url.searchParams.get('registration') === 'true';
 
-	let feedback:Feedback = {}
+	let feedback: Feedback = {};
 
 	const schema = z.object({
 		registration: z.boolean(),
@@ -35,37 +34,37 @@
 		onSubmit: async ({ form }) => {
 			feedback = {
 				type: undefined,
-				feedback: undefined,
-			}
+				feedback: undefined
+			};
 			try {
-			if (!registration) {
-				await login(form.data.email, form.data.password!);
-			}
+				if (!registration) {
+					await login(form.data.email, form.data.password!);
+				}
 
-			userEmailStore.set({
-				email: form.data.email,
-				registration
-			});
+				userEmailStore.set({
+					email: form.data.email,
+					registration
+				});
 
-			await goto(registration ? '/login/insert-password' : '/login/passphrase');
-		} catch (e) {
-			feedback = {
-				type: 'error',
-				feedback: m.wrong_email_or_password(),
-				message: String(e)
+				await goto(registration ? '/login/insert-password' : '/login/passphrase');
+			} catch (e) {
+				feedback = {
+					type: 'error',
+					feedback: m.wrong_email_or_password(),
+					message: String(e)
+				};
 			}
 		}
-	}
 	});
 </script>
 
 <div class="flex min-h-screen flex-col place-content-between">
 	<div class="grow">
 		<d-feedback {...feedback} />
-		<Illustration img="pidgeon" {background}>
-				<Pidgeon/>
-			</Illustration>
-		<Illustration img="pidgeon" {background} />
+		<Illustration {background}>
+			<Pidgeon />
+		</Illustration>
+		<!-- <Illustration img="pidgeon" {background} /> -->
 		<div>
 			<div class="flex flex-col">
 				<div class="flex w-full flex-col items-center gap-4 px-8">
@@ -92,7 +91,9 @@
 								type="password"
 								hidable
 							>
-								<a href={r('/login/reset-password')} class="text-blue-500">{m.forgot_your_password()}</a>
+								<a href={r('/login/reset-password')} class="text-blue-500"
+									>{m.forgot_your_password()}</a
+								>
 							</Input>
 						{/if}
 						<d-button size="default" color="accent" type="submit" expand class="mt-4">
