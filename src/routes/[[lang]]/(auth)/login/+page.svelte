@@ -9,8 +9,11 @@
 	import { login, userEmailStore } from './_lib';
 	import background from '$lib/assets/bg-4.svg';
 	import { page } from '$app/stores';
+	import type { Feedback } from '$lib/utils/types';
 
 	const registration = $page.url.searchParams.get('registration') === 'true';
+
+	let feedback:Feedback = {}
 
 	const schema = z.object({
 		registration: z.boolean(),
@@ -26,6 +29,11 @@
 	const form = createForm({
 		schema,
 		onSubmit: async ({ form }) => {
+			feedback = {
+				type: undefined,
+				feedback: undefined,
+			}
+			try {
 			if (!registration) {
 				await login(form.data.email, form.data.password!);
 			}
@@ -36,12 +44,20 @@
 			});
 
 			await goto(registration ? '/login/insert-password' : '/login/passphrase');
+		} catch (e) {
+			feedback = {
+				type: 'error',
+				feedback: 'wrong email or password',
+				message: String(e)
+			}
 		}
+	}
 	});
 </script>
 
 <div class="flex min-h-screen flex-col place-content-between">
 	<div class="grow">
+		<d-feedback {...feedback} />
 		<Illustration img="pidgeon" {background} />
 		<div>
 			<div class="flex flex-col">
