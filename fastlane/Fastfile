@@ -77,7 +77,7 @@ platform :android do
             "android.injected.signing.store.password" => "#{KEYSTORE_STORE_PASSWORD}",
             "android.injected.signing.key.alias" => "#{KEYSTORE_KEY_ALIAS}",
             "android.injected.signing.key.password" => "#{KEYSTORE_KEY_PASSWORD}",
-            "versionName" => versionName
+            "versionName" => versionName,
             "versionCode" => versionName
           })
     aab_path = "android/app/build/outputs/bundle/release/app-release.aab"
