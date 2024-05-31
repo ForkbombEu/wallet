@@ -47,7 +47,7 @@
 		} catch (e) {
 			feedback = {
 				type: 'error',
-				feedback: 'wrong email or password',
+				feedback: m.wrong_email_or_password(),
 				message: String(e)
 			}
 		}
@@ -85,7 +85,7 @@
 								type="password"
 								hidable
 							>
-								<a href={r('/login/reset-password')} class="text-blue-500">forgot your password?</a>
+								<a href={r('/login/reset-password')} class="text-blue-500">{m.forgot_your_password()}</a>
 							</Input>
 						{/if}
 						<d-button size="default" color="accent" type="submit" expand class="mt-4">
