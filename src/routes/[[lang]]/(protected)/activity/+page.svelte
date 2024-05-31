@@ -40,7 +40,9 @@
 			{#if activity.type === 'credential'}
 				{@const credential = credentials?.find((cred) => cred.id === activity.id)}
 				{#if !credential}
-					{log(`credential ${activity.id} not found`)}
+					<div class="hidden">
+						{log(`credential ${activity.id} not found`)}
+					</div>
 				{:else}
 					<div class="itens-start border-strocke flex gap-4 border-b py-2">
 						<d-avatar src={credential.logo} name={credential.display_name} shape="square" />
