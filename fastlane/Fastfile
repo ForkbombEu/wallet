@@ -102,8 +102,6 @@ platform :android do
         service_credentials_file: SERVICE_ACCOUNT_PATH,
         android_artifact_path: APK_OUTPUT_PATH,
         groups: 'dyne',
-        display_version: versionName,
-        build_version: PULL_REQUEST_NUMBER,
         release_notes: "pull request: ##{PULL_REQUEST_NUMBER}"
     )
     end
