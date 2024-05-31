@@ -11,6 +11,7 @@
 	//@ts-expect-error did needs to be typed
 	const { method, id: fullId } = parse(did?.result?.didDocument.id || did?.didDocument.id)!;
 	const [submethod, id] = fullId.split(':');
+	$: console.log(authFilesUri(user?.avatar, user?.id))
 </script>
 
 <TabPage tab="profile" title="PROFILE" settings>
@@ -32,7 +33,7 @@
 			<d-heading size="xs" class="mt-16 w-full text-center">{m.Badges()}</d-heading>
 			<div class="mx-auto mt-8 flex w-11/12 flex-wrap items-center justify-between gap-2">
 				{#each orgs as org}
-					<d-avatar src={filesUri(org.avatar, org.collectionId, org.id)} alt={org.name} size="xl" />
+					<d-avatar src={filesUri(org.avatar, org.collectionId, org.id)} alt={org.name}  size="xl" />
 				{/each}
 			</div>
 		{/if}

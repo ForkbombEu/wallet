@@ -1,6 +1,6 @@
 {
 	"name": "wallet",
-	"version": "1.40.2",
+	"version": "1.45.3",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --host",
@@ -81,11 +81,11 @@
 		"@fontsource-variable/gantari": "^5.0.13",
 		"@inlang/paraglide-js-adapter-sveltekit": "^0.5.10",
 		"@ionic/core": "^7.8.0",
-		"@slangroom/core": "latest",
-		"@slangroom/helpers": "^1.27.0",
-		"@slangroom/http": "1.27.6",
-		"@slangroom/pocketbase": "1.28.2",
-		"@slangroom/zencode": "^1.27.0",
+		"@slangroom/core": "1.30",
+		"@slangroom/helpers": "^1.30",
+		"@slangroom/http": "1.30",
+		"@slangroom/pocketbase": "~1.31.0",
+		"@slangroom/zencode": "^1.30",
 		"ajv": "^8.12.0",
 		"ajv-formats": "^2.1.1",
 		"capacitor-native-settings": "^6.0.0",
@@ -96,7 +96,7 @@
 		"lodash": "^4.17.21",
 		"sveltekit-superforms": "1.13.4",
 		"swiper": "^11.1.0",
-		"zenroom": "^4.27.1",
+		"zenroom": "^4.32",
 		"zod": "^3.22.4"
 	}
 }

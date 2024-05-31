@@ -10,9 +10,9 @@
 	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { unlockApp } from '$lib/preferences/locked.js';
-	import { alertCircleOutline } from 'ionicons/icons';
+	import { alertCircleOutline, key } from 'ionicons/icons';
 	import { z } from 'zod';
-	import { checkKeypairs, generateDid, generateSignroomUser } from '../../_lib';
+	import { checkKeypairs, generateDid, saveUserPublicKeys, userEmailStore } from '../../_lib';
 	//@ts-ignore
 	import { LottiePlayer } from '@lottiefiles/svelte-lottie-player';
 	import type { Feedback } from '$lib/utils/types';
@@ -22,8 +22,7 @@
 
 	//
 
-	export let data;
-	let { userEmail, registration } = data;
+	let { email: userEmail, registration } = $userEmailStore;
 
 	//
 
@@ -65,13 +64,16 @@
 		schema: answersSchema,
 		onSubmit: async ({ form }) => {
 			try {
+				feedback = { type: undefined, message: undefined, feedback: '' };
 				loading = true;
 				const formattedAnswers = convertUndefinedToNullString(form.data);
-				const keypair = await generateKeypair(userEmail, formattedAnswers as UserChallengesAnswers);
-
+				const keypair = await generateKeypair(
+					userEmail!,
+					formattedAnswers as UserChallengesAnswers
+				);
 				await setKeypairPreference(keypair);
-				if (registration) await generateSignroomUser(userEmail);
-				await generateDid(userEmail);
+				if (registration) await saveUserPublicKeys();
+				await generateDid();
 				if (!registration) await checkKeypairs();
 
 				await unlockApp();
@@ -96,7 +98,6 @@
 					feedback: 'error while generating keyring'
 				};
 				log(String(e));
-				logout();
 				throw new Error('KEYRING_GENERATION_ERROR');
 			}
 		}
@@ -115,7 +116,7 @@
 	}
 </script>
 
-<Header>{m.SECURITY_QUESTIONS()}</Header>
+<Header backButton={!seed}>{m.SECURITY_QUESTIONS()}</Header>
 
 <div class="flex h-full w-screen flex-col gap-4 px-4">
 	<d-feedback {...feedback} />
@@ -169,16 +170,6 @@
 						</ion-text>
 					</ion-item>
 				</FormError>
-
-				<!-- <hr />
-
-				<div>
-					<ion-text color="secondary">
-						<a href={r('/login/passphrase')} class="text-sm"
-							>{m.Login_with_your_passphrase_Tap_here()}</a
-						>
-					</ion-text>
-				</div> -->
 			</div>
 		</Form>
 		<d-button

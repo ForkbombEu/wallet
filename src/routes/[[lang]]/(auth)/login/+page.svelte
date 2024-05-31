@@ -2,39 +2,70 @@
 	import AppDetails from '$lib/components/AppDetails.svelte';
 	import Illustration from '$lib/components/molecules/Illustration.svelte';
 	import { Form, createForm } from '$lib/forms';
-	import { goto, m } from '$lib/i18n';
+	import { goto, m, r } from '$lib/i18n';
 	import Input from '$lib/ionic/forms/input.svelte';
 	import { arrowForward } from 'ionicons/icons';
 	import { z } from 'zod';
-	import { userEmailStore } from './_lib';
+	import { login, userEmailStore } from './_lib';
 	import background from '$lib/assets/bg-4.svg';
 	import Pidgeon from '$lib/assets/Pidgeon.svelte';
+	import { page } from '$app/stores';
+	import type { Feedback } from '$lib/utils/types';
 
 	//
 
-	import { page } from '$app/stores';
+
 	const registration = $page.url.searchParams.get('registration') === 'true';
-	console.table($page.url);
+
+	let feedback:Feedback = {}
 
 	const schema = z.object({
+		registration: z.boolean(),
 		email: z.string().email(),
-		rememberEmail: z.boolean().optional()
+		password: z
+			.string()
+			.min(8)
+			.max(73)
+			.optional()
+			.refine((arg) => (registration ? true : arg), 'Required')
 	});
 
 	const form = createForm({
 		schema,
 		onSubmit: async ({ form }) => {
-			userEmailStore.set({ email: form.data.email, registration });
-			await goto(registration ? '/login/confirm-email' : '/login/passphrase');
+			feedback = {
+				type: undefined,
+				feedback: undefined,
+			}
+			try {
+			if (!registration) {
+				await login(form.data.email, form.data.password!);
+			}
+
+			userEmailStore.set({
+				email: form.data.email,
+				registration
+			});
+
+			await goto(registration ? '/login/insert-password' : '/login/passphrase');
+		} catch (e) {
+			feedback = {
+				type: 'error',
+				feedback: m.wrong_email_or_password(),
+				message: String(e)
+			}
 		}
+	}
 	});
 </script>
 
 <div class="flex min-h-screen flex-col place-content-between">
 	<div class="grow">
+		<d-feedback {...feedback} />
 		<Illustration img="pidgeon" {background}>
 				<Pidgeon/>
 			</Illustration>
+		<Illustration img="pidgeon" {background} />
 		<div>
 			<div class="flex flex-col">
 				<div class="flex w-full flex-col items-center gap-4 px-8">
@@ -44,7 +75,26 @@
 					</div>
 
 					<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
+						<input
+							type="radio"
+							checked={registration}
+							name="registration"
+							value="registration"
+							class="hidden"
+						/>
 						<Input {form} fieldPath="email" placeholder={m.emailexample_com()} label={m.Email()} />
+						{#if !registration}
+							<Input
+								{form}
+								fieldPath="password"
+								placeholder="password"
+								label="password"
+								type="password"
+								hidable
+							>
+								<a href={r('/login/reset-password')} class="text-blue-500">{m.forgot_your_password()}</a>
+							</Input>
+						{/if}
 						<d-button size="default" color="accent" type="submit" expand class="mt-4">
 							{m.Next()}
 							<ion-icon icon={arrowForward} slot="end" />

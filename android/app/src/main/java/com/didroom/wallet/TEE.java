@@ -1,4 +1,4 @@
-package didroom.forkbomb.eu;
+package com.didroom.wallet;
 
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;

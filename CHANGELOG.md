@@ -1,3 +1,94 @@
+## [1.45.3](https://github.com/ForkbombEu/wallet/compare/v1.45.2...v1.45.3) (2024-05-31)
+
+
+### Bug Fixes
+
+* in /home the description of services are missing ([#361](https://github.com/ForkbombEu/wallet/issues/361)) ([39c745d](https://github.com/ForkbombEu/wallet/commit/39c745d0aad62dc6ec3aeede8211b5863e9775ea)), closes [#347](https://github.com/ForkbombEu/wallet/issues/347)
+
+## [1.45.2](https://github.com/ForkbombEu/wallet/compare/v1.45.1...v1.45.2) (2024-05-31)
+
+
+### Bug Fixes
+
+* feedbacks on login attempt ([#359](https://github.com/ForkbombEu/wallet/issues/359)) ([108b3f0](https://github.com/ForkbombEu/wallet/commit/108b3f0851d90bb0a6ecc50787c2f6cba631e2c9)), closes [#356](https://github.com/ForkbombEu/wallet/issues/356)
+* questions feedback should disappear on correct answers, and feeback if wrong authentication at login ([#332](https://github.com/ForkbombEu/wallet/issues/332)) ([a21b54b](https://github.com/ForkbombEu/wallet/commit/a21b54b7bfc61f4a4bea0ad01a9c8b2019b360f4)), closes [#326](https://github.com/ForkbombEu/wallet/issues/326)
+* remove the dialog/modal when in /credential-offer something goes wrong ([#360](https://github.com/ForkbombEu/wallet/issues/360)) ([9c215f7](https://github.com/ForkbombEu/wallet/commit/9c215f7bc54ac4f310fd0965939b94841a6631e8)), closes [#355](https://github.com/ForkbombEu/wallet/issues/355)
+
+## [1.45.1](https://github.com/ForkbombEu/wallet/compare/v1.45.0...v1.45.1) (2024-05-31)
+
+
+### Bug Fixes
+
+* on hardware back button close the qr scanner ([#349](https://github.com/ForkbombEu/wallet/issues/349)) ([d339722](https://github.com/ForkbombEu/wallet/commit/d3397223c2865a0127a6b91e2e624ff9012a15ad)), closes [#341](https://github.com/ForkbombEu/wallet/issues/341)
+* remove back button after keypairs are generated ([#352](https://github.com/ForkbombEu/wallet/issues/352)) ([7fa631f](https://github.com/ForkbombEu/wallet/commit/7fa631ff4a1c78b98a763881663807804654c3e9)), closes [#75](https://github.com/ForkbombEu/wallet/issues/75)
+
+# [1.45.0](https://github.com/ForkbombEu/wallet/compare/v1.44.1...v1.45.0) (2024-05-31)
+
+
+### Features
+
+* reset password ([#329](https://github.com/ForkbombEu/wallet/issues/329)) ([986cbf6](https://github.com/ForkbombEu/wallet/commit/986cbf641d4f01e1f2f5e63f04c87dbeaed33a1b)), closes [#312](https://github.com/ForkbombEu/wallet/issues/312) [#313](https://github.com/ForkbombEu/wallet/issues/313)
+
+## [1.44.1](https://github.com/ForkbombEu/wallet/compare/v1.44.0...v1.44.1) (2024-05-31)
+
+
+### Bug Fixes
+
+* keypairoom salt ([#336](https://github.com/ForkbombEu/wallet/issues/336)) ([c517531](https://github.com/ForkbombEu/wallet/commit/c517531139e0804dd2b83015b69bc2995db75314))
+
+# [1.44.0](https://github.com/ForkbombEu/wallet/compare/v1.43.0...v1.44.0) (2024-05-30)
+
+
+### Features
+
+* bind hardware back button ([#331](https://github.com/ForkbombEu/wallet/issues/331)) ([fe7eaaa](https://github.com/ForkbombEu/wallet/commit/fe7eaaac187f11b6ba349dd43e1aa242bd2a3da2)), closes [#324](https://github.com/ForkbombEu/wallet/issues/324)
+
+# [1.43.0](https://github.com/ForkbombEu/wallet/compare/v1.42.1...v1.43.0) (2024-05-30)
+
+
+### Bug Fixes
+
+* alpha release ([#338](https://github.com/ForkbombEu/wallet/issues/338)) ([3dceae1](https://github.com/ForkbombEu/wallet/commit/3dceae18ebb4b373c5d61793b0d7da3a7c69ed2a))
+* increment test version number ([#339](https://github.com/ForkbombEu/wallet/issues/339)) ([8cd2a9b](https://github.com/ForkbombEu/wallet/commit/8cd2a9b44b554da825139a31c850f263e5744271))
+
+
+### Features
+
+* test app distribution ([#337](https://github.com/ForkbombEu/wallet/issues/337)) ([771d16d](https://github.com/ForkbombEu/wallet/commit/771d16dc63e3e9d2dfa334d8ea18ac180d584b0e))
+
+## [1.42.1](https://github.com/ForkbombEu/wallet/compare/v1.42.0...v1.42.1) (2024-05-28)
+
+
+### Bug Fixes
+
+* passhprase view ([#330](https://github.com/ForkbombEu/wallet/issues/330)) ([4a8ca90](https://github.com/ForkbombEu/wallet/commit/4a8ca907b9820cf570a989585b0a290c45cc79cc)), closes [#261](https://github.com/ForkbombEu/wallet/issues/261)
+
+# [1.42.0](https://github.com/ForkbombEu/wallet/compare/v1.41.0...v1.42.0) (2024-05-27)
+
+
+### Bug Fixes
+
+* validate confirm password match the password ([#328](https://github.com/ForkbombEu/wallet/issues/328)) ([b437a97](https://github.com/ForkbombEu/wallet/commit/b437a9710a1d92dfd14300f282b7ec62baca7a08))
+
+
+### Features
+
+* make password inputs showable ([#327](https://github.com/ForkbombEu/wallet/issues/327)) ([9503fd8](https://github.com/ForkbombEu/wallet/commit/9503fd8883d45154f7add747e5f49e0c9f60473d)), closes [#311](https://github.com/ForkbombEu/wallet/issues/311)
+
+# [1.41.0](https://github.com/ForkbombEu/wallet/compare/v1.40.3...v1.41.0) (2024-05-22)
+
+
+### Features
+
+* new registration and login flow ([#321](https://github.com/ForkbombEu/wallet/issues/321)) ([000a478](https://github.com/ForkbombEu/wallet/commit/000a47854e35da865fe97b81f93895a33f61acdd)), closes [#325](https://github.com/ForkbombEu/wallet/issues/325) [#310](https://github.com/ForkbombEu/wallet/issues/310) [#309](https://github.com/ForkbombEu/wallet/issues/309) [#306](https://github.com/ForkbombEu/wallet/issues/306) [#305](https://github.com/ForkbombEu/wallet/issues/305)
+
+## [1.40.3](https://github.com/ForkbombEu/wallet/compare/v1.40.2...v1.40.3) (2024-05-17)
+
+
+### Bug Fixes
+
+* credential-service cards in home ([#303](https://github.com/ForkbombEu/wallet/issues/303)) ([5cbcaf6](https://github.com/ForkbombEu/wallet/commit/5cbcaf69e4005edde706a4f33370f901a451b732))
+
 ## [1.40.2](https://github.com/ForkbombEu/wallet/compare/v1.40.1...v1.40.2) (2024-05-16)
 
 

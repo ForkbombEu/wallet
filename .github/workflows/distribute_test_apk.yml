@@ -1,0 +1,55 @@
+name: '🧪'
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  distribute:
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+      - uses: dyne/pnpm@main
+        with:
+          submodules: true
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Setup java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: '17'
+      - name: Decode Keystore File
+        uses: timheuer/base64-to-file@v1
+        id: android_keystore
+        with:
+          fileName: android_keystore.keystore
+          encodedString: ${{ secrets.ANDROID_KEYSTORE_FILE }}
+      - name: Decode Service Account File
+        uses: timheuer/base64-to-file@v1
+        id: service_account
+        with:
+          fileName: play-store-credentials.json
+          encodedString: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
+      - uses: maierj/fastlane-action@v3.1.0
+        env:
+          KEYSTORE_PATH: ${{ steps.android_keystore.outputs.filePath }}
+          SERVICE_ACCOUNT_PATH: ${{ steps.service_account.outputs.filePath }}
+          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+          PULL_REQUEST_NUMBER: ${{ github.event.number }}
+          PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
+        with:
+          lane: distribute
