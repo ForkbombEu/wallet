@@ -1,3 +1,10 @@
+## [1.45.3](https://github.com/ForkbombEu/wallet/compare/v1.45.2...v1.45.3) (2024-05-31)
+
+
+### Bug Fixes
+
+* in /home the description of services are missing ([#361](https://github.com/ForkbombEu/wallet/issues/361)) ([39c745d](https://github.com/ForkbombEu/wallet/commit/39c745d0aad62dc6ec3aeede8211b5863e9775ea)), closes [#347](https://github.com/ForkbombEu/wallet/issues/347)
+
 ## [1.45.2](https://github.com/ForkbombEu/wallet/compare/v1.45.1...v1.45.2) (2024-05-31)
 
 
