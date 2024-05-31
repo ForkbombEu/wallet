@@ -1,3 +1,10 @@
+# [1.45.0](https://github.com/ForkbombEu/wallet/compare/v1.44.1...v1.45.0) (2024-05-31)
+
+
+### Features
+
+* reset password ([#329](https://github.com/ForkbombEu/wallet/issues/329)) ([986cbf6](https://github.com/ForkbombEu/wallet/commit/986cbf641d4f01e1f2f5e63f04c87dbeaed33a1b)), closes [#312](https://github.com/ForkbombEu/wallet/issues/312) [#313](https://github.com/ForkbombEu/wallet/issues/313)
+
 ## [1.44.1](https://github.com/ForkbombEu/wallet/compare/v1.44.0...v1.44.1) (2024-05-31)
 
 
