@@ -50,5 +50,6 @@ jobs:
           KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           PULL_REQUEST_NUMBER: ${{ github.event.number }}
+          PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
         with:
           lane: distribute

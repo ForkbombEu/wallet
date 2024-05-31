@@ -116,7 +116,7 @@
 	}
 </script>
 
-<Header>{m.SECURITY_QUESTIONS()}</Header>
+<Header backButton={!seed}>{m.SECURITY_QUESTIONS()}</Header>
 
 <div class="flex h-full w-screen flex-col gap-4 px-4">
 	<d-feedback {...feedback} />

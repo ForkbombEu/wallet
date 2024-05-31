@@ -1,3 +1,11 @@
+## [1.45.1](https://github.com/ForkbombEu/wallet/compare/v1.45.0...v1.45.1) (2024-05-31)
+
+
+### Bug Fixes
+
+* on hardware back button close the qr scanner ([#349](https://github.com/ForkbombEu/wallet/issues/349)) ([d339722](https://github.com/ForkbombEu/wallet/commit/d3397223c2865a0127a6b91e2e624ff9012a15ad)), closes [#341](https://github.com/ForkbombEu/wallet/issues/341)
+* remove back button after keypairs are generated ([#352](https://github.com/ForkbombEu/wallet/issues/352)) ([7fa631f](https://github.com/ForkbombEu/wallet/commit/7fa631ff4a1c78b98a763881663807804654c3e9)), closes [#75](https://github.com/ForkbombEu/wallet/issues/75)
+
 # [1.45.0](https://github.com/ForkbombEu/wallet/compare/v1.44.1...v1.45.0) (2024-05-31)
 
 

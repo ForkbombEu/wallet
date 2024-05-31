@@ -77,6 +77,15 @@
 
 	//
 
+	document.addEventListener('ionBackButton', (ev: any) => {
+		ev.detail.register(5, (processNextHandler:()=>{}) => {
+			stopScan();
+			processNextHandler();
+		});
+	});
+
+	//
+
 	const translateY = tweened(-138, { duration: 2000, easing: quartInOut });
 	$: if ($translateY === -138) translateY.set(+135);
 	$: if ($translateY === +135) translateY.set(-138);
