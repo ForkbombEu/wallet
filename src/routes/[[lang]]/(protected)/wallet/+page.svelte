@@ -61,7 +61,7 @@
 				</div>
 				<d-heading size="s">{m.Nothing_in_your_wallet()}</d-heading>
 				<d-text size="l" class="pb-4">{m.Start_getting_your_first_credential()}</d-text>
-				<d-button expand color="outline" href={r('/home')}>
+				<d-button expand color="outline" href={r('/home')} class="w-full">
 					{m.Go_to_issuance_services()} <ion-icon slot="end" icon={arrowForwardOutline} />
 				</d-button>
 			</div>
