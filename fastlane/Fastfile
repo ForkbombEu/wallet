@@ -65,7 +65,7 @@ platform :android do
     sh "cp ../.env.example ../.env"
     sh "ionic cap sync android"
     sh "ionic cap build android --no-open"
-    package = load_json(json_path: "../package.json")
+    package = load_json(json_path: "./package.json")
     versionName = package["version"] + "-" + PULL_REQUEST_NUMBER
 
     gradle(
@@ -102,6 +102,8 @@ platform :android do
         service_credentials_file: SERVICE_ACCOUNT_PATH,
         android_artifact_path: APK_OUTPUT_PATH,
         groups: 'dyne',
+        display_version: versionName,
+        build_version: PULL_REQUEST_NUMBER,
         release_notes: "pull request: ##{PULL_REQUEST_NUMBER}"
     )
     end
