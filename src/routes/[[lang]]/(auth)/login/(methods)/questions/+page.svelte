@@ -25,7 +25,7 @@
 
 	let seed: string | undefined = undefined;
 
-	let loading: boolean = true;
+	let loading: boolean = false;
 
 	let feedback: Feedback = {};
 
