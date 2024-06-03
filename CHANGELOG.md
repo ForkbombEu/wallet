@@ -1,3 +1,10 @@
+## [1.45.5](https://github.com/ForkbombEu/wallet/compare/v1.45.4...v1.45.5) (2024-06-03)
+
+
+### Bug Fixes
+
+* loading in keypair recovery ([#366](https://github.com/ForkbombEu/wallet/issues/366)) ([e70f3fe](https://github.com/ForkbombEu/wallet/commit/e70f3fe203f02e528c4b5b823878c0f17bc3b538))
+
 ## [1.45.4](https://github.com/ForkbombEu/wallet/compare/v1.45.3...v1.45.4) (2024-05-31)
 
 
