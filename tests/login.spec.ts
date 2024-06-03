@@ -177,17 +177,20 @@ test.describe('Login with Passphrase Page', () => {
 
 test.describe('Login with Passphrase Page', () => {
 	test('should navigate to wallet after successful passphrase entry', async ({ page }) => {
-		await page.goto('/en/login');
+		await page.goto('/');
+		await page.getByRole('button', { name: 'Skip' }).click();
+		await page.getByRole('link', { name: 'Login' }).click();
 		await page.fill('input[name="email"]', userEmail);
 		await page.fill('input[name="password"]', userPassword);
 		await page.getByRole('button', { name: 'Next' }).click();
 		await page.fill('input[name="seed"]', userSeed!);
 		await page.getByRole('button', { name: 'Login' }).first().click();
-		await expect(page).toHaveURL('/en/wallet');
+		await page.waitForTimeout(1000);
 		const keyring = await page.evaluate(() => localStorage.getItem('CapacitorStorage.keyring'));
 		const did = await page.evaluate(() => localStorage.getItem('CapacitorStorage.did'));
 		expect(keyring).not.toBeNull();
 		expect(did).not.toBeNull();
+		await expect(page).toHaveURL('/en/wallet');
 	});
 });
 
