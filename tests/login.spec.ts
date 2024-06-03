@@ -1,30 +1,10 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+import { randomEmail, randomString, swipe } from './utils';
 
-const swipe = async (page:Page) => {
-	const x = 50;
-	const y = 50;
-	await page.mouse.move(x, y);
-	await page.mouse.down();
-	await page.mouse.move(x + 1000, y);
-	await page.mouse.up();
-};
 
-//random string
-const randomString = (length: number) => {
-	const result = [];
-	const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	const charactersLength = characters.length;
-	for (let i = 0; i < length; i++) {
-		result.push(characters.charAt(Math.floor(Math.random() * charactersLength)));
-	}
-	return result.join('');
-};
-
-//random email
-const randomEmail = () => {
-	const randomStr = randomString(4);
-	return `${randomStr}@${randomStr}.com`;
-}
+const userEmail = process.env.USER_EMAIL!;
+const userPassword = process.env.USER_PASSWORD!;
+const userSeed = process.env.USER_SEED!;
 
 test.describe('Onboarding Page', () => {
 	test('should display all onboarding slides', async ({ page }) => {
@@ -74,8 +54,8 @@ test.describe('Login Page', () => {
 	test('should log in successfully', async ({ page }) => {
 		await page.goto('/login');
 
-		await page.fill('input[name="email"]', 'yy@dd.mm');
-		await page.fill('input[name="password"]', '12345678');
+		await page.fill('input[name="email"]', userEmail);
+		await page.fill('input[name="password"]', userPassword);
 		await page.getByRole('button', { name: 'Next' }).click();
 
 		await expect(page).toHaveURL('/en/login/passphrase');
@@ -175,3 +155,39 @@ test.describe('Security Questions Page', () => {
 		expect(did).not.toBeNull();
 	});
 });
+
+test.describe('Login with Passphrase Page', () => {
+	test('should show error with incorrect passphrase', async ({ page }) => {
+		await page.goto('/en/login');
+		await page.fill('input[name="email"]', userEmail);
+		await page.fill('input[name="password"]', userPassword);
+		await page.getByRole('button', { name: 'Next' }).click();
+		await page.fill('input[name="seed"]', 'incorrect passphrase that does not work');
+		await page.getByRole('button', { name: 'Login' }).first().click();
+
+		const errorMessage = await page.locator('text="Invalid input"');
+		await expect(errorMessage).toBeVisible();
+
+		await page.fill('input[name="seed"]', 'incorrect passphrase that does not work but it seems valid shape (lenght)');
+		const errorMessageII = await page.locator('text="error while regenerating keyring"');
+		await page.getByRole('button', { name: 'Login' }).first().click();
+		await expect(errorMessageII).toBeVisible();
+	});
+});
+
+test.describe('Login with Passphrase Page', () => {
+	test('should navigate to wallet after successful passphrase entry', async ({ page }) => {
+		await page.goto('/en/login');
+		await page.fill('input[name="email"]', userEmail);
+		await page.fill('input[name="password"]', userPassword);
+		await page.getByRole('button', { name: 'Next' }).click();
+		await page.fill('input[name="seed"]', userSeed!);
+		await page.getByRole('button', { name: 'Login' }).first().click();
+		await expect(page).toHaveURL('/en/wallet');
+		const keyring = await page.evaluate(() => localStorage.getItem('CapacitorStorage.keyring'));
+		const did = await page.evaluate(() => localStorage.getItem('CapacitorStorage.did'));
+		expect(keyring).not.toBeNull();
+		expect(did).not.toBeNull();
+	});
+});
+
