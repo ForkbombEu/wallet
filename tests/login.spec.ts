@@ -1,10 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { randomEmail, randomString, swipe } from './utils';
-
-
-const userEmail = process.env.USER_EMAIL!;
-const userPassword = process.env.USER_PASSWORD!;
-const userSeed = process.env.USER_SEED!;
+import { randomEmail, randomString, swipe, userEmail, userPassword, userSeed } from './utils';
 
 test.describe('Onboarding Page', () => {
 	test('should display all onboarding slides', async ({ page }) => {
@@ -162,12 +157,11 @@ test.describe('Login with Passphrase Page', () => {
 		await page.fill('input[name="email"]', userEmail);
 		await page.fill('input[name="password"]', userPassword);
 		await page.getByRole('button', { name: 'Next' }).click();
+		await expect(page).toHaveURL('/en/login/passphrase');
 		await page.fill('input[name="seed"]', 'incorrect passphrase that does not work');
 		await page.getByRole('button', { name: 'Login' }).first().click();
-
 		const errorMessage = await page.locator('text="Invalid input"');
 		await expect(errorMessage).toBeVisible();
-
 		await page.fill('input[name="seed"]', 'incorrect passphrase that does not work but it seems valid shape (lenght)');
 		const errorMessageII = await page.locator('text="error while regenerating keyring"');
 		await page.getByRole('button', { name: 'Login' }).first().click();
@@ -183,6 +177,7 @@ test.describe('Login with Passphrase Page', () => {
 		await page.fill('input[name="email"]', userEmail);
 		await page.fill('input[name="password"]', userPassword);
 		await page.getByRole('button', { name: 'Next' }).click();
+		await expect(page).toHaveURL('/en/login/passphrase');
 		await page.fill('input[name="seed"]', userSeed!);
 		await page.getByRole('button', { name: 'Login' }).first().click();
 		await page.waitForTimeout(1000);
