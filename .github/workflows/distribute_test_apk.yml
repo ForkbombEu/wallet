@@ -16,10 +16,10 @@ jobs:
       - run: npx playwright install --with-deps
       - run: pnpm test:integration
         env:
-          PUBLIC_BACKEND_URL: ${{ env.PUBLIC_BACKEND_URL }}
-          USER_EMAIL: ${{ env.USER_EMAIL }}
-          USER_PASSWORD: ${{ env.USER_PASSWORD }}
-          USER_SEED: ${{ env.USER_SEED }}
+          PUBLIC_BACKEND_URL: ${{ vars.PUBLIC_BACKEND_URL }}
+          USER_EMAIL: ${{ vars.USER_EMAIL }}
+          USER_PASSWORD: ${{ vars.USER_PASSWORD }}
+          USER_SEED: ${{ vars.USER_SEED }}
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
