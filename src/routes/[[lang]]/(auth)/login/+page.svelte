@@ -45,12 +45,13 @@
 					email: form.data.email,
 					registration
 				});
-			return await goto(registration ? '/login/insert-password' : '/login/passphrase');
-		} catch (e) {
-			feedback = {
-				type: 'error',
-				feedback: m.wrong_email_or_password(),
-				message: String(e)
+				return await goto(registration ? '/login/insert-password' : '/login/passphrase');
+			} catch (e) {
+				feedback = {
+					type: 'error',
+					feedback: m.wrong_email_or_password(),
+					message: String(e)
+				};
 			}
 		}
 	});
