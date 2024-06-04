@@ -1,6 +1,9 @@
-import type { PlaywrightTestConfig } from '@playwright/test';
+import type { PlaywrightTestConfig } from '@playwright/test'; 
 
 const config: PlaywrightTestConfig = {
+	use: {
+		video: 'retain-on-failure'
+	},
 	webServer: {
 		command: 'pnpm build && pnpm preview',
 		port: 4173

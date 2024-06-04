@@ -156,7 +156,6 @@ test.describe('Login with Passphrase Page', () => {
 		await page.fill('input[name="email"]', userEmail);
 		await page.fill('input[name="password"]', userPassword);
 		await page.getByRole('button', { name: 'Next' }).click();
-		await page.waitForTimeout(1000);
 		await page.waitForURL('/en/login/passphrase');
 		await page.fill('input[name="seed"]', 'incorrect passphrase that does not work');
 		await page.getByRole('button', { name: 'Login' }).first().click();
@@ -177,7 +176,6 @@ test.describe('Login with Passphrase Page', () => {
 		await page.fill('input[name="email"]', userEmail);
 		await page.fill('input[name="password"]', userPassword);
 		await page.getByRole('button', { name: 'Next' }).click();
-		await page.waitForTimeout(1000);
 		await page.waitForURL('/en/login/passphrase');
 		await page.fill('input[name="seed"]', userSeed!);
 		await page.getByRole('button', { name: 'Login' }).first().click();
