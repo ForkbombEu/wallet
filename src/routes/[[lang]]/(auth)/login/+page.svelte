@@ -43,7 +43,7 @@
 				registration
 			});
 
-			await goto(registration ? '/login/insert-password' : '/login/passphrase');
+			return await goto(registration ? '/login/insert-password' : '/login/passphrase');
 		} catch (e) {
 			feedback = {
 				type: 'error',

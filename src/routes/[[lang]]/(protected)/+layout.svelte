@@ -15,14 +15,4 @@
 	];
 </script>
 
-<!-- <ion-tabs>
-	<slot />
-	<ion-tab-bar slot="bottom" class="ion-padding flex justify-between">
-		{#each tabs as { label, tab }}
-			<ion-tab-button {tab} active={isActive(tab)}>
-				{label}
-			</ion-tab-button>
-		{/each}
-	</ion-tab-bar>
-</ion-tabs> -->
 <IonTabs {tabs}><slot /></IonTabs>
