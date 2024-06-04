@@ -10,6 +10,20 @@ test.describe('Home Page', () => {
 		await expect(page.locator('h1')).toContainText('Request credential');
 	});
 
+	test('should show spinner while loading services', async ({ page }) => {
+		await login(page);
+		await page.locator('ion-tab-bar d-tab-button:has-text("Home")').click();
+		page.route(
+			'**/api/collections/services/records?page=1&perPage=500&skipTotal=1&sort=-updated&expand=credential_issuer',
+			(route) => setTimeout(() => route.continue(), 10000)
+		);
+		await expect(
+			page.locator(
+				'.fixed.z-50.flex.h-full.min-h-screen.w-full.flex-col.items-center.justify-around.bg-surface.ion-padding.opacity-90'
+			)
+		).toBeVisible();
+	});
+
 	test('should display list of services', async ({ page }) => {
 		await login(page);
 		await page.locator('ion-tab-bar d-tab-button:has-text("Home")').click();
@@ -19,7 +33,6 @@ test.describe('Home Page', () => {
 	});
 
 	test('should navigate to credential offer page on service click', async ({ page }) => {
-		// Use the login function to log in
 		await login(page);
 		await page.locator('ion-tab-bar d-tab-button:has-text("Home")').click();
         await expect(page).toHaveURL('/en/home');
