@@ -3,7 +3,7 @@ import { randomEmail, randomString, swipe, userEmail, userPassword, userSeed } f
 
 test.describe('Onboarding Page', () => {
 	test('should display all onboarding slides', async ({ page }) => {
-		await page.goto('/');
+			await page.goto('/');
 		await expect(page.locator('text="DIDroom Wallet,"')).toBeVisible();
 		await swipe(page);
 		await expect(page.locator('text="Create your DID,"')).toBeVisible();
@@ -156,6 +156,7 @@ test.describe('Login with Passphrase Page', () => {
 		await page.fill('input[name="email"]', userEmail);
 		await page.fill('input[name="password"]', userPassword);
 		await page.getByRole('button', { name: 'Next' }).click();
+		await page.waitForTimeout(1000);
 		await page.waitForURL('/en/login/passphrase');
 		await page.fill('input[name="seed"]', 'incorrect passphrase that does not work');
 		await page.getByRole('button', { name: 'Login' }).first().click();
@@ -176,6 +177,7 @@ test.describe('Login with Passphrase Page', () => {
 		await page.fill('input[name="email"]', userEmail);
 		await page.fill('input[name="password"]', userPassword);
 		await page.getByRole('button', { name: 'Next' }).click();
+		await page.waitForTimeout(1000);
 		await page.waitForURL('/en/login/passphrase');
 		await page.fill('input[name="seed"]', userSeed!);
 		await page.getByRole('button', { name: 'Login' }).first().click();
