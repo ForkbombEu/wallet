@@ -17,10 +17,8 @@ test.describe('Onboarding Page', () => {
 test.describe('Onboarding Page', () => {
 	test('should complete onboarding and navigate to home', async ({ page }) => {
 		await page.goto('/');
-
 		await page.getByRole('button', { name: 'Skip' }).click();
 		await expect(page).toHaveURL('/en/register-login');
-
 		const isBoarded = await page.evaluate(() => localStorage.getItem('CapacitorStorage.isBoarded'));
 		expect(isBoarded).toBe('true');
 	});
@@ -59,11 +57,9 @@ test.describe('Login Page', () => {
 test.describe('Unsuccessful Login', () => {
 	test('should show error for incorrect email/password', async ({ page }) => {
 		await page.goto('/login');
-
 		await page.fill('input[name="email"]', 'wrong@example.com');
 		await page.fill('input[name="password"]', 'wrongpassword');
 		await page.getByRole('button', { name: 'Next' }).click();
-
 		const errorMessage = await page.locator('text="wrong email or password"');
 		await expect(errorMessage).toBeVisible();
 	});
@@ -72,10 +68,8 @@ test.describe('Unsuccessful Login', () => {
 test.describe('Registration Flow', () => {
 	test('should navigate to registration insert password page', async ({ page }) => {
 		await page.goto('/login?registration=true');
-
 		await page.fill('input[name="email"]', 'newuser@example.com');
 		await page.getByRole('button', { name: 'Next' }).click();
-
 		await expect(page).toHaveURL('/en/login/insert-password');
 	});
 });
@@ -88,7 +82,6 @@ test.describe('Insert Password Page', () => {
 		await page.fill('input[name="password"]', 'password123');
 		await page.fill('input[name="confirmPassword"]', 'password456');
 		await page.getByRole('button', { name: 'Next' }).click();
-
 		const errorMessage = await page.locator('text="Error: The passwords do not match"');
 		await expect(errorMessage).toBeVisible();
 	});
@@ -103,7 +96,6 @@ test.describe('Insert Password Page', () => {
 		await page.fill('input[name="password"]', password);
 		await page.fill('input[name="confirmPassword"]', password);
 		await page.getByRole('button', { name: 'Next' }).click();
-
 		await expect(page).toHaveURL('/en/login/questions');
 	});
 });
@@ -117,9 +109,7 @@ test.describe('Security Questions Page', () => {
 		await page.fill('input[name="password"]', password);
 		await page.fill('input[name="confirmPassword"]', password);
 		await page.getByRole('button', { name: 'Next' }).click();
-
 		await page.fill('input[name="whereParentsMet"]', 'Paris');
-
 		const errorMessage = await page.locator('text="AT_LEAST_THREE_QUESTIONS"');
 		await expect(errorMessage).toBeVisible();
 	});
@@ -134,15 +124,12 @@ test.describe('Security Questions Page', () => {
 		await page.fill('input[name="password"]', password);
 		await page.fill('input[name="confirmPassword"]', password);
 		await page.getByRole('button', { name: 'Next' }).click();
-
 		await page.fill('input[name="whereParentsMet"]', 'Paris');
 		await page.fill('input[name="nameFirstPet"]', 'Buddy');
 		await page.fill('input[name="whereHomeTown"]', 'New York');
 		await page.getByRole('button', { name: 'Next' }).first().click();
-
 		const seedText = await page.locator('text="You have a keyring!"');
 		await expect(seedText).toBeVisible();
-
 		const keyring = await page.evaluate(() => localStorage.getItem('CapacitorStorage.keyring'));
 		const did = await page.evaluate(() => localStorage.getItem('CapacitorStorage.did'));
 		expect(keyring).not.toBeNull();

@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { login } from './utils';
+import { addCredentialsToLocalStorage, login, tabBarClick } from './utils';
 
 test.describe('Wallet Page', () => {
 	test('should load wallet page after login', async ({ page }) => {
@@ -16,7 +16,6 @@ test.describe('Wallet Page', () => {
 
 	test('should show empty state when no credentials', async ({ page }) => {
 		await login(page);
-		await page.locator('ion-tab-bar d-tab-button:has-text("Wallet")').click();
 		await expect(
 			page.locator('d-heading:has-text("There is no Credential in your wallet")')
 		).toBeVisible();
@@ -24,17 +23,22 @@ test.describe('Wallet Page', () => {
 		await expect(page.locator('d-button:has-text("GET CREDENTIALS")')).toBeVisible();
 	});
 
-	// test('should list credentials if available', async ({ page }) => {
-	// 	await login(page);
-	// 	const credentialLocator = page.locator('d-credential-card');
-	// 	await expect(credentialLocator.first()).toBeVisible();
-	// });
+	test('should list credentials if available', async ({ page }) => {
+		await login(page);
+		await page.evaluate(addCredentialsToLocalStorage);
+		await tabBarClick('Home', page);
+		await tabBarClick('Wallet', page);
+		const credentialLocator = page.locator('d-credential-card');
+		await expect(credentialLocator.first()).toBeVisible();
+	});
 
-	// test('should navigate to credential detail on click', async ({ page }) => {
-	// 	await login(page);
-	// 	await page.locator('ion-tab-bar d-tab-button:has-text("Wallet")').click();
-	// 	const credentialLink = page.locator('a[href*="credential-detail"]').first();
-	// 	await credentialLink.click();
-	// 	await expect(page).toHaveURL(/\/credential-detail$/);
-	// });
+	test('should navigate to credential detail on click', async ({ page }) => {
+		await login(page);
+		await page.evaluate(addCredentialsToLocalStorage);
+        await tabBarClick('Home', page);
+		await tabBarClick('Wallet', page);
+		const credentialLink = page.locator('a[href*="credential-detail"]').first();
+		await credentialLink.click();
+		await expect(page).toHaveURL(/\/credential-detail$/);
+	});
 });
