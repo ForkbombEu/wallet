@@ -27,7 +27,7 @@ test.describe('Credential Detail Page', () => {
 		await expect(credentialCardTitle).toBeVisible();
 	});
 
-    //need to improve the test slide
+	//need to improve the test slide
 	test.skip('should display correct credential details on swipe', async ({ page }) => {
 		await login(page);
 		await page.evaluate(addCredentialsToLocalStorage);
@@ -41,7 +41,7 @@ test.describe('Credential Detail Page', () => {
 		);
 		await expect(initialCredentialDetailTitle).toBeVisible();
 		await swipe(page);
-        await page.waitForTimeout(1000);
+		await page.waitForTimeout(1000);
 		const updatedCredentialDetail = page.getByText(
 			'You can use this credential to prove that you are above 16 years old and your name.'
 		);

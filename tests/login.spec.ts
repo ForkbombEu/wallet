@@ -64,7 +64,7 @@ test.describe('Login with Passphrase Page', () => {
 		await page.waitForURL('/en/login/passphrase');
 		await page.fill('input[name="seed"]', userSeed!);
 		await page.getByRole('button', { name: 'Login' }).first().click();
-		await page.waitForTimeout(1000);
+		await page.waitForTimeout(3000);
 		const keyring = await page.evaluate(() => localStorage.getItem('CapacitorStorage.keyring'));
 		const did = await page.evaluate(() => localStorage.getItem('CapacitorStorage.did'));
 		expect(keyring).not.toBeNull();

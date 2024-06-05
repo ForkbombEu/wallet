@@ -12,8 +12,8 @@ test.describe('Onboarding Page', () => {
 			page.locator('text="Manage your verifiable credentials (VC) in one place,"')
 		).toBeVisible();
 	});
-	
-    test('should complete onboarding and navigate to home', async ({ page }) => {
+
+	test('should complete onboarding and navigate to home', async ({ page }) => {
 		await page.goto('/');
 		await page.getByRole('button', { name: 'Skip' }).click();
 		await expect(page).toHaveURL('/en/register-login');
