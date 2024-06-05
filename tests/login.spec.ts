@@ -3,7 +3,7 @@ import { randomEmail, randomString, swipe, userEmail, userPassword, userSeed } f
 
 test.describe('Onboarding Page', () => {
 	test('should display all onboarding slides', async ({ page }) => {
-			await page.goto('/');
+		await page.goto('/');
 		await expect(page.locator('text="DIDroom Wallet,"')).toBeVisible();
 		await swipe(page);
 		await expect(page.locator('text="Create your DID,"')).toBeVisible();
@@ -92,7 +92,7 @@ test.describe('Insert Password Page', () => {
 		await page.goto('/login?registration=true');
 		await page.fill('input[name="email"]', randomEmail());
 		await page.getByRole('button', { name: 'Next' }).click();
-		const password = randomString(8)
+		const password = randomString(8);
 		await page.fill('input[name="password"]', password);
 		await page.fill('input[name="confirmPassword"]', password);
 		await page.getByRole('button', { name: 'Next' }).click();
@@ -148,7 +148,10 @@ test.describe('Login with Passphrase Page', () => {
 		await page.getByRole('button', { name: 'Login' }).first().click();
 		const errorMessage = await page.locator('text="Invalid input"');
 		await expect(errorMessage).toBeVisible();
-		await page.fill('input[name="seed"]', 'incorrect passphrase that does not work but it seems valid shape (lenght)');
+		await page.fill(
+			'input[name="seed"]',
+			'incorrect passphrase that does not work but it seems valid shape (lenght)'
+		);
 		const errorMessageII = await page.locator('text="error while regenerating keyring"');
 		await page.getByRole('button', { name: 'Login' }).first().click();
 		await expect(errorMessageII).toBeVisible();
@@ -174,4 +177,3 @@ test.describe('Login with Passphrase Page', () => {
 		await expect(page).toHaveURL('/en/wallet');
 	});
 });
-

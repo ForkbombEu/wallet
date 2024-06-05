@@ -35,7 +35,7 @@ test.describe('Wallet Page', () => {
 	test('should navigate to credential detail on click', async ({ page }) => {
 		await login(page);
 		await page.evaluate(addCredentialsToLocalStorage);
-        await tabBarClick('Home', page);
+		await tabBarClick('Home', page);
 		await tabBarClick('Wallet', page);
 		const credentialLink = page.locator('a[href*="credential-detail"]').first();
 		await credentialLink.click();

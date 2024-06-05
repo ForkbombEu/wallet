@@ -5,14 +5,14 @@ test.describe('Home Page', () => {
 	test('should load home page after login', async ({ page }) => {
 		await login(page);
 		await expect(page).toHaveURL('/en/wallet');
-		await tabBarClick("Home", page)
+		await tabBarClick('Home', page);
 		await expect(page).toHaveURL('/en/home');
 		await expect(page.locator('h1')).toContainText('Request credential');
 	});
 
 	test('should show spinner while loading services', async ({ page }) => {
 		await login(page);
-		await tabBarClick("Home", page)
+		await tabBarClick('Home', page);
 		page.route(
 			'**/api/collections/services/records?page=1&perPage=500&skipTotal=1&sort=-updated&expand=credential_issuer',
 			(route) => setTimeout(() => route.continue(), 10000)
@@ -26,16 +26,16 @@ test.describe('Home Page', () => {
 
 	test('should display list of services', async ({ page }) => {
 		await login(page);
-		await tabBarClick("Home", page)
-        await expect(page).toHaveURL('/en/home');
+		await tabBarClick('Home', page);
+		await expect(page).toHaveURL('/en/home');
 		const serviceLocator = page.locator('d-credential-service');
 		await expect(serviceLocator).toBeTruthy();
 	});
 
 	test('should navigate to credential offer page on service click', async ({ page }) => {
 		await login(page);
-		await tabBarClick("Home", page)
-        await expect(page).toHaveURL('/en/home');
+		await tabBarClick('Home', page);
+		await expect(page).toHaveURL('/en/home');
 		await page.locator('d-credential-service').first().click();
 		await expect(page).toHaveURL('/en/credential-offer');
 	});
