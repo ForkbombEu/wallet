@@ -66,7 +66,7 @@ export const holderQrToWellKnown = async (qr: Service) => {
 	)
 	await log(`end holderQrToWellKnown: ${JSON.stringify(r, null, 2)}`);
 	await log(`after holderQrToWellKnown, result: ${JSON.stringify(r!.result, null, 2)}`);
-	return r!.result;
+	return r!.result as QrToWellKnown
 };
 
 export const decodeSdJwt = async (sdJwt: string) => {

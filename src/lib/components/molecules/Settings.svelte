@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto, r } from '$lib/i18n';
+	import { goto } from '$lib/i18n';
 	import { AndroidSettings, IOSSettings, NativeSettings } from 'capacitor-native-settings';
 	import {
 		globeOutline,
@@ -32,7 +32,7 @@
 
 	const gotoLanguageSettings = async () => {
 		closeSettings();
-		await goto(r('/languages'));
+		await goto('/languages');
 	};
 </script>
 
