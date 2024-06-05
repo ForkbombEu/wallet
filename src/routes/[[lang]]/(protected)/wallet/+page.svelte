@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Loading from '$lib/components/molecules/Loading.svelte';
 	import { m, r } from '$lib/i18n';
 	import { getCredentialsPreference } from '$lib/preferences/credentials';
 	import TabPage from '$lib/tabs/TabPage.svelte';
@@ -14,9 +15,7 @@
 		<p class="pb-4">{m.Explore_and_manage_your_verified_credentials()}</p>
 	</d-text>
 	{#await getCredentialsPreference()}
-		<div class="flex h-3/5 flex-col items-center justify-center gap-1">
-			<d-spinner />
-		</div>
+		<Loading />
 	{:then credentials}
 		{#if !credentials}
 			<div class="flex h-3/5 flex-col items-center justify-center gap-1">
