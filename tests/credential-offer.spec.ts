@@ -22,8 +22,8 @@ test.describe('Credential Offer Page', () => {
   "credential_issuer": "https://issuer1.zenswarm.forkbomb.eu/credential_issuer/"
 }`);
 		await page.getByRole('button', { name: 'SUBMIT' }).click();
-		
-        await expect(page).toHaveURL('/en/credential-offer');
+
+		await expect(page).toHaveURL('/en/credential-offer');
 		await expect(page.getByText('Credential offer')).toBeVisible();
 	});
 
@@ -71,6 +71,25 @@ test.describe('Credential Offer Page', () => {
 
 		await expect(page.locator('#ion-overlay-5')).toBeHidden();
 		await expect(page).toHaveURL('/en/1/credential-detail');
+	});
+
+	test('should add activity after success', async ({ page }) => {
+		await login(page);
+		await tabBarClick('Home', page);
+		await page.locator('text=Proof of humanity - OpenID4VCI flow - Auth1').click();
+
+		const form = page.locator('form#schemaForm');
+		await form.locator('input').nth(0).fill('a');
+		await form.locator('input').nth(1).fill('b');
+		await form.locator('input').nth(2).fill('c');
+
+		await page.getByRole('button', { name: 'GET THIS CREDENTIAL' }).click();
+
+		await expect(page.locator('#ion-overlay-5')).toBeHidden();
+		await expect(page).toHaveURL('/en/1/credential-detail');
+		await tabBarClick('Activity', page);
+		const activityLocator = page.locator('.itens-start');
+		await expect(activityLocator.first()).toBeVisible();
 	});
 
 	test('should display an error if the credential issuer is out of service', async ({ page }) => {
