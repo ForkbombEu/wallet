@@ -111,7 +111,16 @@ export const generateDid = async () => {
 	await setDIDPreference(res.result.output.did);
 	return res.result.output;
 };
-
+/**
+ * Check if the keypair is generated. 
+ * Checks if the keypair is already saved in the database. If it is not saved, it saves the keypair in the database.
+ * Else check that the keypair matches the one saved in the backend.
+ *
+ * @return {[Promise<Jsonable | undefined>]}      It returns errors 'KEYPAIR_NOT_GENERATED' or 'WRONG_KEYRING' if the keypair is not generated or the keypair
+ * is not the same as the one saved in the backend. If the keypair is the same as the one saved in the backend, it returns undefined. If the keypair is not generated,
+ * it save the keypair and return the response.
+ *
+ */
 export const checkKeypairs = async () => {
 	const user = await getUser();
 	const data = {
@@ -123,11 +132,15 @@ export const checkKeypairs = async () => {
 		}
 	};
 
-	const res = await slangroom.execute(getPublicKeysScript, {data}) 
+	let savedKeys;
 
-	//@ts-expect-error needs to add type to response
-	const savedKeys = res.result.public_keys.records
-
+	try {
+		const res = await slangroom.execute(getPublicKeysScript, { data });
+		//@ts-expect-error needs to add type to response
+		savedKeys = res.result.public_keys.records;
+	} catch {
+		return await saveUserPublicKeys();
+	}
 
 	const keypairoom = await getKeypairPreference();
 	if (!keypairoom) throw new Error('KEYPAIR_NOT_GENERATED');
@@ -145,6 +158,5 @@ export const askResetPassword = async (email: string) => {
 		email
 	};
 	const res = await slangroom.execute(askResetPasswordScript, { data });
-	console.log(res)
 	return res.result.output;
-}
+};
