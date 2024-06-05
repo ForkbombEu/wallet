@@ -1,3 +1,10 @@
+## [1.45.6](https://github.com/ForkbombEu/wallet/compare/v1.45.5...v1.45.6) (2024-06-05)
+
+
+### Bug Fixes
+
+* at login if user has not yet remote keypar save it ([#370](https://github.com/ForkbombEu/wallet/issues/370)) ([de1f854](https://github.com/ForkbombEu/wallet/commit/de1f85483cc57a398639e67af68fe5503ca88264)), closes [#368](https://github.com/ForkbombEu/wallet/issues/368)
+
 ## [1.45.5](https://github.com/ForkbombEu/wallet/compare/v1.45.4...v1.45.5) (2024-06-03)
 
 
