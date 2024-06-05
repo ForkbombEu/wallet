@@ -14,6 +14,7 @@ import savePublicKeysScript from '$lib/slangroom/savePublicKeys.slang?raw';
 import scriptGenerateDid from '$lib/slangroom/scriptGenerateDid.slang?raw';
 import getPublicKeysScript from '$lib/slangroom/getPublicKeys.slang?raw';
 import askResetPasswordScript from '$lib/slangroom/askResetPassword.slang?raw';
+import checkUserExistScript from '$lib/slangroom/checkUserExist.slang?raw';
 
 //
 
@@ -60,6 +61,29 @@ export const login = async (email: string, password: string) => {
 	};
 	const res = await slangroom.execute(loginScript, { data });
 	if (!res) throw new Error('Failed to login');
+};
+
+export const checkIfUserExists = async (email: string): Promise<boolean> => {
+	console.log('Checking', email);
+	const data = {
+		pb_address: backendUri,
+		check_email: `/api/email-check?email=${email}`,
+		user: {}
+	};
+
+	type CheckIfUserExistsResponse = {
+		result: {
+			output: {
+				exists: boolean;
+			};
+		};
+	};
+
+	const res = (await slangroom.execute(checkUserExistScript, {
+		data
+	})) as unknown as CheckIfUserExistsResponse;
+
+	return res.result.output.exists;
 };
 
 export const saveUserPublicKeys = async () => {
@@ -123,11 +147,10 @@ export const checkKeypairs = async () => {
 		}
 	};
 
-	const res = await slangroom.execute(getPublicKeysScript, {data}) 
+	const res = await slangroom.execute(getPublicKeysScript, { data });
 
 	//@ts-expect-error needs to add type to response
-	const savedKeys = res.result.public_keys.records
-
+	const savedKeys = res.result.public_keys.records;
 
 	const keypairoom = await getKeypairPreference();
 	if (!keypairoom) throw new Error('KEYPAIR_NOT_GENERATED');
@@ -145,6 +168,6 @@ export const askResetPassword = async (email: string) => {
 		email
 	};
 	const res = await slangroom.execute(askResetPasswordScript, { data });
-	console.log(res)
+	console.log(res);
 	return res.result.output;
-}
+};
