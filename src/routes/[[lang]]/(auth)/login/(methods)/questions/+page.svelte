@@ -70,8 +70,8 @@
 				);
 				await setKeypairPreference(keypair);
 				if (registration) await saveUserPublicKeys();
-				await generateDid();
 				if (!registration) await checkKeypairs();
+				await generateDid();
 
 				await unlockApp();
 				seed = keypair.seed;
