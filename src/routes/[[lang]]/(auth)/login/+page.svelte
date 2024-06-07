@@ -8,8 +8,11 @@
 	import { z } from 'zod';
 	import { checkIfUserExists, login, userEmailStore } from './_lib';
 	import background from '$lib/assets/bg-4.svg';
+	import Pidgeon from '$lib/assets/Pidgeon.svelte';
 	import { page } from '$app/stores';
 	import type { Feedback } from '$lib/utils/types';
+
+	//
 
 	const registration = $page.url.searchParams.get('registration') === 'true';
 
@@ -31,7 +34,7 @@
 		onSubmit: async ({ form }) => {
 			feedback = {
 				type: undefined,
-				feedback: ''
+				feedback: undefined
 			};
 			try {
 				if (!registration) {
@@ -61,7 +64,10 @@
 <div class="flex min-h-screen flex-col place-content-between">
 	<div class="grow">
 		<d-feedback {...feedback} />
-		<Illustration img="pidgeon" {background} />
+		<Illustration {background}>
+			<Pidgeon />
+		</Illustration>
+		<!-- <Illustration img="pidgeon" {background} /> -->
 		<div>
 			<div class="flex flex-col">
 				<div class="flex w-full flex-col items-center gap-4 px-8">
