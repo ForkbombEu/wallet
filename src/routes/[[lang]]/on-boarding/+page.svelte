@@ -6,6 +6,9 @@
 	import background3 from '$lib/assets/bg-3.svg';
 	import { m } from '$lib/i18n';
 	import { register } from 'swiper/element/bundle';
+	import LogoHand from '$lib/assets/LogoHand.svelte';
+	import HandEllipsis from '$lib/assets/HandEllipsis.svelte';
+	import HandCard from '$lib/assets/HandCard.svelte';
 
 	register();
 </script>
@@ -21,21 +24,18 @@
 			title={m.Welcome_to_DID_Wallet()}
 			subtitle={m.your_friendly_and_trustable_opensource_wallet_()}
 			description={m.on_boarding_subtitle_1()}
-			img="logo-hand"
-			background={background1}
-		/>
+			background={background1}><LogoHand /></OnBoardingPage
+		>
 		<OnBoardingPage
 			title={m.Create_your_DID()}
 			description={m.on_boarding_subtitle_2()}
-			img="hand-ellipsis"
-			background={background2}
-		/>
+			background={background2}><HandEllipsis /></OnBoardingPage
+		>
 		<OnBoardingPage
 			title={m.Manage_VC_verifiable_credentials_in_one_place()}
 			description={m.Manage_VC_verifiable_credentials_in_one_place()}
-			img="hand-card"
 			background={background3}
-		/>
+		><HandCard /></OnBoardingPage>
 	</swiper-container>
 	<div class="flex justify-center">
 		<d-button
