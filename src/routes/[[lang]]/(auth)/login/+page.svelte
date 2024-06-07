@@ -6,7 +6,7 @@
 	import Input from '$lib/ionic/forms/input.svelte';
 	import { arrowForward } from 'ionicons/icons';
 	import { z } from 'zod';
-	import { login, userEmailStore } from './_lib';
+	import { checkIfUserExists, login, userEmailStore } from './_lib';
 	import background from '$lib/assets/bg-4.svg';
 	import Pidgeon from '$lib/assets/Pidgeon.svelte';
 	import { page } from '$app/stores';
@@ -39,12 +39,16 @@
 			try {
 				if (!registration) {
 					await login(form.data.email, form.data.password!);
+				} else {
+					if (await checkIfUserExists(form.data.email))
+						throw new Error(m.User_already_exists_try_to_login_or_request_a_new_password());
 				}
 
 				userEmailStore.set({
 					email: form.data.email,
 					registration
 				});
+
 				return await goto(registration ? '/login/insert-password' : '/login/passphrase');
 			} catch (e) {
 				feedback = {
