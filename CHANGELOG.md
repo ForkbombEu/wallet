@@ -1,3 +1,10 @@
+# [1.46.0](https://github.com/ForkbombEu/wallet/compare/v1.45.6...v1.46.0) (2024-06-07)
+
+
+### Features
+
+* before proceed in user registration check if mail is already taken ([#369](https://github.com/ForkbombEu/wallet/issues/369)) ([64ed010](https://github.com/ForkbombEu/wallet/commit/64ed010e623ec73e4f2ff576552a9eef66336bf8)), closes [#357](https://github.com/ForkbombEu/wallet/issues/357)
+
 ## [1.45.6](https://github.com/ForkbombEu/wallet/compare/v1.45.5...v1.45.6) (2024-06-05)
 
 
