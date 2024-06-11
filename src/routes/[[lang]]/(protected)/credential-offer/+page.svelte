@@ -85,7 +85,13 @@
 		</div>
 
 		<div class="mt-6 rounded-md bg-primary p-4">
-			<iframe src={authorizeUrl} width="100%" height="500px" title="authorization server"></iframe>
+			<iframe
+				src={authorizeUrl}
+				width="100%"
+				height="500px"
+				title="authorization server"
+				id="authorization server"
+			></iframe>
 		</div>
 		<div class="w-full">
 			<d-button
