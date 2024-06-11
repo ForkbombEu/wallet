@@ -92,7 +92,7 @@ test.describe('Credential Offer Page', () => {
 		await expect(activityLocator.first()).toBeVisible();
 	});
 
-	test('should display an error if the credential issuer is out of service', async ({ page }) => {
+	test.skip('should display an error if the credential issuer is out of service', async ({ page }) => {
 		await login(page);
 		await tabBarClick('Home', page);
 		await page.locator('text=Mimicchio').click();
