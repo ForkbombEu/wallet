@@ -74,8 +74,9 @@ export async function getCredentialPreference(id: string): Promise<Credential | 
 	return credentials.find((credential) => String(credential.id) === id);
 }
 
-export async function getExpiredCredentialsNumber(): Promise<number> {
+
+export async function getExpiredCredentials(): Promise<Credential[]>{
 	const credentials = await getCredentialsPreference();
-	if (!credentials) return 0;
-	return credentials.filter((credential) => credential.expirationDate < dayjs().unix()).length;
+	if (!credentials) return [];
+	return credentials.filter((credential) => credential.expirationDate < dayjs().unix());
 }

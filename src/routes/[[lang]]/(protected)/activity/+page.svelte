@@ -73,7 +73,43 @@
 						</div>
 					</div>
 				{/if}
-			{:else}
+			{:else if activity.type === 'expired'}
+				{@const credential = credentials?.find((cred) => cred.id === activity.id)}
+				{#if !credential}
+					<div class="hidden">
+						{log(`credential ${activity.id} not found`)}
+					</div>
+				{:else}
+					<div class="itens-start border-strocke flex gap-4 border-b py-2">
+						<d-avatar src={credential.logo} name={credential.display_name} shape="square" />
+						<div class="flex flex-col gap-2">
+							<h2>{credential.display_name} is expired</h2>
+							<d-text size="s" class="text-on-alt">{credential.description}</d-text>
+							<div class="flex items-center gap-2.5">
+								<d-info-led type="error" />
+								<d-text size="xs">{dayjs().to(dayjs.unix(activity.at))}</d-text>
+							</div>
+							<!-- actions: cancel, goto -->
+							<div class="flex justify-end gap-2.5">
+								<d-button
+									size="small"
+									color="accent"
+									onClick={async () => await cancelActivity(activity)}
+								>
+									remove
+								</d-button>
+								<d-button
+									size="small"
+									color="primary"
+									href={r(`/${activity.id}/credential-detail`)}
+								>
+									show me!
+								</d-button>
+							</div>
+						</div>
+					</div>
+				{/if}
+			{:else if activity.type === 'verification'}
 				{@const { verifier_name, success, rp_name, sid, properties } = activity}
 				<div class="itens-start border-strocke flex gap-4 border-b py-2">
 					<d-avatar name={verifier_name} shape="square" />
