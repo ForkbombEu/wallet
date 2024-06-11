@@ -52,12 +52,13 @@ export const askCredential = async (
 		code_verifier
 	};
 	const keys = JSON.parse(call_token_and_credential_keys);
+	const userKeys = await getKeys()
+	keys.keyring = userKeys.keyring
+	keys.client_id = userKeys.client_id
 	const request = await slangroom.execute(call_token_and_credential, {
 		data,
 		keys
 	});
-	console.log(request.result.result);
-	//@ts-expect-error slangroom strangeness
 	return request.result.result as CredentialResult;
 };
 
@@ -77,7 +78,11 @@ export const holderQrToWellKnown = async (qr: Service) => {
 };
 
 export const callPar = async (data: { credential_parameters: CredentialParameters }) => {
-	const r = await slangroom.execute(call_par, { data, keys: JSON.parse(call_par_keys) });
+	const keys = JSON.parse(call_par_keys);
+	const userKeys = await getKeys()
+	keys.keyring = userKeys.keyring
+	keys.client_id = userKeys.client_id
+	const r = await slangroom.execute(call_par, { data, keys });
 	const result = r.result as CallParResult;
 	const authorizeUrl = `${result.authorization_endpoint}?client_id=${result.client_id}&request_uri=${result.request_uri}`;
 	return { parResult: r.result as CallParResult, authorizeUrl };
