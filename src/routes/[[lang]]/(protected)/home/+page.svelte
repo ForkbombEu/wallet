@@ -7,8 +7,23 @@
 	import { credentialOfferStore } from '$lib/credentialOfferStore';
 	import type { Service as CredentialService } from '$lib/components/organisms/scanner/tools';
 	import Loading from '$lib/components/molecules/Loading.svelte';
+	import { getExpiredCredentialsNumber } from '$lib/preferences/credentials';
 
 	let feedback: Feedback = $homeFeedbackStore;
+
+	const setFeedback = async () => {
+		const expiredCredentials = await getExpiredCredentialsNumber();
+		if (expiredCredentials > 0) {
+			homeFeedbackStore.set({
+				type: 'error',
+				feedback: `You have ${expiredCredentials} expired credential${
+					expiredCredentials > 1 ? 's' : ''
+				}.`
+			});
+		}
+	};
+
+	$: setFeedback();
 
 	const onFeedbackClose = () => {
 		homeFeedbackStore.set({});
