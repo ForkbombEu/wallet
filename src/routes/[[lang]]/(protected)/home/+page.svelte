@@ -68,4 +68,5 @@
 			{/each}
 		</div>
 	{/await}
+	<div class="pb-24" />
 </TabPage>

@@ -1,6 +1,6 @@
 {
 	"name": "wallet",
-	"version": "1.46.0",
+	"version": "1.47.0",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --host",
@@ -80,6 +80,7 @@
 		"@capacitor/status-bar": "^5.0.7",
 		"@fontsource-variable/gantari": "^5.0.13",
 		"@inlang/paraglide-js-adapter-sveltekit": "^0.5.10",
+		"@ionic/cli": "^7.2.0",
 		"@ionic/core": "^7.8.0",
 		"@slangroom/core": "1.30",
 		"@slangroom/helpers": "^1.30",

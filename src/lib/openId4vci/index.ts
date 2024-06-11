@@ -8,11 +8,15 @@ import { http } from '@slangroom/http';
 import { zencode } from '@slangroom/zencode';
 import holder_qr_to_well_known from '$lib/mobile_zencode/wallet/holder_qr_to_well-known.zen?raw';
 import holder_qr_to_well_known_keys from '$lib/mobile_zencode/wallet/holder_qr_to_well-known.keys.json?raw';
-import holder_request_authorizationCode from '$lib/mobile_zencode/wallet/holder_request_authorizationCode.zen?raw';
-import holder_request_authorizationCode_keys from '$lib/mobile_zencode/wallet/holder_request_authorizationCode.keys.json?raw';
+import call_par from '$lib/mobile_zencode/wallet/call_par.zen?raw';
+import call_par_keys from '$lib/mobile_zencode/wallet/call_par.keys.json?raw';
+import call_token_and_credential from '$lib/mobile_zencode/wallet/call_token_and_credential.zen?raw';
+import call_token_and_credential_keys from '$lib/mobile_zencode/wallet/call_token_and_credential.keys.json?raw';
 import utils_print_decoded_sdjwt from '$lib/mobile_zencode/wallet/utils_print_decoded_sdjwt.zen?raw';
 import { log } from '$lib/log';
 
+
+//@ts-expect-error Slangroom plugins typing?
 const slangroom = new Slangroom([http, helpers, zencode]);
 
 export const getKeys = async () => {
@@ -36,18 +40,22 @@ export type Keys = {
 	keyring: Keyring;
 	client_id: string;
 };
+
 export const askCredential = async (
-	holderIdentity: Keys,
-	qrToWellKnown: QrToWellKnown,
-	holder_claims: { [key: string]: string | number }
+	code: string,
+	credential_parameters: CredentialParameters,
+	code_verifier: string
 ): Promise<CredentialResult> => {
 	const data = {
-		...qrToWellKnown,
-		holder_claims
+		code,
+		credential_parameters,
+		code_verifier
 	};
-	const keys = { ...JSON.parse(holder_request_authorizationCode_keys), ...holderIdentity };
-	await log(`ask credential: (start chain)', 'data:', data, 'keys: ${keys}`);
-	const request = await slangroom.execute(holder_request_authorizationCode, {
+	const keys = JSON.parse(call_token_and_credential_keys);
+	const userKeys = await getKeys()
+	keys.keyring = userKeys.keyring
+	keys.client_id = userKeys.client_id
+	const request = await slangroom.execute(call_token_and_credential, {
 		data,
 		keys
 	});
@@ -58,15 +66,26 @@ export const holderQrToWellKnown = async (qr: Service) => {
 	await log(`start holderQrToWellKnown, qr content:, ${JSON.stringify(qr, null, 2)}`);
 	await log(`start holderQrToWellKnown, keys:, ${holder_qr_to_well_known_keys}`);
 
-	const r = (
-		await slangroom.execute(holder_qr_to_well_known, {
+	const r = await slangroom
+		.execute(holder_qr_to_well_known, {
 			data: { '!external-qr-code-content': qr },
 			keys: JSON.parse(holder_qr_to_well_known_keys)
-		}).catch(err => log(`Slangroom exec holder_qr_to_well_known: ${err}`))
-	)
+		})
+		.catch((err) => log(`Slangroom exec holder_qr_to_well_known: ${err}`));
 	await log(`end holderQrToWellKnown: ${JSON.stringify(r, null, 2)}`);
 	await log(`after holderQrToWellKnown, result: ${JSON.stringify(r!.result, null, 2)}`);
-	return r!.result as QrToWellKnown
+	return r!.result as QrToWellKnown;
+};
+
+export const callPar = async (data: { credential_parameters: CredentialParameters }) => {
+	const keys = JSON.parse(call_par_keys);
+	const userKeys = await getKeys()
+	keys.keyring = userKeys.keyring
+	keys.client_id = userKeys.client_id
+	const r = await slangroom.execute(call_par, { data, keys });
+	const result = r.result as CallParResult;
+	const authorizeUrl = `${result.authorization_endpoint}?client_id=${result.client_id}&request_uri=${result.request_uri}`;
+	return { parResult: r.result as CallParResult, authorizeUrl };
 };
 
 export const decodeSdJwt = async (sdJwt: string) => {
@@ -168,4 +187,12 @@ export type CredentialResult = {
 	c_nonce: string;
 	c_nonce_expires_in: number;
 	credential: string;
+};
+
+export type CallParResult = {
+	authorization_endpoint: string;
+	client_id: string;
+	code_verifier: string;
+	request_uri: string;
+	expires_in: number;
 };
