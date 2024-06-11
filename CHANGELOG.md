@@ -1,3 +1,10 @@
+# [1.47.0](https://github.com/ForkbombEu/wallet/compare/v1.46.0...v1.47.0) (2024-06-11)
+
+
+### Features
+
+* new ask credential flow ([#373](https://github.com/ForkbombEu/wallet/issues/373)) ([e0eef33](https://github.com/ForkbombEu/wallet/commit/e0eef33e8610e392415707b9fc3e8e7a4e2df9cd))
+
 # [1.46.0](https://github.com/ForkbombEu/wallet/compare/v1.45.6...v1.46.0) (2024-06-07)
 
 
