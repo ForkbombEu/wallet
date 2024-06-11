@@ -1,43 +1,44 @@
 import { credentialOfferStore } from '$lib/credentialOfferStore';
-import { homeFeedbackStore } from '$lib/homeFeedbackStore';
-import { m, r, type Langs } from '$lib/i18n';
+import { m } from '$lib/i18n';
 import { callPar, holderQrToWellKnown, type QrToWellKnown } from '$lib/openId4vci';
-import { getLanguagePreference } from '$lib/preferences/lang';
-import { redirect } from '@sveltejs/kit';
+import type { Feedback } from '$lib/utils/types';
 import { get } from 'svelte/store';
 
-const goToHomeWithError = async () => {
-	homeFeedbackStore.set({
-		type: 'error',
-		feedback: m.The_credential_issuer_is_currently_offline_you_may_try_again_later()
-	});
-	const lang = await getLang();
-	redirect(303, r('/home', lang));
-};
-const getLang = async () => {
-	const lang = await getLanguagePreference();
-	if (lang && ['it', 'en'].includes(lang)) return lang as Langs;
-	return 'en' as Langs;
-};
 
 export const load = async () => {
 	const credentialOffer = get(credentialOfferStore);
+	let feedbackData: Feedback | undefined;
 	let wn: QrToWellKnown | undefined;
 	try {
 		wn = await holderQrToWellKnown(credentialOffer);
 	} catch {
-		return await goToHomeWithError();
+		feedbackData = {
+			type: 'error',
+			feedback: m.The_credential_issuer_is_currently_offline_you_may_try_again_later()
+		};
 	}
 	if (!wn) {
-		return await goToHomeWithError();
+		feedbackData = {
+			type: 'error',
+			feedback: m.The_credential_issuer_is_currently_offline_you_may_try_again_later()
+		};
 	}
+	let parResult;
+	let authorizeUrl;
+	if (!wn) return { wn, authorizeUrl, parResult, feedbackData };
 	const data = {
-		credential_parameters: wn!.credential_parameters
+		credential_parameters: wn?.credential_parameters
 	};
-	const { parResult, authorizeUrl } = await callPar(data);
+
+	const r = await callPar(data);
+	parResult = r.parResult;
+	authorizeUrl = r.authorizeUrl;
 
 	if (!authorizeUrl) {
-		return await goToHomeWithError();
+		feedbackData = {
+			type: 'error',
+			feedback: m.The_credential_issuer_is_currently_offline_you_may_try_again_later()
+		};
 	}
-	return { wn, authorizeUrl, parResult };
+	return { wn, authorizeUrl, parResult, feedbackData };
 };

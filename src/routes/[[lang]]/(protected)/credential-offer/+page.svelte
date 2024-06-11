@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import { thumbsUpOutline } from 'ionicons/icons';
+	import { arrowForwardOutline, thumbsUpOutline } from 'ionicons/icons';
 	import { goto, r } from '$lib/i18n';
 	import { m } from '$lib/i18n';
 	import Header from '$lib/components/molecules/Header.svelte';
@@ -12,10 +12,11 @@
 	import { addActivity } from '$lib/preferences/activity';
 	import dayjs from 'dayjs';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
+	import Pidgeon from '$lib/assets/Pidgeon.svelte'
 
 	export let data;
-	const { wn, authorizeUrl, parResult } = data;
-	const codeVerifier = parResult.code_verifier;
+	const { wn, authorizeUrl, parResult, feedbackData } = data;
+	const codeVerifier = parResult?.code_verifier;
 	let code: string | undefined;
 
 	window.addEventListener('message', function (event) {
@@ -24,17 +25,18 @@
 		console.log('Received data:', event.data);
 	});
 
-	const credentialInfo = wn['credential_requested']['display'][0];
+	const credentialInfo = wn?.credential_requested['display'][0];
 
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
 	let serviceResponse: CredentialResult;
 
-	let feedback: Feedback = {};
+	let feedback: Feedback | undefined = feedbackData;
 
 	//
 
 	const getCredential = async () => {
+		if (!wn) return;
 		isModalOpen = true;
 		try {
 			serviceResponse = await askCredential(code!, wn.credential_parameters, codeVerifier);
@@ -75,63 +77,78 @@
 <Header>{m.Credential_offer()}</Header>
 
 <ion-content fullscreen class="ion-padding">
-	<d-feedback {...feedback} />
-	<div class="flex min-h-full flex-col justify-between pb-14">
-		<div>
-			<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
-				<d-avatar src={credentialInfo.logo.url} alt={credentialInfo.logo.alt_text}></d-avatar>
-				<d-heading size="s">{credentialInfo.name}</d-heading>
+	{#if feedbackData}
+		<d-feedback {...feedbackData} />
+		<div class="flex h-3/5 flex-col items-center justify-center gap-1">
+				<div class="-mb-16">
+					<Pidgeon />
+				</div>
+				<d-heading size="s">The service seems to be out of reach</d-heading>
+				<!-- <d-text size="l" class="pb-4">Try oth</d-text> -->
+				<d-button expand color="outline" href={r('/home')} class="w-full">
+					Go to home <ion-icon slot="end" icon={arrowForwardOutline} />
+				</d-button>
 			</div>
-		</div>
-
-		<div class="mt-6 rounded-md bg-primary p-4">
-			<iframe
-				src={authorizeUrl}
-				width="100%"
-				height="500px"
-				title="authorization server"
-				id="authorization server"
-			></iframe>
-		</div>
-		<div class="w-full">
-			<d-button
-				expand
-				aria-hidden
-				disabled={!Boolean(code)}
-				on:click={Boolean(code) ? getCredential : () => {}}>{m.Get_this_credential()}</d-button
-			>
-			<d-button expand href={r('/home')}>{m.Decline()}</d-button>
-		</div>
-	</div>
-
-	<ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly class="visible">
-		<ion-content class="ion-padding">
-			<div class="flex h-full flex-col justify-around">
-				<div>
-					{#if !isCredentialVerified}
-						{m.We_are_generating_this_credential()}
-						<d-credential-card
-							name={credentialInfo.name}
-							issuer={credentialInfo.name}
-							description={credentialInfo.name}
-							logoSrc={credentialInfo.logo.url}
-						/>
-						<div class="mx-auto w-fit pt-8">
-							<FingerPrint />
-						</div>
-					{:else}
-						<div class="ion-padding flex w-full flex-col gap-2">
-							<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"
-							></ion-icon>
-							<d-text class="break-words">credential: {serviceResponse.credential}</d-text>
-							<d-text class="break-words">c_nonce: {serviceResponse.c_nonce}</d-text>
-							<d-text class="break-words"
-								>c_nonce_expires_in: {serviceResponse.c_nonce_expires_in}</d-text
-							>
-						</div>
-					{/if}
+	{:else}
+		<div class="flex min-h-full flex-col justify-between pb-14">
+			<div>
+				<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
+					<d-avatar src={credentialInfo?.logo.url} alt={credentialInfo?.logo.alt_text}></d-avatar>
+					<d-heading size="s">{credentialInfo?.name}</d-heading>
 				</div>
 			</div>
-		</ion-content>
-	</ion-modal>
+
+			<div class="mt-6 rounded-md bg-primary p-4">
+				<iframe
+					src={authorizeUrl}
+					width="100%"
+					height="500px"
+					title="authorization server"
+					id="authorization server"
+				></iframe>
+			</div>
+			<div class="w-full">
+				<d-feedback {...feedback} />
+
+				<d-button
+					expand
+					aria-hidden
+					disabled={!Boolean(code)}
+					on:click={Boolean(code) ? getCredential : () => {}}>{m.Get_this_credential()}</d-button
+				>
+				<d-button expand href={r('/home')}>{m.Decline()}</d-button>
+			</div>
+		</div>
+
+		<ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly class="visible">
+			<ion-content class="ion-padding">
+				<div class="flex h-full flex-col justify-around">
+					<div>
+						{#if !isCredentialVerified}
+							{m.We_are_generating_this_credential()}
+							<d-credential-card
+								name={credentialInfo?.name}
+								issuer={credentialInfo?.name}
+								description={credentialInfo?.name}
+								logoSrc={credentialInfo?.logo.url}
+							/>
+							<div class="mx-auto w-fit pt-8">
+								<FingerPrint />
+							</div>
+						{:else}
+							<div class="ion-padding flex w-full flex-col gap-2">
+								<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"
+								></ion-icon>
+								<d-text class="break-words">credential: {serviceResponse.credential}</d-text>
+								<d-text class="break-words">c_nonce: {serviceResponse.c_nonce}</d-text>
+								<d-text class="break-words"
+									>c_nonce_expires_in: {serviceResponse.c_nonce_expires_in}</d-text
+								>
+							</div>
+						{/if}
+					</div>
+				</div>
+			</ion-content>
+		</ion-modal>
+	{/if}
 </ion-content>
