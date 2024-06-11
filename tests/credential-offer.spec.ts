@@ -94,7 +94,7 @@ test.describe('Credential Offer Page', () => {
 	}) => {
 		await login(page);
 		await tabBarClick('Home', page);
-		await page.locator('text=Mimicchio').click();
+		await page.locator('text=Broken Issuer!').click();
 
 		await expect(page).toHaveURL('/en/home');
 		await expect(
