@@ -68,7 +68,15 @@
 			<div class="flex flex-col gap-2">
 				{#each credentials as credential}
 					{@const expirationDate = dayjs.unix(credential.expirationDate).format('DD.MM.YYYY HH:mm')}
-					<a href={r(`/${credential.id}/credential-detail`)}>
+					<a href={r(`/${credential.id}/credential-detail`)} class="relative">
+						{#if credential.expirationDate < dayjs().unix()}
+							<div class="absolute h-full w-full bg-primary opacity-80 flex items-center justify-center rounded-lg">
+								<d-text size="l" class="text-error uppercase font-bold">
+									expired on: {expirationDate}
+								</d-text>
+							</div>
+						{/if}
+
 						<d-credential-card
 							{...credential}
 							{expirationDate}
