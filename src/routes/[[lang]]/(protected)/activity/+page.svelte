@@ -2,7 +2,12 @@
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import dayjs from 'dayjs';
 	import relativeTime from 'dayjs/plugin/relativeTime';
-	import { removeActivities, clearActivities, type Activity } from '$lib/preferences/activity';
+	import {
+		removeActivities,
+		clearActivities,
+		type Activity,
+		setActivityAsRead
+	} from '$lib/preferences/activity';
 	import { r } from '$lib/i18n';
 	import { log } from '$lib/log.js';
 	import { invalidate } from '$app/navigation';
@@ -25,6 +30,16 @@
 		await invalidate(_activityKey);
 		activities = data.activities;
 	};
+
+	function setAsRead(e) {
+		const observer = new IntersectionObserver((entries) => {
+			if (entries[0].isIntersecting) {
+				setTimeout(() => setActivityAsRead(Number(e.id)), 2000);
+				console.log('ss', e.id);
+			}
+		});
+		observer.observe(e);
+	}
 </script>
 
 <TabPage tab="activity" title="ACTIVITY">
@@ -44,7 +59,11 @@
 						{log(`credential ${activity.id} not found`)}
 					</div>
 				{:else}
-					<div class="itens-start border-strocke flex gap-4 border-b py-2">
+					<div
+						class={`itens-start border-strocke flex gap-4 rounded-lg border-y p-2 ${activity.read ? '' : 'bg-primary'}`}
+						use:setAsRead
+						id={String(activity.at)}
+					>
 						<d-avatar src={credential.logo} name={credential.display_name} shape="square" />
 						<div class="flex flex-col gap-2">
 							<h2>{credential.issuer} issued {credential.display_name} to you</h2>
@@ -75,7 +94,11 @@
 				{/if}
 			{:else}
 				{@const { verifier_name, success, rp_name, sid, properties } = activity}
-				<div class="itens-start border-strocke flex gap-4 border-b py-2">
+				<div
+					class={`itens-start border-strocke flex gap-4 rounded-lg border-y p-2 ${activity.read ? '' : 'bg-primary'}`}
+					use:setAsRead
+					id={String(activity.at)}
+				>
 					<d-avatar name={verifier_name} shape="square" />
 					<div class="flex flex-col gap-2">
 						<h2>

@@ -7,8 +7,21 @@
 	import { credentialOfferStore } from '$lib/credentialOfferStore';
 	import type { Service as CredentialService } from '$lib/components/organisms/scanner/tools';
 	import Loading from '$lib/components/molecules/Loading.svelte';
+	import { getNotReadedActivities } from '$lib/preferences/activity';
 
 	let feedback: Feedback = $homeFeedbackStore;
+
+	const setFeedback = async () => {
+		const notReadedActivities = await getNotReadedActivities();
+		if (notReadedActivities && notReadedActivities > 0) {
+			homeFeedbackStore.set({
+				type: 'success',
+				feedback: `You have ${notReadedActivities} new ${notReadedActivities > 1 ? 'activities' : 'activity'}`
+			} as Feedback);
+		}
+	};
+
+	$: setFeedback();
 
 	const onFeedbackClose = () => {
 		homeFeedbackStore.set({});
@@ -52,4 +65,5 @@
 			{/each}
 		</div>
 	{/await}
+	<div class="pb-24" />
 </TabPage>

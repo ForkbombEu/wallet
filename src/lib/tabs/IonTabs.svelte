@@ -1,5 +1,5 @@
 <script>
-  //Credits: https://github.com/Tommertom/ionic-svelte-tabs-howto
+	//Credits: https://github.com/Tommertom/ionic-svelte-tabs-howto
 	// @ts-nocheck
 	import { onMount } from 'svelte';
 	import { page, navigating } from '$app/stores';
@@ -55,7 +55,7 @@
 >
 	<slot />
 
-	<ion-tab-bar slot="bottom" class="flex ion-padding py-0 justify-between">
+	<ion-tab-bar slot="bottom" class="ion-padding flex justify-between py-0">
 		{#each tabs as tab}
 			<d-tab-button
 				tab={tab.tab}
@@ -65,8 +65,8 @@
 				on:click={() => {
 					tabBarClick(tab.tab);
 				}}
-        aria-hidden
-        active={currentTabName === tab.tab}
+				aria-hidden
+				active={currentTabName === tab.tab}
 			>
 				{tab.label}
 			</d-tab-button>
