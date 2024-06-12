@@ -32,16 +32,27 @@
 		class="mt-8"
 	>
 		{#each credentials as credential}
-		{@const expirationDate = dayjs.unix(credential.expirationDate).format("DD.MM.YYYY HH:mm")}
+			{@const expirationDate = dayjs.unix(credential.expirationDate).format('DD.MM.YYYY HH:mm')}
 
 			<swiper-slide id={getIndex(credential.id)}>
-				<d-credential-card
-					{...credential}
-					{expirationDate}
-					name={credential.display_name}
-					logoSrc={credential.logo.url}
-					description=""
-				/>
+				<div class="relative">
+					{#if credential.expirationDate < dayjs().unix()}
+						<div
+							class="absolute z-50 flex h-full w-full items-center justify-center rounded-lg bg-primary opacity-80"
+						>
+							<d-text size="l" class="font-bold uppercase text-error">
+								expired on: {expirationDate}
+							</d-text>
+						</div>
+					{/if}
+					<d-credential-card
+						{...credential}
+						{expirationDate}
+						name={credential.display_name}
+						logoSrc={credential.logo.url}
+						description=""
+					/>
+				</div>
 			</swiper-slide>
 		{/each}
 	</swiper-container>
