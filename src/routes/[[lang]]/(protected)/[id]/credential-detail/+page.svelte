@@ -26,7 +26,7 @@
 			</div>
 		</div>
 		<div class="bg-primary w-full flex-grow">
-			<d-credential-detail name="Claims:" logoSrc={credential.logo.url}>
+			<d-credential-detail name="Claims:">
 				{#await decodeSdJwt(credential.sdJwt) then sdjwt}
 					{#each sdjwt.credential.disclosures as disclosure}
 						{#if isNestedDisclosure(disclosure)}
@@ -41,12 +41,6 @@
 						{/if}
 					{/each}
 				{/await}
-				<d-text size="xs">address:</d-text>
-				<div class=" border-2 border-stroke p-1">
-					<d-definition title="city" definition="napoli"></d-definition>
-					<d-definition title="street" definition="via roma"></d-definition>
-					<d-definition title="zip" definition="80000"></d-definition>
-				</div>
 			</d-credential-detail>
 		</div>
 	</div>
