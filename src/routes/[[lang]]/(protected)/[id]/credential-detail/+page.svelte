@@ -7,8 +7,19 @@
 	import dayjs from 'dayjs';
 
 	const getIndex = (id: string) => credentials.findIndex((c: any) => c.id === id);
+
+	const sortedCredentials = credentials.slice().sort((a: any, b: any) => {
+		const currentTime = dayjs().unix();
+		const isAExpired = a.expirationDate < currentTime;
+		const isBExpired = b.expirationDate < currentTime;
+
+		if (isAExpired && !isBExpired) return 1;
+		if (!isAExpired && isBExpired) return -1;
+		return a.expirationDate - b.expirationDate;
+	});
+
 	let index = getIndex(credential.id);
-	const getCredentialByIndex = () => credentials[index];
+	const getCredentialByIndex = () => sortedCredentials[index];
 
 	let detailCredential = getCredentialByIndex();
 
@@ -16,6 +27,7 @@
 		index = e.detail[0].activeIndex;
 		detailCredential = getCredentialByIndex();
 	};
+
 	register();
 </script>
 
@@ -31,7 +43,7 @@
 		spaceBetween={10}
 		class="mt-8"
 	>
-		{#each credentials as credential}
+		{#each sortedCredentials as credential}
 			{@const expirationDate = dayjs.unix(credential.expirationDate).format('DD.MM.YYYY HH:mm')}
 
 			<swiper-slide id={getIndex(credential.id)}>
