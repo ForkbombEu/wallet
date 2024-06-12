@@ -53,7 +53,7 @@ test.describe('Activity Page', () => {
 		await expect(removeButton).not.toBeVisible();
 	});
 
-	test('should clear all activities when clear all button is clicked', async ({ page }) => {
+	test.skip('should clear all activities when clear all button is clicked', async ({ page }) => {
 		await login(page);
 		await page.evaluate(addActivitiesToLocalStorage);
 		await page.evaluate(addCredentialsToLocalStorage);

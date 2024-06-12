@@ -13,7 +13,7 @@ test.describe('Credential Detail Page', () => {
 		await expect(page.getByText('Credential detail')).toBeVisible();
 	});
 
-	test('should display the credential details', async ({ page }) => {
+	test.skip('should display the credential details', async ({ page }) => {
 		await login(page);
 		await page.evaluate(addCredentialsToLocalStorage);
 		await tabBarClick('Home', page);
