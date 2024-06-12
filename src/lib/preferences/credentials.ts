@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { getStructuredPreferences, setStructuredPreferences } from '.';
 
 //
@@ -71,4 +72,11 @@ export async function getCredentialPreference(id: string): Promise<Credential | 
 	const credentials = await getCredentialsPreference();
 	if (!credentials) return;
 	return credentials.find((credential) => String(credential.id) === id);
+}
+
+
+export async function getExpiredCredentials(): Promise<Credential[]>{
+	const credentials = await getCredentialsPreference();
+	if (!credentials) return [];
+	return credentials.filter((credential) => credential.expirationDate < dayjs().unix());
 }

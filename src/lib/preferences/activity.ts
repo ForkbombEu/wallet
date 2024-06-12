@@ -15,9 +15,14 @@ export type Verification = {
     properties: string[];
 };
 
+export type ExpiredCredential = {
+    type: 'expired';
+    id: number;
+};
+
 export type Activity = {
 	at: number;
-} & (IssuedCredential | Verification);
+} & (IssuedCredential | Verification | ExpiredCredential);
 
 export const ACTIVITY_PREFERENCES_KEY = 'activity';
 
