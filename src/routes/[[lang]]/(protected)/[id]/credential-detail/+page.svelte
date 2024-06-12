@@ -5,6 +5,7 @@
 	const { credential, credentials } = data;
 	import { register } from 'swiper/element/bundle';
 	import dayjs from 'dayjs';
+	import { decodeSdJwt } from '$lib/openId4vci';
 
 	const getIndex = (id: string) => credentials.findIndex((c: any) => c.id === id);
 
@@ -75,7 +76,11 @@
 			name={detailCredential.display_name}
 			logoSrc={detailCredential.logo.url}
 		>
+			{#await decodeSdJwt(detailCredential.sdJwt) then sdjwt}
+				{#each sdjwt.credential.disclosures as disclosure}
+					<d-definition title={disclosure[1]} definition={disclosure[2]}></d-definition>
+				{/each}
+			{/await}
 		</d-credential-detail>
 	</div>
-	<ScanButton />
 </ion-content>
