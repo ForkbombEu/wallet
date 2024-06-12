@@ -19,7 +19,7 @@
 	document.addEventListener('ionBackButton', (ev: any) => {
 		ev.detail.register(-1, () => {
 			const path = window.location.pathname;
-			if (path === r('/home') || path === r('/login')) {
+			if (path === r('/home') || path === r('/register-login')) {
 				App.exitApp();
 			} else {
 				window.history.back();
