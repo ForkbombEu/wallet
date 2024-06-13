@@ -1,5 +1,6 @@
 <script>
 	import { chevronBackOutline } from 'ionicons/icons';
+	import { m } from '$lib/i18n';
 	import SettingsIcon from '$lib/assets/Settings.svelte';
 	import Settings from './Settings.svelte';
 	export let backButton = true;
@@ -38,13 +39,14 @@
 <ion-menu content-id="main-content">
 	<ion-header>
 		<ion-toolbar>
-			<ion-title>Settings</ion-title>
+			<ion-title>{m.Settings()}</ion-title>
 		</ion-toolbar>
 	</ion-header>
 	<ion-content class="ion-padding"><Settings /></ion-content>
 </ion-menu>
+
 <style>
-	ion-menu{
-		--width:340px;
+	ion-menu {
+		--width: 340px;
 	}
 </style>
