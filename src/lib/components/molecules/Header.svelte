@@ -1,5 +1,6 @@
 <script>
-	import { chevronBackOutline, ellipsisHorizontal } from 'ionicons/icons';
+	import { chevronBackOutline } from 'ionicons/icons';
+	import SettingsIcon from '$lib/assets/Settings.svelte';
 	import Settings from './Settings.svelte';
 	export let backButton = true;
 	export let settings = false;
@@ -29,7 +30,7 @@
 		{#if settings}
 			<ion-buttons slot="end">
 				<ion-button on:click={openSettings} on:keydown={openSettings} aria-hidden>
-					<ion-icon icon={ellipsisHorizontal} slot="icon-only"></ion-icon>
+					<SettingsIcon slot="icon-only"/>
 				</ion-button>
 			</ion-buttons>
 		{/if}
@@ -49,6 +50,6 @@
 		</ion-toolbar>
 	</ion-header>
 	<ion-content class="ion-padding">
-		<Settings {closeSettings}/>
+		<Settings {closeSettings} />
 	</ion-content>
 </ion-modal>
