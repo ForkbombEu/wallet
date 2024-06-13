@@ -11,19 +11,11 @@
 		shieldOutline
 	} from 'ionicons/icons';
 
-	export let closeSettings: () => void;
-
-	const onClick = () => {
-		console.log('onClick');
-		closeSettings();
-	};
 	const logout = async () => {
-		closeSettings();
 		await goto('/logout');
 	};
 
 	const openAppSettings = async () => {
-		closeSettings();
 		await NativeSettings.open({
 			optionAndroid: AndroidSettings.ApplicationDetails,
 			optionIOS: IOSSettings.App
@@ -31,14 +23,13 @@
 	};
 
 	const gotoLanguageSettings = async () => {
-		closeSettings();
 		await goto('/languages');
 	};
 </script>
 
 <div class="flex flex-col gap-4">
 	<d-buttons-group>
-		<d-button on:click={onClick} on:keydown={onClick} aria-hidden size="large" disabled>
+		<d-button aria-hidden size="large" disabled>
 			Account Settings
 			<ion-icon icon={personOutline} slot="start" />
 		</d-button>

@@ -4,11 +4,6 @@
 	import Settings from './Settings.svelte';
 	export let backButton = true;
 	export let settings = false;
-	let isSettingsOpen = false;
-
-	const openSettings = () => (isSettingsOpen = true);
-	const closeSettings = () => (isSettingsOpen = false);
-	//TODO: fix background color with actual token
 </script>
 
 <ion-header class="shadow-none" translucent>
@@ -29,27 +24,27 @@
 		</ion-title>
 		{#if settings}
 			<ion-buttons slot="end">
-				<ion-button on:click={openSettings} on:keydown={openSettings} aria-hidden>
-					<SettingsIcon slot="icon-only"/>
-				</ion-button>
+				<ion-menu-toggle>
+					<ion-button>
+						<span slot="icon-only">
+							<SettingsIcon />
+						</span>
+					</ion-button>
+				</ion-menu-toggle>
 			</ion-buttons>
 		{/if}
 	</ion-toolbar>
 </ion-header>
-<ion-modal is-open={isSettingsOpen}>
+<ion-menu content-id="main-content">
 	<ion-header>
 		<ion-toolbar>
-			<ion-title>
-				<d-heading size="s"> Settings </d-heading>
-			</ion-title>
-			<ion-buttons slot="end">
-				<ion-button on:click={closeSettings} on:keydown={closeSettings} aria-hidden
-					>Close</ion-button
-				>
-			</ion-buttons>
+			<ion-title>Settings</ion-title>
 		</ion-toolbar>
 	</ion-header>
-	<ion-content class="ion-padding">
-		<Settings {closeSettings} />
-	</ion-content>
-</ion-modal>
+	<ion-content class="ion-padding"><Settings /></ion-content>
+</ion-menu>
+<style>
+	ion-menu{
+		--width:340px;
+	}
+</style>

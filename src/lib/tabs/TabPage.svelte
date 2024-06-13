@@ -11,7 +11,7 @@
 <ion-tab {tab}>
 	<Header backButton={false} {settings}>{title}</Header>
 
-	<ion-content fullscreen class="ion-padding">
+	<ion-content fullscreen class="ion-padding" id="main-content">
 		<slot />
 		<ScanButton />
 	</ion-content>
