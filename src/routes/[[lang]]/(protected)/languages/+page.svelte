@@ -1,39 +1,46 @@
 <script lang="ts">
 	import Header from '$lib/components/molecules/Header.svelte';
 	import { page } from '$app/stores';
-	import { goto, i18n } from '$lib/i18n';
+	import { goto, i18n, m } from '$lib/i18n';
 	import { setLanguagePreference } from '$lib/preferences/lang';
 	import { availableLanguageTags } from '$paraglide/runtime';
+	import Check from '$lib/assets/check.svelte';
 
 	const recordLanguages = {
 		en: 'English',
-		es: 'Spanish',
-		fr: 'French',
-		de: 'German',
-		it: 'Italian',
-		ja: 'Japanese',
-		ko: 'Korean',
-		pt: 'Portuguese',
-		ru: 'Russian',
-		zh: 'Chinese'
+		es: 'Español',
+		fr: 'Français',
+		de: 'Deutsch',
+		it: 'Italiano'
 	};
+	$: activeLanguage = i18n.getLanguageFromUrl($page.url);
 </script>
 
-<Header>Languages</Header>
+<Header>{m.language()}</Header>
 
 <ion-content fullscreen class="ion-padding">
-	<d-heading size="xs">Language</d-heading>
-	<ion-radio-group
-		value={i18n.getLanguageFromUrl($page.url)}
-		on:ionChange={async (e) => {
-			await setLanguagePreference(e.detail.value);
-			await goto(i18n.route($page.url.pathname), e.detail.value);
-		}}
-	>
-		<br />
-		{#each availableLanguageTags as language}
-			<ion-radio label-placement="end" value={language}>{recordLanguages[language]}</ion-radio>
-			<br />
-		{/each}
-	</ion-radio-group>
+	{#each availableLanguageTags as language}
+		{#if activeLanguage === language}
+			<button
+				class="flex h-16 w-full items-center justify-between gap-2.5 rounded-lg border-b border-solid border-b-stroke bg-primary px-5 py-8"
+			>
+				<span class="flex items-center self-stretch">
+					{recordLanguages[language]}
+				</span>
+				<span><Check/></span>
+			</button>
+		{:else}
+			<button
+				class="flex h-16 w-full items-center justify-between gap-2.5 rounded-lg border-b border-solid border-b-stroke px-5 py-8"
+				on:click={async () => {
+					await setLanguagePreference(language);
+					await goto(i18n.route($page.url.pathname), language);
+				}}
+			>
+				<span class="flex items-center self-stretch">
+					{recordLanguages[language]}
+				</span>
+			</button>
+		{/if}
+	{/each}
 </ion-content>
