@@ -52,11 +52,11 @@
 		</d-button>
 	</d-buttons-group>
 	<d-buttons-group>
-		<d-button href="/" size="large" disabled>
+		<d-button href="https://didroom.com/guides/1_orgadmin/support.html" size="large">
 			Support
 			<ion-icon icon={helpCircleOutline} slot="start" />
 		</d-button>
-		<d-button href="/" size="large" disabled>
+		<d-button href="https://didroom.com/guides/2_wallet/5_privacy-policy.html" size="large">
 			Privacy policy
 			<ion-icon icon={shieldOutline} slot="start" />
 		</d-button>
