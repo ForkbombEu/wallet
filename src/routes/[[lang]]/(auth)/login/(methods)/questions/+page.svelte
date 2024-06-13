@@ -10,7 +10,7 @@
 	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { unlockApp } from '$lib/preferences/locked.js';
-	import { alertCircleOutline, key } from 'ionicons/icons';
+	import { alertCircleOutline } from 'ionicons/icons';
 	import { z } from 'zod';
 	import { checkKeypairs, generateDid, saveUserPublicKeys, userEmailStore } from '../../_lib';
 	import type { Feedback } from '$lib/utils/types';

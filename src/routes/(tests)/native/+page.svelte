@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { listOutline, pencilOutline, phonePortrait, star } from 'ionicons/icons';
+	import { listOutline, pencilOutline, star } from 'ionicons/icons';
 	import TEE from '$lib/nativeHooks/TEEPlugin';
 	let response = 'Push the button to test native functionality';
 
