@@ -1,3 +1,15 @@
+# [1.48.0](https://github.com/ForkbombEu/wallet/compare/v1.47.0...v1.48.0) (2024-06-13)
+
+
+### Bug Fixes
+
+* update node version at build time ([#378](https://github.com/ForkbombEu/wallet/issues/378)) ([f397535](https://github.com/ForkbombEu/wallet/commit/f39753539be2f57c88ada227442a40a7ee8d8e79))
+
+
+### Features
+
+* handle expired credentials ([#375](https://github.com/ForkbombEu/wallet/issues/375)) ([3facabb](https://github.com/ForkbombEu/wallet/commit/3facabb7cd2baaf4c97758f920d1fdf06dea75f7))
+
 # [1.47.0](https://github.com/ForkbombEu/wallet/compare/v1.46.0...v1.47.0) (2024-06-11)
 
 
