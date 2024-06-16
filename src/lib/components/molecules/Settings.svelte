@@ -22,9 +22,7 @@
 		});
 	};
 
-	const gotoLanguageSettings = async () => {
-		await goto('/languages');
-	};
+	const gotoLanguageSettings = () => goto('/languages');
 </script>
 
 <div class="flex flex-col gap-4">

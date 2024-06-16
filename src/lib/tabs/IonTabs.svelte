@@ -1,11 +1,11 @@
 <script>
-  //Credits: https://github.com/Tommertom/ionic-svelte-tabs-howto
+	//Credits: https://github.com/Tommertom/ionic-svelte-tabs-howto
 	// @ts-nocheck
 	import { onMount } from 'svelte';
 	import { page, navigating } from '$app/stores';
 
-	import { goto } from '$app/navigation';
-
+	import { goto, i18n } from '$lib/i18n';
+	import { goto as svelteGoto } from '$app/navigation';
 	export let ionTabsDidChange = () => {};
 	export let ionTabsWillChange = () => {};
 
@@ -22,14 +22,14 @@
 	const { pathname } = $page.url;
 	const pathSplit = pathname.split('/');
 	let currentTabName = pathSplit[pathSplit.length - 1]; // we don't want to use at(-1) because of old browsers
-	const relativePath = pathname.replace(currentTabName, '');
+	const relativePath = i18n.route(pathname.replace(currentTabName, ''));
 
 	// we need to capture the router changes - to support a-href navigation and other stuff
 	$: if ($navigating && $navigating.to) {
 		tabs.forEach(async (tab) => {
 			if ($navigating.to.url.pathname.includes(relativePath + tab.tab)) {
 				currentTabName = tab.tab;
-				await goto(relativePath + tab.tab);
+				await svelteGoto(relativePath + tab.tab);
 				controller.select(tab.tab);
 			}
 		});
@@ -55,7 +55,7 @@
 >
 	<slot />
 
-	<ion-tab-bar slot="bottom" class="flex ion-padding py-0 justify-between">
+	<ion-tab-bar slot="bottom" class="ion-padding flex justify-between py-0">
 		{#each tabs as tab}
 			<d-tab-button
 				tab={tab.tab}
@@ -65,8 +65,8 @@
 				on:click={() => {
 					tabBarClick(tab.tab);
 				}}
-        aria-hidden
-        active={currentTabName === tab.tab}
+				aria-hidden
+				active={currentTabName === tab.tab}
 			>
 				{tab.label}
 			</d-tab-button>

@@ -27,14 +27,14 @@
 				<span class="flex items-center self-stretch">
 					{recordLanguages[language]}
 				</span>
-				<span><Check/></span>
+				<span><Check /></span>
 			</button>
 		{:else}
 			<button
 				class="flex h-16 w-full items-center justify-between gap-2.5 rounded-lg border-b border-solid border-b-stroke px-5 py-8"
 				on:click={async () => {
 					await setLanguagePreference(language);
-					await goto(i18n.route($page.url.pathname), language);
+					await goto(i18n.route($page.url.pathname), language, true);
 				}}
 			>
 				<span class="flex items-center self-stretch">

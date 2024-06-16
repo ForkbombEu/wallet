@@ -3,6 +3,7 @@
 	import { m } from '$lib/i18n';
 	import SettingsIcon from '$lib/assets/Settings.svelte';
 	import Settings from './Settings.svelte';
+	import { routeHistory } from '$lib/routeStore';
 	export let backButton = true;
 	export let settings = false;
 </script>
@@ -12,8 +13,8 @@
 		{#if backButton}
 			<ion-buttons slot="start">
 				<ion-button
-					on:click={() => window.history.back()}
-					on:keydown={() => window.history.back()}
+					on:click={() => routeHistory.back()}
+					on:keydown={() => routeHistory.back()}
 					aria-hidden
 				>
 					<ion-icon icon={chevronBackOutline} slot="icon-only"></ion-icon>
