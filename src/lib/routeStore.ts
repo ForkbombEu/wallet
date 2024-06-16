@@ -9,13 +9,13 @@ export function createRouteStore() {
 
 	return {
 		subscribe,
-		set: (route: RouteEntry[]) => set(route),
+		set: (routes: RouteEntry[]) => set(routes),
+        push: (route: RouteEntry) => update((routes) => [...routes, route]),
 		back: () =>
-			update((route) => {
-				const bb = route.pop();
-                console.log(bb, 'route.pop()', route);
-				if (bb) goto(bb!.previousPath, undefined, true)
-				return route;
+			update((routes) => {
+				const route = routes.pop();
+				if (route) goto(route!.previousPath, undefined, false)
+				return routes;
 			}),
 		clear: () => set([])
 	};

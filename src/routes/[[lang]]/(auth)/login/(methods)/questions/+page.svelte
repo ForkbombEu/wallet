@@ -114,7 +114,7 @@
 	}
 
 	const goToWallet = () => {
-		goto('/wallet', undefined, true).then(() => {
+		goto('/wallet', undefined, false).then(() => {
 			routeHistory.clear();
 		});
 	};
