@@ -22,8 +22,8 @@ export const goto = async (link: string, tag?: Langs, saveHistory: boolean = tru
 	const lastEntry = history[history.length - 1];
 	const previousPath = i18n.route(window.location.pathname);
 
-	if (saveHistory && isNotYetRegistered(previousPath, lastEntry)) {
+	if (saveHistory && isNotYetRegistered(previousPath, lastEntry))
 		routeHistory.push({ previousPath });
-	}
+
 	await svelteGoto(r(link, tag));
 };

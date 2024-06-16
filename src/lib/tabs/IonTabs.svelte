@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 	import { page, navigating } from '$app/stores';
 
-	import { goto, i18n } from '$lib/i18n';
+	import { goto, i18n, r } from '$lib/i18n';
 	import { goto as svelteGoto } from '$app/navigation';
 	export let ionTabsDidChange = () => {};
 	export let ionTabsWillChange = () => {};
@@ -29,7 +29,7 @@
 		tabs.forEach(async (tab) => {
 			if ($navigating.to.url.pathname.includes(relativePath + tab.tab)) {
 				currentTabName = tab.tab;
-				await svelteGoto(relativePath + tab.tab);
+				await svelteGoto(r(relativePath + tab.tab));
 				controller.select(tab.tab);
 			}
 		});
