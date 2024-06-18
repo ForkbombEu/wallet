@@ -2,7 +2,7 @@
 	import '@fontsource-variable/gantari';
 	import { setupIonicBase } from 'ionic-svelte';
 	import { App } from '@capacitor/app';
-	import { r } from '$lib/i18n';
+	import { goto, r } from '$lib/i18n';
 	// import { BackButtonEvent } from '@ionic/core';
 
 	setupIonicBase();
@@ -15,6 +15,14 @@
 	import { ParaglideJS } from '@inlang/paraglide-js-adapter-sveltekit';
 	import HiddenLogsButton from '$lib/components/molecules/HiddenLogsButton.svelte';
 	import { log } from '$lib/log';
+	import { lockApp } from '$lib/preferences/locked';
+
+	App.addListener('appStateChange', async (state) => {
+		if (!state.isActive) {
+			await lockApp()
+			await goto('/unlock')
+		}
+	});
 
 	document.addEventListener('ionBackButton', (ev: any) => {
 		ev.detail.register(-1, () => {
