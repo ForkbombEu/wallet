@@ -15,16 +15,19 @@
 	import HiddenLogsButton from '$lib/components/molecules/HiddenLogsButton.svelte';
 	import { log } from '$lib/log';
 	import { routeHistory } from '$lib/routeStore';
+	import {  onMount } from 'svelte';
+
+	onMount(() => {
+			document.addEventListener('ionBackButton', (ev: any) => {
+		ev.detail.register(-1, () => {
+			if (isExitPoint()) App.exitApp();
+			else routeHistory.back();
+			});
 
 	const isExitPoint = () => {
 		const exitPoints = [r('/home'), r('/login')];
 		return exitPoints.includes(window.location.pathname);
 	};
-
-	document.addEventListener('ionBackButton', (ev: any) => {
-		ev.detail.register(-1, () => {
-			if (isExitPoint()) App.exitApp();
-			else routeHistory.back();
 		});
 	});
 </script>
