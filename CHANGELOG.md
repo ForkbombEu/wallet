@@ -1,3 +1,10 @@
+## [1.48.2](https://github.com/ForkbombEu/wallet/compare/v1.48.1...v1.48.2) (2024-06-18)
+
+
+### Bug Fixes
+
+* lock app when it's no active ([#386](https://github.com/ForkbombEu/wallet/issues/386)) ([1cd5346](https://github.com/ForkbombEu/wallet/commit/1cd5346777db9b8bdcf024e8daf6c8491e5770a1)), closes [#78](https://github.com/ForkbombEu/wallet/issues/78)
+
 ## [1.48.1](https://github.com/ForkbombEu/wallet/compare/v1.48.0...v1.48.1) (2024-06-18)
 
 
