@@ -1,13 +1,11 @@
 <script>
-	import { chevronBackOutline, ellipsisHorizontal } from 'ionicons/icons';
+	import { chevronBackOutline } from 'ionicons/icons';
+	import { m } from '$lib/i18n';
+	import SettingsIcon from '$lib/assets/Settings.svelte';
 	import Settings from './Settings.svelte';
+	import { routeHistory } from '$lib/routeStore';
 	export let backButton = true;
 	export let settings = false;
-	let isSettingsOpen = false;
-
-	const openSettings = () => (isSettingsOpen = true);
-	const closeSettings = () => (isSettingsOpen = false);
-	//TODO: fix background color with actual token
 </script>
 
 <ion-header class="shadow-none" translucent>
@@ -15,8 +13,8 @@
 		{#if backButton}
 			<ion-buttons slot="start">
 				<ion-button
-					on:click={() => window.history.back()}
-					on:keydown={() => window.history.back()}
+					on:click={() => routeHistory.back()}
+					on:keydown={() => routeHistory.back()}
 					aria-hidden
 				>
 					<ion-icon icon={chevronBackOutline} slot="icon-only"></ion-icon>
@@ -28,27 +26,28 @@
 		</ion-title>
 		{#if settings}
 			<ion-buttons slot="end">
-				<ion-button on:click={openSettings} on:keydown={openSettings} aria-hidden>
-					<ion-icon icon={ellipsisHorizontal} slot="icon-only"></ion-icon>
-				</ion-button>
+				<ion-menu-toggle>
+					<ion-button>
+						<span slot="icon-only">
+							<SettingsIcon />
+						</span>
+					</ion-button>
+				</ion-menu-toggle>
 			</ion-buttons>
 		{/if}
 	</ion-toolbar>
 </ion-header>
-<ion-modal is-open={isSettingsOpen}>
+<ion-menu content-id="main-content">
 	<ion-header>
 		<ion-toolbar>
-			<ion-title>
-				<d-heading size="s"> Settings </d-heading>
-			</ion-title>
-			<ion-buttons slot="end">
-				<ion-button on:click={closeSettings} on:keydown={closeSettings} aria-hidden
-					>Close</ion-button
-				>
-			</ion-buttons>
+			<ion-title>{m.Settings()}</ion-title>
 		</ion-toolbar>
 	</ion-header>
-	<ion-content class="ion-padding">
-		<Settings {closeSettings}/>
-	</ion-content>
-</ion-modal>
+	<ion-content class="ion-padding"><Settings /></ion-content>
+</ion-menu>
+
+<style>
+	ion-menu {
+		--width: 340px;
+	}
+</style>

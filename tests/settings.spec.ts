@@ -2,13 +2,11 @@ import { expect, test } from '@playwright/test';
 import { login } from './utils';
 
 test.describe('Settings', () => {
-	test('should open and close settings modal', async ({ page }) => {
+	test('should open settings drawer', async ({ page }) => {
 		await login(page);
 		await page.locator('ion-tab-bar d-tab-button:has-text("Profile")').click();
 		await page.getByRole('banner').locator('ion-button').click();
-		await expect(page.locator('ion-modal')).toBeVisible();
-		await page.locator('ion-button:has-text("Close")').click();
-		await expect(page.locator('ion-modal')).not.toBeVisible();
+		await expect(page.locator('ion-menu')).toBeVisible();
 	});
 
 	test('should navigate to language settings', async ({ page }) => {
