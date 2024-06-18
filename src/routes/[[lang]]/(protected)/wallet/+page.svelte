@@ -5,6 +5,19 @@
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import dayjs from 'dayjs';
 	import { arrowForwardOutline } from 'ionicons/icons';
+	import type { Credential } from '$lib/preferences/credentials';
+
+	const sortCredentials = (credentials: Credential[]) => {
+		return credentials.slice().sort((a: any, b: any) => {
+			const currentTime = dayjs().unix();
+			const isAExpired = a.expirationDate < currentTime;
+			const isBExpired = b.expirationDate < currentTime;
+
+			if (isAExpired && !isBExpired) return 1;
+			if (!isAExpired && isBExpired) return -1;
+			return a.expirationDate - b.expirationDate;
+		});
+	};
 </script>
 
 <TabPage tab="wallet" title="WALLET">
@@ -65,10 +78,21 @@
 				</d-button>
 			</div>
 		{:else}
+			{@const sortedCredentials = sortCredentials(credentials)}
 			<div class="flex flex-col gap-2">
-				{#each credentials as credential}
+				{#each sortedCredentials as credential}
 					{@const expirationDate = dayjs.unix(credential.expirationDate).format('DD.MM.YYYY HH:mm')}
-					<a href={r(`/${credential.id}/credential-detail`)}>
+					<a href={r(`/${credential.id}/credential-detail`)} class="relative">
+						{#if credential.expirationDate < dayjs().unix()}
+							<div
+								class="absolute flex h-full w-full items-center justify-center rounded-lg bg-primary opacity-80"
+							>
+								<d-text size="l" class="font-bold uppercase text-error">
+									expired on: {expirationDate}
+								</d-text>
+							</div>
+						{/if}
+
 						<d-credential-card
 							{...credential}
 							{expirationDate}

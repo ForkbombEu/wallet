@@ -64,7 +64,6 @@ export const login = async (email: string, password: string) => {
 };
 
 export const checkIfUserExists = async (email: string): Promise<boolean> => {
-	console.log('Checking', email);
 	const data = {
 		pb_address: backendUri,
 		check_email: `/api/email-check?email=${email}`,

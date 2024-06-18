@@ -1,62 +1,54 @@
 <script lang="ts">
-	import JSONSchemaForm from '$lib/JSONSchemaForms/JSONSchemaForm.svelte';
-	import JSONSchemaParser from '$lib/JSONSchemaForms/JSONSchemaParser.svelte';
-	import ErrorDisplay from '$lib/components/errorDisplay.svelte';
 	import { fly } from 'svelte/transition';
-	import { thumbsUpOutline } from 'ionicons/icons';
+	import { arrowForwardOutline, thumbsUpOutline } from 'ionicons/icons';
 	import { goto, r } from '$lib/i18n';
 	import { m } from '$lib/i18n';
 	import Header from '$lib/components/molecules/Header.svelte';
 	import { setCredentialPreference } from '$lib/preferences/credentials';
-	import {
-		decodeSdJwt,
-		holderQrToWellKnown,
-		type CredentialResult,
-		type QrToWellKnown
-	} from '$lib/openId4vci';
-	import { askCredential, getKeys } from '$lib/openId4vci';
+	import { askCredential, decodeSdJwt, type CredentialResult } from '$lib/openId4vci';
 	import { credentialOfferStore } from '$lib/credentialOfferStore';
 	import { log } from '$lib/log';
 	import type { Feedback } from '$lib/utils/types';
-	import { homeFeedbackStore } from '$lib/homeFeedbackStore';
 	import { addActivity } from '$lib/preferences/activity';
 	import dayjs from 'dayjs';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
-	import Loading from '$lib/components/molecules/Loading.svelte';
+	import Pidgeon from '$lib/assets/Pidgeon.svelte';
 
+	export let data;
+	const { wn, authorizeUrl, parResult, feedbackData } = data;
+	const codeVerifier = parResult?.code_verifier;
+	let code: string | undefined;
+
+	window.addEventListener('message', function (event) {
+		if (event.origin === window.location.origin) return;
+		try {
+			code = JSON.parse(event.data).code;
+		} catch {
+			feedback = {
+				type: 'error',
+				message: event.data,
+				feedback: 'Error authenticating with the service. Please try again.'
+			};
+			content.scrollToTop();
+		}
+	});
+
+	const credentialInfo = wn?.credential_requested['display'][0];
 
 	let isModalOpen: boolean = false;
 	let isCredentialVerified: boolean = false;
 	let serviceResponse: CredentialResult;
 
-	//
-
-	let isCredentialIssuerOutOfService: boolean = false;
-	const qrToWellKnown = async () => {
-		try {
-			return await holderQrToWellKnown($credentialOfferStore);
-		} catch (e) {
-			log(e);
-			isCredentialIssuerOutOfService = true;
-		}
-	};
-
-	$: if (isCredentialIssuerOutOfService) {
-		homeFeedbackStore.set({
-			type: 'error',
-			feedback: m.The_credential_issuer_is_currently_offline_you_may_try_again_later()
-		});
-		goto(`/home`);
-	}
-
-	let feedback: Feedback = {};
+	let feedback: Feedback | undefined = {};
+	let content
 
 	//
 
-	const getCredential = async (formData: any, qrToWellKnown: QrToWellKnown) => {
+	const getCredential = async () => {
+		if (!wn || !codeVerifier || !code) return;
 		isModalOpen = true;
 		try {
-			serviceResponse = await askCredential(await getKeys(), qrToWellKnown, formData);
+			serviceResponse = await askCredential(code, wn.credential_parameters, codeVerifier);
 			if (!serviceResponse) return (isModalOpen = false);
 			isCredentialVerified = true;
 			log(`serviceResponse: (fine chain): ${JSON.stringify(serviceResponse, null, 2)}`);
@@ -68,19 +60,20 @@
 				message: String(e),
 				feedback: 'error while getting credential'
 			};
+			content.scrollToTop();
 		}
 
 		setTimeout(async () => {
 			const dsdjwt = await decodeSdJwt(serviceResponse.credential);
 			const { id } = await setCredentialPreference({
 				configuration_ids: $credentialOfferStore.credential_configuration_ids,
-				display_name: qrToWellKnown.credential_requested.display[0].name,
+				display_name: wn.credential_requested.display[0].name,
 				sdJwt: serviceResponse.credential,
-				issuer: qrToWellKnown.credential_issuer_information.display[0].name,
-				description: qrToWellKnown.credential_requested.display[0].description,
+				issuer: wn.credential_issuer_information.display[0].name,
+				description: wn.credential_requested.display[0].description,
 				verified: false,
 				expirationDate: dsdjwt.credential.jwt.payload.exp,
-				logo: qrToWellKnown.credential_requested.display[0].logo
+				logo: wn.credential_requested.display[0].logo
 			});
 
 			await addActivity({ at: dayjs().unix(), id, type: 'credential' });
@@ -93,33 +86,44 @@
 
 <Header>{m.Credential_offer()}</Header>
 
-<ion-content fullscreen class="ion-padding">
+<ion-content fullscreen class="ion-padding" bind:this={content}>
 	<d-feedback {...feedback} />
-	{#await qrToWellKnown()}
-		<Loading/>
-	{:then wn}
-		{@const credentialInfo = wn['credential_requested']['display'][0]}
-		{@const credentialSchema =
-			wn['credential_requested']['credential_definition']['credentialSubject']}
-		<div class="flex min-h-full flex-col justify-between pb-14">
+	{#if feedbackData}
+		<d-feedback {...feedbackData} />
+		<div class="flex h-3/5 flex-col items-center justify-center gap-1">
+			<div class="-mb-16">
+				<Pidgeon />
+			</div>
+			<d-heading size="s">The service seems to be out of reach</d-heading>
+			<!-- <d-text size="l" class="pb-4">Try oth</d-text> -->
+			<d-button expand color="outline" href={r('/home')} class="w-full">
+				Go to home <ion-icon slot="end" icon={arrowForwardOutline} />
+			</d-button>
+		</div>
+	{:else}
+		<div class="flex min-h-full flex-col justify-between pb-14 mt-2">
 			<div>
 				<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
-					<d-avatar src={credentialInfo.logo.url} alt={credentialInfo.logo.alt_text}></d-avatar>
-					<d-heading size="s">{credentialInfo.name}</d-heading>
+					<d-avatar src={credentialInfo?.logo.url} alt={credentialInfo?.logo.alt_text}></d-avatar>
+					<d-heading size="s">{credentialInfo?.name}</d-heading>
 				</div>
 			</div>
 
-			<div class="rounded-md bg-primary p-4">
-				<JSONSchemaParser schema={credentialSchema} let:schema>
-					<JSONSchemaForm {schema} onSubmit={(d) => getCredential(d, wn)} id="schemaForm" />
-					<svelte:fragment slot="error" let:error>
-						<ErrorDisplay name={error.name} message={error.message} />
-					</svelte:fragment>
-				</JSONSchemaParser>
+			<div class="mt-6 rounded-md bg-white p-4">
+				<iframe
+					src={authorizeUrl}
+					width="100%"
+					height="390px"
+					title="authorization server"
+					id="authorization server"
+				></iframe>
 			</div>
 			<div class="w-full">
-				<d-button expand type="submit" form="schemaForm" aria-hidden
-					>{m.Get_this_credential()}</d-button
+				<d-button
+					expand
+					aria-hidden
+					disabled={!Boolean(code)}
+					on:click={Boolean(code) ? getCredential : () => {}}>{m.Get_this_credential()}</d-button
 				>
 				<d-button expand href={r('/home')}>{m.Decline()}</d-button>
 			</div>
@@ -132,10 +136,10 @@
 						{#if !isCredentialVerified}
 							{m.We_are_generating_this_credential()}
 							<d-credential-card
-								name={credentialInfo.name}
-								issuer={credentialInfo.name}
-								description={credentialInfo.name}
-								logoSrc={credentialInfo.logo.url}
+								name={credentialInfo?.name}
+								issuer={credentialInfo?.name}
+								description={credentialInfo?.name}
+								logoSrc={credentialInfo?.logo.url}
 							/>
 							<div class="mx-auto w-fit pt-8">
 								<FingerPrint />
@@ -155,5 +159,5 @@
 				</div>
 			</ion-content>
 		</ion-modal>
-	{/await}
+	{/if}
 </ion-content>

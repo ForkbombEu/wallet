@@ -8,6 +8,7 @@
 	import type { Service as CredentialService } from '$lib/components/organisms/scanner/tools';
 	import Loading from '$lib/components/molecules/Loading.svelte';
 	import { getNotReadedActivities } from '$lib/preferences/activity';
+	import { getExpiredCredentials } from '$lib/preferences/credentials';
 
 	let feedback: Feedback = $homeFeedbackStore;
 
@@ -18,6 +19,16 @@
 				type: 'success',
 				feedback: `You have ${notReadedActivities} new ${notReadedActivities > 1 ? 'activities' : 'activity'}`
 			} as Feedback);
+		}
+		const expiredCredentials = await getExpiredCredentials();
+		const expiredLenght = expiredCredentials.length
+		if (expiredLenght > 0) {
+			homeFeedbackStore.set({
+				type: 'error',
+				feedback: `You have ${expiredLenght} expired credential${
+					expiredLenght > 1 ? 's' : ''
+				}.`
+			});
 		}
 	};
 
