@@ -88,5 +88,14 @@
 	"The_credential_issuer_is_currently_offline_you_may_try_again_later": "The credential issuer is currently offline, you may try again later",
 	"wrong_email_or_password": "wrong email or password",
 	"forgot_your_password": "forgot your password?",
-	"User_already_exists_try_to_login_or_request_a_new_password": "User already exists try to login or request a new password"
+	"User_already_exists_try_to_login_or_request_a_new_password": "User already exists try to login or request a new password",
+	"language": "Language",
+	"Account_Settings": "Account Settings",
+	"Security_and_authentication": "Security and authentication",
+	"Notifications_settings": "Notifications settings",
+	"Languages": "Languages",
+	"Support": "Support",
+	"Privacy_policy": "Privacy policy",
+	"Log_Out": "Log Out",
+	"Settings": "Settings"
 }

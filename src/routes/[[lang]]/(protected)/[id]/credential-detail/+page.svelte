@@ -1,81 +1,47 @@
 <script lang="ts">
 	import Header from '$lib/components/molecules/Header.svelte';
-	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
 	export let data: any;
 	const { credential, credentials } = data;
-	import { register } from 'swiper/element/bundle';
-	import dayjs from 'dayjs';
+	import { decodeSdJwt } from '$lib/openId4vci';
 
-	const getIndex = (id: string) => credentials.findIndex((c: any) => c.id === id);
-
-	const sortedCredentials = credentials.slice().sort((a: any, b: any) => {
-		const currentTime = dayjs().unix();
-		const isAExpired = a.expirationDate < currentTime;
-		const isBExpired = b.expirationDate < currentTime;
-
-		if (isAExpired && !isBExpired) return 1;
-		if (!isAExpired && isBExpired) return -1;
-		return a.expirationDate - b.expirationDate;
-	});
-
-	let index = getIndex(credential.id);
-	const getCredentialByIndex = () => sortedCredentials[index];
-
-	let detailCredential = getCredentialByIndex();
-
-	const onChanges = (e: any) => {
-		index = e.detail[0].activeIndex;
-		detailCredential = getCredentialByIndex();
+	const isNestedDisclosure = (disclosure: Array<string | Record<string, string>>) => {
+		return typeof disclosure[2] !== 'string';
 	};
-
-	register();
 </script>
 
 <Header>Credential detail</Header>
-<ion-content fullscreen>
-	<swiper-container
-		centered-slides={true}
-		pagination={true}
-		initialSlide={index}
-		on:swiperslidechange={onChanges}
-		slidesPerView={1.15}
-		centeredSlides={true}
-		spaceBetween={10}
-		class="mt-8"
-	>
-		{#each sortedCredentials as credential}
-			{@const expirationDate = dayjs.unix(credential.expirationDate).format('DD.MM.YYYY HH:mm')}
-
-			<swiper-slide id={getIndex(credential.id)}>
-				<div class="relative">
-					{#if credential.expirationDate < dayjs().unix()}
-						<div
-							class="absolute z-50 flex h-full w-full items-center justify-center rounded-lg bg-primary opacity-80"
-						>
-							<d-text size="l" class="font-bold uppercase text-error">
-								expired on: {expirationDate}
-							</d-text>
-						</div>
-					{/if}
-					<d-credential-card
-						{...credential}
-						{expirationDate}
-						name={credential.display_name}
-						logoSrc={credential.logo.url}
-						description=""
-					/>
-				</div>
-			</swiper-slide>
-		{/each}
-	</swiper-container>
-	<div class="bg-tab fixed bottom-0 left-0 w-full">
-		<d-credential-detail
-			{...detailCredential}
-			description={detailCredential.description}
-			name={detailCredential.display_name}
-			logoSrc={detailCredential.logo.url}
-		>
-		</d-credential-detail>
+<ion-content fullscreen class="h-full">
+	<div class="flex h-full flex-col gap-4">
+		<div class="ion-padding">
+			<div class="flex flex-col gap-6">
+				<!-- <d-avatar src={credential.logo.url} alt={credential.logo.alt_text}></d-avatar> -->
+				<d-heading size="s">{credential.display_name}</d-heading>
+				<dl>
+					<dt class="text-xl font-bold not-italic text-on-alt">Issued by:</dt>
+					<dd class="flex items-center gap-2 text-xl font-medium not-italic text-on">
+						<d-avatar src={credential.logo.url} size="xs" alt={credential.logo.alt_text}></d-avatar>
+						<d-text size="l">{credential.issuer}</d-text>
+					</dd>
+				</dl>
+			</div>
+		</div>
+		<div class="bg-primary w-full flex-grow">
+			<d-credential-detail name="Claims:">
+				{#await decodeSdJwt(credential.sdJwt) then sdjwt}
+					{#each sdjwt.credential.disclosures as disclosure}
+						{#if isNestedDisclosure(disclosure)}
+							<d-text size="xs">{disclosure[1]}</d-text>
+							<div class=" border-2 border-stroke p-1">
+								{#each Object.entries(disclosure[2]) as [key, value]}
+									<d-definition title={key} definition={value}></d-definition>
+								{/each}
+							</div>
+						{:else}
+							<d-definition title={disclosure[1]} definition={disclosure[2]}></d-definition>
+						{/if}
+					{/each}
+				{/await}
+			</d-credential-detail>
+		</div>
 	</div>
-	<ScanButton />
 </ion-content>

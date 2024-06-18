@@ -4,7 +4,6 @@ import { addCredentialsToLocalStorage, login, tabBarClick } from './utils';
 test.describe('Verification Page', () => {
 	const verificationQR = `{
             "exp": 1888583238,
-            "id": "83ox1ucuingjblb",
             "m": "f",
             "rp": "https://relying-party1.zenswarm.forkbomb.eu/relying_party/",
             "ru": "https://admin.didroom.com/api/collections/templates_public_data/records?filter=%28id%3D%22pt74yxc7gqb8ryq%22%29&fields=schema",

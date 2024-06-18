@@ -12,7 +12,7 @@
 	import { addActivity } from '$lib/preferences/activity';
 	import dayjs from 'dayjs';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
-	import Pidgeon from '$lib/assets/Pidgeon.svelte'
+	import Pidgeon from '$lib/assets/Pidgeon.svelte';
 
 	export let data;
 	const { wn, authorizeUrl, parResult, feedbackData } = data;
@@ -21,8 +21,16 @@
 
 	window.addEventListener('message', function (event) {
 		if (event.origin === window.location.origin) return;
-		code = JSON.parse(event.data).code;
-		console.log('Received data:', event.data);
+		try {
+			code = JSON.parse(event.data).code;
+		} catch {
+			feedback = {
+				type: 'error',
+				message: event.data,
+				feedback: 'Error authenticating with the service. Please try again.'
+			};
+			content.scrollToTop();
+		}
 	});
 
 	const credentialInfo = wn?.credential_requested['display'][0];
@@ -31,15 +39,16 @@
 	let isCredentialVerified: boolean = false;
 	let serviceResponse: CredentialResult;
 
-	let feedback: Feedback | undefined = feedbackData;
+	let feedback: Feedback | undefined = {};
+	let content
 
 	//
 
 	const getCredential = async () => {
-		if (!wn) return;
+		if (!wn || !codeVerifier || !code) return;
 		isModalOpen = true;
 		try {
-			serviceResponse = await askCredential(code!, wn.credential_parameters, codeVerifier);
+			serviceResponse = await askCredential(code, wn.credential_parameters, codeVerifier);
 			if (!serviceResponse) return (isModalOpen = false);
 			isCredentialVerified = true;
 			log(`serviceResponse: (fine chain): ${JSON.stringify(serviceResponse, null, 2)}`);
@@ -51,6 +60,7 @@
 				message: String(e),
 				feedback: 'error while getting credential'
 			};
+			content.scrollToTop();
 		}
 
 		setTimeout(async () => {
@@ -76,21 +86,22 @@
 
 <Header>{m.Credential_offer()}</Header>
 
-<ion-content fullscreen class="ion-padding">
+<ion-content fullscreen class="ion-padding" bind:this={content}>
+	<d-feedback {...feedback} />
 	{#if feedbackData}
 		<d-feedback {...feedbackData} />
 		<div class="flex h-3/5 flex-col items-center justify-center gap-1">
-				<div class="-mb-16">
-					<Pidgeon />
-				</div>
-				<d-heading size="s">The service seems to be out of reach</d-heading>
-				<!-- <d-text size="l" class="pb-4">Try oth</d-text> -->
-				<d-button expand color="outline" href={r('/home')} class="w-full">
-					Go to home <ion-icon slot="end" icon={arrowForwardOutline} />
-				</d-button>
+			<div class="-mb-16">
+				<Pidgeon />
 			</div>
+			<d-heading size="s">The service seems to be out of reach</d-heading>
+			<!-- <d-text size="l" class="pb-4">Try oth</d-text> -->
+			<d-button expand color="outline" href={r('/home')} class="w-full">
+				Go to home <ion-icon slot="end" icon={arrowForwardOutline} />
+			</d-button>
+		</div>
 	{:else}
-		<div class="flex min-h-full flex-col justify-between pb-14">
+		<div class="flex min-h-full flex-col justify-between pb-14 mt-2">
 			<div>
 				<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
 					<d-avatar src={credentialInfo?.logo.url} alt={credentialInfo?.logo.alt_text}></d-avatar>
@@ -98,18 +109,16 @@
 				</div>
 			</div>
 
-			<div class="mt-6 rounded-md bg-primary p-4">
+			<div class="mt-6 rounded-md bg-white p-4">
 				<iframe
 					src={authorizeUrl}
 					width="100%"
-					height="500px"
+					height="390px"
 					title="authorization server"
 					id="authorization server"
 				></iframe>
 			</div>
 			<div class="w-full">
-				<d-feedback {...feedback} />
-
 				<d-button
 					expand
 					aria-hidden
