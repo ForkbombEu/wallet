@@ -1,3 +1,13 @@
+## [1.48.1](https://github.com/ForkbombEu/wallet/compare/v1.48.0...v1.48.1) (2024-06-18)
+
+
+### Bug Fixes
+
+* catch error during authntication on relyng party ([#377](https://github.com/ForkbombEu/wallet/issues/377)) ([ed9dd52](https://github.com/ForkbombEu/wallet/commit/ed9dd52e33553ab8039132456218f1560f3e4e8a))
+* change exit point at login ([#379](https://github.com/ForkbombEu/wallet/issues/379)) ([fa4fb1f](https://github.com/ForkbombEu/wallet/commit/fa4fb1fb3510ef143cf29717bc432017613c88eb)), closes [#372](https://github.com/ForkbombEu/wallet/issues/372)
+* settings page design ([#383](https://github.com/ForkbombEu/wallet/issues/383)) ([02bb8b1](https://github.com/ForkbombEu/wallet/commit/02bb8b138ea0f974bef5d5f7db292dbc9e3567de)), closes [#348](https://github.com/ForkbombEu/wallet/issues/348)
+* show disclosures in credential details ([#382](https://github.com/ForkbombEu/wallet/issues/382)) ([c925f35](https://github.com/ForkbombEu/wallet/commit/c925f35e1c2c227de2dfab9129522b0339b5cbd6)), closes [#380](https://github.com/ForkbombEu/wallet/issues/380)
+
 # [1.48.0](https://github.com/ForkbombEu/wallet/compare/v1.47.0...v1.48.0) (2024-06-13)
 
 
