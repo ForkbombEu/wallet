@@ -1,11 +1,19 @@
 <script lang="ts">
 	import { type IonTabProps, Tabs } from '$lib/tabs';
 	import IonTabs from '$lib/tabs/IonTabs.svelte';
-	import { m } from '$lib/i18n';
-	import { page } from '$app/stores';
-	const isActive = (tab: string) => $page.url.pathname.split('/').reverse()[0] === tab;
+	import { App } from '@capacitor/app';
+	import { goto, m } from '$lib/i18n';
+	import { lockApp } from '$lib/preferences/locked';
 
 	//
+
+	App.addListener('appStateChange', async (state) => {
+		if (!state.isActive) {
+			await lockApp()
+			await goto('/unlock')
+		}
+	});
+
 
 	const tabs: IonTabProps[] = [
 		{ label: m.Home(), tab: Tabs.home },
