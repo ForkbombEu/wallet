@@ -6,16 +6,17 @@
 
 	import CopyButton from '$lib/components/copyButton.svelte';
 	import Header from '$lib/components/molecules/Header.svelte';
-	import { m, r } from '$lib/i18n';
+	import { goto, m, r } from '$lib/i18n';
 	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { unlockApp } from '$lib/preferences/locked.js';
-	import { alertCircleOutline, key } from 'ionicons/icons';
+	import { alertCircleOutline } from 'ionicons/icons';
 	import { z } from 'zod';
 	import { checkKeypairs, generateDid, saveUserPublicKeys, userEmailStore } from '../../_lib';
 	import type { Feedback } from '$lib/utils/types';
 	import { log } from '$lib/log';
 	import Loading from '$lib/components/molecules/Loading.svelte';
+	import { routeHistory } from '$lib/routeStore';
 
 	//
 
@@ -111,6 +112,12 @@
 		}
 		return newRecord;
 	}
+
+	const goToWallet = () => {
+		goto('/wallet', undefined, false).then(() => {
+			routeHistory.clear();
+		});
+	};
 </script>
 
 <Loading {loading} message={m.Generating_Keypair_()} />
@@ -199,7 +206,9 @@
 				<d-text size="m"
 					>{m.You_can_recover_your_keypair_by_answering_the_registration_questions_correctly_again()}</d-text
 				>
-				<d-button color="accent" href={r('/wallet')} expand>{m.Go_to_wallet()}</d-button>
+				<d-button color="accent" on:click={goToWallet} on:keydown={goToWallet} aria-hidden expand
+					>{m.Go_to_wallet()}</d-button
+				>
 			</div>
 		</div>
 	{/if}

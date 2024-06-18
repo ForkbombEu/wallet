@@ -12,6 +12,7 @@
 	import background from '$lib/assets/bg-5.svg';
 	import { Input } from '$lib/ionic/forms/index.js';
 	import Chat from '$lib/assets/Chat.svelte';
+	import { routeHistory } from '$lib/routeStore.js';
 
 	//
 
@@ -38,7 +39,9 @@
 				await generateDid();
 				await checkKeypairs();
 				await unlockApp();
-				await goto('/wallet');
+				await goto('/wallet', undefined, false);
+				routeHistory.clear();
+				await unlockApp();
 			} catch (e) {
 				feedback = {
 					type: 'error',

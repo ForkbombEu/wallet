@@ -2,6 +2,7 @@ import { r, type Langs } from '$lib/i18n';
 import { redirect } from '@sveltejs/kit';
 import { Device } from '@capacitor/device';
 import { getLanguagePreference, setLanguagePreference } from '$lib/preferences/lang';
+import { availableLanguageTags } from '$paraglide/runtime';
 
 const setInitialLanguage = async () => {
 	if (!(await getLanguagePreference())) {
@@ -12,7 +13,8 @@ const setInitialLanguage = async () => {
 
 const getLang = async () => {
 	const lang = await getLanguagePreference();
-	if (lang && ['it', 'en'].includes(lang)) return lang as Langs;
+	//@ts-expect-error lang is a string
+	if (lang && availableLanguageTags.includes(lang)) return lang as Langs;
 	return 'en' as Langs;
 };
 

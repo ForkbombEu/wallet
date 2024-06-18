@@ -3,7 +3,7 @@ import { addCredentialsToLocalStorage, login, tabBarClick } from './utils';
 
 test.describe('Verification Page', () => {
 	const verificationQR = `{
-            "exp": 1718583238,
+            "exp": 1758583238,
             "id": "83ox1ucuingjblb",
             "m": "f",
             "rp": "https://relying-party1.zenswarm.forkbomb.eu/relying_party/",
