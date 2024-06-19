@@ -2,17 +2,17 @@ import { getStructuredPreferences, setStructuredPreferences } from '.';
 import dayjs from 'dayjs';
 
 export type IssuedCredential = {
-    type: 'credential',
-    id: number;
-}
+	type: 'credential';
+	id: number;
+};
 
 export type Verification = {
 	type: 'verification';
 	verifier_name: string;
 	success: boolean;
 	rp_name: string;
-    sid: string;
-    properties: string[];
+	sid: string;
+	properties: string[];
 };
 
 export type ExpiredCredential = {
@@ -22,33 +22,51 @@ export type ExpiredCredential = {
 
 export type Activity = {
 	at: number;
+	read?: boolean;
 } & (IssuedCredential | Verification | ExpiredCredential);
 
 export const ACTIVITY_PREFERENCES_KEY = 'activity';
 
+export async function getNotReadedActivities() {
+	const activities = await getActivities();
+	if (!activities) return;
+	return activities.filter((activity) => !activity.read).length;
+}
+
 export async function addActivity(activity: Activity) {
-    const activities = await getActivities();
-    const at = dayjs().unix();
-    if (activities) {
-        activities.push({ ...activity, at });
-        await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, activities);
-        return;
-    }
-    await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, [{ ...activity, at }]);
+	const activities = await getActivities();
+	const at = dayjs().unix();
+	if (activities) {
+		activities.push({ ...activity, at });
+		await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, activities);
+		return;
+	}
+	await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, [{ ...activity, at }]);
 }
 
 export async function getActivities(): Promise<Activity[] | undefined> {
-    return await getStructuredPreferences(ACTIVITY_PREFERENCES_KEY);
+	return await getStructuredPreferences(ACTIVITY_PREFERENCES_KEY);
 }
 
 export async function clearActivities() {
-    await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, []);
+	await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, []);
 }
 
-
 export async function removeActivities(at: number[]) {
-    const activities = await getActivities();
-    if (!activities) return;
-    const newActivities = activities.filter((activity) => !at.includes(activity.at));
-    await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, newActivities);
+	const activities = await getActivities();
+	if (!activities) return;
+	const newActivities = activities.filter((activity) => !at.includes(activity.at));
+	await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, newActivities);
+}
+
+export async function setActivityAsRead(at: number) {
+	const activities = await getActivities();
+	if (!activities) return;
+	const newActivities = activities.map((activity) => {
+		if (activity.at === at) {
+			return { ...activity, read: true };
+		}
+		return activity;
+	});
+	await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, newActivities);
 }
