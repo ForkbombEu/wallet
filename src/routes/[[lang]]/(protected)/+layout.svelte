@@ -6,6 +6,10 @@
 	import { lockApp } from '$lib/preferences/locked';
 	import { onDestroy, onMount } from 'svelte';
 
+	export let data;
+	const { notReadedActivities } = data;
+	console.log(notReadedActivities)
+
 	//
 
 	onMount(() => {
@@ -21,10 +25,11 @@
 		App.removeAllListeners();
 	});
 
+
 	const tabs: IonTabProps[] = [
 		{ label: m.Home(), tab: Tabs.home },
 		{ label: m.Wallet(), tab: Tabs.wallet },
-		{ label: m.Notifications(), tab: Tabs.activity },
+		{ label: m.Notifications(), tab: Tabs.activity, hasAlert: Boolean(notReadedActivities) },
 		{ label: m.Profile(), tab: Tabs.profile }
 	];
 </script>

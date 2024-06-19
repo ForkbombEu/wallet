@@ -13,11 +13,14 @@
 	import { invalidate } from '$app/navigation';
 	import { _activityKey } from './+page.js';
 	import Bell from '$lib/assets/bell.svelte';
+	import { _protectedLayoutKey } from '../+layout.js';
+	import { onDestroy } from 'svelte';
 
 	dayjs.extend(relativeTime);
 
 	export let data;
 	let { activities, credentials } = data;
+	let setReaded = false;
 
 	const cancelActivity = async (activity: Activity) => {
 		await removeActivities([activity.at]);
@@ -34,12 +37,22 @@
 	function setAsRead(e) {
 		const observer = new IntersectionObserver((entries) => {
 			if (entries[0].isIntersecting) {
-				setTimeout(() => setActivityAsRead(Number(e.id)), 2000);
-				console.log('ss', e.id);
+				setTimeout(async () => {
+					if (activities.find((a)=>a.at === Number(e.id))?.read) return
+					await setActivityAsRead(Number(e.id))
+					setReaded = true
+				}, 2000)
+
 			}
 		});
 		observer.observe(e);
 	}
+
+	onDestroy(() => {
+		if (setReaded) {
+			invalidate(_protectedLayoutKey);
+		}
+	});
 </script>
 
 <TabPage tab="activity" title="ACTIVITY">
@@ -60,7 +73,7 @@
 					</div>
 				{:else}
 					<div
-						class={`itens-start border-strocke flex gap-4 rounded-lg border-y p-2 ${activity.read ? '' : 'bg-primary'}`}
+						class={`itens-start border-stroke flex gap-4 rounded-lg border-y p-2 ${activity.read ? '' : 'bg-primary'}`}
 						use:setAsRead
 						id={String(activity.at)}
 					>
@@ -99,7 +112,11 @@
 						{log(`credential ${activity.id} not found`)}
 					</div>
 				{:else}
-					<div class="itens-start border-strocke flex gap-4 border-b py-2">
+					<div
+						class={`itens-start border-stroke flex gap-4 rounded-lg border-y p-2 ${activity.read ? '' : 'bg-primary'}`}
+						use:setAsRead
+						id={String(activity.at)}
+					>
 						<d-avatar src={credential.logo} name={credential.display_name} shape="square" />
 						<div class="flex flex-col gap-2">
 							<h2>{credential.display_name} is expired</h2>
@@ -131,7 +148,7 @@
 			{:else if activity.type === 'verification'}
 				{@const { verifier_name, success, rp_name, sid, properties } = activity}
 				<div
-					class={`itens-start border-strocke flex gap-4 rounded-lg border-y p-2 ${activity.read ? '' : 'bg-primary'}`}
+					class={`itens-start border-stroke flex gap-4 rounded-lg border-y p-2 ${activity.read ? '' : 'bg-primary'}`}
 					use:setAsRead
 					id={String(activity.at)}
 				>
