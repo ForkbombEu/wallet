@@ -1,3 +1,10 @@
+# [1.49.0](https://github.com/ForkbombEu/wallet/compare/v1.48.2...v1.49.0) (2024-06-19)
+
+
+### Features
+
+* set activity as readed or unreaded ([#374](https://github.com/ForkbombEu/wallet/issues/374)) ([9feaf18](https://github.com/ForkbombEu/wallet/commit/9feaf18a85193947dbf4a16cca0ceea38c255365))
+
 ## [1.48.2](https://github.com/ForkbombEu/wallet/compare/v1.48.1...v1.48.2) (2024-06-18)
 
 
