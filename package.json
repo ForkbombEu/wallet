@@ -82,6 +82,8 @@
 		"@inlang/paraglide-js-adapter-sveltekit": "^0.5.10",
 		"@ionic/cli": "^7.2.0",
 		"@ionic/core": "^7.8.0",
+		"@sentry/capacitor": "^0.18.0",
+		"@sentry/sveltekit": "^8.9.2",
 		"@slangroom/core": "1.30",
 		"@slangroom/helpers": "^1.30",
 		"@slangroom/http": "1.30",
