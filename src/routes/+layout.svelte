@@ -15,19 +15,21 @@
 	import HiddenLogsButton from '$lib/components/molecules/HiddenLogsButton.svelte';
 	import { log } from '$lib/log';
 	import { routeHistory } from '$lib/routeStore';
-	import {  onMount } from 'svelte';
+	import { onMount } from 'svelte';
+	import { navigating } from '$app/stores';
+	import Loading from '$lib/components/molecules/Loading.svelte';
 
 	onMount(() => {
-			document.addEventListener('ionBackButton', (ev: any) => {
-		ev.detail.register(-1, () => {
-			if (isExitPoint()) App.exitApp();
-			else routeHistory.back();
+		document.addEventListener('ionBackButton', (ev: any) => {
+			ev.detail.register(-1, () => {
+				if (isExitPoint()) App.exitApp();
+				else routeHistory.back();
 			});
 
-	const isExitPoint = () => {
-		const exitPoints = [r('/home'), r('/login')];
-		return exitPoints.includes(window.location.pathname);
-	};
+			const isExitPoint = () => {
+				const exitPoints = [r('/home'), r('/login')];
+				return exitPoints.includes(window.location.pathname);
+			};
 		});
 	});
 </script>
@@ -62,6 +64,12 @@
 <ParaglideJS {i18n}>
 	<HiddenLogsButton />
 	<ion-app>
-		<slot />
+		{#if $navigating}
+			<div class="m-8">
+				<Loading />
+			</div>
+		{:else}
+			<slot />
+		{/if}
 	</ion-app>
 </ParaglideJS>
