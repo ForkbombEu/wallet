@@ -12,6 +12,7 @@ export type Tab = (typeof Tabs)[keyof typeof Tabs];
 export type IonTabProps = {
 	label: string;
 	tab: Tab;
+	hasAlert?:boolean;
 };
 
 //

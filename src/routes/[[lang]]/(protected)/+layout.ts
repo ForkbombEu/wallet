@@ -1,6 +1,6 @@
 import { isAlreadyBoarded } from '$lib/components/onBoarding/utils';
 import { r, type Langs } from '$lib/i18n';
-import { addActivity, getActivities } from '$lib/preferences/activity';
+import { addActivity, getActivities, getNotReadedActivities } from '$lib/preferences/activity';
 import { getExpiredCredentials } from '$lib/preferences/credentials';
 import { getDIDPreference } from '$lib/preferences/did';
 import { getKeypairPreference } from '$lib/preferences/keypair';
@@ -30,7 +30,10 @@ const checkIfThereAreExpiredCredentialsAndSetActivity = async () => {
 	});
 };
 
-export const load = async () => {
+export const _protectedLayoutKey = 'load:protected-layout';
+
+export const load = async ({depends}) => {
+	depends(_protectedLayoutKey);
 	const lang = await getLang();
 	const boarded = await isAlreadyBoarded();
 	if (!boarded) throw redirect(303, r('/on-boarding', lang));
@@ -42,4 +45,6 @@ export const load = async () => {
 	const isLocked = await isAppLocked();
 	if (isLocked) redirect(303, r('/unlock', lang));
 	else await lockApp(); // Locking back after the user has got in
+	const notReadedActivities = await getNotReadedActivities();
+	return {notReadedActivities}
 };

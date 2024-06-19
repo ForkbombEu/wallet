@@ -67,6 +67,7 @@
 				}}
 				aria-hidden
 				active={currentTabName === tab.tab}
+				hasAlert={tab.hasAlert}
 			>
 				{tab.label}
 			</d-tab-button>
