@@ -1,3 +1,11 @@
+## [1.49.1](https://github.com/ForkbombEu/wallet/compare/v1.49.0...v1.49.1) (2024-06-19)
+
+
+### Bug Fixes
+
+* show in tab bar if we have new activities ([#392](https://github.com/ForkbombEu/wallet/issues/392)) ([4f5ce4e](https://github.com/ForkbombEu/wallet/commit/4f5ce4e633ca579c091f66da598a405089983bde))
+* when fetching or computing data between pages use spinner/loader ([#391](https://github.com/ForkbombEu/wallet/issues/391)) ([f43b8b6](https://github.com/ForkbombEu/wallet/commit/f43b8b669127db652b077bc4608f3c06a8bbe408))
+
 # [1.49.0](https://github.com/ForkbombEu/wallet/compare/v1.48.2...v1.49.0) (2024-06-19)
 
 
