@@ -6,9 +6,11 @@
 	import { homeFeedbackStore } from '$lib/homeFeedbackStore';
 	import { credentialOfferStore } from '$lib/credentialOfferStore';
 	import type { Service as CredentialService } from '$lib/components/organisms/scanner/tools';
-	import Loading from '$lib/components/molecules/Loading.svelte';
 	import { getNotReadedActivities } from '$lib/preferences/activity';
 	import { getExpiredCredentials } from '$lib/preferences/credentials';
+
+	export let data;
+	const { services } = data;
 
 	let feedback: Feedback = $homeFeedbackStore;
 
@@ -49,28 +51,24 @@
 <TabPage tab="home" title="HOME">
 	<d-feedback {...feedback} on:dClose={onFeedbackClose} />
 	<br />
-	{#await getServices()}
-		<Loading />
-	{:then services}
-		<d-page-description
-			title={m.Claim_credential()}
-			description={m.Scan_QR_code_to_claim_credential_or_request_one_below()}
-		/>
+	<d-page-description
+		title={m.Claim_credential()}
+		description={m.Scan_QR_code_to_claim_credential_or_request_one_below()}
+	/>
 
-		<div class="flex flex-col gap-2">
-			{#each services as service}
-				<d-credential-service
-					name={service.display_name}
-					issuer={service.expand.credential_issuer.name}
-					logoSrc={service.logo}
-					description={service.description}
-					href="#"
-					on:click={() => gotoCrendentialOffer(service)}
-					on:keydown={() => gotoCrendentialOffer(service)}
-					aria-hidden
-				/>
-			{/each}
-		</div>
-	{/await}
+	<div class="flex flex-col gap-2">
+		{#each services as service}
+			<d-credential-service
+				name={service.display_name}
+				issuer={service.expand.credential_issuer.name}
+				logoSrc={service.logo}
+				description={service.description}
+				href="#"
+				on:click={() => gotoCrendentialOffer(service)}
+				on:keydown={() => gotoCrendentialOffer(service)}
+				aria-hidden
+			/>
+		{/each}
+	</div>
 	<div class="pb-24" />
 </TabPage>
