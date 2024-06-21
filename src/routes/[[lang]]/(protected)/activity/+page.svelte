@@ -22,8 +22,8 @@
 	let { activities, credentials } = data;
 	let setReaded = false;
 
-	const cancelActivity = async (activity: Activity) => {
-		await removeActivities([activity.at]);
+	const cancelActivity = async (at: number) => {
+		await removeActivities([at]);
 		await invalidate(_activityKey);
 		activities = data.activities;
 	};
@@ -34,7 +34,7 @@
 		activities = data.activities;
 	};
 
-	function setAsRead(e:Element) {
+	function setAsRead(e: Element) {
 		const observer = new IntersectionObserver((entries) => {
 			if (entries[0].isIntersecting) {
 				setTimeout(async () => {
@@ -53,20 +53,40 @@
 		}
 	});
 
-	function parseActivities(activities: Activity[], credentials?: Credential[]) {
+	type ParsedActivity = {
+		name: string;
+		logo: { url: string; alt_text: string };
+		description: string;
+		date: string;
+		message: string;
+		cardType: string;
+		credential?: Credential;
+		read?: boolean;
+		at: number;
+	};
+
+	function parseActivities(activities: Activity[], credentials?: Credential[]): ParsedActivity[] {
 		function findCredentialById(id: number) {
 			return credentials?.find((cred) => cred.id === id);
 		}
 
 		function formatActivity(activity: Activity) {
-			let parsedActivity = { ...activity } as any;
+			let parsedActivity: ParsedActivity = {
+				name: '',
+				logo: { url: '', alt_text: '' },
+				description: '',
+				date: '',
+				message: '',
+				cardType: '',
+				at: 0
+			};
 			parsedActivity.date = dayjs().to(dayjs.unix(activity.at));
 
 			if (activity.type === 'credential' || activity.type === 'expired') {
 				const credential = findCredentialById(activity.id);
 				if (!credential) {
 					console.log(`credential ${activity.id} not found`);
-					return null;
+					return;
 				}
 				parsedActivity.name = credential.display_name;
 				parsedActivity.logo = credential.logo;
@@ -89,8 +109,13 @@
 			return parsedActivity;
 		}
 
-		return activities.reverse().map(formatActivity).filter(Boolean);
+		return activities
+			.reverse()
+			.map(formatActivity)
+			.filter((activity): activity is ParsedActivity => Boolean(activity));
 	}
+
+	console.log(parseActivities(activities, credentials));
 </script>
 
 <TabPage tab="activity" title="ACTIVITY">
@@ -112,12 +137,22 @@
 				id={String(activity.at)}
 				use:setAsRead
 			>
-				<d-button size="small" color="accent" onClick={async () => await cancelActivity(activity)}>
+				<d-button
+					size="small"
+					color="accent"
+					onClick={async () => await cancelActivity(activity.at)}
+				>
 					remove
 				</d-button>
-				<d-button size="small" color="primary" href={r(`/${activity.id}/credential-detail`)}>
-					show me!
-				</d-button>
+				{#if activity.credential}
+					<d-button
+						size="small"
+						color="primary"
+						href={r(`/${activity.credential.id}/credential-detail`)}
+					>
+						show me!
+					</d-button>
+				{/if}
 			</d-activity-card>
 		{:else}
 			<div class="flex h-3/5 flex-col items-center justify-center gap-1">
