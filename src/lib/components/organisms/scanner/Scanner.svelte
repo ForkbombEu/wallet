@@ -79,7 +79,7 @@
 	//
 
 	document.addEventListener('ionBackButton', (ev: any) => {
-		ev.detail.register(5, (processNextHandler:()=>{}) => {
+		ev.detail.register(5, (processNextHandler: () => {}) => {
 			stopScan();
 			processNextHandler();
 		});
@@ -117,7 +117,7 @@
 	{#if !isWeb}
 		{#await awaitPermissions()}
 			<div class="flex h-full w-full items-center justify-center">
-				<FingerPrint/>
+				<FingerPrint />
 			</div>
 		{:then permissionsGranted}
 			{#if !permissionsGranted}
@@ -157,12 +157,10 @@
 
 					<div class="viewfinderBg w-full flex-grow">
 						<div class="ion-padding">
-							<d-heading size="s">
-								<h2>{m.Scan_QR_to_verify_or_obtain_credentials_()}</h2>
-							</d-heading>
-							<d-text size="l">
-								<p class="pb-4">{m.Make_sure_to_scan_the_full_QR_surface_()}</p></d-text
-							>
+							<d-page-description
+								title={m.Scan_QR_to_verify_or_obtain_credentials_()}
+								description={m.Make_sure_to_scan_the_full_QR_surface_()}
+							/>
 						</div>
 					</div>
 				</div>

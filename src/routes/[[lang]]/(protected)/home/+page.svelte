@@ -21,13 +21,11 @@
 			} as Feedback);
 		}
 		const expiredCredentials = await getExpiredCredentials();
-		const expiredLenght = expiredCredentials.length
+		const expiredLenght = expiredCredentials.length;
 		if (expiredLenght > 0) {
 			homeFeedbackStore.set({
 				type: 'error',
-				feedback: `You have ${expiredLenght} expired credential${
-					expiredLenght > 1 ? 's' : ''
-				}.`
+				feedback: `You have ${expiredLenght} expired credential${expiredLenght > 1 ? 's' : ''}.`
 			});
 		}
 	};
@@ -54,12 +52,10 @@
 	{#await getServices()}
 		<Loading />
 	{:then services}
-		<d-heading>
-			<h1>{m.Claim_credential()}</h1>
-		</d-heading>
-		<d-text size="l">
-			<p class="pb-4">{m.Scan_QR_code_to_claim_credential_or_request_one_below()}</p></d-text
-		>
+		<d-page-description
+			title={m.Claim_credential()}
+			description={m.Scan_QR_code_to_claim_credential_or_request_one_below()}
+		/>
 
 		<div class="flex flex-col gap-2">
 			{#each services as service}
