@@ -67,7 +67,6 @@
 		<Illustration {background}>
 			<Pidgeon />
 		</Illustration>
-		<!-- <Illustration img="pidgeon" {background} /> -->
 		<div>
 			<div class="flex flex-col">
 				<div class="flex w-full flex-col items-center gap-4 px-8">

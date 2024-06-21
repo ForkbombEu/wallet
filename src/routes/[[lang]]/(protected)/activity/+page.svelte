@@ -9,7 +9,7 @@
 		setActivityAsRead
 	} from '$lib/preferences/activity';
 	import { r } from '$lib/i18n';
-	import { log } from '$lib/log.js';
+	import type { Credential } from '$lib/preferences/credentials';
 	import { invalidate } from '$app/navigation';
 	import { _activityKey } from './+page.js';
 	import Bell from '$lib/assets/bell.svelte';
@@ -34,15 +34,14 @@
 		activities = data.activities;
 	};
 
-	function setAsRead(e) {
+	function setAsRead(e:Element) {
 		const observer = new IntersectionObserver((entries) => {
 			if (entries[0].isIntersecting) {
 				setTimeout(async () => {
-					if (activities.find((a)=>a.at === Number(e.id))?.read) return
-					await setActivityAsRead(Number(e.id))
-					setReaded = true
-				}, 2000)
-
+					if (activities.find((a) => a.at === Number(e.id))?.read) return;
+					await setActivityAsRead(Number(e.id));
+					setReaded = true;
+				}, 2000);
 			}
 		});
 		observer.observe(e);
@@ -53,129 +52,73 @@
 			invalidate(_protectedLayoutKey);
 		}
 	});
+
+	function parseActivities(activities: Activity[], credentials?: Credential[]) {
+		function findCredentialById(id: number) {
+			return credentials?.find((cred) => cred.id === id);
+		}
+
+		function formatActivity(activity: Activity) {
+			let parsedActivity = { ...activity } as any;
+			parsedActivity.date = dayjs().to(dayjs.unix(activity.at));
+
+			if (activity.type === 'credential' || activity.type === 'expired') {
+				const credential = findCredentialById(activity.id);
+				if (!credential) {
+					console.log(`credential ${activity.id} not found`);
+					return null;
+				}
+				parsedActivity.name = credential.display_name;
+				parsedActivity.logo = credential.logo;
+				parsedActivity.description = credential.description;
+				parsedActivity.credential = credential;
+				if (activity.type === 'credential') {
+					parsedActivity.message = `${credential.issuer} issued ${credential.display_name} to you`;
+					parsedActivity.cardType = 'warning';
+				} else {
+					parsedActivity.message = `${credential.display_name} is expired`;
+					parsedActivity.cardType = 'error';
+				}
+			} else if (activity.type === 'verification') {
+				const { verifier_name, success, rp_name, properties } = activity;
+				parsedActivity.message = `${verifier_name} verified yours: ${properties.join(', ')} via ${rp_name} and it was a ${
+					success ? 'success' : 'failure'
+				}`;
+				parsedActivity.cardType = 'warning';
+			}
+			return parsedActivity;
+		}
+
+		return activities.reverse().map(formatActivity).filter(Boolean);
+	}
 </script>
 
 <TabPage tab="activity" title="ACTIVITY">
-	<!-- action clear all activity -->
-
 	<div class="flex flex-col">
 		{#if activities.length > 0}
 			<div class="flex justify-end gap-2.5 pb-4">
 				<d-button size="small" color="accent" onClick={clear}> clear all </d-button>
 			</div>
 		{/if}
-		{#each activities.reverse() as activity}
-			{#if activity.type === 'credential'}
-				{@const credential = credentials?.find((cred) => cred.id === activity.id)}
-				{#if !credential}
-					<div class="hidden">
-						{log(`credential ${activity.id} not found`)}
-					</div>
-				{:else}
-					<div
-						class={`itens-start border-stroke flex gap-4 rounded-lg border-y p-2 ${activity.read ? '' : 'bg-primary'}`}
-						use:setAsRead
-						id={String(activity.at)}
-					>
-						<d-avatar src={credential.logo} name={credential.display_name} shape="square" />
-						<div class="flex flex-col gap-2">
-							<h2>{credential.issuer} issued {credential.display_name} to you</h2>
-							<d-text size="s" class="text-on-alt">{credential.description}</d-text>
-							<div class="flex items-center gap-2.5">
-								<d-info-led type="warning" />
-								<d-text size="xs">{dayjs().to(dayjs.unix(activity.at))}</d-text>
-							</div>
-							<!-- actions: cancel, goto -->
-							<div class="flex justify-end gap-2.5">
-								<d-button
-									size="small"
-									color="accent"
-									onClick={async () => await cancelActivity(activity)}
-								>
-									remove
-								</d-button>
-								<d-button
-									size="small"
-									color="primary"
-									href={r(`/${activity.id}/credential-detail`)}
-								>
-									show me!
-								</d-button>
-							</div>
-						</div>
-					</div>
-				{/if}
-			{:else if activity.type === 'expired'}
-				{@const credential = credentials?.find((cred) => cred.id === activity.id)}
-				{#if !credential}
-					<div class="hidden">
-						{log(`credential ${activity.id} not found`)}
-					</div>
-				{:else}
-					<div
-						class={`itens-start border-stroke flex gap-4 rounded-lg border-y p-2 ${activity.read ? '' : 'bg-primary'}`}
-						use:setAsRead
-						id={String(activity.at)}
-					>
-						<d-avatar src={credential.logo} name={credential.display_name} shape="square" />
-						<div class="flex flex-col gap-2">
-							<h2>{credential.display_name} is expired</h2>
-							<d-text size="s" class="text-on-alt">{credential.description}</d-text>
-							<div class="flex items-center gap-2.5">
-								<d-info-led type="error" />
-								<d-text size="xs">{dayjs().to(dayjs.unix(activity.at))}</d-text>
-							</div>
-							<!-- actions: cancel, goto -->
-							<div class="flex justify-end gap-2.5">
-								<d-button
-									size="small"
-									color="accent"
-									onClick={async () => await cancelActivity(activity)}
-								>
-									remove
-								</d-button>
-								<d-button
-									size="small"
-									color="primary"
-									href={r(`/${activity.id}/credential-detail`)}
-								>
-									show me!
-								</d-button>
-							</div>
-						</div>
-					</div>
-				{/if}
-			{:else if activity.type === 'verification'}
-				{@const { verifier_name, success, rp_name, sid, properties } = activity}
-				<div
-					class={`itens-start border-stroke flex gap-4 rounded-lg border-y p-2 ${activity.read ? '' : 'bg-primary'}`}
-					use:setAsRead
-					id={String(activity.at)}
-				>
-					<d-avatar name={verifier_name} shape="square" />
-					<div class="flex flex-col gap-2">
-						<h2>
-							{verifier_name} verified yours: {#each properties as property}
-								{property},{' '}
-							{/each}via {rp_name} and it was a {success ? 'success' : 'failure'}
-						</h2>
-						<d-text size="s" class="text-on-alt">session id: {sid}</d-text>
-						<div class="flex items-center gap-2.5">
-							<d-info-led type="warning" />
-							<d-text size="xs">{dayjs().to(dayjs.unix(activity.at))}</d-text>
-						</div>
-						<div class="flex justify-end gap-2.5">
-							<d-button
-								size="small"
-								color="accent"
-								onClick={async () => await cancelActivity(activity)}
-							>
-								remove
-							</d-button>
-						</div>
-					</div>
-				</div>
-			{/if}
+		{#each parseActivities(activities, credentials) as activity}
+			<d-activity-card
+				name={activity.name}
+				logo={activity.logo}
+				description={activity.description}
+				date={dayjs().to(dayjs.unix(activity.at))}
+				type={activity.cardType}
+				read={activity.read}
+				message={activity.message}
+				id={String(activity.at)}
+				use:setAsRead
+			>
+				<d-button size="small" color="accent" onClick={async () => await cancelActivity(activity)}>
+					remove
+				</d-button>
+				<d-button size="small" color="primary" href={r(`/${activity.id}/credential-detail`)}>
+					show me!
+				</d-button>
+			</d-activity-card>
 		{:else}
 			<div class="flex h-3/5 flex-col items-center justify-center gap-1">
 				<div>
