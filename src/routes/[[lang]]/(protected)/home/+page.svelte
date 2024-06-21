@@ -1,6 +1,6 @@
 <script lang="ts">
 	import TabPage from '$lib/tabs/TabPage.svelte';
-	import { getServices, type Service } from '$lib/slangroom/services';
+	import type { Service } from '$lib/slangroom/services';
 	import { goto, m } from '$lib/i18n';
 	import type { Feedback } from '$lib/utils/types';
 	import { homeFeedbackStore } from '$lib/homeFeedbackStore';
@@ -50,12 +50,10 @@
 
 <TabPage tab="home" title="HOME">
 	<d-feedback {...feedback} on:dClose={onFeedbackClose} />
-	<br />
 	<d-page-description
 		title={m.Claim_credential()}
 		description={m.Scan_QR_code_to_claim_credential_or_request_one_below()}
 	/>
-
 	<div class="flex flex-col gap-2">
 		{#each services as service}
 			<d-credential-service
@@ -70,5 +68,4 @@
 			/>
 		{/each}
 	</div>
-	<div class="pb-24" />
 </TabPage>
