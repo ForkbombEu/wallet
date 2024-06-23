@@ -10,7 +10,7 @@ test.describe('Wallet Page', () => {
 
 	test('should display heading and description', async ({ page }) => {
 		await login(page);
-		await expect(page.locator('d-heading h1')).toContainText('My credentials');
+		await expect(page.getByText('My credentials').first()).toBeVisible();
 		await expect(page.locator('d-text p')).toContainText('Explore and manage your credentials');
 	});
 

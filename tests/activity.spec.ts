@@ -31,7 +31,7 @@ test.describe('Activity Page', () => {
 		await page.evaluate(addActivitiesToLocalStorage);
 		await tabBarClick('Home', page);
 		await tabBarClick('Activity', page);
-		const activityLocator = page.locator('.itens-start');
+		const activityLocator = page.locator('d-activity-card');
 		await expect(activityLocator.first()).toBeVisible();
 	});
 
