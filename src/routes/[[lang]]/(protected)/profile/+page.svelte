@@ -19,7 +19,7 @@
 		<d-avatar src={authFilesUri(user?.avatar, user?.id)} size="xl"></d-avatar>
 		<d-heading size="s" class="w-full">{user?.name || user?.email}</d-heading>
 		<d-text size="s" class="w-full"
-			><span>did</span>
+			><span>{'did'}</span>
 			<span class="text-gray-400">:</span>
 			<span class="text-warning">{method}</span>
 			<span class="text-gray-400">:</span>

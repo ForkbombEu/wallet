@@ -94,10 +94,10 @@
 			<div class="-mb-16">
 				<Pidgeon />
 			</div>
-			<d-heading size="s">The service seems to be out of reach</d-heading>
+			<d-heading size="s">{m.The_service_seems_to_be_out_of_reach()}</d-heading>
 			<!-- <d-text size="l" class="pb-4">Try oth</d-text> -->
 			<d-button expand color="outline" href={r('/home')} class="w-full">
-				Go to home <ion-icon slot="end" icon={arrowForwardOutline} />
+				{m.Go_to_home()} <ion-icon slot="end" icon={arrowForwardOutline} />
 			</d-button>
 		</div>
 	{:else}
@@ -148,10 +148,10 @@
 							<div class="ion-padding flex w-full flex-col gap-2">
 								<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"
 								></ion-icon>
-								<d-text class="break-words">credential: {serviceResponse.credential}</d-text>
-								<d-text class="break-words">c_nonce: {serviceResponse.c_nonce}</d-text>
+								<d-text class="break-words">{m.credential()}: {serviceResponse.credential}</d-text>
+								<d-text class="break-words">{'c_nonce'}: {serviceResponse.c_nonce}</d-text>
 								<d-text class="break-words"
-									>c_nonce_expires_in: {serviceResponse.c_nonce_expires_in}</d-text
+									>{'c_nonce_expires_in'}: {serviceResponse.c_nonce_expires_in}</d-text
 								>
 							</div>
 						{/if}

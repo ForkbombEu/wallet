@@ -8,7 +8,7 @@
 		type Activity,
 		setActivityAsRead
 	} from '$lib/preferences/activity';
-	import { r } from '$lib/i18n';
+	import { r, m } from '$lib/i18n';
 	import { log } from '$lib/log.js';
 	import { invalidate } from '$app/navigation';
 	import { _activityKey } from './+page.js';
@@ -61,7 +61,7 @@
 	<div class="flex flex-col">
 		{#if activities.length > 0}
 			<div class="flex justify-end gap-2.5 pb-4">
-				<d-button size="small" color="accent" onClick={clear}> clear all </d-button>
+				<d-button size="small" color="accent" onClick={clear}> {m.clear_all()} </d-button>
 			</div>
 		{/if}
 		{#each activities.reverse() as activity}
@@ -79,7 +79,7 @@
 					>
 						<d-avatar src={credential.logo} name={credential.display_name} shape="square" />
 						<div class="flex flex-col gap-2">
-							<h2>{credential.issuer} issued {credential.display_name} to you</h2>
+							<h2>{credential.issuer} {m.issued()} {credential.display_name} {m.to_you()}</h2>
 							<d-text size="s" class="text-on-alt">{credential.description}</d-text>
 							<div class="flex items-center gap-2.5">
 								<d-info-led type="warning" />
@@ -92,14 +92,14 @@
 									color="accent"
 									onClick={async () => await cancelActivity(activity)}
 								>
-									remove
+									{m.remove()}
 								</d-button>
 								<d-button
 									size="small"
 									color="primary"
 									href={r(`/${activity.id}/credential-detail`)}
 								>
-									show me!
+									{m.show_me()}
 								</d-button>
 							</div>
 						</div>
@@ -119,7 +119,7 @@
 					>
 						<d-avatar src={credential.logo} name={credential.display_name} shape="square" />
 						<div class="flex flex-col gap-2">
-							<h2>{credential.display_name} is expired</h2>
+							<h2>{credential.display_name} {m.is_expired()}</h2>
 							<d-text size="s" class="text-on-alt">{credential.description}</d-text>
 							<div class="flex items-center gap-2.5">
 								<d-info-led type="error" />
@@ -132,14 +132,14 @@
 									color="accent"
 									onClick={async () => await cancelActivity(activity)}
 								>
-									remove
+									{m.remove()}
 								</d-button>
 								<d-button
 									size="small"
 									color="primary"
 									href={r(`/${activity.id}/credential-detail`)}
 								>
-									show me!
+									{m.show_me()}
 								</d-button>
 							</div>
 						</div>
@@ -155,11 +155,11 @@
 					<d-avatar name={verifier_name} shape="square" />
 					<div class="flex flex-col gap-2">
 						<h2>
-							{verifier_name} verified yours: {#each properties as property}
+							{verifier_name} {m.verified_yours()} {#each properties as property}
 								{property},{' '}
-							{/each}via {rp_name} and it was a {success ? 'success' : 'failure'}
+							{/each}{m.via()} {rp_name} {m.and_it_was_a()} {success ? 'success' : 'failure'}
 						</h2>
-						<d-text size="s" class="text-on-alt">session id: {sid}</d-text>
+						<d-text size="s" class="text-on-alt">{m.session_id()} {sid}</d-text>
 						<div class="flex items-center gap-2.5">
 							<d-info-led type="warning" />
 							<d-text size="xs">{dayjs().to(dayjs.unix(activity.at))}</d-text>
@@ -170,7 +170,7 @@
 								color="accent"
 								onClick={async () => await cancelActivity(activity)}
 							>
-								remove
+								{m.remove()}
 							</d-button>
 						</div>
 					</div>
@@ -181,9 +181,9 @@
 				<div>
 					<Bell />
 				</div>
-				<d-heading size="s">No activity yet</d-heading>
+				<d-heading size="s">{m.No_activity_yet()}</d-heading>
 				<d-text size="l" class="pb-4 text-center"
-					>Get alerts on new activities and keep your account up-to-date.</d-text
+					>{m.Get_alerts_on_new_activities_and_keep_your_account_uptodate_()}</d-text
 				>
 			</div>
 		{/each}

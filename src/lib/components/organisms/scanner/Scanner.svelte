@@ -147,7 +147,7 @@
 						{m.To_scan_QR_codes_allow_us_to_use_your_camera_in_Settings()}
 					</d-text>
 					<d-button expand on:click={openSettings} on:keydown={openSettings} aria-hidden>
-						NOTIFICATIONS SETTINGS <ion-icon slot="end" icon={arrowForwardOutline} />
+						{m.NOTIFICATIONS_SETTINGS()} <ion-icon slot="end" icon={arrowForwardOutline} />
 					</d-button>
 				</div>
 			{:else}
@@ -185,7 +185,7 @@
 		{/await}
 	{:else}
 		<div class="flex flex-col gap-4 px-8 pt-16">
-			<d-text size="l">Insert a valid JSON here pete</d-text>
+			<d-text size="l">{m.Insert_a_valid_JSON_here()}</d-text>
 			<textarea bind:value={inputText} class="h-80 w-full p-4 text-primary" />
 			<d-button on:click={submitJson} on:keydown={submitJson} aria-hidden>
 				{m.Submit()}

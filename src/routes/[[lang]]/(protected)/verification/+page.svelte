@@ -101,7 +101,7 @@
 	};
 </script>
 
-<Header>Verification</Header>
+<Header>{m.Verification()}</Header>
 
 <ion-content fullscreen class="ion-padding">
 	{#if verificated}
@@ -118,27 +118,27 @@
 					<div
 						class="flex h-6 items-center justify-center rounded-md border border-solid border-success px-2"
 					>
-						<d-text class="text-xs text-success">Verifier App</d-text>
+						<d-text class="text-xs text-success">{m.Verifier_App()}</d-text>
 					</div>
 				</div>
-				<d-heading size="xs">Is asking for verification</d-heading><br />
+				<d-heading size="xs">{m.Is_asking_for_verification()}</d-heading><br />
 			</div>
 
 			<div>
-				<d-text size="l">About this verifications:</d-text>
+				<d-text size="l">{m.About_this_verifications()}</d-text>
 				<div class="flex flex-col items-start gap-2.5 rounded-[5px] bg-primary px-5 py-5">
 					<div class="flex items-center gap-2.5">
 						<WarningDot />
-						<d-text><b>Relying party:</b> {rp_name}</d-text>
+						<d-text><b>{m.Relying_party()}:</b> {rp_name}</d-text>
 					</div>
 					<div class="flex items-center gap-2.5">
 						<WarningDot />
-						<d-text class="break-all"><b>Url:</b> {post.url}</d-text>
+						<d-text class="break-all"><b>{m.Url()}:</b> {post.url}</d-text>
 					</div>
 				</div>
 			</div>
 			<div>
-				<d-text size="l">Confirm data to be disclosed:</d-text>
+				<d-text size="l">{m.Confirm_data_to_be_disclosed()}:</d-text>
 				<div class="flex flex-col items-start gap-2.5 rounded-[5px] bg-primary px-5 py-5">
 					{#each propertiesArray as property}
 						<div class="flex items-center gap-2.5">
@@ -150,7 +150,7 @@
 			</div>
 
 			<div class="flex flex-col gap-2">
-				<d-text>Are you sure?</d-text>
+				<d-text>{m.Are_you_sure()}</d-text>
 				<d-button
 					on:click={() => request()}
 					on:keydown={() => request()}
