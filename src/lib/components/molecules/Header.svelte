@@ -1,11 +1,20 @@
-<script>
+<script lang='ts'>
 	import { chevronBackOutline } from 'ionicons/icons';
 	import { m } from '$lib/i18n';
 	import SettingsIcon from '$lib/assets/Settings.svelte';
 	import Settings from './Settings.svelte';
 	import { routeHistory } from '$lib/routeStore';
+	import { menuController } from '@ionic/core/components';
+	// import { onDestroy } from 'svelte';
 	export let backButton = true;
 	export let settings = false;
+
+	document.addEventListener('ionBackButton', (ev: any) => {
+		ev.detail.register(5, (processNextHandler: () => {}) => {
+			menuController.close();
+			// processNextHandler();
+		});
+	});
 </script>
 
 <ion-header class="shadow-none" translucent>
