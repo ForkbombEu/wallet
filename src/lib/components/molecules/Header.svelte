@@ -1,4 +1,4 @@
-<script lang='ts'>
+<script lang="ts">
 	import { chevronBackOutline } from 'ionicons/icons';
 	import { m } from '$lib/i18n';
 	import SettingsIcon from '$lib/assets/Settings.svelte';
@@ -10,9 +10,11 @@
 	export let settings = false;
 
 	document.addEventListener('ionBackButton', (ev: any) => {
-		ev.detail.register(5, (processNextHandler: () => {}) => {
-			menuController.close();
-			// processNextHandler();
+		ev.detail.register(7, async (processNextHandler: () => {}) => {
+			if (await menuController.getOpen()) {
+				menuController.close();
+			}
+			processNextHandler();
 		});
 	});
 </script>
@@ -20,15 +22,15 @@
 <ion-header class="shadow-none" translucent>
 	<ion-toolbar>
 		{#if backButton}
-			<ion-buttons slot="start">
-				<ion-button
-					on:click={() => routeHistory.back()}
-					on:keydown={() => routeHistory.back()}
-					aria-hidden
-				>
-					<ion-icon icon={chevronBackOutline} slot="icon-only"></ion-icon>
-				</ion-button>
-			</ion-buttons>
+		<ion-buttons slot="start">
+			<ion-button
+				on:click={() => routeHistory.back()}
+				on:keydown={() => routeHistory.back()}
+				aria-hidden
+			>
+				<ion-icon icon={chevronBackOutline} slot="icon-only"></ion-icon>
+			</ion-button>
+		</ion-buttons>
 		{/if}
 		<ion-title class="text-center">
 			<slot />

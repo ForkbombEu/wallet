@@ -3,17 +3,18 @@
 	import IonTabs from '$lib/tabs/IonTabs.svelte';
 	import { App } from '@capacitor/app';
 	import { goto, m } from '$lib/i18n';
-	import { lockApp } from '$lib/preferences/locked';
 	import { onDestroy, onMount } from 'svelte';
+	import { lockApp } from '$lib/preferences/locked';
+	import type { PluginListenerHandle } from '@capacitor/core';
 
 	export let data;
 	const { notReadedActivities } = data;
-	console.log(notReadedActivities)
+	let appStateChange: Promise<PluginListenerHandle> & PluginListenerHandle;
 
 	//
 
 	onMount(() => {
-		App.addListener('appStateChange', async (state) => {
+		appStateChange = App.addListener('appStateChange', async (state) => {
 			if (!state.isActive) {
 				await lockApp();
 				await goto('/unlock');
@@ -22,9 +23,8 @@
 	});
 
 	onDestroy(() => {
-		App.removeAllListeners();
+		appStateChange.remove();
 	});
-
 
 	const tabs: IonTabProps[] = [
 		{ label: m.Home(), tab: Tabs.home },
