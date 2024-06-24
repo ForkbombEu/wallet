@@ -48,8 +48,8 @@
 	</div>
 	<div>
 		<div class="flex w-full flex-col items-center gap-6 px-8">
-			<d-heading sixe="s">Choose your password</d-heading>
-			<d-text size="l">Your password should be between 8 and 73 character</d-text>
+			<d-heading sixe="s">{m.Choose_your_password()}</d-heading>
+			<d-text size="l">{m.Your_password_should_be_between_8_and_73_character()}</d-text>
 
 			<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
 				<Input
