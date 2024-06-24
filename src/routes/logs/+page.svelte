@@ -22,9 +22,9 @@
 
 <div class="ion-padding flex h-screen flex-col gap-4 overflow-auto" bind:this={element}>
 	<div class="flex gap-2">
-		<d-button href={r('/home')}> back </d-button>
-		<d-button on:click={clear}> clear </d-button>
-		<d-button on:click={clearPreferences}> clear storage </d-button>
+		<d-button href={r('/home')}> {'back'} </d-button>
+		<d-button on:click={clear}> {'clear'} </d-button>
+		<d-button on:click={clearPreferences}> {'clear storage'} </d-button>
 	</div>
 	{#if logs}
 		{#each logs as log}
