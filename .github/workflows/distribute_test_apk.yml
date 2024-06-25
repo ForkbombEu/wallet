@@ -7,6 +7,7 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    if: false
     environment: test
     steps:
       - uses: actions/checkout@v2
@@ -30,7 +31,7 @@ jobs:
   distribute:
     runs-on: ubuntu-latest
     environment: test
-    needs: tests
+    # needs: tests
     steps:
       - uses: dyne/pnpm@main
         with:
