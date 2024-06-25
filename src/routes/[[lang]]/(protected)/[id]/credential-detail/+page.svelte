@@ -6,7 +6,7 @@
 	import { decodeSdJwt } from '$lib/openId4vci';
 
 	const isNestedDisclosure = (disclosure: Array<string | Record<string, string>>) => {
-		return typeof disclosure[2] !== 'string';
+		return typeof disclosure[2] === 'object';
 	};
 </script>
 
