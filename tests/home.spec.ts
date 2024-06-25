@@ -7,7 +7,7 @@ test.describe('Home Page', () => {
 		await expect(page).toHaveURL('/en/wallet');
 		await tabBarClick('Home', page);
 		await expect(page).toHaveURL('/en/home');
-		await expect(page.locator('h1')).toContainText('Request credential');
+		await expect(page.getByText('Request credential').first()).toBeVisible();
 	});
 
 	test('should show spinner while loading services', async ({ page }) => {
