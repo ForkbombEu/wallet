@@ -48,7 +48,7 @@
 </script>
 
 <Loading {loading} />
-<Header>Reset password</Header>
+<Header>{m.Reset_password()}</Header>
 <div class="flex min-h-screen flex-col place-content-between">
 	<d-feedback {...feedback} />
 	<div class="grow">
@@ -63,8 +63,8 @@
 							<div class="mx-auto">
 								<CircleCheck />
 							</div>
-							<d-heading size="s">Request sent</d-heading>
-							<d-text size="l">Check your email for further instructions</d-text>
+							<d-heading size="s">{m.Request_sent()}</d-heading>
+							<d-text size="l">{m.Check_your_email_for_further_instructions()}</d-text>
 						</div>
 						<div class="w-full">
 							<d-button
@@ -75,7 +75,7 @@
 								color="accent"
 								class="mt-4"
 							>
-								OK
+								{m.OK()}
 							</d-button>
 						</div>
 					</div>
@@ -84,7 +84,7 @@
 				<div class="flex flex-col">
 					<div class="flex w-full flex-col items-center gap-4 px-8">
 						<div class="flex w-full flex-col gap-2 pt-8">
-							<d-heading sixe="s">reset your password</d-heading>
+							<d-heading sixe="s">{m.reset_your_password()}</d-heading>
 							<d-text size="l">{m.enter_your_email_to_get_started()}.</d-text>
 						</div>
 

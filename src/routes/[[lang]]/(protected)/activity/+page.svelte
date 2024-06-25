@@ -8,8 +8,8 @@
 		type Activity,
 		setActivityAsRead
 	} from '$lib/preferences/activity';
-	import { r } from '$lib/i18n';
 	import type { Credential } from '$lib/preferences/credentials';
+	import { r, m } from '$lib/i18n';
 	import { invalidate } from '$app/navigation';
 	import { _activityKey } from './+page.js';
 	import Bell from '$lib/assets/bell.svelte';
@@ -122,7 +122,7 @@
 	<div class="flex flex-col">
 		{#if activities.length > 0}
 			<div class="flex justify-end gap-2.5 pb-4">
-				<d-button size="small" color="accent" onClick={clear}> clear all </d-button>
+				<d-button size="small" color="accent" onClick={clear}> {m.clear_all()} </d-button>
 			</div>
 		{/if}
 		{#each parseActivities(activities, credentials) as activity}
@@ -142,7 +142,7 @@
 					color="accent"
 					onClick={async () => await cancelActivity(activity.at)}
 				>
-					remove
+					{m.remove()}
 				</d-button>
 				{#if activity.credential}
 					<d-button
@@ -150,7 +150,7 @@
 						color="primary"
 						href={r(`/${activity.credential.id}/credential-detail`)}
 					>
-						show me!
+						{m.show_me()}
 					</d-button>
 				{/if}
 			</d-activity-card>
@@ -159,9 +159,9 @@
 				<div>
 					<Bell />
 				</div>
-				<d-heading size="s">No activity yet</d-heading>
+				<d-heading size="s">{m.No_activity_yet()}</d-heading>
 				<d-text size="l" class="pb-4 text-center"
-					>Get alerts on new activities and keep your account up-to-date.</d-text
+					>{m.Get_alerts_on_new_activities_and_keep_your_account_uptodate_()}</d-text
 				>
 			</div>
 		{/each}

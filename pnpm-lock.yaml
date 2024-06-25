@@ -181,6 +181,9 @@ devDependencies:
   eslint-config-prettier:
     specifier: ^9.1.0
     version: 9.1.0(eslint@8.57.0)
+  eslint-plugin-localization:
+    specifier: file:plugins/localization
+    version: file:plugins/localization
   eslint-plugin-svelte:
     specifier: ^2.35.1
     version: 2.39.0(eslint@8.57.0)(svelte@4.2.17)
@@ -10802,3 +10805,9 @@ packages:
   /zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
     dev: false
+
+  file:plugins/localization:
+    resolution: {directory: plugins/localization, type: directory}
+    name: eslint-plugin-localization
+    version: 1.0.0
+    dev: true

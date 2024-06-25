@@ -1,3 +1,10 @@
+## [1.49.2](https://github.com/ForkbombEu/wallet/compare/v1.49.1...v1.49.2) (2024-06-24)
+
+
+### Bug Fixes
+
+* enforce locale text in every view ([#394](https://github.com/ForkbombEu/wallet/issues/394)) ([604fecc](https://github.com/ForkbombEu/wallet/commit/604feccd7289c5033188494fcf67d58d82924a4d)), closes [#390](https://github.com/ForkbombEu/wallet/issues/390)
+
 ## [1.49.1](https://github.com/ForkbombEu/wallet/compare/v1.49.0...v1.49.1) (2024-06-19)
 
 

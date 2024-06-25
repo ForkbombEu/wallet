@@ -86,7 +86,7 @@
 								class="absolute flex h-full w-full items-center justify-center rounded-lg bg-primary opacity-80"
 							>
 								<d-text size="l" class="font-bold uppercase text-error">
-									expired on: {expirationDate}
+									{m.expired_on()} {expirationDate}
 								</d-text>
 							</div>
 						{/if}
@@ -103,7 +103,7 @@
 		{/if}
 	{:catch error}
 		<div class="flex h-3/5 flex-col items-center justify-center gap-1">
-			<d-heading size="s">Error</d-heading>
+			<d-heading size="s">{m.Error()}</d-heading>
 			<d-text size="l" class="pb-4">{error.message}</d-text>
 		</div>
 	{/await}
