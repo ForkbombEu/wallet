@@ -1,3 +1,11 @@
+## [1.49.3](https://github.com/ForkbombEu/wallet/compare/v1.49.2...v1.49.3) (2024-06-25)
+
+
+### Bug Fixes
+
+* show numbers, boolean and other types as claims ([#398](https://github.com/ForkbombEu/wallet/issues/398)) ([50b9c96](https://github.com/ForkbombEu/wallet/commit/50b9c96eccd7a54074af1ff1fc6f6ba0469f6703))
+* tab buttons sometime leads to broken page ([#395](https://github.com/ForkbombEu/wallet/issues/395)) ([814e3fd](https://github.com/ForkbombEu/wallet/commit/814e3fdd3dda432fbfb3cb2ad09b479769a0050f))
+
 ## [1.49.2](https://github.com/ForkbombEu/wallet/compare/v1.49.1...v1.49.2) (2024-06-24)
 
 
