@@ -13,11 +13,14 @@
 	import dayjs from 'dayjs';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import Pidgeon from '$lib/assets/Pidgeon.svelte';
+	import Loading from '$lib/components/molecules/Loading.svelte';
 
 	export let data;
 	const { wn, authorizeUrl, parResult, feedbackData } = data;
 	const codeVerifier = parResult?.code_verifier;
 	let code: string | undefined;
+
+	let iframeLoading = true;
 
 	window.addEventListener('message', function (event) {
 		if (event.origin === window.location.origin) return;
@@ -39,8 +42,12 @@
 	let isCredentialVerified: boolean = false;
 	let serviceResponse: CredentialResult;
 
+	interface pp extends Node {
+		scrollToTop: () => void;
+	}
+
 	let feedback: Feedback | undefined = {};
-	let content
+	let content: pp;
 
 	//
 
@@ -101,7 +108,7 @@
 			</d-button>
 		</div>
 	{:else}
-		<div class="flex min-h-full flex-col justify-between pb-14 mt-2">
+		<div class="mt-2 flex min-h-full flex-col justify-between pb-14">
 			<div>
 				<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
 					<d-avatar src={credentialInfo?.logo.url} alt={credentialInfo?.logo.alt_text}></d-avatar>
@@ -110,12 +117,22 @@
 			</div>
 
 			<div class="mt-6 rounded-md bg-white p-4">
+				{#if iframeLoading}
+					<div class="fixed opacity-90 top-0 left-0">
+						<Loading />
+					</div>
+				{/if}
 				<iframe
 					src={authorizeUrl}
 					width="100%"
 					height="390px"
 					title="authorization server"
 					id="authorization server"
+					on:load={() => {
+						console.log('load');
+						iframeLoading = false;
+					}}
+					loading="lazy"
 				></iframe>
 			</div>
 			<div class="w-full">
