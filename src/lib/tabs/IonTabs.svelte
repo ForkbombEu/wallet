@@ -22,14 +22,13 @@
 	const { pathname } = $page.url;
 	const pathSplit = pathname.split('/');
 	let currentTabName = pathSplit[pathSplit.length - 1]; // we don't want to use at(-1) because of old browsers
-	const relativePath = i18n.route(pathname.replace(currentTabName, ''));
 
 	// we need to capture the router changes - to support a-href navigation and other stuff
 	$: if ($navigating && $navigating.to) {
 		tabs.forEach(async (tab) => {
-			if ($navigating.to.url.pathname.includes(relativePath + tab.tab)) {
+			if ($navigating.to.url.pathname.includes(tab.tab)) {
 				currentTabName = tab.tab;
-				await svelteGoto(r(relativePath + tab.tab));
+				await svelteGoto(r('/' + tab.tab));
 				controller.select(tab.tab);
 			}
 		});
@@ -43,7 +42,7 @@
 
 	const tabBarClick = async (selectedTab) => {
 		currentTabName = selectedTab;
-		await goto(relativePath + selectedTab);
+		await goto('/' + selectedTab);
 		controller.select(selectedTab);
 	};
 </script>

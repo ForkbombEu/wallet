@@ -14,5 +14,6 @@
 	<ion-content fullscreen class="ion-padding" id="main-content">
 		<slot />
 		<ScanButton />
+		<div class="pb-24" />
 	</ion-content>
 </ion-tab>

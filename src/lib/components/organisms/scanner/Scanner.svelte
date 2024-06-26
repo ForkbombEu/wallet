@@ -85,7 +85,6 @@
 	onMount(() => {
 		document.addEventListener('ionBackButton', (ev: any) => {
 		ev.detail.register(2, (processNextHandler) => {
-			document.querySelector('body')?.classList.remove('barcode-scanner-active');
 			stopScan();
 			processNextHandler();
 		});
@@ -172,12 +171,10 @@
 
 					<div class="viewfinderBg w-full flex-grow">
 						<div class="ion-padding">
-							<d-heading size="s">
-								<h2>{m.Scan_QR_to_verify_or_obtain_credentials_()} pete</h2>
-							</d-heading>
-							<d-text size="l">
-								<p class="pb-4">{m.Make_sure_to_scan_the_full_QR_surface_()}</p></d-text
-							>
+							<d-page-description
+								title={m.Scan_QR_to_verify_or_obtain_credentials_()}
+								description={m.Make_sure_to_scan_the_full_QR_surface_()}
+							/>
 						</div>
 					</div>
 				</div>

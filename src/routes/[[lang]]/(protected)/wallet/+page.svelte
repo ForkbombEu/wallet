@@ -21,12 +21,10 @@
 </script>
 
 <TabPage tab="wallet" title="WALLET">
-	<d-heading>
-		<h1>{m.My_issued_credentials()}</h1>
-	</d-heading>
-	<d-text size="l">
-		<p class="pb-4">{m.Explore_and_manage_your_verified_credentials()}</p>
-	</d-text>
+	<d-page-description
+		title={m.My_issued_credentials()}
+		description={m.Explore_and_manage_your_verified_credentials()}
+	/>
 	{#await getCredentialsPreference()}
 		<Loading />
 	{:then credentials}
