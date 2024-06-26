@@ -1,3 +1,11 @@
+## [1.49.4](https://github.com/ForkbombEu/wallet/compare/v1.49.3...v1.49.4) (2024-06-26)
+
+
+### Bug Fixes
+
+* add spinner when loading authentication server iframe ([#399](https://github.com/ForkbombEu/wallet/issues/399)) ([92f1ce9](https://github.com/ForkbombEu/wallet/commit/92f1ce93a799727c3e3094bc356abfee422afa9d))
+* back button shadow navigation ([#396](https://github.com/ForkbombEu/wallet/issues/396)) ([6a6d8a5](https://github.com/ForkbombEu/wallet/commit/6a6d8a51b345eddd163b7b1263c23f7ac7fcc618)), closes [#384](https://github.com/ForkbombEu/wallet/issues/384)
+
 ## [1.49.3](https://github.com/ForkbombEu/wallet/compare/v1.49.2...v1.49.3) (2024-06-25)
 
 
