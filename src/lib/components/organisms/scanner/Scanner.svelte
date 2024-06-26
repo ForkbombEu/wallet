@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { BarcodeScanner, type Barcode } from '@capacitor-mlkit/barcode-scanning';
 	import { close } from 'ionicons/icons';
-	import { createEventDispatcher } from 'svelte';
-	import { m } from '$lib/i18n';
+	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
+	import { goto, m } from '$lib/i18n';
 	import camera from '$lib/assets/camera.png';
 	import { Capacitor } from '@capacitor/core';
 	import { tweened } from 'svelte/motion';
@@ -11,6 +11,10 @@
 	import { arrowForwardOutline } from 'ionicons/icons';
 	import { invalidateAll } from '$app/navigation';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
+	import { routeHistory } from '$lib/routeStore';
+	const controller = new AbortController();
+	const signal = controller.signal;
+
 
 	const dispatch = createEventDispatcher();
 	const qrCodeScanned = (barcode: Barcode) => {
@@ -22,7 +26,7 @@
 		await BarcodeScanner.removeAllListeners();
 		await BarcodeScanner.stopScan();
 		document.querySelector('body')?.classList.remove('barcode-scanner-active');
-		window.history.back();
+		controller.abort();
 	};
 
 	const scanSingleBarcode = async () => {
@@ -78,12 +82,18 @@
 
 	//
 
-	document.addEventListener('ionBackButton', (ev: any) => {
-		ev.detail.register(5, (processNextHandler: () => {}) => {
+	onMount(() => {
+		document.addEventListener('ionBackButton', (ev: any) => {
+		ev.detail.register(2, (processNextHandler) => {
 			stopScan();
 			processNextHandler();
 		});
+	}), {signal};
 	});
+	onDestroy(() => {
+		controller.abort();
+	});
+	
 
 	//
 
@@ -100,13 +110,17 @@
 		});
 		await invalidateAll();
 	};
+	const closeScanner = async () => {
+		await stopScan();
+		await routeHistory.back();
+	}
 </script>
 
 <ion-header class="visible bg-[#d2d7e5]">
 	<ion-toolbar>
 		<div class="flex flex-row">
 			<ion-title>{m.QR_SCAN()}</ion-title>
-			<d-button on:click={stopScan} on:keydown={stopScan} aria-hidden clear>
+			<d-button on:click={closeScanner} on:keydown={closeScanner} aria-hidden clear>
 				<ion-icon icon={close} slot="icon-only" class="text-on"></ion-icon>
 			</d-button>
 		</div>

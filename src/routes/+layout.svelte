@@ -1,8 +1,8 @@
 <script lang="ts">
 	import '@fontsource-variable/gantari';
 	import { setupIonicBase } from 'ionic-svelte';
-	import { App } from '@capacitor/app';
-	import { r } from '$lib/i18n';
+	// import { App } from '@capacitor/app';
+	// import { r } from '$lib/i18n';
 
 	setupIonicBase();
 
@@ -10,27 +10,38 @@
 	import '../theme/custom.css';
 	import '../theme/variables.css';
 
-	import { i18n } from '$lib/i18n';
+	import { i18n, r } from '$lib/i18n';
 	import { ParaglideJS } from '@inlang/paraglide-js-adapter-sveltekit';
 	import HiddenLogsButton from '$lib/components/molecules/HiddenLogsButton.svelte';
 	import { log } from '$lib/log';
 	import { routeHistory } from '$lib/routeStore';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { navigating } from '$app/stores';
 	import Loading from '$lib/components/molecules/Loading.svelte';
+	import { App } from '@capacitor/app';
+	const controller = new AbortController();
+	const signal = controller.signal;
 
 	onMount(() => {
-		document.addEventListener('ionBackButton', (ev: any) => {
-			ev.detail.register(-1, () => {
-				if (isExitPoint()) App.exitApp();
-				else routeHistory.back();
-			});
+		// controller.abort();
+		document.addEventListener(
+			'ionBackButton',
+			(ev: any) => {
+				ev.detail.register(-1, () => {
+					if (isExitPoint()) App.exitApp();
+					else routeHistory.back();
+				});
 
-			const isExitPoint = () => {
-				const exitPoints = [r('/home'), r('/login')];
-				return exitPoints.includes(window.location.pathname);
-			};
-		});
+				const isExitPoint = () => {
+					const exitPoints = [r('/home'), r('/login')];
+					return exitPoints.includes(window.location.pathname);
+				};
+			},
+			{ signal }
+		);
+	});
+	onDestroy(() => {
+		controller.abort();
 	});
 </script>
 
