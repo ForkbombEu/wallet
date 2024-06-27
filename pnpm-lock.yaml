@@ -6,50 +6,50 @@ settings:
 
 dependencies:
   '@aparajita/capacitor-biometric-auth':
-    specifier: ^7.1.1
-    version: 7.2.0
+    specifier: ^8.0.0
+    version: 8.0.0
   '@capacitor-mlkit/barcode-scanning':
-    specifier: ^5.4.0
-    version: 5.4.0(@capacitor/core@5.7.5)
+    specifier: ^6.1.0
+    version: 6.1.0(@capacitor/core@6.1.0)
   '@capacitor/android':
-    specifier: ^5.7.2
-    version: 5.7.5(@capacitor/core@5.7.5)
+    specifier: ^6.1.0
+    version: 6.1.0(@capacitor/core@6.1.0)
   '@capacitor/app':
-    specifier: ^5.0.7
-    version: 5.0.7(@capacitor/core@5.7.5)
+    specifier: ^6.0.0
+    version: 6.0.0(@capacitor/core@6.1.0)
   '@capacitor/camera':
-    specifier: ^5.0.9
-    version: 5.0.9(@capacitor/core@5.7.5)
+    specifier: ^6.0.1
+    version: 6.0.1(@capacitor/core@6.1.0)
   '@capacitor/cli':
-    specifier: ^5.7.2
-    version: 5.7.5
+    specifier: ^6.1.0
+    version: 6.1.0
   '@capacitor/clipboard':
-    specifier: ^5.0.7
-    version: 5.0.7(@capacitor/core@5.7.5)
+    specifier: ^6.0.0
+    version: 6.0.0(@capacitor/core@6.1.0)
   '@capacitor/core':
-    specifier: ^5.7.2
-    version: 5.7.5
+    specifier: ^6.1.0
+    version: 6.1.0
   '@capacitor/device':
-    specifier: ^5.0.7
-    version: 5.0.7(@capacitor/core@5.7.5)
+    specifier: ^6.0.0
+    version: 6.0.0(@capacitor/core@6.1.0)
   '@capacitor/filesystem':
-    specifier: ^5.2.1
-    version: 5.2.1(@capacitor/core@5.7.5)
+    specifier: ^6.0.0
+    version: 6.0.0(@capacitor/core@6.1.0)
   '@capacitor/haptics':
-    specifier: ^5.0.7
-    version: 5.0.7(@capacitor/core@5.7.5)
+    specifier: ^6.0.0
+    version: 6.0.0(@capacitor/core@6.1.0)
   '@capacitor/ios':
-    specifier: ^5.7.2
-    version: 5.7.5(@capacitor/core@5.7.5)
+    specifier: ^6.1.0
+    version: 6.1.0(@capacitor/core@6.1.0)
   '@capacitor/keyboard':
-    specifier: ^5.0.8
-    version: 5.0.8(@capacitor/core@5.7.5)
+    specifier: ^6.0.1
+    version: 6.0.1(@capacitor/core@6.1.0)
   '@capacitor/preferences':
-    specifier: ^5.0.7
-    version: 5.0.7(@capacitor/core@5.7.5)
+    specifier: ^6.0.1
+    version: 6.0.1(@capacitor/core@6.1.0)
   '@capacitor/status-bar':
-    specifier: ^5.0.7
-    version: 5.0.7(@capacitor/core@5.7.5)
+    specifier: ^6.0.0
+    version: 6.0.0(@capacitor/core@6.1.0)
   '@fontsource-variable/gantari':
     specifier: ^5.0.13
     version: 5.0.14
@@ -73,7 +73,7 @@ dependencies:
     version: 1.33.13(zenroom@4.32.3)
   '@slangroom/pocketbase':
     specifier: ^1.33.13
-    version: 1.33.13(@capacitor/core@5.7.5)(zenroom@4.32.3)
+    version: 1.33.13(@capacitor/core@6.1.0)(zenroom@4.32.3)
   '@slangroom/zencode':
     specifier: ^1.33.13
     version: 1.33.13(zenroom@4.32.3)
@@ -85,7 +85,7 @@ dependencies:
     version: 2.1.1(ajv@8.16.0)
   capacitor-native-settings:
     specifier: ^6.0.0
-    version: 6.0.0(@capacitor/core@5.7.5)
+    version: 6.0.0(@capacitor/core@6.1.0)
   dayjs:
     specifier: ^1.11.10
     version: 1.11.11
@@ -117,7 +117,7 @@ dependencies:
 devDependencies:
   '@capacitor/assets':
     specifier: ^3.0.4
-    version: 3.0.5(@types/node@20.14.2)(typescript@5.4.5)
+    version: 3.0.5(@types/node@20.14.9)(typescript@5.4.5)
   '@faker-js/faker':
     specifier: ^8.4.1
     version: 8.4.1
@@ -225,10 +225,10 @@ devDependencies:
     version: 5.4.5
   vite:
     specifier: ^5.1.7
-    version: 5.2.12(@types/node@20.14.2)
+    version: 5.2.12(@types/node@20.14.9)
   vitest:
     specifier: ^1.3.1
-    version: 1.6.0(@types/node@20.14.2)
+    version: 1.6.0(@types/node@20.14.9)
 
 packages:
 
@@ -244,14 +244,14 @@ packages:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
 
-  /@aparajita/capacitor-biometric-auth@7.2.0:
-    resolution: {integrity: sha512-piU8bSB/tJPVRPCAhreC5cioM0CM5Hv6xADXBp6BcUz0n0YLI2TXykUHS+j1WMnhxxdsi4W1flCdQz0zz/K9Gg==}
+  /@aparajita/capacitor-biometric-auth@8.0.0:
+    resolution: {integrity: sha512-ILRZMvPkx6BvDozJP39Xg6YWQq4rEXCq7itQIAQpi2/+HBi7UM/3a7Ws9fpQBrPTjrenle/h4T2M1MMHyc8dvw==}
     engines: {node: '>=18'}
     dependencies:
-      '@capacitor/android': 5.7.5(@capacitor/core@5.7.5)
-      '@capacitor/app': 5.0.7(@capacitor/core@5.7.5)
-      '@capacitor/core': 5.7.5
-      '@capacitor/ios': 5.7.5(@capacitor/core@5.7.5)
+      '@capacitor/android': 6.1.0(@capacitor/core@6.1.0)
+      '@capacitor/app': 6.0.0(@capacitor/core@6.1.0)
+      '@capacitor/core': 6.1.0
+      '@capacitor/ios': 6.1.0(@capacitor/core@6.1.0)
     dev: false
 
   /@apideck/better-ajv-errors@0.3.6(ajv@8.16.0):
@@ -335,7 +335,7 @@ packages:
     dependencies:
       '@babel/compat-data': 7.24.7
       '@babel/helper-validator-option': 7.24.7
-      browserslist: 4.23.0
+      browserslist: 4.23.1
       lru-cache: 5.1.1
       semver: 6.3.1
     dev: true
@@ -1502,39 +1502,39 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@capacitor-mlkit/barcode-scanning@5.4.0(@capacitor/core@5.7.5):
-    resolution: {integrity: sha512-6vmnUm66suMbYnLKlUlBrEX5/xOQYg4laPTGvOL7gmfzcdxvSJA++oHY9L4m3RpDQk3FzmQELSpbIHzvcVYPuw==}
+  /@capacitor-mlkit/barcode-scanning@6.1.0(@capacitor/core@6.1.0):
+    resolution: {integrity: sha512-jQWPv5AOprmomgDx2IMmOq1iV2J3xpSIN7oUL9nJzPB0iNhWLm0u5NP+MckRPvTVmyFCsDhZjXeAycRPW92suA==}
     peerDependencies:
-      '@capacitor/core': ^5.0.0
+      '@capacitor/core': ^6.0.0
     dependencies:
-      '@capacitor/core': 5.7.5
+      '@capacitor/core': 6.1.0
     dev: false
 
-  /@capacitor/android@5.7.5(@capacitor/core@5.7.5):
-    resolution: {integrity: sha512-VKb9VarGA2hJ8PuLk4EhSq4jvgM+V8JOoNw00WdD6Q4rbgDKSa7WIKTw75sFrNRGiwHSZ99FPvmisJfr1Spk+Q==}
+  /@capacitor/android@6.1.0(@capacitor/core@6.1.0):
+    resolution: {integrity: sha512-S4PW4N5xtKHTrICjG7bkBhI70jdXbb+8nbm1pJpuXChCD0gkCcofJhPaw4bCoO0egcugBN1U7DkegNw5jWpHcw==}
     peerDependencies:
-      '@capacitor/core': ^5.7.0
+      '@capacitor/core': ^6.1.0
     dependencies:
-      '@capacitor/core': 5.7.5
+      '@capacitor/core': 6.1.0
     dev: false
 
-  /@capacitor/app@5.0.7(@capacitor/core@5.7.5):
-    resolution: {integrity: sha512-oad0jwQu+vgQDukeS9UV56yG10dlxkAGGl26IQpZlTmg3dTI9qSJtvhmlLfkF0nEtoj5IsVQUPE+NLH1oZkgGQ==}
+  /@capacitor/app@6.0.0(@capacitor/core@6.1.0):
+    resolution: {integrity: sha512-X5UGd90Jh5p9rmoPyMqFyFWqOypdJgVJhYcM5X1YyDVJJGzmJ5MuYv1+ajj5DW9Qyh+5a3th9WYptdGby8jidA==}
     peerDependencies:
-      '@capacitor/core': ^5.0.0
+      '@capacitor/core': ^6.0.0
     dependencies:
-      '@capacitor/core': 5.7.5
+      '@capacitor/core': 6.1.0
     dev: false
 
-  /@capacitor/assets@3.0.5(@types/node@20.14.2)(typescript@5.4.5):
+  /@capacitor/assets@3.0.5(@types/node@20.14.9)(typescript@5.4.5):
     resolution: {integrity: sha512-ohz/OUq61Y1Fc6aVSt0uDrUdeOA7oTH4pkWDbv/8I3UrPjH7oPkzYhShuDRUjekNp9RBi198VSFdt0CetpEOzw==}
     engines: {node: '>=10.3.0'}
     hasBin: true
     dependencies:
-      '@capacitor/cli': 5.7.5
+      '@capacitor/cli': 5.7.6
       '@ionic/utils-array': 2.1.6
       '@ionic/utils-fs': 3.1.7
-      '@trapezedev/project': 7.0.10(@types/node@20.14.2)(typescript@5.4.5)
+      '@trapezedev/project': 7.0.10(@types/node@20.14.9)(typescript@5.4.5)
       commander: 8.3.0
       debug: 4.3.4
       fs-extra: 10.1.0
@@ -1552,16 +1552,16 @@ packages:
       - typescript
     dev: true
 
-  /@capacitor/camera@5.0.9(@capacitor/core@5.7.5):
-    resolution: {integrity: sha512-ibuctDzQWVABnJCtIuiFdVYvLbiQNln9gKMZGNN0bZ6oSqoxzDlN7etueJwyFaaRZZlVrXc/sMWuhOkeVJEHcQ==}
+  /@capacitor/camera@6.0.1(@capacitor/core@6.1.0):
+    resolution: {integrity: sha512-KGfjv8q0Q9OEcpBGqSSZD2yb1KeDe12mlzOOPp4wr6GvcOY0EIvZ0o3KiPXegLVuRZeemz71/lCxPHAQ/5gAiA==}
     peerDependencies:
-      '@capacitor/core': ^5.0.0
+      '@capacitor/core': ^6.0.0
     dependencies:
-      '@capacitor/core': 5.7.5
+      '@capacitor/core': 6.1.0
     dev: false
 
-  /@capacitor/cli@5.7.5:
-    resolution: {integrity: sha512-CEgCXq3NNacS+9EptJXM+Cm915oB8eNPhiTP7ylKsQchrY0CGbeyO5y4A/oYnB/h4f+UiaX3ShlIOljx3+agqw==}
+  /@capacitor/cli@5.7.6:
+    resolution: {integrity: sha512-CDDcBF7wHm5v/j0dA2bls0vK954XlD1JCjMuTgLtjZMvWrIlTJAkwCQLkiqRhS2P63AXqfqQqkb/qs2RHc1zDQ==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     dependencies:
@@ -1584,83 +1584,103 @@ packages:
       xml2js: 0.5.0
     transitivePeerDependencies:
       - supports-color
+    dev: true
 
-  /@capacitor/clipboard@5.0.7(@capacitor/core@5.7.5):
-    resolution: {integrity: sha512-N9JJruFB1mKNmA/+HPXyhcSugvEmYYfM4BibYB8lPqGc9QUY8WirU1+/5Keo8+lKJ6Sv9FVyHr2Sf8XFpwK7Tw==}
-    peerDependencies:
-      '@capacitor/core': ^5.0.0
+  /@capacitor/cli@6.1.0:
+    resolution: {integrity: sha512-HEKDh3+FuNZKFHmSDZ7nAnaX3bzhtznYk9GsZBMac1y4CTAxIykPX9wzZ3DzLeM/EbMBGFClUbefkIkimAyfYg==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
     dependencies:
-      '@capacitor/core': 5.7.5
+      '@ionic/cli-framework-output': 2.2.8
+      '@ionic/utils-fs': 3.1.7
+      '@ionic/utils-process': 2.1.12
+      '@ionic/utils-subprocess': 2.1.11
+      '@ionic/utils-terminal': 2.3.5
+      commander: 9.5.0
+      debug: 4.3.5
+      env-paths: 2.2.1
+      kleur: 4.1.5
+      native-run: 2.0.1
+      open: 8.4.2
+      plist: 3.1.0
+      prompts: 2.4.2
+      rimraf: 4.4.1
+      semver: 7.6.2
+      tar: 6.2.1
+      tslib: 2.6.2
+      xml2js: 0.5.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
-  /@capacitor/core@5.7.5:
-    resolution: {integrity: sha512-babBo26lgIyKkAOr/AbPq5wwi9I4uHDP0lBteJq7p4xZElA6tAA8mD3xRH1/4EKmZ4+acYpKmmyegX3zsVh37A==}
-    dependencies:
-      tslib: 2.6.3
-    dev: false
-
-  /@capacitor/device@5.0.7(@capacitor/core@5.7.5):
-    resolution: {integrity: sha512-sTYzGktRVK6giQCsoFtw+IGkEPGmFvIwi0pfFej5TRND1UHidkNZSpgMFBbjCYPbwsqXTcR3boYPcmxvl5iuJg==}
-    peerDependencies:
-      '@capacitor/core': ^5.0.0
-    dependencies:
-      '@capacitor/core': 5.7.5
-    dev: false
-
-  /@capacitor/filesystem@5.2.1(@capacitor/core@5.7.5):
-    resolution: {integrity: sha512-mexkJHUbNhydzfJywEUTIGARlB/HRogrtbjCZdA+mQxOi07T2887a70CwFaYRu1nKLMoKoliTM5UsLSsdl0PlA==}
-    peerDependencies:
-      '@capacitor/core': ^5.1.1
-    dependencies:
-      '@capacitor/core': 5.7.5
-    dev: false
-
-  /@capacitor/haptics@5.0.7(@capacitor/core@5.7.5):
-    resolution: {integrity: sha512-/j+7Qa4BxQA5aOU43cwXuiudfSXfoHFsAVfcehH5DkSjxLykZKWHEuE4uFJXqdkSIbAHjS37D0Sde6ENP6G/MA==}
-    peerDependencies:
-      '@capacitor/core': ^5.0.0
-    dependencies:
-      '@capacitor/core': 5.7.5
-    dev: false
-
-  /@capacitor/ios@5.7.5(@capacitor/core@5.7.5):
-    resolution: {integrity: sha512-mREcvv4XC9USSAbYmf/2Lmbr52eZjMDpKYwxwi2CKLJXGXNjYfJaHm6jnPordAl6kZdm3Bm/tnx+rYpb9KptGA==}
-    peerDependencies:
-      '@capacitor/core': ^5.7.0
-    dependencies:
-      '@capacitor/core': 5.7.5
-    dev: false
-
-  /@capacitor/keyboard@5.0.8(@capacitor/core@5.7.5):
-    resolution: {integrity: sha512-XYyBzGlzjgLPqyPVdu5McGLYV6+G2efVR4I3l5cF1B27M6U/oFqv9CQU74WNG08nee28bfccboNpv6eWCLYn1A==}
-    peerDependencies:
-      '@capacitor/core': ^5.0.0
-    dependencies:
-      '@capacitor/core': 5.7.5
-    dev: false
-
-  /@capacitor/preferences@5.0.7(@capacitor/core@5.7.5):
-    resolution: {integrity: sha512-JvfGP1m8nITWEFdBpKR9HXNeBjLKwO0q1pry7Z5lYrYmCrbyRBLWzaGZGll8py4KmGWL3F5+PZvhrpT4gPoeAQ==}
-    peerDependencies:
-      '@capacitor/core': ^5.0.0
-    dependencies:
-      '@capacitor/core': 5.7.5
-    dev: false
-
-  /@capacitor/preferences@6.0.0(@capacitor/core@5.7.5):
-    resolution: {integrity: sha512-4A49UKEc/sgf28TFNwRX4Kx6G0oMeRC9btA2voaEuL2LZd2l8IMfAEFDIrfQWi5rYE6RWenEUexUTyiEZnYFvQ==}
+  /@capacitor/clipboard@6.0.0(@capacitor/core@6.1.0):
+    resolution: {integrity: sha512-NjcGr2jncSZy9NM9grePo8zz0hhBYYBYZV71xXjLvJhVY4PSdZD/Sj+4jm0pvlOKSK8vAXYyF6VcWT4/Kh/xmw==}
     peerDependencies:
       '@capacitor/core': ^6.0.0
     dependencies:
-      '@capacitor/core': 5.7.5
+      '@capacitor/core': 6.1.0
     dev: false
 
-  /@capacitor/status-bar@5.0.7(@capacitor/core@5.7.5):
-    resolution: {integrity: sha512-KblB3gV2LDMEjx3fQoNBAzxb+Tr+2mv68SfFLLDCMiMUD3Eile2TAWRWd1yxy496pDFTOs2BJtup8++iuuuJ/w==}
-    peerDependencies:
-      '@capacitor/core': ^5.0.0
+  /@capacitor/core@6.1.0:
+    resolution: {integrity: sha512-Kt4ONm0X9xxJXn9Q73oBaKdzep5B/VJw3VjXa2eGul4cD2k37mJwgjpXSMRnLH0Aju5bCiRL8J/hMAfTlokO6A==}
     dependencies:
-      '@capacitor/core': 5.7.5
+      tslib: 2.6.2
+    dev: false
+
+  /@capacitor/device@6.0.0(@capacitor/core@6.1.0):
+    resolution: {integrity: sha512-3cV4XcH9pTWcstecyr8rNBQvFCsxYugJdPetk898airCbV1bqZSGF2YLSoPQj4BiDITSlNgwABNwNYMCNzs/gw==}
+    peerDependencies:
+      '@capacitor/core': ^6.0.0
+    dependencies:
+      '@capacitor/core': 6.1.0
+    dev: false
+
+  /@capacitor/filesystem@6.0.0(@capacitor/core@6.1.0):
+    resolution: {integrity: sha512-GnC4CBfky7fvG9zSV/aQnZaGs6ZJ90AaQorr53z81ArTCqcrSUeBMuCxWmvti9HrdXLhBavyA1UOjvRGObOFjg==}
+    peerDependencies:
+      '@capacitor/core': ^6.0.0
+    dependencies:
+      '@capacitor/core': 6.1.0
+    dev: false
+
+  /@capacitor/haptics@6.0.0(@capacitor/core@6.1.0):
+    resolution: {integrity: sha512-z2TmB+pTbd98Il2I1xpZGClCFwORxxP2m9f1a0rh70c2ubj2atVyZctgxrx1fuoExZTNGSxHaylWfrmjmtelVg==}
+    peerDependencies:
+      '@capacitor/core': ^6.0.0
+    dependencies:
+      '@capacitor/core': 6.1.0
+    dev: false
+
+  /@capacitor/ios@6.1.0(@capacitor/core@6.1.0):
+    resolution: {integrity: sha512-ex2q0LAyDDgfJj4fKDQuSNUYSpic3939/8A/sIIIxslwuRBF5i5fuhAngu6BhCt/pQSfEETcHtg2j2vD+YEZ2w==}
+    peerDependencies:
+      '@capacitor/core': ^6.1.0
+    dependencies:
+      '@capacitor/core': 6.1.0
+    dev: false
+
+  /@capacitor/keyboard@6.0.1(@capacitor/core@6.1.0):
+    resolution: {integrity: sha512-fBjqQaMc5uhFj6ycLnLa2hzQsR77pj/iuLLATkWihMUze3dD+IkwqFnEyOLsyk+52uoOYM7WkziSpNTquU1sZA==}
+    peerDependencies:
+      '@capacitor/core': ^6.0.0
+    dependencies:
+      '@capacitor/core': 6.1.0
+    dev: false
+
+  /@capacitor/preferences@6.0.1(@capacitor/core@6.1.0):
+    resolution: {integrity: sha512-5UvSK3O/tgPcQ1QyX0zYjb0uujFw+PQgYUSt6i2evf609jAIo7QG1IUZzGb6swEPCpk621wEc6R7Yq/Ywa3GPA==}
+    peerDependencies:
+      '@capacitor/core': ^6.0.0
+    dependencies:
+      '@capacitor/core': 6.1.0
+    dev: false
+
+  /@capacitor/status-bar@6.0.0(@capacitor/core@6.1.0):
+    resolution: {integrity: sha512-Wo0ILugYlmENegKDgTzVCPjbvP8h1ObgHslLdgeVG643ViMS/diausHIq8e104WIKCXtKIELmQeYVp9mX7932g==}
+    peerDependencies:
+      '@capacitor/core': ^6.0.0
+    dependencies:
+      '@capacitor/core': 6.1.0
     dev: false
 
   /@chevrotain/cst-dts-gen@10.5.0:
@@ -2227,6 +2247,16 @@ packages:
       tslib: 2.6.3
     dev: false
 
+  /@ionic/utils-array@2.1.5:
+    resolution: {integrity: sha512-HD72a71IQVBmQckDwmA8RxNVMTbxnaLbgFOl+dO5tbvW9CkkSFCv41h6fUuNsSEVgngfkn0i98HDuZC8mk+lTA==}
+    engines: {node: '>=10.3.0'}
+    dependencies:
+      debug: 4.3.5
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /@ionic/utils-array@2.1.6:
     resolution: {integrity: sha512-0JZ1Zkp3wURnv8oq6Qt7fMPo5MpjbLoUoa9Bu2Q4PJuSDWM8H8gwF3dQO7VTeUj3/0o1IB1wGkFWZZYgUXZMUg==}
     engines: {node: '>=16.0.0'}
@@ -2235,6 +2265,18 @@ packages:
       tslib: 2.6.3
     transitivePeerDependencies:
       - supports-color
+
+  /@ionic/utils-fs@3.1.6:
+    resolution: {integrity: sha512-eikrNkK89CfGPmexjTfSWl4EYqsPSBh0Ka7by4F0PLc1hJZYtJxUZV3X4r5ecA8ikjicUmcbU7zJmAjmqutG/w==}
+    engines: {node: '>=10.3.0'}
+    dependencies:
+      '@types/fs-extra': 8.1.5
+      debug: 4.3.5
+      fs-extra: 9.1.0
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /@ionic/utils-fs@3.1.7:
     resolution: {integrity: sha512-2EknRvMVfhnyhL1VhFkSLa5gOcycK91VnjfrTB0kbqkTFCOXyXgVLI5whzq7SLrgD9t1aqos3lMMQyVzaQ5gVA==}
@@ -2257,14 +2299,38 @@ packages:
       - supports-color
     dev: false
 
+  /@ionic/utils-object@2.1.5:
+    resolution: {integrity: sha512-XnYNSwfewUqxq+yjER1hxTKggftpNjFLJH0s37jcrNDwbzmbpFTQTVAp4ikNK4rd9DOebX/jbeZb8jfD86IYxw==}
+    engines: {node: '>=10.3.0'}
+    dependencies:
+      debug: 4.3.5
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /@ionic/utils-object@2.1.6:
     resolution: {integrity: sha512-vCl7sl6JjBHFw99CuAqHljYJpcE88YaH2ZW4ELiC/Zwxl5tiwn4kbdP/gxi2OT3MQb1vOtgAmSNRtusvgxI8ww==}
     engines: {node: '>=16.0.0'}
     dependencies:
       debug: 4.3.5
-      tslib: 2.6.3
+      tslib: 2.6.2
     transitivePeerDependencies:
       - supports-color
+
+  /@ionic/utils-process@2.1.10:
+    resolution: {integrity: sha512-mZ7JEowcuGQK+SKsJXi0liYTcXd2bNMR3nE0CyTROpMECUpJeAvvaBaPGZf5ERQUPeWBVuwqAqjUmIdxhz5bxw==}
+    engines: {node: '>=10.3.0'}
+    dependencies:
+      '@ionic/utils-object': 2.1.5
+      '@ionic/utils-terminal': 2.3.3
+      debug: 4.3.5
+      signal-exit: 3.0.7
+      tree-kill: 1.2.2
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /@ionic/utils-process@2.1.11:
     resolution: {integrity: sha512-Uavxn+x8j3rDlZEk1X7YnaN6wCgbCwYQOeIjv/m94i1dzslqWhqIHEqxEyeE8HsT5Negboagg7GtQiABy+BLbA==}
@@ -2275,9 +2341,10 @@ packages:
       debug: 4.3.5
       signal-exit: 3.0.7
       tree-kill: 1.2.2
-      tslib: 2.6.3
+      tslib: 2.6.2
     transitivePeerDependencies:
       - supports-color
+    dev: true
 
   /@ionic/utils-process@2.1.12:
     resolution: {integrity: sha512-Jqkgyq7zBs/v/J3YvKtQQiIcxfJyplPgECMWgdO0E1fKrrH8EF0QGHNJ9mJCn6PYe2UtHNS8JJf5G21e09DfYg==}
@@ -2293,14 +2360,25 @@ packages:
       - supports-color
     dev: false
 
+  /@ionic/utils-stream@3.1.5:
+    resolution: {integrity: sha512-hkm46uHvEC05X/8PHgdJi4l4zv9VQDELZTM+Kz69odtO9zZYfnt8DkfXHJqJ+PxmtiE5mk/ehJWLnn/XAczTUw==}
+    engines: {node: '>=10.3.0'}
+    dependencies:
+      debug: 4.3.5
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /@ionic/utils-stream@3.1.6:
     resolution: {integrity: sha512-4+Kitey1lTA1yGtnigeYNhV/0tggI3lWBMjC7tBs1K9GXa/q7q4CtOISppdh8QgtOhrhAXS2Igp8rbko/Cj+lA==}
     engines: {node: '>=16.0.0'}
     dependencies:
       debug: 4.3.5
-      tslib: 2.6.3
+      tslib: 2.6.2
     transitivePeerDependencies:
       - supports-color
+    dev: true
 
   /@ionic/utils-stream@3.1.7:
     resolution: {integrity: sha512-eSELBE7NWNFIHTbTC2jiMvh1ABKGIpGdUIvARsNPMNQhxJB3wpwdiVnoBoTYp+5a6UUIww4Kpg7v6S7iTctH1w==}
@@ -2308,6 +2386,22 @@ packages:
     dependencies:
       debug: 4.3.5
       tslib: 2.6.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@ionic/utils-subprocess@2.1.11:
+    resolution: {integrity: sha512-6zCDixNmZCbMCy5np8klSxOZF85kuDyzZSTTQKQP90ZtYNCcPYmuFSzaqDwApJT4r5L3MY3JrqK1gLkc6xiUPw==}
+    engines: {node: '>=10.3.0'}
+    dependencies:
+      '@ionic/utils-array': 2.1.5
+      '@ionic/utils-fs': 3.1.6
+      '@ionic/utils-process': 2.1.10
+      '@ionic/utils-stream': 3.1.5
+      '@ionic/utils-terminal': 2.3.3
+      cross-spawn: 7.0.3
+      debug: 4.3.5
+      tslib: 2.6.2
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -2326,6 +2420,7 @@ packages:
       tslib: 2.6.3
     transitivePeerDependencies:
       - supports-color
+    dev: true
 
   /@ionic/utils-subprocess@3.0.1:
     resolution: {integrity: sha512-cT4te3AQQPeIM9WCwIg8ohroJ8TjsYaMb2G4ZEgv9YzeDqHZ4JpeIKqG2SoaA3GmVQ3sOfhPM6Ox9sxphV/d1A==}
@@ -2343,6 +2438,23 @@ packages:
       - supports-color
     dev: false
 
+  /@ionic/utils-terminal@2.3.3:
+    resolution: {integrity: sha512-RnuSfNZ5fLEyX3R5mtcMY97cGD1A0NVBbarsSQ6yMMfRJ5YHU7hHVyUfvZeClbqkBC/pAqI/rYJuXKCT9YeMCQ==}
+    engines: {node: '>=10.3.0'}
+    dependencies:
+      '@types/slice-ansi': 4.0.0
+      debug: 4.3.5
+      signal-exit: 3.0.7
+      slice-ansi: 4.0.0
+      string-width: 4.2.3
+      strip-ansi: 6.0.1
+      tslib: 2.6.2
+      untildify: 4.0.0
+      wrap-ansi: 7.0.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /@ionic/utils-terminal@2.3.4:
     resolution: {integrity: sha512-cEiMFl3jklE0sW60r8JHH3ijFTwh/jkdEKWbylSyExQwZ8pPuwoXz7gpkWoJRLuoRHHSvg+wzNYyPJazIHfoJA==}
     engines: {node: '>=16.0.0'}
@@ -2353,11 +2465,12 @@ packages:
       slice-ansi: 4.0.0
       string-width: 4.2.3
       strip-ansi: 6.0.1
-      tslib: 2.6.3
+      tslib: 2.6.2
       untildify: 4.0.0
       wrap-ansi: 7.0.0
     transitivePeerDependencies:
       - supports-color
+    dev: true
 
   /@ionic/utils-terminal@2.3.5:
     resolution: {integrity: sha512-3cKScz9Jx2/Pr9ijj1OzGlBDfcmx7OMVBt4+P1uRR0SSW4cm1/y3Mo4OY3lfkuaYifMNBW8Wz6lQHbs1bihr7A==}
@@ -2914,7 +3027,7 @@ packages:
       rollup: 2.79.1
       serialize-javascript: 6.0.2
       smob: 1.5.0
-      terser: 5.31.0
+      terser: 5.31.1
     dev: true
 
   /@rollup/pluginutils@3.1.0(rollup@2.79.1):
@@ -3357,11 +3470,11 @@ packages:
       - zenroom
     dev: false
 
-  /@slangroom/pocketbase@1.33.13(@capacitor/core@5.7.5)(zenroom@4.32.3):
+  /@slangroom/pocketbase@1.33.13(@capacitor/core@6.1.0)(zenroom@4.32.3):
     resolution: {integrity: sha512-6TvaYhx0fJRT5q2Gg036BMaWjT9CAy/lkuLbUc44KbXDsDDWoZHbOwjfBzkF1xARPblNwyQ+4MdGP8GH7wlInA==}
     engines: {node: ^18.20.0 || ^20.10.0 || ^22}
     dependencies:
-      '@capacitor/preferences': 6.0.0(@capacitor/core@5.7.5)
+      '@capacitor/preferences': 6.0.1(@capacitor/core@6.1.0)
       '@slangroom/core': 1.33.13(zenroom@4.32.3)
       '@slangroom/shared': 1.33.13(zenroom@4.32.3)
       dotenv: 16.4.5
@@ -3438,7 +3551,7 @@ packages:
       sirv: 2.0.4
       svelte: 4.2.17
       tiny-glob: 0.2.9
-      vite: 5.2.12(@types/node@20.14.2)
+      vite: 5.2.12(@types/node@20.14.9)
 
   /@sveltejs/vite-plugin-svelte-inspector@2.1.0(@sveltejs/vite-plugin-svelte@3.1.1)(svelte@4.2.17)(vite@5.2.12):
     resolution: {integrity: sha512-9QX28IymvBlSCqsCll5t0kQVxipsfhFFL+L2t3nTWfXnddYwxBuAEtTtlaVQpRz9c37BhJjltSeY4AJSC03SSg==}
@@ -3451,7 +3564,7 @@ packages:
       '@sveltejs/vite-plugin-svelte': 3.1.1(svelte@4.2.17)(vite@5.2.12)
       debug: 4.3.5
       svelte: 4.2.17
-      vite: 5.2.12(@types/node@20.14.2)
+      vite: 5.2.12(@types/node@20.14.9)
     transitivePeerDependencies:
       - supports-color
 
@@ -3469,7 +3582,7 @@ packages:
       magic-string: 0.30.10
       svelte: 4.2.17
       svelte-hmr: 0.16.0(svelte@4.2.17)
-      vite: 5.2.12(@types/node@20.14.2)
+      vite: 5.2.12(@types/node@20.14.9)
       vitefu: 0.2.5(vite@5.2.12)
     transitivePeerDependencies:
       - supports-color
@@ -3482,7 +3595,7 @@ packages:
     resolution: {integrity: sha512-k822Is3jGroqOTKF0gAFm80LmhFJWBAyZvNtyuXq6uQUzDDe2fj/gHwixP6VFzlpaWKLP7IuR609Xv8gwJCXyg==}
     dev: true
 
-  /@trapezedev/project@7.0.10(@types/node@20.14.2)(typescript@5.4.5):
+  /@trapezedev/project@7.0.10(@types/node@20.14.9)(typescript@5.4.5):
     resolution: {integrity: sha512-UjwsStjhHq/+D1bWREmFDoyKql+qFIgJX93zQLg7R6CyWZUdtlGP2hU3l7tsVRtjJBVXpVu5mj8tdwJJoABO3A==}
     dependencies:
       '@ionic/utils-fs': 3.1.7
@@ -3507,7 +3620,7 @@ packages:
       replace: 1.2.2
       tempy: 1.0.1
       tmp: 0.2.3
-      ts-node: 10.9.2(@types/node@20.14.2)(typescript@5.4.5)
+      ts-node: 10.9.2(@types/node@20.14.9)(typescript@5.4.5)
       xcode: 3.0.1
       xml-js: 1.6.11
       xpath: 0.0.32
@@ -3586,6 +3699,11 @@ packages:
 
   /@types/node@20.14.2:
     resolution: {integrity: sha512-xyu6WAMVwv6AKFLB+e/7ySZVr/0zLCzOa7rSpq6jNwpqOrUbcACDWC+53d4n2QHOnDou0fbIsg8wZu/sxrnI4Q==}
+    dependencies:
+      undici-types: 5.26.5
+
+  /@types/node@20.14.9:
+    resolution: {integrity: sha512-06OCtnTXtWOZBJlRApleWndH4JsRVs1pDCc8dLSQp+7PpUpX3ePdHyeNSFTeSe7FtKyQkrlPvHwJOW3SLd8Oyg==}
     dependencies:
       undici-types: 5.26.5
 
@@ -3835,6 +3953,12 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
+  /acorn@8.12.0:
+    resolution: {integrity: sha512-RTvkC4w+KNXrM39/lWCUaG0IbRkWdCv7W/IOW9oU6SawyxulvkQy5HQPVTKxEjczcUvapcrw3cFx/60VN/NRNw==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+    dev: true
+
   /add-stream@1.0.0:
     resolution: {integrity: sha512-qQLMr+8o0WC4FZGQTcJiKBVC59JylcPSrTtk6usvmIDFUOCKegapy1VHQwRbFMOFyb/inzUVqHs+eMYKDM1YeQ==}
     dev: true
@@ -4013,7 +4137,7 @@ packages:
     resolution: {integrity: sha512-x1FCFnFifvYDDzTaLII71vG5uvDwgtmDTEVWAxrgeiR8VjMONcCXJx7E+USjDtHlwFmt9MysbqgF9b9Vjr6w+w==}
     engines: {node: '>=4'}
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.6.2
     dev: false
 
   /astral-regex@2.0.0:
@@ -4116,6 +4240,12 @@ packages:
 
   /bare-events@2.3.1:
     resolution: {integrity: sha512-sJnSOTVESURZ61XgEleqmP255T6zTYwHPwE4r6SssIh0U9/uDvfpdoJYpVUerJJZH2fueO+CdT8ZT+OC/7aZDA==}
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /bare-events@2.4.2:
+    resolution: {integrity: sha512-qMKFd2qG/36aA4GwvKq8MxnPgCQAmBWmSyLWsJcbn8v03wvIPQ/hG1Ms8bPzndZxMDoHpxez5VOS+gC9Yi24/Q==}
     requiresBuild: true
     dev: true
     optional: true
@@ -4237,6 +4367,17 @@ packages:
       update-browserslist-db: 1.0.16(browserslist@4.23.0)
     dev: true
 
+  /browserslist@4.23.1:
+    resolution: {integrity: sha512-TUfofFo/KsK/bWZ9TWQ5O26tsWW4Uhmt8IYklbnUa70udB6P2wA7w7o4PY4muaEPBQaAX+CEnmmIA41NVHtPVw==}
+    engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
+    hasBin: true
+    dependencies:
+      caniuse-lite: 1.0.30001638
+      electron-to-chromium: 1.4.812
+      node-releases: 2.0.14
+      update-browserslist-db: 1.0.16(browserslist@4.23.1)
+    dev: true
+
   /btoa-lite@1.0.0:
     resolution: {integrity: sha512-gvW7InbIyF8AicrqWoptdW08pUxuhq8BEgowNajy9RhiE86fmGAGl+bLKo6oB8QP0CkqHLowfN0oJdKC/J6LbA==}
     dev: false
@@ -4307,12 +4448,16 @@ packages:
     resolution: {integrity: sha512-c3dl911slnQhmxUIT4HhYzT7wnBK/XYpGnYLOj4nJBaRiw52Ibe7YxlDaAeRECvA786zCuExhxIUJ2K7nHMrBw==}
     dev: true
 
-  /capacitor-native-settings@6.0.0(@capacitor/core@5.7.5):
+  /caniuse-lite@1.0.30001638:
+    resolution: {integrity: sha512-5SuJUJ7cZnhPpeLHaH0c/HPAnAHZvS6ElWyHK9GSIbVOQABLzowiI2pjmpvZ1WEbkyz46iFd4UXlOHR5SqgfMQ==}
+    dev: true
+
+  /capacitor-native-settings@6.0.0(@capacitor/core@6.1.0):
     resolution: {integrity: sha512-2Kb6LcmLlfmWiuIvsT0+75TZf0wBELXl/4bw4kuB279mgdupXE2kYipfZgol28X0428bkzT76jrVd5zZhYHXuw==}
     peerDependencies:
       '@capacitor/core': ^6.0.0
     dependencies:
-      '@capacitor/core': 5.7.5
+      '@capacitor/core': 6.1.0
     dev: false
 
   /chai@4.4.1:
@@ -4782,7 +4927,7 @@ packages:
   /core-js-compat@3.37.1:
     resolution: {integrity: sha512-9TNiImhKvQqSUkOvk/mMRZzOANTiEVC7WaBNhHcKM7x+/5E1l5NvsysR19zuDQScE8k+kfQXWRN3AtS/eOSHpg==}
     dependencies:
-      browserslist: 4.23.0
+      browserslist: 4.23.1
     dev: true
 
   /core-util-is@1.0.3:
@@ -5207,6 +5352,10 @@ packages:
 
   /electron-to-chromium@1.4.791:
     resolution: {integrity: sha512-6FlqP0NSWvxFf1v+gHu+LCn5wjr1pmkj5nPr7BsxPnj41EDR4EWhK/KmQN0ytHUqgTR1lkpHRYxvHBLZFQtkKw==}
+    dev: true
+
+  /electron-to-chromium@1.4.812:
+    resolution: {integrity: sha512-7L8fC2Ey/b6SePDFKR2zHAy4mbdp1/38Yk5TsARO66W3hC5KEaeKMMHoxwtuH+jcu2AYLSn9QX04i95t6Fl1Hg==}
     dev: true
 
   /elementtree@0.1.7:
@@ -6185,7 +6334,7 @@ packages:
       source-map: 0.6.1
       wordwrap: 1.0.0
     optionalDependencies:
-      uglify-js: 3.17.4
+      uglify-js: 3.18.0
     dev: true
 
   /hard-rejection@2.1.0:
@@ -9231,7 +9380,7 @@ packages:
       queue-tick: 1.0.1
       text-decoder: 1.1.0
     optionalDependencies:
-      bare-events: 2.3.1
+      bare-events: 2.4.2
     dev: true
 
   /string-width@4.2.3:
@@ -9710,13 +9859,13 @@ packages:
       unique-string: 3.0.0
     dev: true
 
-  /terser@5.31.0:
-    resolution: {integrity: sha512-Q1JFAoUKE5IMfI4Z/lkE/E6+SwgzO+x4tq4v1AyBLRj8VSYvRO6A/rQrPg1yud4g0En9EKI1TvFRF2tQFcoUkg==}
+  /terser@5.31.1:
+    resolution: {integrity: sha512-37upzU1+viGvuFtBo9NPufCb9dwM0+l9hMxYyWfBA+fbwrPqNJAhbZ6W47bBFnZHKHTUBnMvi87434qq+qnxOg==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
       '@jridgewell/source-map': 0.3.6
-      acorn: 8.11.3
+      acorn: 8.12.0
       commander: 2.20.3
       source-map-support: 0.5.21
     dev: true
@@ -9874,7 +10023,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /ts-node@10.9.2(@types/node@20.14.2)(typescript@5.4.5):
+  /ts-node@10.9.2(@types/node@20.14.9)(typescript@5.4.5):
     resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
     hasBin: true
     peerDependencies:
@@ -9893,7 +10042,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.14.2
+      '@types/node': 20.14.9
       acorn: 8.11.3
       acorn-walk: 8.3.2
       arg: 4.1.3
@@ -9911,7 +10060,6 @@ packages:
 
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
-    dev: true
 
   /tslib@2.6.3:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
@@ -10051,8 +10199,8 @@ packages:
     resolution: {integrity: sha512-Y7HYmWaFwPUmkoQCUIAYpKqkOf+SbVj/2fJJZ4RJMCfZp0rTGwRbzQD+HghfnhKOjL9E01okqz+ncJskGYfBNw==}
     dev: true
 
-  /uglify-js@3.17.4:
-    resolution: {integrity: sha512-T9q82TJI9e/C1TAxYvfb16xO120tMVFZrGA3f9/P4424DNu6ypK103y0GPFVa17yotwSyZW5iYXgjYHkGrJW/g==}
+  /uglify-js@3.18.0:
+    resolution: {integrity: sha512-SyVVbcNBCk0dzr9XL/R/ySrmYf0s372K6/hFklzgcp2lBFyXtw4I7BOdDjlLhE1aVqaI/SHWXWmYdlZxuyF38A==}
     engines: {node: '>=0.8.0'}
     hasBin: true
     requiresBuild: true
@@ -10169,6 +10317,17 @@ packages:
       picocolors: 1.0.1
     dev: true
 
+  /update-browserslist-db@1.0.16(browserslist@4.23.1):
+    resolution: {integrity: sha512-KVbTxlBYlckhF5wgfyZXTWnMn7MMZjMu9XG8bPlliUOP9ThaF4QnhP8qrjrH7DRzHfSk0oQv1wToW+iA5GajEQ==}
+    hasBin: true
+    peerDependencies:
+      browserslist: '>= 4.21.0'
+    dependencies:
+      browserslist: 4.23.1
+      escalade: 3.1.2
+      picocolors: 1.0.1
+    dev: true
+
   /uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
     dependencies:
@@ -10198,7 +10357,7 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vite-node@1.6.0(@types/node@20.14.2):
+  /vite-node@1.6.0(@types/node@20.14.9):
     resolution: {integrity: sha512-de6HJgzC+TFzOu0NTC4RAIsyf/DY/ibWDYQUcuEA84EMHhcefTUGkjFHKKEJhQN4A+6I0u++kr3l36ZF2d7XRw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -10207,7 +10366,7 @@ packages:
       debug: 4.3.5
       pathe: 1.1.2
       picocolors: 1.0.1
-      vite: 5.2.12(@types/node@20.14.2)
+      vite: 5.2.12(@types/node@20.14.9)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -10234,14 +10393,14 @@ packages:
       debug: 4.3.5
       fast-glob: 3.3.2
       pretty-bytes: 6.1.1
-      vite: 5.2.12(@types/node@20.14.2)
+      vite: 5.2.12(@types/node@20.14.9)
       workbox-build: 7.1.1
       workbox-window: 7.1.0
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /vite@5.2.12(@types/node@20.14.2):
+  /vite@5.2.12(@types/node@20.14.9):
     resolution: {integrity: sha512-/gC8GxzxMK5ntBwb48pR32GGhENnjtY30G4A0jemunsBkiEZFw60s8InGpN8gkhHEkjnRK1aSAxeQgwvFhUHAA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -10269,7 +10428,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.14.2
+      '@types/node': 20.14.9
       esbuild: 0.20.2
       postcss: 8.4.38
       rollup: 4.18.0
@@ -10284,9 +10443,9 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 5.2.12(@types/node@20.14.2)
+      vite: 5.2.12(@types/node@20.14.9)
 
-  /vitest@1.6.0(@types/node@20.14.2):
+  /vitest@1.6.0(@types/node@20.14.9):
     resolution: {integrity: sha512-H5r/dN06swuFnzNFhq/dnz37bPXnq8xB2xB5JOVk8K09rUtoeNN+LHWkoQ0A/i3hvbUKKcCei9KpbxqHMLhLLA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -10311,7 +10470,7 @@ packages:
       jsdom:
         optional: true
     dependencies:
-      '@types/node': 20.14.2
+      '@types/node': 20.14.9
       '@vitest/expect': 1.6.0
       '@vitest/runner': 1.6.0
       '@vitest/snapshot': 1.6.0
@@ -10329,8 +10488,8 @@ packages:
       strip-literal: 2.1.0
       tinybench: 2.8.0
       tinypool: 0.8.4
-      vite: 5.2.12(@types/node@20.14.2)
-      vite-node: 1.6.0(@types/node@20.14.2)
+      vite: 5.2.12(@types/node@20.14.9)
+      vite-node: 1.6.0(@types/node@20.14.9)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
