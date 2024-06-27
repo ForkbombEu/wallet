@@ -4,7 +4,6 @@
 	import { goto, m } from '$lib/i18n';
 	import type { Feedback } from '$lib/utils/types';
 	import { verificationStore } from '$lib/verificationStore';
-	import WarningDot from '$lib/components/molecules/WarningDot.svelte';
 	import dayjs from 'dayjs';
 	import { log } from '$lib/log';
 	import { addActivity, type Activity } from '$lib/preferences/activity';
@@ -128,11 +127,11 @@
 				<d-text size="l">{m.About_this_verifications()}</d-text>
 				<div class="flex flex-col items-start gap-2.5 rounded-[5px] bg-primary px-5 py-5">
 					<div class="flex items-center gap-2.5">
-						<WarningDot />
+						<d-info-led type="warning" />
 						<d-text><b>{m.Relying_party()}:</b> {rp_name}</d-text>
 					</div>
 					<div class="flex items-center gap-2.5">
-						<WarningDot />
+						<d-info-led type="warning" />
 						<d-text class="break-all"><b>{m.Url()}:</b> {post.url}</d-text>
 					</div>
 				</div>
@@ -142,7 +141,7 @@
 				<div class="flex flex-col items-start gap-2.5 rounded-[5px] bg-primary px-5 py-5">
 					{#each propertiesArray as property}
 						<div class="flex items-center gap-2.5">
-							<WarningDot />
+							<d-info-led type="warning" />
 							<d-text>{property.title}</d-text>
 						</div>
 					{/each}
