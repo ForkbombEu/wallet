@@ -59,7 +59,7 @@
 		description: string;
 		date: string;
 		message: string;
-		cardType: string;
+		type: string;
 		credential?: Credential;
 		read?: boolean;
 		at: number;
@@ -77,7 +77,7 @@
 				description: '',
 				date: '',
 				message: '',
-				cardType: '',
+				type: '',
 				at: 0
 			};
 			parsedActivity.date = dayjs().to(dayjs.unix(activity.at));
@@ -94,17 +94,17 @@
 				parsedActivity.credential = credential;
 				if (activity.type === 'credential') {
 					parsedActivity.message = `${credential.issuer} issued ${credential.display_name} to you`;
-					parsedActivity.cardType = 'warning';
+					parsedActivity.type = 'warning';
 				} else {
 					parsedActivity.message = `${credential.display_name} is expired`;
-					parsedActivity.cardType = 'error';
+					parsedActivity.type = 'error';
 				}
 			} else if (activity.type === 'verification') {
 				const { verifier_name, success, rp_name, properties } = activity;
 				parsedActivity.message = `${verifier_name} verified yours: ${properties.join(', ')} via ${rp_name} and it was a ${
 					success ? 'success' : 'failure'
 				}`;
-				parsedActivity.cardType = 'warning';
+				parsedActivity.type = 'warning';
 			}
 			return parsedActivity;
 		}
@@ -115,7 +115,6 @@
 			.filter((activity): activity is ParsedActivity => Boolean(activity));
 	}
 
-	console.log(parseActivities(activities, credentials));
 </script>
 
 <TabPage tab="activity" title="ACTIVITY">
@@ -126,17 +125,7 @@
 			</div>
 		{/if}
 		{#each parseActivities(activities, credentials) as activity}
-			<d-activity-card
-				name={activity.name}
-				logo={activity.logo}
-				description={activity.description}
-				date={dayjs().to(dayjs.unix(activity.at))}
-				type={activity.cardType}
-				read={activity.read}
-				message={activity.message}
-				id={String(activity.at)}
-				use:setAsRead
-			>
+			<d-activity-card {...activity} id={String(activity.at)} use:setAsRead>
 				<d-button
 					size="small"
 					color="accent"
