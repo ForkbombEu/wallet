@@ -70,7 +70,6 @@ export async function getActivities(): Promise<Activity[] | undefined> {
 export async function getParsedActivities(): Promise<ParsedActivity[]> {
 	const activities = (await getActivities()) || [];
 	const credentials = (await getCredentialsPreference()) || [];
-	console.log(activities, credentials)
 	function findCredentialById(id: number) {
 		return credentials?.find((cred) => cred.id === id);
 	}
@@ -86,12 +85,11 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 			at: 0
 		};
 		parsedActivity.date = dayjs().to(dayjs.unix(activity.at));
+		parsedActivity.at = activity.at;
 
 		if (activity.type === 'credential' || activity.type === 'expired') {
-			console.log("Activity type", activity.type);
 			const credential = findCredentialById(activity.id);
 			if (!credential) {
-				console.log(`credential ${activity.id} not found`);
 				return;
 			}
 			parsedActivity.name = credential.display_name;
