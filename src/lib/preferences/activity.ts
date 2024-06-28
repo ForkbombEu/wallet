@@ -1,5 +1,12 @@
 import { getStructuredPreferences, setStructuredPreferences } from '.';
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+import { getCredentialsPreference } from './credentials';
+import type { Credential } from '$lib/preferences/credentials';
+
+dayjs.extend(relativeTime);
+
 
 export type IssuedCredential = {
 	type: 'credential';
@@ -16,14 +23,26 @@ export type Verification = {
 };
 
 export type ExpiredCredential = {
-    type: 'expired';
-    id: number;
+	type: 'expired';
+	id: number;
 };
 
 export type Activity = {
 	at: number;
 	read?: boolean;
 } & (IssuedCredential | Verification | ExpiredCredential);
+
+export type ParsedActivity = {
+	name: string;
+	logo: { url: string; alt_text: string };
+	description: string;
+	date: string;
+	message: string;
+	type: string;
+	credential?: Credential;
+	read?: boolean;
+	at: number;
+};
 
 export const ACTIVITY_PREFERENCES_KEY = 'activity';
 
@@ -46,6 +65,60 @@ export async function addActivity(activity: Activity) {
 
 export async function getActivities(): Promise<Activity[] | undefined> {
 	return await getStructuredPreferences(ACTIVITY_PREFERENCES_KEY);
+}
+
+export async function getParsedActivities(): Promise<ParsedActivity[]> {
+	const activities = (await getActivities()) || [];
+	const credentials = (await getCredentialsPreference()) || [];
+	console.log(activities, credentials)
+	function findCredentialById(id: number) {
+		return credentials?.find((cred) => cred.id === id);
+	}
+
+	function formatActivity(activity: Activity) {
+		let parsedActivity: ParsedActivity = {
+			name: '',
+			logo: { url: '', alt_text: '' },
+			description: '',
+			date: '',
+			message: '',
+			type: '',
+			at: 0
+		};
+		parsedActivity.date = dayjs().to(dayjs.unix(activity.at));
+
+		if (activity.type === 'credential' || activity.type === 'expired') {
+			console.log("Activity type", activity.type);
+			const credential = findCredentialById(activity.id);
+			if (!credential) {
+				console.log(`credential ${activity.id} not found`);
+				return;
+			}
+			parsedActivity.name = credential.display_name;
+			parsedActivity.logo = credential.logo;
+			parsedActivity.description = credential.description;
+			parsedActivity.credential = credential;
+			if (activity.type === 'credential') {
+				parsedActivity.message = `${credential.issuer} issued ${credential.display_name} to you`;
+				parsedActivity.type = 'warning';
+			} else {
+				parsedActivity.message = `${credential.display_name} is expired`;
+				parsedActivity.type = 'error';
+			}
+		} else if (activity.type === 'verification') {
+			const { verifier_name, success, rp_name, properties } = activity;
+			parsedActivity.message = `${verifier_name} verified yours: ${properties.join(', ')} via ${rp_name} and it was a ${
+				success ? 'success' : 'failure'
+			}`;
+			parsedActivity.type = 'warning';
+		}
+		return parsedActivity;
+	}
+
+	return activities
+		.reverse()
+		.map(formatActivity)
+		.filter((activity): activity is ParsedActivity => Boolean(activity));
 }
 
 export async function clearActivities() {
