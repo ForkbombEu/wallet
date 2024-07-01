@@ -155,15 +155,12 @@
 				{/if}
 			</d-activity-card>
 		{:else}
-			<div class="flex h-3/5 flex-col items-center justify-center gap-1">
-				<div>
-					<Bell />
-				</div>
-				<d-heading size="s">{m.No_activity_yet()}</d-heading>
-				<d-text size="l" class="pb-4 text-center"
-					>{m.Get_alerts_on_new_activities_and_keep_your_account_uptodate_()}</d-text
-				>
-			</div>
+			<d-empty-state
+				heading={m.No_activity_yet()}
+				text={m.Get_alerts_on_new_activities_and_keep_your_account_uptodate_()}
+			>
+				<Bell />
+			</d-empty-state>
 		{/each}
 	</div>
 </TabPage>
