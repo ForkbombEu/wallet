@@ -126,7 +126,6 @@
 					title="authorization server"
 					id="authorization server"
 					on:load={() => {
-						console.log('load');
 						iframeLoading = false;
 					}}
 					loading="lazy"
