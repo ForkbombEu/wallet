@@ -97,16 +97,13 @@
 	<d-feedback {...feedback} />
 	{#if feedbackData}
 		<d-feedback {...feedbackData} />
-		<div class="flex h-3/5 flex-col items-center justify-center gap-1">
-			<div class="-mb-16">
-				<Pidgeon />
-			</div>
-			<d-heading size="s">{m.The_service_seems_to_be_out_of_reach()}</d-heading>
-			<!-- <d-text size="l" class="pb-4">Try oth</d-text> -->
-			<d-button expand color="outline" href={r('/home')} class="w-full">
-				{m.Go_to_home()} <ion-icon slot="end" icon={arrowForwardOutline} />
-			</d-button>
-		</div>
+		<d-empty-state
+			heading={m.The_service_seems_to_be_out_of_reach()}
+			buttonText={m.Go_to_home()}
+			href={r('/home')}
+		>
+			<Pidgeon />
+		</d-empty-state>
 	{:else}
 		<div class="mt-2 flex min-h-full flex-col justify-between pb-14">
 			<div>
@@ -118,7 +115,7 @@
 
 			<div class="mt-6 rounded-md bg-white p-4">
 				{#if iframeLoading}
-					<div class="fixed opacity-90 top-0 left-0">
+					<div class="fixed left-0 top-0 opacity-90">
 						<Loading />
 					</div>
 				{/if}
