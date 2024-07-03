@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createForm, Form } from '$lib/forms';
 	import FormError from '$lib/forms/formError.svelte';
-	import { Input } from '$lib/ionic/forms';
+	import { Input } from '$lib/forms';
 	import { generateKeypair, type UserChallengesAnswers } from '$lib/keypairoom';
 
 	import CopyButton from '$lib/components/copyButton.svelte';
