@@ -1,3 +1,10 @@
+## [1.49.6](https://github.com/ForkbombEu/wallet/compare/v1.49.5...v1.49.6) (2024-07-03)
+
+
+### Bug Fixes
+
+* Update the didroom-components ([5033ca9](https://github.com/ForkbombEu/wallet/commit/5033ca99354ac21a600e510226eab18a1ed9ee55))
+
 ## [1.49.5](https://github.com/ForkbombEu/wallet/compare/v1.49.4...v1.49.5) (2024-07-03)
 
 
