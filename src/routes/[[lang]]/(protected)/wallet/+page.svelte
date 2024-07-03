@@ -4,7 +4,6 @@
 	import { getCredentialsPreference } from '$lib/preferences/credentials';
 	import TabPage from '$lib/tabs/TabPage.svelte';
 	import dayjs from 'dayjs';
-	import { arrowForwardOutline } from 'ionicons/icons';
 	import type { Credential } from '$lib/preferences/credentials';
 	import EmptyWallet from '$lib/assets/EmptyWallet.svelte';
 
@@ -30,16 +29,14 @@
 		<Loading />
 	{:then credentials}
 		{#if !credentials}
-			<div class="flex h-3/5 flex-col items-center justify-center gap-1">
-				<div>
-					<EmptyWallet/>
-				</div>
-				<d-heading size="s">{m.Nothing_in_your_wallet()}</d-heading>
-				<d-text size="l" class="pb-4">{m.Start_getting_your_first_credential()}</d-text>
-				<d-button expand color="outline" href={r('/home')} class="w-full">
-					{m.Go_to_issuance_services()} <ion-icon slot="end" icon={arrowForwardOutline} />
-				</d-button>
-			</div>
+			<d-empty-state
+				heading={m.Nothing_in_your_wallet()}
+				text={m.Start_getting_your_first_credential()}
+				buttonText={m.Go_to_issuance_services()}
+				href={r('/home')}
+			>
+				<EmptyWallet />
+			</d-empty-state>
 		{:else}
 			{@const sortedCredentials = sortCredentials(credentials)}
 			<div class="flex flex-col gap-2">
@@ -51,7 +48,8 @@
 								class="absolute flex h-full w-full items-center justify-center rounded-lg bg-primary opacity-80"
 							>
 								<d-text size="l" class="font-bold uppercase text-error">
-									{m.expired_on()} {expirationDate}
+									{m.expired_on()}
+									{expirationDate}
 								</d-text>
 							</div>
 						{/if}
@@ -67,9 +65,6 @@
 			</div>
 		{/if}
 	{:catch error}
-		<div class="flex h-3/5 flex-col items-center justify-center gap-1">
-			<d-heading size="s">{m.Error()}</d-heading>
-			<d-text size="l" class="pb-4">{error.message}</d-text>
-		</div>
+		<d-empty-state heading={m.Error()} text={error.message} />
 	{/await}
 </TabPage>

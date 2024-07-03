@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Header from '$lib/components/molecules/Header.svelte';
-	import ScanButton from '$lib/components/molecules/ScanButton.svelte';
+	import { m, r } from '$lib/i18n';
 	import type { Tab } from '.';
 
 	export let tab: Tab;
@@ -13,7 +13,9 @@
 
 	<ion-content fullscreen class="ion-padding" id="main-content">
 		<slot />
-		<ScanButton />
+		<d-scan-button href={r('/scan')}>
+			{m.SCAN_QR()}
+		</d-scan-button>
 		<div class="pb-24" />
 	</ion-content>
 </ion-tab>

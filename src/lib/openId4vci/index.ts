@@ -16,7 +16,6 @@ import utils_print_decoded_sdjwt from '$lib/mobile_zencode/wallet/utils_print_de
 import { log } from '$lib/log';
 
 
-//@ts-expect-error Slangroom plugins typing?
 const slangroom = new Slangroom([http, helpers, zencode]);
 
 export const getKeys = async () => {
