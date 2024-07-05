@@ -2,10 +2,11 @@
 	import Loading from '$lib/components/molecules/Loading.svelte';
 	import { m, r } from '$lib/i18n';
 	import { getCredentialsPreference } from '$lib/preferences/credentials';
-	import TabPage from '$lib/tabs/TabPage.svelte';
 	import dayjs from 'dayjs';
 	import type { Credential } from '$lib/preferences/credentials';
 	import EmptyWallet from '$lib/assets/EmptyWallet.svelte';
+	import { scanButton } from '$lib/tabs';
+
 
 	const sortCredentials = (credentials: Credential[]) => {
 		return credentials.slice().sort((a: any, b: any) => {
@@ -20,7 +21,7 @@
 	};
 </script>
 
-<d-tab-page tab="wallet" title="WALLET">
+<d-tab-page tab="wallet" title="WALLET" {...scanButton}>
 	<d-page-description
 		title={m.My_issued_credentials()}
 		description={m.Explore_and_manage_your_verified_credentials()}
