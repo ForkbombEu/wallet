@@ -4,6 +4,7 @@
 	import { authFilesUri, filesUri } from '$lib/backendUri.js';
 	import AppDetails from '$lib/components/AppDetails.svelte';
 	import { scanButton } from '$lib/tabs';
+	import Settings from '$lib/components/molecules/Settings.svelte';
 
 	export let data;
 
@@ -38,5 +39,8 @@
 			</div>
 		{/if}
 		<AppDetails />
+	</div>
+	<div slot="settings">
+		<Settings />
 	</div>
 </d-tab-page>
