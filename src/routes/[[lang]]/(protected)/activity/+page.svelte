@@ -115,10 +115,9 @@
 			.filter((activity): activity is ParsedActivity => Boolean(activity));
 	}
 
-	console.log(parseActivities(activities, credentials));
 </script>
 
-<TabPage tab="activity" title="ACTIVITY">
+<d-tab-page tab="activity" title="ACTIVITY">
 	<div class="flex flex-col">
 		{#if activities.length > 0}
 			<div class="flex justify-end gap-2.5 pb-4">
@@ -163,4 +162,4 @@
 			</d-empty-state>
 		{/each}
 	</div>
-</TabPage>
+</d-tab-page>

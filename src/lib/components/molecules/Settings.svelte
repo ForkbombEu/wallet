@@ -25,7 +25,7 @@
 	const gotoLanguageSettings = () => goto('/languages');
 </script>
 
-<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-4 ion-padding">
 	<d-buttons-group>
 		<d-button aria-hidden size="large" disabled>
 			{m.Account_Settings()}

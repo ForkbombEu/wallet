@@ -9,7 +9,7 @@ export type Tab = (typeof Tabs)[keyof typeof Tabs];
 
 //
 
-export type IonTabProps = {
+export type TabProps = {
 	label: string;
 	tab: Tab;
 	hasAlert?:boolean;
@@ -17,5 +17,3 @@ export type IonTabProps = {
 
 //
 
-import TabPage from './TabPage.svelte';
-export { TabPage };

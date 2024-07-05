@@ -14,7 +14,7 @@
 	$: console.log(authFilesUri(user?.avatar, user?.id))
 </script>
 
-<TabPage tab="profile" title="PROFILE" settings>
+<d-tab-page tab="profile" title="PROFILE" settings>
 	<div class="flex flex-col items-center gap-2 pt-8 text-center">
 		<d-avatar src={authFilesUri(user?.avatar, user?.id)} size="xl"></d-avatar>
 		<d-heading size="s" class="w-full">{user?.name || user?.email}</d-heading>
@@ -39,4 +39,4 @@
 		{/if}
 		<AppDetails />
 	</div>
-</TabPage>
+</d-tab-page>

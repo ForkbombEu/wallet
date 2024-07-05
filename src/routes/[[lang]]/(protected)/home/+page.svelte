@@ -48,7 +48,7 @@
 	};
 </script>
 
-<TabPage tab="home" title="HOME">
+<d-tab-page tab="home" title="HOME">
 	<d-feedback {...feedback} on:dClose={onFeedbackClose} />
 	<d-page-description
 		title={m.Claim_credential()}
@@ -68,4 +68,4 @@
 			/>
 		{/each}
 	</div>
-</TabPage>
+</d-tab-page>

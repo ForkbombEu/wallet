@@ -1,8 +1,6 @@
 <script lang="ts">
 	import '@fontsource-variable/gantari';
 	import { setupIonicBase } from 'ionic-svelte';
-	// import { App } from '@capacitor/app';
-	// import { r } from '$lib/i18n';
 
 	setupIonicBase();
 
@@ -23,7 +21,6 @@
 	const signal = controller.signal;
 
 	onMount(() => {
-		// controller.abort();
 		document.addEventListener(
 			'ionBackButton',
 			(ev: any) => {
@@ -51,22 +48,22 @@
 		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
 	/>
 	<!-- uncomment to test didroom-components locally -->
-	<!-- <script
+	<script
 		type="module"
 		src="http://localhost:3333/build/didroom-components.esm.js"
 	></script>
 	<link
 		rel="stylesheet"
 		href="http://localhost:3333/build/didroom-components.css"
-	/> -->
-	<script
+	/>
+	<!-- <script
 		type="module"
-		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.23/dist/didroom-components/didroom-components.esm.js"
+		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.24/dist/didroom-components/didroom-components.esm.js"
 	></script>
 	<link
 		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.23/dist/didroom-components/didroom-components.css"
-	/>
+		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.24/dist/didroom-components/didroom-components.css"
+	/> -->
 </svelte:head>
 <svelte:window
 	on:error|capture={(e) => log(e.error)}

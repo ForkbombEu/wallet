@@ -20,7 +20,7 @@
 	};
 </script>
 
-<TabPage tab="wallet" title="WALLET">
+<d-tab-page tab="wallet" title="WALLET">
 	<d-page-description
 		title={m.My_issued_credentials()}
 		description={m.Explore_and_manage_your_verified_credentials()}
@@ -67,4 +67,4 @@
 	{:catch error}
 		<d-empty-state heading={m.Error()} text={error.message} />
 	{/await}
-</TabPage>
+</d-tab-page>
