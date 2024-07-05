@@ -22,10 +22,11 @@
 
 	let iframeLoading = true;
 
-	window.addEventListener('message', function (event) {
+	window.addEventListener('message', async function (event) {
 		if (event.origin === window.location.origin) return;
 		try {
 			code = JSON.parse(event.data).code;
+			await getCredential();
 		} catch {
 			feedback = {
 				type: 'error',
@@ -42,12 +43,12 @@
 	let isCredentialVerified: boolean = false;
 	let serviceResponse: CredentialResult;
 
-	interface pp extends Node {
+	interface ScrollableNode extends Node {
 		scrollToTop: () => void;
 	}
 
 	let feedback: Feedback | undefined = {};
-	let content: pp;
+	let content: ScrollableNode;
 
 	//
 
@@ -126,19 +127,12 @@
 					title="authorization server"
 					id="authorization server"
 					on:load={() => {
-						console.log('load');
 						iframeLoading = false;
 					}}
 					loading="lazy"
 				></iframe>
 			</div>
 			<div class="w-full">
-				<d-button
-					expand
-					aria-hidden
-					disabled={!Boolean(code)}
-					on:click={Boolean(code) ? getCredential : () => {}}>{m.Get_this_credential()}</d-button
-				>
 				<d-button expand href={r('/home')}>{m.Decline()}</d-button>
 			</div>
 		</div>

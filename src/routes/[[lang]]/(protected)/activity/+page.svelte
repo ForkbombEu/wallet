@@ -1,14 +1,6 @@
 <script lang="ts">
 	import TabPage from '$lib/tabs/TabPage.svelte';
-	import dayjs from 'dayjs';
-	import relativeTime from 'dayjs/plugin/relativeTime';
-	import {
-		removeActivities,
-		clearActivities,
-		type Activity,
-		setActivityAsRead
-	} from '$lib/preferences/activity';
-	import type { Credential } from '$lib/preferences/credentials';
+	import { removeActivities, clearActivities, setActivityAsRead } from '$lib/preferences/activity';
 	import { r, m } from '$lib/i18n';
 	import { invalidate } from '$app/navigation';
 	import { _activityKey } from './+page.js';
@@ -16,11 +8,11 @@
 	import { _protectedLayoutKey } from '../+layout.js';
 	import { onDestroy } from 'svelte';
 
-	dayjs.extend(relativeTime);
 
 	export let data;
-	let { activities, credentials } = data;
-	let setReaded = false;
+	let { activities } = data;
+	
+	let hasChangesFlag = false;
 
 	const cancelActivity = async (at: number) => {
 		await removeActivities([at]);
@@ -40,7 +32,7 @@
 				setTimeout(async () => {
 					if (activities.find((a) => a.at === Number(e.id))?.read) return;
 					await setActivityAsRead(Number(e.id));
-					setReaded = true;
+					hasChangesFlag = true;
 				}, 2000);
 			}
 		});
@@ -48,73 +40,10 @@
 	}
 
 	onDestroy(() => {
-		if (setReaded) {
+		if (hasChangesFlag) {
 			invalidate(_protectedLayoutKey);
 		}
 	});
-
-	type ParsedActivity = {
-		name: string;
-		logo: { url: string; alt_text: string };
-		description: string;
-		date: string;
-		message: string;
-		cardType: string;
-		credential?: Credential;
-		read?: boolean;
-		at: number;
-	};
-
-	function parseActivities(activities: Activity[], credentials?: Credential[]): ParsedActivity[] {
-		function findCredentialById(id: number) {
-			return credentials?.find((cred) => cred.id === id);
-		}
-
-		function formatActivity(activity: Activity) {
-			let parsedActivity: ParsedActivity = {
-				name: '',
-				logo: { url: '', alt_text: '' },
-				description: '',
-				date: '',
-				message: '',
-				cardType: '',
-				at: 0
-			};
-			parsedActivity.date = dayjs().to(dayjs.unix(activity.at));
-
-			if (activity.type === 'credential' || activity.type === 'expired') {
-				const credential = findCredentialById(activity.id);
-				if (!credential) {
-					console.log(`credential ${activity.id} not found`);
-					return;
-				}
-				parsedActivity.name = credential.display_name;
-				parsedActivity.logo = credential.logo;
-				parsedActivity.description = credential.description;
-				parsedActivity.credential = credential;
-				if (activity.type === 'credential') {
-					parsedActivity.message = `${credential.issuer} issued ${credential.display_name} to you`;
-					parsedActivity.cardType = 'warning';
-				} else {
-					parsedActivity.message = `${credential.display_name} is expired`;
-					parsedActivity.cardType = 'error';
-				}
-			} else if (activity.type === 'verification') {
-				const { verifier_name, success, rp_name, properties } = activity;
-				parsedActivity.message = `${verifier_name} verified yours: ${properties.join(', ')} via ${rp_name} and it was a ${
-					success ? 'success' : 'failure'
-				}`;
-				parsedActivity.cardType = 'warning';
-			}
-			return parsedActivity;
-		}
-
-		return activities
-			.reverse()
-			.map(formatActivity)
-			.filter((activity): activity is ParsedActivity => Boolean(activity));
-	}
-
 </script>
 
 <d-tab-page tab="activity" title="ACTIVITY">
@@ -124,18 +53,8 @@
 				<d-button size="small" color="accent" onClick={clear}> {m.clear_all()} </d-button>
 			</div>
 		{/if}
-		{#each parseActivities(activities, credentials) as activity}
-			<d-activity-card
-				name={activity.name}
-				logo={activity.logo}
-				description={activity.description}
-				date={dayjs().to(dayjs.unix(activity.at))}
-				type={activity.cardType}
-				read={activity.read}
-				message={activity.message}
-				id={String(activity.at)}
-				use:setAsRead
-			>
+		{#each activities as activity}
+			<d-activity-card {...activity} id={String(activity.at)} use:setAsRead>
 				<d-button
 					size="small"
 					color="accent"

@@ -1,3 +1,19 @@
+## [1.49.6](https://github.com/ForkbombEu/wallet/compare/v1.49.5...v1.49.6) (2024-07-03)
+
+
+### Bug Fixes
+
+* Update the didroom-components ([5033ca9](https://github.com/ForkbombEu/wallet/commit/5033ca99354ac21a600e510226eab18a1ed9ee55))
+
+## [1.49.5](https://github.com/ForkbombEu/wallet/compare/v1.49.4...v1.49.5) (2024-07-03)
+
+
+### Bug Fixes
+
+* activity relative date ([#406](https://github.com/ForkbombEu/wallet/issues/406)) ([c12ce69](https://github.com/ForkbombEu/wallet/commit/c12ce69b9e5b8c664c0857221691bfa4251d5562))
+* add requestKey to avoid pb services request autocancellation ([#404](https://github.com/ForkbombEu/wallet/issues/404)) ([24a7284](https://github.com/ForkbombEu/wallet/commit/24a7284a2c4f93497499620faf371f351d1f921a))
+* remove get credential button in credential offer ([#401](https://github.com/ForkbombEu/wallet/issues/401)) ([8ef1c2b](https://github.com/ForkbombEu/wallet/commit/8ef1c2b0ab25f06ff81af0e1d1ab3c8c72e68cf8)), closes [#400](https://github.com/ForkbombEu/wallet/issues/400)
+
 ## [1.49.4](https://github.com/ForkbombEu/wallet/compare/v1.49.3...v1.49.4) (2024-06-26)
 
 

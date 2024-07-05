@@ -3,7 +3,7 @@
 	import Illustration from '$lib/components/molecules/Illustration.svelte';
 	import { Form, createForm } from '$lib/forms';
 	import { goto, m } from '$lib/i18n';
-	import { Input } from '$lib/ionic/forms';
+	import { Input } from '$lib/forms';
 	import { arrowForward } from 'ionicons/icons';
 	import { z } from 'zod';
 	import { createUser, login, userEmailStore } from '../../_lib';

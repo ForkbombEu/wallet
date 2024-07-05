@@ -10,7 +10,7 @@
 	import Illustration from '$lib/components/molecules/Illustration.svelte';
 	import Header from '$lib/components/molecules/Header.svelte';
 	import background from '$lib/assets/bg-5.svg';
-	import { Input } from '$lib/ionic/forms/index.js';
+	import { Input } from '$lib/forms';
 	import Chat from '$lib/assets/Chat.svelte';
 	import { routeHistory } from '$lib/routeStore.js';
 
