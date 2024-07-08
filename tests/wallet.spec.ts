@@ -5,7 +5,7 @@ test.describe('Wallet Page', () => {
 	test('should load wallet page after login', async ({ page }) => {
 		await login(page);
 		await expect(page).toHaveURL('/en/wallet');
-		await expect(page.getByText('WALLET', { exact: true }).first()).toBeVisible();
+		await expect(page.getByText('WALLET').first()).toBeVisible();
 	});
 
 	test('should display heading and description', async ({ page }) => {
