@@ -1,5 +1,4 @@
 <script lang="ts">
-	import TabPage from '$lib/tabs/TabPage.svelte';
 	import type { Service } from '$lib/slangroom/services';
 	import { goto, m } from '$lib/i18n';
 	import type { Feedback } from '$lib/utils/types';
@@ -8,6 +7,7 @@
 	import type { Service as CredentialService } from '$lib/components/organisms/scanner/tools';
 	import { getNotReadedActivities } from '$lib/preferences/activity';
 	import { getExpiredCredentials } from '$lib/preferences/credentials';
+	import { scanButton } from '$lib/tabs';
 
 	export let data;
 	const { services } = data;
@@ -48,7 +48,7 @@
 	};
 </script>
 
-<TabPage tab="home" title="HOME">
+<d-tab-page tab="home" title="HOME" {...scanButton}>
 	<d-feedback {...feedback} on:dClose={onFeedbackClose} />
 	<d-page-description
 		title={m.Claim_credential()}
@@ -68,4 +68,4 @@
 			/>
 		{/each}
 	</div>
-</TabPage>
+</d-tab-page>

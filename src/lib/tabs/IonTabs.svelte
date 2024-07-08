@@ -1,59 +1,35 @@
-<script>
-	//Credits: https://github.com/Tommertom/ionic-svelte-tabs-howto
-	// @ts-nocheck
-	import { onMount } from 'svelte';
+<script lang="ts">
 	import { page, navigating } from '$app/stores';
-
-	import { goto, i18n, r } from '$lib/i18n';
+	import { goto, r } from '$lib/i18n';
 	import { goto as svelteGoto } from '$app/navigation';
-	export let ionTabsDidChange = () => {};
-	export let ionTabsWillChange = () => {};
+	import type { TabProps } from '.';
 
 	/**
     An array of tab objects containing label, and tab properties.
-    @type {{label: string; tab: string;}[]}
+    @type {{label: string; tab: string;, hasAlert: boolean;}[]}
     */
-	export let tabs = [];
+	export let tabs: TabProps[] = [];
 
-	let ionTabBarElement;
-	let controller;
-
-	// we need relative path for the goto to function properly and to allow for relative tab definitions
 	const { pathname } = $page.url;
 	const pathSplit = pathname.split('/');
-	let currentTabName = pathSplit[pathSplit.length - 1]; // we don't want to use at(-1) because of old browsers
+	let currentTabName = pathSplit[pathSplit.length - 1];
 
-	// we need to capture the router changes - to support a-href navigation and other stuff
 	$: if ($navigating && $navigating.to) {
 		tabs.forEach(async (tab) => {
-			if ($navigating.to.url.pathname.includes(tab.tab)) {
+			if ($navigating.to?.url.pathname.includes(tab.tab)) {
 				currentTabName = tab.tab;
 				await svelteGoto(r('/' + tab.tab));
-				controller.select(tab.tab);
 			}
 		});
 	}
 
-	onMount(async () => {
-		// reassignment needed after onMount
-		controller = ionTabBarElement;
-		controller.select(currentTabName);
-	});
-
-	const tabBarClick = async (selectedTab) => {
-		currentTabName = selectedTab;
+	const tabBarClick = async (selectedTab: string) => {
 		await goto('/' + selectedTab);
-		controller.select(selectedTab);
 	};
 </script>
 
-<ion-tabs
-	on:ionTabsDidChange={ionTabsDidChange}
-	on:ionTabsWillChange={ionTabsWillChange}
-	bind:this={ionTabBarElement}
->
+<ion-tabs>
 	<slot />
-
 	<ion-tab-bar slot="bottom" class="ion-padding flex justify-between py-0">
 		{#each tabs as tab}
 			<d-tab-button

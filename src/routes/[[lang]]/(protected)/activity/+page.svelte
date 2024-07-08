@@ -1,5 +1,4 @@
 <script lang="ts">
-	import TabPage from '$lib/tabs/TabPage.svelte';
 	import { removeActivities, clearActivities, setActivityAsRead } from '$lib/preferences/activity';
 	import { r, m } from '$lib/i18n';
 	import { invalidate } from '$app/navigation';
@@ -7,11 +6,11 @@
 	import Bell from '$lib/assets/bell.svelte';
 	import { _protectedLayoutKey } from '../+layout.js';
 	import { onDestroy } from 'svelte';
-
+	import { scanButton } from '$lib/tabs';
 
 	export let data;
 	let { activities } = data;
-	
+
 	let hasChangesFlag = false;
 
 	const cancelActivity = async (at: number) => {
@@ -44,9 +43,11 @@
 			invalidate(_protectedLayoutKey);
 		}
 	});
+
+	$: console.log(scanButton);
 </script>
 
-<TabPage tab="activity" title="ACTIVITY">
+<d-tab-page tab="activity" title="ACTIVITY" {...scanButton}>
 	<div class="flex flex-col">
 		{#if activities.length > 0}
 			<div class="flex justify-end gap-2.5 pb-4">
@@ -81,4 +82,4 @@
 			</d-empty-state>
 		{/each}
 	</div>
-</TabPage>
+</d-tab-page>
