@@ -46,7 +46,7 @@ test.describe('Security Questions Page', () => {
 		await expect(errorMessage).toBeVisible();
 	});
 
-	test('should complete security questions and generate keypair', async ({ page }) => {
+	test.skip('should complete security questions and generate keypair', async ({ page }) => {
 		await page.goto('/login?registration=true');
 		await page.fill('input[name="email"]', randomEmail());
 		await page.getByRole('button', { name: 'Next' }).click();

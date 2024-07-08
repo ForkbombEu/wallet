@@ -7,17 +7,26 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
-    if: false
     environment: test
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: dyne/pnpm@main
         with:
           submodules: true
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      - run: |
+          git clone --recursive https://github.com/forkbombeu/signroom
+          cd signroom/admin
+          cp ../../tests/fixtures/test.db pb_data/data.db
+          go build
+          ./pb migrate
+          ./pb serve &
       - run: npx playwright install --with-deps
       - run: pnpm test:integration
         env:
-          PUBLIC_BACKEND_URL: ${{ vars.PUBLIC_BACKEND_URL }}
+          PUBLIC_BACKEND_URL: http://localhost:8090
           USER_EMAIL: ${{ vars.USER_EMAIL }}
           USER_PASSWORD: ${{ vars.USER_PASSWORD }}
           USER_SEED: ${{ vars.USER_SEED }}
@@ -31,7 +40,7 @@ jobs:
   distribute:
     runs-on: ubuntu-latest
     environment: test
-    # needs: tests
+    needs: tests
     steps:
       - uses: dyne/pnpm@main
         with:
