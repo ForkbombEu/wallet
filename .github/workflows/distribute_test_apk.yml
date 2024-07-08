@@ -19,6 +19,7 @@ jobs:
       - run: |
           git clone --recursive https://github.com/forkbombeu/signroom
           cd signroom/admin
+          cp ../../tests/fixtures/test.db pb_data/data.db
           go build
           ./pb migrate
           ./pb serve &
