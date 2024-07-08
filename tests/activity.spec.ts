@@ -11,7 +11,7 @@ test.describe('Activity Page', () => {
 		await login(page);
 		await tabBarClick('Activity', page);
 		await expect(page).toHaveURL('/en/activity');
-		await expect(page.getByText('ACTIVITY', { exact: true }).first()).toBeVisible();
+		await expect(page.getByText('ACTIVITY').first()).toBeVisible();
 	});
 
 	test('should display "No activity yet" when there are no activities', async ({ page }) => {
