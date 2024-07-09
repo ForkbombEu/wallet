@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import { arrowForwardOutline, thumbsUpOutline } from 'ionicons/icons';
+	import { thumbsUpOutline } from 'ionicons/icons';
 	import { goto, r } from '$lib/i18n';
 	import { m } from '$lib/i18n';
-	import Header from '$lib/components/molecules/Header.svelte';
 	import { setCredentialPreference } from '$lib/preferences/credentials';
 	import { askCredential, decodeSdJwt, type CredentialResult } from '$lib/openId4vci';
 	import { credentialOfferStore } from '$lib/credentialOfferStore';
@@ -14,6 +13,7 @@
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import Pidgeon from '$lib/assets/Pidgeon.svelte';
 	import Loading from '$lib/components/molecules/Loading.svelte';
+	import { routeHistory } from '$lib/routeStore.js';
 
 	export let data;
 	const { wn, authorizeUrl, parResult, feedbackData } = data;
@@ -92,7 +92,9 @@
 	};
 </script>
 
-<Header>{m.Credential_offer()}</Header>
+<d-header back-button backFunction={routeHistory.back}>
+	{m.Credential_offer()}
+</d-header>
 
 <ion-content fullscreen class="ion-padding" bind:this={content}>
 	<d-feedback {...feedback} />
