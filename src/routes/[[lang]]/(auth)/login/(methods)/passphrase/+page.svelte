@@ -8,7 +8,6 @@
 	import type { Feedback } from '$lib/utils/types.js';
 	import { checkKeypairs, generateDid } from '../../_lib/index.js';
 	import Illustration from '$lib/components/molecules/Illustration.svelte';
-	import Header from '$lib/components/molecules/Header.svelte';
 	import background from '$lib/assets/bg-5.svg';
 	import { Input } from '$lib/forms';
 	import Chat from '$lib/assets/Chat.svelte';
@@ -58,7 +57,9 @@
 	const seedPlaceholder = 'skin buyer sunset person run push elevator under debris soft surge man';
 </script>
 
-<Header>{m.REGISTER()}</Header>
+<d-header back-button backFunction={routeHistory.back}>
+	{m.REGISTER()}
+</d-header>
 
 <div class="flex flex-col">
 	<d-feedback {...feedback} />

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Header from '$lib/components/molecules/Header.svelte';
 	import Illustration from '$lib/components/molecules/Illustration.svelte';
 	import { Form, createForm } from '$lib/forms';
 	import { goto, m } from '$lib/i18n';
@@ -10,6 +9,7 @@
 	import background from '$lib/assets/bg-5.svg';
 	import type { Feedback } from '$lib/utils/types';
 	import Chat from '$lib/assets/Chat.svelte';
+	import { routeHistory } from '$lib/routeStore';
 
 	let feedback: Feedback = {};
 
@@ -37,7 +37,9 @@
 	});
 </script>
 
-<Header>{m.REGISTER()}</Header>
+<d-header back-button backFunction={routeHistory.back} settingsTitle={m.Settings()}>
+	{m.REGISTER()}
+</d-header>
 <d-feedback {...feedback} />
 
 <div class="flex flex-col">

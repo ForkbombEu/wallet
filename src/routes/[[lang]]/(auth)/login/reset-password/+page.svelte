@@ -8,10 +8,10 @@
 	import background from '$lib/assets/bg-4.svg';
 	import { askResetPassword } from '../_lib';
 	import type { Feedback } from '$lib/utils/types';
-	import Header from '$lib/components/molecules/Header.svelte';
 	import CircleCheck from '$lib/assets/CircleCheck.svelte';
 	import Chat from '$lib/assets/Chat.svelte';
 	import Loading from '$lib/components/molecules/Loading.svelte';
+	import { routeHistory } from '$lib/routeStore';
 
 	let feedback: Feedback = {};
 	let loading = false;
@@ -48,7 +48,9 @@
 </script>
 
 <Loading {loading} />
-<Header>{m.Reset_password()}</Header>
+<d-header back-button backFunction={routeHistory.back}>
+	{m.Reset_password()}
+</d-header>
 <div class="flex min-h-screen flex-col place-content-between">
 	<d-feedback {...feedback} />
 	<div class="grow">
