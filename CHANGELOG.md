@@ -1,3 +1,10 @@
+## [1.49.8](https://github.com/ForkbombEu/wallet/compare/v1.49.7...v1.49.8) (2024-07-09)
+
+
+### Bug Fixes
+
+* dont need Header component anymore, just use didroom-components ([#411](https://github.com/ForkbombEu/wallet/issues/411)) ([5bd912e](https://github.com/ForkbombEu/wallet/commit/5bd912ee25f8ba82a801c31f93c33f31c4c1a523))
+
 ## [1.49.7](https://github.com/ForkbombEu/wallet/compare/v1.49.6...v1.49.7) (2024-07-08)
 
 
