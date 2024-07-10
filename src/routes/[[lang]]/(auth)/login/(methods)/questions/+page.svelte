@@ -5,7 +5,6 @@
 	import { generateKeypair, type UserChallengesAnswers } from '$lib/keypairoom';
 
 	import CopyButton from '$lib/components/copyButton.svelte';
-	import Header from '$lib/components/molecules/Header.svelte';
 	import { goto, m, r } from '$lib/i18n';
 	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
@@ -121,7 +120,9 @@
 </script>
 
 <Loading {loading} message={m.Generating_Keypair_()} />
-<Header backButton={!seed}>{m.SECURITY_QUESTIONS()}</Header>
+<d-header back-button={!seed} backFunction={routeHistory.back}>
+	{m.SECURITY_QUESTIONS()}
+</d-header>
 
 <div class="flex h-full w-screen flex-col gap-4 px-4">
 	<d-feedback {...feedback} />
