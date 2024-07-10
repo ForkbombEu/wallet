@@ -1,16 +1,18 @@
 <script lang="ts">
-	import Header from '$lib/components/molecules/Header.svelte';
 	import { m } from '$lib/i18n'
 	export let data: any;
 	const { credential, credentials } = data;
 	import { decodeSdJwt } from '$lib/openId4vci';
+	import { routeHistory } from '$lib/routeStore';
 
 	const isNestedDisclosure = (disclosure: Array<string | Record<string, string>>) => {
 		return typeof disclosure[2] === 'object';
 	};
 </script>
 
-<Header>{m.Credential_detail()}</Header>
+<d-header back-button backFunction={routeHistory.back}>
+	{m.Credential_detail()}
+</d-header>
 <ion-content fullscreen class="h-full">
 	<div class="flex h-full flex-col gap-4">
 		<div class="ion-padding">

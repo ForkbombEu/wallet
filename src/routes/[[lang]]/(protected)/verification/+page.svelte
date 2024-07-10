@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Header from '$lib/components/molecules/Header.svelte';
 	import { verifyCredential } from '$lib/components/organisms/scanner/tools';
 	import { goto, m } from '$lib/i18n';
 	import type { Feedback } from '$lib/utils/types';
@@ -7,6 +6,7 @@
 	import dayjs from 'dayjs';
 	import { log } from '$lib/log';
 	import { addActivity, type Activity } from '$lib/preferences/activity';
+	import { routeHistory } from '$lib/routeStore';
 
 	type VerificationResponse = {
 		result: {
@@ -100,7 +100,9 @@
 	};
 </script>
 
-<Header>{m.Verification()}</Header>
+<d-header back-button backFunction={routeHistory.back}>
+	{m.Verification()}
+</d-header>
 
 <ion-content fullscreen class="ion-padding">
 	{#if verificated}

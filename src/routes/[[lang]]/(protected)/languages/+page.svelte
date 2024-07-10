@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Header from '$lib/components/molecules/Header.svelte';
 	import { page } from '$app/stores';
 	import { goto, i18n, m } from '$lib/i18n';
 	import { setLanguagePreference } from '$lib/preferences/lang';
 	import { availableLanguageTags } from '$paraglide/runtime';
 	import Check from '$lib/assets/check.svelte';
+	import { routeHistory } from '$lib/routeStore';
 
 	const recordLanguages = {
 		en: 'English',
@@ -16,7 +16,9 @@
 	$: activeLanguage = i18n.getLanguageFromUrl($page.url);
 </script>
 
-<Header>{m.language()}</Header>
+<d-header back-button backFunction={routeHistory.back}>
+	{m.language()}
+</d-header>
 
 <ion-content fullscreen class="ion-padding">
 	{#each availableLanguageTags as language}
