@@ -1,3 +1,10 @@
+## [1.49.9](https://github.com/ForkbombEu/wallet/compare/v1.49.8...v1.49.9) (2024-07-10)
+
+
+### Bug Fixes
+
+* wallet page was broken on android ([#412](https://github.com/ForkbombEu/wallet/issues/412)) ([332f241](https://github.com/ForkbombEu/wallet/commit/332f241c8445a1f1c4c04cb585ada69181ef9ca4))
+
 ## [1.49.8](https://github.com/ForkbombEu/wallet/compare/v1.49.7...v1.49.8) (2024-07-09)
 
 
