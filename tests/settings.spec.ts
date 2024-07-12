@@ -32,4 +32,11 @@ test.describe('Settings', () => {
 		await page.locator('d-button:has-text("Notifications settings")').click();
 		await expect(page.locator('ion-modal')).not.toBeVisible();
 	});
+
+	test('should display app details component', async ({ page }) => {
+		await login(page);
+		await page.locator('ion-tab-bar d-tab-button:has-text("Profile")').click();
+		await page.getByRole('banner').locator('ion-button').click();
+		await expect(page.getByText('Developed by Forkbomb BV')).toBeVisible();
+	});
 });

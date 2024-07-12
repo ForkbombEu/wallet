@@ -26,10 +26,4 @@ test.describe('Profile Page', () => {
 			await expect(orgLocator).toBeVisible();
 		}
 	});
-
-	test('should display app details component', async ({ page }) => {
-		await login(page);
-		await page.locator('ion-tab-bar d-tab-button:has-text("Profile")').click();
-		await expect(page.getByText('Developed by Forkbomb BV')).toBeVisible();
-	});
 });

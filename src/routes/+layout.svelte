@@ -48,21 +48,21 @@
 		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
 	/>
 	<!-- uncomment to test didroom-components locally -->
-	<!-- <script
-		type="module"
-		src="http://localhost:3333/build/didroom-components.esm.js"
-	></script>
-	<link
-		rel="stylesheet"
-		href="http://localhost:3333/build/didroom-components.css"
-	/> -->
+	<!-- <script -->
+	<!-- 	type="module" -->
+	<!-- 	src="http://localhost:3333/build/didroom-components.esm.js" -->
+	<!-- ></script> -->
+	<!-- <link -->
+	<!-- 	rel="stylesheet" -->
+	<!-- 	href="http://localhost:3333/build/didroom-components.css" -->
+	<!-- /> -->
 	<script
 		type="module"
-		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.24.1/dist/didroom-components/didroom-components.esm.js"
+		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.25/dist/didroom-components/didroom-components.esm.js"
 	></script>
 	<link
 		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.24.1/dist/didroom-components/didroom-components.css"
+		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.25/dist/didroom-components/didroom-components.css"
 	/>
 </svelte:head>
 <svelte:window
