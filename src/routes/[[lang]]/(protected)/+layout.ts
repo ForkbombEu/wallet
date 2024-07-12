@@ -5,7 +5,6 @@ import { getExpiredCredentials } from '$lib/preferences/credentials';
 import { getDIDPreference } from '$lib/preferences/did';
 import { getKeypairPreference } from '$lib/preferences/keypair';
 import { getLanguagePreference } from '$lib/preferences/lang';
-import { isAppLocked, lockApp } from '$lib/preferences/locked.js';
 import { getUser } from '$lib/preferences/user';
 import { availableLanguageTags } from '$paraglide/runtime';
 import { redirect } from '@sveltejs/kit';
@@ -32,7 +31,7 @@ const checkIfThereAreExpiredCredentialsAndSetActivity = async () => {
 
 export const _protectedLayoutKey = 'load:protected-layout';
 
-export const load = async ({depends}) => {
+export const load = async ({ depends }) => {
 	depends(_protectedLayoutKey);
 	const lang = await getLang();
 	const boarded = await isAlreadyBoarded();
@@ -41,10 +40,7 @@ export const load = async ({depends}) => {
 	const did = await getDIDPreference();
 	const user = await getUser();
 	if (!(keypair && did && user)) redirect(303, r('/register-login', lang));
-	await checkIfThereAreExpiredCredentialsAndSetActivity()
-	const isLocked = await isAppLocked();
-	if (isLocked) redirect(303, r('/unlock', lang));
-	else await lockApp(); // Locking back after the user has got in
+	await checkIfThereAreExpiredCredentialsAndSetActivity();
 	const notReadedActivities = await getNotReadedActivities();
-	return {notReadedActivities}
+	return { notReadedActivities };
 };

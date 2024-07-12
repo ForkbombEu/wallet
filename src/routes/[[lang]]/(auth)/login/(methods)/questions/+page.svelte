@@ -8,7 +8,6 @@
 	import { goto, m, r } from '$lib/i18n';
 	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
-	import { unlockApp } from '$lib/preferences/locked.js';
 	import { alertCircleOutline } from 'ionicons/icons';
 	import { z } from 'zod';
 	import { checkKeypairs, generateDid, saveUserPublicKeys, userEmailStore } from '../../_lib';
@@ -73,20 +72,9 @@
 				if (!registration) await checkKeypairs();
 				await generateDid();
 
-				await unlockApp();
 				seed = keypair.seed;
 				loading = false;
-				/**
-				 * Note
-				 *
-				 * It seems that setting a preference reloads the app
-				 * it re-runs all the load functions
-				 *
-				 * This means that once the keyring preference is set
-				 * login/+layout  in throws the user inside /wallet
-				 *
-				 * For this reason, that layout is temp commented
-				 */
+				
 			} catch (e) {
 				loading = false;
 				feedback = {

@@ -21,5 +21,5 @@ const getLang = async () => {
 export const load = async () => {
 	await setInitialLanguage();
 	const lang = await getLang();
-	redirect(303, r('/home', lang));
+	redirect(303, r('/unlock', lang));
 };

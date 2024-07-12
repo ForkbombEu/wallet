@@ -3,7 +3,6 @@
 	import { goto, m, r } from '$lib/i18n';
 	import { regenerateKeypair } from '$lib/keypairoom';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
-	import { unlockApp } from '$lib/preferences/locked.js';
 	import { z } from 'zod';
 	import type { Feedback } from '$lib/utils/types.js';
 	import { checkKeypairs, generateDid } from '../../_lib/index.js';
@@ -37,10 +36,8 @@
 				await setKeypairPreference(keypair);
 				await generateDid();
 				await checkKeypairs();
-				await unlockApp();
 				await goto('/wallet', undefined, false);
 				routeHistory.clear();
-				await unlockApp();
 			} catch (e) {
 				feedback = {
 					type: 'error',
