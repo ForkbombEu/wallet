@@ -75,7 +75,7 @@
 				>{m.if_you_have_stored_your_keypair_securely_you_can_enter_it_below_to_access_your_wallet_()}</d-text
 			>
 			<d-heading size="s">{m.Login_using_your_keypair()}</d-heading>
-			<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
+			<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full" let:isTainted>
 				<Input
 					{form}
 					fieldPath="seed"
@@ -83,7 +83,9 @@
 					label="insert your passphrase"
 					type="text"
 				/>
-				<d-button role="button" expand type="submit" tabindex={0}>{m.Login()}</d-button>
+				<d-button role="button" expand type="submit" tabindex={0} disabled={!isTainted}
+					>{m.Login()}</d-button
+				>
 
 				<d-button color="outline" href={r('/login/questions')} role="button" expand>
 					{m.KEYPAIR_RECOVERY()}

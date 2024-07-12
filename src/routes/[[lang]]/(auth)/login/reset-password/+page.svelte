@@ -90,14 +90,22 @@
 							<d-text size="l">{m.enter_your_email_to_get_started()}.</d-text>
 						</div>
 
-						<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
+						<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full" let:isTainted>
 							<Input
 								{form}
 								fieldPath="email"
 								placeholder={m.emailexample_com()}
 								label={m.Email()}
+								type="email"
 							/>
-							<d-button size="default" color="accent" type="submit" expand class="mt-4">
+							<d-button
+								size="default"
+								color="accent"
+								type="submit"
+								expand
+								class="mt-4"
+								disabled={!isTainted}
+							>
 								{m.Next()}
 								<ion-icon icon={arrowForward} slot="end" />
 							</d-button>

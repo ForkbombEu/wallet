@@ -19,7 +19,6 @@
 	let feedback: Feedback = {};
 
 	const schema = z.object({
-		registration: z.boolean(),
 		email: z.string().email(),
 		password: z
 			.string()
@@ -75,15 +74,14 @@
 						<d-text size="l">{m.enter_your_email_to_get_started()}.</d-text>
 					</div>
 
-					<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
-						<input
-							type="radio"
-							checked={registration}
-							name="registration"
-							value="registration"
-							class="hidden"
+					<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full" let:isTainted>
+						<Input
+							{form}
+							fieldPath="email"
+							placeholder={m.emailexample_com()}
+							label={m.Email()}
+							type="email"
 						/>
-						<Input {form} fieldPath="email" placeholder={m.emailexample_com()} label={m.Email()} />
 						{#if !registration}
 							<Input
 								{form}
@@ -98,7 +96,14 @@
 								>
 							</Input>
 						{/if}
-						<d-button size="default" color="accent" type="submit" expand class="mt-4">
+						<d-button
+							size="default"
+							color="accent"
+							type="submit"
+							expand
+							class="mt-4"
+							disabled={!isTainted}
+						>
 							{m.Next()}
 							<ion-icon icon={arrowForward} slot="end" />
 						</d-button>
