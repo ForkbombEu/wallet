@@ -58,6 +58,8 @@
 			}
 		}
 	});
+
+	const { tainted } = form;
 </script>
 
 <div class="flex min-h-screen flex-col place-content-between">
@@ -102,7 +104,7 @@
 							type="submit"
 							expand
 							class="mt-4"
-							disabled={!isTainted}
+							disabled={registration ? !($tainted && $tainted['email']) : !isTainted}
 						>
 							{m.Next()}
 							<ion-icon icon={arrowForward} slot="end" />
