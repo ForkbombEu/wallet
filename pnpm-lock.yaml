@@ -89,9 +89,6 @@ dependencies:
   dayjs:
     specifier: ^1.11.10
     version: 1.11.11
-  did-resolver:
-    specifier: ^4.1.0
-    version: 4.1.0
   ionic-svelte:
     specifier: ^0.5.82
     version: 0.5.84
@@ -5227,10 +5224,6 @@ packages:
     dependencies:
       asap: 2.0.6
       wrappy: 1.0.2
-
-  /did-resolver@4.1.0:
-    resolution: {integrity: sha512-S6fWHvCXkZg2IhS4RcVHxwuyVejPR7c+a4Go0xbQ9ps5kILa8viiYQgrM4gfTyeTjJ0ekgJH9gk/BawTpmkbZA==}
-    dev: false
 
   /didyoumean@1.2.2:
     resolution: {integrity: sha512-gxtyfqMg7GKyhQmb056K7M3xszy/myH8w+B4RT+QXBQsvAOdc3XymqDDPHx1BgPgsdAA5SIifona89YtRATDzw==}
@@ -10912,5 +10905,6 @@ packages:
 
   file:plugins/localization:
     resolution: {directory: plugins/localization, type: directory}
-    name: localization
+    name: eslint-plugin-localization
+    version: 1.0.0
     dev: true
