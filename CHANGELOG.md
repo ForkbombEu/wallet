@@ -1,3 +1,10 @@
+## [1.49.10](https://github.com/ForkbombEu/wallet/compare/v1.49.9...v1.49.10) (2024-07-12)
+
+
+### Bug Fixes
+
+* better profile ui still WIP ([#413](https://github.com/ForkbombEu/wallet/issues/413)) ([94830fd](https://github.com/ForkbombEu/wallet/commit/94830fd32bb52b3e6f8d9a56bb471c35ee23e74c)), closes [#354](https://github.com/ForkbombEu/wallet/issues/354) [#307](https://github.com/ForkbombEu/wallet/issues/307)
+
 ## [1.49.9](https://github.com/ForkbombEu/wallet/compare/v1.49.8...v1.49.9) (2024-07-10)
 
 
