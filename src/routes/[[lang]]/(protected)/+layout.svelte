@@ -14,7 +14,6 @@
 
 	onMount(async () => {
 		appStateChange = await App.addListener('appStateChange', async (state) => {
-			console.log(state)
 			if (!state.isActive) {
 				await goto('/unlock');
 			}
