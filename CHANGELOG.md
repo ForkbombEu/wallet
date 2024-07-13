@@ -1,3 +1,10 @@
+## [1.49.11](https://github.com/ForkbombEu/wallet/compare/v1.49.10...v1.49.11) (2024-07-13)
+
+
+### Bug Fixes
+
+* the app was locked too often ([#416](https://github.com/ForkbombEu/wallet/issues/416)) ([4c39cd0](https://github.com/ForkbombEu/wallet/commit/4c39cd05f40b8bbeb2e81a718cfe818b9cb4cace))
+
 ## [1.49.10](https://github.com/ForkbombEu/wallet/compare/v1.49.9...v1.49.10) (2024-07-12)
 
 
