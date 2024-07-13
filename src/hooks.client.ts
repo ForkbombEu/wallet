@@ -1,8 +1,6 @@
 import { log } from '$lib/log';
-import { lockApp } from '$lib/preferences/locked';
 import type { HandleClientError } from '@sveltejs/kit';
 
-lockApp();
 
 export const handleError: HandleClientError = async ({ error, event, status, message }) => {
 	await log(String(error))

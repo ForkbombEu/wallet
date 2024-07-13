@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { goto, m } from '$lib/i18n';
-	import { unlockApp } from '$lib/preferences/locked.js';
 	import { AndroidBiometryStrength, BiometricAuth } from '@aparajita/capacitor-biometric-auth';
 // @ts-ignore
 	import IonPage from 'ionic-svelte/components/IonPage.svelte';
@@ -12,7 +11,6 @@
 	async function unlock() {
 		try {
 			await authenticate();
-			await unlockApp();
 			await goto('/wallet');
 		} catch (e) {
 			error = 'BIOMETRY_ERROR';
@@ -39,7 +37,6 @@
 	//
 
 	async function testUnlock() {
-		await unlockApp();
 		await goto('/home');
 	}
 </script>

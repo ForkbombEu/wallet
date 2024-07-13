@@ -3,6 +3,10 @@ import { redirect } from '@sveltejs/kit';
 import { Device } from '@capacitor/device';
 import { getLanguagePreference, setLanguagePreference } from '$lib/preferences/lang';
 import { availableLanguageTags } from '$paraglide/runtime';
+import { isAlreadyBoarded } from '$lib/components/onBoarding/utils';
+import { getKeypairPreference } from '$lib/preferences/keypair';
+import { getDIDPreference } from '$lib/preferences/did';
+import { getUser } from '$lib/preferences/user';
 
 const setInitialLanguage = async () => {
 	if (!(await getLanguagePreference())) {
@@ -21,5 +25,11 @@ const getLang = async () => {
 export const load = async () => {
 	await setInitialLanguage();
 	const lang = await getLang();
-	redirect(303, r('/home', lang));
+	const boarded = await isAlreadyBoarded();
+	if (!boarded) throw redirect(303, r('/on-boarding', lang));
+	const keypair = await getKeypairPreference();
+	const did = await getDIDPreference();
+	const user = await getUser();
+	if (!(keypair && did && user)) redirect(303, r('/register-login', lang));
+	redirect(303, r('/unlock', lang));
 };
