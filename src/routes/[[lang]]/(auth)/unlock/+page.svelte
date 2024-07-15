@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto, m } from '$lib/i18n';
 	import { AndroidBiometryStrength, BiometricAuth } from '@aparajita/capacitor-biometric-auth';
-// @ts-ignore
+	// @ts-ignore
 	import IonPage from 'ionic-svelte/components/IonPage.svelte';
 
 	export let data;

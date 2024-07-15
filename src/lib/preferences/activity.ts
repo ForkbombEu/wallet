@@ -7,7 +7,6 @@ import type { Credential } from '$lib/preferences/credentials';
 
 dayjs.extend(relativeTime);
 
-
 export type IssuedCredential = {
 	type: 'credential';
 	id: number;
@@ -38,7 +37,6 @@ export type ParsedActivity = {
 	description: string;
 	date: string;
 	message: string;
-	type: string;
 	credential?: Credential;
 	read?: boolean;
 	at: number;
@@ -81,11 +79,12 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 			description: '',
 			date: '',
 			message: '',
-			type: '',
-			at: 0
+			at: 0,
+			read: false
 		};
 		parsedActivity.date = dayjs().to(dayjs.unix(activity.at));
 		parsedActivity.at = activity.at;
+		parsedActivity.read = activity.read;
 
 		if (activity.type === 'credential' || activity.type === 'expired') {
 			const credential = findCredentialById(activity.id);
@@ -98,17 +97,14 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 			parsedActivity.credential = credential;
 			if (activity.type === 'credential') {
 				parsedActivity.message = `${credential.issuer} issued ${credential.display_name} to you`;
-				parsedActivity.type = 'warning';
 			} else {
 				parsedActivity.message = `${credential.display_name} is expired`;
-				parsedActivity.type = 'error';
 			}
 		} else if (activity.type === 'verification') {
 			const { verifier_name, success, rp_name, properties } = activity;
 			parsedActivity.message = `${verifier_name} verified yours: ${properties.join(', ')} via ${rp_name} and it was a ${
 				success ? 'success' : 'failure'
 			}`;
-			parsedActivity.type = 'warning';
 		}
 		return parsedActivity;
 	}
@@ -138,6 +134,15 @@ export async function setActivityAsRead(at: number) {
 			return { ...activity, read: true };
 		}
 		return activity;
+	});
+	await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, newActivities);
+}
+
+export async function setAllActivitiesAsRead() {
+	const activities = await getActivities();
+	if (!activities) return;
+	const newActivities = activities.map((activity) => {
+		return { ...activity, read: true };
 	});
 	await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, newActivities);
 }

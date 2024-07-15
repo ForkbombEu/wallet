@@ -133,5 +133,6 @@
 	"and_it_was_a": "and it was a",
 	"via": "via",
 	"session_id": "session id:",
-	"is_expired": "is expired"
+	"is_expired": "is expired",
+	"mark_all_as_read": "mark all as read"
 }
