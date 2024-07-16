@@ -1,3 +1,10 @@
+# [1.50.0](https://github.com/ForkbombEu/wallet/compare/v1.49.11...v1.50.0) (2024-07-16)
+
+
+### Features
+
+* add copy button on scanner error modal ([#419](https://github.com/ForkbombEu/wallet/issues/419)) ([49cef71](https://github.com/ForkbombEu/wallet/commit/49cef71696687cd039399f95394ddce7a2d6fd6a))
+
 ## [1.49.11](https://github.com/ForkbombEu/wallet/compare/v1.49.10...v1.49.11) (2024-07-13)
 
 
