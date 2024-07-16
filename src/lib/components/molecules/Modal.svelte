@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { m } from '$lib/i18n';
+	import CopyButton from '$lib/components/copyButton.svelte';
 
 	export let isModalOpen: boolean;
+	export let textToCopy: string | undefined = undefined;
 	export let closeCb: () => void;
 	const closeModal = () => {
 		closeCb();
@@ -10,12 +12,7 @@
 	};
 </script>
 
-<ion-modal
-	is-open={isModalOpen}
-	backdrop-dismiss={false}
-	transition:fly
-	class="visible"
->
+<ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly class="visible">
 	<hr />
 	<ion-content class="ion-padding visible">
 		<ion-toolbar>
@@ -24,6 +21,9 @@
 				<ion-button color="danger" on:click={closeModal} on:keydown={closeModal} aria-hidden
 					>{m.Close()}</ion-button
 				>
+				{#if textToCopy}
+					<CopyButton {textToCopy} delay={1000} />
+				{/if}
 			</ion-buttons>
 		</ion-toolbar>
 		<div class="mt-4 flex flex-col gap-2">

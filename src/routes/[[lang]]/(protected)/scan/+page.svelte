@@ -31,6 +31,7 @@
 			isModalOpen = false;
 			scan();
 		}}
+		textToCopy={barcodeResult?.message}
 	>
 		{#if !(barcodeResult?.result === 'ok')}
 			<d-text size="m">{barcodeResult?.message || 'error'}</d-text>
