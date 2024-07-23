@@ -1,3 +1,10 @@
+## [1.50.1](https://github.com/ForkbombEu/wallet/compare/v1.50.0...v1.50.1) (2024-07-23)
+
+
+### Bug Fixes
+
+* app freezed in loading state ([#423](https://github.com/ForkbombEu/wallet/issues/423)) ([2213f5c](https://github.com/ForkbombEu/wallet/commit/2213f5c2809b5778fee3e168fdf561bcdbe099ac)), closes [#422](https://github.com/ForkbombEu/wallet/issues/422)
+
 # [1.50.0](https://github.com/ForkbombEu/wallet/compare/v1.49.11...v1.50.0) (2024-07-16)
 
 
