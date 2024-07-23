@@ -54,11 +54,12 @@
 		title={m.Claim_credential()}
 		description={m.Scan_QR_code_to_claim_credential_or_request_one_below()}
 	/>
-	<div class="flex flex-col gap-2">
+	<div class="flex flex-col gap-4">
 		{#each services as service}
 			<d-credential-service
 				name={service.display_name}
 				issuer={service.expand.credential_issuer.name}
+				issuerLabel={m.Issuer()}
 				logoSrc={service.logo}
 				description={service.description}
 				href="#"
