@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page, navigating } from '$app/stores';
-	import { goto, r } from '$lib/i18n';
-	import { goto as svelteGoto } from '$app/navigation';
+	import { goto } from '$lib/i18n';
 	import type { TabProps } from '.';
 
 	/**
@@ -18,7 +17,8 @@
 		tabs.forEach(async (tab) => {
 			if ($navigating.to?.url.pathname.includes(tab.tab)) {
 				currentTabName = tab.tab;
-				await svelteGoto(r('/' + tab.tab));
+				await goto('/' + tab.tab);
+				await $navigating.complete.catch(() => goto('/' + tab.tab));
 			}
 		});
 	}
