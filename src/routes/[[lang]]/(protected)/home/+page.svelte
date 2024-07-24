@@ -54,7 +54,7 @@
 		title={m.Claim_credential()}
 		description={m.Scan_QR_code_to_claim_credential_or_request_one_below()}
 	/>
-	<div class="flex flex-col gap-4">
+	<div class="flex flex-col gap-2">
 		{#each services as service}
 			<d-credential-service
 				name={service.display_name}

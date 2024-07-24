@@ -135,5 +135,6 @@
 	"session_id": "session id:",
 	"is_expired": "is expired",
 	"Issuer": "Issuer",
-	"Exp": "Exp"
+	"Exp": "Exp",
+	"ok": "ok"
 }

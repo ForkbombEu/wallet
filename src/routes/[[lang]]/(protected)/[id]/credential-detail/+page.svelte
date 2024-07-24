@@ -1,34 +1,43 @@
 <script lang="ts">
-	import { m } from '$lib/i18n'
+	import { goto, m } from '$lib/i18n';
 	export let data: any;
 	const { credential, credentials } = data;
 	import { decodeSdJwt } from '$lib/openId4vci';
+	import { removeCredentialPreference } from '$lib/preferences/credentials';
 	import { routeHistory } from '$lib/routeStore';
 
 	const isNestedDisclosure = (disclosure: Array<string | Record<string, string>>) => {
 		return typeof disclosure[2] === 'object';
 	};
+
+	const deleteCredential = () => removeCredentialPreference(credential.id)
+	
 </script>
 
 <d-header back-button backFunction={routeHistory.back}>
 	{m.Credential_detail()}
 </d-header>
 <ion-content fullscreen class="h-full">
-	<div class="flex h-full flex-col gap-4">
-		<div class="ion-padding">
-			<div class="flex flex-col gap-6">
-				<!-- <d-avatar src={credential.logo.url} alt={credential.logo.alt_text}></d-avatar> -->
-				<d-heading size="s">{credential.display_name}</d-heading>
-				<dl>
-					<dt class="text-xl font-bold not-italic text-on-alt">{m.Issued_by()}:</dt>
-					<dd class="flex items-center gap-2 text-xl font-medium not-italic text-on">
-						<d-avatar src={credential.logo.url} size="xs" alt={credential.logo.alt_text}></d-avatar>
-						<d-text size="l">{credential.issuer}</d-text>
-					</dd>
-				</dl>
+	<div class="flex h-full flex-col gap-2">
+		<div class="ion-padding flex flex-col gap-2">
+			<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
+				<d-avatar src={credential.logo.url} alt={credential.logo.alt_text} shape="square"
+				></d-avatar>
+				<d-heading class="font-semibold" size="xs">
+					{credential.display_name}
+				</d-heading>
+			</div>
+			<d-text class="text-on-alt">{credential.description}</d-text>
+			<d-text
+				>{m.Issued_by()}:
+				<span class="font-semibold">{credential.issuer}</span></d-text
+			>
+			<div class="flex flex-col">
+				<d-button expand color="primary" on:click={() => goto('/wallet')}>{m.ok()}</d-button>
+				<d-button expand color="accent" on:click={deleteCredential}>Delete</d-button>
 			</div>
 		</div>
-		<div class="bg-primary w-full flex-grow">
+		<div class="flex w-full flex-grow flex-col justify-between bg-primary">
 			<d-credential-detail name="Claims:">
 				{#await decodeSdJwt(credential.sdJwt) then sdjwt}
 					{#each sdjwt.credential.disclosures as disclosure}
@@ -40,7 +49,10 @@
 								{/each}
 							</div>
 						{:else}
-							<d-definition title={disclosure[1]} definition={disclosure[2]}></d-definition>
+							<d-text
+								>{disclosure[1]}:
+								<span class="font-semibold">{disclosure[2]}</span></d-text
+							>
 						{/if}
 					{/each}
 				{/await}
