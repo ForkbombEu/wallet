@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Modal from '$lib/components/molecules/Modal.svelte';
 	import { goto, m } from '$lib/i18n';
 	export let data: any;
 	const { credential, credentials } = data;
@@ -10,7 +11,23 @@
 		return typeof disclosure[2] === 'object';
 	};
 
-	const deleteCredential = () => removeCredentialPreference(credential.id);
+	let isModalOpen: boolean = false;
+	const openModal = ()=> {
+		isModalOpen = true;
+		routeHistory.push({ previousPath: `${credential.id}/credential-detail` });
+	}
+	const closeModal = ()=> {
+		isModalOpen = false;
+		routeHistory.back();
+	}
+
+
+	const deleteCredential = async () => {
+		isModalOpen = false
+		await removeCredentialPreference(credential.id)
+		await goto('/wallet')
+	}
+
 </script>
 
 <d-header back-button backFunction={routeHistory.back}>
@@ -46,7 +63,7 @@
 									{/each}
 								</div>
 							{:else}
-							<d-definition title={disclosure[1]} definition={disclosure[2]}></d-definition>
+								<d-definition title={disclosure[1]} definition={disclosure[2]}></d-definition>
 								<!-- <d-text
 									>{disclosure[1]}:
 									<span class="font-semibold">{disclosure[2]}</span></d-text
@@ -58,8 +75,18 @@
 			</div>
 			<div class="flex flex-col">
 				<d-button expand color="primary" on:click={() => goto('/wallet')}>{m.ok()}</d-button>
-				<d-button expand color="accent" on:click={deleteCredential}>Delete</d-button>
+				<d-button expand color="accent" on:click={openModal}>Delete</d-button>
 			</div>
 		</div>
+		<Modal
+			{isModalOpen}
+			closeCb={closeModal}
+		>
+			<d-text>If you continue the credential will be permanently deleted</d-text>
+			<div class="flex flex-col">
+				<d-button expand color="primary" on:click={deleteCredential}>Continue</d-button>
+				<d-button expand color="accent" on:click={closeModal}>Cancel</d-button>
+			</div>
+		</Modal>
 	</div>
 </ion-content>
