@@ -3,6 +3,7 @@
 	import dayjs from 'dayjs';
 	import EmptyWallet from '$lib/assets/EmptyWallet.svelte';
 	import { scanButton } from '$lib/tabs';
+	import { decodeSdJwt } from '$lib/openId4vci';
 
 	export let data;
 	const { credentials } = data;
@@ -13,7 +14,7 @@
 		title={m.My_issued_credentials()}
 		description={m.Explore_and_manage_your_verified_credentials()}
 	/>
-	{#if (credentials.length == 0)}
+	{#if credentials.length == 0}
 		<d-empty-state
 			heading={m.Nothing_in_your_wallet()}
 			text={m.Start_getting_your_first_credential()}
@@ -43,7 +44,14 @@
 						{expirationDate}
 						name={credential.display_name}
 						logoSrc={credential.logo.url}
-					/>
+						issuedByLabel={m.Issued_by()}
+						expirationLabel={'Exp'}
+						>{#await decodeSdJwt(credential.sdJwt) then sdjwt}
+							{#each sdjwt.credential.disclosures as disclosure}
+								<d-badge>{disclosure[1]}</d-badge>
+							{/each}
+						{/await}
+					</d-credential-card>
 				</a>
 			{/each}
 		</div>
