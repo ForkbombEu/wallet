@@ -10,6 +10,7 @@ export type Credential = {
 	configuration_ids: string[];
 	sdJwt: string;
 	issuer: string;
+	issuerUrl:string
 	display_name: string;
 	description: string;
 	expirationDate: number;
