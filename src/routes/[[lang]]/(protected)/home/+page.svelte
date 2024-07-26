@@ -59,6 +59,7 @@
 			<d-credential-service
 				name={service.display_name}
 				issuer={service.expand.credential_issuer.name}
+				issuerLabel={m.Issuer()}
 				logoSrc={service.logo}
 				description={service.description}
 				href="#"
