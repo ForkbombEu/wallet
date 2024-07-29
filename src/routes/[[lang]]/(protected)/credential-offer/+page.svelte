@@ -78,6 +78,7 @@
 				display_name: wn.credential_requested.display[0].name,
 				sdJwt: serviceResponse.credential,
 				issuer: wn.credential_issuer_information.display[0].name,
+				issuerUrl: dsdjwt.credential.jwt.payload.iss,
 				description: wn.credential_requested.display[0].description,
 				verified: false,
 				expirationDate: dsdjwt.credential.jwt.payload.exp,

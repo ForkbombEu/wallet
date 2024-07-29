@@ -12,22 +12,20 @@
 	};
 
 	let isModalOpen: boolean = false;
-	const openModal = ()=> {
+	const openModal = () => {
 		isModalOpen = true;
 		routeHistory.push({ previousPath: `${credential.id}/credential-detail` });
-	}
-	const closeModal = ()=> {
+	};
+	const closeModal = () => {
 		isModalOpen = false;
 		routeHistory.back();
-	}
-
+	};
 
 	const deleteCredential = async () => {
-		isModalOpen = false
-		await removeCredentialPreference(credential.id)
-		await goto('/wallet')
-	}
-
+		isModalOpen = false;
+		await removeCredentialPreference(credential.id);
+		await goto('/wallet');
+	};
 </script>
 
 <d-header back-button backFunction={routeHistory.back}>
@@ -44,10 +42,13 @@
 				</d-heading>
 			</div>
 			<d-text class="text-on-alt">{credential.description}</d-text>
-			<d-text
-				>{m.Issued_by()}:
-				<span class="font-semibold">{credential.issuer}</span></d-text
-			>
+			<div class="flex flex-col">
+				<d-text
+					>{m.Issued_by()}:
+					<span class="font-semibold">{credential.issuer}</span></d-text
+				>
+				<d-text size="xs" class="truncate font-medium">@{credential.issuerUrl}</d-text>
+			</div>
 		</div>
 		<div class="flex h-full flex-grow flex-col justify-between pb-16">
 			<div class="flex flex-col gap-2">
@@ -78,10 +79,7 @@
 				<d-button expand color="accent" on:click={openModal}>Delete</d-button>
 			</div>
 		</div>
-		<Modal
-			{isModalOpen}
-			closeCb={closeModal}
-		>
+		<Modal {isModalOpen} closeCb={closeModal}>
 			<d-text>If you continue the credential will be permanently deleted</d-text>
 			<div class="flex flex-col">
 				<d-button expand color="primary" on:click={deleteCredential}>Continue</d-button>
