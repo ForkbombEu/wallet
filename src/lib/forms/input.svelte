@@ -9,7 +9,7 @@
 	type SchemaGeneric = $$Generic<AnyZodObject>;
 	export let form: SuperForm<SchemaGeneric>;
 	export let fieldPath: FormPathLeaves<z.infer<SchemaGeneric>>;
-	export let hidable = false
+	export let hidable = false;
 
 	export let type: 'email' | 'text' | 'password' = 'text';
 	export let label: string | undefined = undefined;
@@ -32,6 +32,6 @@
 		{hidable}
 		on:dInput={(e) => {
 			updateValue(e.detail);
-		}}
-	><slot/></d-input>
+		}}><slot /></d-input
+	>
 </FieldController>
