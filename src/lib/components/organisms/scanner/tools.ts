@@ -79,17 +79,6 @@ export type Data =
 			service: Service;
 	  };
 
-// const allowedDomains = [
-// 	'http://oracle1.zenswarm.forkbomb.eu:3366/verify-credential',
-// 	'https://beta.signroom.io',
-// 	'https://dashboard.didroom.com',
-// 	'htps://admin.didroom.com'
-// ];
-
-// function isUrlAllowed(url: string): boolean {
-// 	return allowedDomains.includes(url);
-// }
-
 export const parseQr = async (value: string): Promise<ParseQrResults> => {
 	const notValidQr = 'not valid qr';
 	let parsedValue: Record<string, unknown>;

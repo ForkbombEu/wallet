@@ -78,6 +78,7 @@
 				display_name: wn.credential_requested.display[0].name,
 				sdJwt: serviceResponse.credential,
 				issuer: wn.credential_issuer_information.display[0].name,
+				issuerUrl: dsdjwt.credential.jwt.payload.iss,
 				description: wn.credential_requested.display[0].description,
 				verified: false,
 				expirationDate: dsdjwt.credential.jwt.payload.exp,
@@ -108,12 +109,25 @@
 			<Pidgeon />
 		</d-empty-state>
 	{:else}
-		<div class="mt-2 flex min-h-full flex-col justify-between pb-14">
-			<div>
+		<div class="mt-2 flex h-full flex-col gap-4">
+			<div class="flex flex-col gap-2">
 				<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
-					<d-avatar src={credentialInfo?.logo.url} alt={credentialInfo?.logo.alt_text}></d-avatar>
-					<d-heading size="s">{credentialInfo?.name}</d-heading>
+					<d-avatar
+						src={credentialInfo?.logo.url}
+						alt={credentialInfo?.logo.alt_text}
+						shape="square"
+					></d-avatar>
+					<d-heading class="font-semibold" size="xs">
+						{credentialInfo?.name}
+					</d-heading>
+					<!-- <d-heading size="s">{credentialInfo?.name}</d-heading> -->
 				</div>
+				<d-text class="text-on-alt">{credentialInfo?.description}</d-text>
+				<d-text
+					>{m.Issued_by()}:
+					<span class="font-semibold">{wn?.credential_issuer_information.display[0].name}</span
+					></d-text
+				>
 			</div>
 
 			<div class="mt-6 rounded-md bg-white p-4">

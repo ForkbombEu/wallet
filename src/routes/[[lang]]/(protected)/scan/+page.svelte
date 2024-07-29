@@ -4,10 +4,13 @@
 	import { parseQr, type ParseQrResults } from '$lib/components/organisms/scanner/tools';
 	import { credentialOfferStore } from '$lib/credentialOfferStore';
 	import { goto } from '$lib/i18n';
+	import { routeHistory } from '$lib/routeStore';
 	import { verificationStore } from '$lib/verificationStore';
+	import { Capacitor } from '@capacitor/core';
 
 	let barcodeResult: ParseQrResults;
 	let isModalOpen: boolean;
+	const isWeb = Capacitor.getPlatform() == 'web';
 </script>
 
 <Scanner
@@ -22,15 +25,18 @@
 			verificationStore.set(barcodeResult.data.credential);
 			return await goto('/verification');
 		}
-		isModalOpen = true;
+		routeHistory.push({ previousPath: '/scan' });
+		return (isModalOpen = true);
 	}}
 >
 	<Modal
 		{isModalOpen}
 		closeCb={() => {
 			isModalOpen = false;
-			scan();
+			routeHistory.back();
+			if (!isWeb) scan();
 		}}
+		textToCopy={barcodeResult?.message}
 	>
 		{#if !(barcodeResult?.result === 'ok')}
 			<d-text size="m">{barcodeResult?.message || 'error'}</d-text>

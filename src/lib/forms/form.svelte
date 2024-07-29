@@ -41,7 +41,7 @@
 				try {
 					if (input.form.valid) await onSubmit(input);
 					else throw new Error('INVALID_FORM');
-				} catch (e) {
+				} catch (e: any) {
 					await log(e);
 				}
 			},
@@ -54,15 +54,18 @@
 <script lang="ts">
 	type SchemaGeneric = $$Generic<AnyZodObject>;
 	export let form: SuperForm<SchemaGeneric>;
-	export let formClass: string | undefined = undefined
+	export let formClass: string | undefined = undefined;
 
-	export let id: string | undefined = undefined
+	export let id: string | undefined = undefined;
 
 	const { enhance, delayed } = form;
+	const { tainted } = form;
+	const fieldsKeys = Object.keys(form.fields);
+	$: isTainted = $tainted && fieldsKeys.every((k) => $tainted[k]);
 </script>
 
 <form {id} class={formClass} method="post" use:enhance>
-	<slot delayed={$delayed} />
+	<slot delayed={$delayed} {isTainted} />
 </form>
 
 {#if $delayed}

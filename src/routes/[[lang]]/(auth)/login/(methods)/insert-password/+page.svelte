@@ -53,7 +53,7 @@
 			<d-heading sixe="s">{m.Choose_your_password()}</d-heading>
 			<d-text size="l">{m.Your_password_should_be_between_8_and_73_character()}</d-text>
 
-			<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
+			<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full" let:isTainted>
 				<Input
 					{form}
 					fieldPath="password"
@@ -71,7 +71,14 @@
 					hidable
 				/>
 
-				<d-button size="default" color="accent" type="submit" expand class="mt-4">
+				<d-button
+					size="default"
+					color="accent"
+					type="submit"
+					expand
+					class="mt-4"
+					disabled={!isTainted}
+				>
 					{m.Next()}
 					<ion-icon icon={arrowForward} slot="end" />
 				</d-button>

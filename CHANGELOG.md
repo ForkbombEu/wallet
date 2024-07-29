@@ -1,3 +1,26 @@
+## [1.50.2](https://github.com/ForkbombEu/wallet/compare/v1.50.1...v1.50.2) (2024-07-29)
+
+
+### Bug Fixes
+
+* close button and hardware back doesnt work on scan error modal ([#424](https://github.com/ForkbombEu/wallet/issues/424)) ([91568da](https://github.com/ForkbombEu/wallet/commit/91568da765b22c965baccfd08ca0041615f9c039)), closes [#420](https://github.com/ForkbombEu/wallet/issues/420)
+* disable submit buttons when forms are not tainted ([#414](https://github.com/ForkbombEu/wallet/issues/414)) ([8495cdb](https://github.com/ForkbombEu/wallet/commit/8495cdbe9e87593d8b17bfe2f28a19a8586135bf)), closes [#345](https://github.com/ForkbombEu/wallet/issues/345)
+* show issuer url in credential detail ([#428](https://github.com/ForkbombEu/wallet/issues/428)) ([6e46cd0](https://github.com/ForkbombEu/wallet/commit/6e46cd0a21864de3632bad7e6d43e1c609087c66)), closes [#427](https://github.com/ForkbombEu/wallet/issues/427)
+
+## [1.50.1](https://github.com/ForkbombEu/wallet/compare/v1.50.0...v1.50.1) (2024-07-23)
+
+
+### Bug Fixes
+
+* app freezed in loading state ([#423](https://github.com/ForkbombEu/wallet/issues/423)) ([2213f5c](https://github.com/ForkbombEu/wallet/commit/2213f5c2809b5778fee3e168fdf561bcdbe099ac)), closes [#422](https://github.com/ForkbombEu/wallet/issues/422)
+
+# [1.50.0](https://github.com/ForkbombEu/wallet/compare/v1.49.11...v1.50.0) (2024-07-16)
+
+
+### Features
+
+* add copy button on scanner error modal ([#419](https://github.com/ForkbombEu/wallet/issues/419)) ([49cef71](https://github.com/ForkbombEu/wallet/commit/49cef71696687cd039399f95394ddce7a2d6fd6a))
+
 ## [1.49.11](https://github.com/ForkbombEu/wallet/compare/v1.49.10...v1.49.11) (2024-07-13)
 
 

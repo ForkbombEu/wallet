@@ -10,6 +10,7 @@ export type Credential = {
 	configuration_ids: string[];
 	sdJwt: string;
 	issuer: string;
+	issuerUrl:string
 	display_name: string;
 	description: string;
 	expirationDate: number;
@@ -54,10 +55,10 @@ export async function getCredentialsSdjwt(): Promise<string[] | undefined> {
 	return credentials.map((credential) => credential.sdJwt);
 }
 
-export async function removeCredentialPreference(id: string) {
+export async function removeCredentialPreference(id: number) {
 	const credentials = await getCredentialsPreference();
 	if (!credentials) return;
-	const newCredentials = credentials.filter((credential) => String(credential.id) !== id);
+	const newCredentials = credentials.filter((credential) => credential.id !== id);
 	await setStructuredPreferences(CREDENTIALS_PREFERENCES_KEY, newCredentials, true);
 }
 
