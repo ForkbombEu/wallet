@@ -2,6 +2,8 @@
 	import { fly } from 'svelte/transition';
 	import { m } from '$lib/i18n';
 	import CopyButton from '$lib/components/copyButton.svelte';
+	import { onDestroy, onMount } from 'svelte';
+	import { navigating } from '$app/stores';
 
 	export let isModalOpen: boolean;
 	export let textToCopy: string | undefined = undefined;
@@ -10,6 +12,24 @@
 		closeCb();
 		isModalOpen = false;
 	};
+
+	const closeModalOnEvent = (ev: any) => {
+		ev.detail.register(20, (processNextHandler) => {
+			isModalOpen = false;
+			processNextHandler()
+		});
+	};
+
+	onMount(() => {
+		document.addEventListener('ionBackButton', closeModalOnEvent);
+	});
+
+	onDestroy(() => {
+		document.removeEventListener('ionBackButton', closeModalOnEvent);
+	});
+
+	$: if ($navigating) isModalOpen = false;
+
 </script>
 
 <ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly class="visible">
