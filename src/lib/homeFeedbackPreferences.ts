@@ -3,39 +3,44 @@ import type { Feedback } from './utils/types';
 
 const HOME_FEEDBACK_KEY = 'homeFeedback';
 
-export type HomeFeedback = {
+export type HomeFeedbackContent = {
 	count: number;
 	seen: boolean;
 };
 
-export type HomeFeedbackList = {
-	newActivities?: HomeFeedback;
-	expiredCredentials?: HomeFeedback;
+export type HomeFeedbackRecord = {
+	newActivities?: HomeFeedbackContent;
+	expiredCredentials?: HomeFeedbackContent;
 };
 
 export type HomeFeedbackType = 'newActivities' | 'expiredCredentials';
 
-export async function getHomeFeedbackPreference(): Promise<HomeFeedbackList | undefined> {
-	return await getStructuredPreferences<HomeFeedbackList>(HOME_FEEDBACK_KEY);
+export type HomeFeedbacksList = {
+	type: HomeFeedbackType;
+	content: Feedback;
+}[];
+
+export async function getHomeFeedbackPreference(): Promise<HomeFeedbackRecord | undefined> {
+	return await getStructuredPreferences<HomeFeedbackRecord>(HOME_FEEDBACK_KEY);
 }
 
-export async function setHomeFeedbackPreference(homeFeedback: HomeFeedbackList) {
+export async function setHomeFeedbackPreference(homeFeedback: HomeFeedbackRecord) {
 	await setStructuredPreferences(HOME_FEEDBACK_KEY, homeFeedback);
 }
 
-export async function getNewActivities(): Promise<HomeFeedback | undefined> {
+export async function getNewActivities(): Promise<HomeFeedbackContent | undefined> {
 	const homeFeedback = await getHomeFeedbackPreference();
 	if (!homeFeedback) return;
 	return homeFeedback.newActivities;
 }
 
-export async function getExpiredCredentials(): Promise<HomeFeedback | undefined> {
+export async function getExpiredCredentials(): Promise<HomeFeedbackContent | undefined> {
 	const homeFeedback = await getHomeFeedbackPreference();
 	if (!homeFeedback) return;
 	return homeFeedback.expiredCredentials;
 }
 
-export async function setNewActivitiesInHome(homeFeedback: HomeFeedback) {
+export async function setNewActivitiesInHome(homeFeedback: HomeFeedbackContent) {
 	const homeFeedbacks = await getHomeFeedbackPreference();
 	if (!homeFeedbacks) {
 		await setHomeFeedbackPreference({ newActivities: homeFeedback });
@@ -44,7 +49,7 @@ export async function setNewActivitiesInHome(homeFeedback: HomeFeedback) {
 	await setHomeFeedbackPreference({ ...homeFeedbacks, newActivities: homeFeedback });
 }
 
-export async function setExpiredCredentialsInHome(homeFeedback: HomeFeedback) {
+export async function setExpiredCredentialsInHome(homeFeedback: HomeFeedbackContent) {
 	const homeFeedbacks = await getHomeFeedbackPreference();
 	if (!homeFeedbacks) {
 		await setHomeFeedbackPreference({ expiredCredentials: homeFeedback });
@@ -63,10 +68,10 @@ export async function setFeedbackAsSeen(type: HomeFeedbackType) {
 	});
 }
 
-export async function getHomeFeedbacks(): Promise<{ content: Feedback; type: HomeFeedbackType }[]> {
+export async function getHomeFeedbacks(): Promise<HomeFeedbacksList> {
 	const newActivities = await getNewActivities();
 	const expiredCredentials = await getExpiredCredentials();
-	const feedbacks: { content: Feedback; type: HomeFeedbackType }[] = [];
+	const feedbacks: HomeFeedbacksList = [];
 	if (newActivities && !newActivities.seen) {
 		feedbacks.push({
 			type: 'newActivities',

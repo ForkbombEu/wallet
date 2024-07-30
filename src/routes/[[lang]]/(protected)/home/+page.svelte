@@ -5,15 +5,19 @@
 	import { credentialOfferStore } from '$lib/credentialOfferStore';
 	import type { Service as CredentialService } from '$lib/components/organisms/scanner/tools';
 	import { scanButton } from '$lib/tabs';
-	import { getHomeFeedbacks, setFeedbackAsSeen, type HomeFeedbackType } from '$lib/homeFeedbackPreferences.js';
+	import {
+		getHomeFeedbacks,
+		setFeedbackAsSeen,
+		type HomeFeedbackType
+	} from '$lib/homeFeedbackPreferences.js';
 	import { onMount } from 'svelte';
 
 	export let data;
 	const { services } = data;
 
-	let feedback: {content?:Feedback, type?: HomeFeedbackType} = {}
+	let feedback: { content?: Feedback; type?: HomeFeedbackType } = {};
 
-	const getFeedbacks = async () => feedback = (await getHomeFeedbacks())[0]
+	const getFeedbacks = async () => (feedback = (await getHomeFeedbacks())[0]);
 
 	onMount(getFeedbacks);
 
