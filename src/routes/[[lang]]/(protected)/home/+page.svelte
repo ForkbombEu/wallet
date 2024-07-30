@@ -2,7 +2,7 @@
 	import type { Service } from '$lib/slangroom/services';
 	import { goto, m } from '$lib/i18n';
 	import type { Feedback } from '$lib/utils/types';
-	import { homeFeedbackStore } from '$lib/homeFeedbackStore';
+	import { homeFeedbackStore, lastHomeFeedback } from '$lib/homeFeedbackStore';
 	import { credentialOfferStore } from '$lib/credentialOfferStore';
 	import type { Service as CredentialService } from '$lib/components/organisms/scanner/tools';
 	import { getNotReadedActivities } from '$lib/preferences/activity';
@@ -12,30 +12,32 @@
 	export let data;
 	const { services } = data;
 
-	let feedback: Feedback = $homeFeedbackStore;
+	let feedback: Feedback = $lastHomeFeedback?.feedback;
+
+	$: console.log($lastHomeFeedback, $homeFeedbackStore)
 
 	const setFeedback = async () => {
 		const notReadedActivities = await getNotReadedActivities();
 		if (notReadedActivities && notReadedActivities > 0) {
-			homeFeedbackStore.set({
+			homeFeedbackStore.push({feedback:{
 				type: 'success',
 				feedback: `You have ${notReadedActivities} new ${notReadedActivities > 1 ? 'activities' : 'activity'}`
-			} as Feedback);
+			}, read:false});
 		}
 		const expiredCredentials = await getExpiredCredentials();
 		const expiredLenght = expiredCredentials.length;
 		if (expiredLenght > 0) {
-			homeFeedbackStore.set({
+			homeFeedbackStore.push({feedback:{
 				type: 'error',
 				feedback: `You have ${expiredLenght} expired credential${expiredLenght > 1 ? 's' : ''}.`
-			});
+			}});
 		}
 	};
 
 	$: setFeedback();
 
 	const onFeedbackClose = () => {
-		homeFeedbackStore.set({});
+		homeFeedbackStore.markAsRead({feedback:feedback});
 	};
 
 	const gotoCrendentialOffer = async (service: Service) => {
