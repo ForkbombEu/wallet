@@ -4,6 +4,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 
 import { getCredentialsPreference } from './credentials';
 import type { Credential } from '$lib/preferences/credentials';
+import { setNewActivitiesInHome } from '$lib/homeFeedbackPreferences';
 
 dayjs.extend(relativeTime);
 
@@ -56,9 +57,12 @@ export async function addActivity(activity: Activity) {
 	if (activities) {
 		activities.push({ ...activity, at });
 		await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, activities);
+		const unreads = activities.filter((activity) => activity.read).length;
+		setNewActivitiesInHome({ count: unreads, seen: false });
 		return;
 	}
 	await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, [{ ...activity, at }]);
+	setNewActivitiesInHome({ count: 1, seen: false });
 }
 
 export async function getActivities(): Promise<Activity[] | undefined> {
@@ -146,3 +150,10 @@ export async function setAllActivitiesAsRead() {
 	});
 	await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, newActivities);
 }
+
+export const addExpiredCredentialActivity = async (credentialId: number) => {
+	const activities = await getActivities();
+	if (activities?.find((activity) => activity.type === 'expired' && activity.id === credentialId))
+		return;
+	await addActivity({ type: 'expired', id: credentialId, at: dayjs().unix() });
+};
