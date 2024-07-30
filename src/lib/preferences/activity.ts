@@ -5,6 +5,8 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { getCredentialsPreference } from './credentials';
 import type { Credential } from '$lib/preferences/credentials';
 import { setNewActivitiesInHome } from '$lib/homeFeedbackPreferences';
+import { invalidate } from '$app/navigation';
+import { _protectedLayoutKey } from '../../routes/[[lang]]/(protected)/+layout';
 
 dayjs.extend(relativeTime);
 
@@ -59,10 +61,12 @@ export async function addActivity(activity: Activity) {
 		await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, activities);
 		const unreads = activities.filter((activity) => activity.read).length;
 		setNewActivitiesInHome({ count: unreads, seen: false });
+		invalidate(_protectedLayoutKey);
 		return;
 	}
 	await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, [{ ...activity, at }]);
 	setNewActivitiesInHome({ count: 1, seen: false });
+	invalidate(_protectedLayoutKey);
 }
 
 export async function getActivities(): Promise<Activity[] | undefined> {

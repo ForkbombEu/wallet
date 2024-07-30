@@ -1,3 +1,5 @@
+import { invalidate } from '$app/navigation';
+import { _protectedLayoutKey } from '../routes/[[lang]]/(protected)/+layout';
 import { getStructuredPreferences, setStructuredPreferences } from './preferences';
 import type { Feedback } from './utils/types';
 
@@ -66,6 +68,7 @@ export async function setFeedbackAsSeen(type: HomeFeedbackType) {
 		...homeFeedback,
 		[type]: { count: homeFeedback[type]?.count || 0, seen: true }
 	});
+	invalidate(_protectedLayoutKey);
 }
 
 export async function getHomeFeedbacks(): Promise<HomeFeedbacksList> {

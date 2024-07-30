@@ -1,5 +1,5 @@
 import { isAlreadyBoarded } from '$lib/components/onBoarding/utils';
-import { setExpiredCredentialsInHome } from '$lib/homeFeedbackPreferences';
+import { getHomeFeedbackPreference, setExpiredCredentialsInHome } from '$lib/homeFeedbackPreferences';
 import { r, type Langs } from '$lib/i18n';
 import {
 	addActivity,
@@ -35,6 +35,8 @@ export const _protectedLayoutKey = 'load:protected-layout';
 
 export const load = async ({ depends }) => {
 	depends(_protectedLayoutKey);
+	const ff = await getHomeFeedbackPreference();
+	const hasHomeFeedback = !(ff?.expiredCredentials?.seen && ff?.newActivities?.seen);
 	const lang = await getLang();
 	const boarded = await isAlreadyBoarded();
 	if (!boarded) throw redirect(303, r('/on-boarding', lang));
@@ -44,5 +46,5 @@ export const load = async ({ depends }) => {
 	if (!(keypair && did && user)) redirect(303, r('/register-login', lang));
 	checkIfThereAreExpiredCredentialsAndSetActivity();
 	const notReadedActivities = await getNotReadedActivities();
-	return { notReadedActivities };
+	return { notReadedActivities, hasHomeFeedback };
 };

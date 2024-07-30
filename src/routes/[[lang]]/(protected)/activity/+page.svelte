@@ -10,7 +10,6 @@
 	import { _activityKey } from './+page.js';
 	import Bell from '$lib/assets/bell.svelte';
 	import { _protectedLayoutKey } from '../+layout.js';
-	import { onDestroy } from 'svelte';
 	import { scanButton } from '$lib/tabs';
 
 	export let data;
