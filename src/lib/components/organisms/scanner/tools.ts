@@ -63,7 +63,7 @@ const credentialSchema = z.object({
 	id: z.string()
 });
 
-const serviceSchema = z.object({
+export const serviceSchema = z.object({
 	credential_configuration_ids: z.array(z.string()),
 	credential_issuer: z.string().url()
 });

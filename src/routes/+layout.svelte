@@ -8,7 +8,7 @@
 	import '../theme/custom.css';
 	import '../theme/variables.css';
 
-	import { i18n, r } from '$lib/i18n';
+	import { goto, i18n, r } from '$lib/i18n';
 	import { ParaglideJS } from '@inlang/paraglide-js-adapter-sveltekit';
 	import HiddenLogsButton from '$lib/components/molecules/HiddenLogsButton.svelte';
 	import { log } from '$lib/log';
@@ -17,6 +17,9 @@
 	import { navigating } from '$app/stores';
 	import Loading from '$lib/components/molecules/Loading.svelte';
 	import { App } from '@capacitor/app';
+	import { credentialOfferStore } from '$lib/credentialOfferStore';
+	import { serviceSchema, type Service } from '$lib/components/organisms/scanner/tools';
+
 	const controller = new AbortController();
 	const signal = controller.signal;
 
@@ -36,6 +39,16 @@
 			},
 			{ signal }
 		);
+
+		App.addListener('appUrlOpen', (data) => {
+			const url = data.url.split('openid-credential-offer://')[1];
+			const credentialOfferContent = decodeURI(url.split('credential-offer=')[1]);
+			const parsedCredentialOffer = JSON.parse(credentialOfferContent) as Service;
+			if (serviceSchema.safeParse(parsedCredentialOffer).success) {
+				credentialOfferStore.set(parsedCredentialOffer);
+				goto('credential-offer');
+			}
+		});
 	});
 	onDestroy(() => {
 		controller.abort();
@@ -48,7 +61,7 @@
 		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
 	/>
 	<!-- uncomment to test didroom-components locally -->
-	 <!-- <script 
+	<!-- <script 
 	 	type="module" 
 	 	src="http://localhost:3333/build/didroom-components.esm.js" 
 	 ></script> 
