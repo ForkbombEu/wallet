@@ -63,7 +63,7 @@
 			</div>
 		{/if}
 			{#each activities as activity}
-				<d-activity-card {...activity} id={String(activity.at)} use:setAsRead>
+				<d-activity-card {...activity} logo={activity.logo.url} id={String(activity.at)} use:setAsRead>
 					<d-button
 						size="small"
 						color="accent"
