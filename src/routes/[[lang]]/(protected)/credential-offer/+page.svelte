@@ -112,7 +112,7 @@
 	{:else}
 		<div class="flex h-full flex-col gap-4">
 			{#if !shouldContinue}
-				<div class="flex flex-col gap-2">
+				<d-list>
 					<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
 						<d-avatar name={credentialInfo?.name} shape="square"></d-avatar>
 						<d-heading class="font-semibold" size="xs">
@@ -126,7 +126,7 @@
 						<span class="font-semibold">{wn?.credential_issuer_information.display[0].name}</span
 						></d-text
 					>
-				</div>
+				</d-list>
 			{:else}
 				<div class="rounded-md bg-white p-4 h-4/5">
 					{#if iframeLoading}

@@ -116,12 +116,12 @@
 	<d-feedback {...feedback} />
 
 	{#if !seed}
-		<div class="flex flex-col gap-2">
+		<d-list>
 			<d-heading sixe="s">{m.Answer_to_these_questions()}</d-heading>
 			<d-text size="l"
 				>{m.to_ensure_the_security_of_your_account_and_simplify_key_recovery_please_answer_the_following_questions_()}</d-text
 			>
-		</div>
+		</d-list>
 
 		<Form
 			{form}
@@ -163,11 +163,11 @@
 		</d-button>
 	{:else}
 		<div class="flex h-screen flex-col place-content-between">
-			<div>
-				<div class="flex flex-col gap-2 pt-11">
+			<div class="pt-11">
+				<d-list>
 					<d-heading sixe="s">{m.Store_this_keypair()}</d-heading>
 					<d-text size="l">{m.your_unique_keypair_has_been_generated_successfully_()}</d-text>
-				</div>
+				</d-list>
 
 				<div class="flex w-full flex-col space-y-8 pb-6 pt-4">
 					<div class="flex flex-col gap-6">
