@@ -110,17 +110,24 @@
 			<Pidgeon />
 		</d-empty-state>
 	{:else}
-		<div class="flex h-full flex-col gap-4">
+		<div class="flex h-full flex-col justify-between gap-4 pb-16">
 			{#if !shouldContinue}
-				<d-list>
-					<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
-						<d-avatar name={credentialInfo?.name} shape="square"></d-avatar>
-						<d-heading class="font-semibold" size="xs">
-							{credentialInfo?.name}
-						</d-heading>
-						<!-- <d-heading size="s">{credentialInfo?.name}</d-heading> -->
-					</div>
-					<d-text class="text-on-alt">{credentialInfo?.description}</d-text>
+				<d-list gap={4}>
+					<d-list>
+						<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
+							<d-avatar
+								name={credentialInfo?.name}
+								src={credentialInfo?.logo.url}
+								alt={credentialInfo?.logo.alt_text}
+								shape="square"
+							></d-avatar>
+							<d-heading class="font-semibold" size="xs">
+								{credentialInfo?.name}
+							</d-heading>
+							<!-- <d-heading size="s">{credentialInfo?.name}</d-heading> -->
+						</div>
+						<d-text class="text-on-alt">{credentialInfo?.description}</d-text>
+					</d-list>
 					<d-text
 						>{m.Issued_by()}:
 						<span class="font-semibold">{wn?.credential_issuer_information.display[0].name}</span
@@ -128,7 +135,7 @@
 					>
 				</d-list>
 			{:else}
-				<div class="rounded-md bg-white p-4 h-4/5">
+				<div class="h-full rounded-md bg-white p-4">
 					{#if iframeLoading}
 						<div class="fixed left-0 top-0 opacity-90">
 							<Loading />
@@ -146,18 +153,19 @@
 					></iframe>
 				</div>
 			{/if}
-			<div class="flex w-full flex-col gap-2">
+			<d-list class="w-full">
 				{#if !shouldContinue}
+					<d-text size="s">{m.Continue_and_open_an_external_site()}</d-text>
 					<d-button
 						expand
 						on:click={() => (shouldContinue = true)}
 						color="accent"
 						on:keydown={() => (shouldContinue = true)}
-						aria-hidden>{'continue'}</d-button
+						aria-hidden>{m.Continue()}</d-button
 					>
 				{/if}
 				<d-button expand href={r('/home')}>{m.Decline()}</d-button>
-			</div>
+			</d-list>
 		</div>
 
 		<ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly class="visible">
