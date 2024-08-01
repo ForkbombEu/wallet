@@ -18,9 +18,14 @@
 	export let data;
 	const { wn, authorizeUrl, parResult, feedbackData } = data;
 	const codeVerifier = parResult?.code_verifier;
-	let code: string | undefined;
 
+	let shouldContinue = false;
+
+	let code: string | undefined;
 	let iframeLoading = true;
+	let isModalOpen: boolean = false;
+	let isCredentialVerified: boolean = false;
+	let serviceResponse: CredentialResult;
 
 	window.addEventListener('message', async function (event) {
 		if (event.origin === window.location.origin) return;
@@ -38,10 +43,6 @@
 	});
 
 	const credentialInfo = wn?.credential_requested['display'][0];
-
-	let isModalOpen: boolean = false;
-	let isCredentialVerified: boolean = false;
-	let serviceResponse: CredentialResult;
 
 	interface ScrollableNode extends Node {
 		scrollToTop: () => void;
@@ -109,45 +110,52 @@
 			<Pidgeon />
 		</d-empty-state>
 	{:else}
-		<div class="mt-2 flex h-full flex-col gap-4">
-			<div class="flex flex-col gap-2">
-				<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
-					<d-avatar
-						name={credentialInfo?.name}
-						shape="square"
-					></d-avatar>
-					<d-heading class="font-semibold" size="xs">
-						{credentialInfo?.name}
-					</d-heading>
-					<!-- <d-heading size="s">{credentialInfo?.name}</d-heading> -->
-				</div>
-				<d-text class="text-on-alt">{credentialInfo?.description}</d-text>
-				<d-text
-					>{m.Issued_by()}:
-					<span class="font-semibold">{wn?.credential_issuer_information.display[0].name}</span
-					></d-text
-				>
-			</div>
-
-			<div class="mt-6 rounded-md bg-white p-4">
-				{#if iframeLoading}
-					<div class="fixed left-0 top-0 opacity-90">
-						<Loading />
+		<div class="flex h-full flex-col gap-4">
+			{#if !shouldContinue}
+				<div class="flex flex-col gap-2">
+					<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
+						<d-avatar name={credentialInfo?.name} shape="square"></d-avatar>
+						<d-heading class="font-semibold" size="xs">
+							{credentialInfo?.name}
+						</d-heading>
+						<!-- <d-heading size="s">{credentialInfo?.name}</d-heading> -->
 					</div>
+					<d-text class="text-on-alt">{credentialInfo?.description}</d-text>
+					<d-text
+						>{m.Issued_by()}:
+						<span class="font-semibold">{wn?.credential_issuer_information.display[0].name}</span
+						></d-text
+					>
+				</div>
+			{:else}
+				<div class="rounded-md bg-white p-4 h-4/5">
+					{#if iframeLoading}
+						<div class="fixed left-0 top-0 opacity-90">
+							<Loading />
+						</div>
+					{/if}
+					<iframe
+						src={authorizeUrl}
+						width="100%"
+						title="authorization server"
+						id="authorization_server"
+						on:load={() => {
+							iframeLoading = false;
+						}}
+						loading="lazy"
+					></iframe>
+				</div>
+			{/if}
+			<div class="flex w-full flex-col gap-2">
+				{#if !shouldContinue}
+					<d-button
+						expand
+						on:click={() => (shouldContinue = true)}
+						color="accent"
+						on:keydown={() => (shouldContinue = true)}
+						aria-hidden>{'continue'}</d-button
+					>
 				{/if}
-				<iframe
-					src={authorizeUrl}
-					width="100%"
-					height="390px"
-					title="authorization server"
-					id="authorization server"
-					on:load={() => {
-						iframeLoading = false;
-					}}
-					loading="lazy"
-				></iframe>
-			</div>
-			<div class="w-full">
 				<d-button expand href={r('/home')}>{m.Decline()}</d-button>
 			</div>
 		</div>
@@ -184,3 +192,11 @@
 		</ion-modal>
 	{/if}
 </ion-content>
+
+<style>
+	#authorization_server {
+		position: relative;
+		height: 100%;
+		width: 100%;
+	}
+</style>
