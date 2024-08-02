@@ -1,3 +1,10 @@
+## [1.50.4](https://github.com/ForkbombEu/wallet/compare/v1.50.3...v1.50.4) (2024-08-02)
+
+
+### Bug Fixes
+
+* human readeable errors on scan failure (missing credential, qr code is expired) ([#429](https://github.com/ForkbombEu/wallet/issues/429)) ([c5145ff](https://github.com/ForkbombEu/wallet/commit/c5145ff797eb97dc47c7db7f2a5b57d4ca4edd08)), closes [#426](https://github.com/ForkbombEu/wallet/issues/426)
+
 ## [1.50.3](https://github.com/ForkbombEu/wallet/compare/v1.50.2...v1.50.3) (2024-08-02)
 
 
