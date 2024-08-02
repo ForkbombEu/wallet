@@ -75,8 +75,8 @@
 				</d-list>
 			</d-list>
 			<div class="flex flex-col">
-				<d-button expand color="primary" on:click={() => goto('/wallet')}>{m.ok()}</d-button>
-				<d-button expand color="accent" on:click={openModal}>Delete</d-button>
+				<d-button expand color="accent" on:click={() => goto('/wallet')}>{m.Close()}</d-button>
+				<d-button expand color="primary" on:click={openModal}>Delete</d-button>
 			</div>
 		</div>
 		<Modal {isModalOpen} closeCb={closeModal}>

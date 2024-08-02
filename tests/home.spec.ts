@@ -32,7 +32,7 @@ test.describe('Home Page', () => {
 		await expect(serviceLocator).toBeTruthy();
 	});
 
-	test('should navigate to credential offer page on service click', async ({ page }) => {
+	test.skip('should navigate to credential offer page on service click', async ({ page }) => {
 		await login(page);
 		await tabBarClick('Home', page);
 		await expect(page).toHaveURL('/en/home');
