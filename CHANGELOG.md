@@ -1,3 +1,10 @@
+## [1.50.3](https://github.com/ForkbombEu/wallet/compare/v1.50.2...v1.50.3) (2024-08-02)
+
+
+### Bug Fixes
+
+* activities flow ([#417](https://github.com/ForkbombEu/wallet/issues/417)) ([f7fb25d](https://github.com/ForkbombEu/wallet/commit/f7fb25dc0b3ca25c04d73346775da437542d5c11)), closes [#402](https://github.com/ForkbombEu/wallet/issues/402) [#351](https://github.com/ForkbombEu/wallet/issues/351)
+
 ## [1.50.2](https://github.com/ForkbombEu/wallet/compare/v1.50.1...v1.50.2) (2024-07-29)
 
 
