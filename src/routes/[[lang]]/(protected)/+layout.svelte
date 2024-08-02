@@ -5,10 +5,12 @@
 	import { goto, m } from '$lib/i18n';
 	import { onDestroy, onMount } from 'svelte';
 	import type { PluginListenerHandle } from '@capacitor/core';
+	import { getHomeFeedbackPreference } from '$lib/homeFeedbackPreferences.js';
 
 	export let data;
-	const { notReadedActivities } = data;
+	const { notReadedActivities, hasHomeFeedback } = data;
 	let appStateChange: PluginListenerHandle;
+
 
 	//
 
@@ -24,8 +26,8 @@
 		appStateChange.remove();
 	});
 
-	const tabs: TabProps[] = [
-		{ label: m.Home(), tab: Tabs.home },
+	let tabs: TabProps[] = [
+		{ label: m.Home(), tab: Tabs.home, hasAlert: hasHomeFeedback },
 		{ label: m.Wallet(), tab: Tabs.wallet },
 		{ label: m.Notifications(), tab: Tabs.activity, hasAlert: Boolean(notReadedActivities) },
 		{ label: m.Profile(), tab: Tabs.profile }

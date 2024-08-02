@@ -134,6 +134,7 @@
 	"via": "via",
 	"session_id": "session id:",
 	"is_expired": "is expired",
+	"mark_all_as_read": "mark all as read",
 	"Issuer": "Issuer",
 	"Exp": "Exp",
 	"ok": "ok"

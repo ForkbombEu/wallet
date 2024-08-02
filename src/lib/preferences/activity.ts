@@ -4,9 +4,11 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 
 import { getCredentialsPreference } from './credentials';
 import type { Credential } from '$lib/preferences/credentials';
+import { setNewActivitiesInHome } from '$lib/homeFeedbackPreferences';
+import { invalidate } from '$app/navigation';
+import { _protectedLayoutKey } from '../../routes/[[lang]]/(protected)/+layout';
 
 dayjs.extend(relativeTime);
-
 
 export type IssuedCredential = {
 	type: 'credential';
@@ -38,7 +40,6 @@ export type ParsedActivity = {
 	description: string;
 	date: string;
 	message: string;
-	type: string;
 	credential?: Credential;
 	read?: boolean;
 	at: number;
@@ -58,9 +59,14 @@ export async function addActivity(activity: Activity) {
 	if (activities) {
 		activities.push({ ...activity, at });
 		await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, activities);
+		const unreads = activities.filter((activity) => activity.read).length;
+		setNewActivitiesInHome({ count: unreads, seen: false });
+		invalidate(_protectedLayoutKey);
 		return;
 	}
 	await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, [{ ...activity, at }]);
+	setNewActivitiesInHome({ count: 1, seen: false });
+	invalidate(_protectedLayoutKey);
 }
 
 export async function getActivities(): Promise<Activity[] | undefined> {
@@ -81,11 +87,12 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 			description: '',
 			date: '',
 			message: '',
-			type: '',
-			at: 0
+			at: 0,
+			read: false
 		};
 		parsedActivity.date = dayjs().to(dayjs.unix(activity.at));
 		parsedActivity.at = activity.at;
+		parsedActivity.read = activity.read;
 
 		if (activity.type === 'credential' || activity.type === 'expired') {
 			const credential = findCredentialById(activity.id);
@@ -98,17 +105,14 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 			parsedActivity.credential = credential;
 			if (activity.type === 'credential') {
 				parsedActivity.message = `${credential.issuer} issued ${credential.display_name} to you`;
-				parsedActivity.type = 'warning';
 			} else {
 				parsedActivity.message = `${credential.display_name} is expired`;
-				parsedActivity.type = 'error';
 			}
 		} else if (activity.type === 'verification') {
 			const { verifier_name, success, rp_name, properties } = activity;
 			parsedActivity.message = `${verifier_name} verified yours: ${properties.join(', ')} via ${rp_name} and it was a ${
 				success ? 'success' : 'failure'
 			}`;
-			parsedActivity.type = 'warning';
 		}
 		return parsedActivity;
 	}
@@ -141,3 +145,19 @@ export async function setActivityAsRead(at: number) {
 	});
 	await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, newActivities);
 }
+
+export async function setAllActivitiesAsRead() {
+	const activities = await getActivities();
+	if (!activities) return;
+	const newActivities = activities.map((activity) => {
+		return { ...activity, read: true };
+	});
+	await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, newActivities);
+}
+
+export const addExpiredCredentialActivity = async (credentialId: number) => {
+	const activities = await getActivities();
+	if (activities?.find((activity) => activity.type === 'expired' && activity.id === credentialId))
+		return;
+	await addActivity({ type: 'expired', id: credentialId, at: dayjs().unix() });
+};
