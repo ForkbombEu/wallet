@@ -137,5 +137,7 @@
 	"mark_all_as_read": "mark all as read",
 	"Issuer": "Issuer",
 	"Exp": "Exp",
-	"ok": "ok"
+	"ok": "ok",
+	"QR_code_is_expired": "QR code is expired",
+	"You_have_no_signed_selective_disclosure_that_matched_the_requested_claims_or_your_credential_is_expired": "You have no signed selective disclosure that matched the requested claims or your credential is expired"
 }

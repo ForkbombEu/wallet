@@ -60,12 +60,12 @@
 			if (!serviceResponse) return (isModalOpen = false);
 			isCredentialVerified = true;
 			log(`serviceResponse: (fine chain): ${JSON.stringify(serviceResponse, null, 2)}`);
-		} catch (e) {
+		} catch (e:unknown) {
 			isCredentialVerified = false;
 			isModalOpen = false;
 			feedback = {
 				type: 'error',
-				message: String(e),
+				message: String(e?.message || e),
 				feedback: 'error while getting credential'
 			};
 			content.scrollToTop();
@@ -109,25 +109,12 @@
 			<Pidgeon />
 		</d-empty-state>
 	{:else}
-		<div class="mt-2 flex h-full flex-col gap-4">
-			<div class="flex flex-col gap-2">
+		<div class="mt-2 flex min-h-full flex-col justify-between pb-14">
+			<div>
 				<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
-					<d-avatar
-						src={credentialInfo?.logo.url}
-						alt={credentialInfo?.logo.alt_text}
-						shape="square"
-					></d-avatar>
-					<d-heading class="font-semibold" size="xs">
-						{credentialInfo?.name}
-					</d-heading>
-					<!-- <d-heading size="s">{credentialInfo?.name}</d-heading> -->
+					<d-avatar src={credentialInfo?.logo.url} alt={credentialInfo?.logo.alt_text}></d-avatar>
+					<d-heading size="s">{credentialInfo?.name}</d-heading>
 				</div>
-				<d-text class="text-on-alt">{credentialInfo?.description}</d-text>
-				<d-text
-					>{m.Issued_by()}:
-					<span class="font-semibold">{wn?.credential_issuer_information.display[0].name}</span
-					></d-text
-				>
 			</div>
 
 			<div class="mt-6 rounded-md bg-white p-4">
