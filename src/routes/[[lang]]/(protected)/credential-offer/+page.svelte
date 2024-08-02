@@ -61,12 +61,12 @@
 			if (!serviceResponse) return (isModalOpen = false);
 			isCredentialVerified = true;
 			log(`serviceResponse: (fine chain): ${JSON.stringify(serviceResponse, null, 2)}`);
-		} catch (e) {
+		} catch (e:unknown) {
 			isCredentialVerified = false;
 			isModalOpen = false;
 			feedback = {
 				type: 'error',
-				message: String(e),
+				message: String(e?.message || e),
 				feedback: 'error while getting credential'
 			};
 			content.scrollToTop();
