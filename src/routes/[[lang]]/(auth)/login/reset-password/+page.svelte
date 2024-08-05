@@ -10,8 +10,8 @@
 	import type { Feedback } from '$lib/utils/types';
 	import CircleCheck from '$lib/assets/CircleCheck.svelte';
 	import Chat from '$lib/assets/Chat.svelte';
-	import Loading from '$lib/components/molecules/Loading.svelte';
 	import { routeHistory } from '$lib/routeStore';
+	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 
 	let feedback: Feedback = {};
 	let loading = false;
@@ -47,7 +47,9 @@
 	};
 </script>
 
-<Loading {loading} />
+<d-loading {loading}>
+	<FingerPrint />
+</d-loading>
 <d-header back-button backFunction={routeHistory.back}>
 	{m.Reset_password()}
 </d-header>

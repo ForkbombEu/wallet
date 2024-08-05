@@ -13,8 +13,8 @@
 	import { checkKeypairs, generateDid, saveUserPublicKeys, userEmailStore } from '../../_lib';
 	import type { Feedback } from '$lib/utils/types';
 	import { log } from '$lib/log';
-	import Loading from '$lib/components/molecules/Loading.svelte';
 	import { routeHistory } from '$lib/routeStore';
+	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 
 	//
 
@@ -74,7 +74,6 @@
 
 				seed = keypair.seed;
 				loading = false;
-				
 			} catch (e) {
 				loading = false;
 				feedback = {
@@ -107,7 +106,9 @@
 	};
 </script>
 
-<Loading {loading} message={m.Generating_Keypair_()} />
+<d-loading {loading} message={m.Generating_Keypair_()}>
+	<FingerPrint />
+</d-loading>
 <d-header back-button={!seed} backFunction={routeHistory.back}>
 	{m.SECURITY_QUESTIONS()}
 </d-header>

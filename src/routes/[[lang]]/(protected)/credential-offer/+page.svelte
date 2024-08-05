@@ -12,7 +12,6 @@
 	import dayjs from 'dayjs';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import Pidgeon from '$lib/assets/Pidgeon.svelte';
-	import Loading from '$lib/components/molecules/Loading.svelte';
 	import { routeHistory } from '$lib/routeStore.js';
 
 	export let data;
@@ -61,7 +60,7 @@
 			if (!serviceResponse) return (isModalOpen = false);
 			isCredentialVerified = true;
 			log(`serviceResponse: (fine chain): ${JSON.stringify(serviceResponse, null, 2)}`);
-		} catch (e:unknown) {
+		} catch (e: unknown) {
 			isCredentialVerified = false;
 			isModalOpen = false;
 			feedback = {
@@ -136,11 +135,11 @@
 				</d-list>
 			{:else}
 				<div class="h-full rounded-md bg-white p-4">
-					{#if iframeLoading}
-						<div class="fixed left-0 top-0 opacity-90">
-							<Loading />
-						</div>
-					{/if}
+					<div class="fixed left-0 top-0 opacity-90">
+						<d-loading loading={iframeLoading}>
+							<FingerPrint />
+						</d-loading>
+					</div>
 					<iframe
 						src={authorizeUrl}
 						width="100%"
