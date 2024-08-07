@@ -14,7 +14,6 @@
 	import type { Feedback } from '$lib/utils/types';
 	import { log } from '$lib/log';
 	import Loading from '$lib/components/molecules/Loading.svelte';
-	import { routeHistory } from '$lib/routeStore';
 
 	//
 
@@ -101,14 +100,12 @@
 	}
 
 	const goToWallet = () => {
-		goto('/wallet', undefined, false).then(() => {
-			routeHistory.clear();
-		});
+		goto('/wallet', undefined)
 	};
 </script>
 
 <Loading {loading} message={m.Generating_Keypair_()} />
-<d-header back-button={!seed} backFunction={routeHistory.back}>
+<d-header back-button={!seed} backFunction={()=>window.history.back()}>
 	{m.SECURITY_QUESTIONS()}
 </d-header>
 

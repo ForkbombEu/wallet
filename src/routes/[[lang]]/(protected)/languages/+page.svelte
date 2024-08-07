@@ -4,7 +4,6 @@
 	import { setLanguagePreference } from '$lib/preferences/lang';
 	import { availableLanguageTags } from '$paraglide/runtime';
 	import Check from '$lib/assets/check.svelte';
-	import { routeHistory } from '$lib/routeStore';
 
 	const recordLanguages = {
 		en: 'English',
@@ -16,7 +15,7 @@
 	$: activeLanguage = i18n.getLanguageFromUrl($page.url);
 </script>
 
-<d-header back-button backFunction={routeHistory.back}>
+<d-header back-button>
 	{m.language()}
 </d-header>
 
@@ -36,7 +35,8 @@
 				class="flex h-16 w-full items-center justify-between gap-2.5 rounded-lg border-b border-solid border-b-stroke px-5 py-8"
 				on:click={async () => {
 					await setLanguagePreference(language);
-					await goto(i18n.route($page.url.pathname), language, false);
+					activeLanguage = language;
+					window.location.replace(`/${language}/languages`)
 				}}
 			>
 				<span class="flex items-center self-stretch">

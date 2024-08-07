@@ -5,30 +5,30 @@
 	const { credential, credentials } = data;
 	import { decodeSdJwt } from '$lib/openId4vci';
 	import { removeCredentialPreference } from '$lib/preferences/credentials';
-	import { routeHistory } from '$lib/routeStore';
+	import { pushState } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	const isNestedDisclosure = (disclosure: Array<string | Record<string, string>>) => {
 		return typeof disclosure[2] === 'object';
 	};
 
-	let isModalOpen: boolean = false;
 	const openModal = () => {
-		isModalOpen = true;
-		routeHistory.push({ previousPath: `${credential.id}/credential-detail` });
+		pushState('', {
+			isModalOpen: true,
+		});
 	};
 	const closeModal = () => {
-		isModalOpen = false;
-		routeHistory.back();
+		window.history.back();
 	};
 
 	const deleteCredential = async () => {
-		isModalOpen = false;
+		window.history.back();
 		await removeCredentialPreference(credential.id);
 		await goto('/wallet');
 	};
 </script>
 
-<d-header back-button backFunction={routeHistory.back}>
+<d-header back-button>
 	{m.Credential_detail()}
 </d-header>
 <ion-content fullscreen class="ion-padding h-full">
@@ -79,7 +79,7 @@
 				<d-button expand color="accent" on:click={openModal}>Delete</d-button>
 			</div>
 		</div>
-		<Modal {isModalOpen} closeCb={closeModal}>
+		<Modal isModalOpen={$page.state.isModalOpen} closeCb={closeModal}>
 			<d-text>If you continue the credential will be permanently deleted</d-text>
 			<div class="flex flex-col">
 				<d-button expand color="primary" on:click={deleteCredential}>Continue</d-button>

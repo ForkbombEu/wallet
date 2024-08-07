@@ -11,7 +11,6 @@
 	import CircleCheck from '$lib/assets/CircleCheck.svelte';
 	import Chat from '$lib/assets/Chat.svelte';
 	import Loading from '$lib/components/molecules/Loading.svelte';
-	import { routeHistory } from '$lib/routeStore';
 
 	let feedback: Feedback = {};
 	let loading = false;
@@ -48,7 +47,7 @@
 </script>
 
 <Loading {loading} />
-<d-header back-button backFunction={routeHistory.back}>
+<d-header back-button>
 	{m.Reset_password()}
 </d-header>
 <div class="flex min-h-screen flex-col place-content-between">

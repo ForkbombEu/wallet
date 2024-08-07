@@ -11,7 +11,6 @@
 	import { arrowForwardOutline } from 'ionicons/icons';
 	import { invalidateAll } from '$app/navigation';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
-	import { routeHistory } from '$lib/routeStore';
 	const controller = new AbortController();
 	const signal = controller.signal;
 
@@ -112,7 +111,7 @@
 	};
 	const closeScanner = async () => {
 		await stopScan();
-		await routeHistory.back();
+		window.history.back();
 	}
 </script>
 

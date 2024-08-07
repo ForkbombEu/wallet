@@ -6,7 +6,6 @@
 	import dayjs from 'dayjs';
 	import { log } from '$lib/log';
 	import { addActivity, type Activity } from '$lib/preferences/activity';
-	import { routeHistory } from '$lib/routeStore';
 
 	type VerificationResponse = {
 		result: {
@@ -100,7 +99,7 @@
 	};
 </script>
 
-<d-header back-button backFunction={routeHistory.back}>
+<d-header back-button>
 	{m.Verification()}
 </d-header>
 

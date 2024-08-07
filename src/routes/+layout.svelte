@@ -12,7 +12,6 @@
 	import { ParaglideJS } from '@inlang/paraglide-js-adapter-sveltekit';
 	import HiddenLogsButton from '$lib/components/molecules/HiddenLogsButton.svelte';
 	import { log } from '$lib/log';
-	import { routeHistory } from '$lib/routeStore';
 	import { onDestroy, onMount } from 'svelte';
 	import { navigating } from '$app/stores';
 	import Loading from '$lib/components/molecules/Loading.svelte';
@@ -26,7 +25,7 @@
 			(ev: any) => {
 				ev.detail.register(-1, () => {
 					if (isExitPoint()) App.exitApp();
-					else routeHistory.back();
+					else window.history.back();
 				});
 
 				const isExitPoint = () => {

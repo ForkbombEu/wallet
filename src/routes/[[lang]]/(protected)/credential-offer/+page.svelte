@@ -13,7 +13,6 @@
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import Pidgeon from '$lib/assets/Pidgeon.svelte';
 	import Loading from '$lib/components/molecules/Loading.svelte';
-	import { routeHistory } from '$lib/routeStore.js';
 
 	export let data;
 	const { wn, authorizeUrl, parResult, feedbackData } = data;
@@ -93,7 +92,7 @@
 	};
 </script>
 
-<d-header back-button backFunction={routeHistory.back}>
+<d-header back-button>
 	{m.Credential_offer()}
 </d-header>
 

@@ -10,7 +10,6 @@
 	import background from '$lib/assets/bg-5.svg';
 	import { Input } from '$lib/forms';
 	import Chat from '$lib/assets/Chat.svelte';
-	import { routeHistory } from '$lib/routeStore.js';
 
 	//
 
@@ -37,7 +36,6 @@
 				await generateDid();
 				await checkKeypairs();
 				await goto('/wallet', undefined, false);
-				routeHistory.clear();
 			} catch (e) {
 				feedback = {
 					type: 'error',
@@ -54,7 +52,7 @@
 	const seedPlaceholder = 'skin buyer sunset person run push elevator under debris soft surge man';
 </script>
 
-<d-header back-button backFunction={routeHistory.back}>
+<d-header back-button backFunction={()=>window.history.back()}>
 	{m.REGISTER()}
 </d-header>
 
