@@ -8,7 +8,7 @@ const getLang = async () => {
 	const lang = await getLanguagePreference();
 	//@ts-expect-error - This is a valid check
 	if (lang && availableLanguageTags.includes(lang)) return lang as Langs;
-	return undefined;
+	return 'en';
 };
 
 export const load = async ({url}) => {
