@@ -12,7 +12,6 @@
 	import { ParaglideJS } from '@inlang/paraglide-js-adapter-sveltekit';
 	import HiddenLogsButton from '$lib/components/molecules/HiddenLogsButton.svelte';
 	import { log } from '$lib/log';
-	import { routeHistory } from '$lib/routeStore';
 	import { onDestroy, onMount } from 'svelte';
 	import { navigating } from '$app/stores';
 	import Loading from '$lib/components/molecules/Loading.svelte';
@@ -26,11 +25,12 @@
 			(ev: any) => {
 				ev.detail.register(-1, () => {
 					if (isExitPoint()) App.exitApp();
-					else routeHistory.back();
+					else if (r('/unlock') === window.location.pathname) return;
+					else window.history.back();
 				});
 
 				const isExitPoint = () => {
-					const exitPoints = [r('/home'), r('/login')];
+					const exitPoints = [r('/home'), r('/register-login')];
 					return exitPoints.includes(window.location.pathname);
 				};
 			},
@@ -48,7 +48,7 @@
 		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
 	/>
 	<!-- uncomment to test didroom-components locally -->
-	 <!-- <script 
+	<!-- <script 
 	 	type="module" 
 	 	src="http://localhost:3333/build/didroom-components.esm.js" 
 	 ></script> 

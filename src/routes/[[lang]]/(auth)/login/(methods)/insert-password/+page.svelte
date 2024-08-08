@@ -9,7 +9,6 @@
 	import background from '$lib/assets/bg-5.svg';
 	import type { Feedback } from '$lib/utils/types';
 	import Chat from '$lib/assets/Chat.svelte';
-	import { routeHistory } from '$lib/routeStore';
 
 	let feedback: Feedback = {};
 
@@ -37,7 +36,7 @@
 	});
 </script>
 
-<d-header back-button backFunction={routeHistory.back} settingsTitle={m.Settings()}>
+<d-header back-button backFunction={() => window.history.back()} settingsTitle={m.Settings()}>
 	{m.REGISTER()}
 </d-header>
 <d-feedback {...feedback} />

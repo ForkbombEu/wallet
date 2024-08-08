@@ -4,7 +4,8 @@ const config: PlaywrightTestConfig = {
 	use: {
 		video: 'retain-on-failure',
 		viewport: { width: 412, height: 915 },
-		isMobile: true
+		isMobile: true,
+		locale: 'en-GB'
 	},
 	webServer: {
 		command: 'pnpm build && pnpm preview',
