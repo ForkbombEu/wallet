@@ -1,6 +1,4 @@
 <script lang="ts">
-	import Illustration from '../molecules/Illustration.svelte';
-
 	export let title: string;
 	export let subtitle: string | undefined = undefined;
 	export let description: string;

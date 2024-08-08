@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Illustration from '$lib/components/molecules/Illustration.svelte';
 	import { Form, createForm } from '$lib/forms';
 	import { goto, m } from '$lib/i18n';
 	import { Input } from '$lib/forms';
