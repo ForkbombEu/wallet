@@ -10,7 +10,7 @@
 		personOutline,
 		shieldOutline
 	} from 'ionicons/icons';
-	import AppDetails from '../AppDetails.svelte';
+	import { version } from '$app/environment';
 
 	const logout = async () => {
 		await goto('/logout');
@@ -68,5 +68,5 @@
 			</d-button>
 		</d-buttons-group>
 	</div>
-	<AppDetails />
+	<d-app-details developedBy={m.Developed_by_Forkbomb_BV()} {version}/>
 </div>

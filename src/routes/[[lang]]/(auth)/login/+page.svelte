@@ -1,5 +1,5 @@
 <script lang="ts">
-	import AppDetails from '$lib/components/AppDetails.svelte';
+	import { version } from '$app/environment';
 	import { Form, createForm } from '$lib/forms';
 	import { goto, m, r } from '$lib/i18n';
 	import Input from '$lib/forms/input.svelte';
@@ -113,5 +113,5 @@
 			</div>
 		</div>
 	</div>
-	<AppDetails />
+	<d-app-details developedBy={m.Developed_by_Forkbomb_BV()} {version}/>
 </div>
