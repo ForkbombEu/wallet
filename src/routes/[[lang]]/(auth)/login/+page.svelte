@@ -65,9 +65,9 @@
 <div class="flex min-h-screen flex-col place-content-between">
 	<div class="grow">
 		<d-feedback {...feedback} />
-		<Illustration {background}>
+		<d-illustration {background}>
 			<Pidgeon />
-		</Illustration>
+		</d-illustration>
 		<div>
 			<div class="flex flex-col">
 				<div class="flex w-full flex-col items-center gap-4 px-8">

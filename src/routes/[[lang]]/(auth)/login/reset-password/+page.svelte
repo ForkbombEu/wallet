@@ -56,9 +56,9 @@
 <div class="flex min-h-screen flex-col place-content-between">
 	<d-feedback {...feedback} />
 	<div class="grow">
-		<Illustration {background}>
+		<d-illustration {background}>
 			<Chat />
-		</Illustration>
+		</d-illustration>
 		<div>
 			{#if requestSent}
 				<div class="mt-8 flex flex-col">

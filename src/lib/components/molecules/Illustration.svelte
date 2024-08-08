@@ -13,18 +13,8 @@
 
 <script lang="ts">
 	export let background: string;
-
 </script>
 
-<div class="relative">
-	<img
-		src={background}
-		class="max-h-[50vh] w-full shrink-0 fill-highlight opacity-50"
-		alt="background"
-	/>
-	<div class="absolute bottom-[-30px] w-full">
-		<div class="mx-auto w-fit max-w-96">
-		<slot />
-		</div>
-	</div>
-</div>
+<d-illustration {background}>
+	<slot />
+</d-illustration>
