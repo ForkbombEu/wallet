@@ -24,7 +24,7 @@
 	}
 
 	const tabBarClick = async (selectedTab: string) => {
-		await goto('/' + selectedTab, 'en');
+		await goto('/' + selectedTab);
 	};
 </script>
 
