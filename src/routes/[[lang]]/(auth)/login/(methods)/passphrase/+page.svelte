@@ -52,7 +52,7 @@
 	const seedPlaceholder = 'skin buyer sunset person run push elevator under debris soft surge man';
 </script>
 
-<d-header back-button backFunction={()=>window.history.back()}>
+<d-header back-button backFunction={() => window.history.back()}>
 	{m.REGISTER()}
 </d-header>
 

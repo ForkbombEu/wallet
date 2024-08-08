@@ -99,7 +99,7 @@
 	};
 </script>
 
-<d-header back-button>
+<d-header back-button backFunction={() => window.history.back()}>
 	{m.Verification()}
 </d-header>
 

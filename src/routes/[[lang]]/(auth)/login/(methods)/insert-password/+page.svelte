@@ -36,7 +36,7 @@
 	});
 </script>
 
-<d-header back-button backFunction={()=>window.history.back} settingsTitle={m.Settings()}>
+<d-header back-button backFunction={() => window.history.back()} settingsTitle={m.Settings()}>
 	{m.REGISTER()}
 </d-header>
 <d-feedback {...feedback} />

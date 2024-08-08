@@ -15,7 +15,7 @@
 	$: activeLanguage = i18n.getLanguageFromUrl($page.url);
 </script>
 
-<d-header back-button>
+<d-header back-button backFunction={() => window.history.back()}>
 	{m.language()}
 </d-header>
 
@@ -36,7 +36,7 @@
 				on:click={async () => {
 					await setLanguagePreference(language);
 					activeLanguage = language;
-					window.location.replace(`/${language}/languages`)
+					window.location.replace(`/${language}/languages`);
 				}}
 			>
 				<span class="flex items-center self-stretch">

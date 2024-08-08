@@ -73,7 +73,6 @@
 
 				seed = keypair.seed;
 				loading = false;
-				
 			} catch (e) {
 				loading = false;
 				feedback = {
@@ -100,12 +99,12 @@
 	}
 
 	const goToWallet = () => {
-		goto('/wallet', undefined)
+		goto('/wallet', undefined);
 	};
 </script>
 
 <Loading {loading} message={m.Generating_Keypair_()} />
-<d-header back-button={!seed} backFunction={()=>window.history.back()}>
+<d-header back-button={!seed} backFunction={() => window.history.back()}>
 	{m.SECURITY_QUESTIONS()}
 </d-header>
 

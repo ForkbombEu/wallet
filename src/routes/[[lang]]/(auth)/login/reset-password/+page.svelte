@@ -47,7 +47,7 @@
 </script>
 
 <Loading {loading} />
-<d-header back-button>
+<d-header back-button backFunction={() => window.history.back()}>
 	{m.Reset_password()}
 </d-header>
 <div class="flex min-h-screen flex-col place-content-between">

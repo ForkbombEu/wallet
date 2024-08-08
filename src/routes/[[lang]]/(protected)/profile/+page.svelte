@@ -8,20 +8,25 @@
 </script>
 
 <d-tab-page tab="profile" title="PROFILE" {...scanButton} settings>
-	<div class="flex h-full flex-col gap-24 justify-between">
-		<div class="flex flex-col items-center pt-8 gap-2 text-center">
+	<div class="flex h-full flex-col justify-between gap-24">
+		<div class="flex flex-col items-center gap-2 pt-8 text-center">
 			<d-avatar src={authFilesUri(user?.avatar, user?.id)} size="2xl"></d-avatar>
 			<d-heading size="xs" class="w-full">{user?.name || user?.email}</d-heading>
 			<d-did-box did={did?.result?.didDocument.id || did?.didDocument.id}></d-did-box>
 		</div>
-		<d-organizations heading={m.Badges()} empty={(orgs.length == 0)}>
+		<d-organizations heading={m.Badges()} empty={orgs.length == 0}>
 			{#each orgs as org}
-				<d-avatar src={filesUri(org.avatar, org.collectionId, org.id)} alt={org.name} size="xl" shape="square"/>
+				<d-avatar
+					src={filesUri(org.avatar, org.collectionId, org.id)}
+					alt={org.name}
+					size="xl"
+					shape="square"
+				/>
 			{/each}
 		</d-organizations>
 	</div>
 	<div slot="settings">
 		<Settings />
 	</div>
-	<div class="pb-24"/>
+	<div class="pb-24" />
 </d-tab-page>

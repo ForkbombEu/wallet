@@ -11,12 +11,11 @@ const getLang = async () => {
 	return 'en';
 };
 
-export const load = async ({url}) => {
+export const load = async ({ url }) => {
 	const lang = await getLang();
-	if (
-		url.pathname.split('/')[1] !== lang &&
-		availableLanguageTags.includes(url.pathname.split('/')[1])
-	) {
-		window.location.replace(`/${lang}/${url.pathname.split('/').slice(2).join('/')}`);
-	} 
-}
+	const urlSplit = url.pathname.split('/');
+	const urlLangCode = urlSplit[1];
+	if (urlLangCode !== lang && availableLanguageTags.includes(urlLangCode)) {
+		redirect(303, `/${lang}/${urlSplit.slice(2).join('/')}`);
+	}
+};

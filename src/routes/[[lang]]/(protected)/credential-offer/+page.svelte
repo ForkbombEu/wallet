@@ -59,7 +59,7 @@
 			if (!serviceResponse) return (isModalOpen = false);
 			isCredentialVerified = true;
 			log(`serviceResponse: (fine chain): ${JSON.stringify(serviceResponse, null, 2)}`);
-		} catch (e:unknown) {
+		} catch (e: unknown) {
 			isCredentialVerified = false;
 			isModalOpen = false;
 			feedback = {
@@ -92,7 +92,7 @@
 	};
 </script>
 
-<d-header back-button>
+<d-header back-button backFunction={() => window.history.back()}>
 	{m.Credential_offer()}
 </d-header>
 

@@ -14,7 +14,7 @@
 
 	const openModal = () => {
 		pushState('', {
-			isModalOpen: true,
+			isModalOpen: true
 		});
 	};
 	const closeModal = () => {
@@ -28,7 +28,7 @@
 	};
 </script>
 
-<d-header back-button>
+<d-header back-button backFunction={() => window.history.back()}>
 	{m.Credential_detail()}
 </d-header>
 <ion-content fullscreen class="ion-padding h-full">

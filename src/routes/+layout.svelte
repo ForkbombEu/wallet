@@ -47,7 +47,7 @@
 		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
 	/>
 	<!-- uncomment to test didroom-components locally -->
-	 <!-- <script 
+	<!-- <script 
 	 	type="module" 
 	 	src="http://localhost:3333/build/didroom-components.esm.js" 
 	 ></script> 

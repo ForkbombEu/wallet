@@ -14,7 +14,6 @@
 	const controller = new AbortController();
 	const signal = controller.signal;
 
-
 	const dispatch = createEventDispatcher();
 	const qrCodeScanned = (barcode: Barcode) => {
 		dispatch('success', {
@@ -83,16 +82,16 @@
 
 	onMount(() => {
 		document.addEventListener('ionBackButton', (ev: any) => {
-		ev.detail.register(2, (processNextHandler) => {
-			stopScan();
-			processNextHandler();
-		});
-	}), {signal};
+			ev.detail.register(2, (processNextHandler) => {
+				stopScan();
+				processNextHandler();
+			});
+		}),
+			{ signal };
 	});
 	onDestroy(() => {
 		controller.abort();
 	});
-	
 
 	//
 
@@ -112,7 +111,7 @@
 	const closeScanner = async () => {
 		await stopScan();
 		window.history.back();
-	}
+	};
 </script>
 
 <ion-header class="visible bg-[#d2d7e5]">
