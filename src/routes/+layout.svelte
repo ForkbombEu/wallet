@@ -64,7 +64,6 @@
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.26.3/dist/didroom-components/didroom-components.css"
 	/> -->
->>>>>>> 46ab2bd (refactot: illustration layout from didroom components)
 </svelte:head>
 <svelte:window
 	on:error|capture={(e) => log(e.error)}
