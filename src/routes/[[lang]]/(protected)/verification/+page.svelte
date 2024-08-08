@@ -150,7 +150,7 @@
 				</div>
 			</div>
 
-			<div class="flex flex-col gap-2">
+			<d-list>
 				<d-text>{m.Are_you_sure()}</d-text>
 				<d-button
 					on:click={() => request()}
@@ -162,7 +162,7 @@
 				>
 				<d-button on:click={decline} on:keydown={decline} expand aria-hidden>{m.Decline()}</d-button
 				>
-			</div>
+			</d-list>
 		</div>
 	{/if}
 </ion-content>

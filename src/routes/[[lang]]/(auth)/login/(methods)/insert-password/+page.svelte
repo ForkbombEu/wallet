@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Illustration from '$lib/components/molecules/Illustration.svelte';
 	import { Form, createForm } from '$lib/forms';
 	import { goto, m } from '$lib/i18n';
 	import { Input } from '$lib/forms';
@@ -44,9 +43,9 @@
 
 <div class="flex flex-col">
 	<div class="mb-10 sm:mb-0">
-		<Illustration {background}>
+		<d-illustration {background}>
 			<Chat />
-		</Illustration>
+		</d-illustration>
 	</div>
 	<div>
 		<div class="flex w-full flex-col items-center gap-6 px-8">

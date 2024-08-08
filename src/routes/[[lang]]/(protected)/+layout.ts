@@ -1,20 +1,17 @@
-import { isAlreadyBoarded } from '$lib/components/onBoarding/utils';
-import { getHomeFeedbackPreference, setExpiredCredentialsInHome } from '$lib/homeFeedbackPreferences';
-import { r, type Langs } from '$lib/i18n';
 import {
-	addActivity,
-	addExpiredCredentialActivity,
-	getActivities,
-	getNotReadedActivities
-} from '$lib/preferences/activity';
+	getHomeFeedbackPreference,
+	setExpiredCredentialsInHome
+} from '$lib/homeFeedbackPreferences';
+import { r, type Langs } from '$lib/i18n';
+import { addExpiredCredentialActivity, getNotReadedActivities } from '$lib/preferences/activity';
 import { getExpiredCredentials } from '$lib/preferences/credentials';
 import { getDIDPreference } from '$lib/preferences/did';
 import { getKeypairPreference } from '$lib/preferences/keypair';
 import { getLanguagePreference } from '$lib/preferences/lang';
+import { isAlreadyBoarded } from '$lib/preferences/onBoarding';
 import { getUser } from '$lib/preferences/user';
 import { availableLanguageTags } from '$paraglide/runtime';
 import { redirect } from '@sveltejs/kit';
-import dayjs from 'dayjs';
 
 const getLang = async () => {
 	const lang = await getLanguagePreference();

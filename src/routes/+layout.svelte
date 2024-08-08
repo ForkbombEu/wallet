@@ -15,8 +15,8 @@
 	import { routeHistory } from '$lib/routeStore';
 	import { onDestroy, onMount } from 'svelte';
 	import { navigating } from '$app/stores';
-	import Loading from '$lib/components/molecules/Loading.svelte';
 	import { App } from '@capacitor/app';
+	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	const controller = new AbortController();
 	const signal = controller.signal;
 
@@ -48,22 +48,22 @@
 		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
 	/>
 	<!-- uncomment to test didroom-components locally -->
-	 <!-- <script 
+	<script 
 	 	type="module" 
 	 	src="http://localhost:3333/build/didroom-components.esm.js" 
 	 ></script> 
 	 <link 
 	 	rel="stylesheet" 
 	 	href="http://localhost:3333/build/didroom-components.css" 
-	 />  -->
-	<script
+	 /> 
+	<!-- <script
 		type="module"
-		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.26.3/dist/didroom-components/didroom-components.esm.js"
+		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.26.4/dist/didroom-components/didroom-components.esm.js"
 	></script>
 	<link
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.26.3/dist/didroom-components/didroom-components.css"
-	/>
+	/> -->
 </svelte:head>
 <svelte:window
 	on:error|capture={(e) => log(e.error)}
@@ -72,12 +72,9 @@
 <ParaglideJS {i18n}>
 	<HiddenLogsButton />
 	<ion-app>
-		{#if $navigating}
-			<div class="m-8">
-				<Loading />
-			</div>
-		{:else}
-			<slot />
-		{/if}
+		<d-loading loading={$navigating}>
+			<FingerPrint />
+		</d-loading>
+		<slot />
 	</ion-app>
 </ParaglideJS>

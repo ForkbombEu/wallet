@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { m, r } from '$lib/i18n';
+	import { goto, m, r } from '$lib/i18n';
 	import dayjs from 'dayjs';
 	import EmptyWallet from '$lib/assets/EmptyWallet.svelte';
 	import { scanButton } from '$lib/tabs';
@@ -24,10 +24,10 @@
 			<EmptyWallet />
 		</d-empty-state>
 	{:else}
-		<div class="flex flex-col gap-2">
+		<d-list>
 			{#each credentials as credential}
 				{@const expirationDate = dayjs.unix(credential.expirationDate).format('DD.MM.YYYY HH:mm')}
-				<a href={r(`/${credential.id}/credential-detail`)} class="relative">
+				<button on:click={()=>goto(`/${credential.id}/credential-detail`)} class="relative">
 					{#if credential.expirationDate < dayjs().unix()}
 						<div
 							class="absolute flex h-full w-full items-center justify-center rounded-lg bg-primary opacity-80"
@@ -38,7 +38,6 @@
 							</d-text>
 						</div>
 					{/if}
-
 					<d-credential-card
 						{...credential}
 						{expirationDate}
@@ -52,8 +51,8 @@
 							{/each}
 						{/await}
 					</d-credential-card>
-				</a>
+				</button>
 			{/each}
-		</div>
+		</d-list>
 	{/if}
 </d-tab-page>

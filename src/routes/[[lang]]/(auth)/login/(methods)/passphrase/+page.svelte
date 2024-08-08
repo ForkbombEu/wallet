@@ -6,7 +6,6 @@
 	import { z } from 'zod';
 	import type { Feedback } from '$lib/utils/types.js';
 	import { checkKeypairs, generateDid } from '../../_lib/index.js';
-	import Illustration from '$lib/components/molecules/Illustration.svelte';
 	import background from '$lib/assets/bg-5.svg';
 	import { Input } from '$lib/forms';
 	import Chat from '$lib/assets/Chat.svelte';
@@ -61,9 +60,9 @@
 <div class="flex flex-col">
 	<d-feedback {...feedback} />
 	<div class="mb-10 sm:mb-0">
-		<Illustration {background}>
+		<d-illustration {background}>
 			<Chat />
-		</Illustration>
+		</d-illustration>
 	</div>
 	<div>
 		<div class="flex w-full flex-col items-center gap-6 px-8">

@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { completeOnBoarding } from '$lib/components/onBoarding/utils';
-	import OnBoardingPage from '$lib/components/onBoarding/OnBoardingPage.svelte';
+	import { completeOnBoarding } from '$lib/preferences/onBoarding';
 	import background1 from '$lib/assets/bg-1.svg';
 	import background2 from '$lib/assets/bg-2.svg';
 	import background3 from '$lib/assets/bg-3.svg';
@@ -20,22 +19,28 @@
 		centeredSlides={true}
 		class="mt-8 h-5/6"
 	>
-		<OnBoardingPage
-			title={m.Welcome_to_DID_Wallet()}
-			subtitle={m.your_friendly_and_trustable_opensource_wallet_()}
-			description={m.on_boarding_subtitle_1()}
-			background={background1}><LogoHand /></OnBoardingPage
-		>
-		<OnBoardingPage
-			title={m.Create_your_DID()}
-			description={m.on_boarding_subtitle_2()}
-			background={background2}><HandEllipsis /></OnBoardingPage
-		>
-		<OnBoardingPage
-			title={m.Manage_VC_verifiable_credentials_in_one_place()}
-			description={m.Manage_VC_verifiable_credentials_in_one_place()}
-			background={background3}
-		><HandCard /></OnBoardingPage>
+		<swiper-slide class="h-full">
+			<d-swipable-page
+				title={m.Welcome_to_DID_Wallet()}
+				subtitle={m.your_friendly_and_trustable_opensource_wallet_()}
+				description={m.on_boarding_subtitle_1()}
+				background={background1}><LogoHand /></d-swipable-page
+			>
+		</swiper-slide>
+		<swiper-slide class="h-full">
+			<d-swipable-page
+				title={m.Create_your_DID()}
+				description={m.on_boarding_subtitle_2()}
+				background={background2}><HandEllipsis /></d-swipable-page
+			>
+		</swiper-slide>
+		<swiper-slide class="h-full">
+			<d-swipable-page
+				title={m.Manage_VC_verifiable_credentials_in_one_place()}
+				description={m.Manage_VC_verifiable_credentials_in_one_place()}
+				background={background3}><HandCard /></d-swipable-page
+			>
+		</swiper-slide>
 	</swiper-container>
 	<div class="flex justify-center">
 		<d-button

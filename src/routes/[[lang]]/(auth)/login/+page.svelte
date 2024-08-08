@@ -1,6 +1,5 @@
 <script lang="ts">
 	import AppDetails from '$lib/components/AppDetails.svelte';
-	import Illustration from '$lib/components/molecules/Illustration.svelte';
 	import { Form, createForm } from '$lib/forms';
 	import { goto, m, r } from '$lib/i18n';
 	import Input from '$lib/forms/input.svelte';
@@ -65,9 +64,9 @@
 <div class="flex min-h-screen flex-col place-content-between">
 	<div class="grow">
 		<d-feedback {...feedback} />
-		<Illustration {background}>
+		<d-illustration {background}>
 			<Pidgeon />
-		</Illustration>
+		</d-illustration>
 		<div>
 			<div class="flex flex-col">
 				<div class="flex w-full flex-col items-center gap-4 px-8">

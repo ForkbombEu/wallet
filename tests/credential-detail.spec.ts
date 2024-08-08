@@ -7,7 +7,7 @@ test.describe('Credential Detail Page', () => {
 		await page.evaluate(addCredentialsToLocalStorage);
 		await tabBarClick('Home', page);
 		await tabBarClick('Wallet', page);
-		const credentialLink = page.locator('a[href*="credential-detail"]').first();
+		const credentialLink = page.locator('button[class*="relative"]').first();
 		await credentialLink.click();
 		await expect(page).toHaveURL(/\/credential-detail$/);
 		await expect(page.getByText('Credential detail')).toBeVisible();
