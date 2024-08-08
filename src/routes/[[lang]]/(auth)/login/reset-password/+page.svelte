@@ -11,6 +11,7 @@
 	import CircleCheck from '$lib/assets/CircleCheck.svelte';
 	import Chat from '$lib/assets/Chat.svelte';
 	import Loading from '$lib/components/molecules/Loading.svelte';
+	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 
 	let feedback: Feedback = {};
 	let loading = false;
@@ -47,9 +48,9 @@
 </script>
 
 <Loading {loading} />
-<d-header back-button backFunction={() => window.history.back()}>
+<HeaderWithBackButton>
 	{m.Reset_password()}
-</d-header>
+</HeaderWithBackButton>
 <div class="flex min-h-screen flex-col place-content-between">
 	<d-feedback {...feedback} />
 	<div class="grow">

@@ -13,6 +13,7 @@
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import Pidgeon from '$lib/assets/Pidgeon.svelte';
 	import Loading from '$lib/components/molecules/Loading.svelte';
+	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 
 	export let data;
 	const { wn, authorizeUrl, parResult, feedbackData } = data;
@@ -92,9 +93,9 @@
 	};
 </script>
 
-<d-header back-button backFunction={() => window.history.back()}>
+<HeaderWithBackButton>
 	{m.Credential_offer()}
-</d-header>
+</HeaderWithBackButton>
 
 <ion-content fullscreen class="ion-padding" bind:this={content}>
 	<d-feedback {...feedback} />

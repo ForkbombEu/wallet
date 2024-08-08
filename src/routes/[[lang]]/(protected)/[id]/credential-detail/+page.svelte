@@ -7,6 +7,7 @@
 	import { removeCredentialPreference } from '$lib/preferences/credentials';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
+	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 
 	const isNestedDisclosure = (disclosure: Array<string | Record<string, string>>) => {
 		return typeof disclosure[2] === 'object';
@@ -28,9 +29,9 @@
 	};
 </script>
 
-<d-header back-button backFunction={() => window.history.back()}>
+<HeaderWithBackButton>
 	{m.Credential_detail()}
-</d-header>
+</HeaderWithBackButton>
 <ion-content fullscreen class="ion-padding h-full">
 	<div class="flex h-full flex-col gap-8">
 		<div class="flex flex-col gap-2">
