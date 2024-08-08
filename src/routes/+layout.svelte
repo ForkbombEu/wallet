@@ -25,11 +25,12 @@
 			(ev: any) => {
 				ev.detail.register(-1, () => {
 					if (isExitPoint()) App.exitApp();
+					else if (r('/unlock') === window.location.pathname) return;
 					else window.history.back();
 				});
 
 				const isExitPoint = () => {
-					const exitPoints = [r('/home'), r('/login')];
+					const exitPoints = [r('/home'), r('/register-login')];
 					return exitPoints.includes(window.location.pathname);
 				};
 			},
