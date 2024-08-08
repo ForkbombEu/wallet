@@ -16,9 +16,9 @@
 	$: activeLanguage = i18n.getLanguageFromUrl($page.url);
 </script>
 
-<HeaderWithBackButton>
+<d-header>
 	{m.language()}
-</HeaderWithBackButton>
+</d-header>
 
 <ion-content fullscreen class="ion-padding">
 	{#each availableLanguageTags as language}
