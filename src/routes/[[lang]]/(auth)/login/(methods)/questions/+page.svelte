@@ -14,7 +14,8 @@
 	import type { Feedback } from '$lib/utils/types';
 	import { log } from '$lib/log';
 	import Loading from '$lib/components/molecules/Loading.svelte';
-	import { routeHistory } from '$lib/routeStore';
+	import HeaderWithBackButton  from '$lib/components/molecules/HeaderWithBackButton.svelte';
+
 
 	//
 
@@ -74,7 +75,6 @@
 
 				seed = keypair.seed;
 				loading = false;
-				
 			} catch (e) {
 				loading = false;
 				feedback = {
@@ -101,16 +101,14 @@
 	}
 
 	const goToWallet = () => {
-		goto('/wallet', undefined, false).then(() => {
-			routeHistory.clear();
-		});
+		goto('/wallet', undefined);
 	};
 </script>
 
 <Loading {loading} message={m.Generating_Keypair_()} />
-<d-header back-button={!seed} backFunction={routeHistory.back}>
+<HeaderWithBackButton>
 	{m.SECURITY_QUESTIONS()}
-</d-header>
+</HeaderWithBackButton>
 
 <div class="flex h-full w-screen flex-col gap-4 px-4">
 	<d-feedback {...feedback} />

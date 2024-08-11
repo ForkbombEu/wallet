@@ -11,10 +11,8 @@
 	import { arrowForwardOutline } from 'ionicons/icons';
 	import { invalidateAll } from '$app/navigation';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
-	import { routeHistory } from '$lib/routeStore';
 	const controller = new AbortController();
 	const signal = controller.signal;
-
 
 	const dispatch = createEventDispatcher();
 	const qrCodeScanned = (barcode: Barcode) => {
@@ -84,16 +82,16 @@
 
 	onMount(() => {
 		document.addEventListener('ionBackButton', (ev: any) => {
-		ev.detail.register(2, (processNextHandler) => {
-			stopScan();
-			processNextHandler();
-		});
-	}), {signal};
+			ev.detail.register(2, (processNextHandler) => {
+				stopScan();
+				processNextHandler();
+			});
+		}),
+			{ signal };
 	});
 	onDestroy(() => {
 		controller.abort();
 	});
-	
 
 	//
 
@@ -112,8 +110,8 @@
 	};
 	const closeScanner = async () => {
 		await stopScan();
-		await routeHistory.back();
-	}
+		window.history.back();
+	};
 </script>
 
 <ion-header class="visible bg-[#d2d7e5]">

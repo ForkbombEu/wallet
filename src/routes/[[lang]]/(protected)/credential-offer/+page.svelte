@@ -13,7 +13,7 @@
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import Pidgeon from '$lib/assets/Pidgeon.svelte';
 	import Loading from '$lib/components/molecules/Loading.svelte';
-	import { routeHistory } from '$lib/routeStore.js';
+	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 
 	export let data;
 	const { wn, authorizeUrl, parResult, feedbackData } = data;
@@ -60,7 +60,7 @@
 			if (!serviceResponse) return (isModalOpen = false);
 			isCredentialVerified = true;
 			log(`serviceResponse: (fine chain): ${JSON.stringify(serviceResponse, null, 2)}`);
-		} catch (e:unknown) {
+		} catch (e: unknown) {
 			isCredentialVerified = false;
 			isModalOpen = false;
 			feedback = {
@@ -93,9 +93,9 @@
 	};
 </script>
 
-<d-header back-button backFunction={routeHistory.back}>
+<HeaderWithBackButton>
 	{m.Credential_offer()}
-</d-header>
+</HeaderWithBackButton>
 
 <ion-content fullscreen class="ion-padding" bind:this={content}>
 	<d-feedback {...feedback} />

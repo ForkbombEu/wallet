@@ -10,8 +10,8 @@ import { getUser } from '$lib/preferences/user';
 
 const setInitialLanguage = async () => {
 	if (!(await getLanguagePreference())) {
-		const lang = await Device.getLanguageTag();
-		await setLanguagePreference(lang.value.split('-')[0]);
+		const lang = await Device.getLanguageCode();
+		await setLanguagePreference(lang?.value || 'en');
 	}
 };
 
