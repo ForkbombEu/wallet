@@ -11,7 +11,6 @@
 	import { addActivity } from '$lib/preferences/activity';
 	import dayjs from 'dayjs';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
-	import Pidgeon from '$lib/assets/Pidgeon.svelte';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 
 	export let data;
@@ -106,7 +105,7 @@
 			buttonText={m.Go_to_home()}
 			href={r('/home')}
 		>
-			<Pidgeon />
+			<d-illustration illustration="pidgeon" />
 		</d-empty-state>
 	{:else}
 		<div class="flex h-full flex-col justify-between gap-4 pb-16">

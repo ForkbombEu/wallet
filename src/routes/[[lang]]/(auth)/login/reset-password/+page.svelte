@@ -7,8 +7,6 @@
 	import background from '$lib/assets/bg-4.svg';
 	import { askResetPassword } from '../_lib';
 	import type { Feedback } from '$lib/utils/types';
-	import CircleCheck from '$lib/assets/CircleCheck.svelte';
-	import Chat from '$lib/assets/Chat.svelte';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 
@@ -55,9 +53,9 @@
 <div class="flex min-h-screen flex-col place-content-between">
 	<d-feedback {...feedback} />
 	<div class="grow">
-		<d-illustration {background}>
-			<Chat />
-		</d-illustration>
+		<d-background-illustration {background}>
+			<d-illustration illustration="chat" /></d-background-illustration
+		>
 		<div>
 			{#if requestSent}
 				<div class="mt-8 flex flex-col">
