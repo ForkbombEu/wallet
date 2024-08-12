@@ -12,7 +12,7 @@
 	import dayjs from 'dayjs';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import Pidgeon from '$lib/assets/Pidgeon.svelte';
-	import { routeHistory } from '$lib/routeStore.js';
+	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 
 	export let data;
 	const { wn, authorizeUrl, parResult, feedbackData } = data;
@@ -93,9 +93,9 @@
 	};
 </script>
 
-<d-header back-button backFunction={routeHistory.back}>
+<HeaderWithBackButton>
 	{m.Credential_offer()}
-</d-header>
+</HeaderWithBackButton>
 
 <ion-content fullscreen class="ion-padding" bind:this={content}>
 	<d-feedback {...feedback} />

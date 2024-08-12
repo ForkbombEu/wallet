@@ -13,8 +13,8 @@
 	import { checkKeypairs, generateDid, saveUserPublicKeys, userEmailStore } from '../../_lib';
 	import type { Feedback } from '$lib/utils/types';
 	import { log } from '$lib/log';
-	import { routeHistory } from '$lib/routeStore';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
+	import HeaderWithBackButton  from '$lib/components/molecules/HeaderWithBackButton.svelte';
 
 	//
 
@@ -100,18 +100,17 @@
 	}
 
 	const goToWallet = () => {
-		goto('/wallet', undefined, false).then(() => {
-			routeHistory.clear();
-		});
+		goto('/wallet', undefined);
 	};
 </script>
 
 <d-loading {loading} message={m.Generating_Keypair_()}>
 	<FingerPrint />
 </d-loading>
-<d-header back-button={!seed} backFunction={routeHistory.back}>
+<Loading {loading} message={m.Generating_Keypair_()} />
+<HeaderWithBackButton>
 	{m.SECURITY_QUESTIONS()}
-</d-header>
+</HeaderWithBackButton>
 
 <div class="flex h-full w-screen flex-col gap-4 px-4">
 	<d-feedback {...feedback} />
