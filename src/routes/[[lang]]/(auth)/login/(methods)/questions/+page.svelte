@@ -107,7 +107,6 @@
 <d-loading {loading} message={m.Generating_Keypair_()}>
 	<FingerPrint />
 </d-loading>
-<Loading {loading} message={m.Generating_Keypair_()} />
 <HeaderWithBackButton>
 	{m.SECURITY_QUESTIONS()}
 </HeaderWithBackButton>
