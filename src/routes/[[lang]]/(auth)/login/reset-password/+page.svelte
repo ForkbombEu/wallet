@@ -62,7 +62,7 @@
 					<div class="flex w-full flex-col items-center gap-4 px-8">
 						<div class="flex w-full flex-col gap-2 pt-8">
 							<div class="mx-auto">
-								<CircleCheck />
+								<d-illustration illustration="circle-check" />
 							</div>
 							<d-heading size="s">{m.Request_sent()}</d-heading>
 							<d-text size="l">{m.Check_your_email_for_further_instructions()}</d-text>
