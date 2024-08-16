@@ -1,3 +1,10 @@
+## [1.50.5](https://github.com/ForkbombEu/wallet/compare/v1.50.4...v1.50.5) (2024-08-16)
+
+
+### Bug Fixes
+
+* ui review ([#433](https://github.com/ForkbombEu/wallet/issues/433)) ([addc121](https://github.com/ForkbombEu/wallet/commit/addc1212e57609cd6c80f69222be31c308693ef0)), closes [#432](https://github.com/ForkbombEu/wallet/issues/432)
+
 ## [1.50.4](https://github.com/ForkbombEu/wallet/compare/v1.50.3...v1.50.4) (2024-08-02)
 
 
