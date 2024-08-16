@@ -1,10 +1,24 @@
 <script lang="ts">
-	import { m } from '$lib/i18n';
+	import { m, goto } from '$lib/i18n';
 	import { authFilesUri, filesUri } from '$lib/backendUri.js';
 	import { scanButton } from '$lib/tabs';
-	import Settings from '$lib/components/molecules/Settings.svelte';
 	export let data;
 	const { orgs, user, did } = data;
+	import { AndroidSettings, IOSSettings, NativeSettings } from 'capacitor-native-settings';
+	import { version } from '$app/environment';
+
+	const logoutCB = async () => {
+		await goto('/logout');
+	};
+
+	const openAppSettings = async () => {
+		await NativeSettings.open({
+			optionAndroid: AndroidSettings.ApplicationDetails,
+			optionIOS: IOSSettings.App
+		});
+	};
+
+	const gotoLanguageSettings = () => goto('/languages');
 </script>
 
 <d-tab-page tab="profile" title="PROFILE" {...scanButton} settings>
@@ -26,7 +40,20 @@
 		</d-organizations>
 	</div>
 	<div slot="settings">
-		<Settings />
+		<d-settings-menu
+			accountSettings={m.Account_Settings()}
+			securityAndAuthentication={m.Security_and_authentication()}
+			notificationsSettings={m.Notifications_settings()}
+			languages={m.Languages()}
+			support={m.Support()}
+			privacyPolicy={m.Privacy_policy()}
+			logOut={m.Log_Out()}
+			{version}
+			developedBy={m.Developed_by_Forkbomb_BV()}
+			{logoutCB}
+			{gotoLanguageSettings}
+			{openAppSettings}
+		/>
 	</div>
 	<div class="pb-24" />
 </d-tab-page>

@@ -3,8 +3,6 @@
 	import { i18n, m } from '$lib/i18n';
 	import { setLanguagePreference } from '$lib/preferences/lang';
 	import { availableLanguageTags } from '$paraglide/runtime';
-	import Check from '$lib/assets/check.svelte';
-	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 
 	const recordLanguages = {
 		en: 'English',
@@ -29,7 +27,7 @@
 				<span class="flex items-center self-stretch">
 					{recordLanguages[language]}
 				</span>
-				<span><Check /></span>
+				<span><d-icon icon="check" outline></span>
 			</button>
 		{:else}
 			<button

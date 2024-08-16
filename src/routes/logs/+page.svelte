@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto, r } from '$lib/i18n/index.js';
+	import { r } from '$lib/i18n/index.js';
 	import dayjs from 'dayjs';
 	import { onMount } from 'svelte';
 	import { clearLogsPreferences } from '$lib/preferences/logs.js';

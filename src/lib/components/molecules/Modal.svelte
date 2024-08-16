@@ -46,8 +46,8 @@
 				{/if}
 			</ion-buttons>
 		</ion-toolbar>
-		<div class="mt-4 flex flex-col gap-2">
+		<d-list class="mt-4">
 			<slot />
-		</div>
+		</d-list>
 	</ion-content>
 </ion-modal>

@@ -3,10 +3,10 @@ import { redirect } from '@sveltejs/kit';
 import { Device } from '@capacitor/device';
 import { getLanguagePreference, setLanguagePreference } from '$lib/preferences/lang';
 import { availableLanguageTags } from '$paraglide/runtime';
-import { isAlreadyBoarded } from '$lib/components/onBoarding/utils';
 import { getKeypairPreference } from '$lib/preferences/keypair';
 import { getDIDPreference } from '$lib/preferences/did';
 import { getUser } from '$lib/preferences/user';
+import { isAlreadyBoarded } from '$lib/preferences/onBoarding';
 
 const setInitialLanguage = async () => {
 	if (!(await getLanguagePreference())) {
