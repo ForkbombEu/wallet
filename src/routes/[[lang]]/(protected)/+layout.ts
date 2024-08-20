@@ -22,6 +22,7 @@ const getLang = async () => {
 
 const checkIfThereAreExpiredCredentialsAndSetActivity = async () => {
 	const expiredCredentials = await getExpiredCredentials();
+	if (!expiredCredentials.length) return;
 	expiredCredentials.forEach(async (credential) => {
 		await addExpiredCredentialActivity(credential.id);
 	});
