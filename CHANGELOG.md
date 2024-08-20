@@ -1,3 +1,10 @@
+## [1.50.6](https://github.com/ForkbombEu/wallet/compare/v1.50.5...v1.50.6) (2024-08-20)
+
+
+### Bug Fixes
+
+* remove 0 expired credentials home feedback message ([#438](https://github.com/ForkbombEu/wallet/issues/438)) ([ed1e569](https://github.com/ForkbombEu/wallet/commit/ed1e5690f436942e790c9a0d727a36b1da97ec09))
+
 ## [1.50.5](https://github.com/ForkbombEu/wallet/compare/v1.50.4...v1.50.5) (2024-08-16)
 
 
