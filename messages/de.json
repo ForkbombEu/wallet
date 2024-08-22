@@ -73,7 +73,7 @@
 	"REGISTER": "REGISTRIEREN",
 	"You_can_recover_your_keypair_by_answering_the_registration_questions_correctly_again": "Sie können Ihren Keyring wiederherstellen, indem Sie die Sicherheitsfragen erneut korrekt beantworten oder diese Passphrase verwenden.",
 	"SCAN_QR": "SCAN QR",
-	"Go_to_issuance_services": "CREDENTIALS  ERHALTEN",
+	"Go_to_issuance_services": "Credentialen erhalten",
 	"CREATE_AN_ACCOUNT": "KONTO ERSTELLEN",
 	"LOGIN": "ANMELDUNG",
 	"on_boarding_subtitle_1": "DIDroom unterstützt mehrere Standards wie EUDI-ARF (eIDAS 2.0), W3C-VC, W3C-DID und BBS Zero-Knowledge-Proofs.",
