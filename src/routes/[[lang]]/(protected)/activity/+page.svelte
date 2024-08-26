@@ -52,7 +52,7 @@
 	}
 </script>
 
-<d-tab-page tab="activity" title="ACTIVITY" {...scanButton}>
+<d-tab-page tab="activity" title={m.Notifications()} {...scanButton}>
 	<div class="flex w-full flex-col items-center">
 		{#if activities.length > 0}
 			<div class="flex justify-end gap-2.5 pb-4 w-full">

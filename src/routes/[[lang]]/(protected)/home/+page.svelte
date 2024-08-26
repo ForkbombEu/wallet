@@ -37,7 +37,7 @@
 	};
 </script>
 
-<d-tab-page tab="home" title="HOME" {...scanButton}>
+<d-tab-page tab="home" title={m.Home()} {...scanButton}>
 	<d-feedback {...feedback?.content} on:dClose={onFeedbackClose} />
 	<d-page-description
 		title={m.Claim_credential()}

@@ -8,7 +8,7 @@
 	const { credentials } = data;
 </script>
 
-<d-tab-page tab="wallet" title="WALLET" {...scanButton}>
+<d-tab-page tab="wallet" title={m.Wallet()} {...scanButton}>
 	<d-page-description
 		title={m.My_issued_credentials()}
 		description={m.Explore_and_manage_your_verified_credentials()}
