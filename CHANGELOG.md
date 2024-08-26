@@ -1,3 +1,31 @@
+## [1.50.6](https://github.com/ForkbombEu/wallet/compare/v1.50.5...v1.50.6) (2024-08-20)
+
+
+### Bug Fixes
+
+* remove 0 expired credentials home feedback message ([#438](https://github.com/ForkbombEu/wallet/issues/438)) ([ed1e569](https://github.com/ForkbombEu/wallet/commit/ed1e5690f436942e790c9a0d727a36b1da97ec09))
+
+## [1.50.5](https://github.com/ForkbombEu/wallet/compare/v1.50.4...v1.50.5) (2024-08-16)
+
+
+### Bug Fixes
+
+* ui review ([#433](https://github.com/ForkbombEu/wallet/issues/433)) ([addc121](https://github.com/ForkbombEu/wallet/commit/addc1212e57609cd6c80f69222be31c308693ef0)), closes [#432](https://github.com/ForkbombEu/wallet/issues/432)
+
+## [1.50.4](https://github.com/ForkbombEu/wallet/compare/v1.50.3...v1.50.4) (2024-08-02)
+
+
+### Bug Fixes
+
+* human readeable errors on scan failure (missing credential, qr code is expired) ([#429](https://github.com/ForkbombEu/wallet/issues/429)) ([c5145ff](https://github.com/ForkbombEu/wallet/commit/c5145ff797eb97dc47c7db7f2a5b57d4ca4edd08)), closes [#426](https://github.com/ForkbombEu/wallet/issues/426)
+
+## [1.50.3](https://github.com/ForkbombEu/wallet/compare/v1.50.2...v1.50.3) (2024-08-02)
+
+
+### Bug Fixes
+
+* activities flow ([#417](https://github.com/ForkbombEu/wallet/issues/417)) ([f7fb25d](https://github.com/ForkbombEu/wallet/commit/f7fb25dc0b3ca25c04d73346775da437542d5c11)), closes [#402](https://github.com/ForkbombEu/wallet/issues/402) [#351](https://github.com/ForkbombEu/wallet/issues/351)
+
 ## [1.50.2](https://github.com/ForkbombEu/wallet/compare/v1.50.1...v1.50.2) (2024-07-29)
 
 

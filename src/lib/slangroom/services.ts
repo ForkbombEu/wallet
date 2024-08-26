@@ -41,6 +41,9 @@ export type Service = {
             organization: string;
             updated: string;
         };
+        organization: {
+            name:string
+        }
     };
     id: string;
     logo: string;
@@ -58,7 +61,7 @@ export const getServices = async (): Promise<Service[]> => {
 			pb_address: backendUri,
 			list_parameters: {
 				collection: 'services',
-				expand: 'credential_issuer',
+				expand: 'credential_issuer, organization',
 				sort: '-updated',
 				type: 'all',
                 requestKey: Math.random().toString(36).substring(7)

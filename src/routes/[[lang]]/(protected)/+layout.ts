@@ -1,14 +1,17 @@
-import { isAlreadyBoarded } from '$lib/components/onBoarding/utils';
+import {
+	getHomeFeedbackPreference,
+	setExpiredCredentialsInHome
+} from '$lib/homeFeedbackPreferences';
 import { r, type Langs } from '$lib/i18n';
-import { addActivity, getActivities, getNotReadedActivities } from '$lib/preferences/activity';
+import { addExpiredCredentialActivity, getNotReadedActivities } from '$lib/preferences/activity';
 import { getExpiredCredentials } from '$lib/preferences/credentials';
 import { getDIDPreference } from '$lib/preferences/did';
 import { getKeypairPreference } from '$lib/preferences/keypair';
 import { getLanguagePreference } from '$lib/preferences/lang';
+import { isAlreadyBoarded } from '$lib/preferences/onBoarding';
 import { getUser } from '$lib/preferences/user';
 import { availableLanguageTags } from '$paraglide/runtime';
 import { redirect } from '@sveltejs/kit';
-import dayjs from 'dayjs';
 
 const getLang = async () => {
 	const lang = await getLanguagePreference();
@@ -18,21 +21,20 @@ const getLang = async () => {
 };
 
 const checkIfThereAreExpiredCredentialsAndSetActivity = async () => {
-	const expiredCredential = await getExpiredCredentials();
-	expiredCredential.forEach(async (credential) => {
-		const activities = await getActivities();
-		if (
-			activities?.find((activity) => activity.type === 'expired' && activity.id === credential.id)
-		)
-			return;
-		await addActivity({ type: 'expired', id: credential.id, at: dayjs().unix() });
+	const expiredCredentials = await getExpiredCredentials();
+	if (!expiredCredentials.length) return;
+	expiredCredentials.forEach(async (credential) => {
+		await addExpiredCredentialActivity(credential.id);
 	});
+	setExpiredCredentialsInHome({ count: expiredCredentials.length, seen: false });
 };
 
 export const _protectedLayoutKey = 'load:protected-layout';
 
 export const load = async ({ depends }) => {
 	depends(_protectedLayoutKey);
+	const ff = await getHomeFeedbackPreference();
+	const hasHomeFeedback = !(ff?.expiredCredentials?.seen && ff?.newActivities?.seen);
 	const lang = await getLang();
 	const boarded = await isAlreadyBoarded();
 	if (!boarded) throw redirect(303, r('/on-boarding', lang));
@@ -40,7 +42,7 @@ export const load = async ({ depends }) => {
 	const did = await getDIDPreference();
 	const user = await getUser();
 	if (!(keypair && did && user)) redirect(303, r('/register-login', lang));
-	await checkIfThereAreExpiredCredentialsAndSetActivity();
+	checkIfThereAreExpiredCredentialsAndSetActivity();
 	const notReadedActivities = await getNotReadedActivities();
-	return { notReadedActivities };
+	return { notReadedActivities, hasHomeFeedback };
 };

@@ -18,7 +18,7 @@
 			if ($navigating.to?.url.pathname.includes(tab.tab)) {
 				currentTabName = tab.tab;
 				await goto('/' + tab.tab);
-				await $navigating.complete.catch(() => goto('/' + tab.tab));
+				await $navigating?.complete.catch(() => goto('/' + tab.tab));
 			}
 		});
 	}

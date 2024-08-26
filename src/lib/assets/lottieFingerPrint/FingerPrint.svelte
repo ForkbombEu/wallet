@@ -11,4 +11,7 @@
 	renderer="svg"
 	background="transparent"
 	width={120}
+	height={120}
+	controls={false}
+	controlsLayout={false}
 />

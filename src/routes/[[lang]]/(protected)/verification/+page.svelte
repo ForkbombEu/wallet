@@ -6,7 +6,7 @@
 	import dayjs from 'dayjs';
 	import { log } from '$lib/log';
 	import { addActivity, type Activity } from '$lib/preferences/activity';
-	import { routeHistory } from '$lib/routeStore';
+	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 
 	type VerificationResponse = {
 		result: {
@@ -100,9 +100,9 @@
 	};
 </script>
 
-<d-header back-button backFunction={routeHistory.back}>
+<HeaderWithBackButton>
 	{m.Verification()}
-</d-header>
+</HeaderWithBackButton>
 
 <ion-content fullscreen class="ion-padding">
 	{#if verificated}
@@ -150,7 +150,7 @@
 				</div>
 			</div>
 
-			<div class="flex flex-col gap-2">
+			<d-list>
 				<d-text>{m.Are_you_sure()}</d-text>
 				<d-button
 					on:click={() => request()}
@@ -162,7 +162,7 @@
 				>
 				<d-button on:click={decline} on:keydown={decline} expand aria-hidden>{m.Decline()}</d-button
 				>
-			</div>
+			</d-list>
 		</div>
 	{/if}
 </ion-content>

@@ -1,6 +1,5 @@
 <script lang="ts">
-	import AppDetails from '$lib/components/AppDetails.svelte';
-	import Illustration from '$lib/components/molecules/Illustration.svelte';
+	import { version } from '$app/environment';
 	import { Form, createForm } from '$lib/forms';
 	import { goto, m, r } from '$lib/i18n';
 	import Input from '$lib/forms/input.svelte';
@@ -8,7 +7,6 @@
 	import { z } from 'zod';
 	import { checkIfUserExists, login, userEmailStore } from './_lib';
 	import background from '$lib/assets/bg-4.svg';
-	import Pidgeon from '$lib/assets/Pidgeon.svelte';
 	import { page } from '$app/stores';
 	import type { Feedback } from '$lib/utils/types';
 
@@ -65,9 +63,9 @@
 <div class="flex min-h-screen flex-col place-content-between">
 	<div class="grow">
 		<d-feedback {...feedback} />
-		<Illustration {background}>
-			<Pidgeon />
-		</Illustration>
+		<d-background-illustration {background}>
+			<d-illustration illustration="pidgeon">
+		</d-background-illustration>
 		<div>
 			<div class="flex flex-col">
 				<div class="flex w-full flex-col items-center gap-4 px-8">
@@ -114,5 +112,5 @@
 			</div>
 		</div>
 	</div>
-	<AppDetails />
+	<d-app-details developedBy={m.Developed_by_Forkbomb_BV()} {version}/>
 </div>

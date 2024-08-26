@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Illustration from '$lib/components/molecules/Illustration.svelte';
 	import { Form, createForm } from '$lib/forms';
 	import { m } from '$lib/i18n';
 	import Input from '$lib/forms/input.svelte';
@@ -8,10 +7,8 @@
 	import background from '$lib/assets/bg-4.svg';
 	import { askResetPassword } from '../_lib';
 	import type { Feedback } from '$lib/utils/types';
-	import CircleCheck from '$lib/assets/CircleCheck.svelte';
-	import Chat from '$lib/assets/Chat.svelte';
-	import Loading from '$lib/components/molecules/Loading.svelte';
-	import { routeHistory } from '$lib/routeStore';
+	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
+	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 
 	let feedback: Feedback = {};
 	let loading = false;
@@ -47,23 +44,25 @@
 	};
 </script>
 
-<Loading {loading} />
-<d-header back-button backFunction={routeHistory.back}>
+<d-loading {loading}>
+	<FingerPrint />
+</d-loading>
+<HeaderWithBackButton>
 	{m.Reset_password()}
-</d-header>
+</HeaderWithBackButton>
 <div class="flex min-h-screen flex-col place-content-between">
 	<d-feedback {...feedback} />
 	<div class="grow">
-		<Illustration {background}>
-			<Chat />
-		</Illustration>
+		<d-background-illustration {background}>
+			<d-illustration illustration="chat" /></d-background-illustration
+		>
 		<div>
 			{#if requestSent}
 				<div class="mt-8 flex flex-col">
 					<div class="flex w-full flex-col items-center gap-4 px-8">
 						<div class="flex w-full flex-col gap-2 pt-8">
 							<div class="mx-auto">
-								<CircleCheck />
+								<d-illustration illustration="circle-check" />
 							</div>
 							<d-heading size="s">{m.Request_sent()}</d-heading>
 							<d-text size="l">{m.Check_your_email_for_further_instructions()}</d-text>

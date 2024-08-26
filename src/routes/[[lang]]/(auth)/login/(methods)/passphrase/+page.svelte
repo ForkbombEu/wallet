@@ -6,11 +6,9 @@
 	import { z } from 'zod';
 	import type { Feedback } from '$lib/utils/types.js';
 	import { checkKeypairs, generateDid } from '../../_lib/index.js';
-	import Illustration from '$lib/components/molecules/Illustration.svelte';
 	import background from '$lib/assets/bg-5.svg';
 	import { Input } from '$lib/forms';
-	import Chat from '$lib/assets/Chat.svelte';
-	import { routeHistory } from '$lib/routeStore.js';
+	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 
 	//
 
@@ -37,7 +35,6 @@
 				await generateDid();
 				await checkKeypairs();
 				await goto('/wallet', undefined, false);
-				routeHistory.clear();
 			} catch (e) {
 				feedback = {
 					type: 'error',
@@ -54,16 +51,16 @@
 	const seedPlaceholder = 'skin buyer sunset person run push elevator under debris soft surge man';
 </script>
 
-<d-header back-button backFunction={routeHistory.back}>
+<HeaderWithBackButton>
 	{m.REGISTER()}
-</d-header>
+</HeaderWithBackButton>
 
 <div class="flex flex-col">
 	<d-feedback {...feedback} />
 	<div class="mb-10 sm:mb-0">
-		<Illustration {background}>
-			<Chat />
-		</Illustration>
+		<d-background-illustration {background}>
+			<d-illustration illustration="chat" /></d-background-illustration
+		>
 	</div>
 	<div>
 		<div class="flex w-full flex-col items-center gap-6 px-8">

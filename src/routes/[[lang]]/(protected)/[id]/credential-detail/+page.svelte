@@ -5,35 +5,36 @@
 	const { credential, credentials } = data;
 	import { decodeSdJwt } from '$lib/openId4vci';
 	import { removeCredentialPreference } from '$lib/preferences/credentials';
-	import { routeHistory } from '$lib/routeStore';
+	import { pushState } from '$app/navigation';
+	import { page } from '$app/stores';
+	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 
 	const isNestedDisclosure = (disclosure: Array<string | Record<string, string>>) => {
 		return typeof disclosure[2] === 'object';
 	};
 
-	let isModalOpen: boolean = false;
 	const openModal = () => {
-		isModalOpen = true;
-		routeHistory.push({ previousPath: `${credential.id}/credential-detail` });
+		pushState('', {
+			isModalOpen: true
+		});
 	};
 	const closeModal = () => {
-		isModalOpen = false;
-		routeHistory.back();
+		window.history.back();
 	};
 
 	const deleteCredential = async () => {
-		isModalOpen = false;
+		window.history.back();
 		await removeCredentialPreference(credential.id);
 		await goto('/wallet');
 	};
 </script>
 
-<d-header back-button backFunction={routeHistory.back}>
+<HeaderWithBackButton>
 	{m.Credential_detail()}
-</d-header>
+</HeaderWithBackButton>
 <ion-content fullscreen class="ion-padding h-full">
 	<div class="flex h-full flex-col gap-8">
-		<div class="flex flex-col gap-2">
+		<d-list>
 			<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
 				<d-avatar src={credential.logo.url} alt={credential.logo.alt_text} shape="square"
 				></d-avatar>
@@ -49,11 +50,11 @@
 				>
 				<d-text size="xs" class="truncate font-medium">@{credential.issuerUrl}</d-text>
 			</div>
-		</div>
+		</d-list>
 		<div class="flex h-full flex-grow flex-col justify-between pb-16">
-			<div class="flex flex-col gap-2">
+			<d-list>
 				<d-heading size="xs" class="font-bold"> Claims: </d-heading>
-				<div class="flex flex-col gap-2">
+				<d-list>
 					{#await decodeSdJwt(credential.sdJwt) then sdjwt}
 						{#each sdjwt.credential.disclosures as disclosure}
 							{#if isNestedDisclosure(disclosure)}
@@ -72,14 +73,14 @@
 							{/if}
 						{/each}
 					{/await}
-				</div>
-			</div>
+				</d-list>
+			</d-list>
 			<div class="flex flex-col">
-				<d-button expand color="primary" on:click={() => goto('/wallet')}>{m.ok()}</d-button>
-				<d-button expand color="accent" on:click={openModal}>Delete</d-button>
+				<d-button expand color="accent" on:click={() => goto('/wallet')}>{m.Close()}</d-button>
+				<d-button expand color="primary" on:click={openModal}>Delete</d-button>
 			</div>
 		</div>
-		<Modal {isModalOpen} closeCb={closeModal}>
+		<Modal isModalOpen={$page.state.isModalOpen} closeCb={closeModal}>
 			<d-text>If you continue the credential will be permanently deleted</d-text>
 			<div class="flex flex-col">
 				<d-button expand color="primary" on:click={deleteCredential}>Continue</d-button>

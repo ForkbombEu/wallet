@@ -12,15 +12,14 @@
 	import { ParaglideJS } from '@inlang/paraglide-js-adapter-sveltekit';
 	import HiddenLogsButton from '$lib/components/molecules/HiddenLogsButton.svelte';
 	import { log } from '$lib/log';
-	import { routeHistory } from '$lib/routeStore';
 	import { onDestroy, onMount } from 'svelte';
 	import { navigating } from '$app/stores';
-	import Loading from '$lib/components/molecules/Loading.svelte';
 	import { App } from '@capacitor/app';
 	import { credentialOfferStore } from '$lib/credentialOfferStore';
 	import { serviceSchema, type Service } from '$lib/components/organisms/scanner/tools';
+	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 
-	const controller = new AbortController();
+  const controller = new AbortController();
 	const signal = controller.signal;
 
 	onMount(() => {
@@ -29,11 +28,12 @@
 			(ev: any) => {
 				ev.detail.register(-1, () => {
 					if (isExitPoint()) App.exitApp();
-					else routeHistory.back();
+					else if (r('/unlock') === window.location.pathname) return;
+					else window.history.back();
 				});
 
 				const isExitPoint = () => {
-					const exitPoints = [r('/home'), r('/login')];
+					const exitPoints = [r('/home'), r('/register-login')];
 					return exitPoints.includes(window.location.pathname);
 				};
 			},
@@ -71,11 +71,11 @@
 	 />  -->
 	<script
 		type="module"
-		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.26.2/dist/didroom-components/didroom-components.esm.js"
+		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.28/dist/didroom-components/didroom-components.esm.js"
 	></script>
 	<link
 		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.26.2/dist/didroom-components/didroom-components.css"
+		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.28/dist/didroom-components/didroom-components.css"
 	/>
 </svelte:head>
 <svelte:window
@@ -85,12 +85,9 @@
 <ParaglideJS {i18n}>
 	<HiddenLogsButton />
 	<ion-app>
-		{#if $navigating}
-			<div class="m-8">
-				<Loading />
-			</div>
-		{:else}
-			<slot />
-		{/if}
+		<d-loading loading={$navigating}>
+			<FingerPrint />
+		</d-loading>
+		<slot />
 	</ion-app>
 </ParaglideJS>

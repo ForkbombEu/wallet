@@ -1,5 +1,5 @@
 <script>
-	import AppDetails from '$lib/components/AppDetails.svelte';
+	import { version } from '$app/environment';
 	import { m, r } from '$lib/i18n';
 </script>
 
@@ -11,5 +11,5 @@
 		>
 		<d-button expand color="outline" href={r('/login')}>{m.LOGIN()}</d-button>
 	</div>
-	<AppDetails />
+	<d-app-details developedBy={m.Developed_by_Forkbomb_BV()} {version} />
 </div>

@@ -11,16 +11,19 @@
 	import { addActivity } from '$lib/preferences/activity';
 	import dayjs from 'dayjs';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
-	import Pidgeon from '$lib/assets/Pidgeon.svelte';
-	import Loading from '$lib/components/molecules/Loading.svelte';
-	import { routeHistory } from '$lib/routeStore.js';
+	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 
 	export let data;
 	const { wn, authorizeUrl, parResult, feedbackData } = data;
 	const codeVerifier = parResult?.code_verifier;
-	let code: string | undefined;
 
+	let shouldContinue = false;
+
+	let code: string | undefined;
 	let iframeLoading = true;
+	let isModalOpen: boolean = false;
+	let isCredentialVerified: boolean = false;
+	let serviceResponse: CredentialResult;
 
 	window.addEventListener('message', async function (event) {
 		if (event.origin === window.location.origin) return;
@@ -39,10 +42,6 @@
 
 	const credentialInfo = wn?.credential_requested['display'][0];
 
-	let isModalOpen: boolean = false;
-	let isCredentialVerified: boolean = false;
-	let serviceResponse: CredentialResult;
-
 	interface ScrollableNode extends Node {
 		scrollToTop: () => void;
 	}
@@ -60,12 +59,12 @@
 			if (!serviceResponse) return (isModalOpen = false);
 			isCredentialVerified = true;
 			log(`serviceResponse: (fine chain): ${JSON.stringify(serviceResponse, null, 2)}`);
-		} catch (e) {
+		} catch (e: unknown) {
 			isCredentialVerified = false;
 			isModalOpen = false;
 			feedback = {
 				type: 'error',
-				message: String(e),
+				message: String(e?.message || e),
 				feedback: 'error while getting credential'
 			};
 			content.scrollToTop();
@@ -93,9 +92,9 @@
 	};
 </script>
 
-<d-header back-button backFunction={routeHistory.back}>
+<HeaderWithBackButton>
 	{m.Credential_offer()}
-</d-header>
+</HeaderWithBackButton>
 
 <ion-content fullscreen class="ion-padding" bind:this={content}>
 	<d-feedback {...feedback} />
@@ -106,51 +105,65 @@
 			buttonText={m.Go_to_home()}
 			href={r('/home')}
 		>
-			<Pidgeon />
+			<d-illustration illustration="pidgeon" />
 		</d-empty-state>
 	{:else}
-		<div class="mt-2 flex h-full flex-col gap-4">
-			<div class="flex flex-col gap-2">
-				<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
-					<d-avatar
-						src={credentialInfo?.logo.url}
-						alt={credentialInfo?.logo.alt_text}
-						shape="square"
-					></d-avatar>
-					<d-heading class="font-semibold" size="xs">
-						{credentialInfo?.name}
-					</d-heading>
-					<!-- <d-heading size="s">{credentialInfo?.name}</d-heading> -->
-				</div>
-				<d-text class="text-on-alt">{credentialInfo?.description}</d-text>
-				<d-text
-					>{m.Issued_by()}:
-					<span class="font-semibold">{wn?.credential_issuer_information.display[0].name}</span
-					></d-text
-				>
-			</div>
-
-			<div class="mt-6 rounded-md bg-white p-4">
-				{#if iframeLoading}
+		<div class="flex h-full flex-col justify-between gap-4 pb-16">
+			{#if !shouldContinue}
+				<d-list gap={4}>
+					<d-list>
+						<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
+							<d-avatar
+								name={credentialInfo?.name}
+								src={credentialInfo?.logo.url}
+								alt={credentialInfo?.logo.alt_text}
+								shape="square"
+							></d-avatar>
+							<d-heading class="font-semibold" size="xs">
+								{credentialInfo?.name}
+							</d-heading>
+							<!-- <d-heading size="s">{credentialInfo?.name}</d-heading> -->
+						</div>
+						<d-text class="text-on-alt">{credentialInfo?.description}</d-text>
+					</d-list>
+					<d-text
+						>{m.Issued_by()}:
+						<span class="font-semibold">{wn?.credential_issuer_information.display[0].name}</span
+						></d-text
+					>
+				</d-list>
+			{:else}
+				<div class="h-full rounded-md bg-white p-4">
 					<div class="fixed left-0 top-0 opacity-90">
-						<Loading />
+						<d-loading loading={iframeLoading}>
+							<FingerPrint />
+						</d-loading>
 					</div>
+					<iframe
+						src={authorizeUrl}
+						width="100%"
+						title="authorization server"
+						id="authorization_server"
+						on:load={() => {
+							iframeLoading = false;
+						}}
+						loading="lazy"
+					></iframe>
+				</div>
+			{/if}
+			<d-list class="w-full">
+				{#if !shouldContinue}
+					<d-text size="s">{m.Continue_and_open_an_external_site()}</d-text>
+					<d-button
+						expand
+						on:click={() => (shouldContinue = true)}
+						color="accent"
+						on:keydown={() => (shouldContinue = true)}
+						aria-hidden>{m.Continue()}</d-button
+					>
 				{/if}
-				<iframe
-					src={authorizeUrl}
-					width="100%"
-					height="390px"
-					title="authorization server"
-					id="authorization server"
-					on:load={() => {
-						iframeLoading = false;
-					}}
-					loading="lazy"
-				></iframe>
-			</div>
-			<div class="w-full">
 				<d-button expand href={r('/home')}>{m.Decline()}</d-button>
-			</div>
+			</d-list>
 		</div>
 
 		<ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly class="visible">
@@ -185,3 +198,11 @@
 		</ion-modal>
 	{/if}
 </ion-content>
+
+<style>
+	#authorization_server {
+		position: relative;
+		height: 100%;
+		width: 100%;
+	}
+</style>
