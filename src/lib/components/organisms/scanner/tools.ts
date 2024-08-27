@@ -8,6 +8,7 @@ import { http } from '@slangroom/http';
 import verQrToInfo from '$lib/mobile_zencode/wallet/ver_qr_to_info.zen?raw';
 import verQrToInfoKeys from '$lib/mobile_zencode/wallet/ver_qr_to_info.keys.json?raw';
 import { log } from '$lib/log';
+import { goto } from '$app/navigation';
 
 //@ts-expect-error something is wrong in Slangroom types
 const slangroom = new Slangroom(helpers, zencode, pocketbase, http);
@@ -79,8 +80,11 @@ export type Data =
 			service: Service;
 	  };
 
-export const parseQr = async (value: string): Promise<ParseQrResults> => {
+export const parseQr = async (value: string): Promise<ParseQrResults | void> => {
 	const notValidQr = 'not valid qr';
+	if (value.startsWith('openid-credential-offer')) {
+		return await goto(value)
+	}
 	let parsedValue: Record<string, unknown>;
 	let type: 'credential' | 'service';
 	try {
