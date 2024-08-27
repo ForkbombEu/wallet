@@ -83,7 +83,8 @@ export type Data =
 export const parseQr = async (value: string): Promise<ParseQrResults | void> => {
 	const notValidQr = 'not valid qr';
 	if (value.startsWith('openid-credential-offer')) {
-		return await goto(value)
+		//@ts-ignore
+		return window.location = value
 	}
 	let parsedValue: Record<string, unknown>;
 	let type: 'credential' | 'service';

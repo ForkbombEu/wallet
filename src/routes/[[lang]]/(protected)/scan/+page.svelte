@@ -9,7 +9,7 @@
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	let barcodeResult: ParseQrResults;
+	let barcodeResult: ParseQrResults | void
 	let isModalOpen: boolean;
 	const isWeb = Capacitor.getPlatform() == 'web';
 
