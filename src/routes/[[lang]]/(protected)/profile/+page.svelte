@@ -21,7 +21,7 @@
 	const gotoLanguageSettings = () => goto('/languages');
 </script>
 
-<d-tab-page tab="profile" title="PROFILE" {...scanButton} settings>
+<d-tab-page tab="profile" title={m.Profile()} {...scanButton} settings>
 	<div class="flex h-full flex-col justify-between gap-24">
 		<div class="flex flex-col items-center gap-2 pt-8 text-center">
 			<d-avatar src={authFilesUri(user?.avatar, user?.id)} size="2xl"></d-avatar>
