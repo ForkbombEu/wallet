@@ -40,7 +40,7 @@ platform :android do
     package = load_json(json_path: "./package.json")
     increment_version_code(
       gradle_file_path: "./android/app/build.gradle",
-      version_code: package['version']
+      version_code: package['version'].gsub('.', '').to_i
     )
     increment_version_name(
       gradle_file_path: "./android/app/build.gradle",
