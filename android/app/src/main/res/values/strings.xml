@@ -3,5 +3,4 @@
     <string name="app_name">DIDroom Wallet</string>
     <string name="title_activity_main">DIDroom Wallet</string>
     <string name="package_name">com.didroom.wallet</string>
-    <string name="custom_url_scheme">openid-credential-offer</string>
 </resources>
