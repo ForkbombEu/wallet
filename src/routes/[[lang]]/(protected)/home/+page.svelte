@@ -43,7 +43,7 @@
 		title={m.Claim_credential()}
 		description={m.Scan_QR_code_to_claim_credential_or_request_one_below()}
 	/>
-	<d-list>
+	<d-vertical-stack>
 		{#each services as service}
 			<d-credential-service
 				name={service.display_name}
@@ -56,5 +56,5 @@
 				aria-hidden
 			/>
 		{/each}
-	</d-list>
+	</d-vertical-stack>
 </d-tab-page>
