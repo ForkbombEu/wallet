@@ -127,7 +127,6 @@
 			type="email"
 		/>
 		<Input {form} fieldPath="name" placeholder={'m.John_Doe()'} label={'m.Name()'} type="text" />
-
 		<d-button size="default" color="accent" type="submit" expand class="mt-4">
 			{'save'}
 		</d-button>
