@@ -12,6 +12,7 @@ test.describe('Registration Flow', () => {
 	test('should show error if passwords do not match', async ({ page }) => {
 		await page.goto('/login?registration=true');
 		await page.fill('input[name="email"]', 'newuser@example.com');
+		await page.locator('#conditions').check();
 		await page.getByRole('button', { name: 'Next' }).click();
 		await page.fill('input[name="password"]', 'password123');
 		await page.fill('input[name="confirmPassword"]', 'password456');
@@ -23,6 +24,7 @@ test.describe('Registration Flow', () => {
 	test('should navigate to questions page after successful registration', async ({ page }) => {
 		await page.goto('/login?registration=true');
 		await page.fill('input[name="email"]', randomEmail());
+		await page.locator('#conditions').check();
 		await page.getByRole('button', { name: 'Next' }).click();
 		const password = randomString(8);
 		await page.fill('input[name="password"]', password);
@@ -36,6 +38,7 @@ test.describe('Security Questions Page', () => {
 	test('should show error if less than three questions are answered', async ({ page }) => {
 		await page.goto('/login?registration=true');
 		await page.fill('input[name="email"]', randomEmail());
+		await page.locator('#conditions').check();
 		await page.getByRole('button', { name: 'Next' }).click();
 		const password = randomString(8);
 		await page.fill('input[name="password"]', password);
@@ -49,6 +52,7 @@ test.describe('Security Questions Page', () => {
 	test.skip('should complete security questions and generate keypair', async ({ page }) => {
 		await page.goto('/login?registration=true');
 		await page.fill('input[name="email"]', randomEmail());
+		await page.locator('#conditions').check();
 		await page.getByRole('button', { name: 'Next' }).click();
 		const password = randomString(8);
 		await page.fill('input[name="password"]', password);
