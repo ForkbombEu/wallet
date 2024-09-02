@@ -16,7 +16,7 @@
 	const closeModalOnEvent = (ev: any) => {
 		ev.detail.register(20, (processNextHandler) => {
 			isModalOpen = false;
-			processNextHandler()
+			processNextHandler();
 		});
 	};
 
@@ -29,7 +29,6 @@
 	});
 
 	$: if ($navigating) isModalOpen = false;
-
 </script>
 
 <ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly class="visible">
@@ -46,8 +45,8 @@
 				{/if}
 			</ion-buttons>
 		</ion-toolbar>
-		<d-list class="mt-4">
+		<d-vertical-stack class="mt-4">
 			<slot />
-		</d-list>
+		</d-vertical-stack>
 	</ion-content>
 </ion-modal>

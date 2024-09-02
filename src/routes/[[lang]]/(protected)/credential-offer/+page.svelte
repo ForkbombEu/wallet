@@ -110,8 +110,8 @@
 	{:else}
 		<div class="flex h-full flex-col justify-between gap-4 pb-16">
 			{#if !shouldContinue}
-				<d-list gap={4}>
-					<d-list>
+				<d-vertical-stack gap={4}>
+					<d-vertical-stack>
 						<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
 							<d-avatar
 								name={credentialInfo?.name}
@@ -125,13 +125,13 @@
 							<!-- <d-heading size="s">{credentialInfo?.name}</d-heading> -->
 						</div>
 						<d-text class="text-on-alt">{credentialInfo?.description}</d-text>
-					</d-list>
+					</d-vertical-stack>
 					<d-text
 						>{m.Issued_by()}:
 						<span class="font-semibold">{wn?.credential_issuer_information.display[0].name}</span
 						></d-text
 					>
-				</d-list>
+				</d-vertical-stack>
 			{:else}
 				<div class="h-full rounded-md bg-white p-4">
 					<div class="fixed left-0 top-0 opacity-90">
@@ -151,7 +151,7 @@
 					></iframe>
 				</div>
 			{/if}
-			<d-list class="w-full">
+			<d-vertical-stack class="w-full">
 				{#if !shouldContinue}
 					<d-text size="s">{m.Continue_and_open_an_external_site()}</d-text>
 					<d-button
@@ -163,7 +163,7 @@
 					>
 				{/if}
 				<d-button expand href={r('/home')}>{m.Decline()}</d-button>
-			</d-list>
+			</d-vertical-stack>
 		</div>
 
 		<ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly class="visible">

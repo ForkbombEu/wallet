@@ -23,7 +23,7 @@
 			<d-illustration illustration="empty-wallet" />
 		</d-empty-state>
 	{:else}
-		<d-list>
+		<d-vertical-stack>
 			{#each credentials as credential}
 				{@const expirationDate = dayjs.unix(credential.expirationDate).format('DD.MM.YYYY HH:mm')}
 				<button on:click={() => goto(`/${credential.id}/credential-detail`)} class="relative">
@@ -52,6 +52,6 @@
 					</d-credential-card>
 				</button>
 			{/each}
-		</d-list>
+		</d-vertical-stack>
 	{/if}
 </d-tab-page>
