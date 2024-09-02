@@ -80,6 +80,7 @@
 		"@capacitor/keyboard": "^6.0.1",
 		"@capacitor/preferences": "^6.0.1",
 		"@capacitor/status-bar": "^6.0.0",
+		"@capawesome/capacitor-file-picker": "^6.0.1",
 		"@fontsource-variable/gantari": "^5.0.13",
 		"@inlang/paraglide-js-adapter-sveltekit": "^0.5.10",
 		"@ionic/cli": "^7.2.0",

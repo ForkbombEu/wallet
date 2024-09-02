@@ -19,6 +19,7 @@
 	};
 
 	const gotoLanguageSettings = () => goto('/languages');
+	const gotoAccountSettings = () => goto('/user-settings');
 </script>
 
 <d-tab-page tab="profile" title={m.Profile()} {...scanButton} settings>
@@ -42,6 +43,7 @@
 	<div slot="settings">
 		<d-settings-menu
 			accountSettings={m.Account_Settings()}
+			{gotoAccountSettings}
 			securityAndAuthentication={m.Security_and_authentication()}
 			notificationsSettings={m.Notifications_settings()}
 			languages={m.Languages()}
