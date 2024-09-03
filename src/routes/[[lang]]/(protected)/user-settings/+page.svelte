@@ -9,6 +9,9 @@
 	import { Slangroom } from '@slangroom/core';
 	import { pocketbase } from '@slangroom/pocketbase';
 	import update from '$lib/slangroom/update.slang?raw';
+	import Checkbox from '$lib/forms/checkbox.svelte';
+	// import { invalidate, invalidateAll } from '$app/navigation';
+	// import { _userSettingsKey } from './+page.js';
 
 	export let data;
 	const { user } = data;
@@ -37,40 +40,39 @@
 
 	const schema = z.object({
 		name: z.string().min(3).optional(),
-		email: z.string().email().optional(),
 		emailVisibility: z.boolean().optional(),
 		avatar: zodFile({ types: ['image/png', 'image/jpeg'], size: 1024 * 1024 * 2 }).optional()
 	});
 
 	const initialData: Partial<z.infer<typeof schema>> = {
 		name: user!.name,
-		email: user!.email,
 		emailVisibility: user!.emailVisibility
 	};
 
 	const form = createForm({
 		schema,
 		onSubmit: async ({ form }) => {
-			console.log(form);
 			try {
 				loading = true;
 				const slangroom = new Slangroom(pocketbase);
+				const record: Record<string, any> = {};
+				record.name = form.data.name;
+				record.emailVisibility = form.data.emailVisibility;
+				record.avatar = choosenAvatarFile;
 				const data = {
 					pb_address: backendUri,
 					update_parameters: {
 						id: user!.id,
 						collection: 'users',
-						record: {
-							name: form.data.name || null,
-							email: form.data.email || null,
-							emailVisibility: form.data.emailVisibility || null,
-							avatar: choosenAvatarFile || null
-						}
+						record
 					},
 					record_parameters: {}
 				};
 				//@ts-ignore
 				const res = await slangroom.execute(update, { data });
+				// await invalidate(_userSettingsKey)
+				// await invalidateAll()
+				loading = false;
 				console.log(res);
 			} catch (error) {}
 		},
@@ -96,7 +98,8 @@
 		fr.readAsDataURL(choosenAvatarFile);
 	}
 	let name = form.fields.name?.value;
-	let email = form.fields.email?.value;
+	let emailVisibility = form.fields.emailVisibility;
+	$: console.log(data.user?.emailVisibility ? 'public' : 'not public');
 </script>
 
 <HeaderWithBackButton>User Settings</HeaderWithBackButton>
@@ -110,22 +113,18 @@
 		></d-avatar>
 		<d-vertical-stack>
 			<d-heading size="xs" class="w-full">{$name || user?.name}</d-heading>
-			<d-heading size="xs" class="w-full">{$email || user?.email}</d-heading>
+			<d-heading size="xs" class="w-full"
+				>{user?.email} ({data.user?.emailVisibility ? 'public' : 'not public'})</d-heading
+			>
 		</d-vertical-stack>
 	</d-horizontal-stack>
 	<hr />
 	<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
 		<d-horizontal-stack class="w-full">
-			<d-button on:click={chooseImage}>pick one image</d-button>
-			<d-input name="avatar" value={choosenAvatar}></d-input>
+			<d-button on:click={chooseImage}>photo</d-button>
+			<d-input name="avatar" value={choosenAvatar || user?.avatar} class="w-full"></d-input>
 		</d-horizontal-stack>
-		<Input
-			{form}
-			fieldPath="email"
-			placeholder={m.emailexample_com()}
-			label={m.Email()}
-			type="email"
-		/>
+		<Checkbox {form} fieldPath="emailVisibility">public email</Checkbox>
 		<Input {form} fieldPath="name" placeholder={'m.John_Doe()'} label={'m.Name()'} type="text" />
 		<d-button size="default" color="accent" type="submit" expand class="mt-4">
 			{'save'}
