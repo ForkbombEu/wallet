@@ -10,6 +10,7 @@
 	import { pocketbase } from '@slangroom/pocketbase';
 	import update from '$lib/slangroom/update.slang?raw';
 	import Checkbox from '$lib/forms/checkbox.svelte';
+	import { cameraOutline, cloudUploadOutline } from 'ionicons/icons';
 	// import { invalidate, invalidateAll } from '$app/navigation';
 	// import { _userSettingsKey } from './+page.js';
 
@@ -68,12 +69,10 @@
 					},
 					record_parameters: {}
 				};
-				//@ts-ignore
-				const res = await slangroom.execute(update, { data });
+				await slangroom.execute(update, { data });
 				// await invalidate(_userSettingsKey)
 				// await invalidateAll()
 				loading = false;
-				console.log(res);
 			} catch (error) {}
 		},
 		initialData
@@ -98,8 +97,6 @@
 		fr.readAsDataURL(choosenAvatarFile);
 	}
 	let name = form.fields.name?.value;
-	let emailVisibility = form.fields.emailVisibility;
-	$: console.log(data.user?.emailVisibility ? 'public' : 'not public');
 </script>
 
 <HeaderWithBackButton>User Settings</HeaderWithBackButton>
@@ -114,20 +111,25 @@
 		<d-vertical-stack>
 			<d-heading size="xs" class="w-full">{$name || user?.name}</d-heading>
 			<d-heading size="xs" class="w-full"
-				>{user?.email} ({data.user?.emailVisibility ? 'public' : 'not public'})</d-heading
+				>{user?.email} ({data.user?.emailVisibility ? m.public_email() : m.not_public()})</d-heading
 			>
 		</d-vertical-stack>
 	</d-horizontal-stack>
 	<hr />
 	<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
-		<d-horizontal-stack class="w-full">
-			<d-button on:click={chooseImage}>photo</d-button>
+		<d-horizontal-stack class="w-full items-stretch" gap={0}>
+			<d-button on:click={chooseImage} class="pt-1"
+				><ion-icon icon={cloudUploadOutline} slot="icon-only" class="py-2"/></d-button
+			>
+			<d-button on:click={chooseImage} class="pt-1"
+				><ion-icon icon={cameraOutline} slot="icon-only" class="py-2"/></d-button
+			>
 			<d-input name="avatar" value={choosenAvatar || user?.avatar} class="w-full"></d-input>
 		</d-horizontal-stack>
-		<Checkbox {form} fieldPath="emailVisibility">public email</Checkbox>
-		<Input {form} fieldPath="name" placeholder={'m.John_Doe()'} label={'m.Name()'} type="text" />
+		<Checkbox {form} fieldPath="emailVisibility">{m.public_email()}</Checkbox>
+		<Input {form} fieldPath="name" placeholder={m.John_Doe()} label={m.username()} type="text" />
 		<d-button size="default" color="accent" type="submit" expand class="mt-4">
-			{'save'}
+			{m.save()}
 		</d-button>
 	</Form>
 </div>
