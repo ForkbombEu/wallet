@@ -11,8 +11,44 @@
 	import update from '$lib/slangroom/update.slang?raw';
 	import Checkbox from '$lib/forms/checkbox.svelte';
 	import { cameraOutline, cloudUploadOutline } from 'ionicons/icons';
-	// import { invalidate, invalidateAll } from '$app/navigation';
-	// import { _userSettingsKey } from './+page.js';
+	import { Camera, CameraResultType } from '@capacitor/camera';
+
+	const b64toBlob = (b64Data:string, contentType = '', sliceSize = 512) => {
+		const byteCharacters = atob(b64Data);
+		const byteArrays = [];
+
+		for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+			const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+			const byteNumbers = new Array(slice.length);
+			for (let i = 0; i < slice.length; i++) {
+				byteNumbers[i] = slice.charCodeAt(i);
+			}
+
+			const byteArray = new Uint8Array(byteNumbers);
+			byteArrays.push(byteArray);
+		}
+
+		const blob = new Blob(byteArrays, { type: contentType });
+		return blob;
+	};
+
+	const takePicture = async () => {
+		const image = await Camera.getPhoto({
+			quality: 50,
+			allowEditing: true,
+			resultType: CameraResultType.Base64
+		});
+		if (!image) return;
+
+		const blob = b64toBlob(image.base64String!, image.format);
+
+		const imageUrl = image.webPath;
+
+		choosenAvatar = `avatar.${image.format}`;
+		choosenAvatarFile = new File([blob], choosenAvatar);
+		choosenAvatarDataURL = image.dataUrl!;
+	};
 
 	export let data;
 	const { user } = data;
@@ -119,10 +155,10 @@
 	<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
 		<d-horizontal-stack class="w-full items-stretch" gap={0}>
 			<d-button on:click={chooseImage} class="pt-1"
-				><ion-icon icon={cloudUploadOutline} slot="icon-only" class="py-2"/></d-button
+				><ion-icon icon={cloudUploadOutline} slot="icon-only" class="py-2" /></d-button
 			>
-			<d-button on:click={chooseImage} class="pt-1"
-				><ion-icon icon={cameraOutline} slot="icon-only" class="py-2"/></d-button
+			<d-button on:click={takePicture} class="pt-1"
+				><ion-icon icon={cameraOutline} slot="icon-only" class="py-2" /></d-button
 			>
 			<d-input name="avatar" value={choosenAvatar || user?.avatar} class="w-full"></d-input>
 		</d-horizontal-stack>
