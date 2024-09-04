@@ -34,7 +34,7 @@
 </HeaderWithBackButton>
 <ion-content fullscreen class="ion-padding h-full">
 	<div class="flex h-full flex-col gap-8">
-		<d-list>
+		<d-vertical-stack>
 			<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
 				<d-avatar src={credential.logo.url} alt={credential.logo.alt_text} shape="square"
 				></d-avatar>
@@ -50,11 +50,11 @@
 				>
 				<d-text size="xs" class="truncate font-medium">@{credential.issuerUrl}</d-text>
 			</div>
-		</d-list>
+		</d-vertical-stack>
 		<div class="flex h-full flex-grow flex-col justify-between pb-16">
-			<d-list>
+			<d-vertical-stack>
 				<d-heading size="xs" class="font-bold"> Claims: </d-heading>
-				<d-list>
+				<d-vertical-stack>
 					{#await decodeSdJwt(credential.sdJwt) then sdjwt}
 						{#each sdjwt.credential.disclosures as disclosure}
 							{#if isNestedDisclosure(disclosure)}
@@ -73,8 +73,8 @@
 							{/if}
 						{/each}
 					{/await}
-				</d-list>
-			</d-list>
+				</d-vertical-stack>
+			</d-vertical-stack>
 			<div class="flex flex-col">
 				<d-button expand color="accent" on:click={() => goto('/wallet')}>{m.Close()}</d-button>
 				<d-button expand color="primary" on:click={openModal}>Delete</d-button>

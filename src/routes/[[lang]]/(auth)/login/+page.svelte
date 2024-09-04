@@ -9,6 +9,7 @@
 	import background from '$lib/assets/bg-4.svg';
 	import { page } from '$app/stores';
 	import type { Feedback } from '$lib/utils/types';
+	import Checkbox from '$lib/forms/checkbox.svelte';
 
 	//
 
@@ -18,6 +19,10 @@
 
 	const schema = z.object({
 		email: z.string().email(),
+		conditions: z
+			.literal(true)
+			.optional()
+			.refine((arg) => (!registration ? true : arg), 'Required'),
 		password: z
 			.string()
 			.min(8)
@@ -64,8 +69,8 @@
 	<div class="grow">
 		<d-feedback {...feedback} />
 		<d-background-illustration {background}>
-			<d-illustration illustration="pidgeon">
-		</d-background-illustration>
+			<d-illustration illustration="pidgeon"> </d-illustration></d-background-illustration
+		>
 		<div>
 			<div class="flex flex-col">
 				<div class="flex w-full flex-col items-center gap-4 px-8">
@@ -82,6 +87,7 @@
 							label={m.Email()}
 							type="email"
 						/>
+
 						{#if !registration}
 							<Input
 								{form}
@@ -95,6 +101,15 @@
 									>{m.forgot_your_password()}</a
 								>
 							</Input>
+						{:else}
+							<Checkbox fieldPath="conditions" {form}
+								>Accept <a
+									href="https://didroom.com/guides/7_terms-and-conditions/"
+									class="text-accent underline"
+								>
+									Terms and Conditions
+								</a></Checkbox
+							>
 						{/if}
 						<d-button
 							size="default"
@@ -102,7 +117,9 @@
 							type="submit"
 							expand
 							class="mt-4"
-							disabled={registration ? !($tainted && $tainted['email']) : !isTainted}
+							disabled={registration
+								? !($tainted && $tainted['email'] && $tainted['conditions'])
+								: !($tainted && $tainted['email'] && $tainted['password'])}
 						>
 							{m.Next()}
 							<ion-icon icon={arrowForward} slot="end" />
@@ -112,5 +129,5 @@
 			</div>
 		</div>
 	</div>
-	<d-app-details developedBy={m.Developed_by_Forkbomb_BV()} {version}/>
+	<d-app-details developedBy={m.Developed_by_Forkbomb_BV()} {version} />
 </div>
