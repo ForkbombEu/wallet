@@ -10,7 +10,11 @@ export default defineConfig({
 			project: './project.inlang',
 			outdir: './src/paraglide'
 		}),
-		SvelteKitPWA(),
+		SvelteKitPWA({
+			workbox: {
+				maximumFileSizeToCacheInBytes: 5 * 1024 ** 2
+			}
+		})
 	],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
