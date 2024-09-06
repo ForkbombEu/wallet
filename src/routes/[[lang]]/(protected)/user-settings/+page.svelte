@@ -9,7 +9,6 @@
 	import { Slangroom } from '@slangroom/core';
 	import { pocketbase } from '@slangroom/pocketbase';
 	import update from '$lib/slangroom/update.slang?raw';
-	import Checkbox from '$lib/forms/checkbox.svelte';
 	import { cameraOutline, cloudUploadOutline } from 'ionicons/icons';
 	import { Camera, CameraResultType } from '@capacitor/camera';
 
@@ -43,8 +42,6 @@
 
 		const blob = b64toBlob(image.base64String!, image.format);
 
-		const imageUrl = image.webPath;
-
 		choosenAvatar = `avatar.${image.format}`;
 		choosenAvatarFile = new File([blob], choosenAvatar);
 		choosenAvatarDataURL = image.dataUrl!;
@@ -77,13 +74,11 @@
 
 	const schema = z.object({
 		name: z.string().min(3).optional(),
-		emailVisibility: z.boolean().optional(),
 		avatar: zodFile({ types: ['image/png', 'image/jpeg'], size: 1024 * 1024 * 2 }).optional()
 	});
 
 	const initialData: Partial<z.infer<typeof schema>> = {
 		name: user!.name,
-		emailVisibility: user!.emailVisibility
 	};
 
 	const form = createForm({
@@ -147,7 +142,7 @@
 		<d-vertical-stack>
 			<d-heading size="xs" class="w-full">{$name || user?.name}</d-heading>
 			<d-heading size="xs" class="w-full"
-				>{user?.email} ({data.user?.emailVisibility ? m.public_email() : m.not_public()})</d-heading
+				>{user?.email}</d-heading
 			>
 		</d-vertical-stack>
 	</d-horizontal-stack>
@@ -162,7 +157,6 @@
 			>
 			<d-input name="avatar" value={choosenAvatar || user?.avatar} class="w-full"></d-input>
 		</d-horizontal-stack>
-		<Checkbox {form} fieldPath="emailVisibility">{m.public_email()}</Checkbox>
 		<Input {form} fieldPath="name" placeholder={m.John_Doe()} label={m.username()} type="text" />
 		<d-button size="default" color="accent" type="submit" expand class="mt-4">
 			{m.save()}

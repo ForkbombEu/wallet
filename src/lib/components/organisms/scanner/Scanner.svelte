@@ -116,12 +116,12 @@
 
 <ion-header class="visible bg-[#d2d7e5]">
 	<ion-toolbar>
-		<div class="flex flex-row">
+		<d-horizontal-stack gap={0}>
 			<ion-title>{m.QR_SCAN()}</ion-title>
 			<d-button on:click={closeScanner} on:keydown={closeScanner} aria-hidden clear>
 				<ion-icon icon={close} slot="icon-only" class="text-on"></ion-icon>
 			</d-button>
-		</div>
+		</d-horizontal-stack>
 	</ion-toolbar>
 </ion-header>
 
