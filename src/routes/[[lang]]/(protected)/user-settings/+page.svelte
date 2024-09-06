@@ -9,7 +9,7 @@
 	import { Slangroom } from '@slangroom/core';
 	import { pocketbase } from '@slangroom/pocketbase';
 	import update from '$lib/slangroom/update.slang?raw';
-	import { cameraOutline, cloudUploadOutline } from 'ionicons/icons';
+	import { cameraOutline } from 'ionicons/icons';
 	import { Camera, CameraResultType } from '@capacitor/camera';
 
 	const b64toBlob = (b64Data:string, contentType = '', sliceSize = 512) => {
@@ -35,7 +35,7 @@
 	const takePicture = async () => {
 		const image = await Camera.getPhoto({
 			quality: 50,
-			allowEditing: true,
+			allowEditing: false,
 			resultType: CameraResultType.Base64
 		});
 		if (!image) return;
@@ -74,7 +74,7 @@
 
 	const schema = z.object({
 		name: z.string().min(3).optional(),
-		avatar: zodFile({ types: ['image/png', 'image/jpeg'], size: 1024 * 1024 * 2 }).optional()
+		avatar: zodFile({ types: ['image/png', 'image/jpeg'], size: 1024 * 1024 * 20 }).optional()
 	});
 
 	const initialData: Partial<z.infer<typeof schema>> = {
@@ -89,7 +89,6 @@
 				const slangroom = new Slangroom(pocketbase);
 				const record: Record<string, any> = {};
 				record.name = form.data.name;
-				record.emailVisibility = form.data.emailVisibility;
 				record.avatar = choosenAvatarFile;
 				const data = {
 					pb_address: backendUri,
@@ -149,9 +148,6 @@
 	<hr />
 	<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
 		<d-horizontal-stack class="w-full items-stretch" gap={0}>
-			<d-button on:click={chooseImage} class="pt-1"
-				><ion-icon icon={cloudUploadOutline} slot="icon-only" class="py-2" /></d-button
-			>
 			<d-button on:click={takePicture} class="pt-1"
 				><ion-icon icon={cameraOutline} slot="icon-only" class="py-2" /></d-button
 			>
