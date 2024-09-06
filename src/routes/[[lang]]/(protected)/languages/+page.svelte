@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 	import { i18n, m } from '$lib/i18n';
 	import { setLanguagePreference } from '$lib/preferences/lang';
 	import { availableLanguageTags } from '$paraglide/runtime';
@@ -14,9 +15,9 @@
 	$: activeLanguage = i18n.getLanguageFromUrl($page.url);
 </script>
 
-<d-header>
+<HeaderWithBackButton>
 	{m.language()}
-</d-header>
+</HeaderWithBackButton>
 
 <ion-content fullscreen class="ion-padding">
 	{#each availableLanguageTags as language}
