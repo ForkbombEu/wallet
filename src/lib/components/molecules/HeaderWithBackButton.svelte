@@ -1,3 +1,3 @@
-<d-header back-button backFunction={() => window.history.back()}>
+<d-header back-button on:backButtonClick={() => window.history.back()}>
 	<slot />
 </d-header>
