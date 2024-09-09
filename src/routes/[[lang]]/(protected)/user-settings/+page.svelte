@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { createForm, Form, Input } from '$lib/forms';
+	import { createForm, Form, Input, zodFile } from '$lib/forms';
 	import { z } from 'zod';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import { m } from '$lib/i18n';
-	import { FilePicker } from '@capawesome/capacitor-file-picker';
 	import { authFilesUri, backendUri } from '$lib/backendUri';
 	import { Slangroom } from '@slangroom/core';
 	import { pocketbase } from '@slangroom/pocketbase';
@@ -12,7 +11,7 @@
 	import { cameraOutline } from 'ionicons/icons';
 	import { Camera, CameraResultType } from '@capacitor/camera';
 
-	const b64toBlob = (b64Data:string, contentType = '', sliceSize = 512) => {
+	const b64toBlob = (b64Data: string, contentType = '', sliceSize = 512) => {
 		const byteCharacters = atob(b64Data);
 		const byteArrays = [];
 
@@ -52,33 +51,13 @@
 
 	let loading = false;
 
-	type ZodFileOptions = {
-		types?: string[];
-		size?: number;
-	};
-
-	function zodFile(options: ZodFileOptions = {}) {
-		const { size, types } = options;
-
-		let schema = z.instanceof(File);
-
-		if (size) {
-			schema = schema.refine((v) => v.size < size, `File size exceeds ${size} bytes`);
-		}
-		if (types) {
-			schema = schema.refine((v) => types.includes(v.type), `File type not: ${types.join(', ')}`);
-		}
-
-		return schema;
-	}
-
 	const schema = z.object({
 		name: z.string().min(3).optional(),
 		avatar: zodFile({ types: ['image/png', 'image/jpeg'], size: 1024 * 1024 * 20 }).optional()
 	});
 
 	const initialData: Partial<z.infer<typeof schema>> = {
-		name: user!.name,
+		name: user!.name
 	};
 
 	const form = createForm({
@@ -112,13 +91,6 @@
 	let choosenAvatarFile: File | undefined;
 	let choosenAvatarDataURL: string | ArrayBuffer | null;
 
-	const chooseImage = async () => {
-		const image = await FilePicker.pickImages();
-		console.log(image);
-		choosenAvatar = image.files[0].name;
-		choosenAvatarFile = image.files[0].blob && new File([image.files[0].blob], image.files[0].name);
-	};
-
 	$: if (choosenAvatarFile) {
 		const fr = new FileReader();
 		fr.onload = function () {
@@ -140,9 +112,7 @@
 		></d-avatar>
 		<d-vertical-stack>
 			<d-heading size="xs" class="w-full">{$name || user?.name}</d-heading>
-			<d-heading size="xs" class="w-full"
-				>{user?.email}</d-heading
-			>
+			<d-heading size="xs" class="w-full">{user?.email}</d-heading>
 		</d-vertical-stack>
 	</d-horizontal-stack>
 	<hr />
