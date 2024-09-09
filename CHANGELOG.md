@@ -1,3 +1,10 @@
+## [1.51.1](https://github.com/ForkbombEu/wallet/compare/v1.51.0...v1.51.1) (2024-09-09)
+
+
+### Bug Fixes
+
+* back button in header and settings menu ([#456](https://github.com/ForkbombEu/wallet/issues/456)) ([71094df](https://github.com/ForkbombEu/wallet/commit/71094df9822e79e1ab7d95c9726ea34ae01e738e))
+
 # [1.51.0](https://github.com/ForkbombEu/wallet/compare/v1.50.6...v1.51.0) (2024-09-04)
 
 

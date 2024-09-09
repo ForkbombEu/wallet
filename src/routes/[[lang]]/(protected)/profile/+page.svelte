@@ -42,19 +42,19 @@
 	</div>
 	<div slot="settings">
 		<d-settings-menu
-			accountSettings={m.Account_Settings()}
-			{gotoAccountSettings}
-			securityAndAuthentication={m.Security_and_authentication()}
-			notificationsSettings={m.Notifications_settings()}
+			account-settings={m.Account_Settings()}
+			security-and-authentication={m.Security_and_authentication()}
+			notifications-settings={m.Notifications_settings()}
 			languages={m.Languages()}
 			support={m.Support()}
-			privacyPolicy={m.Privacy_policy()}
-			logOut={m.Log_Out()}
+			privacy-policy={m.Privacy_policy()}
+			log-out={m.Log_Out()}
 			{version}
-			developedBy={m.Developed_by_Forkbomb_BV()}
-			{logoutCB}
-			{gotoLanguageSettings}
-			{openAppSettings}
+			developed-by={m.Developed_by_Forkbomb_BV()}
+      on:accountSettingsClick={gotoAccountSettings}
+			on:logoutClick={logoutCB}
+			on:languageSettingsClick={gotoLanguageSettings}
+			on:appSettingsClick={openAppSettings}
 		/>
 	</div>
 	<div class="pb-24" />
