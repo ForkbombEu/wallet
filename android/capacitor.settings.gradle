@@ -35,8 +35,5 @@ project(':capacitor-preferences').projectDir = new File('../node_modules/.pnpm/@
 include ':capacitor-status-bar'
 project(':capacitor-status-bar').projectDir = new File('../node_modules/.pnpm/@capacitor+status-bar@6.0.0_@capacitor+core@6.1.0/node_modules/@capacitor/status-bar/android')
 
-include ':capawesome-capacitor-file-picker'
-project(':capawesome-capacitor-file-picker').projectDir = new File('../node_modules/.pnpm/@capawesome+capacitor-file-picker@6.0.1_@capacitor+core@6.1.0/node_modules/@capawesome/capacitor-file-picker/android')
-
 include ':capacitor-native-settings'
 project(':capacitor-native-settings').projectDir = new File('../node_modules/.pnpm/capacitor-native-settings@6.0.0_@capacitor+core@6.1.0/node_modules/capacitor-native-settings/android')

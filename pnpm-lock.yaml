@@ -50,9 +50,6 @@ dependencies:
   '@capacitor/status-bar':
     specifier: ^6.0.0
     version: 6.0.0(@capacitor/core@6.1.0)
-  '@capawesome/capacitor-file-picker':
-    specifier: ^6.0.1
-    version: 6.0.1(@capacitor/core@6.1.0)
   '@fontsource-variable/gantari':
     specifier: ^5.0.13
     version: 5.0.14
@@ -1677,14 +1674,6 @@ packages:
 
   /@capacitor/status-bar@6.0.0(@capacitor/core@6.1.0):
     resolution: {integrity: sha512-Wo0ILugYlmENegKDgTzVCPjbvP8h1ObgHslLdgeVG643ViMS/diausHIq8e104WIKCXtKIELmQeYVp9mX7932g==}
-    peerDependencies:
-      '@capacitor/core': ^6.0.0
-    dependencies:
-      '@capacitor/core': 6.1.0
-    dev: false
-
-  /@capawesome/capacitor-file-picker@6.0.1(@capacitor/core@6.1.0):
-    resolution: {integrity: sha512-JWYmqfYMRwvhJMACC4oovzBGtcP1MXnRKbENPjXhL0ni0p0nnVgddKD+07kc81SNiABBuCksQjNiFiEDqqy49A==}
     peerDependencies:
       '@capacitor/core': ^6.0.0
     dependencies:
