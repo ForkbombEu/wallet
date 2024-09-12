@@ -8,43 +8,8 @@
 	import { Slangroom } from '@slangroom/core';
 	import { pocketbase } from '@slangroom/pocketbase';
 	import update from '$lib/slangroom/update.slang?raw';
-	import { cameraOutline } from 'ionicons/icons';
-	import { Camera, CameraResultType } from '@capacitor/camera';
-
-	const b64toBlob = (b64Data: string, contentType = '', sliceSize = 512) => {
-		const byteCharacters = atob(b64Data);
-		const byteArrays = [];
-
-		for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-			const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-			const byteNumbers = new Array(slice.length);
-			for (let i = 0; i < slice.length; i++) {
-				byteNumbers[i] = slice.charCodeAt(i);
-			}
-
-			const byteArray = new Uint8Array(byteNumbers);
-			byteArrays.push(byteArray);
-		}
-
-		const blob = new Blob(byteArrays, { type: contentType });
-		return blob;
-	};
-
-	const takePicture = async () => {
-		const image = await Camera.getPhoto({
-			quality: 50,
-			allowEditing: false,
-			resultType: CameraResultType.Base64
-		});
-		if (!image) return;
-
-		const blob = b64toBlob(image.base64String!, image.format);
-
-		choosenAvatar = `avatar.${image.format}`;
-		choosenAvatarFile = new File([blob], choosenAvatar);
-		choosenAvatarDataURL = image.dataUrl!;
-	};
+	import FileInput from '$lib/forms/fileInput.svelte';
+	import { goto } from '$app/navigation';
 
 	export let data;
 	const { user } = data;
@@ -53,7 +18,7 @@
 
 	const schema = z.object({
 		name: z.string().min(3).optional(),
-		avatar: zodFile({ types: ['image/png', 'image/jpeg'], size: 1024 * 1024 * 20 }).optional()
+		avatar: zodFile({ types: ['imag/png', 'imag/jpeg'], size: 10 }).optional()
 	});
 
 	const initialData: Partial<z.infer<typeof schema>> = {
@@ -68,7 +33,8 @@
 				const slangroom = new Slangroom(pocketbase);
 				const record: Record<string, any> = {};
 				record.name = form.data.name;
-				record.avatar = choosenAvatarFile;
+				console.log(form.data.avatar);
+				record.avatar = form.data.avatar;
 				const data = {
 					pb_address: backendUri,
 					update_parameters: {
@@ -79,15 +45,13 @@
 					record_parameters: {}
 				};
 				await slangroom.execute(update, { data });
-				// await invalidate(_userSettingsKey)
-				// await invalidateAll()
 				loading = false;
 			} catch (error) {}
 		},
 		initialData
 	});
 
-	let choosenAvatar: string | undefined;
+	// let choosenAvatar: string | undefined;
 	let choosenAvatarFile: File | undefined;
 	let choosenAvatarDataURL: string | ArrayBuffer | null;
 
@@ -99,6 +63,11 @@
 		fr.readAsDataURL(choosenAvatarFile);
 	}
 	let name = form.fields.name?.value;
+
+	const handleAvatarChange = (e: { detail: { image: string | ArrayBuffer | null } }) => {
+		console.log(e.detail);
+		choosenAvatarDataURL = e.detail.image;
+	};
 </script>
 
 <HeaderWithBackButton>User Settings</HeaderWithBackButton>
@@ -117,15 +86,15 @@
 	</d-horizontal-stack>
 	<hr />
 	<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
-		<d-horizontal-stack class="w-full items-stretch" gap={0}>
-			<d-button on:click={takePicture} class="pt-1"
-				><ion-icon icon={cameraOutline} slot="icon-only" class="py-2" /></d-button
-			>
-			<d-input name="avatar" value={choosenAvatar || user?.avatar} class="w-full"></d-input>
-		</d-horizontal-stack>
+		<FileInput superform={form} field="avatar" on:change={handleAvatarChange} label={m.avatar()} />
 		<Input {form} fieldPath="name" placeholder={m.John_Doe()} label={m.username()} type="text" />
-		<d-button size="default" color="accent" type="submit" expand class="mt-4">
-			{m.save()}
-		</d-button>
+		<d-vertical-stack>
+			<d-button color="accent" type="submit" expand class="mt-4">
+				{m.save()}
+			</d-button>
+			<d-button expand on:click={() => goto('/profile')} aria-hidden>
+				{m.discard()}
+			</d-button>
+		</d-vertical-stack>
 	</Form>
 </div>

@@ -147,5 +147,7 @@
 	"John_Doe": "John_Doe",
 	"username": "username",
 	"public_email": "public email",
-	"save": "save"
+	"save": "save",
+	"discard": "discard",
+	"avatar": "avatar"
 }
