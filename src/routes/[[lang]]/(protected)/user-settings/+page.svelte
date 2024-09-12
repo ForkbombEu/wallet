@@ -93,7 +93,7 @@
 				{m.save()}
 			</d-button>
 			<d-button expand on:click={() => goto('/profile')} aria-hidden>
-				{m.discard()}
+				{m.cancel()}
 			</d-button>
 		</d-vertical-stack>
 	</Form>

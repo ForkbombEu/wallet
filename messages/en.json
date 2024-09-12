@@ -148,6 +148,5 @@
 	"username": "username",
 	"public_email": "public email",
 	"save": "save",
-	"discard": "discard",
-	"avatar": "avatar"
+	"cancel": "cancel"
 }
