@@ -18,7 +18,7 @@
 
 	const schema = z.object({
 		name: z.string().min(3).optional(),
-		avatar: zodFile({ types: ['imag/png', 'imag/jpeg'], size: 10 }).optional()
+		avatar: zodFile({ types: ['image/png', 'image/jpeg'], size: 1024 * 1024 * 20 }).optional()
 	});
 
 	const initialData: Partial<z.infer<typeof schema>> = {
@@ -86,7 +86,7 @@
 	</d-horizontal-stack>
 	<hr />
 	<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
-		<FileInput superform={form} field="avatar" on:change={handleAvatarChange} label={m.avatar()} />
+		<FileInput {form} field="avatar" on:change={handleAvatarChange} label={m.avatar()} />
 		<Input {form} fieldPath="name" placeholder={m.John_Doe()} label={m.username()} type="text" />
 		<d-vertical-stack>
 			<d-button color="accent" type="submit" expand class="mt-4">

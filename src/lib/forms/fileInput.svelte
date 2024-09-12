@@ -1,4 +1,6 @@
 <script lang="ts">
+	import FieldError, { fieldHasErrors } from './fieldError.svelte';
+
 	import { cameraOutline } from 'ionicons/icons';
 	import { Camera, CameraResultType } from '@capacitor/camera';
 	import type { z } from 'zod';
@@ -10,28 +12,14 @@
 
 	type T = $$Generic<AnyZodObject>;
 
-	export let superform: SuperForm<ZodValidation<T>, any>;
+	export let form: SuperForm<ZodValidation<T>, any>;
 	export let field: FormPath<z.infer<T>>;
 	export let label: string;
 
-	const { validate } = superform;
-	const { errors } = formFieldProxy(superform, field);
+	const { validate } = form;
+	const { errors } = formFieldProxy(form, field);
 
-	function isBaseError(errorData: unknown): errorData is string[] {
-		return Array.isArray(errorData) && errorData.length > 0;
-	}
-
-	function isNestedError(errorData: unknown): errorData is Record<string, string[]> {
-		return (
-			errorData !== undefined &&
-			errorData !== null &&
-			!isBaseError(errorData) &&
-			typeof errorData === 'object' &&
-			Object.values(errorData).some((value) => isBaseError(value))
-		);
-	}
-
-	$: hasErrors = isBaseError($errors) || isNestedError($errors);
+	$: hasErrors = fieldHasErrors($errors);
 
 	//
 
@@ -86,31 +74,7 @@
 		>
 		<d-input value={choosenFile || 'user?.avatar'} class="w-full" disabled></d-input>
 	</d-horizontal-stack>
-
 	{#if hasErrors}
-		{#if isBaseError($errors)}
-			<div class="space-y-1">
-				{#each $errors as error}
-					<d-text size="xs" class="text-error">{error}</d-text><br />
-				{/each}
-			</div>
-		{/if}
-
-		{#if isNestedError($errors)}
-			<div class="space-y-2">
-				{#each Object.entries($errors) as [key, errors]}
-					{#if isBaseError(errors)}
-						<div class="space-y-1">
-							{#if key !== '_errors'}
-								<d-text size="xs" class="text-error"><span class="font-bold">{key}</span></d-text>
-							{/if}
-							{#each errors as error}
-								<d-text size="xs" class="text-error">{error}</d-text><br />
-							{/each}
-						</div>
-					{/if}
-				{/each}
-			</div>
-		{/if}
+		<FieldError {form} {field} />
 	{/if}
 </div>
