@@ -37,7 +37,7 @@
 	let:scan
 	on:success={async (e) => {
 		barcodeResult = parseQr(e.detail.qr)
-		if (barcodeResult.message = 'not valid qr') {
+		if (barcodeResult.message === 'not valid qr') {
 			showModal();
 			return (isModalOpen = true);
 		}
