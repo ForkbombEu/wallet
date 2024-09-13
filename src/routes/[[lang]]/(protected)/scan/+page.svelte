@@ -1,16 +1,15 @@
 <script lang="ts">
 	import Modal from '$lib/components/molecules/Modal.svelte';
 	import Scanner from '$lib/components/organisms/scanner/Scanner.svelte';
-	import { parseQr, type ParseQrResults } from '$lib/components/organisms/scanner/tools';
-	import { credentialOfferStore } from '$lib/credentialOfferStore';
-	import { goto, m } from '$lib/i18n';
-	import { verificationStore } from '$lib/verificationStore';
+	import { parseQr, type ParseQrError } from '$lib/components/organisms/scanner/tools';
+	import { m } from '$lib/i18n';
 	import { Capacitor } from '@capacitor/core';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	let barcodeResult: ParseQrResults | void
-	let isModalOpen: boolean;
+	let barcodeResult: ParseQrError | void;
+	//@ts-ignore
+	let isModalOpen: boolean = $page.state.isModalOpen;
 	const isWeb = Capacitor.getPlatform() == 'web';
 
 	const parseBareCodeResultErrors = (barcodeResultMessage: string) => {
@@ -38,28 +37,20 @@
 	let:scan
 	on:success={async (e) => {
 		barcodeResult = await parseQr(e.detail.qr);
-		if (barcodeResult.result === 'ok' && barcodeResult.data.type === 'service') {
-			credentialOfferStore.set(barcodeResult.data.service);
-			return await goto('/credential-offer');
+		if (barcodeResult) {
+			showModal();
+			return;
 		}
-		if (barcodeResult.result === 'ok' && barcodeResult.data.type === 'credential') {
-			verificationStore.set(barcodeResult.data.credential);
-			return await goto('/verification');
-		}
-		showModal();
-		return (isModalOpen = true);
 	}}
 >
 	<Modal
-		isModalOpen={$page.state.isModalOpen}
+		{isModalOpen}
 		closeCb={() => {
 			window.history.back();
 			if (!isWeb) scan();
 		}}
 		textToCopy={barcodeResult?.message}
 	>
-		{#if !(barcodeResult?.result === 'ok')}
-			<d-text size="m">{parseBareCodeResultErrors(barcodeResult?.message || 'error')}</d-text>
-		{/if}
+		<d-text size="m">{parseBareCodeResultErrors(barcodeResult?.message || 'error')}</d-text>
 	</Modal>
 </Scanner>

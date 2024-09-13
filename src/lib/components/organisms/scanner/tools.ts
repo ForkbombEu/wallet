@@ -9,8 +9,9 @@ import verQrToInfo from '$lib/mobile_zencode/wallet/ver_qr_to_info.zen?raw';
 import verQrToInfoKeys from '$lib/mobile_zencode/wallet/ver_qr_to_info.keys.json?raw';
 import { log } from '$lib/log';
 import { goto } from '$app/navigation';
+import { verificationStore } from '$lib/verificationStore';
+import { credentialOfferStore } from '$lib/credentialOfferStore';
 
-//@ts-expect-error something is wrong in Slangroom types
 const slangroom = new Slangroom(helpers, zencode, pocketbase, http);
 
 export type QrToInfoResults = {
@@ -44,17 +45,11 @@ export type Body = {
 	vp: string;
 };
 
-export type ParseQrResults =
-	| {
-			result: 'error';
-			message: string;
-	  }
-	| {
-			result: 'ok';
-			data: Data;
-	  };
+export type ParseQrError = {
+	message: string;
+};
 
-const credentialSchema = z.object({
+export const credentialSchema = z.object({
 	rp: z.string().url(),
 	t: z.string(),
 	m: z.literal('f'),
@@ -80,45 +75,12 @@ export type Data =
 			service: Service;
 	  };
 
-export const parseQr = async (value: string): Promise<ParseQrResults | void> => {
-	const notValidQr = 'not valid qr';
-	if (value.startsWith('openid-credential-offer')) {
+export const parseQr = async (value: string): Promise<ParseQrError | undefined> => {
+	if (value.startsWith('DIDroom4VP://')) {
 		//@ts-ignore
-		return window.location = value
+		return (window.location = value);
 	}
-	let parsedValue: Record<string, unknown>;
-	let type: 'credential' | 'service';
-	try {
-		parsedValue = JSON.parse(value);
-	} catch (e) {
-		return { result: 'error', message: notValidQr };
-	}
-	if (credentialSchema.safeParse(parsedValue).success) {
-		type = 'credential';
-		parsedValue.type = 'credential';
-	} else if (serviceSchema.safeParse(parsedValue).success) {
-		type = 'service';
-		parsedValue.type = 'service';
-	} else {
-		return { result: 'error', message: notValidQr };
-	}
-
-	// if (type == 'credential' && !isUrlAllowed(parsedValue.url as string)) {
-	// 	return { result: 'error', message: 'not allowed verifier url' };
-	// }
-
-	//todo: validate service urls
-	if (type == 'service') {
-		delete parsedValue.type;
-		return { result: 'ok', data: { type, service: parsedValue as Service } };
-	} else {
-		try {
-		const credential = await getCredentialQrInfo(parsedValue as Credential);
-		return { result: 'ok', data: { type, credential } };
-		} catch (err) {
-			return { result: 'error', message: `error getting credential info: ${err}` };
-		}
-	}
+	return { message: 'not valid qr' };
 };
 
 export const verifyCredential = async (post: Post) => {
@@ -142,13 +104,47 @@ export const getCredentialQrInfo = async (qrJSON: Credential) => {
 		...qrJSON,
 		credential_array: myCredentials
 	};
-	log(JSON.stringify(data))
+	log(JSON.stringify(data));
 	try {
-	const res = await slangroom.execute(verQrToInfo, { data, keys: JSON.parse(verQrToInfoKeys) });
-	log(JSON.stringify(res));
-	return res.result as QrToInfoResults;
+		const res = await slangroom.execute(verQrToInfo, { data, keys: JSON.parse(verQrToInfoKeys) });
+		log(JSON.stringify(res));
+		return res.result as QrToInfoResults;
 	} catch (err) {
 		log(JSON.stringify(err));
 		throw new Error(`error executing zencode: ${err}`);
 	}
+};
+
+export const gotoQrResult = async (url: string) => {
+	const urlParams = new URLSearchParams(url.split('://?')[1]);
+
+	const parsedVerification = credentialSchema.safeParse({
+		rp: urlParams.get('rp'),
+		t: urlParams.get('t'),
+		m: urlParams.get('m'),
+		exp: Number(urlParams.get('exp')),
+		ru: urlParams.get('ru'),
+		sid: urlParams.get('sid'),
+		id: urlParams.get('id')
+	});
+
+	if (parsedVerification.success) {
+		try {
+			const credential = await getCredentialQrInfo(parsedVerification.data);
+			verificationStore.set(credential);
+			return await goto('/verification');
+		} catch (err) {
+			console.error('Failed verification.', err);
+		}
+	}
+	const parsedService = serviceSchema.safeParse({
+		credential_configuration_ids: urlParams.get('credential_configuration_ids')?.split(',') || [],
+		credential_issuer: urlParams.get('credential_issuer')
+	});
+
+	if (parsedService.success) {
+		credentialOfferStore.set(parsedService.data);
+		return await goto('/credential-offer');
+	}
+	console.error('Failed to parse URL data for either credential offer or verification.');
 };

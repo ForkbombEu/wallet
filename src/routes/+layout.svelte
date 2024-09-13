@@ -8,18 +8,17 @@
 	import '../theme/custom.css';
 	import '../theme/variables.css';
 
-	import { goto, i18n, r } from '$lib/i18n';
+	import { i18n, r } from '$lib/i18n';
 	import { ParaglideJS } from '@inlang/paraglide-js-adapter-sveltekit';
 	import HiddenLogsButton from '$lib/components/molecules/HiddenLogsButton.svelte';
 	import { log } from '$lib/log';
 	import { onDestroy, onMount } from 'svelte';
 	import { navigating } from '$app/stores';
 	import { App } from '@capacitor/app';
-	import { credentialOfferStore } from '$lib/credentialOfferStore';
-	import { serviceSchema, type Service } from '$lib/components/organisms/scanner/tools';
+	import { gotoQrResult } from '$lib/components/organisms/scanner/tools';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 
-  const controller = new AbortController();
+	const controller = new AbortController();
 	const signal = controller.signal;
 
 	onMount(() => {
@@ -40,14 +39,8 @@
 			{ signal }
 		);
 
-		App.addListener('appUrlOpen', (data) => {
-			const url = data.url.split('openid-credential-offer://')[1];
-			const credentialOfferContent = decodeURI(url.split('credential-offer=')[1]);
-			const parsedCredentialOffer = JSON.parse(credentialOfferContent) as Service;
-			if (serviceSchema.safeParse(parsedCredentialOffer).success) {
-				credentialOfferStore.set(parsedCredentialOffer);
-				goto('credential-offer');
-			}
+		App.addListener('appUrlOpen', async (data) => {
+			await gotoQrResult(data.url);
 		});
 	});
 	onDestroy(() => {
