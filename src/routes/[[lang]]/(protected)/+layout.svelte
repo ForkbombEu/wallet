@@ -5,7 +5,6 @@
 	import { goto, m } from '$lib/i18n';
 	import { onDestroy, onMount } from 'svelte';
 	import type { PluginListenerHandle } from '@capacitor/core';
-	import { getHomeFeedbakPreference } from '$lib/homeFeedbackPreferences.js';
 
 	export let data;
 	const { notReadedActivities, hasHomeFeedback } = data;

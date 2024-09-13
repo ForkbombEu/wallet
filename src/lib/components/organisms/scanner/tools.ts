@@ -121,7 +121,7 @@ export const gotoQrResult = async (url: string) => {
 	const parsedVerification = credentialSchema.safeParse({
 		rp: urlParams.get('rp'),
 		t: urlParams.get('t'),
-		m: urlParams.get('m'),
+		m: urlParams.get('m')?.trim(),
 		exp: Number(urlParams.get('exp')),
 		ru: urlParams.get('ru'),
 		sid: urlParams.get('sid'),

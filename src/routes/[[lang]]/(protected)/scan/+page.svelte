@@ -8,7 +8,6 @@
 	import { page } from '$app/stores';
 
 	let barcodeResult: ParseQrError | void;
-	let isModalOpen: boolean
 	const isWeb = Capacitor.getPlatform() == 'web';
 
 	const parseBareCodeResultErrors = (barcodeResultMessage: string) => {
@@ -38,7 +37,7 @@
 		barcodeResult = parseQr(e.detail.qr)
 		if (barcodeResult.message === 'not valid qr') {
 			showModal();
-			return (isModalOpen = true);
+			return;
 		}
 		return await gotoQrResult(barcodeResult.message);
 	}}
