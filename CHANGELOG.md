@@ -1,3 +1,25 @@
+## [1.51.1](https://github.com/ForkbombEu/wallet/compare/v1.51.0...v1.51.1) (2024-09-09)
+
+
+### Bug Fixes
+
+* back button in header and settings menu ([#456](https://github.com/ForkbombEu/wallet/issues/456)) ([71094df](https://github.com/ForkbombEu/wallet/commit/71094df9822e79e1ab7d95c9726ea34ae01e738e))
+
+# [1.51.0](https://github.com/ForkbombEu/wallet/compare/v1.50.6...v1.51.0) (2024-09-04)
+
+
+### Bug Fixes
+
+* app name and android alpha version name and code ([#442](https://github.com/ForkbombEu/wallet/issues/442)) ([e8ca2d3](https://github.com/ForkbombEu/wallet/commit/e8ca2d3e47bfda35b67a9b342f0b7e849ea2e6a5))
+* d-list is replaced by d-vertical-stack ([#447](https://github.com/ForkbombEu/wallet/issues/447)) ([52f27cc](https://github.com/ForkbombEu/wallet/commit/52f27cced1385161946fd84f8faa6816bace8485))
+* increment version code in alpha lane ([#444](https://github.com/ForkbombEu/wallet/issues/444)) ([0a50103](https://github.com/ForkbombEu/wallet/commit/0a5010301f7fd513419701558d4575cc2838b278))
+* tabs titles localization ([#443](https://github.com/ForkbombEu/wallet/issues/443)) ([5794884](https://github.com/ForkbombEu/wallet/commit/57948840dd3482eb2713e3290ec424c8ad8043b8))
+
+
+### Features
+
+* terms and conditions at registration time ([#446](https://github.com/ForkbombEu/wallet/issues/446)) ([7565a9a](https://github.com/ForkbombEu/wallet/commit/7565a9ae8fe96d3dd5f1c2a3675295fc94a21569)), closes [#436](https://github.com/ForkbombEu/wallet/issues/436)
+
 ## [1.50.6](https://github.com/ForkbombEu/wallet/compare/v1.50.5...v1.50.6) (2024-08-20)
 
 
