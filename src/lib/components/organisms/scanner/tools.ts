@@ -79,6 +79,7 @@ export const parseQr = (value: string): ParseQrError => {
 	if (!value.startsWith('DIDroom4VP://')) {
 		return { message: 'not valid qr' };
 	}
+
 	return { message: value };
 };
 
@@ -133,11 +134,12 @@ export const gotoQrResult = async (url: string) => {
 			verificationStore.set(credential);
 			return await goto('/verification');
 		} catch (err) {
-			console.error('Failed verification.', err);
+			log(`Failed verification: ${err}`);
 		}
 	}
+
 	const parsedService = serviceSchema.safeParse({
-		credential_configuration_ids: urlParams.get('credential_configuration_ids')?.split(',') || [],
+		credential_configuration_ids: [urlParams.get('credential_configuration_ids')],
 		credential_issuer: urlParams.get('credential_issuer')
 	});
 
@@ -145,5 +147,5 @@ export const gotoQrResult = async (url: string) => {
 		credentialOfferStore.set(parsedService.data);
 		return await goto('/credential-offer');
 	}
-	console.error('Failed to parse URL data for either credential offer or verification.');
+	log('Failed to parse URL data for either credential offer or verification.');
 };
