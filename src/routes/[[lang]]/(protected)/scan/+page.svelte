@@ -1,12 +1,11 @@
 <script lang="ts">
 	import Modal from '$lib/components/molecules/Modal.svelte';
 	import Scanner from '$lib/components/organisms/scanner/Scanner.svelte';
-	import { parseQr, type ParseQrError } from '$lib/components/organisms/scanner/tools';
+	import { gotoQrResult, parseQr, type ParseQrError } from '$lib/components/organisms/scanner/tools';
 	import { m } from '$lib/i18n';
 	import { Capacitor } from '@capacitor/core';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { message } from 'sveltekit-superforms/client';
 
 	let barcodeResult: ParseQrError | void;
 	let isModalOpen: boolean
@@ -41,8 +40,7 @@
 			showModal();
 			return (isModalOpen = true);
 		}
-		//@ts-ignore
-		return window.location = barcodeResult.message
+		return await gotoQrResult(barcodeResult.message);
 	}}
 >
 	<Modal
