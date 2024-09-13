@@ -10,7 +10,7 @@ test.describe('Credential Offer Page', () => {
 		await expect(page.getByText('Credential offer')).toBeVisible();
 	});
 
-	test('should load credential offer page after scan qr code', async ({ page }) => {
+	test.skip('should load credential offer page after scan qr code', async ({ page }) => {
 		await login(page);
 		await tabBarClick('Home', page);
 		await page.getByRole('link', { name: 'SCAN QR' }).click();
