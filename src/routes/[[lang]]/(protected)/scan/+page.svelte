@@ -6,6 +6,7 @@
 	import { Capacitor } from '@capacitor/core';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { message } from 'sveltekit-superforms/client';
 
 	let barcodeResult: ParseQrError | void;
 	let isModalOpen: boolean
@@ -35,11 +36,13 @@
 <Scanner
 	let:scan
 	on:success={async (e) => {
-		barcodeResult = await parseQr(e.detail.qr);
-		if (barcodeResult) {
+		barcodeResult = parseQr(e.detail.qr)
+		if (barcodeResult.message = 'not valid qr') {
 			showModal();
 			return (isModalOpen = true);
 		}
+		//@ts-ignore
+		return window.location = barcodeResult.message
 	}}
 >
 	<Modal

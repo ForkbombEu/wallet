@@ -75,12 +75,11 @@ export type Data =
 			service: Service;
 	  };
 
-export const parseQr = async (value: string): Promise<ParseQrError | undefined> => {
-	if (value.startsWith('DIDroom4VP://')) {
-		//@ts-ignore
-		return (window.location = value);
+export const parseQr = (value: string): ParseQrError => {
+	if (!value.startsWith('DIDroom4VP://')) {
+		return { message: 'not valid qr' };
 	}
-	return { message: 'not valid qr' };
+	return { message: value };
 };
 
 export const verifyCredential = async (post: Post) => {
