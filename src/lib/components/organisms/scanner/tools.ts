@@ -134,7 +134,7 @@ export const gotoQrResult = async (url: string) => {
 			verificationStore.set(credential);
 			return await goto('/verification');
 		} catch (err) {
-			log(`Failed verification: ${err}`);
+			return log(`Failed verification: ${err}`);
 		}
 	}
 
