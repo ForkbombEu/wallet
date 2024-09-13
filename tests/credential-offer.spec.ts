@@ -15,12 +15,11 @@ test.describe('Credential Offer Page', () => {
 		await tabBarClick('Home', page);
 		await page.getByRole('link', { name: 'SCAN QR' }).click();
 		await expect(page).toHaveURL('/en/scan');
-		await page.getByRole('textbox').fill(`{
-  "credential_configuration_ids": [
-    "Auth1"
-  ],
-  "credential_issuer": "https://issuer1.zenswarm.forkbomb.eu/credential_issuer/"
-}`);
+		await page
+			.getByRole('textbox')
+			.fill(
+				'DIDroom4VP://?credential_configuration_ids=Auth1&credential_issuer=https%3A%2F%2Fissuer1.zenswarm.forkbomb.eu%2Fcredential_issuer%2F'
+			);
 		await page.getByRole('button', { name: 'SUBMIT' }).click();
 
 		await expect(page).toHaveURL('/en/credential-offer');
