@@ -75,14 +75,6 @@ export type Data =
 			service: Service;
 	  };
 
-export const parseQr = (value: string): ParseQrError => {
-	if (!value.startsWith('DIDroom4VP://')) {
-		return { message: 'not valid qr' };
-	}
-
-	return { message: value };
-};
-
 export const verifyCredential = async (post: Post) => {
 	const res = await slangroom.execute(
 		`Rule unknown ignore
@@ -117,16 +109,26 @@ export const getCredentialQrInfo = async (qrJSON: Credential) => {
 
 export const gotoQrResult = async (url: string) => {
 	const urlParams = new URLSearchParams(url.split('://?')[1]);
+	const getUrlParams = (params: (string | [string, 'number' | 'array'])[]) =>
+		params.reduce((object, value) => {
+			const isValueString = typeof value === 'string';
+			const key = isValueString ? value : value[0];
+			const type = isValueString ? 'string' : value[1];
 
-	const parsedVerification = credentialSchema.safeParse({
-		rp: urlParams.get('rp'),
-		t: urlParams.get('t'),
-		m: urlParams.get('m')?.trim(),
-		exp: Number(urlParams.get('exp')),
-		ru: urlParams.get('ru'),
-		sid: urlParams.get('sid'),
-		id: urlParams.get('id')
-	});
+			return {
+				...object,
+				[key]:
+					type === 'string'
+						? urlParams.get(key)?.trim()
+						: type === 'array'
+							? [urlParams.get(key)]
+							: Number(urlParams.get(key)?.trim())
+			};
+		}, {});
+
+	const parsedVerification = credentialSchema.safeParse(
+		getUrlParams(['rp', 't', 'm', ['exp', 'number'], 'ru', 'sid', 'id'])
+	);
 
 	if (parsedVerification.success) {
 		try {
@@ -138,10 +140,9 @@ export const gotoQrResult = async (url: string) => {
 		}
 	}
 
-	const parsedService = serviceSchema.safeParse({
-		credential_configuration_ids: [urlParams.get('credential_configuration_ids')],
-		credential_issuer: urlParams.get('credential_issuer')
-	});
+	const parsedService = serviceSchema.safeParse(
+		getUrlParams([['credential_configuration_ids', 'array'], 'credential_issuer'])
+	);
 
 	if (parsedService.success) {
 		credentialOfferStore.set(parsedService.data);

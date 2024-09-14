@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Modal from '$lib/components/molecules/Modal.svelte';
 	import Scanner from '$lib/components/organisms/scanner/Scanner.svelte';
-	import { gotoQrResult, parseQr, type ParseQrError } from '$lib/components/organisms/scanner/tools';
+	import { gotoQrResult, type ParseQrError } from '$lib/components/organisms/scanner/tools';
 	import { m } from '$lib/i18n';
 	import { Capacitor } from '@capacitor/core';
 	import { pushState } from '$app/navigation';
@@ -34,12 +34,12 @@
 <Scanner
 	let:scan
 	on:success={async (e) => {
-		barcodeResult = parseQr(e.detail.qr)
-		if (barcodeResult.message === 'not valid qr') {
+		const qr = e.detail.qr;
+		if (!qr.startsWith('DIDroom4VP://')) {
 			showModal();
 			return;
 		}
-		return await gotoQrResult(barcodeResult.message);
+		return await gotoQrResult(qr);
 	}}
 >
 	<Modal
