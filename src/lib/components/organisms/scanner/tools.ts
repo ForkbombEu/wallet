@@ -110,8 +110,9 @@ export const getCredentialQrInfo = async (qrJSON: Credential) => {
 	}
 };
 
-const parseBarcodeErrors = (barcodeResultMessage: string) => {
-	console.log(barcodeResultMessage);
+const parseBarcodeErrors = (barcodeResultMessage?: string) => {
+	if (!barcodeResultMessage) return;
+	if (!(typeof barcodeResultMessage === 'string')) return;
 	if (barcodeResultMessage.includes('QR code is expired')) {
 		return m.QR_code_is_expired();
 	}
@@ -144,7 +145,7 @@ const infoFromVerificationData = async (
 			success: true,
 			info: credential
 		};
-	} catch (err: { message: string }) {
+	} catch (err: { message: unknown }) {
 		return {
 			success: false,
 			feedback: {
@@ -203,5 +204,5 @@ export const gotoQrResult = async (url: string) => {
 		credentialOfferStore.set(parsedService.data);
 		return await goto('/credential-offer');
 	}
-	log('Failed to parse URL data for either credential offer or verification.');
+	return await goto('/unlock');
 };
