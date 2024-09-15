@@ -36,6 +36,7 @@
 	on:success={async (e) => {
 		const qr = e.detail.qr;
 		if (!qr.startsWith('DIDroom4VP://')) {
+			console.log("failed:", e.detail.qr)
 			showModal();
 			return;
 		}

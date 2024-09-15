@@ -11,6 +11,9 @@ import { log } from '$lib/log';
 import { goto } from '$app/navigation';
 import { verificationStore } from '$lib/verificationStore';
 import { credentialOfferStore } from '$lib/credentialOfferStore';
+import type { Feedback } from '$lib/utils/types';
+import { m } from '$lib/i18n';
+import { verificationResultsStore } from '$lib/verificationResultsStore';
 
 const slangroom = new Slangroom(helpers, zencode, pocketbase, http);
 
@@ -107,6 +110,52 @@ export const getCredentialQrInfo = async (qrJSON: Credential) => {
 	}
 };
 
+const parseBarcodeErrors = (barcodeResultMessage: string) => {
+	console.log(barcodeResultMessage);
+	if (barcodeResultMessage.includes('QR code is expired')) {
+		return m.QR_code_is_expired();
+	}
+	if (
+		barcodeResultMessage.includes(
+			'no_signed_selective_disclosure_found_that_matched_the_requested_claims'
+		)
+	) {
+		return m.You_have_no_signed_selective_disclosure_that_matched_the_requested_claims_or_your_credential_is_expired();
+	}
+	return barcodeResultMessage;
+};
+
+const infoFromVerificationData = async (
+	data: Credential
+): Promise<
+	| {
+			success: true;
+			info: QrToInfoResults;
+	  }
+	| {
+			success: false;
+			feedback: Feedback;
+	  }
+> => {
+	try {
+		const credential = await getCredentialQrInfo(data);
+		verificationStore.set(credential);
+		return {
+			success: true,
+			info: credential
+		};
+	} catch (err: { message: string }) {
+		return {
+			success: false,
+			feedback: {
+				type: 'error',
+				feedback: 'Verification failed',
+				message: parseBarcodeErrors(err.message)
+			}
+		};
+	}
+};
+
 export const gotoQrResult = async (url: string) => {
 	const urlParams = new URLSearchParams(url.split('://?')[1]);
 	const getUrlParams = (params: (string | [string, 'number' | 'array'])[]) =>
@@ -131,12 +180,18 @@ export const gotoQrResult = async (url: string) => {
 	);
 
 	if (parsedVerification.success) {
-		try {
-			const credential = await getCredentialQrInfo(parsedVerification.data);
-			verificationStore.set(credential);
+		const info = await infoFromVerificationData(parsedVerification.data);
+		if (info.success) {
+			verificationStore.set(info.info);
 			return await goto('/verification');
-		} catch (err) {
-			return log(`Failed verification: ${err}`);
+		} else {
+			verificationResultsStore.set({
+				feedback: info.feedback,
+				date: new Date().toISOString(),
+				id: parsedVerification.data.sid,
+				success: false
+			});
+			return await goto('/verification/results');
 		}
 	}
 
