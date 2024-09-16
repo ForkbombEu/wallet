@@ -18,7 +18,7 @@ test.describe('Credential Offer Page', () => {
 		await page
 			.getByRole('textbox')
 			.fill(
-				'DIDroom4VP://?credential_configuration_ids=Auth1&credential_issuer=https%3A%2F%2Fissuer1.zenswarm.forkbomb.eu%2Fcredential_issuer%2F'
+				'openid4vp://?credential_configuration_ids=Auth1&credential_issuer=https%3A%2F%2Fissuer1.zenswarm.forkbomb.eu%2Fcredential_issuer%2F'
 			);
 		await page.getByRole('button', { name: 'SUBMIT' }).click();
 

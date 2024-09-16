@@ -20,7 +20,7 @@
 	let:scan
 	on:success={async (e) => {
 		const qr = e.detail.qr;
-		if (!qr.startsWith('DIDroom4VP://')) {
+		if (!qr.startsWith('openid4vp://')) {
 			console.log('failed:', e.detail.qr);
 			showModal();
 			return;

@@ -53,7 +53,7 @@
 		<string>com.getcapacitor.capacitor</string>
 		<key>CFBundleURLSchemes</key>
 		<array>
-		<string>DIDroom4VP</string>
+		<string>openid4vp</string>
 		</array>
 	</dict>
 	</array>
