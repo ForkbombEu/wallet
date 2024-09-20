@@ -125,7 +125,7 @@ platform :android do
     package = load_json(json_path: "./package.json")
     increment_version_code(
       gradle_file_path: "./android/app/build.gradle",
-      version_code: PULL_REQUEST_NUMBER
+      # version_code: PULL_REQUEST_NUMBER
     )
     increment_version_name(
       gradle_file_path: "./android/app/build.gradle",
@@ -148,7 +148,7 @@ platform :android do
       package_name:"com.didroom.wallet",
       aab:"android/app/build/outputs/bundle/release/app-release.aab",
       track: 'internal',
-      metadata_path: "fastlane/metadata/android/en-US",
+      # metadata_path: "fastlane/metadata/android/en-US",
       # skip_upload_metadata: true,  
       skip_upload_images: true,  
       skip_upload_screenshots: true,  
