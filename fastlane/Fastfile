@@ -126,7 +126,8 @@ platform :android do
     internal_latest_version_code = google_play_track_version_codes(track: 'internal', json_key:"#{SERVICE_ACCOUNT_PATH}")
     increment_version_code(
       gradle_file_path: "./android/app/build.gradle",
-      version_code: internal_latest_version_code + 1,
+      version_code: internal_latest_version_code + 1
+    )
     increment_version_name(
       gradle_file_path: "./android/app/build.gradle",
       version_name: package['version'] + "-" + PULL_REQUEST_NUMBER
@@ -148,11 +149,11 @@ platform :android do
       package_name:"com.didroom.wallet",
       aab:"android/app/build/outputs/bundle/release/app-release.aab",
       track: 'internal',
-      # metadata_path: "fastlane/metadata/android/en-US",
+      metadata_path: "fastlane/metadata/android/*",
       # skip_upload_metadata: true,  
-      skip_upload_images: true,  
-      skip_upload_screenshots: true,  
-      skip_upload_changelogs: true,  
+      # skip_upload_images: true,  
+      # skip_upload_screenshots: true,  
+      # skip_upload_changelogs: true,  
       skip_upload_apk: true,
       release_status: 'draft'
       )
