@@ -145,7 +145,7 @@ platform :android do
 
     release = upload_to_play_store(
       json_key:"#{SERVICE_ACCOUNT_PATH}",
-      package_name:"DIDroom wallet",
+      package_name:"com.didroom.wallet",
       aab:"android/app/build/outputs/bundle/release/app-release.aab",
       track: 'internal',
       metadata_path: "fastlane/metadata/android/en-US",
