@@ -88,18 +88,18 @@ jobs:
           ruby-version: '3.0'
           bundler-cache: true
 
-      - uses: maierj/fastlane-action@v3.1.0
-        env:
-          KEYSTORE_PATH: ${{ steps.android_keystore.outputs.filePath }}
-          SERVICE_ACCOUNT_PATH: ${{ steps.service_account.outputs.filePath }}
-          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
-          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
-          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
-          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-          PULL_REQUEST_NUMBER: ${{ github.event.number }}
-          PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
-        with:
-          lane: distribute
+      # - uses: maierj/fastlane-action@v3.1.0
+      #   env:
+      #     KEYSTORE_PATH: ${{ steps.android_keystore.outputs.filePath }}
+      #     SERVICE_ACCOUNT_PATH: ${{ steps.service_account.outputs.filePath }}
+      #     KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+      #     KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+      #     KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
+      #     FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+      #     PULL_REQUEST_NUMBER: ${{ github.event.number }}
+      #     PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
+      #   with:
+      #     lane: distribute
       - uses: maierj/fastlane-action@v3.1.0
         env:
           KEYSTORE_PATH: ${{ steps.playstore_keystore.outputs.filePath }}

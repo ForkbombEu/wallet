@@ -144,7 +144,7 @@ platform :android do
     # aab_path = "android/app/build/outputs/bundle/release/app-release.aab"
 
     release = upload_to_play_store(
-      json_key:"#{SERVICE_ACCOUNT_PATH}"
+      json_key:"#{SERVICE_ACCOUNT_PATH}",
       aab:"android/app/build/outputs/bundle/release/app-release.aab",
       track: 'internal',
       skip_upload_metadata: true,  
