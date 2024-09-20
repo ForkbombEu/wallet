@@ -123,7 +123,11 @@ platform :android do
     sh "ionic cap sync android"
     sh "ionic cap build android --no-open"
     package = load_json(json_path: "./package.json")
-    internal_latest_version_code = google_play_track_version_codes(track: 'internal', json_key:"#{SERVICE_ACCOUNT_PATH}")
+    internal_latest_version_code = google_play_track_version_codes(
+      track: 'internal', 
+      json_key:"#{SERVICE_ACCOUNT_PATH}",
+      package_name:"com.didroom.wallet"
+    )
     increment_version_code(
       gradle_file_path: "./android/app/build.gradle",
       version_code: internal_latest_version_code + 1
