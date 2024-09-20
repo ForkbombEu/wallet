@@ -130,7 +130,7 @@ platform :android do
     )
     increment_version_code(
       gradle_file_path: "./android/app/build.gradle",
-      version_code: internal_latest_version_code + 1
+      version_code: internal_latest_version_code.max + 1
     )
     increment_version_name(
       gradle_file_path: "./android/app/build.gradle",
