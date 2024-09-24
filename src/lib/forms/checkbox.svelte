@@ -12,12 +12,13 @@
 </script>
 
 <div class="space-y-2">
-	<FieldController {form} {fieldPath} let:errorText let:updateValue>
+	<FieldController {form} {fieldPath} let:errorText let:updateValue let:value>
 		<d-checkbox
 			name={fieldPath}
 			on:dChange={(e) => updateValue(e.detail)}
 			error={errorText}
 			id={fieldPath}
+			checked={value}
 		>
 			<slot />
 		</d-checkbox>
