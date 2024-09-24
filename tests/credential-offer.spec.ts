@@ -10,7 +10,7 @@ test.describe('Credential Offer Page', () => {
 		await expect(page.getByText('Credential offer')).toBeVisible();
 	});
 
-	test.skip('should load credential offer page after scan qr code', async ({ page }) => {
+	test('should load credential offer page after scan qr code', async ({ page }) => {
 		await login(page);
 		await tabBarClick('Home', page);
 		await page.getByRole('link', { name: 'SCAN QR' }).click();
@@ -18,7 +18,7 @@ test.describe('Credential Offer Page', () => {
 		await page
 			.getByRole('textbox')
 			.fill(
-				'openid4vp://?credential_configuration_ids=Auth1&credential_issuer=https%3A%2F%2Fissuer1.zenswarm.forkbomb.eu%2Fcredential_issuer%2F'
+				'didroom4vp://?credential_configuration_ids=Auth1&credential_issuer=https%3A%2F%2Fissuer1.zenswarm.forkbomb.eu%2Fcredential_issuer%2F'
 			);
 		await page.getByRole('button', { name: 'SUBMIT' }).click();
 
