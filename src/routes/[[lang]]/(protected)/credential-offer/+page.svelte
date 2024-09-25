@@ -133,7 +133,7 @@
 					>
 				</d-vertical-stack>
 			{:else}
-				<div class="h-full rounded-md bg-white p-4">
+				<div class="h-full rounded-md">
 					<div class="fixed left-0 top-0 opacity-90">
 						<d-loading loading={iframeLoading}>
 							<FingerPrint />
