@@ -1,42 +1,41 @@
 name: '🧪 and 📢 and 📲'
 
 on:
-  pull_request:
+  push:
     branches: ['main']
-
 jobs:
-  # tests:
-  #   runs-on: ubuntu-latest
-  #   environment: test
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: dyne/pnpm@main
-  #       with:
-  #         submodules: true
-  #     - uses: actions/setup-go@v5
-  #       with:
-  #         go-version: '1.22'
-  #     - run: |
-  #         git clone --recursive https://github.com/forkbombeu/signroom
-  #         cd signroom/admin
-  #         mkdir pb_data
-  #         cp ../../tests/fixtures/test.db pb_data/data.db
-  #         go build
-  #         ./pb migrate
-  #         ./pb serve &
-  #     - run: npx playwright install --with-deps
-  #     - run: pnpm test:integration
-  #       env:
-  #         PUBLIC_BACKEND_URL: http://localhost:8090
-  #         USER_EMAIL: ${{ vars.USER_EMAIL }}
-  #         USER_PASSWORD: ${{ vars.USER_PASSWORD }}
-  #         USER_SEED: ${{ vars.USER_SEED }}
-  #     - uses: actions/upload-artifact@v4
-  #       if: ${{ !cancelled() }}
-  #       with:
-  #         name: test-results
-  #         path: test-results/
-  #         retention-days: 10
+  tests:
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dyne/pnpm@main
+        with:
+          submodules: true
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      - run: |
+          git clone --recursive https://github.com/forkbombeu/signroom
+          cd signroom/admin
+          mkdir pb_data
+          cp ../../tests/fixtures/test.db pb_data/data.db
+          go build
+          ./pb migrate
+          ./pb serve &
+      - run: npx playwright install --with-deps
+      - run: pnpm test:integration
+        env:
+          PUBLIC_BACKEND_URL: http://localhost:8090
+          USER_EMAIL: ${{ vars.USER_EMAIL }}
+          USER_PASSWORD: ${{ vars.USER_PASSWORD }}
+          USER_SEED: ${{ vars.USER_SEED }}
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: test-results
+          path: test-results/
+          retention-days: 10
 
   distribute:
     runs-on: ubuntu-latest
@@ -87,19 +86,6 @@ jobs:
         with:
           ruby-version: '3.0'
           bundler-cache: true
-
-      # - uses: maierj/fastlane-action@v3.1.0
-      #   env:
-      #     KEYSTORE_PATH: ${{ steps.android_keystore.outputs.filePath }}
-      #     SERVICE_ACCOUNT_PATH: ${{ steps.service_account.outputs.filePath }}
-      #     KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
-      #     KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
-      #     KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
-      #     FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-      #     PULL_REQUEST_NUMBER: ${{ github.event.number }}
-      #     PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
-      #   with:
-      #     lane: distribute
       - uses: maierj/fastlane-action@v3.1.0
         env:
           KEYSTORE_PATH: ${{ steps.playstore_keystore.outputs.filePath }}
@@ -107,8 +93,5 @@ jobs:
           KEYSTORE_KEY_ALIAS: ${{ secrets.BUNDLE_BETA_PLAYSTORE_ALIAS }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.BUNDLE_BETA_PASSWORD }}
           KEYSTORE_STORE_PASSWORD: ${{ secrets.BUNDLE_BETA_PASSWORD }}
-          # FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-          PULL_REQUEST_NUMBER: ${{ github.event.number }}
-          PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
         with:
-          lane: internal
+          lane: alpha
