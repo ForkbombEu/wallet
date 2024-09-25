@@ -101,9 +101,6 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
-      sveltekit-superforms:
-        specifier: 1.13.4
-        version: 1.13.4(@sveltejs/kit@2.5.25(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.3(@types/node@22.5.3)(terser@5.31.6)))(svelte@4.2.19)(vite@5.4.3(@types/node@22.5.3)(terser@5.31.6)))(svelte@4.2.19)(zod@3.23.8)
       swiper:
         specifier: ^11.1.0
         version: 11.1.12
@@ -213,6 +210,9 @@ importers:
       svelte-check:
         specifier: ^3.6.7
         version: 3.8.6(@babel/core@7.25.2)(postcss-load-config@5.1.0(jiti@1.21.6)(postcss@8.4.45))(postcss@8.4.45)(svelte@4.2.19)
+      sveltekit-superforms:
+        specifier: 1.6.1
+        version: 1.6.1(@sveltejs/kit@2.5.25(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.3(@types/node@22.5.3)(terser@5.31.6)))(svelte@4.2.19)(vite@5.4.3(@types/node@22.5.3)(terser@5.31.6)))(svelte@4.2.19)(zod@3.23.8)
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.10(ts-node@10.9.2(@types/node@22.5.3)(typescript@5.5.4))
@@ -3743,10 +3743,6 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
 
-  klona@2.0.6:
-    resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
-    engines: {node: '>= 8'}
-
   known-css-properties@0.34.0:
     resolution: {integrity: sha512-tBECoUqNFbyAY4RrbqsBQqDFpGXAEbdD5QKr8kACx3+rnArmuuR22nKQWKazvp07N9yjTyDZaw/20UIH8tL9DQ==}
 
@@ -5358,10 +5354,10 @@ packages:
     resolution: {integrity: sha512-IY1rnGr6izd10B0A8LqsBfmlT5OILVuZ7XsI0vdGPEvuonFV7NYEUK4dAkm9Zg2q0Um92kYjTpS1CAP3Nh/KWw==}
     engines: {node: '>=16'}
 
-  sveltekit-superforms@1.13.4:
-    resolution: {integrity: sha512-rM2+Ictaw7OAIorCLmvg82orci/mtO9ZouI4emtx8SyYngx9aED+eNZlHPLufgB6D7geL2a+hMSFtM3zmMQixQ==}
+  sveltekit-superforms@1.6.1:
+    resolution: {integrity: sha512-85whZdnytMFStDY1PI3ycr5BoTb57XjkEJqZ2Mt8HT06y/CKlQBws5Cx/AxPxA3WHhGfC26yfXqLYqEQz1oGfw==}
     peerDependencies:
-      '@sveltejs/kit': 1.x || 2.x
+      '@sveltejs/kit': 1.x
       svelte: 3.x || 4.x
       zod: 3.x
 
@@ -10293,8 +10289,6 @@ snapshots:
 
   kleur@4.1.5: {}
 
-  klona@2.0.6: {}
-
   known-css-properties@0.34.0: {}
 
   kolorist@1.8.0: {}
@@ -11832,11 +11826,9 @@ snapshots:
       magic-string: 0.30.11
       periscopic: 3.1.0
 
-  sveltekit-superforms@1.13.4(@sveltejs/kit@2.5.25(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.3(@types/node@22.5.3)(terser@5.31.6)))(svelte@4.2.19)(vite@5.4.3(@types/node@22.5.3)(terser@5.31.6)))(svelte@4.2.19)(zod@3.23.8):
+  sveltekit-superforms@1.6.1(@sveltejs/kit@2.5.25(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.3(@types/node@22.5.3)(terser@5.31.6)))(svelte@4.2.19)(vite@5.4.3(@types/node@22.5.3)(terser@5.31.6)))(svelte@4.2.19)(zod@3.23.8):
     dependencies:
       '@sveltejs/kit': 2.5.25(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.3(@types/node@22.5.3)(terser@5.31.6)))(svelte@4.2.19)(vite@5.4.3(@types/node@22.5.3)(terser@5.31.6))
-      devalue: 4.3.3
-      klona: 2.0.6
       svelte: 4.2.19
       zod: 3.23.8
 
