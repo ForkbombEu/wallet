@@ -29,8 +29,8 @@ PULL_REQUEST_TITLE = ENV["PULL_REQUEST_TITLE"]
 
 platform :android do
 
-  desc "Deploy alpha version"
-  lane :alpha do
+  desc "Deploy github version"
+  lane :github do
     sh "pnpm install -g @ionic/cli"
     sh "pnpm install"
     sh "cp ../.env.example ../.env"

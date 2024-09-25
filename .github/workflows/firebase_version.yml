@@ -40,7 +40,7 @@ jobs:
   distribute:
     runs-on: ubuntu-latest
     environment: test
-    # needs: tests
+    needs: tests
     steps:
       - uses: dyne/pnpm@main
         with:
