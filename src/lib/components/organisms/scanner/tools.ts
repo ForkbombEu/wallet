@@ -9,12 +9,12 @@ import verQrToInfo from '$lib/mobile_zencode/wallet/ver_qr_to_info.zen?raw';
 import verQrToInfoKeys from '$lib/mobile_zencode/wallet/ver_qr_to_info.keys.json?raw';
 import { log } from '$lib/log';
 
-//@ts-expect-error something is wrong in Slangroom types
 const slangroom = new Slangroom(helpers, zencode, pocketbase, http);
 
 export type QrToInfoResults = {
 	info: Info;
-	post: Post;
+	post_without_vp: PostWithoutVp;
+	vps: string[];
 };
 
 export type Info = {
@@ -31,7 +31,7 @@ export type AskedClaims = {
 
 export type Properties = Record<string, { title: string; type: string }>;
 
-export type Post = {
+export type PostWithoutVp = {
 	body: Body;
 	url: string;
 };
@@ -108,15 +108,22 @@ export const parseQr = async (value: string): Promise<ParseQrResults> => {
 		return { result: 'ok', data: { type, service: parsedValue as Service } };
 	} else {
 		try {
-		const credential = await getCredentialQrInfo(parsedValue as Credential);
-		return { result: 'ok', data: { type, credential } };
+			const credential = await getCredentialQrInfo(parsedValue as Credential);
+			return { result: 'ok', data: { type, credential } };
 		} catch (err) {
 			return { result: 'error', message: `error getting credential info: ${err}` };
 		}
 	}
 };
 
-export const verifyCredential = async (post: Post) => {
+export const verifyCredential = async (postWVP: PostWithoutVp, vp: string) => {
+	const post = {
+		...postWVP,
+		body: {
+			...postWVP.body,
+			vp
+		}
+	};
 	const res = await slangroom.execute(
 		`Rule unknown ignore
 	Given I connect to 'url' and send object 'body' and do post and output into 'result'
@@ -137,11 +144,11 @@ export const getCredentialQrInfo = async (qrJSON: Credential) => {
 		...qrJSON,
 		credential_array: myCredentials
 	};
-	log(JSON.stringify(data))
+	log(JSON.stringify(data));
 	try {
-	const res = await slangroom.execute(verQrToInfo, { data, keys: JSON.parse(verQrToInfoKeys) });
-	log(JSON.stringify(res));
-	return res.result as QrToInfoResults;
+		const res = await slangroom.execute(verQrToInfo, { data, keys: JSON.parse(verQrToInfoKeys) });
+		log(JSON.stringify(res));
+		return res.result as QrToInfoResults;
 	} catch (err) {
 		log(JSON.stringify(err));
 		throw new Error(`error executing zencode: ${err}`);
