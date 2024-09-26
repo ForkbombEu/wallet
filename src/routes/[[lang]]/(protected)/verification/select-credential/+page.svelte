@@ -39,7 +39,7 @@
 			/>
 			<d-vertical-stack>
 				{#await getCredentialsbySdjwts(vps) then credentials}
-					{#each credentials as credential, index}
+					{#each credentials as credential}
 						<div
 							class={selectedCredential === credential.sdJwt
 								? 'rounded-lg border-2 border-solid border-accent'

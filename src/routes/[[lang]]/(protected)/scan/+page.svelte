@@ -8,7 +8,6 @@
 	import { Capacitor } from '@capacitor/core';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { credential } from '$paraglide/messages';
 
 	let barcodeResult: ParseQrResults;
 	let isModalOpen: boolean;
@@ -44,7 +43,6 @@
 			return await goto('/credential-offer');
 		}
 		if (barcodeResult.result === 'ok' && barcodeResult.data.type === 'credential') {
-			console.log(barcodeResult.data.credential);
 			verificationStore.set(barcodeResult.data.credential);
 			return await goto('/verification/select-credential');
 		}
