@@ -20,6 +20,7 @@
 <FieldController {form} {fieldPath} let:value let:errorText let:updateValue>
 	<d-input
 		{type}
+		id={fieldPath}
 		name={fieldPath}
 		{label}
 		{placeholder}

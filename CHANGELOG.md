@@ -1,3 +1,10 @@
+# [1.53.0](https://github.com/ForkbombEu/wallet/compare/v1.52.1...v1.53.0) (2024-09-27)
+
+
+### Features
+
+* playstore alpha deployment ([#462](https://github.com/ForkbombEu/wallet/issues/462)) ([56de0e2](https://github.com/ForkbombEu/wallet/commit/56de0e28dc195c0b133088352deefaa6333b6860))
+
 ## [1.52.1](https://github.com/ForkbombEu/wallet/compare/v1.52.0...v1.52.1) (2024-09-27)
 
 
