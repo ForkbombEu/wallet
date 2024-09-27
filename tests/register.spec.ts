@@ -1,10 +1,10 @@
 import { expect, test } from '@playwright/test';
 import { randomEmail, randomString } from './utils';
 
-test.describe.skip('Registration Flow', () => {
+test.describe('Registration Flow', () => {
 	test('should navigate to registration insert password page', async ({ page }) => {
 		await page.goto('/login?registration=true');
-		await page.locator('#ion-cb-0').click();
+		await page.locator('#conditions').click({ position: { x: 0, y: 10 } });
 		await page.fill('input[name="email"]', 'newuser@example.com');
 		await page.getByRole('button', { name: 'Next' }).click();
 		await expect(page).toHaveURL('/en/login/insert-password');
@@ -13,7 +13,7 @@ test.describe.skip('Registration Flow', () => {
 	test('should show error if passwords do not match', async ({ page }) => {
 		await page.goto('/login?registration=true');
 		await page.fill('input[name="email"]', 'newuser@example.com');
-		await page.locator('#ion-cb-0').click();
+		await page.locator('#conditions').click({ position: { x: 0, y: 10 } });
 		await page.getByRole('button', { name: 'Next' }).click();
 		await page.fill('input[name="password"]', 'password123');
 		await page.fill('input[name="confirmPassword"]', 'password456');
@@ -25,7 +25,7 @@ test.describe.skip('Registration Flow', () => {
 	test('should navigate to questions page after successful registration', async ({ page }) => {
 		await page.goto('/login?registration=true');
 		await page.fill('input[name="email"]', randomEmail());
-		await page.locator('#ion-cb-0').click();
+		await page.locator('#conditions').click({ position: { x: 0, y: 10 } });
 		await page.getByRole('button', { name: 'Next' }).click();
 		const password = randomString(8);
 		await page.fill('input[name="password"]', password);
@@ -39,7 +39,7 @@ test.describe.skip('Security Questions Page', () => {
 	test('should show error if less than three questions are answered', async ({ page }) => {
 		await page.goto('/login?registration=true');
 		await page.fill('input[name="email"]', randomEmail());
-		await page.locator('#ion-cb-0').click();
+		await page.locator('#conditions').click({ position: { x: 0, y: 10 } });
 		await page.getByRole('button', { name: 'Next' }).click();
 		const password = randomString(8);
 		await page.fill('input[name="password"]', password);
@@ -50,10 +50,10 @@ test.describe.skip('Security Questions Page', () => {
 		await expect(errorMessage).toBeVisible();
 	});
 
-	test.skip('should complete security questions and generate keypair', async ({ page }) => {
+	test('should complete security questions and generate keypair', async ({ page }) => {
 		await page.goto('/login?registration=true');
 		await page.fill('input[name="email"]', randomEmail());
-		await page.locator('#ion-cb-0').click();
+		await page.locator('#conditions').click({ position: { x: 0, y: 10 } });
 		await page.getByRole('button', { name: 'Next' }).click();
 		const password = randomString(8);
 		await page.fill('input[name="password"]', password);

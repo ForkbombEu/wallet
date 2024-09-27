@@ -6,3 +6,8 @@ export type SuperformGeneric<T extends AnyZodObject = AnyZodObject, M = unknown>
 	ZodValidation<T>,
 	M
 >;
+
+export type ZodFileOptions = {
+	types?: string[];
+	size?: number;
+};
