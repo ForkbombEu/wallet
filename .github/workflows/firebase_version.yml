@@ -20,6 +20,7 @@ jobs:
           cd signroom/admin
           mkdir pb_data
           cp ../../tests/fixtures/test.db pb_data/data.db
+          rm pb_migrations/1685000000_seed_features.js
           go build
           ./pb migrate
           ./pb serve &

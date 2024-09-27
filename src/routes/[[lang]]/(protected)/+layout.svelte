@@ -5,6 +5,7 @@
 	import { goto, m } from '$lib/i18n';
 	import { onDestroy, onMount } from 'svelte';
 	import type { PluginListenerHandle } from '@capacitor/core';
+	import { r } from '$lib/i18n';
 	import { getHomeFeedbackPreference } from '$lib/homeFeedbackPreferences.js';
 
 	export let data;
@@ -16,7 +17,7 @@
 
 	onMount(async () => {
 		appStateChange = await App.addListener('appStateChange', async (state) => {
-			if (!state.isActive) {
+			if (!state.isActive && !(r('/user-settings') === window.location.pathname)) {
 				await goto('/unlock');
 			}
 		});

@@ -73,7 +73,7 @@
 	"REGISTER": "REGISTER",
 	"You_can_recover_your_keypair_by_answering_the_registration_questions_correctly_again": "You can recover your keyring by answering the security questions correctly again or using this passphrase.",
 	"SCAN_QR": "SCAN QR",
-	"Go_to_issuance_services": "Get credentials",
+	"Go_to_issuance_services": "GET CREDENTIALS",
 	"CREATE_AN_ACCOUNT": "CREATE AN ACCOUNT",
 	"LOGIN": "LOGIN",
 	"on_boarding_subtitle_1": "DIDroom supports multiple standards like EUDI-ARF (eIDAS 2.0), W3C-VC, W3C-DID and BBS zero-knowledge proofs.",
@@ -142,5 +142,12 @@
 	"mark_all_as_read": "mark all as read",
 	"Issuer": "Issuer",
 	"Exp": "Exp",
-	"ok": "ok"
+	"ok": "ok",
+	"not_public": "not public",
+	"John_Doe": "John_Doe",
+	"username": "username",
+	"public_email": "public email",
+	"save": "save",
+	"cancel": "cancel",
+	"avatar": "avatar"
 }
