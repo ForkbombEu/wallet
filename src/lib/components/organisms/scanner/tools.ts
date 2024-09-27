@@ -8,11 +8,10 @@ import { http } from '@slangroom/http';
 import verQrToInfo from '$lib/mobile_zencode/wallet/ver_qr_to_info.zen?raw';
 import verQrToInfoKeys from '$lib/mobile_zencode/wallet/ver_qr_to_info.keys.json?raw';
 import { log } from '$lib/log';
-import { goto } from '$app/navigation';
 import { verificationStore } from '$lib/verificationStore';
 import { credentialOfferStore } from '$lib/credentialOfferStore';
 import type { Feedback } from '$lib/utils/types';
-import { m } from '$lib/i18n';
+import { m, goto } from '$lib/i18n';
 import { verificationResultsStore } from '$lib/verificationResultsStore';
 
 const slangroom = new Slangroom(helpers, zencode, pocketbase, http);
