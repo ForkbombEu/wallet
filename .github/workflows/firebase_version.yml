@@ -3,6 +3,7 @@ name: '🧪 and 📢 and 📲'
 on:
   pull_request:
     branches: ['main']
+
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -61,22 +62,16 @@ jobs:
           java-version: '17'
       - name: Decode Keystore File
         uses: timheuer/base64-to-file@v1
-        id: playstore_keystore
+        id: android_keystore
         with:
           fileName: android_keystore.keystore
-          encodedString: ${{ secrets.BUNDLE_BETA_PLAYSTORE }}
-      - name: Decode Service Account File for Firebase
+          encodedString: ${{ secrets.ANDROID_KEYSTORE_FILE }}
+      - name: Decode Service Account File
         uses: timheuer/base64-to-file@v1
         id: service_account
         with:
           fileName: play-store-credentials.json
           encodedString: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-      - name: Decode Service Account File for PlayStore
-        uses: timheuer/base64-to-file@v1
-        id: play_console_account
-        with:
-          fileName: play-store-credentials.json
-          encodedString: ${{ secrets.PLAYSTORE_SERVICE_ACCOUNT }}
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
@@ -84,11 +79,11 @@ jobs:
 
       - uses: maierj/fastlane-action@v3.1.0
         env:
-          KEYSTORE_PATH: ${{ steps.playstore_keystore.outputs.filePath }}
+          KEYSTORE_PATH: ${{ steps.android_keystore.outputs.filePath }}
           SERVICE_ACCOUNT_PATH: ${{ steps.service_account.outputs.filePath }}
-          KEYSTORE_KEY_ALIAS: ${{ secrets.BUNDLE_BETA_PLAYSTORE_ALIAS }}
-          KEYSTORE_KEY_PASSWORD: ${{ secrets.BUNDLE_BETA_PASSWORD }}
-          KEYSTORE_STORE_PASSWORD: ${{ secrets.BUNDLE_BETA_PASSWORD }}
+          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           PULL_REQUEST_NUMBER: ${{ github.event.number }}
           PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
