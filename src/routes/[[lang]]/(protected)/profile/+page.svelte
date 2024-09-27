@@ -19,6 +19,7 @@
 	};
 
 	const gotoLanguageSettings = () => goto('/languages');
+	const gotoAccountSettings = () => goto('/user-settings');
 </script>
 
 <d-tab-page tab="profile" title={m.Profile()} {...scanButton} settings>
@@ -50,6 +51,7 @@
 			log-out={m.Log_Out()}
 			{version}
 			developed-by={m.Developed_by_Forkbomb_BV()}
+      on:accountSettingsClick={gotoAccountSettings}
 			on:logoutClick={logoutCB}
 			on:languageSettingsClick={gotoLanguageSettings}
 			on:appSettingsClick={openAppSettings}

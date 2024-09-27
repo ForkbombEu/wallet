@@ -2,7 +2,7 @@
 	import { type TabProps, Tabs } from '$lib/tabs';
 	import IonTabs from '$lib/tabs/IonTabs.svelte';
 	import { App } from '@capacitor/app';
-	import { goto, m } from '$lib/i18n';
+	import { goto, m, r } from '$lib/i18n';
 	import { onDestroy, onMount } from 'svelte';
 	import type { PluginListenerHandle } from '@capacitor/core';
 
@@ -14,7 +14,7 @@
 
 	onMount(async () => {
 		appStateChange = await App.addListener('appStateChange', async (state) => {
-			if (!state.isActive) {
+			if (!state.isActive && !(r('/user-settings') === window.location.pathname)) {
 				await goto('/unlock');
 			}
 		});

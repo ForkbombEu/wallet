@@ -1,3 +1,17 @@
+## [1.52.1](https://github.com/ForkbombEu/wallet/compare/v1.52.0...v1.52.1) (2024-09-27)
+
+
+### Bug Fixes
+
+* 💄 chore iframe styling ([#467](https://github.com/ForkbombEu/wallet/issues/467)) ([d6b384b](https://github.com/ForkbombEu/wallet/commit/d6b384b7218ac14e928784e6689f354474c9ca27))
+
+# [1.52.0](https://github.com/ForkbombEu/wallet/compare/v1.51.1...v1.52.0) (2024-09-24)
+
+
+### Features
+
+* account settings ([#451](https://github.com/ForkbombEu/wallet/issues/451)) ([aadb4b9](https://github.com/ForkbombEu/wallet/commit/aadb4b919f789570501a9fdf1f71694627d41927)), closes [#314](https://github.com/ForkbombEu/wallet/issues/314) [#452](https://github.com/ForkbombEu/wallet/issues/452)
+
 ## [1.51.1](https://github.com/ForkbombEu/wallet/compare/v1.51.0...v1.51.1) (2024-09-09)
 
 
