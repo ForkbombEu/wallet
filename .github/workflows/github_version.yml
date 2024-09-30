@@ -50,6 +50,7 @@ jobs:
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
           KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
+          PUBLIC_BACKEND_URL: ${{ vars.PUBLIC_BACKEND_URL }}
         with:
           lane: github
       - run: mv release.apk wallet.apk

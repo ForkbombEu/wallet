@@ -87,5 +87,6 @@ jobs:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
           PULL_REQUEST_NUMBER: ${{ github.event.number }}
           PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
+          PUBLIC_BACKEND_URL: ${{ vars.PUBLIC_BACKEND_URL }}
         with:
           lane: distribute
