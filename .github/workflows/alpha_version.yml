@@ -88,6 +88,6 @@ jobs:
           KEYSTORE_KEY_ALIAS: ${{ secrets.BUNDLE_BETA_PLAYSTORE_ALIAS }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.BUNDLE_BETA_PASSWORD }}
           KEYSTORE_STORE_PASSWORD: ${{ secrets.BUNDLE_BETA_PASSWORD }}
-          PUBBLIC_BACKEND_URL: ${{ env.PUBBLIC_BACKEND_URL }}
+          PUBBLIC_BACKEND_URL: ${{ vars.PUBBLIC_BACKEND_URL }}
         with:
           lane: alpha

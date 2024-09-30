@@ -36,9 +36,7 @@ platform :android do
     sh "pnpm install"
     sh "ionic cap sync android"
     sh "ionic cap build android --no-open"
-    sh "echo #############################"
     sh "echo #{PUBLIC_BACKEND_URL}"
-    sh "echo #############################"
     package = load_json(json_path: "./package.json")
     increment_version_code(
       gradle_file_path: "./android/app/build.gradle",
@@ -73,10 +71,8 @@ platform :android do
   end
 
   lane :distribute do
-    sh "echo #############################"
     sh "echo #{PULL_REQUEST_NUMBER}"
     sh "echo #{PUBLIC_BACKEND_URL}"
-    sh "echo #############################"
     sh "pnpm install -g @ionic/cli"
     sh "pnpm install"
     sh "ionic cap sync android"
@@ -122,9 +118,7 @@ platform :android do
     )
     end
     lane :alpha do
-    sh "echo #############################"
     sh "echo #{PUBLIC_BACKEND_URL}"
-    sh "echo #############################"
     sh "pnpm install -g @ionic/cli"
     sh "pnpm install"
     sh "ionic cap sync android"
