@@ -156,52 +156,83 @@ const infoFromVerificationData = async (
 	}
 };
 
+const extractUrlParams = (
+	params: { [key: string]: 'string' | 'number' | 'array' },
+	urlSearchParams: URLSearchParams
+) =>
+	Object.entries(params).reduce((result, [key, type]) => {
+		const value = urlSearchParams.get(key)?.trim();
+		let parsedValue;
+
+		switch (type) {
+			case 'array':
+				parsedValue = value ? [value] : [];
+				break;
+			case 'number':
+				parsedValue = value ? Number(value) : undefined;
+				break;
+			default:
+				parsedValue = value;
+		}
+
+		return {
+			...result,
+			[key]: parsedValue
+		};
+	}, {});
+
+const parseParams = (urlParams: URLSearchParams, params: any, schema: any) => {
+	return schema.safeParse(extractUrlParams(params, urlParams));
+};
+
+const handleVerificationSuccess = async (verificationData: any) => {
+	const info = await infoFromVerificationData(verificationData);
+	if (info.success) {
+		verificationStore.set(info.info);
+		return await goto('/verification');
+	} else {
+		verificationResultsStore.set({
+			feedback: info.feedback,
+			date: new Date().toISOString(),
+			id: verificationData.sid,
+			success: false
+		});
+		return await goto('/verification/results');
+	}
+};
+
+const handleServiceSuccess = async (serviceData: any) => {
+	credentialOfferStore.set(serviceData);
+	return await goto('/credential-offer');
+};
+
 export const gotoQrResult = async (url: string) => {
 	const urlParams = new URLSearchParams(url.split('://?')[1]);
-	const getUrlParams = (params: (string | [string, 'number' | 'array'])[]) =>
-		params.reduce((object, value) => {
-			const isValueString = typeof value === 'string';
-			const key = isValueString ? value : value[0];
-			const type = isValueString ? 'string' : value[1];
 
-			return {
-				...object,
-				[key]:
-					type === 'string'
-						? urlParams.get(key)?.trim()
-						: type === 'array'
-							? [urlParams.get(key)]
-							: Number(urlParams.get(key)?.trim())
-			};
-		}, {});
+	const verificationParams = {
+		rp: 'string',
+		t: 'string',
+		m: 'string',
+		exp: 'number',
+		ru: 'string',
+		sid: 'string',
+		id: 'string'
+	};
 
-	const parsedVerification = credentialSchema.safeParse(
-		getUrlParams(['rp', 't', 'm', ['exp', 'number'], 'ru', 'sid', 'id'])
-	);
-
+	const parsedVerification = parseParams(urlParams, verificationParams, credentialSchema);
 	if (parsedVerification.success) {
-		const info = await infoFromVerificationData(parsedVerification.data);
-		if (info.success) {
-			verificationStore.set(info.info);
-			return await goto('/verification');
-		} else {
-			verificationResultsStore.set({
-				feedback: info.feedback,
-				date: new Date().toISOString(),
-				id: parsedVerification.data.sid,
-				success: false
-			});
-			return await goto('/verification/results');
-		}
+		return handleVerificationSuccess(parsedVerification.data);
 	}
 
-	const parsedService = serviceSchema.safeParse(
-		getUrlParams([['credential_configuration_ids', 'array'], 'credential_issuer'])
-	);
+	const serviceParams = {
+		credential_configuration_ids: 'array',
+		credential_issuer: 'string'
+	};
 
+	const parsedService = parseParams(urlParams, serviceParams, serviceSchema);
 	if (parsedService.success) {
-		credentialOfferStore.set(parsedService.data);
-		return await goto('/credential-offer');
+		return handleServiceSuccess(parsedService.data);
 	}
+
 	return await goto('/unlock');
 };
