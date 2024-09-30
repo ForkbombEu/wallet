@@ -1,12 +1,12 @@
 <script lang="ts">
 	import Modal from '$lib/components/molecules/Modal.svelte';
 	import Scanner from '$lib/components/organisms/scanner/Scanner.svelte';
-	import { gotoQrResult, type ParseQrError } from '$lib/components/organisms/scanner/tools';
+	import { gotoQrResult } from '$lib/components/organisms/scanner/tools';
 	import { Capacitor } from '@capacitor/core';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	let barcodeResult: ParseQrError | void;
+	let barcodeResult:{message: string} | void
 	const isWeb = Capacitor.getPlatform() == 'web';
 
 	function showModal() {

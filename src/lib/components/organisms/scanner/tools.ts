@@ -47,10 +47,6 @@ export type Body = {
 	vp: string;
 };
 
-export type ParseQrError = {
-	message: string;
-};
-
 export const credentialSchema = z.object({
 	rp: z.string().url(),
 	t: z.string(),
@@ -109,20 +105,20 @@ export const getCredentialQrInfo = async (qrJSON: Credential) => {
 	}
 };
 
-const parseBarcodeErrors = (barcodeResultMessage?: string) => {
-	if (!barcodeResultMessage) return;
-	if (!(typeof barcodeResultMessage === 'string')) return;
-	if (barcodeResultMessage.includes('QR code is expired')) {
+const parseQrCodeErrors = (qrcodeResultMessage?: string) => {
+	if (!qrcodeResultMessage) return;
+	if (!(typeof qrcodeResultMessage === 'string')) return;
+	if (qrcodeResultMessage.includes('QR code is expired')) {
 		return m.QR_code_is_expired();
 	}
 	if (
-		barcodeResultMessage.includes(
+		qrcodeResultMessage.includes(
 			'no_signed_selective_disclosure_found_that_matched_the_requested_claims'
 		)
 	) {
 		return m.You_have_no_signed_selective_disclosure_that_matched_the_requested_claims_or_your_credential_is_expired();
 	}
-	return barcodeResultMessage;
+	return qrcodeResultMessage;
 };
 
 const infoFromVerificationData = async (
@@ -144,13 +140,14 @@ const infoFromVerificationData = async (
 			success: true,
 			info: credential
 		};
+	//@ts-ignore
 	} catch (err: { message: unknown }) {
 		return {
 			success: false,
 			feedback: {
 				type: 'error',
 				feedback: 'Verification failed',
-				message: parseBarcodeErrors(err.message)
+				message: parseQrCodeErrors(err.message)
 			}
 		};
 	}
