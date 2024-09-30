@@ -25,6 +25,7 @@ APK_OUTPUT_PATH = "./release.apk"
 CACHE_PATH = "./.cache"
 PULL_REQUEST_NUMBER = ENV["PULL_REQUEST_NUMBER"]
 PULL_REQUEST_TITLE = ENV["PULL_REQUEST_TITLE"]
+PUBLIC_BACKEND_URL = ENV["PUBLIC_BACKEND_URL"]
 
 
 platform :android do
@@ -33,10 +34,11 @@ platform :android do
   lane :github do
     sh "pnpm install -g @ionic/cli"
     sh "pnpm install"
-    sh "cp ../.env.example ../.env"
     sh "ionic cap sync android"
     sh "ionic cap build android --no-open"
-    sh "echo #{PULL_REQUEST_NUMBER}"
+    sh "echo #############################"
+    sh "echo #{PUBLIC_BACKEND_URL}"
+    sh "echo #############################"
     package = load_json(json_path: "./package.json")
     increment_version_code(
       gradle_file_path: "./android/app/build.gradle",
@@ -71,9 +73,12 @@ platform :android do
   end
 
   lane :distribute do
+    sh "echo #############################"
+    sh "echo #{PULL_REQUEST_NUMBER}"
+    sh "echo #{PUBLIC_BACKEND_URL}"
+    sh "echo #############################"
     sh "pnpm install -g @ionic/cli"
     sh "pnpm install"
-    sh "cp ../.env.example ../.env"
     sh "ionic cap sync android"
     sh "ionic cap build android --no-open"
     package = load_json(json_path: "./package.json")
@@ -117,9 +122,11 @@ platform :android do
     )
     end
     lane :alpha do
+    sh "echo #############################"
+    sh "echo #{PUBLIC_BACKEND_URL}"
+    sh "echo #############################"
     sh "pnpm install -g @ionic/cli"
     sh "pnpm install"
-    sh "cp ../.env.example ../.env"
     sh "ionic cap sync android"
     sh "ionic cap build android --no-open"
     package = load_json(json_path: "./package.json")
@@ -146,7 +153,6 @@ platform :android do
             "android.injected.signing.key.alias" => "#{KEYSTORE_KEY_ALIAS}",
             "android.injected.signing.key.password" => "#{KEYSTORE_KEY_PASSWORD}",
           })
-    # aab_path = "android/app/build/outputs/bundle/release/app-release.aab"
 
     release = upload_to_play_store(
       json_key:"#{SERVICE_ACCOUNT_PATH}",
@@ -154,10 +160,6 @@ platform :android do
       aab:"android/app/build/outputs/bundle/release/app-release.aab",
       track: 'alpha',
       metadata_path: "./fastlane/metadata/android",
-      # skip_upload_metadata: true,  
-      # skip_upload_images: true,  
-      # skip_upload_screenshots: true,  
-      # skip_upload_changelogs: true,  
       skip_upload_apk: true,
       release_status: 'draft'
       )
