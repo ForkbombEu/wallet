@@ -106,7 +106,7 @@
 
 <ion-content fullscreen class="ion-padding">
 	{#if verificated}
-		<d-feedback {...feedback} class="sticky top-0 z-50 break-all" />
+		<d-feedback {...feedback} class="break-all" />
 
 		<div class="flex w-full justify-around">
 			<d-session-card sid={post_without_vp.body.id} {date} {success} />

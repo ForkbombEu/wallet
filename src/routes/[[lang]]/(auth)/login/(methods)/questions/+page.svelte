@@ -112,7 +112,7 @@
 </HeaderWithBackButton>
 
 <div class="flex h-full w-screen flex-col gap-4 px-4">
-	<d-feedback {...feedback} class="sticky top-0 z-50" />
+	<d-feedback {...feedback} />
 
 	{#if !seed}
 		<d-vertical-stack>

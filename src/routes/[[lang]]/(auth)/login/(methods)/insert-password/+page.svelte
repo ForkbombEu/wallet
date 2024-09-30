@@ -37,7 +37,7 @@
 <d-header back-button on:backButtonClick={() => window.history.back()} settingsTitle={m.Settings()}>
 	{m.REGISTER()}
 </d-header>
-<d-feedback {...feedback} class="sticky top-0 z-50" />
+<d-feedback {...feedback} />
 
 <div class="flex flex-col">
 	<div class="mb-10 sm:mb-0">

@@ -97,7 +97,7 @@
 </HeaderWithBackButton>
 
 <ion-content fullscreen class="ion-padding" bind:this={content}>
-	<d-feedback {...feedback} class="sticky top-0 z-50" />
+	<d-feedback {...feedback} />
 	{#if feedbackData}
 		<d-feedback {...feedbackData} />
 		<d-empty-state
