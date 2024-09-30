@@ -45,6 +45,34 @@ Download the latest test release on your Android device and install the APK:
 
 ***
 
+## 📦 Deployment and Testing Strategy
+
+The app follows a structured deployment approach across different environments, allowing for gradual and controlled releases. Below is a breakdown of the deployment intentions and how versioning is managed across different deployment types:
+
+| Deployment Type  | Environment | Version Name                         | Version Code                              |
+|------------------|-------------|--------------------------------------|-------------------------------------------|
+| github-release   | prod        | Semantic Versioning                  | Semantic versioning without dot           |
+| beta             | prod        | Semantic Versioning - beta           | Max version code on PlayStore + 1         |
+| alpha            | staging     | Semantic Versioning - alpha          | Max version code on PlayStore + 1         |
+| firebase         | staging     | Semantic Versioning - PR number      | PR number                                 |
+
+- **github-release**: Full production release, available to all users through official app stores. Follows semantic versioning without any additional labels.
+- **beta**: Limited production release intended for beta testers. The version name will include a `-beta` label, and the version code is incremented from the current max version in the Play Store.
+- **alpha**: Early release for staging environments, meant for alpha testers. The version name will include an `-alpha` label, and the version code will increment similarly to beta.
+- **firebase**: Used for internal testing and Continuous Integration (CI) with Firebase App Distribution. The version name corresponds to the PR number, and testers receive updates directly via Firebase.
+
+### Request for Testers
+
+To be included as a tester for closed alpha or Firebase releases, please email us at:
+
+📧 **info@forkbomb.eu**
+
+Once added, you will receive instructions on how to download the app and provide feedback.
+
+**[🔝 back to top](#toc)**
+
+***
+
 ## 🚀 Using the Application
 
 ### Create a New User
