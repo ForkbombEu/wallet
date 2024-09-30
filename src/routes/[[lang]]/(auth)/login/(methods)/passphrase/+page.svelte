@@ -56,7 +56,7 @@
 </HeaderWithBackButton>
 
 <div class="flex flex-col">
-	<d-feedback {...feedback} />
+	<d-feedback {...feedback} class="sticky top-0 z-50" />
 	<div class="mb-10 sm:mb-0">
 		<d-background-illustration {background}>
 			<d-illustration illustration="chat" /></d-background-illustration

@@ -67,7 +67,7 @@
 
 <div class="flex min-h-screen flex-col place-content-between">
 	<div class="grow">
-		<d-feedback {...feedback} />
+		<d-feedback {...feedback} class="sticky top-0 z-50" />
 		<d-background-illustration {background}>
 			<d-illustration illustration="pidgeon"> </d-illustration></d-background-illustration
 		>

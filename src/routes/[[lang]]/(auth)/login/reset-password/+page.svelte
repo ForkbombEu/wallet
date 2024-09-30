@@ -51,7 +51,7 @@
 	{m.Reset_password()}
 </HeaderWithBackButton>
 <div class="flex min-h-screen flex-col place-content-between">
-	<d-feedback {...feedback} />
+	<d-feedback {...feedback} class="sticky top-0 z-50" />
 	<div class="grow">
 		<d-background-illustration {background}>
 			<d-illustration illustration="chat" /></d-background-illustration
