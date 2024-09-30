@@ -8,6 +8,7 @@ import { http } from '@slangroom/http';
 import verQrToInfo from '$lib/mobile_zencode/wallet/ver_qr_to_info.zen?raw';
 import verQrToInfoKeys from '$lib/mobile_zencode/wallet/ver_qr_to_info.keys.json?raw';
 import { log } from '$lib/log';
+import { backendUri } from '$lib/backendUri';
 
 const slangroom = new Slangroom(helpers, zencode, pocketbase, http);
 
@@ -142,7 +143,8 @@ export const getCredentialQrInfo = async (qrJSON: Credential) => {
 	if (!myCredentials) throw new Error('No credentials');
 	const data = {
 		...qrJSON,
-		credential_array: myCredentials
+		credential_array: myCredentials,
+		pb_url: backendUri
 	};
 	log(JSON.stringify(data));
 	try {
