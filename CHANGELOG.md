@@ -1,3 +1,10 @@
+## [1.53.1](https://github.com/ForkbombEu/wallet/compare/v1.53.0...v1.53.1) (2024-09-30)
+
+
+### Bug Fixes
+
+* envoroment for each lane ([#470](https://github.com/ForkbombEu/wallet/issues/470)) ([45e3bdd](https://github.com/ForkbombEu/wallet/commit/45e3bddb5706de8ca4ff9978111463c1e8cf48d2))
+
 # [1.53.0](https://github.com/ForkbombEu/wallet/compare/v1.52.1...v1.53.0) (2024-09-27)
 
 
