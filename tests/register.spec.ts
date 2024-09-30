@@ -4,8 +4,8 @@ import { randomEmail, randomString } from './utils';
 test.describe('Registration Flow', () => {
 	test('should navigate to registration insert password page', async ({ page }) => {
 		await page.goto('/login?registration=true');
-		await page.locator('#conditions').click({ position: { x: 0, y: 10 } });
 		await page.fill('input[name="email"]', 'newuser@example.com');
+		await page.locator('#conditions').click({ position: { x: 0, y: 10 } });
 		await page.getByRole('button', { name: 'Next' }).click();
 		await expect(page).toHaveURL('/en/login/insert-password');
 	});

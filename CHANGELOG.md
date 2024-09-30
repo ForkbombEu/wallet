@@ -1,3 +1,24 @@
+## [1.53.1](https://github.com/ForkbombEu/wallet/compare/v1.53.0...v1.53.1) (2024-09-30)
+
+
+### Bug Fixes
+
+* envoroment for each lane ([#470](https://github.com/ForkbombEu/wallet/issues/470)) ([45e3bdd](https://github.com/ForkbombEu/wallet/commit/45e3bddb5706de8ca4ff9978111463c1e8cf48d2))
+
+# [1.53.0](https://github.com/ForkbombEu/wallet/compare/v1.52.1...v1.53.0) (2024-09-27)
+
+
+### Features
+
+* playstore alpha deployment ([#462](https://github.com/ForkbombEu/wallet/issues/462)) ([56de0e2](https://github.com/ForkbombEu/wallet/commit/56de0e28dc195c0b133088352deefaa6333b6860))
+
+## [1.52.1](https://github.com/ForkbombEu/wallet/compare/v1.52.0...v1.52.1) (2024-09-27)
+
+
+### Bug Fixes
+
+* 💄 chore iframe styling ([#467](https://github.com/ForkbombEu/wallet/issues/467)) ([d6b384b](https://github.com/ForkbombEu/wallet/commit/d6b384b7218ac14e928784e6689f354474c9ca27))
+
 # [1.52.0](https://github.com/ForkbombEu/wallet/compare/v1.51.1...v1.52.0) (2024-09-24)
 
 
