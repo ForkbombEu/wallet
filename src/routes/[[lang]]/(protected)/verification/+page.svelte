@@ -48,7 +48,7 @@
 		verifyIsClicked = true;
 		let activity: Activity;
 		try {
-			verificationResponse = (await verifyCredential(post)) as VerificationResponse;
+			verificationResponse = (await verifyCredential(post_without_vp)) as VerificationResponse;
 			verificated = true;
 			success = verificationResponse.result.result.result.server_response.status === '200';
 			date = dayjs().toString();
