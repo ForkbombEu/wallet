@@ -12,13 +12,14 @@
 	const { vps, post_without_vp } = $verificationStore;
 
 	const verify = async () => {
+		if (!selectedCredential) return;
 		verificationStore.set({
 			...$verificationStore,
 			post_without_vp: {
 				...post_without_vp,
 				body: {
 					...post_without_vp.body,
-					vp: selectedCredential!
+					vp: selectedCredential
 				}
 			}
 		});
@@ -59,7 +60,7 @@
 			</d-vertical-stack>
 		</d-vertical-stack>
 		<d-vertical-stack class="pb-24">
-			<d-button on:click={verify} aria-hidden expand color="accent">{m.Verify()}</d-button>
+			<d-button on:click={verify} aria-hidden expand color="accent" disabled={!selectedCredential}>{m.Verify()}</d-button>
 			<d-button expand aria-hidden>{m.Decline()}</d-button>
 		</d-vertical-stack>
 	</div>
