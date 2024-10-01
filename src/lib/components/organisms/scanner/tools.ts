@@ -117,26 +117,16 @@ export const parseQr = async (value: string): Promise<ParseQrResults> => {
 	}
 };
 
-export const verifyCredential = async (postWVP: PostWithoutVp, vp: string) => {
-	const post = {
-		...postWVP,
-		body: {
-			...postWVP.body,
-			vp
-		}
-	};
-	const res = await slangroom.execute(
+export const verifyCredential = async (postWVP: PostWithoutVp) =>
+	await slangroom.execute(
 		`Rule unknown ignore
 	Given I connect to 'url' and send object 'body' and do post and output into 'result'
 	Given I have a 'string dictionary' named 'result'
 	Then print data`,
 		{
-			data: post
+			data: postWVP
 		}
 	);
-
-	return res;
-};
 
 export const getCredentialQrInfo = async (qrJSON: Credential) => {
 	const myCredentials = await getCredentialsSdjwt();
