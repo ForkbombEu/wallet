@@ -1,3 +1,10 @@
+# [1.54.0](https://github.com/ForkbombEu/wallet/compare/v1.53.1...v1.54.0) (2024-10-02)
+
+
+### Features
+
+* handle credential offer deep links ([#431](https://github.com/ForkbombEu/wallet/issues/431)) ([433b123](https://github.com/ForkbombEu/wallet/commit/433b123c1c302398af10c79d71a149e58ea0b41c)), closes [#430](https://github.com/ForkbombEu/wallet/issues/430)
+
 ## [1.53.1](https://github.com/ForkbombEu/wallet/compare/v1.53.0...v1.53.1) (2024-09-30)
 
 
