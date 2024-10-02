@@ -15,7 +15,9 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { navigating } from '$app/stores';
 	import { App } from '@capacitor/app';
+	import { gotoQrResult } from '$lib/components/organisms/scanner/tools';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
+
 	const controller = new AbortController();
 	const signal = controller.signal;
 
@@ -36,6 +38,10 @@
 			},
 			{ signal }
 		);
+
+		App.addListener('appUrlOpen', async (data) => {
+			await gotoQrResult(data.url);
+		});
 	});
 	onDestroy(() => {
 		controller.abort();
@@ -48,7 +54,7 @@
 		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
 	/>
 	<!-- uncomment to test didroom-components locally -->
-	 <!-- <script 
+	<!-- <script 
 	 	type="module" 
 	 	src="http://localhost:3333/build/didroom-components.esm.js" 
 	 ></script> 
