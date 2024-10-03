@@ -10,7 +10,7 @@ export type Credential = {
 	configuration_ids: string[];
 	sdJwt: string;
 	issuer: string;
-	issuerUrl:string
+	issuerUrl: string;
 	display_name: string;
 	description: string;
 	expirationDate: number;
@@ -49,12 +49,14 @@ export async function getCredentialsPreference(): Promise<Credential[] | undefin
 	return await getStructuredPreferences(CREDENTIALS_PREFERENCES_KEY, true);
 }
 
-export async function getCredentialsbySdjwts(sdjwts:string[]):Promise<Credential[]>{
+export async function getCredentialsbySdjwts(sdjwts: string[]): Promise<Credential[]> {
 	const credentials = await getCredentialsPreference();
 	if (!credentials) return [];
-	return credentials.filter((credential) => sdjwts.includes(credential.sdJwt));
+	const sdjwtsWithoutDisclosures = sdjwts.map((sdjwt) => sdjwt.split('~')[0]);
+	return credentials.filter((credential) =>
+		sdjwtsWithoutDisclosures.includes(credential.sdJwt.split('~')[0])
+	);
 }
-
 
 export async function getCredentialsSdjwt(): Promise<string[] | undefined> {
 	const credentials = await getCredentialsPreference();
@@ -82,8 +84,7 @@ export async function getCredentialPreference(id: string): Promise<Credential | 
 	return credentials.find((credential) => String(credential.id) === id);
 }
 
-
-export async function getExpiredCredentials(): Promise<Credential[]>{
+export async function getExpiredCredentials(): Promise<Credential[]> {
 	const credentials = await getCredentialsPreference();
 	if (!credentials) return [];
 	return credentials.filter((credential) => credential.expirationDate < dayjs().unix());
