@@ -38,7 +38,7 @@
 		<d-vertical-stack>
 			<d-page-description
 				title={m.Select_credential()}
-				description={m.novel_elegant_capybara_twist({ lenght: credentials.length })}
+				description={m.novel_elegant_capybara_twist({ length: credentials.length })}
 			/>
 			<d-vertical-stack>
 				{#each credentials as credential}
