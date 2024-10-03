@@ -38,7 +38,7 @@
 	let success: boolean;
 	let verifyIsClicked = false;
 
-	const { info, post } = $verificationStore;
+	const { info, post_without_vp } = $verificationStore;
 	const { rp_name, verifier_name, asked_claims } = info;
 	const { properties } = asked_claims;
 	const propertiesArray = Object.values(properties);
@@ -48,7 +48,7 @@
 		verifyIsClicked = true;
 		let activity: Activity;
 		try {
-			verificationResponse = (await verifyCredential(post)) as VerificationResponse;
+			verificationResponse = (await verifyCredential(post_without_vp)) as VerificationResponse;
 			verificated = true;
 			success = verificationResponse.result.result.result.server_response.status === '200';
 			date = dayjs().toString();
@@ -64,7 +64,7 @@
 			}
 			activity = {
 				type: 'verification',
-				sid: post.body.id,
+				sid: post_without_vp.body.id,
 				at: dayjs().unix(),
 				verifier_name,
 				rp_name,
@@ -84,7 +84,7 @@
 			};
 			activity = {
 				type: 'verification',
-				sid: post.body.id,
+				sid: post_without_vp.body.id,
 				at: dayjs().unix(),
 				verifier_name,
 				rp_name,
@@ -109,7 +109,7 @@
 		<d-feedback {...feedback} class="break-all" />
 
 		<div class="flex w-full justify-around">
-			<d-session-card sid={post.body.id} {date} {success} />
+			<d-session-card sid={post_without_vp.body.id} {date} {success} />
 		</div>
 	{:else}
 		<div class="flex h-full flex-col justify-between gap-3 pb-16">
@@ -134,7 +134,7 @@
 					</div>
 					<div class="flex items-center gap-2.5">
 						<d-info-led type="warning" />
-						<d-text class="break-all"><b>{m.Url()}:</b> {post.url}</d-text>
+						<d-text class="break-all"><b>{m.Url()}:</b> {post_without_vp.url}</d-text>
 					</div>
 				</div>
 			</div>

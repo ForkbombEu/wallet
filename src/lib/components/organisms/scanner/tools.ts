@@ -8,6 +8,7 @@ import { http } from '@slangroom/http';
 import verQrToInfo from '$lib/mobile_zencode/wallet/ver_qr_to_info.zen?raw';
 import verQrToInfoKeys from '$lib/mobile_zencode/wallet/ver_qr_to_info.keys.json?raw';
 import { log } from '$lib/log';
+import { backendUri } from '$lib/backendUri';
 import { verificationStore } from '$lib/verificationStore';
 import { credentialOfferStore } from '$lib/credentialOfferStore';
 import type { Feedback } from '$lib/utils/types';
@@ -18,7 +19,8 @@ const slangroom = new Slangroom(helpers, zencode, pocketbase, http);
 
 export type QrToInfoResults = {
 	info: Info;
-	post: Post;
+	post_without_vp: PostWithoutVp;
+	vps: string[];
 };
 
 export type Info = {
@@ -35,7 +37,7 @@ export type AskedClaims = {
 
 export type Properties = Record<string, { title: string; type: string }>;
 
-export type Post = {
+export type PostWithoutVp = {
 	body: Body;
 	url: string;
 };
@@ -73,26 +75,24 @@ export type Data =
 			service: Service;
 	  };
 
-export const verifyCredential = async (post: Post) => {
-	const res = await slangroom.execute(
+export const verifyCredential = async (postWVP: PostWithoutVp) =>
+	await slangroom.execute(
 		`Rule unknown ignore
 	Given I connect to 'url' and send object 'body' and do post and output into 'result'
 	Given I have a 'string dictionary' named 'result'
 	Then print data`,
 		{
-			data: post
+			data: postWVP
 		}
 	);
-
-	return res;
-};
 
 export const getCredentialQrInfo = async (qrJSON: Credential) => {
 	const myCredentials = await getCredentialsSdjwt();
 	if (!myCredentials) throw new Error('No credentials');
 	const data = {
 		...qrJSON,
-		credential_array: myCredentials
+		credential_array: myCredentials,
+		pb_url: backendUri
 	};
 	log(JSON.stringify(data));
 	try {
@@ -186,7 +186,7 @@ const handleVerificationSuccess = async (verificationData: any) => {
 	const info = await infoFromVerificationData(verificationData);
 	if (info.success) {
 		verificationStore.set(info.info);
-		return await goto('/verification');
+		return await goto('/verification/select-credential');
 	} else {
 		verificationResultsStore.set({
 			feedback: info.feedback,

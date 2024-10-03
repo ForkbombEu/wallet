@@ -38,15 +38,15 @@
 </script>
 
 <d-tab-page tab="home" title={m.Home()} {...scanButton}>
-	<d-feedback {...feedback?.content} on:dClose={onFeedbackClose} />
+	<d-feedback {...feedback?.content} on:dClose={onFeedbackClose} class="sticky top-0 z-50"/>
 	<d-page-description
 		title={m.Claim_credential()}
 		description={m.Scan_QR_code_to_claim_credential_or_request_one_below()}
 	/>
-	<d-vertical-stack>
+	<d-vertical-stack >
 		{#each services as service}
 			<d-credential-service
-				name={service.display_name}
+				name={service.display_name || ""}
 				issuer={service.expand.credential_issuer.name}
 				organization={service.expand.organization.name}
 				logoSrc={service.logo}

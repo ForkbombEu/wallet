@@ -49,6 +49,13 @@ export async function getCredentialsPreference(): Promise<Credential[] | undefin
 	return await getStructuredPreferences(CREDENTIALS_PREFERENCES_KEY, true);
 }
 
+export async function getCredentialsbySdjwts(sdjwts:string[]):Promise<Credential[]>{
+	const credentials = await getCredentialsPreference();
+	if (!credentials) return [];
+	return credentials.filter((credential) => sdjwts.includes(credential.sdJwt));
+}
+
+
 export async function getCredentialsSdjwt(): Promise<string[] | undefined> {
 	const credentials = await getCredentialsPreference();
 	if (!credentials) return;
