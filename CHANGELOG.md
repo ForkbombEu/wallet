@@ -1,3 +1,10 @@
+# [1.55.0](https://github.com/ForkbombEu/wallet/compare/v1.54.0...v1.55.0) (2024-10-03)
+
+
+### Features
+
+* at verification time select credentials if there are many with needed claims ([#469](https://github.com/ForkbombEu/wallet/issues/469)) ([7e1e3d9](https://github.com/ForkbombEu/wallet/commit/7e1e3d99bde0b5a56c0c4744981500bbff0844aa))
+
 # [1.54.0](https://github.com/ForkbombEu/wallet/compare/v1.53.1...v1.54.0) (2024-10-02)
 
 
