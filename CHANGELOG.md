@@ -1,3 +1,11 @@
+## [1.55.1](https://github.com/ForkbombEu/wallet/compare/v1.55.0...v1.55.1) (2024-10-03)
+
+
+### Bug Fixes
+
+* get credential by sdjwt match without disclosures ([#473](https://github.com/ForkbombEu/wallet/issues/473)) ([9c703e8](https://github.com/ForkbombEu/wallet/commit/9c703e851f00ba0e0711cd490daf238a0a296215))
+* input touch target ([#472](https://github.com/ForkbombEu/wallet/issues/472)) ([71cffba](https://github.com/ForkbombEu/wallet/commit/71cffba4d3bf9ada7bde1c1e0fff3bdd6e2e9299))
+
 # [1.55.0](https://github.com/ForkbombEu/wallet/compare/v1.54.0...v1.55.0) (2024-10-03)
 
 
