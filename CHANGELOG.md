@@ -1,3 +1,10 @@
+## [1.55.2](https://github.com/ForkbombEu/wallet/compare/v1.55.1...v1.55.2) (2024-10-04)
+
+
+### Bug Fixes
+
+* remove logs from production ([#475](https://github.com/ForkbombEu/wallet/issues/475)) ([dd6ed3e](https://github.com/ForkbombEu/wallet/commit/dd6ed3e88eff1f60ace1fd00141c93d875f78e1f))
+
 ## [1.55.1](https://github.com/ForkbombEu/wallet/compare/v1.55.0...v1.55.1) (2024-10-03)
 
 
