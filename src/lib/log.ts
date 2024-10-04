@@ -1,7 +1,8 @@
 // import { dev } from '$app/environment';
 import { setLogPreference } from './preferences/logs';
+import { PUBLIC_BACKEND_URL } from '$env/static/public';
 
-const dev = true;
+export const dev = PUBLIC_BACKEND_URL === 'https://staging.admin.didroom.com';
 
 export const log = dev ? logAndSave : () => {};
 
@@ -19,7 +20,7 @@ async function logAndSave(message: string) {
 				const lineNumber = match[3];
 				const columnNumber = match[4];
 				callerInfo = `${functionName} (${fileName}:${lineNumber}:${columnNumber})`;
-				break; 
+				break;
 			}
 		}
 	}
