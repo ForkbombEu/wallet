@@ -13,14 +13,6 @@
 	import { addActivity, type Activity } from '$lib/preferences/activity.js';
 	import { verifyCredential } from '$lib/components/organisms/scanner/tools.js';
 
-	export let data;
-	const { credentials } = data;
-
-	let selectedCredential: string | undefined = undefined;
-	const selectCredential = (credential: string | undefined) => {
-		selectedCredential = credential;
-	};
-
 	type VerificationResponse = {
 		result: {
 			result: {
@@ -44,12 +36,18 @@
 		logs: string;
 	};
 
+	export let data;
+	const { credentials } = data;
+
+	let selectedCredential: string | undefined = undefined;
+
 	let feedback: Feedback = {};
 	let verificationResponse: VerificationResponse;
 	let date = '';
-	let verificated: boolean;
+	let verified: boolean;
 	let success: boolean;
 	let verifyIsClicked = false;
+	let scrollBox: HTMLDivElement;
 
 	const { info, post_without_vp } = $verificationStore;
 	const { rp_name, verifier_name, asked_claims } = info;
@@ -57,7 +55,15 @@
 	const propertiesArray = Object.values(properties);
 	const verificationFailed = 'verification failed';
 
-	const request = async () => {
+	const selectCredential = (credential: string | undefined) => {
+		selectedCredential = credential;
+		scrollBox.scrollIntoView({
+			behavior: 'smooth',
+			block: 'start'
+		});
+	};
+
+	const verify = async () => {
 		verifyIsClicked = true;
 		let activity: Activity;
 		try {
@@ -68,7 +74,7 @@
 					vp: selectedCredential!
 				}
 			})) as VerificationResponse;
-			verificated = true;
+			verified = true;
 			success = verificationResponse.result.result.result.server_response.status === '200';
 			date = dayjs().toString();
 			feedback = {
@@ -90,7 +96,7 @@
 			};
 			log(JSON.stringify(verificationResponse));
 		} catch (e) {
-			verificated = true;
+			verified = true;
 			date = dayjs().toString();
 			success = false;
 			date = dayjs().toString();
@@ -129,8 +135,8 @@
 </HeaderWithBackButton>
 
 <ion-content>
-	{#if verificated}
-		<div>
+	{#if verified}
+		<div class="ion-padding">
 			<d-feedback {...feedback} />
 
 			<div class="flex w-full justify-around">
@@ -138,7 +144,7 @@
 			</div>
 		</div>
 	{:else}
-		<div class="ion-padding flex h-full flex-col justify-between">
+		<div class="ion-padding flex h-full flex-col justify-between" bind:this={scrollBox}>
 			<d-vertical-stack>
 				<d-page-description
 					title={m.Select_credential()}
@@ -152,6 +158,7 @@
 							selected={selectedCredential === credential.sdJwt}
 							relying-party={credential.issuerUrl}
 							verifier={credential.issuer}
+							logo={credential.logo.url}
 							flow={credential.display_name}
 							on:click={() => selectCredential(credential.sdJwt)}
 							aria-hidden
@@ -165,14 +172,15 @@
 							{/await}
 						</d-verification-card>
 					{/each}
+					<div class="pb-56" />
 				</d-vertical-stack>
 			</d-vertical-stack>
 		</div>
 		{#if selectedCredential}
-			<div class="ion-padding fixed bottom-0 h-40 w-full bg-primary" transition:slide>
+			<div class="ion-padding fixed bottom-0 h-40 w-full bg-surface" transition:slide>
 				<d-vertical-stack>
 					<d-button
-						on:click={request}
+						on:click={verify}
 						aria-hidden
 						expand
 						color="accent"
