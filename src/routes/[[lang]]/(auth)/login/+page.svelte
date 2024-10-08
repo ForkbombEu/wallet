@@ -79,7 +79,7 @@
 						<d-text size="l">{m.enter_your_email_to_get_started()}.</d-text>
 					</div>
 
-					<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full" let:isTainted>
+					<Form {form} formClass="flex flex-col gap-2 pb-6 pt-4 w-full" let:isTainted>
 						<Input
 							{form}
 							fieldPath="email"
@@ -97,7 +97,7 @@
 								type="password"
 								hidable
 							>
-								<a href={r('/login/reset-password')} class="text-blue-500"
+								<a href={r('/login/reset-password')} class="text-accent underline h-12"
 									>{m.forgot_your_password()}</a
 								>
 							</Input>
