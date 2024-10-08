@@ -186,7 +186,7 @@ const handleVerificationSuccess = async (verificationData: any) => {
 	const info = await infoFromVerificationData(verificationData);
 	if (info.success) {
 		verificationStore.set(info.info);
-		return await goto('/verification/select-credential');
+		return await goto('/verification');
 	} else {
 		verificationResultsStore.set({
 			feedback: info.feedback,
