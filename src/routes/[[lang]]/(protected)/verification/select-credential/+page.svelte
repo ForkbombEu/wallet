@@ -122,8 +122,11 @@
 				<d-session-card
 					sid={post_without_vp.body.id}
 					{date}
-					inProgress={success}
-					in-progress={success}
+					in-progress={!success}
+					in-progress-message={m.tidy_royal_giraffe_stop()}
+					success-message={m.just_sleek_ape_fall()}
+					failure-message={m.teary_seemly_dragonfly_cheer()}
+					session-message={m.petty_fit_flea_twirl()}
 				/>
 			</div>
 		</div>
@@ -135,7 +138,7 @@
 					description={m.novel_elegant_capybara_twist({ length: credentials.length })}
 				/>
 				<d-vertical-stack>
-					{#each sortedCredentials() as credential, index (credential?.sdJwt)}
+					{#each sortedCredentials() as credential, index (credential.sdJwt)}
 						<d-verification-card
 							class:opacity-60={selectedCredential && selectedCredential !== credential.sdJwt}
 							class="transition-opacity duration-500"

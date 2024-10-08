@@ -144,5 +144,9 @@
 	"Exp": "Exp",
 	"ok": "ok",
 	"Select_credential": "Select credential:",
-	"novel_elegant_capybara_twist": "You have {length} credentials with the same attributes, which one do you wanna use?"
+	"novel_elegant_capybara_twist": "You have {length} credentials with the same attributes, which one do you wanna use?",
+	"tidy_royal_giraffe_stop": "In progress...",
+	"just_sleek_ape_fall": "Verified.",
+	"teary_seemly_dragonfly_cheer": "Failure.",
+	"petty_fit_flea_twirl": "session id:"
 }
