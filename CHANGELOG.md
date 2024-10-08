@@ -1,3 +1,10 @@
+## [1.55.3](https://github.com/ForkbombEu/wallet/compare/v1.55.2...v1.55.3) (2024-10-08)
+
+
+### Bug Fixes
+
+* every too little touch target ([#476](https://github.com/ForkbombEu/wallet/issues/476)) ([54f8265](https://github.com/ForkbombEu/wallet/commit/54f826500b2371effa466a06a15403ba2dc607db))
+
 ## [1.55.2](https://github.com/ForkbombEu/wallet/compare/v1.55.1...v1.55.2) (2024-10-04)
 
 
