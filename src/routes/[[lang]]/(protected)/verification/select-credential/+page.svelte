@@ -75,14 +75,16 @@
 			})) as VerificationResponse;
 			verified = true;
 			success = verificationResponse.result.result.result.server_response.status === '200';
+			const { message } = verificationResponse.result.result.result.server_response.result.error;
+			const { code: serverResponse } =
+				verificationResponse.result.result.result.server_response.result.error;
 			date = dayjs().toString();
 			if (!success) {
 				feedback = negativeFeedback(
 					verificationFailed,
 					JSON.stringify({
-						serverResponse:
-							verificationResponse.result.result.result.server_response.result.error.code,
-						message: verificationResponse.result.result.result.server_response.result.error.message,
+						serverResponse,
+						message,
 						logs: verificationResponse.logs
 					})
 				);
