@@ -42,7 +42,8 @@
 	export let data;
 	const { credentials } = data;
 
-	let selectedCredential: string | undefined = undefined;
+	let selectedCredential: string | undefined =
+		credentials.length === 1 ? credentials[0].sdJwt : undefined;
 
 	let feedback: Feedback = {};
 	let verificationResponse: VerificationResponse;
