@@ -7,6 +7,7 @@ import type { Credential } from '$lib/preferences/credentials';
 import { setNewActivitiesInHome } from '$lib/homeFeedbackPreferences';
 import { invalidate } from '$app/navigation';
 import { _protectedLayoutKey } from '../../routes/[[lang]]/(protected)/+layout';
+import type { Info } from '$lib/components/organisms/scanner/tools';
 
 dayjs.extend(relativeTime);
 
@@ -67,6 +68,22 @@ export async function addActivity(activity: Activity) {
 	await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, [{ ...activity, at }]);
 	setNewActivitiesInHome({ count: 1, seen: false });
 	invalidate(_protectedLayoutKey);
+}
+
+export async function addVerificationActivity(sid: string, info: Info, success: boolean) {
+	const at = dayjs().unix();
+	const { asked_claims } = info;
+	const { properties } = asked_claims;
+	const propertiesArray = Object.values(properties).map((property) => property.title);
+	await addActivity({
+		type: 'verification',
+		verifier_name: info.verifier_name,
+		success,
+		rp_name: info.rp_name,
+		sid,
+		properties: propertiesArray,
+		at
+	});
 }
 
 export async function getActivities(): Promise<Activity[] | undefined> {

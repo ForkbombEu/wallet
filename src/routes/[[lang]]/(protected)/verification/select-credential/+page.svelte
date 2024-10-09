@@ -10,8 +10,9 @@
 	import { verificationStore } from '$lib/verificationStore.js';
 	import dayjs from 'dayjs';
 	import { log } from '$lib/log.js';
-	import { addActivity, type Activity } from '$lib/preferences/activity.js';
+	import { addVerificationActivity } from '$lib/preferences/activity.js';
 	import { verifyCredential } from '$lib/components/organisms/scanner/tools.js';
+	import { negativeFeedback } from '$lib/utils/index.js';
 
 	type VerificationResponse = {
 		result: {
@@ -23,8 +24,10 @@
 					};
 					server_response: {
 						result: {
-							message: string;
-							response: string;
+							error: {
+								message: string;
+								code: string;
+							};
 						};
 						status: string;
 					};
@@ -50,9 +53,6 @@
 	let scrollBox: HTMLDivElement;
 
 	const { info, post_without_vp } = $verificationStore;
-	const { rp_name, verifier_name, asked_claims } = info;
-	const { properties } = asked_claims;
-	const propertiesArray = Object.values(properties);
 	const verificationFailed = 'verification failed';
 
 	const selectCredential = (credential: string | undefined) => {
@@ -65,7 +65,6 @@
 
 	const verify = async () => {
 		verifyIsClicked = true;
-		let activity: Activity;
 		try {
 			verificationResponse = (await verifyCredential({
 				...post_without_vp,
@@ -77,46 +76,27 @@
 			verified = true;
 			success = verificationResponse.result.result.result.server_response.status === '200';
 			date = dayjs().toString();
-			feedback = {
-				type: 'error',
-				message: JSON.stringify({
-					logs: verificationResponse.logs,
-					serverResponse: verificationResponse.result.result.result.server_response.result
-				}),
-				feedback: verificationFailed
-			};
-			activity = {
-				type: 'verification',
-				sid: post_without_vp.body.id,
-				at: dayjs().unix(),
-				verifier_name,
-				rp_name,
-				properties: propertiesArray.map((property) => property.title),
-				success
-			};
+			if (!success) {
+				feedback = negativeFeedback(
+					verificationFailed,
+					JSON.stringify({
+						serverResponse:
+							verificationResponse.result.result.result.server_response.result.error.code,
+						message: verificationResponse.result.result.result.server_response.result.error.message,
+						logs: verificationResponse.logs
+					})
+				);
+			}
+			await addVerificationActivity(post_without_vp.body.id, info, success);
 			log(JSON.stringify(verificationResponse));
 		} catch (e) {
 			verified = true;
 			date = dayjs().toString();
 			success = false;
-			date = dayjs().toString();
-			feedback = {
-				type: 'error',
-				message: JSON.stringify(e),
-				feedback: verificationFailed
-			};
-			activity = {
-				type: 'verification',
-				sid: post_without_vp.body.id,
-				at: dayjs().unix(),
-				verifier_name,
-				rp_name,
-				properties: propertiesArray.map((property) => property.title),
-				success
-			};
+			feedback = negativeFeedback(verificationFailed, JSON.stringify(e));
 			log(JSON.stringify(e));
 		}
-		await addActivity(activity);
+		await addVerificationActivity(post_without_vp.body.id, info, success);
 	};
 
 	const sortedCredentials = () => {
@@ -138,9 +118,16 @@
 	{#if verified}
 		<div class="ion-padding">
 			<d-feedback {...feedback} />
-
 			<div class="flex w-full justify-around">
-				<d-session-card sid={post_without_vp.body.id} {date} {success} />
+				<d-session-card
+					sid={post_without_vp.body.id}
+					{date}
+					in-progress={!success}
+					in-progress-message={m.tidy_royal_giraffe_stop()}
+					success-message={m.just_sleek_ape_fall()}
+					failure-message={m.teary_seemly_dragonfly_cheer()}
+					session-message={m.petty_fit_flea_twirl()}
+				/>
 			</div>
 		</div>
 	{:else}
@@ -151,7 +138,7 @@
 					description={m.novel_elegant_capybara_twist({ length: credentials.length })}
 				/>
 				<d-vertical-stack>
-					{#each sortedCredentials() as credential, index (credential?.sdJwt)}
+					{#each sortedCredentials() as credential, index (credential.sdJwt)}
 						<d-verification-card
 							class:opacity-60={selectedCredential && selectedCredential !== credential.sdJwt}
 							class="transition-opacity duration-500"
