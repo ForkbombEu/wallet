@@ -1,3 +1,10 @@
+## [1.55.4](https://github.com/ForkbombEu/wallet/compare/v1.55.3...v1.55.4) (2024-10-09)
+
+
+### Bug Fixes
+
+* verification results view ([#480](https://github.com/ForkbombEu/wallet/issues/480)) ([efcf6ae](https://github.com/ForkbombEu/wallet/commit/efcf6ae53308813aefddc07739839e846adc7820))
+
 ## [1.55.3](https://github.com/ForkbombEu/wallet/compare/v1.55.2...v1.55.3) (2024-10-08)
 
 
