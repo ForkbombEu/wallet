@@ -33,8 +33,12 @@ export const _protectedLayoutKey = 'load:protected-layout';
 
 export const load = async ({ depends }) => {
 	depends(_protectedLayoutKey);
-	const ff = await getHomeFeedbackPreference();
-	const hasHomeFeedback = !(ff?.expiredCredentials?.seen && ff?.newActivities?.seen);
+	const { expiredCredentials, newActivities } = await getHomeFeedbackPreference();
+	const hasHomeFeedback = !(
+		!(expiredCredentials || newActivities) ||
+		expiredCredentials?.seen ||
+		newActivities?.seen
+	);
 	const lang = await getLang();
 	const boarded = await isAlreadyBoarded();
 	if (!boarded) throw redirect(303, r('/on-boarding', lang));

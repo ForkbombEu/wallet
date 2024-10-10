@@ -30,22 +30,25 @@
 
 <ion-tabs>
 	<slot />
-	<ion-tab-bar slot="bottom" class="ion-padding flex justify-between py-0">
-		{#each tabs as tab}
-			<d-tab-button
-				tab={tab.tab}
-				on:keydown={() => {
-					tabBarClick(tab.tab);
-				}}
-				on:click={() => {
-					tabBarClick(tab.tab);
-				}}
-				aria-hidden
-				active={currentTabName === tab.tab}
-				hasAlert={tab.hasAlert}
-			>
-				{tab.label}
-			</d-tab-button>
-		{/each}
-	</ion-tab-bar>
+	{#key currentTabName}
+		<ion-tab-bar slot="bottom" class="ion-padding flex min-h-12 justify-between py-0">
+			{#each tabs as tabObj}
+				{@const { tab, hasAlert, label } = tabObj}
+				<d-tab-button
+					{tab}
+					on:keydown={() => {
+						tabBarClick(tab);
+					}}
+					on:click={() => {
+						tabBarClick(tab);
+					}}
+					aria-hidden
+					active={currentTabName === tab}
+					{hasAlert}
+				>
+					{label}
+				</d-tab-button>
+			{/each}
+		</ion-tab-bar>
+	{/key}
 </ion-tabs>
