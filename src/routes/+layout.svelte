@@ -8,7 +8,7 @@
 	import '../theme/custom.css';
 	import '../theme/variables.css';
 
-	import { i18n, r } from '$lib/i18n';
+	import { goto, i18n, r } from '$lib/i18n';
 	import { ParaglideJS } from '@inlang/paraglide-js-adapter-sveltekit';
 	import HiddenLogsButton from '$lib/components/molecules/HiddenLogsButton.svelte';
 	import { log } from '$lib/log';
@@ -28,8 +28,14 @@
 				ev.detail.register(-1, () => {
 					if (isExitPoint()) App.exitApp();
 					else if (r('/unlock') === window.location.pathname) return;
+					else if (isBackLockedPoint()) return goto('/unlock');
 					else window.history.back();
 				});
+
+				const isBackLockedPoint = () => {
+					const backLockedPoints = [r('/verification'), r('/verification/select-credential')];
+					return backLockedPoints.includes(window.location.pathname);
+				};
 
 				const isExitPoint = () => {
 					const exitPoints = [r('/home'), r('/register-login')];
