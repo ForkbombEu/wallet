@@ -1,3 +1,10 @@
+## [1.55.7](https://github.com/ForkbombEu/wallet/compare/v1.55.6...v1.55.7) (2024-10-14)
+
+
+### Bug Fixes
+
+* the verification show failed message but it sent the request to relyng party ([#495](https://github.com/ForkbombEu/wallet/issues/495)) ([743debb](https://github.com/ForkbombEu/wallet/commit/743debb400254ace7a1fb9e2b9635edd20aee4c7))
+
 ## [1.55.6](https://github.com/ForkbombEu/wallet/compare/v1.55.5...v1.55.6) (2024-10-14)
 
 
