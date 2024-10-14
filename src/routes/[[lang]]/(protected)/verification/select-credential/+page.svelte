@@ -50,7 +50,6 @@
 	let date = '';
 	let verified: boolean;
 	let success: boolean;
-	let verifyIsClicked = false;
 	let scrollBox: HTMLDivElement;
 
 	const { info, post_without_vp } = $verificationStore;
@@ -65,7 +64,6 @@
 	};
 
 	const verify = async () => {
-		verifyIsClicked = true;
 		try {
 			verificationResponse = (await verifyCredential({
 				...post_without_vp,
@@ -123,7 +121,7 @@
 				<d-session-card
 					sid={post_without_vp.body.id}
 					{date}
-					in-progress={!success}
+					in-progress={success}
 					in-progress-message={m.tidy_royal_giraffe_stop()}
 					success-message={m.just_sleek_ape_fall()}
 					failure-message={m.teary_seemly_dragonfly_cheer()}
