@@ -51,7 +51,7 @@
 <svelte:head>
 	<meta
 		name="viewport"
-		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=no"
 	/>
 	<!-- uncomment to test didroom-components locally -->
 	<!-- <script 
@@ -64,11 +64,11 @@
 	 />  -->
 	<script
 		type="module"
-		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.30.4/dist/didroom-components/didroom-components.esm.js"
+		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.31/dist/didroom-components/didroom-components.esm.js"
 	></script>
 	<link
 		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.30.4/dist/didroom-components/didroom-components.css"
+		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.31/dist/didroom-components/didroom-components.css"
 	/>
 </svelte:head>
 <svelte:window
