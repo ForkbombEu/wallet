@@ -51,7 +51,7 @@ export const ACTIVITY_PREFERENCES_KEY = 'activity';
 export async function getNotReadedActivities() {
 	const activities = await getActivities();
 	if (!activities) return;
-	return activities.filter((activity) => !activity.read).length;
+	return activities.filter((activity) => !activity.read).length || undefined;
 }
 
 export async function addActivity(activity: Activity) {
@@ -60,8 +60,10 @@ export async function addActivity(activity: Activity) {
 	if (activities) {
 		activities.push({ ...activity, at });
 		await setStructuredPreferences(ACTIVITY_PREFERENCES_KEY, activities);
-		const unreads = activities.filter((activity) => activity.read).length;
-		setNewActivitiesInHome({ count: unreads, seen: false });
+		const unreads = await getNotReadedActivities();
+		if (unreads) {
+			await setNewActivitiesInHome({ count: unreads, seen: false });
+		}
 		invalidate(_protectedLayoutKey);
 		return;
 	}

@@ -1,3 +1,10 @@
+## [1.55.5](https://github.com/ForkbombEu/wallet/compare/v1.55.4...v1.55.5) (2024-10-11)
+
+
+### Bug Fixes
+
+* preSelect the credential at verification time when match just one ([#482](https://github.com/ForkbombEu/wallet/issues/482)) ([7840181](https://github.com/ForkbombEu/wallet/commit/7840181468a9cfbd5b710efc664181a52dc43318))
+
 ## [1.55.4](https://github.com/ForkbombEu/wallet/compare/v1.55.3...v1.55.4) (2024-10-09)
 
 
