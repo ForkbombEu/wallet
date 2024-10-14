@@ -7,7 +7,6 @@
 	import type { PluginListenerHandle } from '@capacitor/core';
 
 	export let data;
-	const { notReadedActivities, hasHomeFeedback } = data;
 	let appStateChange: PluginListenerHandle;
 
 	//
@@ -25,9 +24,15 @@
 	});
 
 	let tabs: TabProps[] = [
-		{ label: m.Home(), tab: Tabs.home, hasAlert: hasHomeFeedback },
+		{ label: m.Home(), tab: Tabs.home, hasAlert: data.hasHomeFeedback },
 		{ label: m.Wallet(), tab: Tabs.wallet },
-		{ label: m.Notifications(), tab: Tabs.activity, hasAlert: Boolean(notReadedActivities) },
+		{ label: m.Notifications(), tab: Tabs.activity, hasAlert: Boolean(data.notReadedActivities) },
+		{ label: m.Profile(), tab: Tabs.profile }
+	];
+	$: tabs = [
+		{ label: m.Home(), tab: Tabs.home, hasAlert: data.hasHomeFeedback },
+		{ label: m.Wallet(), tab: Tabs.wallet },
+		{ label: m.Notifications(), tab: Tabs.activity, hasAlert: Boolean(data.notReadedActivities) },
 		{ label: m.Profile(), tab: Tabs.profile }
 	];
 </script>

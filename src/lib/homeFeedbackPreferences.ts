@@ -22,8 +22,8 @@ export type HomeFeedbacksList = {
 	content: Feedback;
 }[];
 
-export async function getHomeFeedbackPreference(): Promise<HomeFeedbackRecord | undefined> {
-	return await getStructuredPreferences<HomeFeedbackRecord>(HOME_FEEDBACK_KEY);
+export async function getHomeFeedbackPreference(): Promise<HomeFeedbackRecord> {
+	return await getStructuredPreferences<HomeFeedbackRecord>(HOME_FEEDBACK_KEY) || {};
 }
 
 export async function setHomeFeedbackPreference(homeFeedback: HomeFeedbackRecord) {
