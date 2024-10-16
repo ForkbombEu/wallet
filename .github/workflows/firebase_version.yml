@@ -12,6 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dyne/pnpm@main
         with:
+          node-version: '20.11.1'
           submodules: true
       - uses: actions/setup-go@v5
         with:
@@ -46,6 +47,7 @@ jobs:
     steps:
       - uses: dyne/pnpm@main
         with:
+          node-version: '20.11.1'
           submodules: true
       - uses: actions/cache@v4
         with:
