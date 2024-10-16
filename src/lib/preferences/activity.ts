@@ -8,6 +8,7 @@ import { setNewActivitiesInHome } from '$lib/homeFeedbackPreferences';
 import { invalidate } from '$app/navigation';
 import { _protectedLayoutKey } from '../../routes/[[lang]]/(protected)/+layout';
 import type { Info } from '$lib/components/organisms/scanner/tools';
+import { filesUri } from '$lib/backendUri';
 
 dayjs.extend(relativeTime);
 
@@ -23,6 +24,7 @@ export type Verification = {
 	rp_name: string;
 	sid: string;
 	properties: string[];
+	avatar: { id: string; collection: string; fileName: string };
 };
 
 export type ExpiredCredential = {
@@ -74,12 +76,13 @@ export async function addActivity(activity: Activity) {
 
 export async function addVerificationActivity(sid: string, info: Info, success: boolean) {
 	const at = dayjs().unix();
-	const { asked_claims } = info;
+	const { asked_claims, avatar } = info;
 	const { properties } = asked_claims;
 	const propertiesArray = Object.values(properties).map((property) => property.title);
 	await addActivity({
 		type: 'verification',
 		verifier_name: info.verifier_name,
+		avatar,
 		success,
 		rp_name: info.rp_name,
 		sid,
@@ -128,8 +131,15 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 				parsedActivity.message = `${credential.display_name} is expired`;
 			}
 		} else if (activity.type === 'verification') {
-			const { verifier_name, success, rp_name, properties } = activity;
+			const { verifier_name, success, rp_name, properties, avatar } = activity;
 			parsedActivity.name = verifier_name;
+
+			if (avatar) {
+				parsedActivity.logo = {
+					url: filesUri(avatar.fileName, avatar.collection, avatar.id),
+					alt_text: verifier_name
+				};
+			}
 			parsedActivity.message = `${verifier_name} verified yours: ${properties.join(', ')} via ${rp_name} and it was a ${
 				success ? 'success' : 'failure'
 			}`;
