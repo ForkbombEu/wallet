@@ -17,7 +17,7 @@
 	};
 </script>
 
-<HeaderWithBackButton lockOnBackButton>
+<HeaderWithBackButton>
 	{m.Verification()}
 </HeaderWithBackButton>
 
