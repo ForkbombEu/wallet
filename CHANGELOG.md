@@ -1,3 +1,17 @@
+## [1.55.7](https://github.com/ForkbombEu/wallet/compare/v1.55.6...v1.55.7) (2024-10-14)
+
+
+### Bug Fixes
+
+* the verification show failed message but it sent the request to relyng party ([#495](https://github.com/ForkbombEu/wallet/issues/495)) ([743debb](https://github.com/ForkbombEu/wallet/commit/743debb400254ace7a1fb9e2b9635edd20aee4c7))
+
+## [1.55.6](https://github.com/ForkbombEu/wallet/compare/v1.55.5...v1.55.6) (2024-10-14)
+
+
+### Bug Fixes
+
+* tab bar ([#484](https://github.com/ForkbombEu/wallet/issues/484)) ([89c1d99](https://github.com/ForkbombEu/wallet/commit/89c1d996f38b8334d2693944cedd8ca2f19860a6)), closes [#486](https://github.com/ForkbombEu/wallet/issues/486) [#487](https://github.com/ForkbombEu/wallet/issues/487)
+
 ## [1.55.5](https://github.com/ForkbombEu/wallet/compare/v1.55.4...v1.55.5) (2024-10-11)
 
 
