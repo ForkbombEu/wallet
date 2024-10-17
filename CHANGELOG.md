@@ -1,3 +1,10 @@
+## [1.55.8](https://github.com/ForkbombEu/wallet/compare/v1.55.7...v1.55.8) (2024-10-17)
+
+
+### Bug Fixes
+
+* accessibility issues ([#498](https://github.com/ForkbombEu/wallet/issues/498)) ([cb6dc78](https://github.com/ForkbombEu/wallet/commit/cb6dc7869a7e743f41456b0d54954e54105d01ff))
+
 ## [1.55.7](https://github.com/ForkbombEu/wallet/compare/v1.55.6...v1.55.7) (2024-10-14)
 
 
