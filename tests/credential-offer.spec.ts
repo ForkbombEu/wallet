@@ -1,113 +1,53 @@
 import { expect, test } from '@playwright/test';
-import { login, tabBarClick } from './utils';
+import { login, tabBarClick, userEmail, userPassword } from './utils';
+import { CredentialOfferPage } from './fixtures/CredentialOfferPage';
 
 test.describe('Credential Offer Page', () => {
-	test('should load credential offer page after navigating from home', async ({ page }) => {
+	let credentialOfferPage: CredentialOfferPage;
+
+	test.beforeEach(async ({ page }) => {
 		await login(page);
 		await tabBarClick('Home', page);
-		await page.locator('text=Proof of email possession').click();
-		await expect(page).toHaveURL('/en/credential-offer');
-		await expect(page.getByText('Credential offer')).toBeVisible();
+		credentialOfferPage = new CredentialOfferPage(page);
 	});
 
-	test('should load credential offer page after scan qr code', async ({ page }) => {
-		await login(page);
-		await tabBarClick('Home', page);
-		await page.getByRole('link', { name: 'SCAN QR' }).click();
-		await expect(page).toHaveURL('/en/scan');
-		await page
-			.getByRole('textbox')
-			.fill(
-				'didroom4vp://?credential_configuration_ids=Auth1&credential_issuer=https%3A%2F%2Fissuer1.zenswarm.forkbomb.eu%2Fcredential_issuer%2F'
-			);
-		await page.getByRole('button', { name: 'SUBMIT' }).click();
-
-		await expect(page).toHaveURL('/en/credential-offer');
-		await expect(page.getByText('Credential offer')).toBeVisible();
+	test('should load credential offer page after navigating from home', async () => {
+		await credentialOfferPage.gotoCredentialOfferPage();
+		await credentialOfferPage.verifyCredentialOfferVisible();
 	});
 
-	test('should display credential offer form after loading', async ({ page }) => {
-		await login(page);
-		await tabBarClick('Home', page);
-		await page.locator('text=Proof of email possession').click();
-		await expect(page).toHaveURL('/en/credential-offer');
-		await expect(page.frameLocator('#authorization-server')).toBeTruthy();
-		// await expect(page.locator('form#schemaForm')).toBeVisible();
+	test('should load credential offer page after scan QR code', async () => {
+		const qrCode =
+			'openid-credential-offer://?credential_configuration_ids=email_PoP&credential_issuer=https%3A%2F%2Fissuer1.zenswarm.forkbomb.eu%2Fcredential_issuer';
+		await credentialOfferPage.scanQRCode(qrCode);
+		await credentialOfferPage.verifyCredentialOfferVisible();
 	});
 
-	test.skip('should submit credential offer form and show modal', async ({ page }) => {
-		await login(page);
-		await tabBarClick('Home', page);
-		await page.locator('text=Proof of email possession').click();
-
-		const form = page.locator('form#schemaForm');
-		await form.locator('input').nth(0).fill('a');
-		await form.locator('input').nth(1).fill('b');
-		await form.locator('input').nth(2).fill('c');
-
-		await page.getByRole('button', { name: 'GET THIS CREDENTIAL' }).click();
-
-		await expect(page.locator('#ion-overlay-5')).toBeVisible();
-		await expect(page.locator('text=The credential is being generated')).toBeVisible();
+	test('should show error feedback if is broken issuer', async () => {
+		const qrCode =
+			'openid-credential-offer://?credential_configuration_ids=email_PoP&credential_issuer=https%3A%2F%2Fissuer1.zenswar.eu%2Fcredential_issuer';
+		await credentialOfferPage.scanQRCode(qrCode);
+		await credentialOfferPage.verifyIsBrokenIssuer();
 	});
 
-	test.skip('should handle service response and navigate to credential detail', async ({
-		page
-	}) => {
-		await login(page);
-		await tabBarClick('Home', page);
-		await page.locator('text=Proof of email possession').click();
-
-		const form = page.locator('form#schemaForm');
-		await form.locator('input').nth(0).fill('a');
-		await form.locator('input').nth(1).fill('b');
-		await form.locator('input').nth(2).fill('c');
-
-		await page.getByRole('button', { name: 'GET THIS CREDENTIAL' }).click();
-
-		await expect(page.locator('#ion-overlay-5')).toBeHidden();
-		await expect(page).toHaveURL('/en/1/credential-detail');
+	test('should load iframe after clicking continue button', async () => {
+		await credentialOfferPage.gotoCredentialOfferPage();
+		await credentialOfferPage.continueToAuthorization();
+		await credentialOfferPage.verifyIframeLoaded();
 	});
 
-	test.skip('should add activity after success', async ({ page }) => {
-		await login(page);
-		await tabBarClick('Home', page);
-		await page.locator('text=Proof of email possession').click();
-
-		const form = page.locator('form#schemaForm');
-		await form.locator('input').nth(0).fill('a');
-		await form.locator('input').nth(1).fill('b');
-		await form.locator('input').nth(2).fill('c');
-
-		await page.getByRole('button', { name: 'GET THIS CREDENTIAL' }).click();
-
-		await expect(page.locator('#ion-overlay-5')).toBeHidden();
-		await expect(page).toHaveURL('/en/1/credential-detail');
-		await tabBarClick('Activity', page);
-		const activityLocator = page.locator('.itens-start');
-		await expect(activityLocator.first()).toBeVisible();
+	test('should fill the iframe form and authenticate', async () => {
+		await credentialOfferPage.gotoCredentialOfferPage();
+		await credentialOfferPage.continueToAuthorization();
+		await credentialOfferPage.verifyIframeLoaded();
+		await credentialOfferPage.submitCredentialForm(userEmail, userPassword);
+		await credentialOfferPage.verifyModalHidden();
+		await expect(credentialOfferPage.page).toHaveURL('/en/1/credential-detail');
 	});
 
-	test.skip('should display an error if the credential issuer is out of service', async ({
-		page
-	}) => {
-		await login(page);
-		await tabBarClick('Home', page);
-		await page.locator('text=Broken Issuer!').click();
-
-		await expect(page).toHaveURL('/en/home');
-		await expect(
-			page.locator('text=The credential issuer is currently offline, you may try again later')
-		).toBeVisible();
-	});
-
-	test('should decline credential offer and return to home', async ({ page }) => {
-		await login(page);
-		await tabBarClick('Home', page);
-		await page.locator('text=Proof of email possession').click();
-
-		await page.getByRole('link', { name: 'DECLINE' }).click();
-
-		await expect(page).toHaveURL('/en/home');
+	test('should decline credential offer and return to home', async () => {
+		await credentialOfferPage.gotoCredentialOfferPage();
+		await credentialOfferPage.declineOffer();
+		await expect(credentialOfferPage.page).toHaveURL('/en/home');
 	});
 });
