@@ -2,11 +2,9 @@
 	import { BarcodeScanner, type Barcode } from '@capacitor-mlkit/barcode-scanning';
 	import { close } from 'ionicons/icons';
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
-	import { goto, m } from '$lib/i18n';
+	import { m } from '$lib/i18n';
 	import camera from '$lib/assets/camera.png';
 	import { Capacitor } from '@capacitor/core';
-	import { tweened } from 'svelte/motion';
-	import { quartInOut } from 'svelte/easing';
 	import { NativeSettings, AndroidSettings, IOSSettings } from 'capacitor-native-settings';
 	import { arrowForwardOutline } from 'ionicons/icons';
 	import { invalidateAll } from '$app/navigation';
@@ -95,12 +93,6 @@
 
 	//
 
-	const translateY = tweened(-138, { duration: 2000, easing: quartInOut });
-	$: if ($translateY === -138) translateY.set(+135);
-	$: if ($translateY === +135) translateY.set(-138);
-
-	//
-
 	const openSettings = async () => {
 		await NativeSettings.open({
 			optionAndroid: AndroidSettings.ApplicationDetails,
@@ -114,9 +106,9 @@
 	};
 </script>
 
-<ion-header class="visible bg-[#d2d7e5]">
+<ion-header class="visible z-50">
 	<ion-toolbar>
-		<ion-title class="text-center uppercase pl-14">
+		<ion-title class="pl-14 text-center uppercase">
 			{m.QR_SCAN()}
 		</ion-title>
 		<ion-buttons slot="end">
@@ -151,33 +143,11 @@
 				</div>
 			{:else}
 				<slot {scan} {stopScan} />
-				<div
-					class="visible fixed left-0 top-0 z-40 flex h-screen w-full flex-col items-center justify-center"
-				>
-					<div class="viewfinderBg min-h-24 w-full flex-grow" />
-					<div class="flex h-72 w-full">
-						<div class="max-w-1/4 viewfinderBg h-full flex-grow" />
-						<div
-							class="viewfinder relative z-50 h-72 w-72 overflow-hidden rounded-md bg-transparent"
-						>
-							<div class="absolute left-0 top-0 h-full w-full border-8 border-white"></div>
-							<div
-								class="absolute left-0 top-1/2 h-1 w-full -translate-y-1/2 transform bg-white"
-								style="transform: translateY({$translateY}px)"
-							></div>
-						</div>
-						<div class="viewfinderBg h-full flex-grow" />
-					</div>
-
-					<div class="viewfinderBg w-full flex-grow">
-						<div class="ion-padding">
-							<d-page-description
-								title={m.Scan_QR_to_verify_or_obtain_credentials_()}
-								description={m.Make_sure_to_scan_the_full_QR_surface_()}
-							/>
-						</div>
-					</div>
-				</div>
+				<d-scanner-mask
+					class="visible z-40"
+					heading={m.Scan_QR_to_verify_or_obtain_credentials_()}
+					description={m.Make_sure_to_scan_the_full_QR_surface_()}
+				/>
 			{/if}
 		{/await}
 	{:else}
@@ -192,20 +162,3 @@
 	{/if}
 </ion-content>
 
-<style>
-	.viewfinder {
-		--s: 50px;
-		--t: 8px;
-
-		padding: calc(var(--t));
-		outline-offset: calc(-1 * var(--t));
-		mask:
-			conic-gradient(at var(--s) var(--s), #0000 75%, #000 0) 0 0 / calc(100% - var(--s))
-				calc(100% - var(--s)),
-			linear-gradient(#000 0 0) content-box;
-	}
-
-	.viewfinderBg {
-		@apply bg-[#d2d7e5] bg-opacity-70;
-	}
-</style>
