@@ -72,9 +72,9 @@ test.describe('Security Questions Page', () => {
 		await securityQuestionsPage.fillQuestionTwo('Buddy');
 		await securityQuestionsPage.fillQuestionThree('New York');
 		await securityQuestionsPage.clickNext();
-		await page.waitForTimeout(10000);
+		await page.waitForTimeout(5000);
 
-		// await securityQuestionsPage.expectKeyringGenerated();
+		await securityQuestionsPage.expectKeyringGenerated();
 		await securityQuestionsPage.verifyKeyringAndDID();
 	});
 });
