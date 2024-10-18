@@ -36,12 +36,13 @@ test.describe('Credential Offer Page', () => {
 		await credentialOfferPage.verifyIframeLoaded();
 	});
 
-	test('should fill the iframe form and authenticate', async () => {
+	test('should fill the iframe form and authenticate', async ({page}) => {
 		await credentialOfferPage.gotoCredentialOfferPage();
 		await credentialOfferPage.continueToAuthorization();
 		await credentialOfferPage.verifyIframeLoaded();
 		await credentialOfferPage.submitCredentialForm(userEmail, userPassword);
 		await credentialOfferPage.verifyModalHidden();
+		await page.waitForTimeout(3000);
 		await expect(credentialOfferPage.page).toHaveURL('/en/1/credential-detail');
 	});
 
