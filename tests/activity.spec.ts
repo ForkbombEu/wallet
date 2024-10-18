@@ -4,7 +4,6 @@ import {
 	addActivitiesToLocalStorage,
 	addCredentialsToLocalStorage,
 	login,
-	tabBarClick
 } from './utils';
 
 test.describe('Activity Page', () => {
@@ -13,8 +12,8 @@ test.describe('Activity Page', () => {
 	test.beforeEach(async ({ page }) => {
 		activityPage = new ActivityPage(page);
 		await login(page);
-		await page.evaluate(addCredentialsToLocalStorage);
-		await page.evaluate(addActivitiesToLocalStorage);
+		await addCredentialsToLocalStorage(page);
+		await addActivitiesToLocalStorage(page);
 		await activityPage.navigateToActivityTab();
 	});
 
@@ -23,12 +22,11 @@ test.describe('Activity Page', () => {
 	});
 
 	test('should display "No activity yet" when there are no activities', async () => {
-		await activityPage.removeFirstActivity();
+		await activityPage.clearAllActivities();
 		await activityPage.verifyNoActivitiesMessage();
 	});
 
 	test('should display activities if available', async ({ page }) => {
-		await tabBarClick('Home', page);
 		await activityPage.verifyActivitiesPresent();
 	});
 
@@ -38,6 +36,7 @@ test.describe('Activity Page', () => {
 
 	test('should remove activity when remove button is clicked', async () => {
 		await activityPage.removeFirstActivity();
+		await activityPage.verifyHowManyActivitiesPresent(1);
 	});
 
 	test('should clear all activities when clear all button is clicked', async () => {

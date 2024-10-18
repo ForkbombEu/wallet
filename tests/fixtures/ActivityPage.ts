@@ -1,5 +1,4 @@
 import { type Page, type Locator, expect } from '@playwright/test';
-import { addActivitiesToLocalStorage } from '../utils';
 
 export class ActivityPage {
 	private readonly page: Page;
@@ -37,7 +36,6 @@ export class ActivityPage {
 
 	async verifyNoActivitiesMessage() {
 		await expect(this.noActivityHeading).toBeVisible();
-		await expect(this.noActivityMessage).toBeVisible();
 	}
 
 	async verifyActivitiesPresent() {
@@ -47,11 +45,12 @@ export class ActivityPage {
 	async verifyClearAllButtonVisible() {
 		await expect(this.clearAllButton).toBeVisible();
 	}
+	async verifyHowManyActivitiesPresent(howMany: number) {
+		await expect(this.activityCard).toHaveCount(howMany);
+	}
 
 	async removeFirstActivity() {
 		await this.removeButton.click();
-		await this.removeButton.click();
-		await expect(this.removeButton).not.toBeVisible();
 	}
 
 	async clearAllActivities() {

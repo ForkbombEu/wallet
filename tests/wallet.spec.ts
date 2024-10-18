@@ -25,7 +25,7 @@ test.describe('Wallet Page', () => {
 
 	test('should list credentials if available', async ({ page }) => {
 		await login(page);
-		await page.evaluate(addCredentialsToLocalStorage);
+		await addCredentialsToLocalStorage(page);
 		await tabBarClick('Home', page);
 		await tabBarClick('Wallet', page);
 		const credentialLocator = page.locator('d-credential-card');
@@ -34,7 +34,7 @@ test.describe('Wallet Page', () => {
 
 	test('should navigate to credential detail on click', async ({ page }) => {
 		await login(page);
-		await page.evaluate(addCredentialsToLocalStorage);
+		await addCredentialsToLocalStorage(page);
 		await tabBarClick('Home', page);
 		await tabBarClick('Wallet', page);
 		const credentialLink = page.locator('button[class*="relative"]').first();
