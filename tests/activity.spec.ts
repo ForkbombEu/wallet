@@ -14,19 +14,19 @@ test.describe('Activity Page', () => {
 		await login(page);
 		await addCredentialsToLocalStorage(page);
 		await addActivitiesToLocalStorage(page);
-		await activityPage.navigateToActivityTab();
+		await activityPage.navigate();
 	});
 
 	test('should load activity page after login', async () => {
-		await activityPage.verifyActivityPageLoaded();
+		await activityPage.isPageVisible();
 	});
 
 	test('should display "No activity yet" when there are no activities', async () => {
 		await activityPage.clearAllActivities();
-		await activityPage.verifyNoActivitiesMessage();
+		await activityPage.verifyNoActivityMessage();
 	});
 
-	test('should display activities if available', async ({ page }) => {
+	test('should display activities if available', async () => {
 		await activityPage.verifyActivitiesPresent();
 	});
 
@@ -35,12 +35,25 @@ test.describe('Activity Page', () => {
 	});
 
 	test('should remove activity when remove button is clicked', async () => {
+		await activityPage.verifyHowManyActivitiesPresent(3);
 		await activityPage.removeFirstActivity();
 		await activityPage.verifyHowManyActivitiesPresent(2);
 	});
 
+	test('should show info-led on tab button when activity is present', async () => {
+		await activityPage.verifyHasInfoLedOnTab();
+	});
+
+	test('should not show info-led on tab button after user see activities', async ({page}) => {
+		await activityPage.verifyHasInfoLedOnTab();
+		await page.waitForTimeout(5000);
+		await activityPage.verifyInfoLedNotPresent();
+	})
+
 	test('should clear all activities when clear all button is clicked', async () => {
 		await activityPage.clearAllActivities();
+		await activityPage.verifyNoActivityMessage();
+		await activityPage.verifyInfoLedNotPresent();
 	});
 
 	test('should navigate to credential detail on "show me!" button click', async () => {

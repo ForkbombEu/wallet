@@ -25,12 +25,14 @@ export abstract class FormComponent {
 	}
 
 	async submitForm(buttonText: string): Promise<void> {
-		await this.page.getByRole('button', { name: buttonText }).click();
+		await this.page.locator('d-button').getByRole('button', { name: buttonText }).click();
 	}
 
 	async expectRedirect(expectedUrl: string): Promise<void> {
 		await expect(this.page).toHaveURL(expectedUrl);
 	}
 
-	abstract fillAndSubmit<T extends Record<string, string | boolean>>(data: Partial<T>): Promise<void>;
+	abstract fillAndSubmit<T extends Record<string, string | boolean>>(
+		data: Partial<T>
+	): Promise<void>;
 }

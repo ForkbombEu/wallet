@@ -15,15 +15,24 @@ export abstract class BasePage {
 	}
 
 	async isPageVisible(): Promise<void> {
-		await expect(this.page.getByText(this.pageTitle)).toBeVisible();
+		await expect(this.page.getByText(this.pageTitle, { exact: true })).toBeVisible();
 	}
 
 	async expectVisible(locator: Locator): Promise<void> {
 		await expect(locator).toBeVisible();
 	}
 
-	async clickButtonByName(name: string): Promise<void> {
-		await this.page.getByRole('button', { name }).click();
+	async expectText(text: string): Promise<void> {
+		await this.page.locator(`text="${text}"`).textContent();
+		await expect(this.page.locator(`text="${text}"`)).toBeVisible();
+	}
+
+	async clickButtonByName(name: string, first?: boolean): Promise<void> {
+		if (first) {
+			await this.page.locator(`d-button:has-text("${name}")`).first().click();
+			return;
+		}
+		await this.page.locator(`d-button:has-text("${name}")`).click();
 	}
 
 	async waitForUrlContains(partialUrl: string | RegExp): Promise<void> {

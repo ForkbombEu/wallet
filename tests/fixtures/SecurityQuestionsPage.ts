@@ -31,13 +31,11 @@ export class SecurityQuestionsPage extends BasePage {
 	path = '/en/security-questions';
 	pageTitle = 'SECURITY QUESTIONS';
 
-	private readonly nextButton: Locator;
 	private readonly errorMessage: Locator;
 	private readonly form: QuestionsFormComponent;
 
 	constructor(page: Page) {
 		super(page);
-		this.nextButton = page.getByRole('button', { name: 'Next' }).first();
 		this.errorMessage = page.locator('text="AT_LEAST_THREE_QUESTIONS"');
 		this.form = new QuestionsFormComponent(page);
 	}
