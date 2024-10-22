@@ -1,42 +1,32 @@
-import { expect, test } from '@playwright/test';
+// tests/settings.spec.ts
+import { test } from '@playwright/test';
 import { login } from './utils';
+import { SettingsPage } from './fixtures/SettingsPage';
 
 test.describe('Settings', () => {
-	test('should open settings drawer', async ({ page }) => {
+	let settingsPage: SettingsPage;
+	test.beforeEach(async ({ page }) => {
 		await login(page);
-		await page.locator('ion-tab-bar d-tab-button:has-text("Profile")').click();
-		await page.getByRole('banner').locator('ion-button').click();
-		await expect(page.locator('ion-menu')).toBeVisible();
+		settingsPage = new SettingsPage(page);
+	});
+
+	test('should open settings drawer', async ({ page }) => {
+		await settingsPage.openSettings();
 	});
 
 	test('should navigate to language settings', async ({ page }) => {
-		await login(page);
-		await page.locator('ion-tab-bar d-tab-button:has-text("Profile")').click();
-		await page.getByRole('banner').locator('ion-button').click();
-		await page.locator('d-button:has-text("Languages")').click();
-		await expect(page).toHaveURL('/en/languages');
+		await settingsPage.navigateToLanguageSettings();
 	});
 
 	test('should logout from the app', async ({ page }) => {
-		await login(page);
-		await page.locator('ion-tab-bar d-tab-button:has-text("Profile")').click();
-		await page.getByRole('banner').locator('ion-button').click();
-		await page.locator('d-button:has-text("Log Out")').click();
-		await expect(page).toHaveURL('/en/register-login');
+		await settingsPage.logout();
 	});
 
 	test('should open app settings', async ({ page }) => {
-		await login(page);
-		await page.locator('ion-tab-bar d-tab-button:has-text("Profile")').click();
-		await page.getByRole('banner').locator('ion-button').click();
-		await page.locator('d-button:has-text("Notifications settings")').click();
-		await expect(page.locator('ion-modal')).not.toBeVisible();
+		await settingsPage.openNotificationSettings();
 	});
 
 	test('should display app details component', async ({ page }) => {
-		await login(page);
-		await page.locator('ion-tab-bar d-tab-button:has-text("Profile")').click();
-		await page.getByRole('banner').locator('ion-button').click();
-		await expect(page.getByText('Developed by Forkbomb BV')).toBeVisible();
+		await settingsPage.verifyAppDetailsVisible();
 	});
 });
