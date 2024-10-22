@@ -1,29 +1,64 @@
 import { expect, type Page } from '@playwright/test';
+import { BasePage } from './BasePage';
+import { FormComponent } from './FormComponent';
+import { randomEmail } from '../utils';
 
-export class RegistrationPage {
-	constructor(private page: Page) {
-        this.page = page;
-    }
+export class RegistrationFormComponent extends FormComponent {
+	async fillAndSubmit(
+		data: Partial<{
+			email: string;
+			conditionsAccepted: boolean;
+			password: string;
+			confirmPassword: string;
+		}>
+	): Promise<void> {
+		if (data.email) {
+			await this.fillInputByName('email', data.email as string);
+		}
 
-	async navigateToRegistration() {
-		await this.page.goto('/login?registration=true');
+		if (data.conditionsAccepted) {
+			await this.clickCheckbox('#conditions');
+		}
+
+		await this.submitForm('Next');
+
+		if (data.password) {
+			await this.fillInputByName('password', data.password as string);
+		}
+
+		if (data.confirmPassword) {
+			await this.fillInputByName('confirmPassword', data.confirmPassword as string);
+		}
+
+		await this.submitForm('Next');
+	}
+}
+
+export class RegistrationPage extends BasePage {
+	path = '/login?registration=true';
+	pageTitle = 'REGISTRATION';
+
+	private readonly form: RegistrationFormComponent;
+
+	constructor(page: Page) {
+		super(page);
+		this.form = new RegistrationFormComponent(page);
 	}
 
-	async enterEmail(email: string) {
-		await this.page.fill('input[name="email"]', email);
-	}
-
-	async acceptConditions() {
-		await this.page.locator('#conditions').click({ position: { x: 0, y: 10 } });
-	}
-
-	async clickNext() {
-		await this.page.getByRole('button', { name: 'Next' }).click();
-	}
-
-	async enterPasswords(password: string, confirmPassword: string) {
-		await this.page.fill('input[name="password"]', password);
-		await this.page.fill('input[name="confirmPassword"]', confirmPassword);
+	async registerUser(
+		data: {
+			email?: string;
+			password?: string;
+			confirmPassword?: string;
+			conditionsAccepted: boolean;
+		} = {
+			email: randomEmail(),
+			password: 'password123',
+			confirmPassword: 'password123',
+			conditionsAccepted: true
+		}
+	) {
+		await this.form.fillAndSubmit(data);
 	}
 
 	async checkPasswordMismatchError() {
@@ -36,6 +71,6 @@ export class RegistrationPage {
 	}
 
 	async expectToBeOnQuestionsPage() {
-		await expect(this.page).toHaveURL('/en/login/questions');
+		await this.waitForUrlContains('/en/login/questions');
 	}
 }

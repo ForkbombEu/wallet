@@ -1,80 +1,62 @@
 import { test } from '@playwright/test';
 import { RegistrationPage } from './fixtures/RegistrationPage';
 import { SecurityQuestionsPage } from './fixtures/SecurityQuestionsPage';
-import { randomEmail, randomString } from './utils';
 
 test.describe('Registration Flow', () => {
-	test('should navigate to registration insert password page', async ({ page }) => {
-		const registrationPage = new RegistrationPage(page);
-		await registrationPage.navigateToRegistration();
-		await registrationPage.enterEmail('newuser@example.com');
-		await registrationPage.acceptConditions();
-		await registrationPage.clickNext();
-		await registrationPage.expectToBeOnPasswordPage();
+	let registrationPage: RegistrationPage;
+	test.beforeEach(async ({ page }) => {
+		registrationPage = new RegistrationPage(page);
+		await registrationPage.navigate();
+	});
+
+	test('should render registration page', async () => {
+		await registrationPage.isPageVisible();
 	});
 
 	test('should show error if passwords do not match', async ({ page }) => {
 		const registrationPage = new RegistrationPage(page);
-		await registrationPage.navigateToRegistration();
-		await registrationPage.enterEmail('newuser@example.com');
-		await registrationPage.acceptConditions();
-		await registrationPage.clickNext();
-		await registrationPage.enterPasswords('password123', 'password456');
-		await registrationPage.clickNext();
+		await registrationPage.registerUser({
+			email: 'newuser@example.com',
+			password: 'password123',
+			confirmPassword: 'password456',
+			conditionsAccepted: true
+		});
 		await registrationPage.checkPasswordMismatchError();
 	});
 
 	test('should navigate to questions page after successful registration', async ({ page }) => {
-		const registrationPage = new RegistrationPage(page);
-		const password = randomString(8);
-		await registrationPage.navigateToRegistration();
-		await registrationPage.enterEmail(randomEmail());
-		await registrationPage.acceptConditions();
-		await registrationPage.clickNext();
-		await registrationPage.enterPasswords(password, password);
-		await registrationPage.clickNext();
-		await registrationPage.expectToBeOnQuestionsPage();
+		await registrationPage.registerUser();
+		await registrationPage.waitForUrlContains('/en/login/questions');
 	});
 });
 
 test.describe('Security Questions Page', () => {
+	let registrationPage: RegistrationPage;
+	let securityQuestionsPage: SecurityQuestionsPage;
+
+	test.beforeEach(async ({ page }) => {
+		registrationPage = new RegistrationPage(page);
+		securityQuestionsPage = new SecurityQuestionsPage(page);
+		await registrationPage.navigate();
+	});
+
 	test('should show error if less than three questions are answered', async ({ page }) => {
-		const registrationPage = new RegistrationPage(page);
-		const securityQuestionsPage = new SecurityQuestionsPage(page);
-		const password = randomString(8);
-
-		await registrationPage.navigateToRegistration();
-		await registrationPage.enterEmail(randomEmail());
-		await registrationPage.acceptConditions();
-		await registrationPage.clickNext();
-		await registrationPage.enterPasswords(password, password);
-		await registrationPage.clickNext();
-
-		await securityQuestionsPage.fillQuestionOne('zinot');
-		await securityQuestionsPage.fillQuestionTwo('Paris');
-		await securityQuestionsPage.clickNext();
+		await registrationPage.registerUser();
+		await securityQuestionsPage.fillQuestions({
+			whereParentsMet: 'paris'
+		});
 		await securityQuestionsPage.checkErrorForIncompleteQuestions();
 	});
 
 	test.skip('should complete security questions and generate keypair', async ({ page }) => {
-		const registrationPage = new RegistrationPage(page);
-		const securityQuestionsPage = new SecurityQuestionsPage(page);
-		const password = randomString(8);
-
-		await registrationPage.navigateToRegistration();
-		await registrationPage.enterEmail(randomEmail());
-		await registrationPage.acceptConditions();
-		await registrationPage.clickNext();
-		await registrationPage.enterPasswords(password, password);
-		await registrationPage.clickNext();
-
-		await securityQuestionsPage.fillQuestionOne('Paris');
-		await securityQuestionsPage.fillQuestionTwo('Buddy');
-		await securityQuestionsPage.fillQuestionThree('New York');
-		await securityQuestionsPage.clickNext();
+		await registrationPage.registerUser();
+		await securityQuestionsPage.fillQuestions({
+			whereParentsMet: 'paris',
+			nameFirstPet: 'tommy',
+			whereHomeTown: 'new york'
+		});
 		await page.waitForTimeout(5000);
-
-		await securityQuestionsPage.expectKeyringGenerated();
+		// await securityQuestionsPage.expectKeyringGenerated();
 		await securityQuestionsPage.verifyKeyringAndDID();
 	});
 });

@@ -1,7 +1,10 @@
 import { type Page, type Locator, expect } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class SettingsPage {
-	private readonly page: Page;
+export class SettingsPage extends BasePage {
+	path='/en/settings';
+	pageTitle='SETTINGS';
+
 	private readonly profileTabButton: Locator;
 	private readonly settingsButton: Locator;
 	private readonly menu: Locator;
@@ -14,7 +17,7 @@ export class SettingsPage {
 	private readonly appDetailsText: Locator;
 
 	constructor(page: Page) {
-		this.page = page;
+		super(page);
 		this.profileTabButton = page.locator('ion-tab-bar d-tab-button:has-text("Profile")');
 		this.settingsButton = page.getByRole('banner').locator('ion-button');
 		this.menu = page.locator('ion-menu');
@@ -27,7 +30,7 @@ export class SettingsPage {
 		this.appDetailsText = page.getByText('Developed by Forkbomb BV');
 	}
 
-	async openSettings() {
+	async navigate() {
 		await this.profileTabButton.click();
 		await this.settingsButton.click();
 		await expect(this.menu).toBeVisible();

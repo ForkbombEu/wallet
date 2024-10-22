@@ -1,6 +1,6 @@
 import { type Page } from '@playwright/test';
-import { userEmail, userPassword } from '../utils';
 import { BasePage } from './BasePage';
+import { userEmail, userPassword } from '../utils';
 import { FormComponent } from './FormComponent';
 
 export class LoginFormComponent extends FormComponent {
@@ -19,7 +19,7 @@ export class LoginFormComponent extends FormComponent {
 
 export class LoginPage extends BasePage {
 	path = '/en/login';
-	pageTitle = 'Login';
+	pageTitle = 'LOGIN';
 
 	private readonly errorMessage: string;
 	private readonly form: LoginFormComponent;

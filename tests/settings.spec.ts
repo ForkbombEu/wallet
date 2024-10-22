@@ -8,7 +8,7 @@ test.describe('Settings', () => {
 	test.beforeEach(async ({ page }) => {
 		settingsPage = new SettingsPage(page);
 		await login(page);
-		settingsPage.openSettings();
+		settingsPage.navigate();
 	});
 
 	test('should navigate to language settings', async () => {

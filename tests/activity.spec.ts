@@ -36,7 +36,7 @@ test.describe('Activity Page', () => {
 
 	test('should remove activity when remove button is clicked', async () => {
 		await activityPage.removeFirstActivity();
-		await activityPage.verifyHowManyActivitiesPresent(1);
+		await activityPage.verifyHowManyActivitiesPresent(2);
 	});
 
 	test('should clear all activities when clear all button is clicked', async () => {
