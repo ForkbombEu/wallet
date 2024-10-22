@@ -1,5 +1,4 @@
-// SettingsPage.ts
-import{ type Page, type Locator, expect } from '@playwright/test';
+import { type Page, type Locator, expect } from '@playwright/test';
 
 export class SettingsPage {
 	private readonly page: Page;
@@ -9,6 +8,9 @@ export class SettingsPage {
 	private readonly languagesButton: Locator;
 	private readonly logoutButton: Locator;
 	private readonly notificationsButton: Locator;
+	private readonly supportButton: Locator;
+	private readonly privacyPolicyButton: Locator;
+	private readonly accountSettingsButton: Locator;
 	private readonly appDetailsText: Locator;
 
 	constructor(page: Page) {
@@ -18,6 +20,9 @@ export class SettingsPage {
 		this.menu = page.locator('ion-menu');
 		this.languagesButton = page.locator('d-button:has-text("Languages")');
 		this.logoutButton = page.locator('d-button:has-text("Log Out")');
+		this.supportButton = page.locator('d-button:has-text("Support")');
+		this.privacyPolicyButton = page.locator('d-button:has-text("Privacy policy")');
+		this.accountSettingsButton = page.locator('d-button:has-text("Account settings")');
 		this.notificationsButton = page.locator('d-button:has-text("Notifications settings")');
 		this.appDetailsText = page.getByText('Developed by Forkbomb BV');
 	}
@@ -28,26 +33,39 @@ export class SettingsPage {
 		await expect(this.menu).toBeVisible();
 	}
 
-	async navigateToLanguageSettings() {
-		await this.openSettings();
+	async openLanguageSettings() {
 		await this.languagesButton.click();
 		await expect(this.page).toHaveURL('/en/languages');
 	}
 
-	async logout() {
-		await this.openSettings();
-		await this.logoutButton.click();
-		await expect(this.page).toHaveURL('/en/register-login');
+	async openUserSettings() {
+		await this.accountSettingsButton.click();
+		await expect(this.page).toHaveURL('/en/user-settings');
 	}
 
 	async openNotificationSettings() {
-		await this.openSettings();
 		await this.notificationsButton.click();
 		await expect(this.page.locator('ion-modal')).not.toBeVisible();
 	}
 
+	async goToSupportPage() {
+		await this.supportButton.click();
+		await expect(this.page).toHaveURL('https://didroom.com/guides/1_orgadmin/support.html');
+	}
+
+	async goToPrivacyPolicy() {
+		await this.privacyPolicyButton.click();
+		await expect(this.page).toHaveURL(
+			'https://didroom.com/guides/7_terms-and-conditions/privacy-policy.html'
+		);
+	}
+
+	async logout() {
+		await this.logoutButton.click();
+		await expect(this.page).toHaveURL('/en/register-login');
+	}
+
 	async verifyAppDetailsVisible() {
-		await this.openSettings();
 		await expect(this.appDetailsText).toBeVisible();
 	}
 }

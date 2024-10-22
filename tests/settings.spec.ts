@@ -11,23 +11,31 @@ test.describe('Settings', () => {
 		settingsPage.openSettings();
 	});
 
-	// test('should open settings drawer', async ({ page }) => {
-	// 	await settingsPage.openSettings();
-	// });
-
-	test('should navigate to language settings', async ({ page }) => {
-		await settingsPage.navigateToLanguageSettings();
+	test('should navigate to language settings', async () => {
+		await settingsPage.openLanguageSettings();
 	});
 
-	test('should logout from the app', async ({ page }) => {
+	test('should logout from the app', async () => {
 		await settingsPage.logout();
 	});
 
-	test('should open app settings', async ({ page }) => {
+	test('should open app settings', async () => {
 		await settingsPage.openNotificationSettings();
 	});
 
-	test('should display app details component', async ({ page }) => {
+	test('should display app details component', async () => {
 		await settingsPage.verifyAppDetailsVisible();
+	});
+
+	test('should navigate to support page', async () => {
+		await settingsPage.goToSupportPage();
+	});
+
+	test('should navigate to privacy policy page', async () => {
+		await settingsPage.goToPrivacyPolicy();
+	});
+
+	test('should navigate to user settings page', async () => {
+		await settingsPage.openUserSettings();
 	});
 });
