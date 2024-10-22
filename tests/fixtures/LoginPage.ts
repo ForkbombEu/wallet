@@ -17,7 +17,7 @@ export class LoginPage {
 	}
 
     async navigate() {
-        await this.page.goto('/login');
+        await this.page.goto('/en/login');
     }
 
     async loginWithInvalidCredentials() {

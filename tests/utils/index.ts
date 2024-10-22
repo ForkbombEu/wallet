@@ -1,6 +1,8 @@
 import { type Activity } from '$lib/preferences/activity';
 import type { Credential } from '$lib/preferences/credentials';
 import type { Page } from '@playwright/test';
+import { PassphrasePage } from '../fixtures/PassphrasePage';
+import { LoginPage } from '../fixtures/LoginPage';
 
 export const swipe = async (page: Page, x = 120, y = 150) => {
 	await page.mouse.move(x, y);
@@ -25,15 +27,13 @@ export const randomEmail = () => {
 };
 
 export const login = async (page: Page) => {
+	const passphrasePage = new PassphrasePage(page);
+	const loginPage = new LoginPage(page);
 	await page.goto('/');
 	await page.getByRole('button', { name: 'Skip' }).click();
-	await page.getByRole('link', { name: 'Login' }).click();
-	await page.fill('input[name="email"]', userEmail);
-	await page.fill('input[name="password"]', userPassword);
-	await page.getByRole('button', { name: 'Next' }).click();
-	await page.waitForURL('/en/login/passphrase');
-	await page.fill('input[name="seed"]', userSeed!);
-	await page.getByRole('button', { name: 'Login' }).first().click();
+	await loginPage.navigate();
+	await loginPage.loginWithCredentials();
+	await passphrasePage.enterPassphrase();
 	await page.waitForURL('/en/wallet');
 };
 
