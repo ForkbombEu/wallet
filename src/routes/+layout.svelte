@@ -28,8 +28,14 @@
 				ev.detail.register(-1, () => {
 					if (isExitPoint()) App.exitApp();
 					else if (r('/unlock') === window.location.pathname) return;
+					else if (isBackLockedPoint()) return (window.location.href = r('/home'));
 					else window.history.back();
 				});
+
+				const isBackLockedPoint = () => {
+					const backLockedPoints = [r('/verification'), r('/verification/results')];
+					return backLockedPoints.includes(window.location.pathname);
+				};
 
 				const isExitPoint = () => {
 					const exitPoints = [r('/home'), r('/register-login')];

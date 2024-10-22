@@ -129,6 +129,7 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 			}
 		} else if (activity.type === 'verification') {
 			const { verifier_name, success, rp_name, properties } = activity;
+			parsedActivity.name = verifier_name;
 			parsedActivity.message = `${verifier_name} verified yours: ${properties.join(', ')} via ${rp_name} and it was a ${
 				success ? 'success' : 'failure'
 			}`;
