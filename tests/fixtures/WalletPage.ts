@@ -26,6 +26,10 @@ export class WalletPage {
 		this.credentialLink = page.locator('button[class*="relative"]').first();
 	}
 
+	async navigate() {
+		await this.page.goto('/en/wallet');
+	}
+
 	async verifyWalletPage() {
 		await expect(this.page).toHaveURL('/en/wallet');
 		await expect(this.walletHeading).toBeVisible();

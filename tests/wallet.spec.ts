@@ -4,9 +4,10 @@ import { WalletPage } from './fixtures/WalletPage';
 
 test.describe('Wallet Page', () => {
 	let walletPage: WalletPage;
-	test.beforeEach(async ({page}) => {
-		await login(page);
+	
+	test.beforeEach(async ({ page }) => {
 		walletPage = new WalletPage(page);
+		await login(page);
 	});
 
 	test('should load wallet page after login', async ({ page }) => {

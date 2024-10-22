@@ -8,11 +8,12 @@ test.describe('Settings', () => {
 	test.beforeEach(async ({ page }) => {
 		await login(page);
 		settingsPage = new SettingsPage(page);
+		settingsPage.openSettings();
 	});
 
-	test('should open settings drawer', async ({ page }) => {
-		await settingsPage.openSettings();
-	});
+	// test('should open settings drawer', async ({ page }) => {
+	// 	await settingsPage.openSettings();
+	// });
 
 	test('should navigate to language settings', async ({ page }) => {
 		await settingsPage.navigateToLanguageSettings();
