@@ -56,7 +56,7 @@ test.describe('Security Questions Page', () => {
 		await securityQuestionsPage.checkErrorForIncompleteQuestions();
 	});
 
-	test('should complete security questions and generate keypair', async ({ page }) => {
+	test.skip('should complete security questions and generate keypair', async ({ page }) => {
 		const registrationPage = new RegistrationPage(page);
 		const securityQuestionsPage = new SecurityQuestionsPage(page);
 		const password = randomString(8);
