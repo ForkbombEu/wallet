@@ -6,8 +6,8 @@ import { SettingsPage } from './fixtures/SettingsPage';
 test.describe('Settings', () => {
 	let settingsPage: SettingsPage;
 	test.beforeEach(async ({ page }) => {
-		await login(page);
 		settingsPage = new SettingsPage(page);
+		await login(page);
 		settingsPage.openSettings();
 	});
 

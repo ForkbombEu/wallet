@@ -43,6 +43,7 @@ export class LoginPage {
         await this.fillEmail();
         await this.fillPassword();
         await this.clickNext();
+		await this.page.getByText('See more').click();
     }
 
 	async clickNext() {
