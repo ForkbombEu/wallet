@@ -10,15 +10,15 @@ test.describe('Wallet Page', () => {
 		await login(page);
 	});
 
-	test('should load wallet page after login', async ({ page }) => {
-		await walletPage.verifyWalletPage();
+	test('should load wallet page after login', async () => {
+		await walletPage.isPageVisible();
 	});
 
-	test('should display heading and description', async ({ page }) => {
+	test('should display heading and description', async () => {
 		await walletPage.verifyCredentialsHeadingAndDescription();
 	});
 
-	test('should show empty state when no credentials', async ({ page }) => {
+	test('should show empty state when no credentials', async () => {
 		await walletPage.verifyEmptyState();
 	});
 

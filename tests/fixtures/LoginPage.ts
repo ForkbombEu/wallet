@@ -1,56 +1,45 @@
-import { expect, type Locator, type Page } from '@playwright/test';
+import { type Page } from '@playwright/test';
 import { userEmail, userPassword } from '../utils';
+import { BasePage } from './BasePage';
+import { FormComponent } from './FormComponent';
 
-export class LoginPage {
-	private readonly page: Page;
-	private readonly emailInput: Locator;
-	private readonly passwordInput: Locator;
-	private readonly nextButton: Locator;
-	private readonly errorMessage: Locator;
+export class LoginFormComponent extends FormComponent {
+	async fillAndSubmit(data: { email?: string; password?: string }): Promise<void> {
+		if (data.email) {
+			await this.fillInputByName('email', data.email);
+		}
+
+		if (data.password) {
+			await this.fillInputByName('password', data.password);
+		}
+
+		await this.submitForm('Next');
+	}
+}
+
+export class LoginPage extends BasePage {
+	path = '/en/login';
+	pageTitle = 'Login';
+
+	private readonly errorMessage: string;
+	private readonly form: LoginFormComponent;
 
 	constructor(page: Page) {
-		this.page = page;
-		this.emailInput = page.locator('input[name="email"]');
-		this.passwordInput = page.locator('input[name="password"]');
-		this.nextButton = page.getByRole('button', { name: 'Next' });
-		this.errorMessage = page.locator('text="wrong email or password"');
+		super(page);
+		this.errorMessage = 'wrong email or password';
+		this.form = new LoginFormComponent(page);
 	}
 
-    async navigate() {
-        await this.page.goto('/en/login');
-    }
-
-    async loginWithInvalidCredentials() {
-        await this.emailInput.fill('wrong@example.com')
-        await this.passwordInput.fill('wrongPassword')
-        await this.clickNext();
-    }
-
-    async verifyErrorMessages() {
-        await this.checkLoginError();
-    }
-
-
-	async fillEmail() {
-		await this.emailInput.fill(userEmail);
+	async loginWithInvalidCredentials() {
+		await this.form.fillAndSubmit({ email: 'wrong@example.com', password: 'wrongPassword' });
 	}
 
-	async fillPassword() {
-		await this.passwordInput.fill(userPassword);
+	async verifyErrorMessages() {
+		await this.form.checkErrorMessage(this.errorMessage);
 	}
 
-    async loginWithCredentials() {
-        await this.fillEmail();
-        await this.fillPassword();
-        await this.clickNext();
-    }
-
-	async clickNext() {
-		await this.nextButton.click();
-	}
-
-	async checkLoginError() {
-		await expect(this.errorMessage).toBeVisible();
+	async loginWithCredentials() {
+		await this.form.fillAndSubmit({ email: userEmail, password: userPassword });
 	}
 
 	async verifyNavigationToPassphrasePage() {

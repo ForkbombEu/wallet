@@ -1,9 +1,11 @@
 // WalletPage.ts
 import { type Page, type Locator, expect } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class WalletPage {
-	private readonly page: Page;
-	private readonly walletHeading: Locator;
+export class WalletPage extends BasePage {
+	path = '/en/wallet';
+	pageTitle = 'WALLET';
+
 	private readonly credentialsHeading: Locator;
 	private readonly credentialsDescription: Locator;
 	private readonly emptyStateHeading: Locator;
@@ -13,8 +15,7 @@ export class WalletPage {
 	private readonly credentialLink: Locator;
 
 	constructor(page: Page) {
-		this.page = page;
-		this.walletHeading = page.getByText('WALLET').first();
+		super(page);
 		this.credentialsHeading = page.getByText('My credentials').first();
 		this.credentialsDescription = page.locator('d-text p');
 		this.emptyStateHeading = page.locator(
@@ -26,32 +27,27 @@ export class WalletPage {
 		this.credentialLink = page.locator('button[class*="relative"]').first();
 	}
 
-	async navigate() {
-		await this.page.goto('/en/wallet');
-	}
-
-	async verifyWalletPage() {
-		await expect(this.page).toHaveURL('/en/wallet');
-		await expect(this.walletHeading).toBeVisible();
+	async isPageVisible(): Promise<void> {
+		await this.expectVisible((this.page.getByText(this.pageTitle).first()));
 	}
 
 	async verifyCredentialsHeadingAndDescription() {
-		await expect(this.credentialsHeading).toBeVisible();
+		await this.expectVisible(this.credentialsHeading);
 		await expect(this.credentialsDescription).toContainText('Explore and manage your credentials');
 	}
 
 	async verifyEmptyState() {
-		await expect(this.emptyStateHeading).toBeVisible();
-		await expect(this.emptyStateDescription).toBeVisible();
-		await expect(this.getCredentialsButton).toBeVisible();
+		await this.expectVisible(this.emptyStateHeading);
+		await this.expectVisible(this.emptyStateDescription);
+		await this.expectVisible(this.getCredentialsButton);
 	}
 
 	async verifyCredentialsVisible() {
-		await expect(this.credentialCard.first()).toBeVisible();
+		await this.expectVisible(this.credentialCard.first());
 	}
 
 	async clickFirstCredential() {
 		await this.credentialLink.click();
-		await expect(this.page).toHaveURL(/\/credential-detail$/);
+		await this.waitForUrlContains(/\/credential-detail$/);
 	}
 }
