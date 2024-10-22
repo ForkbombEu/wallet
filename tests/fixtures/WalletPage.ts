@@ -1,6 +1,7 @@
 // WalletPage.ts
 import { type Page, type Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
+import { addCredentialsToLocalStorage, tabBarClick } from '../utils';
 
 export class WalletPage extends BasePage {
 	path = '/en/wallet';
@@ -40,6 +41,12 @@ export class WalletPage extends BasePage {
 		await this.expectVisible(this.emptyStateHeading);
 		await this.expectVisible(this.emptyStateDescription);
 		await this.expectVisible(this.getCredentialsButton);
+	}
+
+	async addCredentials() {
+		await addCredentialsToLocalStorage(this.page);
+		await tabBarClick('Home', this.page);
+		await tabBarClick('Wallet', this.page);
 	}
 
 	async verifyCredentialsVisible() {

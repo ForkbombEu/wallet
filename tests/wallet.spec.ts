@@ -1,10 +1,10 @@
 import { test } from '@playwright/test';
-import { addCredentialsToLocalStorage, login, tabBarClick } from './utils';
+import { login } from './utils';
 import { WalletPage } from './fixtures/WalletPage';
 
 test.describe('Wallet Page', () => {
 	let walletPage: WalletPage;
-	
+
 	test.beforeEach(async ({ page }) => {
 		walletPage = new WalletPage(page);
 		await login(page);
@@ -22,16 +22,13 @@ test.describe('Wallet Page', () => {
 		await walletPage.verifyEmptyState();
 	});
 
-	test('should list credentials if available', async ({ page }) => {
-		await addCredentialsToLocalStorage(page);
-		await tabBarClick('Home', page);
-		await tabBarClick('Wallet', page);
+	test('should list credentials if available', async () => {
+		await walletPage.addCredentials();
 		await walletPage.verifyCredentialsVisible();
 	});
 
-	test('should navigate to credential detail on click', async ({ page }) => {
-		await tabBarClick('Home', page);
-		await tabBarClick('Wallet', page);
+	test('should navigate to credential detail on click', async () => {
+		await walletPage.addCredentials();
 		await walletPage.clickFirstCredential();
 	});
 });
