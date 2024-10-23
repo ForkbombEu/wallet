@@ -36,12 +36,12 @@ test.describe.skip('Verification Page', () => {
 	});
 
 	test('should display error if no credentials', async () => {
-		await verificationPage.scanQR(verificationQR);
+		await verificationPage.scanQr(verificationQR);
 		await verificationPage.expectErrorForNoCredentials();
 	});
 
 	test('should display verification details', async () => {
-		await verificationPage.scanQR(verificationQR);
+		await verificationPage.scanQr(verificationQR);
 		await verificationPage.expectVerificationDetailsVisible([
 			'DIDroom_RelyingParty1',
 			'https://relying-party1.zenswarm.forkbomb.eu/relying_party/verify',
@@ -50,14 +50,14 @@ test.describe.skip('Verification Page', () => {
 	});
 
 	test('should verify credential and show result', async () => {
-		await verificationPage.scanQR(verificationQR);
+		await verificationPage.scanQr(verificationQR);
 		// await page.getByRole('button', { name: 'VERIFY' }).click();
 		await verificationPage.verify();
 		// await expect(page.locator('d-session-card')).toBeVisible();
 	});
 
 	test('should add activity after success', async ({ page }) => {
-		await verificationPage.scanQR(verificationQR);
+		await verificationPage.scanQr(verificationQR);
 		await verificationPage.verify();
 		// await expect(page.locator('d-session-card')).toBeVisible();
 		// await tabBarClick('Activity', page);
@@ -66,12 +66,12 @@ test.describe.skip('Verification Page', () => {
 	});
 
 	test('should show error for expired verification', async ({ page }) => {
-		await verificationPage.scanQR(expiredVerificationQR);
+		await verificationPage.scanQr(expiredVerificationQR);
 		await expect(page.locator('ion-modal')).toBeVisible();
 	});
 
 	test('should decline verification and return to home', async ({ page }) => {
-		await verificationPage.scanQR(verificationQR);
+		await verificationPage.scanQr(verificationQR);
 		await verificationPage.decline();
 		await expect(page).toHaveURL('en/home');
 	});

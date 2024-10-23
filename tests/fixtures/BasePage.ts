@@ -33,14 +33,13 @@ export abstract class BasePage {
 			.disableRules(['meta-viewport'])
 			.analyze();
 		expect(
-				results.violations.map((violation) => ({
-					rule: violation.id,
-					targets: violation.nodes.map((node) => node.target),
-					message: violation.description,
-					impact: violation.impact
-				}))
-			)
-			.toEqual([]);
+			results.violations.map((violation) => ({
+				rule: violation.id,
+				targets: violation.nodes.map((node) => node.target),
+				message: violation.description,
+				impact: violation.impact
+			}))
+		).toEqual([]);
 	}
 
 	async clickButtonByName(name: string, first?: boolean): Promise<void> {

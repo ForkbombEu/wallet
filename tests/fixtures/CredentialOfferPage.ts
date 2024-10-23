@@ -1,9 +1,14 @@
 import { type Page, type Locator, type FrameLocator, expect } from '@playwright/test';
+import { BasePage } from './BasePage';
+import { ScanQrButton } from './ScanQrButton';
 
-export class CredentialOfferPage {
+export class CredentialOfferPage extends BasePage {
+	path = '/en/credential-offer';
+	pageTitle = 'Credential Offer';
+	scanQr: (Qr: string) => Promise<void>;
+
 	private readonly proofOfEmailBtn: Locator;
-	private readonly qrScanBtn: Locator;
-	private readonly submitQRBtn: Locator;
+	private readonly qrScanBtn: ScanQrButton;
 	private readonly credentialOfferText: Locator;
 	private readonly credentialIssuerOfflineText: Locator;
 	private readonly continueButton: Locator;
@@ -15,9 +20,10 @@ export class CredentialOfferPage {
 	private readonly modalOverlay: Locator;
 
 	constructor(public readonly page: Page) {
+		super(page);
 		this.proofOfEmailBtn = this.page.locator('text=Proof of email possession');
-		this.qrScanBtn = this.page.getByRole('link', { name: 'SCAN QR' });
-		this.submitQRBtn = this.page.getByRole('button', { name: 'SUBMIT' });
+		this.qrScanBtn = new ScanQrButton(page);
+		this.scanQr = this.qrScanBtn.scanQr;
 		this.credentialOfferText = this.page.getByText('Credential offer');
 		this.credentialIssuerOfflineText = this.page.getByText(
 			'The credential issuer is currently offline, you may try again later'
@@ -43,14 +49,6 @@ export class CredentialOfferPage {
 
 	async verifyIsBrokenIssuer() {
 		await expect(this.credentialIssuerOfflineText).toBeVisible();
-	}
-
-	async scanQRCode(qrCode: string) {
-		await this.qrScanBtn.click();
-		await expect(this.page).toHaveURL('/en/scan');
-		await this.page.getByRole('textbox').fill(qrCode);
-		await this.submitQRBtn.click();
-		await expect(this.page).toHaveURL('/en/credential-offer');
 	}
 
 	async continueToAuthorization() {

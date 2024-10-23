@@ -11,6 +11,10 @@ test.describe('Credential Offer Page', () => {
 		credentialOfferPage = new CredentialOfferPage(page);
 	});
 
+	test('should have not accessibility issues', async () => {
+		await credentialOfferPage.hasNoAccessibilityIssues();
+	});
+
 	test('should load credential offer page after navigating from home', async () => {
 		await credentialOfferPage.gotoCredentialOfferPage();
 		await credentialOfferPage.verifyCredentialOfferVisible();
@@ -19,14 +23,14 @@ test.describe('Credential Offer Page', () => {
 	test('should load credential offer page after scan QR code', async () => {
 		const qrCode =
 			'openid-credential-offer://?credential_configuration_ids=email_PoP&credential_issuer=https%3A%2F%2Fissuer1.zenswarm.forkbomb.eu%2Fcredential_issuer';
-		await credentialOfferPage.scanQRCode(qrCode);
+		await credentialOfferPage.scanQr(qrCode);
 		await credentialOfferPage.verifyCredentialOfferVisible();
 	});
 
 	test('should show error feedback if is broken issuer', async () => {
 		const qrCode =
 			'openid-credential-offer://?credential_configuration_ids=email_PoP&credential_issuer=https%3A%2F%2Fissuer1.zenswar.eu%2Fcredential_issuer';
-		await credentialOfferPage.scanQRCode(qrCode);
+		await credentialOfferPage.scanQr(qrCode);
 		await credentialOfferPage.verifyIsBrokenIssuer();
 	});
 
@@ -36,7 +40,7 @@ test.describe('Credential Offer Page', () => {
 		await credentialOfferPage.verifyIframeLoaded();
 	});
 
-	test('should fill the iframe form and authenticate', async ({page}) => {
+	test('should fill the iframe form and authenticate', async ({ page }) => {
 		await credentialOfferPage.gotoCredentialOfferPage();
 		await credentialOfferPage.continueToAuthorization();
 		await credentialOfferPage.verifyIframeLoaded();

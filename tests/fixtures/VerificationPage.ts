@@ -1,18 +1,17 @@
 import type { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
+import { ScanQrButton } from './ScanQrButton';
 
 export class VerificationPage extends BasePage {
 	path = '/en/verification';
 	pageTitle = 'Verification';
+	scanQrButton: ScanQrButton;
+	scanQr: (Qr: string) => Promise<void>;
 
 	constructor(page: Page) {
 		super(page);
-	}
-	async scanQR(verificationQR: string): Promise<void> {
-		await this.page.getByRole('link', { name: 'SCAN QR' }).click();
-		await this.waitForUrlContains('/en/scan');
-		await this.page.getByRole('textbox').fill(verificationQR);
-		await this.page.getByRole('button', { name: 'SUBMIT' }).click();
+		this.scanQrButton = new ScanQrButton(page);
+		this.scanQr = this.scanQrButton.scanQr;
 	}
 
 	async verify(): Promise<void> {
