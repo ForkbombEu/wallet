@@ -10,6 +10,10 @@ test.describe('Wallet Page', () => {
 		await login(page);
 	});
 
+	test('should have not accessibility issues', async () => {
+		await walletPage.hasNoAccessibilityIssues();
+	});
+	
 	test('should load wallet page after login', async () => {
 		await walletPage.isPageVisible();
 	});

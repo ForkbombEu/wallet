@@ -1,8 +1,14 @@
 import { expect, type Page } from '@playwright/test';
 import { userSeed } from '../utils';
+import { BasePage } from './BasePage';
 
-export class PassphrasePage {
-	constructor(private page: Page) {}
+export class PassphrasePage extends BasePage {
+	path = '/en/login/passphrase';
+	pageTitle = 'PASSPHRASE';
+
+	constructor(page: Page) {
+		super(page);
+	}
 
 	async enterPassphrase(seed: string = userSeed) {
 		await this.page.fill('input[name="seed"]', seed);

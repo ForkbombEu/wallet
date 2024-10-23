@@ -1,4 +1,5 @@
 import { expect, type Locator, type Page } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 
 export abstract class BasePage {
 	protected readonly page: Page;
@@ -25,6 +26,10 @@ export abstract class BasePage {
 	async expectText(text: string): Promise<void> {
 		await this.page.locator(`text="${text}"`).textContent();
 		await expect(this.page.locator(`text="${text}"`)).toBeVisible();
+	}
+	async hasNoAccessibilityIssues(): Promise<void> {
+		const results = await new AxeBuilder({ page: this.page }).analyze();
+		expect(results.violations).toEqual([]);
 	}
 
 	async clickButtonByName(name: string, first?: boolean): Promise<void> {

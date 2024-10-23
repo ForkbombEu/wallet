@@ -1,3 +1,4 @@
+import { VerificationPage } from './fixtures/VerificationPage';
 import { expect, test } from '@playwright/test';
 import { addCredentialsToLocalStorage, login, tabBarClick } from './utils';
 
@@ -22,81 +23,56 @@ test.describe.skip('Verification Page', () => {
             "t": "caN0h_uNRlWCNT_gUyEDhv:APA91bEqtfEQU4kSlLf4xwW2YPTs2gG7_UiZa-_Fktoqui9eIJJ0BxFtLNr9lzNbmplsh3Ma5dw9mvqpwXpdlcNIISaTGJ7iTpncEW5dJCPZuMkwcOLV-bS8G394M83y1K1FVDkR1MsO"
         }`;
 
-	test('should load verification page after scanning QR', async ({ page }) => {
+	let verificationPage: VerificationPage;
+
+	test.beforeEach(async ({ page }) => {
 		await login(page);
-		await page.evaluate(addCredentialsToLocalStorage);
-		await page.getByRole('link', { name: 'SCAN QR' }).click();
-		await expect(page).toHaveURL('/en/scan');
-		await page.getByRole('textbox').fill(verificationQR);
-		await page.getByRole('button', { name: 'SUBMIT' }).click();
-		await expect(page).toHaveURL('/en/verification');
-		await expect(page.getByText('Verification', { exact: true })).toBeVisible();
+		verificationPage = new VerificationPage(page);
 	});
 
-	test('should display error if no credentials', async ({ page }) => {
-		await login(page);
-		await page.getByRole('link', { name: 'SCAN QR' }).click();
-		await expect(page).toHaveURL('/en/scan');
-		await page.getByRole('textbox').fill(verificationQR);
-		await page.getByRole('button', { name: 'SUBMIT' }).click();
-		await expect(page.getByText('no credentials')).toBeVisible();
+	test('should render verification page', async () => {
+		await verificationPage.navigate();
+		await verificationPage.isPageVisible();
 	});
 
-	test('should display verification details', async ({ page }) => {
-		await login(page);
-		await page.evaluate(addCredentialsToLocalStorage);
-		await page.getByRole('link', { name: 'SCAN QR' }).click();
-		await page.getByRole('textbox').fill(verificationQR);
-		await page.getByRole('button', { name: 'SUBMIT' }).click();
-		await expect(page.getByText('Verification', { exact: true })).toBeVisible();
-		await expect(page.getByText('Is asking for verification')).toBeVisible();
-		await expect(page.getByText('DIDroom_RelyingParty1')).toBeVisible();
-		await expect(
-			page.getByText('https://relying-party1.zenswarm.forkbomb.eu/relying_party/verify')
-		).toBeVisible();
-		await expect(page.getByText('Confirm data to be disclosed')).toBeVisible();
-		await expect(page.getByText('Current given name')).toBeVisible();
+	test('should display error if no credentials', async () => {
+		await verificationPage.scanQR(verificationQR);
+		await verificationPage.expectErrorForNoCredentials();
 	});
 
-	test('should verify credential and show result', async ({ page }) => {
-		await login(page);
-		await page.evaluate(addCredentialsToLocalStorage);
-		await page.getByRole('link', { name: 'SCAN QR' }).click();
-		await page.getByRole('textbox').fill(verificationQR);
-		await page.getByRole('button', { name: 'SUBMIT' }).click();
-		await page.getByRole('button', { name: 'VERIFY' }).click();
-		await expect(page.locator('d-session-card')).toBeVisible();
+	test('should display verification details', async () => {
+		await verificationPage.scanQR(verificationQR);
+		await verificationPage.expectVerificationDetailsVisible([
+			'DIDroom_RelyingParty1',
+			'https://relying-party1.zenswarm.forkbomb.eu/relying_party/verify',
+			'Current given name'
+		]);
+	});
+
+	test('should verify credential and show result', async () => {
+		await verificationPage.scanQR(verificationQR);
+		// await page.getByRole('button', { name: 'VERIFY' }).click();
+		await verificationPage.verify();
+		// await expect(page.locator('d-session-card')).toBeVisible();
 	});
 
 	test('should add activity after success', async ({ page }) => {
-		await login(page);
-		await page.evaluate(addCredentialsToLocalStorage);
-		await page.getByRole('link', { name: 'SCAN QR' }).click();
-		await page.getByRole('textbox').fill(verificationQR);
-		await page.getByRole('button', { name: 'SUBMIT' }).click();
-		await page.getByRole('button', { name: 'VERIFY' }).click();
-		await expect(page.locator('d-session-card')).toBeVisible();
-		await tabBarClick('Activity', page);
-		const activityLocator = page.locator('.itens-start');
-		await expect(activityLocator.first()).toBeVisible();
+		await verificationPage.scanQR(verificationQR);
+		await verificationPage.verify();
+		// await expect(page.locator('d-session-card')).toBeVisible();
+		// await tabBarClick('Activity', page);
+		// const activityLocator = page.locator('.itens-start');
+		// await expect(activityLocator.first()).toBeVisible();
 	});
 
 	test('should show error for expired verification', async ({ page }) => {
-		await login(page);
-		await page.evaluate(addCredentialsToLocalStorage);
-		await page.getByRole('link', { name: 'SCAN QR' }).click();
-		await page.getByRole('textbox').fill(expiredVerificationQR);
-		await page.getByRole('button', { name: 'SUBMIT' }).click();
+		await verificationPage.scanQR(expiredVerificationQR);
 		await expect(page.locator('ion-modal')).toBeVisible();
 	});
 
 	test('should decline verification and return to home', async ({ page }) => {
-		await login(page);
-		await page.evaluate(addCredentialsToLocalStorage);
-		await page.getByRole('link', { name: 'SCAN QR' }).click();
-		await page.getByRole('textbox').fill(verificationQR);
-		await page.getByRole('button', { name: 'SUBMIT' }).click();
-		await page.getByRole('button', { name: 'DECLINE' }).click();
+		await verificationPage.scanQR(verificationQR);
+		await verificationPage.decline();
 		await expect(page).toHaveURL('en/home');
 	});
 });

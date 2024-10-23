@@ -1,10 +1,6 @@
 import { test } from '@playwright/test';
 import { ActivityPage } from './fixtures/ActivityPage';
-import {
-	addActivitiesToLocalStorage,
-	addCredentialsToLocalStorage,
-	login,
-} from './utils';
+import { addActivitiesToLocalStorage, addCredentialsToLocalStorage, login } from './utils';
 
 test.describe('Activity Page', () => {
 	let activityPage: ActivityPage;
@@ -19,6 +15,10 @@ test.describe('Activity Page', () => {
 
 	test('should load activity page after login', async () => {
 		await activityPage.isPageVisible();
+	});
+
+	test('should have not accessibility issues', async () => {
+		await activityPage.hasNoAccessibilityIssues();
 	});
 
 	test('should display "No activity yet" when there are no activities', async () => {
@@ -44,11 +44,11 @@ test.describe('Activity Page', () => {
 		await activityPage.verifyHasInfoLedOnTab();
 	});
 
-	test('should not show info-led on tab button after user see activities', async ({page}) => {
+	test('should not show info-led on tab button after user see activities', async ({ page }) => {
 		await activityPage.verifyHasInfoLedOnTab();
 		await page.waitForTimeout(5000);
 		await activityPage.verifyInfoLedNotPresent();
-	})
+	});
 
 	test('should clear all activities when clear all button is clicked', async () => {
 		await activityPage.clearAllActivities();

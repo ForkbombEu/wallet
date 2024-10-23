@@ -109,6 +109,9 @@ dependencies:
     version: 3.23.8
 
 devDependencies:
+  '@axe-core/playwright':
+    specifier: ^4.10.0
+    version: 4.10.0(playwright-core@1.47.2)
   '@capacitor/assets':
     specifier: ^3.0.5
     version: 3.0.5(@types/node@22.7.4)(typescript@5.6.2)
@@ -261,6 +264,15 @@ packages:
       json-schema: 0.4.0
       jsonpointer: 5.0.1
       leven: 3.1.0
+    dev: true
+
+  /@axe-core/playwright@4.10.0(playwright-core@1.47.2):
+    resolution: {integrity: sha512-kEr3JPEVUSnKIYp/egV2jvFj+chIjCjPp3K3zlpJMza/CB3TFw8UZNbI9agEC2uMz4YbgAOyzlbUy0QS+OofFA==}
+    peerDependencies:
+      playwright-core: '>= 1.0.0'
+    dependencies:
+      axe-core: 4.10.1
+      playwright-core: 1.47.2
     dev: true
 
   /@babel/code-frame@7.25.7:
@@ -4172,6 +4184,11 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       possible-typed-array-names: 1.0.0
+    dev: true
+
+  /axe-core@4.10.1:
+    resolution: {integrity: sha512-qPC9o+kD8Tir0lzNGLeghbOrWMr3ZJpaRlCIb6Uobt/7N4FiEDvqUMnxzCHRHmg8vOg14kr5gVNyScRmbMaJ9g==}
+    engines: {node: '>=4'}
     dev: true
 
   /axios@1.7.7:

@@ -4,43 +4,63 @@ import { LoginPage } from './fixtures/LoginPage';
 import { PassphrasePage } from './fixtures/PassphrasePage';
 
 test.describe('Register-login', () => {
-	test('should navigate to registration page', async ({ page }) => {
-		const registerLoginPage = new RegisterLoginPage(page);
+	let registerLoginPage: RegisterLoginPage;
+	
+	test.beforeEach(async ({ page }) => {
+		registerLoginPage = new RegisterLoginPage(page);
 		await registerLoginPage.navigate();
+	});
+	
+	test('should navigate to registration page', async () => {
 		await registerLoginPage.clickCreateAccount();
-		await expect(page).toHaveURL('/en/login?registration=true');
+		await registerLoginPage.waitForUrlContains('/en/login?registration=true');
 	});
 
-	test('should navigate to login page', async ({ page }) => {
-		const registerLoginPage = new RegisterLoginPage(page);
-		await registerLoginPage.navigate();
+	test('should navigate to login page', async () => {
 		await registerLoginPage.clickLogin();
-		await expect(page).toHaveURL('/en/login');
+		await registerLoginPage.waitForUrlContains('/en/login');
 	});
 });
 
 test.describe('Login Page', () => {
-	test('should log in successfully', async ({ page }) => {
-		const loginPage = new LoginPage(page);
+	let loginPage: LoginPage;
+
+	test.beforeEach(async ({ page }) => {
+		loginPage = new LoginPage(page);
 		await loginPage.navigate();
+	});
+
+	test('should have not accessibility issues', async () => {
+		await loginPage.hasNoAccessibilityIssues();
+	});
+
+	test('should log in successfully', async () => {
 		await loginPage.loginWithCredentials();
 	});
 
-	test('should show error for incorrect email/password', async ({ page }) => {
-		const loginPage = new LoginPage(page);
-		await loginPage.navigate();
+	test('should show error for incorrect email/password', async () => {
 		await loginPage.loginWithInvalidCredentials();
 		await loginPage.verifyErrorMessages();
 	});
 });
 
 test.describe('Login with Passphrase Page', () => {
-	test('should show error with incorrect passphrase', async ({ page }) => {
-		const loginPage = new LoginPage(page);
-		const passphrasePage = new PassphrasePage(page);
+	let passphrasePage: PassphrasePage;
 
+	test.beforeEach(async ({ page }) => {
+		const loginPage = new LoginPage(page);
+		passphrasePage = new PassphrasePage(page);
+		await page.goto('/');
+		await page.getByRole('button', { name: 'Skip' }).click();
 		await loginPage.navigate();
 		await loginPage.loginWithCredentials();
+	});
+
+	test('should have not accessibility issues', async () => {
+		await passphrasePage.hasNoAccessibilityIssues();
+	});
+
+	test('should show error with incorrect passphrase', async ({ page }) => {
 		await passphrasePage.enterPassphrase('incorrect passphrase that does not work');
 		await passphrasePage.checkErrorMessage('Invalid input');
 
@@ -51,12 +71,6 @@ test.describe('Login with Passphrase Page', () => {
 	});
 
 	test('should navigate to wallet after successful passphrase entry', async ({ page }) => {
-		const loginPage = new LoginPage(page);
-		const passphrasePage = new PassphrasePage(page);
-		await page.goto('/');
-		await page.getByRole('button', { name: 'Skip' }).click();
-		await page.getByRole('link', { name: 'Login' }).click();
-		await loginPage.loginWithCredentials();
 		await passphrasePage.enterPassphrase();
 		await page.waitForTimeout(3000);
 		await passphrasePage.verifyKeyringAndDID();

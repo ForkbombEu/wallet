@@ -1,7 +1,13 @@
 import type { Page } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class RegisterLoginPage {
-	constructor(private page: Page) {}
+export class RegisterLoginPage extends BasePage {
+	path = '/register-login';
+	pageTitle = 'REGISTER OR LOGIN';
+
+	constructor(page: Page) {
+		super(page);
+	}
 
 	async navigate() {
 		await this.page.goto('/register-login');

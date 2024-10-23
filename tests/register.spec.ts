@@ -9,6 +9,10 @@ test.describe('Registration Flow', () => {
 		await registrationPage.navigate();
 	});
 
+	test('should have not accessibility issues', async () => {
+		await registrationPage.hasNoAccessibilityIssues();
+	});
+
 	test('should render registration page', async () => {
 		await registrationPage.isPageVisible();
 	});
@@ -38,10 +42,15 @@ test.describe('Security Questions Page', () => {
 		registrationPage = new RegistrationPage(page);
 		securityQuestionsPage = new SecurityQuestionsPage(page);
 		await registrationPage.navigate();
+		await registrationPage.registerUser();
+	});
+
+	test('should have not accessibility issues', async () => {
+		await securityQuestionsPage.hasNoAccessibilityIssues();
 	});
 
 	test('should show error if less than three questions are answered', async ({ page }) => {
-		await registrationPage.registerUser();
+		await securityQuestionsPage.hasNoAccessibilityIssues();
 		await securityQuestionsPage.fillQuestions({
 			whereParentsMet: 'paris'
 		});
@@ -49,7 +58,6 @@ test.describe('Security Questions Page', () => {
 	});
 
 	test.skip('should complete security questions and generate keypair', async ({ page }) => {
-		await registrationPage.registerUser();
 		await securityQuestionsPage.fillQuestions({
 			whereParentsMet: 'paris',
 			nameFirstPet: 'tommy',

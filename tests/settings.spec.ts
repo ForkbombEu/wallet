@@ -1,4 +1,3 @@
-// tests/settings.spec.ts
 import { test } from '@playwright/test';
 import { login } from './utils';
 import { SettingsPage } from './fixtures/SettingsPage';
