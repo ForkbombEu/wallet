@@ -1,29 +1,44 @@
+import { ProfilePage } from './fixtures/ProfilePage';
 import { expect, test } from '@playwright/test';
 import { login, userEmail } from './utils';
 
 test.describe('Profile Page', () => {
-	test('should load profile page after login', async ({ page }) => {
+	let profilePage: ProfilePage;
+
+	test.beforeEach(async ({ page }) => {
+		profilePage = new ProfilePage(page);
 		await login(page);
-		await expect(page).toHaveURL('/en/wallet');
-		await page.locator('ion-tab-bar d-tab-button:has-text("Profile")').click();
-		await expect(page).toHaveURL('/en/profile');
+		await profilePage.navigate();
 	});
 
-	test('should display user details', async ({ page }) => {
-		await login(page);
-		await page.locator('ion-tab-bar d-tab-button:has-text("Profile")').click();
-		await expect(page.locator('d-avatar')).toBeVisible();
-		await expect(page.getByText(userEmail)).toBeVisible();
-		await expect(page.getByText('did')).toBeVisible();
+	test('should load profile page after login', async () => {
+		await profilePage.isPageVisible();
 	});
 
-	test('should display badges if user has organizations', async ({ page }) => {
-		await login(page);
-		await page.locator('ion-tab-bar d-tab-button:has-text("Profile")').click();
-		const orgLocator = page.locator('d-avatar[alt]');
-		if ((await orgLocator.count()) > 0) {
-			await expect(page.locator('d-heading:has-text("Badges")')).toBeVisible();
-			await expect(orgLocator).toBeVisible();
-		}
+	test('should have not accessibility issues', async () => {
+		await profilePage.hasNoAccessibilityIssues();
+	});
+
+	test('should display user email', async () => {
+		await profilePage.hasEmail();
+	});
+
+	test('should display user did', async () => {
+		await profilePage.hasDid();
+	});
+
+	test('should display user avatar', async () => {
+		await profilePage.hasAvatar();
+	});
+
+	test('should display badges title', async () => {
+		await profilePage.hasBadgesTitle();
+	});
+
+	test('should navigate to user did explorer page', async () => {
+		await profilePage.clickOnDid();
+		await profilePage.waitForUrlContains(
+			`https://explorer.did.dyne.org/details/${profilePage.did}`
+		);
 	});
 });
