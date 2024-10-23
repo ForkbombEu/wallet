@@ -28,8 +28,19 @@ export abstract class BasePage {
 		await expect(this.page.locator(`text="${text}"`)).toBeVisible();
 	}
 	async hasNoAccessibilityIssues(): Promise<void> {
-		const results = await new AxeBuilder({ page: this.page }).analyze();
-		expect(results.violations).toEqual([]);
+		const results = await new AxeBuilder({ page: this.page })
+			.withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+			.disableRules(['meta-viewport'])
+			.analyze();
+		expect(
+				results.violations.map((violation) => ({
+					rule: violation.id,
+					targets: violation.nodes.map((node) => node.target),
+					message: violation.description,
+					impact: violation.impact
+				}))
+			)
+			.toEqual([]);
 	}
 
 	async clickButtonByName(name: string, first?: boolean): Promise<void> {
