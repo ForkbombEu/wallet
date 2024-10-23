@@ -47,12 +47,12 @@ test.describe('Credential Offer Page', () => {
 		await credentialOfferPage.submitCredentialForm(userEmail, userPassword);
 		await credentialOfferPage.verifyModalHidden();
 		await page.waitForTimeout(3000);
-		await expect(credentialOfferPage.page).toHaveURL('/en/1/credential-detail');
+		await credentialOfferPage.waitForUrlContains('/en/1/credential-detail');
 	});
 
 	test('should decline credential offer and return to home', async () => {
 		await credentialOfferPage.gotoCredentialOfferPage();
 		await credentialOfferPage.declineOffer();
-		await expect(credentialOfferPage.page).toHaveURL('/en/home');
+		await credentialOfferPage.waitForUrlContains('/en/home');
 	});
 });

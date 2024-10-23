@@ -5,7 +5,6 @@ import { ScanQrButton } from './ScanQrButton';
 export class CredentialOfferPage extends BasePage {
 	path = '/en/credential-offer';
 	pageTitle = 'Credential Offer';
-	scanQr: (Qr: string) => Promise<void>;
 
 	private readonly proofOfEmailBtn: Locator;
 	private readonly qrScanBtn: ScanQrButton;
@@ -23,7 +22,6 @@ export class CredentialOfferPage extends BasePage {
 		super(page);
 		this.proofOfEmailBtn = this.page.locator('text=Proof of email possession');
 		this.qrScanBtn = new ScanQrButton(page);
-		this.scanQr = this.qrScanBtn.scanQr;
 		this.credentialOfferText = this.page.getByText('Credential offer');
 		this.credentialIssuerOfflineText = this.page.getByText(
 			'The credential issuer is currently offline, you may try again later'
@@ -49,6 +47,10 @@ export class CredentialOfferPage extends BasePage {
 
 	async verifyIsBrokenIssuer() {
 		await expect(this.credentialIssuerOfflineText).toBeVisible();
+	}
+
+	async scanQr(qrCode: string) {
+		await this.qrScanBtn.scanQr(qrCode);
 	}
 
 	async continueToAuthorization() {
