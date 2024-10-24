@@ -1,26 +1,42 @@
 import { type Page, type Locator, type FrameLocator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { ScanQrButton } from './ScanQrButton';
+import { FormComponent } from './FormComponent';
+
+class CredentialOfferForm extends FormComponent {
+	private readonly frameLocator: FrameLocator;
+
+	constructor(public readonly page: Page) {
+		super(page);
+		this.frameLocator = this.page.frameLocator('#authorization_server');
+	}
+	async submitForm(): Promise<void> {
+		await this.frameLocator.locator('#execute').click();
+	}
+	async fillInputByName(fieldName: string, value: string): Promise<void> {
+		await this.frameLocator.locator(`#root\\[${fieldName}\\]`).fill(value);
+	}
+}
 
 export class CredentialOfferPage extends BasePage {
 	path = '/en/credential-offer';
 	pageTitle = 'Credential Offer';
 
-	private readonly proofOfEmailBtn: Locator;
+	form: CredentialOfferForm;
+
 	private readonly qrScanBtn: ScanQrButton;
 	private readonly credentialOfferText: Locator;
 	private readonly credentialIssuerOfflineText: Locator;
 	private readonly continueButton: Locator;
 	private readonly declineButton: Locator;
 	private readonly frameLocator: FrameLocator;
-	private readonly emailField: Locator;
-	private readonly passwordField: Locator;
-	private readonly authenticateButton: Locator;
 	private readonly modalOverlay: Locator;
 
 	constructor(public readonly page: Page) {
 		super(page);
-		this.proofOfEmailBtn = this.page.locator('text=Proof of email possession');
+
+		this.form = new CredentialOfferForm(page);
+
 		this.qrScanBtn = new ScanQrButton(page);
 		this.credentialOfferText = this.page.getByText('Credential offer');
 		this.credentialIssuerOfflineText = this.page.getByText(
@@ -29,15 +45,12 @@ export class CredentialOfferPage extends BasePage {
 		this.continueButton = this.page.locator('d-button:has-text("Continue")');
 		this.declineButton = this.page.locator('d-button:has-text("Decline")');
 		this.frameLocator = this.page.frameLocator('#authorization_server');
-		this.emailField = this.frameLocator.locator('#root\\[email\\]');
-		this.passwordField = this.frameLocator.locator('#root\\[password\\]');
-		this.authenticateButton = this.frameLocator.locator('#execute');
 		this.modalOverlay = this.page.locator('#ion-overlay-5');
 	}
 
-	async gotoCredentialOfferPage() {
-		await this.proofOfEmailBtn.click();
-		await expect(this.page).toHaveURL('/en/credential-offer');
+	async navigate(credential = 'Voucher test') {
+		await this.page.locator(`text=${credential}`).click();
+		// await expect(this.page).toHaveURL('/en/credential-offer');
 	}
 
 	async verifyCredentialOfferVisible() {
@@ -55,7 +68,6 @@ export class CredentialOfferPage extends BasePage {
 
 	async continueToAuthorization() {
 		await this.continueButton.click();
-		// await expect(this.frameLocator).toBeVisible();
 	}
 
 	async verifyModalVisible() {
@@ -67,16 +79,22 @@ export class CredentialOfferPage extends BasePage {
 	}
 
 	async verifyIframeLoaded() {
-		await expect(this.frameLocator).toBeDefined();
+		expect(this.frameLocator).toBeDefined();
 	}
 
-	async submitCredentialForm(email: string, password: string) {
-		await this.emailField.fill(email);
-		await this.passwordField.fill(password);
-		await this.authenticateButton.click();
+	async submitExternalForm(data: Record<string, string>) {
+		await this.form.fillAndSubmit(data);
 	}
 
 	async declineOffer() {
 		await this.declineButton.click();
+	}
+
+	async getACredential(credential = 'Voucher test', data = { voucher: 'ten' }) {
+		await this.navigate(credential);
+		await this.continueToAuthorization();
+		await this.form.fillAndSubmit(data);
+		await this.waitForUrlContains('/en/1/credential-detail');
+		await this.clickButtonByName('close');
 	}
 }

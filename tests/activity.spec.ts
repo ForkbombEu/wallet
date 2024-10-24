@@ -35,9 +35,9 @@ test.describe('Activity Page', () => {
 	});
 
 	test('should remove activity when remove button is clicked', async () => {
-		await activityPage.verifyHowManyActivitiesPresent(3);
+		await activityPage.verifyHowManyActivitiesPresent(1);
 		await activityPage.removeFirstActivity();
-		await activityPage.verifyHowManyActivitiesPresent(2);
+		await activityPage.verifyHowManyActivitiesPresent(0);
 	});
 
 	test('should show info-led on tab button when activity is present', async () => {

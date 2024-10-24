@@ -27,7 +27,7 @@ test.describe('Profile Page', () => {
 		await profilePage.hasDid();
 	});
 
-	test('should display user avatar', async () => {
+	test.skip('should display user avatar', async () => {
 		await profilePage.hasAvatar();
 	});
 

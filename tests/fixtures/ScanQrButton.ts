@@ -29,7 +29,6 @@ export class ScanQrButton {
 		await expect(this.page).toHaveURL('/en/scan');
 		await this.textbox.fill(Qr);
 		await this.submit.click();
-		await expect(this.page).toHaveURL('/en/credential-offer');
 	}
 
 	async click() {

@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { test } from '@playwright/test';
 import { login, tabBarClick, userEmail, userPassword } from './utils';
 import { CredentialOfferPage } from './fixtures/CredentialOfferPage';
 
@@ -16,7 +16,7 @@ test.describe('Credential Offer Page', () => {
 	});
 
 	test('should load credential offer page after navigating from home', async () => {
-		await credentialOfferPage.gotoCredentialOfferPage();
+		await credentialOfferPage.navigate();
 		await credentialOfferPage.verifyCredentialOfferVisible();
 	});
 
@@ -35,23 +35,25 @@ test.describe('Credential Offer Page', () => {
 	});
 
 	test('should load iframe after clicking continue button', async () => {
-		await credentialOfferPage.gotoCredentialOfferPage();
+		await credentialOfferPage.navigate();
 		await credentialOfferPage.continueToAuthorization();
 		await credentialOfferPage.verifyIframeLoaded();
 	});
 
-	test('should fill the iframe form and authenticate', async ({ page }) => {
-		await credentialOfferPage.gotoCredentialOfferPage();
+	test('should fill the iframe form and authenticate', async ({page}) => {
+		// credentialOfferPage.getACredential();
+		await credentialOfferPage.navigate();
 		await credentialOfferPage.continueToAuthorization();
 		await credentialOfferPage.verifyIframeLoaded();
-		await credentialOfferPage.submitCredentialForm(userEmail, userPassword);
+		await credentialOfferPage.submitExternalForm({ voucher: 'ten' });
 		await credentialOfferPage.verifyModalHidden();
 		await page.waitForTimeout(3000);
 		await credentialOfferPage.waitForUrlContains('/en/1/credential-detail');
+		// credentialOfferPage.expectText('credential detail');
 	});
 
 	test('should decline credential offer and return to home', async () => {
-		await credentialOfferPage.gotoCredentialOfferPage();
+		await credentialOfferPage.navigate();
 		await credentialOfferPage.declineOffer();
 		await credentialOfferPage.waitForUrlContains('/en/home');
 	});

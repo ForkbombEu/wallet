@@ -1,6 +1,6 @@
 import { expect, type Page } from '@playwright/test';
 
-export abstract class FormComponent {
+export class FormComponent {
 	protected readonly page: Page;
 
 	constructor(page: Page) {
@@ -32,7 +32,20 @@ export abstract class FormComponent {
 		await expect(this.page).toHaveURL(expectedUrl);
 	}
 
-	abstract fillAndSubmit<T extends Record<string, string | boolean>>(
-		data: Partial<T>
-	): Promise<void>;
+	// abstract fillAndSubmit<T extends Record<string, string | boolean>>(
+	// 	data: Partial<T>
+	// ): Promise<void>
+
+	async fillAndSubmit<T extends string | boolean>(data: Partial<Record<string, T>>): Promise<void> {
+		const dataArray = Object.keys(data);
+		
+		for (const key of dataArray) {
+			if (typeof data[key] === 'string') {
+				await this.fillInputByName(key, data[key] as string);
+			} else if (data[key]) {
+				await this.clickCheckbox(key);
+			}
+		}
+		await this.submitForm('Next');
+	}
 }

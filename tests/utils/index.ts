@@ -3,6 +3,8 @@ import type { Credential } from '$lib/preferences/credentials';
 import type { Page } from '@playwright/test';
 import { PassphrasePage } from '../fixtures/PassphrasePage';
 import { LoginPage } from '../fixtures/LoginPage';
+import { credential } from '$paraglide/messages';
+import { CredentialOfferPage } from '../fixtures/CredentialOfferPage';
 
 export const swipe = async (page: Page, x = 120, y = 150) => {
 	await page.mouse.move(x, y);
@@ -57,39 +59,46 @@ export const tabBarClick = async (route: TabButton, page: Page) =>
 // 	localStorage.removeItem(key);
 // }
 
+// export async function addCredentialsToLocalStorage(page: Page) {
+// 	const credentialOfferPage = new CredentialOfferPage(page);
+// 	await page.goto('/en/home');
+// 	await credentialOfferPage.navigate();
+// 	await credentialOfferPage.continueToAuthorization();
+// 	await credentialOfferPage.verifyIframeLoaded();
+// 	await credentialOfferPage.submitExternalForm({ voucher: 'ten' });
+// 	await credentialOfferPage.verifyModalHidden();
+// 	await page.waitForTimeout(3000);
+// 	await credentialOfferPage.waitForUrlContains('/en/1/credential-detail');
+// 	await page.goto('/en/home');
+// 	await credentialOfferPage.navigate();
+// 	await credentialOfferPage.continueToAuthorization();
+// 	await credentialOfferPage.verifyIframeLoaded();
+// 	await credentialOfferPage.submitExternalForm({ voucher: 'twenty' });
+// 	await credentialOfferPage.verifyModalHidden();
+// 	await page.waitForTimeout(3000);
+// 	await credentialOfferPage.waitForUrlContains('/en/2/credential-detail');
+// 	await page.goto('/en/wallet');
+// }
+
 export async function addCredentialsToLocalStorage(page: Page) {
 	await page.evaluate(() => {
 		const CREDENTIALS_PREFERENCES_KEY = 'credentials';
 		const credentials: Credential[] = [
 			{
-				issuerUrl: 'https://avatars.githubusercontent.com/u/',
-				configuration_ids: ['Auth1'],
-				display_name: 'Proof of humanity',
-				sdJwt: 'eyJhbGciOiAiRVMyNTYiLCAidHlwIjogInZjK3NkLWp3dCJ9.eyJfc2QiOiBb...',
-				issuer: 'DIDroom_Issuer1',
-				description: 'You can use this credential to prove your identity...',
+				configuration_ids: ['discount_from_voucher_test'],
+				display_name: 'Voucher test',
+				sdJwt:
+					'eyJhbGciOiAiRVMyNTYiLCAidHlwIjogInZjK3NkLWp3dCJ9.eyJfc2QiOiBbIlQ1TWRQVFVsMlBFeVBBUkc2Z2JDRGYxNnVyMDBhTm5EVHhLcHN1ZkN1N00iXSwgIl9zZF9hbGciOiAic2hhLTI1NiIsICJleHAiOiAxNzI5NzY4MjI2LCAiaWF0IjogMTcyOTY5NjIyNiwgImlzcyI6ICJodHRwczovL2NpLnRlc3QuZGlkcm9vbS5jb20vY3JlZGVudGlhbF9pc3N1ZXIiLCAibmJmIjogMTcyOTY5NjIyNiwgInN1YiI6ICJkaWQ6ZHluZTpzYW5kYm94LnNpZ25yb29tOkpBb21WN0tGM05qamFnQkVuVHJSTkcyOERqZXBYTTlYSEV5R05Zd0pTN2tlIiwgInR5cGUiOiAiZGlzY291bnRfZnJvbV92b3VjaGVyX3Rlc3QifQ.wtTMszYmQNWQmPE3kkJbHH7dn95pVb8iqvXJ66PQma-nq5sNN0dpimWYR8ZuPRIhrS1R88ZUqEn7WNJsATAIZw~WyIwYVdjRTFxdVE0aVZSWWVmYkZyR0lRIiwgImhhc19kaXNjb3VudF9mcm9tX3ZvdWNoZXIiLCAxMF0~',
+				issuer: 'test ci',
+				issuerUrl: 'https://ci.test.didroom.com/credential_issuer',
+				description: '',
 				verified: false,
-				expirationDate: 1720118613,
+				expirationDate: 1929768226,
 				logo: {
-					alt_text: 'Forkbomb Logo',
-					url: 'https://avatars.githubusercontent.com/u/96812851'
+					alt_text: 'Voucher test logo',
+					url: 'https://storage.needpix.com/rsynced_images/discount-2540494_1280.png'
 				},
 				id: 1
-			},
-			{
-				issuerUrl: 'https://avatars.githubusercontent.com/u/',
-				configuration_ids: ['above16'],
-				display_name: 'Above 16',
-				sdJwt: 'eyJhbGciOiAiRVMyNTYiLCAidHlwIjogInZjK3NkLWp3dCJ9.eyJfc2QiOiBb...',
-				issuer: 'DIDroom_Issuer1',
-				description: 'You can use this credential to prove that you are above 16 years old...',
-				verified: false,
-				expirationDate: 1720131677,
-				logo: {
-					alt_text: 'ZafeLoc Logo',
-					url: 'https://blog.citizenkey.eu/public/Graphics/.ZafeLog__logo_s.png'
-				},
-				id: 2
 			}
 		];
 		function addToLocalStorage<T>(key: string, data: T[]) {
