@@ -50,7 +50,7 @@ export class CredentialOfferPage extends BasePage {
 
 	async navigate(credential = 'Voucher test') {
 		await this.page.locator(`text=${credential}`).click();
-		// await expect(this.page).toHaveURL('/en/credential-offer');
+		await this.page.waitForURL(/credential-offer/);
 	}
 
 	async verifyCredentialOfferVisible() {

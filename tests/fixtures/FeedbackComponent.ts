@@ -15,9 +15,9 @@ export class FeedbackComponent {
 		this.component = this.page.locator('d-feedback');
 		this.closeButton = this.page.locator('d-button:has-text("X")');
 		this.seeMoreButton = this.page.locator('button:has-text("See more")');
-		this.seeLessButton = this.page.locator('d-button:has-text("See less")');
-		this.feedbackText = this.component.locator('d-text:has-color("primary")');
-		this.feedbackMessage = this.component.locator('d-text:has-has-class("text-on-alt")');
+		this.seeLessButton = this.page.locator('d-button:has-text("Show less")');
+		this.feedbackText = this.component.locator('d-text').first();
+		this.feedbackMessage = this.component.locator('d-text.text-on-alt');
 	}
 
 	async isVisible(): Promise<void> {
