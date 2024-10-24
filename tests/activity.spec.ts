@@ -1,75 +1,62 @@
-import { expect, test } from '@playwright/test';
-import {
-	addActivitiesToLocalStorage,
-	addCredentialsToLocalStorage,
-	login,
-	tabBarClick
-} from './utils';
+import { test } from '@playwright/test';
+import { ActivityPage } from './fixtures/ActivityPage';
+import { addActivitiesToLocalStorage, addCredentialsToLocalStorage, login } from './utils';
 
 test.describe('Activity Page', () => {
-	test('should load activity page after login', async ({ page }) => {
+	let activityPage: ActivityPage;
+
+	test.beforeEach(async ({ page }) => {
+		activityPage = new ActivityPage(page);
 		await login(page);
-		await tabBarClick('Activity', page);
-		await expect(page).toHaveURL('/en/activity');
-		await expect(page.getByText('ACTIVITY').first()).toBeVisible();
+		await addCredentialsToLocalStorage(page);
+		await addActivitiesToLocalStorage(page);
+		await activityPage.navigate();
 	});
 
-	test('should display "No activity yet" when there are no activities', async ({ page }) => {
-		await login(page);
-		await tabBarClick('Activity', page);
-		await expect(page.locator('d-heading:has-text("No activity yet")')).toBeVisible();
-		await expect(
-			page.locator(
-				'd-text:has-text("Get alerts on new activities and keep your account up-to-date.")'
-			)
-		).toBeVisible();
+	test('should load activity page after login', async () => {
+		await activityPage.isPageVisible();
 	});
 
-	test('should display activities if available', async ({ page }) => {
-		await login(page);
-		await page.evaluate(addCredentialsToLocalStorage);
-		await page.evaluate(addActivitiesToLocalStorage);
-		await tabBarClick('Home', page);
-		await tabBarClick('Activity', page);
-		const activityLocator = page.locator('d-activity-card');
-		await expect(activityLocator.first()).toBeVisible();
+	test('should have not accessibility issues', async () => {
+		await activityPage.hasNoAccessibilityIssues();
 	});
 
-	test('should show clear all button when activities are present', async ({ page }) => {
-		await login(page);
-		await page.evaluate(addActivitiesToLocalStorage);
-		await page.evaluate(addCredentialsToLocalStorage);
-		await tabBarClick('Activity', page);
-		await expect(page.locator('d-button:has-text("clear all")')).toBeVisible();
+	test('should display "No activity yet" when there are no activities', async () => {
+		await activityPage.clearAllActivities();
+		await activityPage.verifyNoActivityMessage();
 	});
 
-	test.skip('should remove activity when remove button is clicked', async ({ page }) => {
-		await login(page);
-		await page.evaluate(addActivitiesToLocalStorage);
-		await page.evaluate(addCredentialsToLocalStorage);
-		await tabBarClick('Activity', page);
-		const removeButton = page.locator('d-button:has-text("remove")').first();
-		await removeButton.click();
-		await expect(removeButton).not.toBeVisible();
+	test('should display activities if available', async () => {
+		await activityPage.verifyActivitiesPresent();
 	});
 
-	test.skip('should clear all activities when clear all button is clicked', async ({ page }) => {
-		await login(page);
-		await page.evaluate(addActivitiesToLocalStorage);
-		await page.evaluate(addCredentialsToLocalStorage);
-		await tabBarClick('Activity', page);
-		const clearAllButton = page.locator('d-button:has-text("clear all")');
-		await clearAllButton.click();
-		await expect(page.locator('.itens-start')).not.toBeVisible();
+	test('should show clear all button when activities are present', async () => {
+		await activityPage.verifyClearAllButtonVisible();
 	});
 
-	test('should navigate to credential detail on "show me!" button click', async ({ page }) => {
-		await login(page);
-		await page.evaluate(addActivitiesToLocalStorage);
-		await page.evaluate(addCredentialsToLocalStorage);
-		await tabBarClick('Activity', page);
-		const showMeButton = page.locator('d-button:has-text("show me!")').first();
-		await showMeButton.click();
-		await expect(page).toHaveURL(/\/credential-detail$/);
+	test('should remove activity when remove button is clicked', async () => {
+		await activityPage.verifyHowManyActivitiesPresent(1);
+		await activityPage.removeFirstActivity();
+		await activityPage.verifyHowManyActivitiesPresent(0);
+	});
+
+	test('should show info-led on tab button when activity is present', async () => {
+		await activityPage.verifyHasInfoLedOnTab();
+	});
+
+	test('should not show info-led on tab button after user see activities', async ({ page }) => {
+		await activityPage.verifyHasInfoLedOnTab();
+		await page.waitForTimeout(5000);
+		await activityPage.verifyInfoLedNotPresent();
+	});
+
+	test('should clear all activities when clear all button is clicked', async () => {
+		await activityPage.clearAllActivities();
+		await activityPage.verifyNoActivityMessage();
+		await activityPage.verifyInfoLedNotPresent();
+	});
+
+	test('should navigate to credential detail on "show me!" button click', async () => {
+		await activityPage.clickShowMeButton();
 	});
 });

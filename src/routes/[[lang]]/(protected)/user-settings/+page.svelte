@@ -51,7 +51,6 @@
 		initialData
 	});
 
-	// let choosenAvatar: string | undefined;
 	let choosenAvatarFile: File | undefined;
 	let choosenAvatarDataURL: string | ArrayBuffer | null;
 

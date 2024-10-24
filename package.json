@@ -24,6 +24,7 @@
 		"postinstall": "paraglide-js compile --project ./project.inlang"
 	},
 	"devDependencies": {
+		"@axe-core/playwright": "^4.10.0",
 		"@capacitor/assets": "^3.0.5",
 		"@faker-js/faker": "^8.4.1",
 		"@inlang/paraglide-js": "1.3.2",
@@ -98,7 +99,7 @@
 		"ionicons": "^7.4.0",
 		"lodash": "^4.17.21",
 		"swiper": "^11.1.14",
-		"zenroom": "^4.43.0",
+		"zenroom": "^4.45.0",
 		"zod": "^3.23.8"
 	}
 }
