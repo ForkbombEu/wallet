@@ -40,8 +40,14 @@ export abstract class BasePage {
 			impact: violation.impact
 		}));
 		// expect(resultsFormatted).toEqual([]);
-		// console.log(`Accessibility issues found:${results.violations.length}`);
-		// resultsFormatted.forEach(console.log);
+		resultsFormatted.length > 0 && console.warn(`Page: ${this.page.url()}`);
+		console.warn(`Accessibility issues found: ${resultsFormatted.length}`);
+		resultsFormatted.forEach((result) => {
+			console.warn(`    Rule: ${result.rule}`);
+			console.warn(`    Message: ${result.message}`);
+			console.warn(`    Impact: ${result.impact}`);
+			console.warn(`    Targets: ${result.targets.join(', ')}`);
+		});
 	}
 
 	async clickButtonByName(name: string, first?: boolean): Promise<void> {
