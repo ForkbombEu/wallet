@@ -1,4 +1,4 @@
-name: '🧪 and 📢 and 📲'
+name: 'publish beta'
 
 on:
   workflow_dispatch:
@@ -91,4 +91,4 @@ jobs:
           KEYSTORE_STORE_PASSWORD: ${{ secrets.BUNDLE_BETA_PASSWORD }}
           PUBLIC_BACKEND_URL: ${{ vars.PUBLIC_BACKEND_URL }}
         with:
-          lane: alpha
+          lane: beta

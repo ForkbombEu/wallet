@@ -157,7 +157,7 @@ platform :android do
       skip_upload_apk: true,
       )
     end
-    lane :alpha do
+    lane :beta do
     sh "echo #{PUBLIC_BACKEND_URL}"
     sh "pnpm install -g @ionic/cli"
     sh "pnpm install"
