@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
-import { login } from './utils';
+import { addCredentialsToLocalStorage, login } from './utils';
 import { CredentialDetailPage } from './fixtures/CredentialDetailPage';
-import { CredentialOfferPage } from './fixtures/CredentialOfferPage';
+// import { CredentialOfferPage } from './fixtures/CredentialOfferPage';
 import { WalletPage } from './fixtures/WalletPage';
 
 test.describe('Credential Detail Page', () => {
@@ -9,10 +9,10 @@ test.describe('Credential Detail Page', () => {
 
 	test.beforeEach(async ({ page }) => {
 		credentialDetailPage = new CredentialDetailPage(page);
-		const credentialOfferPage = new CredentialOfferPage(page);
+		// const credentialOfferPage = new CredentialOfferPage(page);
 		await login(page);
 		await page.goto('/home');
-		await credentialOfferPage.getACredential();
+		await addCredentialsToLocalStorage(page);
 		await credentialDetailPage.navigate();
 	});
 
