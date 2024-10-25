@@ -155,6 +155,46 @@ platform :android do
       track: 'alpha',
       metadata_path: "./fastlane/metadata/android",
       skip_upload_apk: true,
+      )
+    end
+    lane :alpha do
+    sh "echo #{PUBLIC_BACKEND_URL}"
+    sh "pnpm install -g @ionic/cli"
+    sh "pnpm install"
+    sh "ionic cap sync android"
+    sh "ionic cap build android --no-open"
+    package = load_json(json_path: "./package.json")
+    internal_latest_version_code = google_play_track_version_codes(
+      track: 'beta', 
+      json_key:"#{SERVICE_ACCOUNT_PATH}",
+      package_name:"com.didroom.wallet"
+    )
+    increment_version_code(
+      gradle_file_path: "./android/app/build.gradle",
+      version_code: internal_latest_version_code.max + 1
+    )
+    increment_version_name(
+      gradle_file_path: "./android/app/build.gradle",
+      version_name: package['version'] + "-beta"
+    )
+    gradle(
+          task: "clean bundleRelease",
+          project_dir: 'android/',
+          print_command: false,
+          properties: {
+            "android.injected.signing.store.file" => "#{KEYSTORE_PATH}",
+            "android.injected.signing.store.password" => "#{KEYSTORE_STORE_PASSWORD}",
+            "android.injected.signing.key.alias" => "#{KEYSTORE_KEY_ALIAS}",
+            "android.injected.signing.key.password" => "#{KEYSTORE_KEY_PASSWORD}",
+          })
+
+    release = upload_to_play_store(
+      json_key:"#{SERVICE_ACCOUNT_PATH}",
+      package_name:"com.didroom.wallet",
+      aab:"android/app/build/outputs/bundle/release/app-release.aab",
+      track: 'alpha',
+      metadata_path: "./fastlane/metadata/android",
+      skip_upload_apk: true,
       release_status: 'draft'
       )
     end
