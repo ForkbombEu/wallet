@@ -1,7 +1,7 @@
 import { type Page, type Locator, type FrameLocator, expect } from '@playwright/test';
-import { BasePage } from './BasePage';
-import { ScanQrButton } from './ScanQrButton';
-import { FormComponent } from './FormComponent';
+import { BasePage } from '../BasePage';
+import { ScanQrButton } from '../components/ScanQrButton';
+import { FormComponent } from '../components/FormComponent';
 
 class CredentialOfferForm extends FormComponent {
 	private readonly frameLocator: FrameLocator;

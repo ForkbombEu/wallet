@@ -1,7 +1,7 @@
 import { type Page } from '@playwright/test';
-import { BasePage } from './BasePage';
-import { userEmail, userPassword } from '../utils';
-import { FormComponent } from './FormComponent';
+import { BasePage } from '../BasePage';
+import { userEmail, userPassword } from '../../utils';
+import { FormComponent } from '../components/FormComponent';
 
 export class LoginFormComponent extends FormComponent {
 	async fillAndSubmit(data: { email?: string; password?: string }): Promise<void> {

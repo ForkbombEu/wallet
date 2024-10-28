@@ -1,4 +1,4 @@
-import type { Feedback } from './../../src/lib/utils/types';
+import type { Feedback } from '../../../src/lib/utils/types';
 import { expect, type Locator, type Page } from '@playwright/test';
 
 export class FeedbackComponent {

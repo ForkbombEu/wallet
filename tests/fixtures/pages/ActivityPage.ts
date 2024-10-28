@@ -1,6 +1,6 @@
 import { type Page, type Locator, expect } from '@playwright/test';
-import { BasePage } from './BasePage';
-import { tabBarClick } from '../utils';
+import { BasePage } from '../BasePage';
+import { tabBarClick } from '../../utils';
 
 export class ActivityPage extends BasePage {
 	path = '/en/activity';

@@ -28,6 +28,7 @@ export abstract class BasePage {
 		await expect(this.page.locator(`text="${text}"`)).toBeVisible();
 	}
 	async hasNoAccessibilityIssues(): Promise<void> {
+		//@ts-ignore
 		const results = await new AxeBuilder({ page: this.page })
 			.withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
 			.disableRules(['meta-viewport'])

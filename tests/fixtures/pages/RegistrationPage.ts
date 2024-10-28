@@ -1,7 +1,7 @@
 import { expect, type Page } from '@playwright/test';
-import { BasePage } from './BasePage';
-import { FormComponent } from './FormComponent';
-import { randomEmail } from '../utils';
+import { BasePage } from '../BasePage';
+import { FormComponent } from '../components/FormComponent';
+import { randomEmail } from '../../utils';
 
 export class RegistrationFormComponent extends FormComponent {
 	async fillAndSubmit(

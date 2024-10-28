@@ -1,10 +1,8 @@
 import { type Activity } from '$lib/preferences/activity';
 import type { Credential } from '$lib/preferences/credentials';
 import type { Page } from '@playwright/test';
-import { PassphrasePage } from '../fixtures/PassphrasePage';
-import { LoginPage } from '../fixtures/LoginPage';
-import { credential } from '$paraglide/messages';
-import { CredentialOfferPage } from '../fixtures/CredentialOfferPage';
+import { PassphrasePage } from '../fixtures/pages/PassphrasePage';
+import { LoginPage } from '../fixtures/pages/LoginPage';
 
 export const swipe = async (page: Page, x = 120, y = 150) => {
 	await page.mouse.move(x, y);

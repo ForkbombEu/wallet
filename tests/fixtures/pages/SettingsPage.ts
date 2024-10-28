@@ -1,9 +1,9 @@
 import { type Page, type Locator, expect } from '@playwright/test';
-import { BasePage } from './BasePage';
+import { BasePage } from '../BasePage';
 
 export class SettingsPage extends BasePage {
-	path='/en/settings';
-	pageTitle='SETTINGS';
+	path = '/en/settings';
+	pageTitle = 'SETTINGS';
 
 	private readonly profileTabButton: Locator;
 	private readonly settingsButton: Locator;

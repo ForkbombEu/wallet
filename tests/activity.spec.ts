@@ -1,62 +1,65 @@
-import { test } from '@playwright/test';
-import { ActivityPage } from './fixtures/ActivityPage';
+import { test } from './fixtures/testWithFixtures';
 import { addActivitiesToLocalStorage, addCredentialsToLocalStorage, login } from './utils';
 
 test.describe('Activity Page', () => {
-	let activityPage: ActivityPage;
-
-	test.beforeEach(async ({ page }) => {
-		activityPage = new ActivityPage(page);
+	test.beforeEach(async ({ page, activityPage }) => {
 		await login(page);
 		await addCredentialsToLocalStorage(page);
 		await addActivitiesToLocalStorage(page);
 		await activityPage.navigate();
 	});
 
-	test('should load activity page after login', async () => {
+	test('should load activity page after login', async ({ activityPage }) => {
 		await activityPage.isPageVisible();
 	});
 
-	test('should have not accessibility issues', async () => {
+	test('should have not accessibility issues', async ({ activityPage }) => {
 		await activityPage.hasNoAccessibilityIssues();
 	});
 
-	test('should display "No activity yet" when there are no activities', async () => {
+	test('should display "No activity yet" when there are no activities', async ({
+		activityPage
+	}) => {
 		await activityPage.clearAllActivities();
 		await activityPage.verifyNoActivityMessage();
 	});
 
-	test('should display activities if available', async () => {
+	test('should display activities if available', async ({ activityPage }) => {
 		await activityPage.verifyActivitiesPresent();
 	});
 
-	test('should show clear all button when activities are present', async () => {
+	test('should show clear all button when activities are present', async ({ activityPage }) => {
 		await activityPage.verifyClearAllButtonVisible();
 	});
 
-	test('should remove activity when remove button is clicked', async () => {
+	test('should remove activity when remove button is clicked', async ({ activityPage }) => {
 		await activityPage.verifyHowManyActivitiesPresent(1);
 		await activityPage.removeFirstActivity();
 		await activityPage.verifyHowManyActivitiesPresent(0);
 	});
 
-	test('should show info-led on tab button when activity is present', async () => {
+	test('should show info-led on tab button when activity is present', async ({ activityPage }) => {
 		await activityPage.verifyHasInfoLedOnTab();
 	});
 
-	test('should not show info-led on tab button after user see activities', async ({ page }) => {
+	test('should not show info-led on tab button after user see activities', async ({
+		page,
+		activityPage
+	}) => {
 		await activityPage.verifyHasInfoLedOnTab();
 		await page.waitForTimeout(5000);
 		await activityPage.verifyInfoLedNotPresent();
 	});
 
-	test('should clear all activities when clear all button is clicked', async () => {
+	test('should clear all activities when clear all button is clicked', async ({ activityPage }) => {
 		await activityPage.clearAllActivities();
 		await activityPage.verifyNoActivityMessage();
 		await activityPage.verifyInfoLedNotPresent();
 	});
 
-	test('should navigate to credential detail on "show me!" button click', async () => {
+	test('should navigate to credential detail on "show me!" button click', async ({
+		activityPage
+	}) => {
 		await activityPage.clickShowMeButton();
 	});
 });

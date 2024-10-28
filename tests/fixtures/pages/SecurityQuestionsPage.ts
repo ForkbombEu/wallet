@@ -1,6 +1,6 @@
 import { type Page, type Locator, expect } from '@playwright/test';
-import { BasePage } from './BasePage';
-import { FormComponent } from './FormComponent';
+import { BasePage } from '../BasePage';
+import { FormComponent } from '../components/FormComponent';
 
 export class QuestionsFormComponent extends FormComponent {
 	async fillAndSubmit(

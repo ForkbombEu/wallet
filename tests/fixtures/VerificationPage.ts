@@ -1,7 +1,7 @@
-import { FeedbackComponent } from './FeedbackComponent';
+import { FeedbackComponent } from './components/FeedbackComponent';
 import type { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { ScanQrButton } from './ScanQrButton';
+import { ScanQrButton } from './components/ScanQrButton';
 
 export class VerificationPage extends BasePage {
 	path = '/en/verification';

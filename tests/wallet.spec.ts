@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test } from './fixtures/testWithFixtures';
 import { login } from './utils';
 import { WalletPage } from './fixtures/WalletPage';
 
@@ -13,7 +13,7 @@ test.describe('Wallet Page', () => {
 	test('should have not accessibility issues', async () => {
 		await walletPage.hasNoAccessibilityIssues();
 	});
-	
+
 	test('should load wallet page after login', async () => {
 		await walletPage.isPageVisible();
 	});

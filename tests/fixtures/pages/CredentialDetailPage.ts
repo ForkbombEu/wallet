@@ -1,6 +1,6 @@
 import { expect, type Locator, type Page } from '@playwright/test';
-import { BasePage } from './BasePage';
-import { addCredentialsToLocalStorage, tabBarClick } from '../utils';
+import { BasePage } from '../BasePage';
+import { addCredentialsToLocalStorage, tabBarClick } from '../../utils';
 
 export class CredentialDetailPage extends BasePage {
 	path = '/en/1/credential-detail';
