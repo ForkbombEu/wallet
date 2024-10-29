@@ -1,6 +1,6 @@
 import { test } from './fixtures/testWithFixtures';
 import { addCredentialsToLocalStorage, login } from './utils';
-import { WalletPage } from './fixtures/WalletPage';
+import { WalletPage } from './fixtures/pages/WalletPage';
 
 test.describe('Credential Detail Page', () => {
 	test.beforeEach(async ({ page, credentialDetailPage }) => {

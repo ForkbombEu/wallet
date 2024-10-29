@@ -1,9 +1,10 @@
-import type { Feedback } from '../../../src/lib/utils/types';
 import { expect, type Locator, type Page } from '@playwright/test';
+import { BaseComponent } from '../BaseComponent';
+import type { Feedback } from '$lib/utils/types';
 
-export class FeedbackComponent {
-	private readonly page: Page;
-	private readonly component: Locator;
+export class FeedbackComponent extends BaseComponent {
+	static componentLocator = 'd-feedback';
+
 	private readonly closeButton: Locator;
 	private readonly seeMoreButton: Locator;
 	private readonly seeLessButton: Locator;
@@ -11,21 +12,12 @@ export class FeedbackComponent {
 	private readonly feedbackMessage: Locator;
 
 	constructor(page: Page) {
-		this.page = page;
-		this.component = this.page.locator('d-feedback');
-		this.closeButton = this.page.locator('d-button:has-text("X")');
-		this.seeMoreButton = this.page.locator('button:has-text("See more")');
-		this.seeLessButton = this.page.locator('d-button:has-text("Show less")');
-		this.feedbackText = this.component.locator('d-text').first();
-		this.feedbackMessage = this.component.locator('d-text.text-on-alt');
-	}
-
-	async isVisible(): Promise<void> {
-		await expect(this.component).toBeVisible();
-	}
-
-	async isNotVisible(): Promise<void> {
-		await expect(this.component).not.toBeVisible();
+		super(page, FeedbackComponent.componentLocator);
+		this.closeButton = this.locate('d-button:has-text("X")');
+		this.seeMoreButton = this.locate('button:has-text("See more")');
+		this.seeLessButton = this.locate('d-button:has-text("Show less")');
+		this.feedbackText = this.locate('d-text').first();
+		this.feedbackMessage = this.locate('d-text.text-on-alt');
 	}
 
 	async closeFeedback() {

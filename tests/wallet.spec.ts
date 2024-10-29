@@ -1,6 +1,6 @@
 import { test } from './fixtures/testWithFixtures';
 import { login } from './utils';
-import { WalletPage } from './fixtures/WalletPage';
+import { WalletPage } from './fixtures/pages/WalletPage';
 
 test.describe('Wallet Page', () => {
 	let walletPage: WalletPage;

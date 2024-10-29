@@ -1,6 +1,6 @@
 import { expect, type Page } from '@playwright/test';
-import { userSeed } from '../utils';
-import { BasePage } from './BasePage';
+import { userSeed } from '../../utils';
+import { BasePage } from '../BasePage';
 
 export class PassphrasePage extends BasePage {
 	path = '/en/login/passphrase';

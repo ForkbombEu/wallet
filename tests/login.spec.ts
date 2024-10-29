@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { RegisterLoginPage } from './fixtures/RegisterLoginPage';
-import { LoginPage } from './fixtures/LoginPage';
-import { PassphrasePage } from './fixtures/PassphrasePage';
+import { RegisterLoginPage } from './fixtures/pages/RegisterLoginPage';
+import { LoginPage } from './fixtures/pages/LoginPage';
+import { PassphrasePage } from './fixtures/pages/PassphrasePage';
 
 test.describe('Register-login', () => {
 	let registerLoginPage: RegisterLoginPage;

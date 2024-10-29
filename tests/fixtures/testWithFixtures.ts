@@ -1,4 +1,4 @@
-import { VerificationPage } from './VerificationPage';
+import { VerificationPage } from './pages/VerificationPage';
 import { SecurityQuestionsPage } from './pages/SecurityQuestionsPage';
 import { RegistrationPage } from './pages/RegistrationPage';
 import { PassphrasePage } from './pages/PassphrasePage';
@@ -8,7 +8,7 @@ import { test as base } from '@playwright/test';
 import { SettingsPage } from './pages/SettingsPage';
 import { LoginPage } from './pages/LoginPage';
 import { ProfilePage } from './pages/ProfilePage';
-import { WalletPage } from './WalletPage';
+import { WalletPage } from './pages/WalletPage';
 import { ActivityPage } from './pages/ActivityPage';
 import { RegisterLoginPage } from './pages/RegisterLoginPage';
 
@@ -44,11 +44,11 @@ export const test = base.extend<MyFixtures>({
 		await use(new PassphrasePage(page));
 	},
 	walletPage: async ({ page }, use) => {
-        await use(new WalletPage(page));
+		await use(new WalletPage(page));
 	},
-    profilePage: async ({ page }, use) => {
-        await use(new ProfilePage(page));
-    },
+	profilePage: async ({ page }, use) => {
+		await use(new ProfilePage(page));
+	},
 	activityPage: async ({ page }, use) => {
 		await use(new ActivityPage(page));
 	},

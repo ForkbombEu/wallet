@@ -1,7 +1,7 @@
 // WalletPage.ts
 import { type Page, type Locator, expect } from '@playwright/test';
-import { BasePage } from './BasePage';
-import { addCredentialsToLocalStorage, tabBarClick } from '../utils';
+import { BasePage } from '../BasePage';
+import { addCredentialsToLocalStorage, tabBarClick } from '../../utils';
 
 export class WalletPage extends BasePage {
 	path = '/en/wallet';
@@ -29,7 +29,7 @@ export class WalletPage extends BasePage {
 	}
 
 	async isPageVisible(): Promise<void> {
-		await this.expectVisible((this.page.getByText(this.pageTitle).first()));
+		await this.expectVisible(this.page.getByText(this.pageTitle).first());
 	}
 
 	async verifyCredentialsHeadingAndDescription() {

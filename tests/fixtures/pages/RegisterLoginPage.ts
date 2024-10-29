@@ -1,5 +1,5 @@
 import type { Page } from '@playwright/test';
-import { BasePage } from './BasePage';
+import { BasePage } from '../BasePage';
 
 export class RegisterLoginPage extends BasePage {
 	path = '/register-login';
