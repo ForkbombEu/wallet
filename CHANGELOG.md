@@ -1,3 +1,10 @@
+## [1.55.10](https://github.com/ForkbombEu/wallet/compare/v1.55.9...v1.55.10) (2024-10-30)
+
+
+### Bug Fixes
+
+* beta release ([#505](https://github.com/ForkbombEu/wallet/issues/505)) ([3c507fa](https://github.com/ForkbombEu/wallet/commit/3c507fa228fb0b784302a6847da93dfa61795a81))
+
 ## [1.55.9](https://github.com/ForkbombEu/wallet/compare/v1.55.8...v1.55.9) (2024-10-30)
 
 
