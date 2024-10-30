@@ -192,10 +192,9 @@ platform :android do
       json_key:"#{SERVICE_ACCOUNT_PATH}",
       package_name:"com.didroom.wallet",
       aab:"android/app/build/outputs/bundle/release/app-release.aab",
-      track: 'alpha',
+      track: 'beta',
       metadata_path: "./fastlane/metadata/android",
       skip_upload_apk: true,
-      release_status: 'draft'
       )
     end
 end
