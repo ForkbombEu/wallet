@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { getStructuredPreferences, setStructuredPreferences } from '.';
+import type { Logo } from '$lib/utils/types';
 
 //
 
@@ -15,7 +16,7 @@ export type Credential = {
 	description: string;
 	expirationDate: number;
 	verified: boolean;
-	logo: { url: string; alt_text: string };
+	logo: Logo;
 };
 
 const progressiveId = async () => {
