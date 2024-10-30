@@ -10925,6 +10925,5 @@ packages:
 
   file:plugins/localization:
     resolution: {directory: plugins/localization, type: directory}
-    name: eslint-plugin-localization
-    version: 1.0.0
+    name: localization
     dev: true
