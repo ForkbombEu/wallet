@@ -1,3 +1,17 @@
+## [1.55.9](https://github.com/ForkbombEu/wallet/compare/v1.55.8...v1.55.9) (2024-10-30)
+
+
+### Bug Fixes
+
+* verifier logo in activities card ([#489](https://github.com/ForkbombEu/wallet/issues/489)) ([5148f92](https://github.com/ForkbombEu/wallet/commit/5148f921446ba1d41f584b0483f74c55a3365beb)), closes [#485](https://github.com/ForkbombEu/wallet/issues/485)
+
+## [1.55.8](https://github.com/ForkbombEu/wallet/compare/v1.55.7...v1.55.8) (2024-10-17)
+
+
+### Bug Fixes
+
+* accessibility issues ([#498](https://github.com/ForkbombEu/wallet/issues/498)) ([cb6dc78](https://github.com/ForkbombEu/wallet/commit/cb6dc7869a7e743f41456b0d54954e54105d01ff))
+
 ## [1.55.7](https://github.com/ForkbombEu/wallet/compare/v1.55.6...v1.55.7) (2024-10-14)
 
 

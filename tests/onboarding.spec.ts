@@ -13,7 +13,7 @@ test.describe('Onboarding Page', () => {
 		).toBeVisible();
 	});
 
-	test('should complete onboarding and navigate to home', async ({ page }) => {
+	test('should complete onboarding and navigate to register-login', async ({ page }) => {
 		await page.goto('/');
 		await page.getByRole('button', { name: 'Skip' }).click();
 		await expect(page).toHaveURL('/en/register-login');
