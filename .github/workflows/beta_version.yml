@@ -1,9 +1,7 @@
-name: '🧪 and 📢 and 📲'
+name: 'publish beta'
 
 on:
-  pull_request:
-    branches: ['main']
-
+  workflow_dispatch:
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -47,8 +45,8 @@ jobs:
     steps:
       - uses: dyne/pnpm@main
         with:
-          node-version: '20.11.1'
           submodules: true
+          node-version: '20.11.1'
       - uses: actions/cache@v4
         with:
           path: |
@@ -64,31 +62,33 @@ jobs:
           java-version: '17'
       - name: Decode Keystore File
         uses: timheuer/base64-to-file@v1
-        id: android_keystore
+        id: playstore_keystore
         with:
           fileName: android_keystore.keystore
-          encodedString: ${{ secrets.ANDROID_KEYSTORE_FILE }}
-      - name: Decode Service Account File
+          encodedString: ${{ secrets.BUNDLE_BETA_PLAYSTORE }}
+      - name: Decode Service Account File for Firebase
         uses: timheuer/base64-to-file@v1
         id: service_account
         with:
           fileName: play-store-credentials.json
           encodedString: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+      - name: Decode Service Account File for PlayStore
+        uses: timheuer/base64-to-file@v1
+        id: play_console_account
+        with:
+          fileName: play-store-credentials.json
+          encodedString: ${{ secrets.PLAYSTORE_SERVICE_ACCOUNT }}
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
           bundler-cache: true
-
       - uses: maierj/fastlane-action@v3.1.0
         env:
-          KEYSTORE_PATH: ${{ steps.android_keystore.outputs.filePath }}
-          SERVICE_ACCOUNT_PATH: ${{ steps.service_account.outputs.filePath }}
-          KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
-          KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
-          KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
-          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-          PULL_REQUEST_NUMBER: ${{ github.event.number }}
-          PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
+          KEYSTORE_PATH: ${{ steps.playstore_keystore.outputs.filePath }}
+          SERVICE_ACCOUNT_PATH: ${{ steps.play_console_account.outputs.filePath }}
+          KEYSTORE_KEY_ALIAS: ${{ secrets.BUNDLE_BETA_PLAYSTORE_ALIAS }}
+          KEYSTORE_KEY_PASSWORD: ${{ secrets.BUNDLE_BETA_PASSWORD }}
+          KEYSTORE_STORE_PASSWORD: ${{ secrets.BUNDLE_BETA_PASSWORD }}
           PUBLIC_BACKEND_URL: ${{ vars.PUBLIC_BACKEND_URL }}
         with:
-          lane: distribute
+          lane: beta

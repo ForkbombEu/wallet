@@ -27,6 +27,11 @@ export type Info = {
 	asked_claims: AskedClaims;
 	rp_name: string;
 	verifier_name: string;
+	avatar:{
+		collection:string;
+		fileName:string;
+		id:string;
+	}
 };
 
 export type AskedClaims = {
