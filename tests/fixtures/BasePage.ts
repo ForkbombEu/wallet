@@ -43,18 +43,22 @@ export abstract class BasePage {
 		// expect(resultsFormatted).toEqual([]);
 
 		if (resultsFormatted.length > 0) {
-			console.log('====================================');
-			console.warn(`Page: ${this.page.url()}`);
-			console.warn(`Accessibility issues found: ${resultsFormatted.length}`);
+			const logs: string[] = [];
+			logs.push('====================================');
+			logs.push(`Page: ${this.page.url()}`);
+			logs.push(`Accessibility issues found: ${resultsFormatted.length}`);
+
 			resultsFormatted.forEach((result, index) => {
-				console.log(`Issue ${index + 1}:`);
-				console.warn(`    Rule: ${result.rule}`);
-				console.warn(`    Message: ${result.message}`);
-				console.warn(`    Impact: ${result.impact}`);
-				console.warn(`    Targets: ${result.targets.join(', ')}`);
-				console.log('------------------------------------');
+				logs.push(`Issue ${index + 1}:`);
+				logs.push(`    Rule: ${result.rule}`);
+				logs.push(`    Message: ${result.message}`);
+				logs.push(`    Impact: ${result.impact}`);
+				logs.push(`    Targets: ${result.targets.join(', ')}`);
+				logs.push('------------------------------------');
 			});
-			console.log('====================================');
+
+			logs.push('====================================');
+			console.log(logs.join('\n'));
 		}
 	}
 

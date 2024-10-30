@@ -1,3 +1,4 @@
+import { LanguageSettingsPage } from './pages/LanguageSettingPage';
 import { VerificationPage } from './pages/VerificationPage';
 import { SecurityQuestionsPage } from './pages/SecurityQuestionsPage';
 import { RegistrationPage } from './pages/RegistrationPage';
@@ -25,6 +26,7 @@ type MyFixtures = {
 	registrationPage: RegistrationPage;
 	securityQuestionsPage: SecurityQuestionsPage;
 	verificationPage: VerificationPage;
+	languageSettingsPage: LanguageSettingsPage;
 };
 
 export const test = base.extend<MyFixtures>({
@@ -63,6 +65,9 @@ export const test = base.extend<MyFixtures>({
 	},
 	verificationPage: async ({ page }, use) => {
 		await use(new VerificationPage(page));
+	},
+	languageSettingsPage: async ({ page }, use) => {
+		await use(new LanguageSettingsPage(page));
 	}
 });
 export { expect } from '@playwright/test';
