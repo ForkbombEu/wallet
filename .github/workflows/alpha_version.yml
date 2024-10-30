@@ -26,7 +26,7 @@ jobs:
           ./pb migrate
           ./pb serve &
       - run: npx playwright install --with-deps
-      - run: pnpm test:integration
+      - run: pnpm test:integration --workers 1
         env:
           PUBLIC_BACKEND_URL: http://localhost:8090
           USER_EMAIL: ${{ vars.USER_EMAIL }}

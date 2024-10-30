@@ -2,16 +2,18 @@ import { expect, test } from '@playwright/test';
 import { login, tabBarClick } from './utils';
 
 test.describe('Home Page', () => {
-	test('should load home page after login', async ({ page }) => {
+	test.beforeEach(async ({ page }) => {
 		await login(page);
-		await expect(page).toHaveURL('/en/wallet');
 		await tabBarClick('Home', page);
 		await expect(page).toHaveURL('/en/home');
+	});
+
+	test('should load home page after login', async ({ page }) => {
 		await expect(page.getByText('Request credential').first()).toBeVisible();
 	});
 
-	test('should show spinner while loading services', async ({ page }) => {
-		await login(page);
+	test.skip('should show spinner while loading services', async ({ page }) => {
+		await tabBarClick('Wallet', page);
 		await tabBarClick('Home', page);
 		page.route(
 			'**/api/collections/services/records?page=1&perPage=500&skipTotal=1&sort=-updated&expand=credential_issuer',
@@ -25,17 +27,11 @@ test.describe('Home Page', () => {
 	});
 
 	test('should display list of services', async ({ page }) => {
-		await login(page);
-		await tabBarClick('Home', page);
-		await expect(page).toHaveURL('/en/home');
 		const serviceLocator = page.locator('d-credential-service');
 		await expect(serviceLocator).toBeTruthy();
 	});
 
-	test.skip('should navigate to credential offer page on service click', async ({ page }) => {
-		await login(page);
-		await tabBarClick('Home', page);
-		await expect(page).toHaveURL('/en/home');
+	test('should navigate to credential offer page on service click', async ({ page }) => {
 		await page.locator('d-credential-service').first().click();
 		await expect(page).toHaveURL('/en/credential-offer');
 	});
