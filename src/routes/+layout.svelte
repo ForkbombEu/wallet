@@ -70,6 +70,7 @@
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.31.1/dist/didroom-components/didroom-components.css"
 	/>
+	<title>DIDroom Wallet</title>
 </svelte:head>
 <svelte:window
 	on:error|capture={(e) => log(e.error)}
