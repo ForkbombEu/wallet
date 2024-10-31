@@ -155,26 +155,6 @@
 				</d-vertical-stack>
 			</d-vertical-stack>
 		</div>
-		{#if selectedCredential}
-			<div class="ion-padding fixed bottom-0 h-40 w-full bg-surface" transition:slide>
-				<d-vertical-stack>
-					<d-button
-						on:click={verify}
-						aria-hidden
-						animate:flip={{ duration: 400, easing: sineInOut }}
-					>
-						{#await decodeSdJwt(credential.sdJwt) then sdJwt}
-							{#each sdJwt.credential.disclosures as disclosure}
-								<d-definition title={disclosure[1]} definition={disclosure[2]} dotted
-								></d-definition>
-							{/each}
-						{/await}
-					</d-verification-card>
-				{/each}
-				<div class="pb-56" />
-			</d-vertical-stack>
-		</d-vertical-stack>
-	</div>
 	{#if selectedCredential}
 		<div class="ion-padding fixed bottom-0 h-40 w-full bg-surface" transition:slide>
 			<d-vertical-stack>
