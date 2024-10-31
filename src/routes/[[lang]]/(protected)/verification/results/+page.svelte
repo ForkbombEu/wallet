@@ -18,10 +18,9 @@
 			sid={id}
 			{date}
 			in-progress={success}
-			in-progress-message={m.tidy_royal_giraffe_stop()}
-			success-message={m.just_sleek_ape_fall()}
-			failure-message={m.teary_seemly_dragonfly_cheer()}
-			session-message={m.petty_fit_flea_twirl()}
+			in-progress-message={'in progress'}
+			failure-message={'verification failed'}
+			session-message={'session'}
 		/>
 	</div>
 </ion-content>
