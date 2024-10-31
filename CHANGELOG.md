@@ -1,3 +1,17 @@
+## [1.55.11](https://github.com/ForkbombEu/wallet/compare/v1.55.10...v1.55.11) (2024-10-31)
+
+
+### Bug Fixes
+
+* update mobile_zencode to latest commit ([#503](https://github.com/ForkbombEu/wallet/issues/503)) ([e5320a2](https://github.com/ForkbombEu/wallet/commit/e5320a28907d65c83f68504383ed6b34bbf7452e))
+
+## [1.55.10](https://github.com/ForkbombEu/wallet/compare/v1.55.9...v1.55.10) (2024-10-30)
+
+
+### Bug Fixes
+
+* beta release ([#505](https://github.com/ForkbombEu/wallet/issues/505)) ([3c507fa](https://github.com/ForkbombEu/wallet/commit/3c507fa228fb0b784302a6847da93dfa61795a81))
+
 ## [1.55.9](https://github.com/ForkbombEu/wallet/compare/v1.55.8...v1.55.9) (2024-10-30)
 
 

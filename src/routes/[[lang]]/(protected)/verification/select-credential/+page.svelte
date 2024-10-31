@@ -129,17 +129,37 @@
 				title={m.Select_credential()}
 				description={m.novel_elegant_capybara_twist({ length: credentials.length })}
 			/>
-			<d-vertical-stack>
-				{#each sortedCredentials() as credential, index (credential.sdJwt)}
-					<d-verification-card
-						class:opacity-60={selectedCredential && selectedCredential !== credential.sdJwt}
-						class="transition-opacity duration-500"
-						selected={selectedCredential === credential.sdJwt}
-						relying-party={credential.issuerUrl}
-						verifier={credential.issuer}
-						logo={credential.logo.url}
-						flow={credential.display_name}
-						on:click={() => selectCredential(credential.sdJwt)}
+				<d-vertical-stack>
+					{#each sortedCredentials() as credential, index (credential.sdJwt)}
+						<d-verification-card
+							class:opacity-60={selectedCredential && selectedCredential !== credential.sdJwt}
+							class="transition-opacity duration-500"
+							selected={selectedCredential === credential.sdJwt}
+							relying-party={credential.issuerUrl}
+							verifier={credential.issuer}
+							logo={credential.logo.uri}
+							flow={credential.display_name}
+							on:click={() => selectCredential(credential.sdJwt)}
+							aria-hidden
+							animate:flip={{ duration: 400, easing: sineInOut }}
+						>
+							{#await decodeSdJwt(credential.sdJwt) then sdJwt}
+								{#each sdJwt.credential.disclosures as disclosure}
+									<d-definition title={disclosure[1]} definition={disclosure[2]} dotted
+									></d-definition>
+								{/each}
+							{/await}
+						</d-verification-card>
+					{/each}
+					<div class="pb-56" />
+				</d-vertical-stack>
+			</d-vertical-stack>
+		</div>
+		{#if selectedCredential}
+			<div class="ion-padding fixed bottom-0 h-40 w-full bg-surface" transition:slide>
+				<d-vertical-stack>
+					<d-button
+						on:click={verify}
 						aria-hidden
 						animate:flip={{ duration: 400, easing: sineInOut }}
 					>
