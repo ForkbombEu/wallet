@@ -14,12 +14,12 @@ import call_token_and_credential from '$lib/mobile_zencode/wallet/call_token_and
 import call_token_and_credential_keys from '$lib/mobile_zencode/wallet/call_token_and_credential.keys.json?raw';
 import utils_print_decoded_sdjwt from '$lib/mobile_zencode/wallet/utils_print_decoded_sdjwt.zen?raw';
 import { log } from '$lib/log';
+import type { Logo } from '$lib/utils/types';
 
 
 const slangroom = new Slangroom([http, helpers, zencode]);
 
 export const getKeys = async () => {
-	//@ts-expect-error we shall have a type for the Did object or save just the id
 	const client_id = (await getDIDPreference())?.didDocument.id as string;
 	const p = await getKeypairPreference();
 	const keyring = p!.keyring;
@@ -72,8 +72,8 @@ export const holderQrToWellKnown = async (qr: Service) => {
 		})
 		.catch((err) => log(`Slangroom exec holder_qr_to_well_known: ${err}`));
 	await log(`end holderQrToWellKnown: ${JSON.stringify(r, null, 2)}`);
-	await log(`after holderQrToWellKnown, result: ${JSON.stringify(r!.result, null, 2)}`);
-	return r!.result as QrToWellKnown;
+	await log(`after holderQrToWellKnown, result: ${JSON.stringify(r?.result, null, 2)}`);
+	return r?.result as QrToWellKnown
 };
 
 export const callPar = async (data: { credential_parameters: CredentialParameters }) => {
@@ -166,7 +166,7 @@ export type CredentialRequested = {
 		background_color: string;
 		description: string;
 		locale: string;
-		logo: { alt_text: string; url: string };
+		logo: Logo;
 		name: string;
 		text_color: string;
 	}[];
