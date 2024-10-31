@@ -41,7 +41,7 @@
 						{...credential}
 						{expirationDate}
 						name={credential.display_name}
-						logoSrc={credential.logo.url}
+						logoSrc={credential.logo.uri}
 						issuedByLabel={m.Issued_by()}
 						expirationLabel={'Exp'}
 						>{#await decodeSdJwt(credential.sdJwt) then sdjwt}

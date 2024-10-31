@@ -36,7 +36,7 @@
 	<div class="flex h-full flex-col gap-8">
 		<d-vertical-stack>
 			<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
-				<d-avatar src={credential.logo.url} alt={credential.logo.alt_text} shape="square"
+				<d-avatar src={credential.logo.uri} alt={credential.logo.alt_text} shape="square"
 				></d-avatar>
 				<d-heading class="font-semibold" size="xs">
 					{credential.display_name}
