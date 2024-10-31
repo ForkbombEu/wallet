@@ -94,7 +94,7 @@ export async function addCredentialsToLocalStorage(page: Page) {
 				expirationDate: 1929768226,
 				logo: {
 					alt_text: 'Voucher test logo',
-					url: 'https://storage.needpix.com/rsynced_images/discount-2540494_1280.png'
+					uri: 'https://storage.needpix.com/rsynced_images/discount-2540494_1280.png'
 				},
 				id: 1
 			}

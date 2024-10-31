@@ -140,7 +140,7 @@
 							selected={selectedCredential === credential.sdJwt}
 							relying-party={credential.issuerUrl}
 							verifier={credential.issuer}
-							logo={credential.logo.url}
+							logo={credential.logo.uri}
 							flow={credential.display_name}
 							on:click={() => selectCredential(credential.sdJwt)}
 							aria-hidden

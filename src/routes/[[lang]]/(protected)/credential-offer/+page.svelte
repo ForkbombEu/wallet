@@ -115,7 +115,7 @@
 						<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
 							<d-avatar
 								name={credentialInfo?.name}
-								src={credentialInfo?.logo.url}
+								src={credentialInfo?.logo.uri}
 								alt={credentialInfo?.logo.alt_text}
 								shape="square"
 							></d-avatar>
@@ -176,7 +176,7 @@
 								name={credentialInfo?.name}
 								issuer={credentialInfo?.name}
 								description={credentialInfo?.name}
-								logoSrc={credentialInfo?.logo.url}
+								logoSrc={credentialInfo?.logo.uri}
 							/>
 							<div class="mx-auto w-fit pt-8">
 								<FingerPrint />

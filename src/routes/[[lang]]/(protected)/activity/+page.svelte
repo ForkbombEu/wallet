@@ -67,7 +67,7 @@
 		{#each activities as activity}
 			<d-activity-card
 				{...activity}
-				logo={activity.logo.url}
+				logo={activity.logo.uri}
 				id={String(activity.at)}
 				use:setAsRead
 			>

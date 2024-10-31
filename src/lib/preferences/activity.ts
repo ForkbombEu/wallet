@@ -9,6 +9,7 @@ import { invalidate } from '$app/navigation';
 import { _protectedLayoutKey } from '../../routes/[[lang]]/(protected)/+layout';
 import type { Info } from '$lib/components/organisms/scanner/tools';
 import { filesUri } from '$lib/backendUri';
+import type { Logo } from '$lib/utils/types';
 
 dayjs.extend(relativeTime);
 
@@ -39,7 +40,7 @@ export type Activity = {
 
 export type ParsedActivity = {
 	name: string;
-	logo: { url: string; alt_text: string };
+	logo: Logo;
 	description: string;
 	date: string;
 	message: string;
@@ -105,7 +106,7 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 	function formatActivity(activity: Activity) {
 		let parsedActivity: ParsedActivity = {
 			name: '',
-			logo: { url: '', alt_text: '' },
+			logo: { uri: '', alt_text: '' },
 			description: '',
 			date: '',
 			message: '',
@@ -136,7 +137,7 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 
 			if (avatar) {
 				parsedActivity.logo = {
-					url: filesUri(avatar.fileName, avatar.collection, avatar.id),
+					uri: filesUri(avatar.fileName, avatar.collection, avatar.id),
 					alt_text: verifier_name
 				};
 			}

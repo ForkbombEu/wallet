@@ -20,14 +20,14 @@ test.describe('Credential Offer Page', () => {
 
 	test('should load credential offer page after scan QR code', async ({ credentialOfferPage }) => {
 		const qrCode =
-			'openid-credential-offer://?credential_configuration_ids=email_PoP&credential_issuer=https%3A%2F%2Fissuer1.zenswarm.forkbomb.eu%2Fcredential_issuer';
+			'openid-credential-offer://?credential_configuration_ids=discount_from_voucher_test&credential_issuer=https%3A%2F%2Fci.test.didroom.com%2Fcredential_issuer';
 		await credentialOfferPage.scanQr(qrCode);
 		await credentialOfferPage.verifyCredentialOfferVisible();
 	});
 
 	test('should show error feedback if is broken issuer', async ({ credentialOfferPage }) => {
 		const qrCode =
-			'openid-credential-offer://?credential_configuration_ids=email_PoP&credential_issuer=https%3A%2F%2Fissuer1.zenswar.eu%2Fcredential_issuer';
+			'openid-credential-offer://?credential_configuration_ids=discount_from_voucher_test&credential_issuer=https%3A%2F%2Fnot.a.real.issuer.didroom.com%2Fcredential_issuer';
 		await credentialOfferPage.scanQr(qrCode);
 		await credentialOfferPage.verifyIsBrokenIssuer();
 	});
