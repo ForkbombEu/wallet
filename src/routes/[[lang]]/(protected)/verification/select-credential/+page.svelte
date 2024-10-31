@@ -13,6 +13,8 @@
 	import { addVerificationActivity } from '$lib/preferences/activity.js';
 	import { verifyCredential } from '$lib/components/organisms/scanner/tools.js';
 	import { negativeFeedback } from '$lib/utils/index.js';
+	import { verificationResultsStore } from '$lib/verificationResultsStore.js';
+	import { goto } from '$app/navigation';
 
 	type VerificationResponse = {
 		result: {
@@ -45,11 +47,7 @@
 	let selectedCredential: string | undefined =
 		credentials.length === 1 ? credentials[0].sdJwt : undefined;
 
-	let feedback: Feedback = {};
 	let verificationResponse: VerificationResponse;
-	let date = '';
-	let verified: boolean;
-	let success: boolean;
 	let scrollBox: HTMLDivElement;
 
 	const { info, post_without_vp } = $verificationStore;
@@ -72,9 +70,9 @@
 					vp: selectedCredential!
 				}
 			})) as VerificationResponse;
-			verified = true;
-			success = verificationResponse.result.result.result.server_response.status === '200';
-			date = dayjs().toString();
+			const success = verificationResponse.result.result.result.server_response.status === '200';
+			const date = dayjs().toString();
+			let feedback: Feedback = {};
 			if (!success) {
 				feedback = negativeFeedback(
 					verificationFailed,
@@ -86,16 +84,27 @@
 					})
 				);
 			}
+			verificationResultsStore.set({
+				feedback,
+				date,
+				id: post_without_vp.body.id,
+				success
+			});
 			await addVerificationActivity(post_without_vp.body.id, info, success);
 			log(JSON.stringify(verificationResponse));
+			await addVerificationActivity(post_without_vp.body.id, info, success);
+			return await goto('/verification/results');
 		} catch (e) {
-			verified = true;
-			date = dayjs().toString();
-			success = false;
-			feedback = negativeFeedback(verificationFailed, JSON.stringify(e));
+			verificationResultsStore.set({
+				feedback: negativeFeedback(verificationFailed, JSON.stringify(e)),
+				date: dayjs().toString(),
+				id: post_without_vp.body.id,
+				success: false
+			});
 			log(JSON.stringify(e));
+			await addVerificationActivity(post_without_vp.body.id, info, false);
+			return await goto('/verification/results');
 		}
-		await addVerificationActivity(post_without_vp.body.id, info, success);
 	};
 
 	const sortedCredentials = () => {
@@ -114,24 +123,12 @@
 </HeaderWithBackButton>
 
 <ion-content>
-	{#if verified}
-		<div class="ion-padding">
-			<d-feedback {...feedback} />
-			<div class="flex w-full justify-around">
-				<d-session-card
-					sid={post_without_vp.body.id}
-					{date}
-					in-progress={success}
-				/>
-			</div>
-		</div>
-	{:else}
-		<div class="ion-padding flex h-full flex-col justify-between" bind:this={scrollBox}>
-			<d-vertical-stack>
-				<d-page-description
-					title={m.Select_credential()}
-					description={m.novel_elegant_capybara_twist({ length: credentials.length })}
-				/>
+	<div class="ion-padding flex h-full flex-col justify-between" bind:this={scrollBox}>
+		<d-vertical-stack>
+			<d-page-description
+				title={m.Select_credential()}
+				description={m.novel_elegant_capybara_twist({ length: credentials.length })}
+			/>
 				<d-vertical-stack>
 					{#each sortedCredentials() as credential, index (credential.sdJwt)}
 						<d-verification-card
@@ -158,19 +155,14 @@
 				</d-vertical-stack>
 			</d-vertical-stack>
 		</div>
-		{#if selectedCredential}
-			<div class="ion-padding fixed bottom-0 h-40 w-full bg-surface" transition:slide>
-				<d-vertical-stack>
-					<d-button
-						on:click={verify}
-						aria-hidden
-						expand
-						color="accent"
-						disabled={!selectedCredential}>{m.Verify()}</d-button
-					>
-					<d-button expand aria-hidden>{m.Decline()}</d-button>
-				</d-vertical-stack>
-			</div>
-		{/if}
+	{#if selectedCredential}
+		<div class="ion-padding fixed bottom-0 h-40 w-full bg-surface" transition:slide>
+			<d-vertical-stack>
+				<d-button on:click={verify} aria-hidden expand color="accent" disabled={!selectedCredential}
+					>{m.Verify()}</d-button
+				>
+				<d-button expand aria-hidden>{m.Decline()}</d-button>
+			</d-vertical-stack>
+		</div>
 	{/if}
 </ion-content>
