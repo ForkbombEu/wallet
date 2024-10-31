@@ -17,6 +17,7 @@
 		tabs.forEach(async (tab) => {
 			if ($navigating.to?.url.pathname.includes(tab.tab)) {
 				currentTabName = tab.tab;
+				await $navigating?.complete.catch(async () => await goto(tab.tab));
 			}
 		});
 	}
