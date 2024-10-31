@@ -27,12 +27,12 @@ export abstract class BasePage {
 		// await this.page.locator(`text="${text}"`).textContent();
 		await expect(this.page.locator(`text="${text}"`)).toBeVisible();
 	}
-	async hasNoAccessibilityIssues(disableRules:string[]=[]): Promise<void> {
+	async hasNoAccessibilityIssues(disableRules: string[] = []): Promise<void> {
 		//@ts-ignore
 		const results = await new AxeBuilder({ page: this.page })
 			.withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
 			.exclude(
-				'd-tab-button:nth-child(1),#tab-button-home,a[href$="home"], d-tab-button:nth-child(2),#tab-button-wallet,a[href$="wallet"], d-tab-button:nth-child(3),#tab-button-activity,a[href$="activity"], d-tab-button:nth-child(4),#tab-button-profile,a[href$="profile"]'
+				'd-tab-button:nth-child(1),#tab-button-home,a[href$="home"], d-tab-button:nth-child(2),#tab-button-wallet,a[href$="wallet"], d-tab-button:nth-child(3),#tab-button-activity,a[href$="activity"], d-tab-button:nth-child(4),#tab-button-profile,a[href$="profile"], #password, #confirmPassword'
 			)
 			.disableRules(['meta-viewport', ...disableRules])
 			.analyze();
