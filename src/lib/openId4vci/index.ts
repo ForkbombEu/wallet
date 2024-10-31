@@ -72,8 +72,8 @@ export const holderQrToWellKnown = async (qr: Service) => {
 		})
 		.catch((err) => log(`Slangroom exec holder_qr_to_well_known: ${err}`));
 	await log(`end holderQrToWellKnown: ${JSON.stringify(r, null, 2)}`);
-	await log(`after holderQrToWellKnown, result: ${JSON.stringify(r!.result, null, 2)}`);
-	return r!.result as QrToWellKnown;
+	await log(`after holderQrToWellKnown, result: ${JSON.stringify(r?.result, null, 2)}`);
+	return r?.result as QrToWellKnown
 };
 
 export const callPar = async (data: { credential_parameters: CredentialParameters }) => {
