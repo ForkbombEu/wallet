@@ -1,3 +1,11 @@
+## [1.55.12](https://github.com/ForkbombEu/wallet/compare/v1.55.11...v1.55.12) (2024-10-31)
+
+
+### Bug Fixes
+
+* beta version should be point to production env ([#508](https://github.com/ForkbombEu/wallet/issues/508)) ([f4fa1eb](https://github.com/ForkbombEu/wallet/commit/f4fa1eb8da06571635211ad30aac7e1706a72799))
+* on verification flow user is only allowed to go forward or exit, cant go back ([#488](https://github.com/ForkbombEu/wallet/issues/488)) ([1c4646b](https://github.com/ForkbombEu/wallet/commit/1c4646b400754a7618b0aa0434e45c3e4cf2fb5d)), closes [#481](https://github.com/ForkbombEu/wallet/issues/481)
+
 ## [1.55.11](https://github.com/ForkbombEu/wallet/compare/v1.55.10...v1.55.11) (2024-10-31)
 
 
