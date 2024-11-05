@@ -5,7 +5,7 @@ import { getPublicKeysFromKeypair } from '$lib/keypairoom';
 import { backendUri } from '$lib/backendUri';
 import { Slangroom } from '@slangroom/core';
 import { pocketbase } from '@slangroom/pocketbase';
-import getPbList from '$lib/slangroom/getPbList.zen?raw';
+import getPbList from '$lib/slangroom/getPbList.slang?raw';
 
 const getKeys = async () => {
 	const keypair = await getKeypairPreference();
