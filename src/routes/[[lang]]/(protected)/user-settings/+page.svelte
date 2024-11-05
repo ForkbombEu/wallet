@@ -8,13 +8,11 @@
 	import { Slangroom } from '@slangroom/core';
 	import { pocketbase } from '@slangroom/pocketbase';
 	import update from '$lib/slangroom/update.slang?raw';
-	import create from '$lib/slangroom/create.slang?raw';
 	import FileInput from '$lib/forms/fileInput.svelte';
 	import { goto } from '$app/navigation';
-	import { fly } from 'svelte/transition';
 
 	export let data;
-	const { user, organizations } = data;
+	const { user } = data;
 
 	let loading = false;
 
