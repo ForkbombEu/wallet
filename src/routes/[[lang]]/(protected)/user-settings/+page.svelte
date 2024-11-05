@@ -8,11 +8,13 @@
 	import { Slangroom } from '@slangroom/core';
 	import { pocketbase } from '@slangroom/pocketbase';
 	import update from '$lib/slangroom/update.slang?raw';
+	import create from '$lib/slangroom/create.slang?raw';
 	import FileInput from '$lib/forms/fileInput.svelte';
 	import { goto } from '$app/navigation';
+	import { fly } from 'svelte/transition';
 
 	export let data;
-	const { user } = data;
+	const { user, organizations } = data;
 
 	let loading = false;
 
@@ -84,8 +86,8 @@
 		</d-vertical-stack>
 	</d-horizontal-stack>
 	<hr />
-	<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full">
-		<FileInput {form} field="avatar" on:change={handleAvatarChange} label={m.avatar()} />
+	<Form {form} formClass="flex flex-col gap-4 pb-6 w-full">
+		<FileInput {form} field="avatar" on:change={handleAvatarChange} />
 		<Input {form} fieldPath="name" placeholder={m.John_Doe()} label={m.username()} type="text" />
 		<d-vertical-stack>
 			<d-button color="accent" type="submit" expand class="mt-4">
@@ -94,6 +96,6 @@
 			<d-button expand on:click={() => goto('/profile')} aria-hidden>
 				{m.cancel()}
 			</d-button>
-		</d-vertical-stack>
-	</Form>
+		</d-vertical-stack></Form
+	>
 </div>
