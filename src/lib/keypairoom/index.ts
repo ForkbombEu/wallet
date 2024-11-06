@@ -1,43 +1,19 @@
-import keypairoomGenerateHMAC from '../../../zenflows-crypto/src/keypairoomServer-6-7.zen?raw';
 import keypairoomClient from '../../../zenflows-crypto/src/keypairoomClient-8-9-10-11-12.zen?raw';
 import keypairoomClientRecreateKeys from '../../../zenflows-crypto/src/keypairoomClientRecreateKeys.zen?raw';
 import { zencodeExec } from './zencode';
 import type { ValueOf } from '$lib/utils/types';
 import _ from 'lodash';
-import { getServerSalt } from '$lib/slangroom/salt';
+import { getHMAC } from '$lib/slangroom/hmac';
 
 //
 
-
 const HMAC_KEY = 'seedServerSideShard.HMAC';
-
-/* - HMAC generation - */
-
-export async function generateHMAC(email: string): Promise<string> {
-	const response = await zencodeExec<KeypairoomGenerateHMACData, KeypairoomGenerateHMACOutput>(
-		keypairoomGenerateHMAC,
-		{
-			userData: { email },
-			serverSideSalt: await getServerSalt()
-		}
-	);
-	return response[HMAC_KEY];
-}
-
-type KeypairoomGenerateHMACData = {
-	userData: { email: string };
-	serverSideSalt: string;
-};
-
-type KeypairoomGenerateHMACOutput = { [HMAC_KEY]: string };
-
-/* - Keypair generation - */
 
 export async function generateKeypair(
 	email: string,
 	answers: UserChallengesAnswers
 ): Promise<Keypair> {
-	const HMAC = await generateHMAC(email);
+	const HMAC = await getHMAC(email);
 	return await zencodeExec<KeypairoomClientData, KeypairoomClientOutput>(keypairoomClient, {
 		userChallenges: answers,
 		username: email,
@@ -56,7 +32,7 @@ type KeypairoomClientOutput = Keypair;
 /* - Keypair regeneration - */
 
 export async function regenerateKeypair(email: string, seed: string): Promise<Keypair> {
-	const HMAC = await generateHMAC(email);
+	const HMAC = await getHMAC(email);
 	return await zencodeExec<RegenerateKeypairData, RegenerateKeypairOutput>(
 		keypairoomClientRecreateKeys,
 		{
