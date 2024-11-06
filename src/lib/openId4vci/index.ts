@@ -16,7 +16,6 @@ import utils_print_decoded_sdjwt from '$lib/mobile_zencode/wallet/utils_print_de
 import { log } from '$lib/log';
 import type { Logo } from '$lib/utils/types';
 
-
 const slangroom = new Slangroom([http, helpers, zencode]);
 
 export const getKeys = async () => {
@@ -48,12 +47,13 @@ export const askCredential = async (
 	const data = {
 		code,
 		credential_parameters,
-		code_verifier
+		code_verifier,
+		redirect_uri: 'openid-credential-offer://callback?'
 	};
 	const keys = JSON.parse(call_token_and_credential_keys);
-	const userKeys = await getKeys()
-	keys.keyring = userKeys.keyring
-	keys.client_id = userKeys.client_id
+	const userKeys = await getKeys();
+	keys.keyring = userKeys.keyring;
+	keys.client_id = userKeys.client_id;
 	const request = await slangroom.execute(call_token_and_credential, {
 		data,
 		keys
@@ -73,14 +73,14 @@ export const holderQrToWellKnown = async (qr: Service) => {
 		.catch((err) => log(`Slangroom exec holder_qr_to_well_known: ${err}`));
 	await log(`end holderQrToWellKnown: ${JSON.stringify(r, null, 2)}`);
 	await log(`after holderQrToWellKnown, result: ${JSON.stringify(r?.result, null, 2)}`);
-	return r?.result as QrToWellKnown
+	return r?.result as QrToWellKnown;
 };
 
 export const callPar = async (data: { credential_parameters: CredentialParameters }) => {
 	const keys = JSON.parse(call_par_keys);
-	const userKeys = await getKeys()
-	keys.keyring = userKeys.keyring
-	keys.client_id = userKeys.client_id
+	const userKeys = await getKeys();
+	keys.keyring = userKeys.keyring;
+	keys.client_id = userKeys.client_id;
 	const r = await slangroom.execute(call_par, { data, keys });
 	const result = r.result as CallParResult;
 	const authorizeUrl = `${result.authorization_endpoint}?client_id=${result.client_id}&request_uri=${result.request_uri}`;
