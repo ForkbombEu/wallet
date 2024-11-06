@@ -1,3 +1,4 @@
+import { serviceSchema } from './tools';
 import { getCredentialsSdjwt } from '$lib/preferences/credentials';
 import { z } from 'zod';
 import { Slangroom } from '@slangroom/core';
@@ -27,11 +28,11 @@ export type Info = {
 	asked_claims: AskedClaims;
 	rp_name: string;
 	verifier_name: string;
-	avatar:{
-		collection:string;
-		fileName:string;
-		id:string;
-	}
+	avatar: {
+		collection: string;
+		fileName: string;
+		id: string;
+	};
 };
 
 export type AskedClaims = {
@@ -145,7 +146,7 @@ const infoFromVerificationData = async (
 			success: true,
 			info: credential
 		};
-	//@ts-ignore
+		//@ts-ignore
 	} catch (err: { message: unknown }) {
 		return {
 			success: false,
@@ -231,7 +232,27 @@ export const gotoQrResult = async (url: string) => {
 		credential_issuer: 'string'
 	};
 
-	const parsedService = parseParams(urlParams, serviceParams, serviceSchema);
+	const legacyParsedService = parseParams(urlParams, serviceParams, serviceSchema);
+	if (legacyParsedService.success) {
+		return handleServiceSuccess(legacyParsedService.data);
+	}
+
+	const parsedServiceUri = extractUrlParams(
+		{ credential_offer_uri: 'string' },
+		urlParams
+	).credential_offer_uri;
+
+	if (parsedServiceUri) {
+		const service = await fetch(parsedServiceUri);
+		const parsedService = serviceSchema.safeParse(await service.json());
+		if (parsedService.success) {
+			return handleServiceSuccess(parsedService.data);
+		}
+	}
+
+	const parsedService = serviceSchema.safeParse(
+		JSON.parse(extractUrlParams({ credential_offer: 'string' }, urlParams).credential_offer)
+	);
 	if (parsedService.success) {
 		return handleServiceSuccess(parsedService.data);
 	}
