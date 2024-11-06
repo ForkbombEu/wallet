@@ -1,4 +1,3 @@
-import { serviceSchema } from './tools';
 import { getCredentialsSdjwt } from '$lib/preferences/credentials';
 import { z } from 'zod';
 import { Slangroom } from '@slangroom/core';
