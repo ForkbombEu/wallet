@@ -34,6 +34,7 @@ export const login = async (page: Page) => {
 	await loginPage.navigate();
 	await loginPage.loginWithCredentials();
 	await passphrasePage.enterPassphrase();
+	await page.locator('button:has-text("See more")').click();
 	await page.waitForURL('/en/wallet');
 };
 
