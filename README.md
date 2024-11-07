@@ -2,7 +2,7 @@
 
 # DIDroom Wallet Holder App
 
-### iOS and Android App for DIDroom Wallet Holders
+### iOS and Android App for DIDroom Wallet Holders 
 
 </div>
 
