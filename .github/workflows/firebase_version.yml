@@ -24,6 +24,7 @@ jobs:
           cp ../../tests/fixtures/test.db pb_data/data.db
           rm pb_migrations/1685000000_seed_features.js
           go build
+          mkdir -p ~/bin && wget -q -O ~/bin/zenroom https://github.com/dyne/zenroom/releases/latest/download/zenroom && chmod +x ~/bin/zenroom && echo "zenroom 😎 installed" && wget -q -O ~/bin/zencode-exec https://github.com/dyne/zenroom/releases/latest/download/zencode-exec && chmod +x ~/bin/zencode-exec && echo "zencode-exec 🤭 installed"
           ./pb migrate
           ./pb serve &
       - run: npx playwright install --with-deps
