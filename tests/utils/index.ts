@@ -33,9 +33,16 @@ export const login = async (page: Page) => {
 	await page.getByRole('button', { name: 'Skip' }).click();
 	await loginPage.navigate();
 	await loginPage.loginWithCredentials();
+	const bb = page.locator('button:has-text("See more")');
+	if (await bb.isVisible()) {
+		await bb.click();
+	}
 	await page.waitForTimeout(500);
 	await passphrasePage.enterPassphrase();
 	await page.waitForTimeout(500);
+	if (await bb.isVisible()) {
+		await bb.click();
+	}
 	await page.waitForURL('/en/wallet');
 };
 
