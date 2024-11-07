@@ -38,11 +38,11 @@ export const login = async (page: Page) => {
 		await bb.click();
 	}
 	await page.waitForTimeout(500);
-	// await passphrasePage.enterPassphrase();
-	// await page.waitForTimeout(500);
-	// if (await bb.isVisible()) {
-	// 	await bb.click();
-	// }
+	await passphrasePage.enterPassphrase();
+	await page.waitForTimeout(500);
+	if (await bb.isVisible()) {
+		await bb.click();
+	}
 	await page.waitForURL('/en/wallet');
 };
 
