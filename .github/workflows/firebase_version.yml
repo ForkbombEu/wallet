@@ -20,6 +20,7 @@ jobs:
       - run: |
           git clone --recursive https://github.com/forkbombeu/signroom
           cd signroom/admin
+          git reset --hard b7a3fb73444d020d71af6f1acedd63d930b390b2
           mkdir pb_data
           cp ../../tests/fixtures/test.db pb_data/data.db
           rm pb_migrations/1685000000_seed_features.js
