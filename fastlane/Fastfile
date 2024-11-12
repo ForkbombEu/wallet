@@ -287,7 +287,7 @@ platform :ios do
     update_code_signing_settings(
       use_automatic_signing: false,
       path: "./ios/App/App.xcodeproj",
-      code_sign_identity: "iPhone Distribution",
+      code_sign_identity: "Apple Distribution",
       profile_name: ENV['APPLE_PROFILE_NAME'],
       bundle_identifier: ENV['BUNDLE_IDENTIFIER'],
       team_id: ENV['APP_STORE_CONNECT_TEAM_ID']
