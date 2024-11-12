@@ -256,7 +256,7 @@ platform :ios do
 
   private_lane :import_cert do |options|
     cert_path = "#{Dir.tmpdir}/build_certificate.p12"
-    File.write(cert_path, Base64.decode64(ENV['BUILD_CERTIFICATE_BASE64']))
+    File.write(cert_path, Base64.decode64(ENV['IOS_BUILD_CERTIFICATE']))
     import_certificate(
       certificate_path: cert_path,
       certificate_password: ENV['P12_PASSWORD'] || "",
