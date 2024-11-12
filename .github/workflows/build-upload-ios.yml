@@ -8,7 +8,6 @@ jobs:
   build_ios:
     runs-on: macOS-latest
     steps:
-      - uses: actions/checkout@v4
       - uses: dyne/pnpm@main
         with:
           node-version: '20.11.1'
