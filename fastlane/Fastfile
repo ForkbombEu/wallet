@@ -256,7 +256,7 @@ platform :ios do
 
   private_lane :import_cert do |options|
     cert_path = "#{Dir.tmpdir}/build_certificate.p12"
-    File.write(cert_path, Base64.decode64(ENV['IOS_BUILD_CERTIFICATE']))
+    File.write(cert_path, Base64.decode64(ENV['BUILD_CERTIFICATE_BASE64']))
     import_certificate(
       certificate_path: cert_path,
       certificate_password: ENV['P12_PASSWORD'] || "",
@@ -275,7 +275,7 @@ platform :ios do
 
   private_lane :install_profile do
     profile_path = "#{Dir.tmpdir}/build_pp.mobileprovision"
-    File.write(profile_path, Base64.decode64(ENV['IOS_BUILD_PROVISION_PROFILE']))
+    File.write(profile_path, Base64.decode64(ENV['BUILD_PROVISION_PROFILE_BASE64']))
     UI.user_error!("Failed to create provisioning profile at #{profile_path}") unless File.exist?(profile_path)
     ENV['PROVISIONING_PROFILE_PATH'] = profile_path
     install_provisioning_profile(path: profile_path)
