@@ -69,7 +69,7 @@
 	};
 </script>
 
-<HeaderWithBackButton>User Settings</HeaderWithBackButton>
+<HeaderWithBackButton>{m.User_Settings()}</HeaderWithBackButton>
 <d-loading {loading}>
 	<FingerPrint />
 </d-loading>
