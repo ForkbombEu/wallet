@@ -103,11 +103,11 @@
 							</Input>
 						{:else}
 							<Checkbox fieldPath="conditions" {form}
-								>Accept <a
+								>{m.Accept()} <a
 									href="https://didroom.com/guides/7_terms-and-conditions/"
 									class="text-accent underline"
 								>
-									Terms and Conditions
+									{m.Terms_and_Conditions()}
 								</a></Checkbox
 							>
 						{/if}

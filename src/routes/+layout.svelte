@@ -17,6 +17,7 @@
 	import { App } from '@capacitor/app';
 	import { gotoQrResult } from '$lib/components/organisms/scanner/tools';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
+	import { m } from '$lib/i18n';
 
 	const controller = new AbortController();
 	const signal = controller.signal;
@@ -76,7 +77,7 @@
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.31.3/dist/didroom-components/didroom-components.css"
 	/>
-	<title>DIDroomWallet</title>
+	<title>{m.DidroomWallet()}</title>
 </svelte:head>
 <svelte:window
 	on:error|capture={(e) => log(e.error)}

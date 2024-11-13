@@ -2,7 +2,7 @@
 	import Modal from '$lib/components/molecules/Modal.svelte';
 	import { goto, m } from '$lib/i18n';
 	export let data: any;
-	const { credential, credentials } = data;
+	const { credential } = data;
 	import { decodeSdJwt } from '$lib/openId4vci';
 	import { removeCredentialPreference } from '$lib/preferences/credentials';
 	import { pushState } from '$app/navigation';
@@ -53,7 +53,7 @@
 		</d-vertical-stack>
 		<div class="flex h-full flex-grow flex-col justify-between pb-16">
 			<d-vertical-stack>
-				<d-heading size="xs" class="font-bold"> Claims: </d-heading>
+				<d-heading size="xs" class="font-bold"> {m.Claims()} </d-heading>
 				<d-vertical-stack>
 					{#await decodeSdJwt(credential.sdJwt) then sdjwt}
 						{#each sdjwt.credential.disclosures as disclosure}
@@ -76,15 +76,15 @@
 				</d-vertical-stack>
 			</d-vertical-stack>
 			<div class="flex flex-col">
-				<d-button expand color="accent" on:click={() => goto('/wallet')}>{m.Close()}</d-button>
-				<d-button expand color="primary" on:click={openModal}>Delete</d-button>
+				<d-button expand color="accent" on:click={() => goto('/wallet')} aria-hidden>{m.Close()}</d-button>
+				<d-button expand color="primary" on:click={openModal} aria-hidden>{m.Delete()}</d-button>
 			</div>
 		</div>
 		<Modal isModalOpen={$page.state.isModalOpen} closeCb={closeModal}>
-			<d-text>If you continue the credential will be permanently deleted</d-text>
+			<d-text>{m.If_you_continue_the_credential_will_be_permanently_deleted()}</d-text>
 			<div class="flex flex-col">
-				<d-button expand color="primary" on:click={deleteCredential}>Continue</d-button>
-				<d-button expand color="accent" on:click={closeModal}>Cancel</d-button>
+				<d-button expand color="primary" on:click={deleteCredential} aria-hidden>{m.Continue()}</d-button>
+				<d-button expand color="accent" on:click={closeModal} aria-hidden>{m.cancel()}</d-button>
 			</div>
 		</Modal>
 	</div>
