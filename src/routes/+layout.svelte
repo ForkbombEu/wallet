@@ -70,11 +70,11 @@
 	 />  -->
 	<script
 		type="module"
-		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.31.1/dist/didroom-components/didroom-components.esm.js"
+		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.31.3/dist/didroom-components/didroom-components.esm.js"
 	></script>
 	<link
 		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.31.1/dist/didroom-components/didroom-components.css"
+		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.31.3/dist/didroom-components/didroom-components.css"
 	/>
 	<title>DIDroomWallet</title>
 </svelte:head>
