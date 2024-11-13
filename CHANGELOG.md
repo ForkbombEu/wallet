@@ -1,3 +1,17 @@
+## [1.55.14](https://github.com/ForkbombEu/wallet/compare/v1.55.13...v1.55.14) (2024-11-11)
+
+
+### Bug Fixes
+
+* ios configuration with capacitor 6 ([#519](https://github.com/ForkbombEu/wallet/issues/519)) ([6d8ef8e](https://github.com/ForkbombEu/wallet/commit/6d8ef8e7d6c312520126c1ba8c3b1856be01d3e1))
+
+## [1.55.13](https://github.com/ForkbombEu/wallet/compare/v1.55.12...v1.55.13) (2024-11-07)
+
+
+### Bug Fixes
+
+* ask for hmac to dashboard ([#516](https://github.com/ForkbombEu/wallet/issues/516)) ([6e72df2](https://github.com/ForkbombEu/wallet/commit/6e72df20357e9fe2fba6f3dfbf6cd6d987df2d78))
+
 ## [1.55.12](https://github.com/ForkbombEu/wallet/compare/v1.55.11...v1.55.12) (2024-10-31)
 
 
