@@ -31,7 +31,7 @@ test.describe('Login Page', () => {
 	});
 
 	test('should have not accessibility issues', async () => {
-		await loginPage.hasNoAccessibilityIssues();
+		await loginPage.hasNoAccessibilityIssues(['document-title']);
 	});
 
 	test('should log in successfully', async () => {

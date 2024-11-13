@@ -97,7 +97,7 @@
 								type="password"
 								hidable
 							>
-								<a href={r('/login/reset-password')} class="text-accent underline h-12"
+								<a href={r('/login/reset-password')} class="h-12 text-accent underline"
 									>{m.forgot_your_password()}</a
 								>
 							</Input>
@@ -122,7 +122,7 @@
 								: !($tainted && $tainted['email'] && $tainted['password'])}
 						>
 							{m.Next()}
-							<ion-icon icon={arrowForward} slot="end" />
+							<ion-icon icon={arrowForward} slot="end" aria-label="next" />
 						</d-button>
 					</Form>
 				</div>
