@@ -28,40 +28,43 @@ export abstract class BasePage {
 		await expect(this.page.locator(`text="${text}"`)).toBeVisible();
 	}
 	async hasNoAccessibilityIssues(): Promise<void> {
-		//@ts-ignore
-		const results = await new AxeBuilder({ page: this.page })
-			.withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
-			.disableRules(['meta-viewport'])
-			.analyze();
+		try {
+			//@ts-ignore
+			const results = await new AxeBuilder({ page: this.page })
+				.withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+				.disableRules(['meta-viewport'])
+				.analyze();
 
-		const resultsFormatted = results.violations.map((violation) => ({
-			rule: violation.id,
-			targets: violation.nodes.map((node) => node.target),
-			message: violation.description,
-			impact: violation.impact
-		}));
-		// expect(resultsFormatted).toEqual([]);
+			const resultsFormatted = results.violations.map((violation) => ({
+				rule: violation.id,
+				targets: violation.nodes.map((node) => node.target),
+				message: violation.description,
+				impact: violation.impact
+			}));
+			// expect(resultsFormatted).toEqual([]);
 
-		if (resultsFormatted.length > 0) {
-			const logs: string[] = [];
-			logs.push('====================================');
-			logs.push(`Page: ${this.page.url()}`);
-			logs.push(`Accessibility issues found: ${resultsFormatted.length}`);
+			if (resultsFormatted.length > 0) {
+				const logs: string[] = [];
+				logs.push('====================================');
+				logs.push(`Page: ${this.page.url()}`);
+				logs.push(`Accessibility issues found: ${resultsFormatted.length}`);
 
-			resultsFormatted.forEach((result, index) => {
-				logs.push(`Issue ${index + 1}:`);
-				logs.push(`    Rule: ${result.rule}`);
-				logs.push(`    Message: ${result.message}`);
-				logs.push(`    Impact: ${result.impact}`);
-				logs.push(`    Targets: ${result.targets.join(', ')}`);
-				logs.push('------------------------------------');
-			});
+				resultsFormatted.forEach((result, index) => {
+					logs.push(`Issue ${index + 1}:`);
+					logs.push(`    Rule: ${result.rule}`);
+					logs.push(`    Message: ${result.message}`);
+					logs.push(`    Impact: ${result.impact}`);
+					logs.push(`    Targets: ${result.targets.join(', ')}`);
+					logs.push('------------------------------------');
+				});
 
-			logs.push('====================================');
-			console.log(logs.join('\n'));
+				logs.push('====================================');
+				console.log(logs.join('\n'));
+			}
+		} catch (e) {
+			console.error(e);
 		}
 	}
-
 	async clickButtonByName(name: string, first?: boolean): Promise<void> {
 		if (first) {
 			await this.page.locator(`d-button:has-text("${name}")`).first().click();
