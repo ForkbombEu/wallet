@@ -35,7 +35,7 @@ export class RegistrationFormComponent extends FormComponent {
 }
 
 export class RegistrationPage extends BasePage {
-	path = '/login?registration=true';
+	path = '/en/login?registration=true';
 	pageTitle = 'Enter your email';
 
 	private readonly form: RegistrationFormComponent;
