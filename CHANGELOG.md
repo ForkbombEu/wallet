@@ -1,3 +1,10 @@
+## [1.55.16](https://github.com/ForkbombEu/wallet/compare/v1.55.15...v1.55.16) (2024-11-13)
+
+
+### Bug Fixes
+
+* conform credential offer to standards ([#514](https://github.com/ForkbombEu/wallet/issues/514)) ([59f56ce](https://github.com/ForkbombEu/wallet/commit/59f56ce36f8ef1b9fa628666284956f35ecbe83a))
+
 ## [1.55.15](https://github.com/ForkbombEu/wallet/compare/v1.55.14...v1.55.15) (2024-11-13)
 
 
