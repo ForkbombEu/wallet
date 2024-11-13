@@ -1,3 +1,10 @@
+## [1.55.14](https://github.com/ForkbombEu/wallet/compare/v1.55.13...v1.55.14) (2024-11-11)
+
+
+### Bug Fixes
+
+* ios configuration with capacitor 6 ([#519](https://github.com/ForkbombEu/wallet/issues/519)) ([6d8ef8e](https://github.com/ForkbombEu/wallet/commit/6d8ef8e7d6c312520126c1ba8c3b1856be01d3e1))
+
 ## [1.55.13](https://github.com/ForkbombEu/wallet/compare/v1.55.12...v1.55.13) (2024-11-07)
 
 
