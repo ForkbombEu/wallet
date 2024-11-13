@@ -7,6 +7,7 @@ on:
 jobs:
   build_ios:
     runs-on: macOS-latest
+    environment: test
     steps:
       - uses: dyne/pnpm@main
         with:
