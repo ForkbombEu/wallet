@@ -8,6 +8,8 @@
 	<string>The app enables the scanning of various barcodes.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>The app needs access to your photo library to edit profile image.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>The app needs access to your photo library to edit profile image.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
