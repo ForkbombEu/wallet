@@ -13,7 +13,10 @@ const config: CapacitorConfig = {
 	server: {
 		androidScheme: 'https',
 		cleartext: true
-	}
+	},
+	ios: {
+    	scheme: "Didroom"
+  	}
 };
 
 export default config;
