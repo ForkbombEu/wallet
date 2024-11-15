@@ -87,7 +87,7 @@
 			await addActivity({ at: dayjs().unix(), id, type: 'credential' });
 
 			isModalOpen = false;
-			await goto(`/${id}/credential-detail`);
+			// await goto(`/${id}/credential-detail`);
 		}, 2000);
 	};
 </script>
