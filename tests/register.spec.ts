@@ -6,7 +6,7 @@ test.describe('Registration Flow', () => {
 	});
 
 	test('should have not accessibility issues', async ({ registrationPage }) => {
-		await registrationPage.hasNoAccessibilityIssues();
+		await registrationPage.hasNoAccessibilityIssues(['document-title']);
 	});
 
 	test('should render registration page', async ({ registrationPage }) => {

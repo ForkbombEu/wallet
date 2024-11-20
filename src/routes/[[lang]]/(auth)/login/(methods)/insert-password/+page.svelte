@@ -77,7 +77,7 @@
 					disabled={!isTainted}
 				>
 					{m.Next()}
-					<ion-icon icon={arrowForward} slot="end" />
+					<ion-icon icon={arrowForward} slot="end" aria-label="next" />
 				</d-button>
 			</Form>
 		</div>
