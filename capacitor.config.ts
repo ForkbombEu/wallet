@@ -13,6 +13,9 @@ const config: CapacitorConfig = {
 		androidScheme: 'https',
 		cleartext: true,
 		allowNavigation: ['staging.admin.didroom.com']
+	},
+	ios: {
+		scheme: 'Didroom'
 	}
 };
 
