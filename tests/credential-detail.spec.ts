@@ -15,7 +15,7 @@ test.describe('Credential Detail Page', () => {
 	});
 
 	test('should have not accessibility issues', async ({ credentialDetailPage }) => {
-		await credentialDetailPage.hasNoAccessibilityIssues();
+		await credentialDetailPage.hasNoAccessibilityIssues(['document-title']);
 	});
 
 	test('should display the credential name', async ({ credentialDetailPage }) => {

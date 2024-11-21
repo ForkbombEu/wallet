@@ -55,4 +55,11 @@ test.describe('Credential Offer Page', () => {
 		await credentialOfferPage.declineOffer();
 		await credentialOfferPage.waitForUrlContains('/en/home');
 	});
+
+	test('should return erro with ministry of defence qr code', async ({ credentialOfferPage }) => {
+		const ministryOfDefence =
+			'openid-credential-offer://?credential_offer=%7B%22credential_issuer%22%3A%22https%3A%2F%2Fministerie-agent.dev.impierce.com%2F%22%2C%22credential_configuration_ids%22%3A%5B%22openbadge_credential%22%5D%2C%22grants%22%3A%7B%22urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Apre-authorized_code%22%3A%7B%22pre-authorized_code%22%3A%22ebb90f2db21a4708b93217a686f91e134b370b350aae18dc25a382507b141c13%22%7D%7D%7D';
+		await credentialOfferPage.scanQr(ministryOfDefence);
+		await credentialOfferPage.verifyIsBrokenIssuer();
+	});
 });

@@ -4,8 +4,14 @@
 <dict>
 	<key>NSFaceIDUsageDescription</key>
 	<string>For a secure log in.</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<string>NO</string>
 	<key>NSCameraUsageDescription</key>
-	<string>The app needs camera usage for scanning credentials qrcode.</string>
+	<string>The app enables the scanning of various barcodes.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The app needs access to your photo library to edit profile image.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>The app needs access to your photo library to edit profile image.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -26,8 +32,6 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSCameraUsageDescription</key>
-	<string>The app enables the scanning of various barcodes.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -48,15 +52,15 @@
 	<true/>
 	<key>CFBundleURLTypes</key>
 	<array>
-	<dict>
-		<key>CFBundleURLName</key>
-		<string>com.getcapacitor.capacitor</string>
-		<key>CFBundleURLSchemes</key>
-		<array>
-		<string>didroom4vp</string>
-		<string>openid-credential-offer</string>
-		</array>
-	</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.getcapacitor.capacitor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>didroom4vp</string>
+				<string>openid-credential-offer</string>
+			</array>
+		</dict>
 	</array>
 </dict>
 </plist>
