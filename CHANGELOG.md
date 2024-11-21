@@ -1,3 +1,10 @@
+## [1.55.17](https://github.com/ForkbombEu/wallet/compare/v1.55.16...v1.55.17) (2024-11-21)
+
+
+### Bug Fixes
+
+* (ios) ITSAppUsesNonExemptEncryption set to NO and staging envoiroment ([#523](https://github.com/ForkbombEu/wallet/issues/523)) ([962f9ab](https://github.com/ForkbombEu/wallet/commit/962f9abe96b9b86e376b4f7464482c682990b47a))
+
 ## [1.55.16](https://github.com/ForkbombEu/wallet/compare/v1.55.15...v1.55.16) (2024-11-13)
 
 
