@@ -18,6 +18,42 @@
 	import { gotoQrResult } from '$lib/components/organisms/scanner/tools';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import { m } from '$lib/i18n';
+	import { Filesystem, Directory } from '@capacitor/filesystem';
+
+	const clearHttpStorage = async () => {
+		try {
+			const result = await Filesystem.readdir({
+				path: 'HTTPStorages/com.didroom.wallet/',
+				directory: Directory.Library
+			});
+
+			const httpStorageFiles = result.files.filter((file) =>
+				file.name.includes('httpstorages.sqlite')
+			);
+
+			for (const file of httpStorageFiles) {
+				await Filesystem.deleteFile({
+					path: `HTTPStorages/com.didroom.wallet/${file.name}`,
+					directory: Directory.Library
+				});
+			}
+		} catch (error) {
+			log(String(error));
+		}
+	};
+
+	$: clearHttpStorage();
+
+	// const forceNewRequestWithHttp = async () => {
+	// 	try {
+	// 		const response = await CapacitorHttp.get({
+	// 			url: 'https://staging.admin.didroom.com/api/health'
+	// 		});
+	// 		console.log('Network request successful:', response);
+	// 	} catch (error) {
+	// 		console.error('Network request failed:', error);
+	// 	}
+	// };
 
 	const controller = new AbortController();
 	const signal = controller.signal;
@@ -49,6 +85,11 @@
 		App.addListener('appUrlOpen', async (data) => {
 			await gotoQrResult(data.url);
 		});
+		// App.addListener('appStateChange', (state) => {
+		// 	if (state.isActive) {
+		// 		forceNewRequestWithHttp();
+		// 	}
+		// });
 	});
 	onDestroy(() => {
 		controller.abort();
