@@ -35,7 +35,7 @@ platform :android do
     sh "ionic cap build android --no-open"
   end
 
-  private_lane :sign_and_build_bundle do |version_code, version_name|
+  private_lane :sign_and_build_bundle do
     gradle(
       task: "clean bundleRelease",
       project_dir: 'android/',
@@ -61,7 +61,6 @@ platform :android do
     )
   end
 
-  # Reusable lane for updating version code and name
   private_lane :update_version do |version_code, version_name|
     package = load_json(json_path: "./package.json")
     increment_version_code(
@@ -74,7 +73,6 @@ platform :android do
     )
   end
 
-  # GitHub deploy lane
   desc "Deploy GitHub version"
   lane :github do
     build_and_sync
@@ -87,7 +85,7 @@ platform :android do
       gradle_file_path: "./android/app/build.gradle",
       version_name: package['version']
     )
-    sign_and_build_bundle(package['version'].gsub('.', '').to_i, package['version'])
+    sign_and_build_bundle
   end
 
   lane :distribute do
@@ -101,7 +99,7 @@ platform :android do
       gradle_file_path: "./android/app/build.gradle",
       version_name: package['version'] + "-" + PULL_REQUEST_NUMBER
     )
-    sign_and_build_bundle(PULL_REQUEST_NUMBER, package['version'] + "-" + PULL_REQUEST_NUMBER)
+    sign_and_build_bundle
     release = firebase_app_distribution(
       app: FIREBASE_APP_ID,
       service_credentials_file: SERVICE_ACCOUNT_PATH,
@@ -128,7 +126,7 @@ platform :android do
       gradle_file_path: "./android/app/build.gradle",
       version_name: package['version'] + "-alpha"
     )
-    sign_and_build_bundle(internal_latest_version_code.max + 1, package['version'] + "-alpha")
+    sign_and_build_bundle
     release = upload_to_play_store(
       json_key:"#{SERVICE_ACCOUNT_PATH}",
       package_name:"com.didroom.wallet",
@@ -156,7 +154,7 @@ platform :android do
       gradle_file_path: "./android/app/build.gradle",
       version_name: package['version'] + "-beta"
     )
-    sign_and_build_bundle(internal_latest_version_code.max + 1, package['version'] + "-beta")
+    sign_and_build_bundle
     release = upload_to_play_store(
       json_key:"#{SERVICE_ACCOUNT_PATH}",
       package_name:"com.didroom.wallet",
