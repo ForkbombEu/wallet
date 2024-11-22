@@ -19,6 +19,8 @@ on:
         required: true
       keystore-alias:
         required: true
+      keystore-key-password:
+        required: true
       keystore-password:
         required: true
 
@@ -70,7 +72,7 @@ jobs:
           KEYSTORE_PATH: ${{ steps.playstore_keystore.outputs.filePath }}
           SERVICE_ACCOUNT_PATH: ${{ steps.play_console_account.outputs.filePath }}
           KEYSTORE_KEY_ALIAS: ${{ secrets.keystore-alias }}
-          KEYSTORE_KEY_PASSWORD: ${{ secrets.keystore-password }}
+          KEYSTORE_KEY_PASSWORD: ${{ secrets.keystore-key-password }}
           KEYSTORE_STORE_PASSWORD: ${{ secrets.keystore-password }}
           PUBLIC_BACKEND_URL: ${{ inputs.backend-url }}
           PULL_REQUEST_NUMBER: ${{ github.event.number }}

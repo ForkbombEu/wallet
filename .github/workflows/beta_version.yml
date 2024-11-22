@@ -24,4 +24,5 @@ jobs:
       playstore-service-account: ${{ secrets.PLAYSTORE_SERVICE_ACCOUNT }}
       keystore-alias: ${{ secrets.BUNDLE_BETA_PLAYSTORE_ALIAS }}
       keystore-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
+      keystore-key-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
       
