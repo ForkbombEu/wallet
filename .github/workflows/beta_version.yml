@@ -20,8 +20,7 @@ jobs:
       lane: beta
     secrets:
       keystore-file: ${{ secrets.BUNDLE_BETA_PLAYSTORE }}
-      firebase-service-account: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-      playstore-service-account: ${{ secrets.PLAYSTORE_SERVICE_ACCOUNT }}
+      service-account: ${{ secrets.PLAYSTORE_SERVICE_ACCOUNT }}
       keystore-alias: ${{ secrets.BUNDLE_BETA_PLAYSTORE_ALIAS }}
       keystore-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
       keystore-key-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}

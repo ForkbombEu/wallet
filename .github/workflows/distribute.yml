@@ -13,9 +13,7 @@ on:
     secrets:
       keystore-file:
         required: true
-      firebase-service-account:
-        required: true
-      playstore-service-account:
+      service-account:
         required: true
       keystore-alias:
         required: true
@@ -47,30 +45,24 @@ jobs:
           java-version: '17'
       - name: Decode Keystore File
         uses: timheuer/base64-to-file@v1
-        id: playstore_keystore
+        id: keystore
         with:
-          fileName: android_keystore.keystore
+          fileName: keystore.keystore
           encodedString: ${{ secrets.keystore-file }}
-      - name: Decode Service Account File for Firebase
+      - name: Decode Service Account File
         uses: timheuer/base64-to-file@v1
         id: service_account
         with:
-          fileName: firebase-service-account.json
-          encodedString: ${{ secrets.firebase-service-account }}
-      - name: Decode Service Account File for PlayStore
-        uses: timheuer/base64-to-file@v1
-        id: play_console_account
-        with:
-          fileName: play-store-credentials.json
-          encodedString: ${{ secrets.playstore-service-account }}
+          fileName: service-account.json
+          encodedString: ${{ secrets.service-account }}
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
           bundler-cache: true
       - uses: maierj/fastlane-action@v3.1.0
         env:
-          KEYSTORE_PATH: ${{ steps.playstore_keystore.outputs.filePath }}
-          SERVICE_ACCOUNT_PATH: ${{ steps.play_console_account.outputs.filePath }}
+          KEYSTORE_PATH: ${{ steps.keystore.outputs.filePath }}
+          SERVICE_ACCOUNT_PATH: ${{ steps.service_account.outputs.filePath }}
           KEYSTORE_KEY_ALIAS: ${{ secrets.keystore-alias }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.keystore-key-password }}
           KEYSTORE_STORE_PASSWORD: ${{ secrets.keystore-password }}
