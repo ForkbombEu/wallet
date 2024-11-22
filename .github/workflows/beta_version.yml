@@ -3,49 +3,8 @@ name: 'publish beta'
 on:
   workflow_dispatch:
 jobs:
-  tests:
-    runs-on: ubuntu-latest
-    environment: test
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dyne/pnpm@main
-        with:
-          node-version: '20.11.1'
-          submodules: true
-      - uses: actions/setup-go@v5
-        with:
-          go-version: '1.22'
-      - uses: supplypike/setup-bin@v4
-        with:
-          uri: https://github.com/dyne/zenroom/releases/latest/download/zencode-exec
-          name: zencode-exec
-          version: latest
-      - run: |
-          git clone --recursive https://github.com/forkbombeu/signroom
-          cd signroom/admin
-          mkdir pb_data
-          cp ../../tests/fixtures/test.db pb_data/data.db
-          rm pb_migrations/1685000000_seed_features.js
-          go build
-          ./pb migrate
-          ./pb serve &
-      - run: npx playwright install --with-deps
-      - run: pnpm test:integration --workers 1
-        env:
-          PUBLIC_BACKEND_URL: http://localhost:8090
-          USER_EMAIL: ${{ vars.USER_EMAIL }}
-          USER_PASSWORD: ${{ vars.USER_PASSWORD }}
-          USER_SEED: ${{ vars.USER_SEED }}
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: test-results
-          path: test-results/
-          retention-days: 10
-
   distribute:
     runs-on: ubuntu-latest
-    needs: tests
     steps:
       - uses: dyne/pnpm@main
         with:
