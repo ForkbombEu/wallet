@@ -73,5 +73,7 @@ jobs:
           KEYSTORE_KEY_PASSWORD: ${{ secrets.keystore-password }}
           KEYSTORE_STORE_PASSWORD: ${{ secrets.keystore-password }}
           PUBLIC_BACKEND_URL: ${{ inputs.backend-url }}
+          PULL_REQUEST_NUMBER: ${{ github.event.number }}
+          PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
         with:
           lane: ${{ inputs.lane }}
