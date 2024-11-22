@@ -1,3 +1,10 @@
+## [1.55.19](https://github.com/ForkbombEu/wallet/compare/v1.55.18...v1.55.19) (2024-11-22)
+
+
+### Bug Fixes
+
+* user settings ([#512](https://github.com/ForkbombEu/wallet/issues/512)) ([cb40db1](https://github.com/ForkbombEu/wallet/commit/cb40db1b80aeedca2054813dd0d56f314dedc330)), closes [#504](https://github.com/ForkbombEu/wallet/issues/504)
+
 ## [1.55.18](https://github.com/ForkbombEu/wallet/compare/v1.55.17...v1.55.18) (2024-11-22)
 
 
