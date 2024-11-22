@@ -18,6 +18,12 @@
 	import { gotoQrResult } from '$lib/components/organisms/scanner/tools';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import { m } from '$lib/i18n';
+	import { clearHttpStorage } from '$lib/utils';
+
+
+	
+
+	$: clearHttpStorage();
 
 	const controller = new AbortController();
 	const signal = controller.signal;
