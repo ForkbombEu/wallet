@@ -21,6 +21,8 @@ on:
         required: true
       keystore-password:
         required: true
+      firebase-app-id:
+        required: false
 
 jobs:
   distribute:
@@ -69,5 +71,7 @@ jobs:
           PUBLIC_BACKEND_URL: ${{ inputs.backend-url }}
           PULL_REQUEST_NUMBER: ${{ github.event.number }}
           PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
+          FIREBASE_APP_ID: ${{ secrets.firebase-app-id }}
+
         with:
           lane: ${{ inputs.lane }}
