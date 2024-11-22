@@ -92,6 +92,7 @@ platform :android do
 
   lane :distribute do
     build_and_sync
+    package = load_json(json_path: "./package.json")
     increment_version_code(
       gradle_file_path: "./android/app/build.gradle",
       version_code: PULL_REQUEST_NUMBER
