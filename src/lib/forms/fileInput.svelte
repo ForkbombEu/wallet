@@ -7,6 +7,7 @@
 	import type { FormPath, ZodValidation } from 'sveltekit-superforms';
 	import { formFieldProxy, type SuperForm } from 'sveltekit-superforms/client';
 	import { createEventDispatcher } from 'svelte';
+	import { m } from '$lib/i18n';
 
 	const dispatch = createEventDispatcher();
 
@@ -14,7 +15,6 @@
 
 	export let form: SuperForm<ZodValidation<T>, any>;
 	export let field: FormPath<z.infer<T>>;
-	export let label: string;
 
 	const { validate } = form;
 	const { errors } = formFieldProxy(form, field);
@@ -67,12 +67,14 @@
 </script>
 
 <div>
-	<d-text size="m">{label}</d-text>
-	<d-horizontal-stack class="w-full items-stretch" gap={0}>
-		<d-button on:click={takePicture} on:keydown={takePicture} aria-hidden class="pt-1"
-			><ion-icon icon={cameraOutline} slot="icon-only" class="py-2" /></d-button
+	<d-horizontal-stack class="w-full items-center" gap={4}>
+		<d-button on:click={takePicture} on:keydown={takePicture} aria-hidden expand class="w-full pt-1"
+			><ion-icon
+				icon={cameraOutline}
+				slot="start"
+				class="h-6 w-6"
+			/>{m.upload_a_picture()}</d-button
 		>
-		<d-input value={choosenFile || 'user?.avatar'} class="w-full" disabled></d-input>
 	</d-horizontal-stack>
 	{#if hasErrors}
 		<FieldError {form} {field} />
