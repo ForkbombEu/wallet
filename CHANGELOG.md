@@ -1,3 +1,10 @@
+## [1.55.20](https://github.com/ForkbombEu/wallet/compare/v1.55.19...v1.55.20) (2024-11-25)
+
+
+### Bug Fixes
+
+* login error after error should be not disabled ([#529](https://github.com/ForkbombEu/wallet/issues/529)) ([e1e61f2](https://github.com/ForkbombEu/wallet/commit/e1e61f2bd527ca5a4ed3b8646067d1e6d17155c9))
+
 ## [1.55.19](https://github.com/ForkbombEu/wallet/compare/v1.55.18...v1.55.19) (2024-11-22)
 
 
