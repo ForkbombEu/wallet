@@ -7,7 +7,7 @@
 	import { askCredential, decodeSdJwt, type CredentialResult } from '$lib/openId4vci';
 	import { credentialOfferStore } from '$lib/credentialOfferStore';
 	import { log } from '$lib/log';
-	import type { Feedback } from '$lib/utils/types';
+	import type { Feedback, ScrollableNode } from '$lib/utils/types';
 	import { addActivity } from '$lib/preferences/activity';
 	import dayjs from 'dayjs';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
@@ -41,10 +41,6 @@
 	});
 
 	const credentialInfo = wn?.credential_requested['display'][0];
-
-	interface ScrollableNode extends Node {
-		scrollToTop: () => void;
-	}
 
 	let feedback: Feedback | undefined = {};
 	let content: ScrollableNode;
