@@ -318,8 +318,10 @@ platform :ios do
       skip_binary_upload: true, 
       force: true, 
       metadata_path: "./fastlane/metadata/ios",
-      demo_user: DEMO_USER,
-      demo_password: DEMO_PASSWORD
+      app_review_information(
+        demo_user: DEMO_USER,
+        demo_password: DEMO_PASSWORD
+      )
     )
   end
 end
