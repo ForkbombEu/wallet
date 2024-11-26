@@ -312,6 +312,8 @@ platform :ios do
       ipa: "./App.ipa",
       skip_waiting_for_build_processing: true,
       demo_account_required: true,
+      distribute_external:true
+      # notify_external_testers: true
     )
     deliver(
       api_key: api_key,
@@ -319,7 +321,7 @@ platform :ios do
       force: true, 
       metadata_path: "./fastlane/metadata/ios",
       screenshots_path: "./fastlane/metadata/ios/screenshots",
-      ignore_language_directory_validation: true,
+      # ignore_language_directory_validation: true,
       app_review_information: ({
         demo_user: DEMO_USER,
         demo_password: DEMO_PASSWORD
