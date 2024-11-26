@@ -1,1 +1,1 @@
-Open source Digital Identity Wallet, compatible with EUDI-ARF
+OSS Digital Identity Wallet
