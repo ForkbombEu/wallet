@@ -313,16 +313,15 @@ platform :ios do
       skip_waiting_for_build_processing: true,
       demo_account_required: true,
     )
-    review_info = app_review_information(
-        demo_user: DEMO_USER,
-        demo_password: DEMO_PASSWORD
-    )
     deliver(
       api_key: api_key,
       skip_binary_upload: true, 
       force: true, 
       metadata_path: "./fastlane/metadata/ios",
-      app_review_information: review_info
+      app_review_information: ({
+        demo_user: DEMO_USER,
+        demo_password: DEMO_PASSWORD
+      })
     )
   end
 end
