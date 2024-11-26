@@ -322,6 +322,7 @@ platform :ios do
       skip_binary_upload: true, 
       force: true, 
       metadata_path: "./fastlane/metadata/ios",
+      precheck_include_in_app_purchases: false,
       # ignore_language_directory_validation: true,
       app_review_information: ({
         demo_user: DEMO_USER,
