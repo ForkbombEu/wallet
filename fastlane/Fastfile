@@ -307,12 +307,14 @@ platform :ios do
     #   notify_external_testers: false,
     #   ipa: "./App.ipa"
     # )
+    changelog = read_changelog
     upload_to_testflight(
       api_key: api_key,
       ipa: "./App.ipa",
       skip_waiting_for_build_processing: true,
       demo_account_required: true,
-      distribute_external:true
+      distribute_external:true,
+      changelog: changelog
       # notify_external_testers: true
     )
     deliver(
