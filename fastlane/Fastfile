@@ -317,7 +317,7 @@ platform :ios do
       api_key: api_key,
       skip_binary_upload: true, 
       force: true, 
-      metadata_path: "./fastlane/metadata/ios"
+      metadata_path: "./fastlane/metadata/ios",
       demo_user: DEMO_USER,
       demo_password: DEMO_PASSWORD
     )
