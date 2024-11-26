@@ -319,6 +319,7 @@ platform :ios do
       force: true, 
       metadata_path: "./fastlane/metadata/ios",
       screenshots_path: "./fastlane/metadata/ios/screenshots",
+      ignore_language_directory_validation: true,
       app_review_information: ({
         demo_user: DEMO_USER,
         demo_password: DEMO_PASSWORD
