@@ -27,10 +27,8 @@
 
 	const controller = new AbortController();
 	const signal = controller.signal;
-	let p = false
 
 	onMount(() => {
-		p = true
 		document.addEventListener(
 			'ionBackButton',
 			(ev: any) => {
@@ -91,7 +89,6 @@
 	on:error|capture={(e) => log(e.error)}
 	on:unhandledrejection|capture={(e) => log(e.reason)}
 />
-{#if p}
 <ParaglideJS {i18n}>
 	<HiddenLogsButton />
 	<ion-app>
@@ -101,4 +98,3 @@
 		<slot />
 	</ion-app>
 </ParaglideJS>
-{/if}
