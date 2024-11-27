@@ -15,7 +15,8 @@ const config: CapacitorConfig = {
 		allowNavigation: ['staging.admin.didroom.com']
 	},
 	ios: {
-		scheme: 'Didroom'
+		scheme: 'Didroom',
+		webContentsDebuggingEnabled: true
 	}
 };
 
