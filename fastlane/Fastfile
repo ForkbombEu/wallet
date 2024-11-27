@@ -26,6 +26,8 @@ CACHE_PATH = "./.cache"
 PULL_REQUEST_NUMBER = ENV["PULL_REQUEST_NUMBER"]
 PULL_REQUEST_TITLE = ENV["PULL_REQUEST_TITLE"]
 PUBLIC_BACKEND_URL = ENV["PUBLIC_BACKEND_URL"]
+DEMO_USER = ENV["DEMO_USER"]
+DEMO_PASSWORD = ENV["DEMO_PASSWORD"]
 
 platform :android do
   private_lane :build_and_sync do
@@ -297,13 +299,35 @@ platform :ios do
       duration: 1200,
       in_house: false
     )
-    pilot(
+    # pilot(
+    #   api_key: api_key,
+    #   skip_waiting_for_build_processing: true,
+    #   skip_submission: true,
+    #   distribute_external: false,
+    #   notify_external_testers: false,
+    #   ipa: "./App.ipa"
+    # )
+    changelog = read_changelog
+    upload_to_testflight(
       api_key: api_key,
+      ipa: "./App.ipa",
       skip_waiting_for_build_processing: true,
-      skip_submission: true,
-      distribute_external: false,
-      notify_external_testers: false,
-      ipa: "./App.ipa"
+      demo_account_required: true,
+      distribute_external:true,
+      changelog: changelog
+      # notify_external_testers: true
+    )
+    deliver(
+      api_key: api_key,
+      skip_binary_upload: true, 
+      force: true, 
+      metadata_path: "./fastlane/metadata/ios",
+      precheck_include_in_app_purchases: false,
+      # ignore_language_directory_validation: true,
+      app_review_information: ({
+        demo_user: DEMO_USER,
+        demo_password: DEMO_PASSWORD
+      })
     )
   end
 end

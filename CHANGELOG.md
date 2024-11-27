@@ -1,3 +1,10 @@
+## [1.55.21](https://github.com/ForkbombEu/wallet/compare/v1.55.20...v1.55.21) (2024-11-27)
+
+
+### Bug Fixes
+
+* configure ios to debug testflight ([#530](https://github.com/ForkbombEu/wallet/issues/530)) ([8adb40d](https://github.com/ForkbombEu/wallet/commit/8adb40d5e13818808493ff963ec56b21d5260061))
+
 ## [1.55.20](https://github.com/ForkbombEu/wallet/compare/v1.55.19...v1.55.20) (2024-11-25)
 
 

@@ -45,6 +45,8 @@ jobs:
           APPLE_KEY_CONTENT: ${{ secrets.APPLE_KEY_CONTENT }}
           APPLE_PROFILE_NAME: ${{ secrets.APPLE_PROFILE_NAME }}
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          DEMO_USER: ${{ vars.USER_EMAIL }}
+          DEMO_PASSWORD: ${{ vars.USER_PASSWORD }}
         with:
           lane: ios beta
       - name: Upload release bundle
