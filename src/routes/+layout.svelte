@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '@fontsource-variable/gantari';
 	import { setupIonicBase } from 'ionic-svelte';
-
+	
 	setupIonicBase();
 
 	import 'ionic-svelte/components/all';
@@ -27,8 +27,10 @@
 
 	const controller = new AbortController();
 	const signal = controller.signal;
+	let p = false
 
 	onMount(() => {
+		p = true
 		document.addEventListener(
 			'ionBackButton',
 			(ev: any) => {
@@ -77,11 +79,11 @@
 	 />  -->
 	<script
 		type="module"
-		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.31.3/dist/didroom-components/didroom-components.esm.js"
+		src="/components/didroom-components/didroom-components.esm.js"
 	></script>
 	<link
 		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.31.3/dist/didroom-components/didroom-components.css"
+		href="/components/didroom-components/didroom-components.css"
 	/>
 	<title>{m.DidroomWallet()}</title>
 </svelte:head>
@@ -89,6 +91,7 @@
 	on:error|capture={(e) => log(e.error)}
 	on:unhandledrejection|capture={(e) => log(e.reason)}
 />
+{#if p}
 <ParaglideJS {i18n}>
 	<HiddenLogsButton />
 	<ion-app>
@@ -98,3 +101,4 @@
 		<slot />
 	</ion-app>
 </ParaglideJS>
+{/if}
