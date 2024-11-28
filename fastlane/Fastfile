@@ -329,18 +329,6 @@ platform :ios do
       changelog: changelog
       # notify_external_testers: true
     )
-    deliver(
-      api_key: api_key,
-      skip_binary_upload: true, 
-      force: true, 
-      metadata_path: "./fastlane/metadata/ios",
-      precheck_include_in_app_purchases: false,
-      # ignore_language_directory_validation: true,
-      app_review_information: ({
-        demo_user: DEMO_USER,
-        demo_password: DEMO_PASSWORD
-      })
-    )
   end
   private_lane :deliver do
     api_key = app_store_connect_api_key(
@@ -359,7 +347,7 @@ platform :ios do
       skip_waiting_for_build_processing: true,
       demo_account_required: true,
       distribute_external:true,
-      changelog: changelog
+      changelog: changelog,
       metadata_path: "./fastlane/metadata/ios",
       precheck_include_in_app_purchases: false,
       # ignore_language_directory_validation: true,
