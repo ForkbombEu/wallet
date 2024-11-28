@@ -48,7 +48,7 @@ jobs:
           DEMO_USER: ${{ vars.USER_EMAIL }}
           DEMO_PASSWORD: ${{ vars.USER_PASSWORD }}
         with:
-          lane: testflight
+          lane: ios testflight
       - name: Upload release bundle
         uses: actions/upload-artifact@v4
         with:
