@@ -2,6 +2,16 @@ name: 'publish beta'
 
 on:
   workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Select platform(s) to build'
+        required: true
+        default: 'both'
+        type: choice
+        options:
+          - android
+          - ios
+          - both
 
 jobs:
   tests:
@@ -12,7 +22,8 @@ jobs:
       user-password: ${{ vars.USER_PASSWORD }}
       user-seed: ${{ vars.USER_SEED }}
 
-  distribute:
+  distribute_android:
+    if: ${{ github.event.inputs.platform == 'android' || github.event.inputs.platform == 'both' }}
     uses: ./.github/workflows/distribute.yml
     needs: tests
     with:
@@ -25,8 +36,9 @@ jobs:
       keystore-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
       keystore-key-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
   
-  build_ios:
+  distribute_ios:
     runs-on: macOS-latest
+    if: ${{ github.event.inputs.platform == 'ios' || github.event.inputs.platform == 'both' }}
     needs: tests
     steps:
       - uses: dyne/pnpm@main
