@@ -68,7 +68,7 @@ jobs:
           DEMO_USER: ${{ vars.USER_EMAIL }}
           DEMO_PASSWORD: ${{ vars.USER_PASSWORD }}
         with:
-          lane: ios beta
+          lane: deliver production
       - name: Upload release bundle
         uses: actions/upload-artifact@v4
         with:

@@ -173,7 +173,7 @@ end
 
 platform :ios do
   desc 'Export ipa and submit to TestFlight'
-  lane :beta do
+  lane :production do
     keychain_info = { keychain_name: "ios-build-#{Time.now.to_i}.keychain", keychain_password: SecureRandom.uuid }
 
     begin
@@ -325,12 +325,11 @@ platform :ios do
       ipa: "./App.ipa",
       skip_waiting_for_build_processing: true,
       demo_account_required: true,
-      distribute_external:true,
-      changelog: changelog
+      distribute_external:true
       # notify_external_testers: true
     )
   end
-  private_lane :deliver do
+  private_lane :deliver_production do
     api_key = app_store_connect_api_key(
       key_id: ENV['APPLE_KEY_ID'],
       issuer_id: ENV['APPLE_ISSUER_ID'],
