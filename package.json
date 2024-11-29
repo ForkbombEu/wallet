@@ -39,7 +39,7 @@
 		"@semantic-release/npm": "^11.0.3",
 		"@semantic-release/release-notes-generator": "^12.1.0",
 		"@sveltejs/adapter-static": "^3.0.5",
-		"@sveltejs/kit": "^2.6.2",
+		"@sveltejs/kit": "^2.8.3",
 		"@sveltejs/vite-plugin-svelte": "^3.1.2",
 		"@types/eslint": "8.56.5",
 		"@types/lodash": "^4.17.13",
