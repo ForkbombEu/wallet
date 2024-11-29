@@ -33,7 +33,7 @@
 
 <ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly class="visible">
 	<hr />
-	<ion-content class="ion-padding visible">
+	<ion-header>
 		<ion-toolbar>
 			<ion-title>{m.Results()}</ion-title>
 			<ion-buttons slot="end">
@@ -44,7 +44,10 @@
 					<CopyButton {textToCopy} delay={1000} />
 				{/if}
 			</ion-buttons>
-		</ion-toolbar>
+		</ion-toolbar>	
+	</ion-header>
+	<ion-content class="ion-padding visible">
+		
 		<d-vertical-stack class="mt-4">
 			<slot />
 		</d-vertical-stack>
