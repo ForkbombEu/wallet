@@ -17,7 +17,7 @@ jobs:
     uses: ./.github/workflows/distribute.yml
     needs: tests
     with:
-      backend-url: ${{ vars.PUBLIC_BACKEND_URL }}
+      backend-url: ${{ github.env.test.vars.PUBLIC_BACKEND_URL }}
       lane: distribute
     secrets:
       keystore-file: ${{ secrets.ANDROID_KEYSTORE_FILE }}
