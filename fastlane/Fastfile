@@ -180,7 +180,7 @@ platform :ios do
       setup_signing(keychain_info)
       bump_build_number
       build_app_with_signing(keychain_info)
-      deliver
+      deliver_production
     ensure
       cleanup_keychain(keychain_info)
     end
