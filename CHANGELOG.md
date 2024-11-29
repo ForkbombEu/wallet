@@ -1,3 +1,10 @@
+## [1.55.22](https://github.com/ForkbombEu/wallet/compare/v1.55.21...v1.55.22) (2024-11-29)
+
+
+### Bug Fixes
+
+* ci public backend url for distribute and alpha was wrong ([#536](https://github.com/ForkbombEu/wallet/issues/536)) ([fb32ede](https://github.com/ForkbombEu/wallet/commit/fb32edee39cd813373a1b18d7e17eae4b7df1822))
+
 ## [1.55.21](https://github.com/ForkbombEu/wallet/compare/v1.55.20...v1.55.21) (2024-11-27)
 
 
