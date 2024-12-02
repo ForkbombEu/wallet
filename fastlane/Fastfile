@@ -180,7 +180,7 @@ platform :ios do
       setup_signing(keychain_info)
       build_num = bump_build_number
       build_app_with_signing(keychain_info)
-      deliver_production(build_num)
+      deliver_production(build_number: build_num)
     ensure
       cleanup_keychain(keychain_info)
     end
@@ -323,7 +323,7 @@ platform :ios do
       changelog: changelog
     )
   end
-  private_lane :deliver_production do |build_num|
+  private_lane :deliver_production do |options|
     api_key = app_store_connect_api_key(
       key_id: ENV['APPLE_KEY_ID'],
       issuer_id: ENV['APPLE_ISSUER_ID'],
@@ -341,7 +341,7 @@ platform :ios do
       changelog: changelog
     )
     deliver(
-      build_number: build_num,
+      build_number: options[:build_num],
       submit_for_review:true,
       api_key: api_key,
       force: true, 
