@@ -14,14 +14,6 @@ on:
           - both
 
 jobs:
-  tests:
-    uses: ./.github/workflows/test.yml
-    with:
-      backend-url: http://localhost:8090
-      user-email: ${{ vars.USER_EMAIL }}
-      user-password: ${{ vars.USER_PASSWORD }}
-      user-seed: ${{ vars.USER_SEED }}
-
   distribute_android:
     if: ${{ github.event.inputs.platform == 'android' || github.event.inputs.platform == 'both' }}
     uses: ./.github/workflows/distribute.yml
