@@ -1,1 +1,1 @@
-security questions answers: [p, p, p, p, p]
+security questions answers: ['ios','ios','ios','ios','ios']

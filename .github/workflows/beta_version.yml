@@ -38,6 +38,7 @@ jobs:
   
   distribute_ios:
     runs-on: macOS-latest
+    environment: ios
     if: ${{ github.event.inputs.platform == 'ios' || github.event.inputs.platform == 'both' }}
     needs: tests
     steps:

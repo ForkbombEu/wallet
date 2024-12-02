@@ -342,6 +342,7 @@ platform :ios do
     )
     deliver(
       build_number: build_num,
+      submit_for_review:true,
       api_key: api_key,
       force: true, 
       skip_binary_upload: true,
