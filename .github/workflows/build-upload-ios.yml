@@ -1,4 +1,4 @@
-name: Build source code on ios
+name: Build source code on ios and upload to testflight
 
 on:
   pull_request:
@@ -45,8 +45,10 @@ jobs:
           APPLE_KEY_CONTENT: ${{ secrets.APPLE_KEY_CONTENT }}
           APPLE_PROFILE_NAME: ${{ secrets.APPLE_PROFILE_NAME }}
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          DEMO_USER: ${{ vars.USER_EMAIL }}
+          DEMO_PASSWORD: ${{ vars.USER_PASSWORD }}
         with:
-          lane: ios beta
+          lane: ios testflight
       - name: Upload release bundle
         uses: actions/upload-artifact@v4
         with:

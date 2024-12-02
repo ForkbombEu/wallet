@@ -26,36 +26,29 @@ CACHE_PATH = "./.cache"
 PULL_REQUEST_NUMBER = ENV["PULL_REQUEST_NUMBER"]
 PULL_REQUEST_TITLE = ENV["PULL_REQUEST_TITLE"]
 PUBLIC_BACKEND_URL = ENV["PUBLIC_BACKEND_URL"]
-
+DEMO_USER = ENV["DEMO_USER"]
+DEMO_PASSWORD = ENV["DEMO_PASSWORD"]
 
 platform :android do
-
-  desc "Deploy github version"
-  lane :github do
+  private_lane :build_and_sync do
     sh "pnpm install -g @ionic/cli"
     sh "pnpm install"
     sh "ionic cap sync android"
     sh "ionic cap build android --no-open"
-    sh "echo #{PUBLIC_BACKEND_URL}"
-    package = load_json(json_path: "./package.json")
-    increment_version_code(
-      gradle_file_path: "./android/app/build.gradle",
-      version_code: package['version'].gsub('.', '').to_i
-    )
-    increment_version_name(
-      gradle_file_path: "./android/app/build.gradle",
-      version_name: package['version']
-    )
+  end
+
+  private_lane :sign_and_build_bundle do
     gradle(
-          task: "clean bundleRelease",
-          project_dir: 'android/',
-          print_command: false,
-          properties: {
-            "android.injected.signing.store.file" => "#{KEYSTORE_PATH}",
-            "android.injected.signing.store.password" => "#{KEYSTORE_STORE_PASSWORD}",
-            "android.injected.signing.key.alias" => "#{KEYSTORE_KEY_ALIAS}",
-            "android.injected.signing.key.password" => "#{KEYSTORE_KEY_PASSWORD}",
-          })
+      task: "clean bundleRelease",
+      project_dir: 'android/',
+      print_command: false,
+      properties: {
+        "android.injected.signing.store.file" => "#{KEYSTORE_PATH}",
+        "android.injected.signing.store.password" => "#{KEYSTORE_STORE_PASSWORD}",
+        "android.injected.signing.key.alias" => "#{KEYSTORE_KEY_ALIAS}",
+        "android.injected.signing.key.password" => "#{KEYSTORE_KEY_PASSWORD}",
+      })
+    
     aab_path = "android/app/build/outputs/bundle/release/app-release.aab"
     bundletool(
       ks_path: KEYSTORE_PATH,
@@ -70,13 +63,35 @@ platform :android do
     )
   end
 
+  private_lane :update_version do |version_code, version_name|
+    package = load_json(json_path: "./package.json")
+    increment_version_code(
+      gradle_file_path: "./android/app/build.gradle",
+      version_code: version_code
+    )
+    increment_version_name(
+      gradle_file_path: "./android/app/build.gradle",
+      version_name: version_name
+    )
+  end
+
+  desc "Deploy GitHub version"
+  lane :github do
+    build_and_sync
+    package = load_json(json_path: "./package.json")
+    increment_version_code(
+      gradle_file_path: "./android/app/build.gradle",
+      version_code: package['version'].gsub('.', '').to_i
+    )
+    increment_version_name(
+      gradle_file_path: "./android/app/build.gradle",
+      version_name: package['version']
+    )
+    sign_and_build_bundle
+  end
+
   lane :distribute do
-    sh "echo #{PULL_REQUEST_NUMBER}"
-    sh "echo #{PUBLIC_BACKEND_URL}"
-    sh "pnpm install -g @ionic/cli"
-    sh "pnpm install"
-    sh "ionic cap sync android"
-    sh "ionic cap build android --no-open"
+    build_and_sync
     package = load_json(json_path: "./package.json")
     increment_version_code(
       gradle_file_path: "./android/app/build.gradle",
@@ -86,43 +101,19 @@ platform :android do
       gradle_file_path: "./android/app/build.gradle",
       version_name: package['version'] + "-" + PULL_REQUEST_NUMBER
     )
-    gradle(
-          task: "clean bundleRelease",
-          project_dir: 'android/',
-          print_command: false,
-          properties: {
-            "android.injected.signing.store.file" => "#{KEYSTORE_PATH}",
-            "android.injected.signing.store.password" => "#{KEYSTORE_STORE_PASSWORD}",
-            "android.injected.signing.key.alias" => "#{KEYSTORE_KEY_ALIAS}",
-            "android.injected.signing.key.password" => "#{KEYSTORE_KEY_PASSWORD}",
-          })
-    aab_path = "android/app/build/outputs/bundle/release/app-release.aab"
-    bundletool(
-      bundletool_version: '1.16.0',
-      ks_path: KEYSTORE_PATH,
-      ks_password: KEYSTORE_STORE_PASSWORD,
-      ks_key_alias: KEYSTORE_KEY_ALIAS,
-      ks_key_alias_password: KEYSTORE_KEY_PASSWORD,
-      aab_path: aab_path,
-      apk_output_path: APK_OUTPUT_PATH,
-      verbose: true,
-      cache_path: CACHE_PATH
-    )
-
+    sign_and_build_bundle
     release = firebase_app_distribution(
-        app: FIREBASE_APP_ID,
-        service_credentials_file: SERVICE_ACCOUNT_PATH,
-        android_artifact_path: APK_OUTPUT_PATH,
-        groups: 'dyne',
-        release_notes: "#{PULL_REQUEST_TITLE}"
+      app: FIREBASE_APP_ID,
+      service_credentials_file: SERVICE_ACCOUNT_PATH,
+      android_artifact_path: APK_OUTPUT_PATH,
+      groups: 'dyne',
+      release_notes: "#{PULL_REQUEST_TITLE}"
     )
-    end
-    lane :alpha do
+  end
+
+  lane :alpha do
     sh "echo #{PUBLIC_BACKEND_URL}"
-    sh "pnpm install -g @ionic/cli"
-    sh "pnpm install"
-    sh "ionic cap sync android"
-    sh "ionic cap build android --no-open"
+    build_and_sync
     package = load_json(json_path: "./package.json")
     internal_latest_version_code = google_play_track_version_codes(
       track: 'alpha', 
@@ -137,17 +128,7 @@ platform :android do
       gradle_file_path: "./android/app/build.gradle",
       version_name: package['version'] + "-alpha"
     )
-    gradle(
-          task: "clean bundleRelease",
-          project_dir: 'android/',
-          print_command: false,
-          properties: {
-            "android.injected.signing.store.file" => "#{KEYSTORE_PATH}",
-            "android.injected.signing.store.password" => "#{KEYSTORE_STORE_PASSWORD}",
-            "android.injected.signing.key.alias" => "#{KEYSTORE_KEY_ALIAS}",
-            "android.injected.signing.key.password" => "#{KEYSTORE_KEY_PASSWORD}",
-          })
-
+    sign_and_build_bundle
     release = upload_to_play_store(
       json_key:"#{SERVICE_ACCOUNT_PATH}",
       package_name:"com.didroom.wallet",
@@ -155,14 +136,12 @@ platform :android do
       track: 'alpha',
       metadata_path: "./fastlane/metadata/android",
       skip_upload_apk: true,
-      )
-    end
-    lane :beta do
+    )
+  end
+
+  lane :beta do
     sh "echo #{PUBLIC_BACKEND_URL}"
-    sh "pnpm install -g @ionic/cli"
-    sh "pnpm install"
-    sh "ionic cap sync android"
-    sh "ionic cap build android --no-open"
+    build_and_sync
     package = load_json(json_path: "./package.json")
     internal_latest_version_code = google_play_track_version_codes(
       track: 'beta', 
@@ -177,17 +156,7 @@ platform :android do
       gradle_file_path: "./android/app/build.gradle",
       version_name: package['version'] + "-beta"
     )
-    gradle(
-          task: "clean bundleRelease",
-          project_dir: 'android/',
-          print_command: false,
-          properties: {
-            "android.injected.signing.store.file" => "#{KEYSTORE_PATH}",
-            "android.injected.signing.store.password" => "#{KEYSTORE_STORE_PASSWORD}",
-            "android.injected.signing.key.alias" => "#{KEYSTORE_KEY_ALIAS}",
-            "android.injected.signing.key.password" => "#{KEYSTORE_KEY_PASSWORD}",
-          })
-
+    sign_and_build_bundle
     release = upload_to_play_store(
       json_key:"#{SERVICE_ACCOUNT_PATH}",
       package_name:"com.didroom.wallet",
@@ -195,15 +164,28 @@ platform :android do
       track: 'beta',
       metadata_path: "./fastlane/metadata/android",
       skip_upload_apk: true,
-      )
-    end
+    )
+  end
 end
+
 
 
 
 platform :ios do
   desc 'Export ipa and submit to TestFlight'
-  lane :beta do
+  lane :production do
+    keychain_info = { keychain_name: "ios-build-#{Time.now.to_i}.keychain", keychain_password: SecureRandom.uuid }
+
+    begin
+      setup_signing(keychain_info)
+      bump_build_number
+      build_app_with_signing(keychain_info)
+      deliver
+    ensure
+      cleanup_keychain(keychain_info)
+    end
+  end
+  lane :testflight do
     keychain_info = { keychain_name: "ios-build-#{Time.now.to_i}.keychain", keychain_password: SecureRandom.uuid }
 
     begin
@@ -329,13 +311,50 @@ platform :ios do
       duration: 1200,
       in_house: false
     )
-    pilot(
+    # pilot(
+    #   api_key: api_key,
+    #   skip_waiting_for_build_processing: true,
+    #   skip_submission: true,
+    #   distribute_external: false,
+    #   notify_external_testers: false,
+    #   ipa: "./App.ipa"
+    # )
+    changelog = read_changelog
+    upload_to_testflight(
       api_key: api_key,
+      ipa: "./App.ipa",
       skip_waiting_for_build_processing: true,
-      skip_submission: true,
-      distribute_external: false,
-      notify_external_testers: false,
-      ipa: "./App.ipa"
+      demo_account_required: true,
+      distribute_external:true,
+      changelog: changelog
+      # notify_external_testers: true
+    )
+  end
+  private_lane :deliver_production do
+    api_key = app_store_connect_api_key(
+      key_id: ENV['APPLE_KEY_ID'],
+      issuer_id: ENV['APPLE_ISSUER_ID'],
+      key_content: Base64.decode64(ENV['APPLE_KEY_CONTENT']),
+      duration: 1200,
+      in_house: false
+    )
+    changelog = read_changelog
+    deliver(
+      api_key: api_key,
+      skip_binary_upload: true, 
+      force: true, 
+      ipa: "./App.ipa",
+      skip_waiting_for_build_processing: true,
+      demo_account_required: true,
+      changelog: changelog,
+      metadata_path: "./fastlane/metadata/ios",
+      precheck_include_in_app_purchases: false,
+      skip_screenshots: true,
+      # ignore_language_directory_validation: true,
+      app_review_information: ({
+        demo_user: DEMO_USER,
+        demo_password: DEMO_PASSWORD
+      })
     )
   end
 end

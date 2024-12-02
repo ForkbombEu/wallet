@@ -2,56 +2,81 @@ name: 'publish beta'
 
 on:
   workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Select platform(s) to build'
+        required: true
+        default: 'both'
+        type: choice
+        options:
+          - android
+          - ios
+          - both
+
 jobs:
-  distribute:
-    runs-on: ubuntu-latest
+  distribute_android:
+    if: ${{ github.event.inputs.platform == 'android' || github.event.inputs.platform == 'both' }}
+    uses: ./.github/workflows/distribute.yml
+    needs: tests
+    with:
+      backend-url: ${{ vars.PUBLIC_BACKEND_URL }}
+      lane: beta
+    secrets:
+      keystore-file: ${{ secrets.BUNDLE_BETA_PLAYSTORE }}
+      service-account: ${{ secrets.PLAYSTORE_SERVICE_ACCOUNT }}
+      keystore-alias: ${{ secrets.BUNDLE_BETA_PLAYSTORE_ALIAS }}
+      keystore-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
+      keystore-key-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
+  
+  distribute_ios:
+    runs-on: macOS-latest
+    if: ${{ github.event.inputs.platform == 'ios' || github.event.inputs.platform == 'both' }}
+    needs: tests
     steps:
       - uses: dyne/pnpm@main
         with:
-          submodules: true
           node-version: '20.11.1'
-      - uses: actions/cache@v4
+          submodules: true
+      - name: Set env
+        run: echo "PUBLIC_BACKEND_URL=${{vars.PUBLIC_BACKEND_URL}}" >> $GITHUB_ENV
+      - name: Install dependencies
+        id: install_code
+        run: pnpm install
+      - name: Build
+        id: build_code
+        run: pnpm build
+      - uses: actions/cache@v3
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          path: ios/App/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
-            ${{ runner.os }}-gradle-
-      - name: Setup java
-        uses: actions/setup-java@v4
-        with:
-          distribution: zulu
-          java-version: '17'
-      - name: Decode Keystore File
-        uses: timheuer/base64-to-file@v1
-        id: playstore_keystore
-        with:
-          fileName: android_keystore.keystore
-          encodedString: ${{ secrets.BUNDLE_BETA_PLAYSTORE }}
-      - name: Decode Service Account File for Firebase
-        uses: timheuer/base64-to-file@v1
-        id: service_account
-        with:
-          fileName: play-store-credentials.json
-          encodedString: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-      - name: Decode Service Account File for PlayStore
-        uses: timheuer/base64-to-file@v1
-        id: play_console_account
-        with:
-          fileName: play-store-credentials.json
-          encodedString: ${{ secrets.PLAYSTORE_SERVICE_ACCOUNT }}
+            ${{ runner.os }}-pods-
+      - name: Sync
+        id: sync_code
+        run: pnpm cap sync ios
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.0'
           bundler-cache: true
       - uses: maierj/fastlane-action@v3.1.0
         env:
-          KEYSTORE_PATH: ${{ steps.playstore_keystore.outputs.filePath }}
-          SERVICE_ACCOUNT_PATH: ${{ steps.play_console_account.outputs.filePath }}
-          KEYSTORE_KEY_ALIAS: ${{ secrets.BUNDLE_BETA_PLAYSTORE_ALIAS }}
-          KEYSTORE_KEY_PASSWORD: ${{ secrets.BUNDLE_BETA_PASSWORD }}
-          KEYSTORE_STORE_PASSWORD: ${{ secrets.BUNDLE_BETA_PASSWORD }}
-          PUBLIC_BACKEND_URL: ${{ vars.PUBLIC_BACKEND_URL }}
+          APP_STORE_CONNECT_TEAM_ID: ${{ secrets.APP_STORE_CONNECT_TEAM_ID }}
+          BUNDLE_IDENTIFIER: ${{ secrets.BUNDLE_IDENTIFIER }}
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.IOS_BUILD_CERTIFICATE }}
+          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.IOS_BUILD_PROVISION_PROFILE }}
+          APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
+          APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
+          APPLE_KEY_CONTENT: ${{ secrets.APPLE_KEY_CONTENT }}
+          APPLE_PROFILE_NAME: ${{ secrets.APPLE_PROFILE_NAME }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          DEMO_USER: ${{ vars.USER_EMAIL }}
+          DEMO_PASSWORD: ${{ vars.USER_PASSWORD }}
         with:
-          lane: beta
+          lane: ios production
+      - name: Upload release bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-release
+          path: ./App.ipa
+          retention-days: 10
+      

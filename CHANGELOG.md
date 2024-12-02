@@ -1,3 +1,46 @@
+## [1.55.23](https://github.com/ForkbombEu/wallet/compare/v1.55.22...v1.55.23) (2024-11-29)
+
+
+### Bug Fixes
+
+* skip upload schreenshots on ios delivery ([#540](https://github.com/ForkbombEu/wallet/issues/540)) ([3ae64ab](https://github.com/ForkbombEu/wallet/commit/3ae64ab06a2e2f52ca278f929c799f6e9576d6cf))
+* tab bar safe margins on ios ([#538](https://github.com/ForkbombEu/wallet/issues/538)) ([8f1397a](https://github.com/ForkbombEu/wallet/commit/8f1397a388d40d69ca0e6d3710c39a06ff0765e9))
+
+## [1.55.22](https://github.com/ForkbombEu/wallet/compare/v1.55.21...v1.55.22) (2024-11-29)
+
+
+### Bug Fixes
+
+* ci public backend url for distribute and alpha was wrong ([#536](https://github.com/ForkbombEu/wallet/issues/536)) ([fb32ede](https://github.com/ForkbombEu/wallet/commit/fb32edee39cd813373a1b18d7e17eae4b7df1822))
+
+## [1.55.21](https://github.com/ForkbombEu/wallet/compare/v1.55.20...v1.55.21) (2024-11-27)
+
+
+### Bug Fixes
+
+* configure ios to debug testflight ([#530](https://github.com/ForkbombEu/wallet/issues/530)) ([8adb40d](https://github.com/ForkbombEu/wallet/commit/8adb40d5e13818808493ff963ec56b21d5260061))
+
+## [1.55.20](https://github.com/ForkbombEu/wallet/compare/v1.55.19...v1.55.20) (2024-11-25)
+
+
+### Bug Fixes
+
+* login error after error should be not disabled ([#529](https://github.com/ForkbombEu/wallet/issues/529)) ([e1e61f2](https://github.com/ForkbombEu/wallet/commit/e1e61f2bd527ca5a4ed3b8646067d1e6d17155c9))
+
+## [1.55.19](https://github.com/ForkbombEu/wallet/compare/v1.55.18...v1.55.19) (2024-11-22)
+
+
+### Bug Fixes
+
+* user settings ([#512](https://github.com/ForkbombEu/wallet/issues/512)) ([cb40db1](https://github.com/ForkbombEu/wallet/commit/cb40db1b80aeedca2054813dd0d56f314dedc330)), closes [#504](https://github.com/ForkbombEu/wallet/issues/504)
+
+## [1.55.18](https://github.com/ForkbombEu/wallet/compare/v1.55.17...v1.55.18) (2024-11-22)
+
+
+### Bug Fixes
+
+* network calls to didroom in ios ([#527](https://github.com/ForkbombEu/wallet/issues/527)) ([348157d](https://github.com/ForkbombEu/wallet/commit/348157d403cea376cc9dad6933b358d96f3866ce))
+
 ## [1.55.17](https://github.com/ForkbombEu/wallet/compare/v1.55.16...v1.55.17) (2024-11-21)
 
 
