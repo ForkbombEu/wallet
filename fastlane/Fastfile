@@ -311,14 +311,7 @@ platform :ios do
       duration: 1200,
       in_house: false
     )
-    # pilot(
-    #   api_key: api_key,
-    #   skip_waiting_for_build_processing: true,
-    #   skip_submission: true,
-    #   distribute_external: false,
-    #   notify_external_testers: false,
-    #   ipa: "./App.ipa"
-    # )
+   
     changelog = read_changelog
     upload_to_testflight(
       api_key: api_key,
@@ -327,7 +320,6 @@ platform :ios do
       demo_account_required: true,
       distribute_external:true,
       changelog: changelog
-      # notify_external_testers: true
     )
   end
   private_lane :deliver_production do
@@ -339,11 +331,18 @@ platform :ios do
       in_house: false
     )
     changelog = read_changelog
+    pilot(
+      api_key: api_key,
+      ipa: "./App.ipa",
+      skip_waiting_for_build_processing: true,
+      demo_account_required: true,
+      distribute_external:true,
+      changelog: changelog
+    )
     deliver(
       api_key: api_key,
       force: true, 
-      ipa: "./App.ipa",
-      changelog: changelog,
+      skip_upload_apk: true,
       metadata_path: "./fastlane/metadata/ios",
       precheck_include_in_app_purchases: false,
       skip_screenshots: true,
