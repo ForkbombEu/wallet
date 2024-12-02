@@ -346,7 +346,7 @@ platform :ios do
       changelog: changelog,
       metadata_path: "./fastlane/metadata/ios",
       precheck_include_in_app_purchases: false,
-      skip_screenshots: true
+      skip_screenshots: true,
       app_review_information: ({
         demo_user: DEMO_USER,
         demo_password: DEMO_PASSWORD

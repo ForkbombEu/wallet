@@ -30,7 +30,7 @@
 <ion-tabs>
 	<slot />
 	{#key currentTabName}
-		<ion-tab-bar slot="bottom" class="ion-padding flex min-h-12 justify-between py-0">
+		<ion-tab-bar slot="bottom" class="flex justify-between px-4">
 			{#each tabs as tabObj}
 				{@const { tab, hasAlert, label } = tabObj}
 				<d-tab-button

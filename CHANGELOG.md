@@ -1,3 +1,11 @@
+## [1.55.23](https://github.com/ForkbombEu/wallet/compare/v1.55.22...v1.55.23) (2024-11-29)
+
+
+### Bug Fixes
+
+* skip upload schreenshots on ios delivery ([#540](https://github.com/ForkbombEu/wallet/issues/540)) ([3ae64ab](https://github.com/ForkbombEu/wallet/commit/3ae64ab06a2e2f52ca278f929c799f6e9576d6cf))
+* tab bar safe margins on ios ([#538](https://github.com/ForkbombEu/wallet/issues/538)) ([8f1397a](https://github.com/ForkbombEu/wallet/commit/8f1397a388d40d69ca0e6d3710c39a06ff0765e9))
+
 ## [1.55.22](https://github.com/ForkbombEu/wallet/compare/v1.55.21...v1.55.22) (2024-11-29)
 
 
