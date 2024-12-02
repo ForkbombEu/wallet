@@ -178,9 +178,9 @@ platform :ios do
 
     begin
       setup_signing(keychain_info)
-      bump_build_number
+      build_num = bump_build_number
       build_app_with_signing(keychain_info)
-      deliver_production
+      deliver_production(build_num)
     ensure
       cleanup_keychain(keychain_info)
     end
@@ -235,6 +235,7 @@ platform :ios do
       xcodeproj: "./ios/App/App.xcodeproj",
       skip_info_plist: true
     )
+    build_num
   end
 
   private_lane :import_cert do |options|
@@ -322,7 +323,7 @@ platform :ios do
       changelog: changelog
     )
   end
-  private_lane :deliver_production do
+  private_lane :deliver_production do |build_num|
     api_key = app_store_connect_api_key(
       key_id: ENV['APPLE_KEY_ID'],
       issuer_id: ENV['APPLE_ISSUER_ID'],
@@ -340,6 +341,7 @@ platform :ios do
       changelog: changelog
     )
     deliver(
+      build_number: build_num,
       api_key: api_key,
       force: true, 
       skip_binary_upload: true,
