@@ -4,3 +4,5 @@ questions: What is the name of your first pet? answer:1
 questions: what is your home town? answer: 1
 questions: what is the name of your first tacher? answer: 1
 questions: what was you mother surname before the wedding? answer: 1
+
+See the video attached to see the entire login procedure.

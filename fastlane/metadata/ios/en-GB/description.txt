@@ -6,7 +6,7 @@ Selected features:
 - OpenID4VCI and OpenID4VP: supports the protocols used by the EUDIW developers
 - Zero knowledge proof: supports issue and verifications of zero knowledge proof credentials using the BBS+ and Coconut cryptographic flows.
 - Trusted Execution Environment (TEE): the mobile applications (holder wallet and verifier app) support TEE for Android and and Secure Enclave for iOS, as required by the EUDI-ARF specs.
-- Android/iOS easy to mantain mobile app: the mobile app, used both for holder and verifier roles, is based on Capacitor, uses minimal platform specific code (e.g. for Trusted Execution Environment).
+- iOS easy to mantain mobile app: the mobile app, used both for holder and verifier roles, is based on Capacitor, uses minimal platform specific code (e.g. for Trusted Execution Environment).
 
 The DIDroom platform offers:
 
