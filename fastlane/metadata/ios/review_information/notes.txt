@@ -1,1 +1,6 @@
-security questions answers: ['ios','ios','ios','ios','ios']
+After logging in with your username and password, you have to answer five security questions to complete the procedure. The answer for the test user will always be ‘1’.
+questions: where did you parents meets? answer: 1
+questions: What is the name of your first pet? answer:1
+questions: what is your home town? answer: 1
+questions: what is the name of your first tacher? answer: 1
+questions: what was you mother surname before the wedding? answer: 1
