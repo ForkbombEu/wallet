@@ -332,16 +332,19 @@ platform :ios do
       in_house: false
     )
     changelog = read_changelog
+    package = load_json(json_path: "./package.json")
     pilot(
       api_key: api_key,
       ipa: "./App.ipa",
       skip_waiting_for_build_processing: true,
       demo_account_required: true,
       distribute_external:true,
-      changelog: changelog
+      changelog: changelog,
+      app_version: package["version"]
     )
     deliver(
       build_number: options[:build_num],
+      app_version: package["version"],
       app_review_attachment_file: './fastlane/metadata/iphone-login.mp4',
       submit_for_review:true,
       api_key: api_key,
