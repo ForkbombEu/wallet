@@ -236,7 +236,7 @@ lane :bump_build_number_and_version do
   package = load_json(json_path: "./package.json")
   new_version = package["version"]
   UI.message("Updating app version to #{new_version}")
-  info_plist_path = "./ios/App/Info.plist"
+  info_plist_path = "./ios/App/App/Info.plist"
   set_info_plist_value(
     path: info_plist_path,
     key: "CFBundleShortVersionString",
