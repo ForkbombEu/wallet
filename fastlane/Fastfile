@@ -342,6 +342,7 @@ platform :ios do
     )
     deliver(
       build_number: options[:build_num],
+      app_review_attachment_file: './fastlane/metadata/iphone-login.mp4',
       submit_for_review:true,
       api_key: api_key,
       force: true, 
