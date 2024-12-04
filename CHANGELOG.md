@@ -1,3 +1,10 @@
+## [1.55.24](https://github.com/ForkbombEu/wallet/compare/v1.55.23...v1.55.24) (2024-12-04)
+
+
+### Bug Fixes
+
+* ios distribution ([#541](https://github.com/ForkbombEu/wallet/issues/541)) ([5038e3a](https://github.com/ForkbombEu/wallet/commit/5038e3aa0e503d390094e9e2c2024a6154c87a50))
+
 ## [1.55.23](https://github.com/ForkbombEu/wallet/compare/v1.55.22...v1.55.23) (2024-11-29)
 
 
