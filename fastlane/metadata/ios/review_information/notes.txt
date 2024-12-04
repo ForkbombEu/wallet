@@ -1,1 +1,32 @@
-security questions answers: [p, p, p, p, p]
+See the video attached to see the entire login procedure.
+
+
+# Testing instructions for security question screen
+
+## 1. Log in to the App
+- Use your **username** and **password** to log in as usual.
+
+## 2. Security Question Prompt
+- After successfully logging in, you will be prompted with a screen asking you to answer **five security questions**. This step is part of the app's security procedure and is intended to verify your identity in case you forget your mnemonic phrase in the future.
+
+## 3. Answering the Security Questions
+- For the purpose of this test, all answers to the security questions will always be **'1'** (the number one).
+- **Important**: You must enter the answer exactly as **'1'**. If there is any extra space before or after the '1', or if you type something other than '1', the test will fail.
+- Please carefully read each question and type **'1'** exactly as shown below.
+
+## 4. List of Security Questions and Answers
+- **Question 1**: "Where did your parents meet?"  
+  **Answer**: 1
+- **Question 2**: "What is the name of your first pet?"  
+  **Answer**: 1
+- **Question 3**: "What is your hometown?"  
+  **Answer**: 1
+- **Question 4**: "What is the name of your first teacher?"  
+  **Answer**: 1
+- **Question 5**: "What was your mother's surname before marriage?"  
+  **Answer**: 1
+
+## 5. Important Notes
+- **Critical**: Make sure that the answer is entered as **'1'** with no spaces before or after the number.
+- If you type anything other than **'1'** or include any extra spaces, the test will fail.
+- If you encounter any issues or have questions during the process, please let us know immediately.

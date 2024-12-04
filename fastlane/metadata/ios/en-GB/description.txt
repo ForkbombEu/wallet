@@ -1,17 +1,15 @@
-The DIDroom Wallet is a component of DIDroom, an open-source multiplatform and multifunctional Identity DID/SSI wallet, compliant with the W3C-DID, standards and eIDAS 2.0 (based on the EUDI-ARF specifications). Credential issuers and verification is configured using a no-code approach.
+The DIDroom Wallet is a component of DIDroom, an open-source multiplatform and multifunctional Identity DID/SSI wallet, compliant with EUDI-ARF and W3C-VC specifications. 
 
 Selected features:
-- SD-JWT: supports eIDAS 2.0 (EUDI-ARF)
-- WC-DID: supports the industrial standards W3C-DID .
-- OpenID4VCI and OpenID4VP: supports the protocols used by the EUDIW developers
-- Zero knowledge proof: supports issue and verifications of zero knowledge proof credentials using the BBS+ and Coconut cryptographic flows.
-- Trusted Execution Environment (TEE): the mobile applications (holder wallet and verifier app) support TEE for Android and and Secure Enclave for iOS, as required by the EUDI-ARF specs.
-- Android/iOS easy to mantain mobile app: the mobile app, used both for holder and verifier roles, is based on Capacitor, uses minimal platform specific code (e.g. for Trusted Execution Environment).
+
+- SD-JWT: supports for EUDI-ARF (eIDAS 2.0)
+- WC-DID: supports the industrial standards W3C-DID and W3C-VC.
+- OpenID4VCI and OpenID4VP: supports the protocols used in the EUDI-wallet
+- Zero knowledge proof: supports issue and verifications of zero knowledge proof credentials using the BBS and Coconut cryptographic flows.
+- Secure Enclave: secret keys and credentials are stored in iOS' Secure Enclave.
 
 The DIDroom platform offers:
 
-- Microservice based issuing and verification: the admin dashboard allows you to plug external microservices for issuance and verification including the Authorization Server, Credential Issuer and Relying party. The external service can be based on Zenswarm, so each service has its own DID/Identity and its issuance/verification flows are programmable in Zencode, or be based on a 3rd party’s technology.
-
-- Granular ACL: the the admin dashboard enables the admin to assign multiple roles to different users, allowing them to setup issueing and verification services with different capabilities
-
-https://didroom.com
+Microservice based issuing and verification: the DIDroom dashboard allows you to provision and deploy microservices for issuance and verification (Authorization Server, Credential Issuer and Relying party). Each microservice has its own W3C-DID/Identity and its issuance/verification flows are programmable in Zencode, or be based on a 3rd party’s technology.
+Open source mobile apps: Holder Wallet and Verifier apps, based on Capacitor JS, available on github.
+Granular ACL: the the admin dashboard enables the admin to assign multiple roles to different users, allowing them to setup issueing and verification services with different capabilities

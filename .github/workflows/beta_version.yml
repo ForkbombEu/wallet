@@ -17,7 +17,6 @@ jobs:
   distribute_android:
     if: ${{ github.event.inputs.platform == 'android' || github.event.inputs.platform == 'both' }}
     uses: ./.github/workflows/distribute.yml
-    needs: tests
     with:
       backend-url: ${{ vars.PUBLIC_BACKEND_URL }}
       lane: beta
@@ -30,8 +29,8 @@ jobs:
   
   distribute_ios:
     runs-on: macOS-latest
+    environment: ios
     if: ${{ github.event.inputs.platform == 'ios' || github.event.inputs.platform == 'both' }}
-    needs: tests
     steps:
       - uses: dyne/pnpm@main
         with:

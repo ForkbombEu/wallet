@@ -178,9 +178,9 @@ platform :ios do
 
     begin
       setup_signing(keychain_info)
-      bump_build_number
+      build_num, new_version = bump_build_number_and_version
       build_app_with_signing(keychain_info)
-      deliver
+      deliver_production(build_number: build_num, new_version: new_version)
     ensure
       cleanup_keychain(keychain_info)
     end
@@ -190,7 +190,7 @@ platform :ios do
 
     begin
       setup_signing(keychain_info)
-      bump_build_number
+      bump_build_number_and_version
       build_app_with_signing(keychain_info)
       submit_to_testflight
     ensure
@@ -212,30 +212,40 @@ platform :ios do
     update_project_settings
   end
 
-  lane :bump_build_number do
-    file = File.read('../package.json')
-    data_hash = JSON.parse(file)
-    api_key = app_store_connect_api_key(
-      key_id: ENV['APPLE_KEY_ID'],
-      issuer_id: ENV['APPLE_ISSUER_ID'],
-      key_content: Base64.decode64(ENV['APPLE_KEY_CONTENT']),
-      duration: 1200,
-      in_house: false
-    )
-    build_num = app_store_build_number(
-      api_key: api_key,
-      app_identifier: ENV['BUNDLE_IDENTIFIER'],
-      live: false,
-      initial_build_number:"2"
-    )
-    build_num = build_num + 1
-    UI.message("Bumped build number to #{build_num}")
-    increment_build_number(
-      build_number: build_num,
-      xcodeproj: "./ios/App/App.xcodeproj",
-      skip_info_plist: true
-    )
-  end
+lane :bump_build_number_and_version do
+  api_key = app_store_connect_api_key(
+    key_id: ENV['APPLE_KEY_ID'],
+    issuer_id: ENV['APPLE_ISSUER_ID'],
+    key_content: Base64.decode64(ENV['APPLE_KEY_CONTENT']),
+    duration: 1200,
+    in_house: false
+  )
+  build_num = app_store_build_number(
+    api_key: api_key,
+    app_identifier: ENV['BUNDLE_IDENTIFIER'],
+    live: false,
+    initial_build_number: "2"
+  )
+  build_num += 1
+  UI.message("Bumped build number to #{build_num}")
+  increment_build_number(
+    build_number: build_num,
+    xcodeproj: "./ios/App/App.xcodeproj",
+    skip_info_plist: true
+  )
+  package = load_json(json_path: "./package.json")
+  new_version = package["version"]
+  UI.message("Updating app version to #{new_version}")
+  info_plist_path = "./ios/App/App/Info.plist"
+  set_info_plist_value(
+    path: info_plist_path,
+    key: "CFBundleShortVersionString",
+    value: new_version
+  )
+  
+  [build_num, new_version]
+end
+
 
   private_lane :import_cert do |options|
     cert_path = "#{Dir.tmpdir}/build_certificate.p12"
@@ -311,14 +321,7 @@ platform :ios do
       duration: 1200,
       in_house: false
     )
-    # pilot(
-    #   api_key: api_key,
-    #   skip_waiting_for_build_processing: true,
-    #   skip_submission: true,
-    #   distribute_external: false,
-    #   notify_external_testers: false,
-    #   ipa: "./App.ipa"
-    # )
+   
     changelog = read_changelog
     upload_to_testflight(
       api_key: api_key,
@@ -327,10 +330,9 @@ platform :ios do
       demo_account_required: true,
       distribute_external:true,
       changelog: changelog
-      # notify_external_testers: true
     )
   end
-  private_lane :deliver_production do
+  private_lane :deliver_production do |options|
     api_key = app_store_connect_api_key(
       key_id: ENV['APPLE_KEY_ID'],
       issuer_id: ENV['APPLE_ISSUER_ID'],
@@ -339,18 +341,26 @@ platform :ios do
       in_house: false
     )
     changelog = read_changelog
-    deliver(
+    pilot(
       api_key: api_key,
-      skip_binary_upload: true, 
-      force: true, 
       ipa: "./App.ipa",
       skip_waiting_for_build_processing: true,
       demo_account_required: true,
+      distribute_external:true,
       changelog: changelog,
+      app_version: options["new_version"]
+    )
+    deliver(
+      build_number: options[:build_num],
+      app_version: options["new_version"],
+      app_review_attachment_file: './fastlane/metadata/iphone-login.mp4',
+      submit_for_review:true,
+      api_key: api_key,
+      force: true, 
+      skip_binary_upload: true,
       metadata_path: "./fastlane/metadata/ios",
       precheck_include_in_app_purchases: false,
       skip_screenshots: true,
-      # ignore_language_directory_validation: true,
       app_review_information: ({
         demo_user: DEMO_USER,
         demo_password: DEMO_PASSWORD
