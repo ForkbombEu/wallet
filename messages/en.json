@@ -157,5 +157,8 @@
 	"Delete": "Delete",
 	"Cancel": "Cancel",
 	"User_Settings": "User Settings",
-	"upload_a_picture": "upload a picture"
+	"upload_a_picture": "upload a picture",
+	"share_this_app": "share this app",
+	"Share_with_buddies": "Share with buddies",
+	"This_is_a_really_cool_wallet_for_your_credentials": "This is a really cool wallet for your credentials"
 }
