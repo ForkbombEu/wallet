@@ -1,3 +1,10 @@
+## [1.55.25](https://github.com/ForkbombEu/wallet/compare/v1.55.24...v1.55.25) (2024-12-05)
+
+
+### Bug Fixes
+
+* missing loading animation ([#544](https://github.com/ForkbombEu/wallet/issues/544)) ([2d23b5b](https://github.com/ForkbombEu/wallet/commit/2d23b5ba8a1e432a67c7483e4c002a6faa98b67f))
+
 ## [1.55.24](https://github.com/ForkbombEu/wallet/compare/v1.55.23...v1.55.24) (2024-12-04)
 
 
