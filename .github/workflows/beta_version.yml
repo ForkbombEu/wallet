@@ -1,22 +1,21 @@
-name: 'publish beta'
+name: '🧪 and 📢 and 📲'
 
 on:
-  workflow_dispatch:
-    inputs:
-      platform:
-        description: 'Select platform(s) to build'
-        required: true
-        default: 'both'
-        type: choice
-        options:
-          - android
-          - ios
-          - both
+  push:
+    branches: ['stable']
 
 jobs:
-  distribute_android:
-    if: ${{ github.event.inputs.platform == 'android' || github.event.inputs.platform == 'both' }}
+  tests:
+    uses: ./.github/workflows/test.yml
+    with:
+      backend-url: http://localhost:8090
+      user-email: ${{ vars.USER_EMAIL }}
+      user-password: ${{ vars.USER_PASSWORD }}
+      user-seed: ${{ vars.USER_SEED }}
+
+  distribute:
     uses: ./.github/workflows/distribute.yml
+    needs: tests
     with:
       backend-url: ${{ vars.PUBLIC_BACKEND_URL }}
       lane: beta
@@ -26,56 +25,3 @@ jobs:
       keystore-alias: ${{ secrets.BUNDLE_BETA_PLAYSTORE_ALIAS }}
       keystore-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
       keystore-key-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
-  
-  distribute_ios:
-    runs-on: macOS-latest
-    environment: ios
-    if: ${{ github.event.inputs.platform == 'ios' || github.event.inputs.platform == 'both' }}
-    steps:
-      - uses: dyne/pnpm@main
-        with:
-          node-version: '20.11.1'
-          submodules: true
-      - name: Set env
-        run: echo "PUBLIC_BACKEND_URL=${{vars.PUBLIC_BACKEND_URL}}" >> $GITHUB_ENV
-      - name: Install dependencies
-        id: install_code
-        run: pnpm install
-      - name: Build
-        id: build_code
-        run: pnpm build
-      - uses: actions/cache@v3
-        with:
-          path: ios/App/Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pods-
-      - name: Sync
-        id: sync_code
-        run: pnpm cap sync ios
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.0'
-          bundler-cache: true
-      - uses: maierj/fastlane-action@v3.1.0
-        env:
-          APP_STORE_CONNECT_TEAM_ID: ${{ secrets.APP_STORE_CONNECT_TEAM_ID }}
-          BUNDLE_IDENTIFIER: ${{ secrets.BUNDLE_IDENTIFIER }}
-          BUILD_CERTIFICATE_BASE64: ${{ secrets.IOS_BUILD_CERTIFICATE }}
-          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.IOS_BUILD_PROVISION_PROFILE }}
-          APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
-          APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
-          APPLE_KEY_CONTENT: ${{ secrets.APPLE_KEY_CONTENT }}
-          APPLE_PROFILE_NAME: ${{ secrets.APPLE_PROFILE_NAME }}
-          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
-          DEMO_USER: ${{ vars.USER_EMAIL }}
-          DEMO_PASSWORD: ${{ vars.USER_PASSWORD }}
-        with:
-          lane: ios production
-      - name: Upload release bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: ios-release
-          path: ./App.ipa
-          retention-days: 10
-      
