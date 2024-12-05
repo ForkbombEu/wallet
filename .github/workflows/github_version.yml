@@ -1,4 +1,4 @@
-name: Build github release
+name: 🐙📦 OctoShip Delivery
 
 on:
   push:

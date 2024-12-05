@@ -1,4 +1,4 @@
-name: Build source code on ios and upload to testflight
+name: 🍏✨ Flight of the iPhoenix
 
 on:
   pull_request:

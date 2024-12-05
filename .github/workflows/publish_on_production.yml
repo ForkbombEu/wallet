@@ -1,4 +1,4 @@
-name: 'publish on production'
+name: 🚀🌍 Universal Stardust Release
 
 on:
   workflow_dispatch:
