@@ -4,11 +4,11 @@ const config: CapacitorConfig = {
 	appId: 'com.didroom.wallet',
 	appName: 'DIDroom',
 	webDir: 'build',
-	// plugins: {
-	// 	CapacitorHttp: {
-	// 		enabled: true
-	// 	}
-	// },
+	plugins: {
+		CapacitorHttp: {
+			enabled: true
+		}
+	},
 	server: {
 		androidScheme: 'https',
 		cleartext: true,
