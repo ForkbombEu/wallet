@@ -1,5 +1,6 @@
-import { isDark } from "../../isDark"
-import fingerPrintLottie from '$lib/assets/lottieFingerPrint/fingerPrintLottie.json?url';
-import fingerPrintLottieLight from '$lib/assets/lottieFingerPrint/fingerPrintLottieLight.json?url';
+import { isDark } from '../../isDark';
+import fingerPrintLottie from '$lib/assets/lottieFingerPrint/fingerPrintLottie.json?raw';
+import fingerPrintLottieLight from '$lib/assets/lottieFingerPrint/fingerPrintLottieLight.json?raw';
 
-export const getLottieAnimation = () => isDark ? fingerPrintLottie : fingerPrintLottieLight
+export const getLottieAnimation = () =>
+	JSON.parse(isDark ? fingerPrintLottie : fingerPrintLottieLight);

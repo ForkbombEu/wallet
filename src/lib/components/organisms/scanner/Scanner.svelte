@@ -88,6 +88,7 @@
 			{ signal };
 	});
 	onDestroy(() => {
+		document.querySelector('body')?.classList.remove('barcode-scanner-active');
 		controller.abort();
 	});
 
@@ -106,9 +107,9 @@
 	};
 </script>
 
-<ion-header class="visible z-50">
-	<ion-toolbar>
-		<ion-title class="pl-14 text-center uppercase">
+<ion-header class="visible z-50" translucent>
+	<ion-toolbar >
+		<ion-title class="pl-14 text-center uppercase dark:bg-[#253151] bg-[#e9ebef]">
 			{m.QR_SCAN()}
 		</ion-title>
 		<ion-buttons slot="end">
@@ -120,6 +121,7 @@
 </ion-header>
 
 <ion-content>
+	
 	{#if !isWeb}
 		{#await awaitPermissions()}
 			<div class="flex h-full w-full items-center justify-center">

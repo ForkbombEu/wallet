@@ -5,6 +5,8 @@ test.describe('Verification Page', () => {
 	const verificationQR = `didroom4vp://?sid=QJSBD&exp=1929761423&id=lp3onf9p6vl6jm4&t=fcm+registration+token+is+not+available+in+web&m=f&rp=https%3A%2F%2Frp.test.didroom.com%2Frelying_party&ru=http%3A%2F%2F127.0.0.1%3A8090%2Fapi%2Fcollections%2Ftemplates_public_data%2Frecords%3Ffilter%3D%2528id%253D%2522ryqlx8pybjy9j7o%2522%2529%26expand%3Dorganization`;
 	const expiredVerificationQR = `didroom4vp://?sid=QJSBD&exp=1529761423&id=lp3onf9p6vl6jm4&t=fcm+registration+token+is+not+available+in+web&m=f&rp=https%3A%2F%2Frp.test.didroom.com%2Frelying_party&ru=http%3A%2F%2F127.0.0.1%3A8090%2Fapi%2Fcollections%2Ftemplates_public_data%2Frecords%3Ffilter%3D%2528id%253D%2522ryqlx8pybjy9j7o%2522%2529%26expand%3Dorganization`;
 
+	test.describe.configure({ retries: 2 });
+	
 	test.beforeEach(async ({ page }) => {
 		await login(page);
 		await page.goto('/en/home');

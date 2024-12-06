@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000165">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: echo #############################" time="0.005493">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: echo https://admin.signroom.io" time="0.005135">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: echo #############################" time="0.003957">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: pnpm install -g @ionic/cli" time="14.736361">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>

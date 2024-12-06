@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '@fontsource-variable/gantari';
 	import { setupIonicBase } from 'ionic-svelte';
-
+	
 	setupIonicBase();
 
 	import 'ionic-svelte/components/all';
@@ -18,6 +18,12 @@
 	import { gotoQrResult } from '$lib/components/organisms/scanner/tools';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import { m } from '$lib/i18n';
+	import { clearHttpStorage } from '$lib/utils';
+
+
+	
+
+	$: clearHttpStorage();
 
 	const controller = new AbortController();
 	const signal = controller.signal;
@@ -71,11 +77,11 @@
 	 />  -->
 	<script
 		type="module"
-		src="https://cdn.jsdelivr.net/npm/@didroom/components@1.31.3/dist/didroom-components/didroom-components.esm.js"
+		src="/components/didroom-components/didroom-components.esm.js"
 	></script>
 	<link
 		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/@didroom/components@1.31.3/dist/didroom-components/didroom-components.css"
+		href="/components/didroom-components/didroom-components.css"
 	/>
 	<title>{m.DidroomWallet()}</title>
 </svelte:head>

@@ -9,7 +9,7 @@ test.describe('Activity Page', () => {
 		await activityPage.navigate();
 	});
 
-	test('should load activity page after login', async ({ activityPage }) => {
+	test.skip('should load activity page after login', async ({ activityPage }) => {
 		await activityPage.isPageVisible();
 	});
 

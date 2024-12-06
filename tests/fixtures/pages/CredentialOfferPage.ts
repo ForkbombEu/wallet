@@ -11,6 +11,7 @@ class CredentialOfferForm extends FormComponent {
 		this.frameLocator = this.page.frameLocator('#authorization_server');
 	}
 	async submitForm(): Promise<void> {
+		await this.page.waitForTimeout(500)
 		await this.frameLocator.locator('#execute').click();
 	}
 	async fillInputByName(fieldName: string, value: string): Promise<void> {

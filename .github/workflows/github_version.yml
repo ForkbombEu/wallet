@@ -1,4 +1,4 @@
-name: Build github release
+name: 🐙📦 OctoShip Delivery
 
 on:
   push:
@@ -7,20 +7,10 @@ jobs:
   build_android:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Git Sumbodule Update
-        run: |
-          git submodule update --init
-      - name: Install Node.js
-        uses: actions/setup-node@v4
+      - uses: dyne/pnpm@main
         with:
-          node-version: 20.11
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        with:
-          version: 8
-          run_install: false
-
+          submodules: true
+          node-version: '20.11.1'
       - uses: actions/cache@v3
         with:
           path: |
@@ -71,18 +61,10 @@ jobs:
       release: ${{ steps.tag_release.outputs.release }}
       version: ${{ steps.tag_release.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node.js 20
-        uses: actions/setup-node@v4
+      - uses: dyne/pnpm@main
         with:
-          node-version: 20.11
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        with:
-          version: 8
-      - name: Install deps
-        run: |
-          pnpm i
+          submodules: true
+          node-version: '20.11.1'
       - name: Tag release
         id: tag_release
         env:
