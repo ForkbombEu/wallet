@@ -5,19 +5,19 @@ on:
     branches: ['main']
 
 jobs:
-  # tests:
-  #   uses: ./.github/workflows/test.yml
-  #   with:
-  #     backend-url: http://127.0.0.1:8090
-  #     user-email: ${{ vars.USER_EMAIL }}
-  #     user-password: ${{ vars.USER_PASSWORD }}
-  #     user-seed: ${{ vars.USER_SEED }}
+  tests:
+    uses: ./.github/workflows/test.yml
+    with:
+      backend-url: http://127.0.0.1:8090
+      user-email: ${{ vars.USER_EMAIL }}
+      user-password: ${{ vars.USER_PASSWORD }}
+      user-seed: ${{ vars.USER_SEED }}
 
   distribute:
     uses: ./.github/workflows/distribute.yml
-    # needs: tests
+    needs: tests
     with:
-      backend-url: ${{ vars.PUBLIC_BACKEND_URL }}
+      backend-url: ${{ github.env.test.vars.PUBLIC_BACKEND_URL }}
       lane: distribute
     secrets:
       keystore-file: ${{ secrets.ANDROID_KEYSTORE_FILE }}
