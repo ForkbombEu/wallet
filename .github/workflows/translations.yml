@@ -15,7 +15,6 @@ jobs:
       - uses: dyne/pnpm@main
         with:
           node-version: 20
-          pnpm: 8
           submodules: true
       - run: |
           pnpm no-literals
