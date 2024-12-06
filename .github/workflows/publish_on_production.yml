@@ -1,13 +1,36 @@
-name: 🍏✨ Flight of the iPhoenix
+name: 🚀🌍 Universal Stardust Release
 
 on:
-  pull_request:
-    branches: ['main']
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Select platform(s) to build'
+        required: true
+        default: 'both'
+        type: choice
+        options:
+          - android
+          - ios
+          - both
 
 jobs:
-  build_ios:
+  distribute_android:
+    if: ${{ github.ref == 'refs/heads/stable'&&(github.event.inputs.platform == 'android' || github.event.inputs.platform == 'both') }}
+    uses: ./.github/workflows/distribute.yml
+    with:
+      backend-url: ${{ vars.PUBLIC_BACKEND_URL }}
+      lane: production
+    secrets:
+      keystore-file: ${{ secrets.BUNDLE_BETA_PLAYSTORE }}
+      service-account: ${{ secrets.PLAYSTORE_SERVICE_ACCOUNT }}
+      keystore-alias: ${{ secrets.BUNDLE_BETA_PLAYSTORE_ALIAS }}
+      keystore-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
+      keystore-key-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
+
+  distribute_ios:
     runs-on: macOS-latest
-    environment: test
+    environment: ios
+    if: ${{ github.ref == 'refs/heads/stable'&&(github.event.inputs.platform == 'ios' || github.event.inputs.platform == 'both') }}
     steps:
       - uses: dyne/pnpm@main
         with:
@@ -48,7 +71,7 @@ jobs:
           DEMO_USER: ${{ vars.USER_EMAIL }}
           DEMO_PASSWORD: ${{ vars.USER_PASSWORD }}
         with:
-          lane: ios testflight
+          lane: ios production
       - name: Upload release bundle
         uses: actions/upload-artifact@v4
         with:
