@@ -33,8 +33,8 @@ platform :android do
   private_lane :build_and_sync do
     sh "pnpm install -g @ionic/cli"
     sh "pnpm install"
-    sh "ionic cap sync android"
-    sh "ionic cap build android --no-open"
+    # sh "ANDROID=true ionic cap sync android"
+    sh "ANDROID=true ionic cap build android --no-open"
   end
 
   private_lane :sign_and_build_bundle do
