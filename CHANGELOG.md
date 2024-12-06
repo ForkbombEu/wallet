@@ -1,3 +1,10 @@
+# [1.56.0](https://github.com/ForkbombEu/wallet/compare/v1.55.25...v1.56.0) (2024-12-06)
+
+
+### Features
+
+* publish production version on play store ([#546](https://github.com/ForkbombEu/wallet/issues/546)) ([36785f1](https://github.com/ForkbombEu/wallet/commit/36785f1d0438df26fa2c5aa3592e55f3e9192944))
+
 ## [1.55.25](https://github.com/ForkbombEu/wallet/compare/v1.55.24...v1.55.25) (2024-12-05)
 
 
