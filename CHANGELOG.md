@@ -1,3 +1,10 @@
+## [1.56.1](https://github.com/ForkbombEu/wallet/compare/v1.56.0...v1.56.1) (2024-12-06)
+
+
+### Bug Fixes
+
+* android cant connect to didroom.com ([#548](https://github.com/ForkbombEu/wallet/issues/548)) ([1675b83](https://github.com/ForkbombEu/wallet/commit/1675b83ba51cda54e200e97ce67fdd1f57efca36))
+
 # [1.56.0](https://github.com/ForkbombEu/wallet/compare/v1.55.25...v1.56.0) (2024-12-06)
 
 
