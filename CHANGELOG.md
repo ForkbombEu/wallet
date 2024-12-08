@@ -1,3 +1,10 @@
+## [1.56.2](https://github.com/ForkbombEu/wallet/compare/v1.56.1...v1.56.2) (2024-12-08)
+
+
+### Bug Fixes
+
+* add back button on login or register ([#543](https://github.com/ForkbombEu/wallet/issues/543)) ([ece8a5f](https://github.com/ForkbombEu/wallet/commit/ece8a5f50bdffc75f7edd017bf3ebe7b81d50b75)), closes [#533](https://github.com/ForkbombEu/wallet/issues/533)
+
 ## [1.56.1](https://github.com/ForkbombEu/wallet/compare/v1.56.0...v1.56.1) (2024-12-06)
 
 
