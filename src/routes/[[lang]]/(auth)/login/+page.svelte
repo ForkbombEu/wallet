@@ -122,10 +122,21 @@
 								</a></Checkbox
 							>
 						{/if}
-						<d-button size="default" color="accent" type="submit" expand class="mt-4" {disabled}>
-							{m.Next()}
-							<ion-icon icon={arrowForward} slot="end" aria-label="next" />
-						</d-button>
+						<d-vertical-stack gap="4" class="mt-4">
+							<d-button size="default" color="accent" type="submit" expand {disabled}>
+								{m.Next()}
+								<ion-icon icon={arrowForward} slot="end" aria-label="next" />
+							</d-button>
+							<d-button
+								size="default"
+								color="outline"
+								expand
+								on:click={() => goto('/register-login')}
+								aria-hidden
+							>
+								{'back'}
+							</d-button>
+						</d-vertical-stack>
 					</Form>
 				</div>
 			</div>
