@@ -39,7 +39,7 @@
 			<d-avatar src={authFilesUri(user?.avatar, user?.id)} size="2xl"></d-avatar>
 			<d-heading size="xs" class="w-full">{user?.name || user?.email}</d-heading>
 			<d-did-box did={did?.result?.didDocument.id || did?.didDocument.id}></d-did-box>
-			<ion-toggle checked={debugMode} on:ionChange={setDebugMode}>Debug mode</ion-toggle>
+			<ion-toggle checked={debugMode} on:ionChange={setDebugMode}>{m.Debug_mode()}</ion-toggle>
 		</div>
 		<d-organizations heading={m.Badges()} empty={orgs.length == 0}>
 			{#each orgs as org}
