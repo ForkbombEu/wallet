@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 	import { getDebugMode } from '$lib/preferences/debug';
 	import { Capacitor } from '@capacitor/core';
-	import { Directory, Filesystem } from '@capacitor/filesystem';
+	import { Directory, Encoding, Filesystem } from '@capacitor/filesystem';
 	let display: boolean;
 	const hide = async () => {
 		debugPopup.set(false);
@@ -30,7 +30,8 @@
 		await Filesystem.writeFile({
 			path,
 			data: $debugPopupContent || '',
-			directory: Directory.Documents
+			directory: Directory.Documents,
+            encoding: Encoding.UTF8
 		});
 	};
 </script>
