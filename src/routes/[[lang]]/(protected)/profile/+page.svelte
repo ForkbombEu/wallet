@@ -2,10 +2,21 @@
 	import { m, goto } from '$lib/i18n';
 	import { authFilesUri, filesUri } from '$lib/backendUri.js';
 	import { scanButton } from '$lib/tabs';
-	export let data;
-	const { orgs, user, did } = data;
 	import { AndroidSettings, IOSSettings, NativeSettings } from 'capacitor-native-settings';
 	import { version } from '$app/environment';
+	import { getDebugMode, setDebugModeFalse, setDebugModeTrue } from '$lib/preferences/debug.js';
+
+	export let data;
+	const { orgs, user, did } = data;
+	let debugMode: boolean;
+	const loadDebugMode = async () => {
+		debugMode = await getDebugMode();
+	};
+	$: loadDebugMode();
+	const setDebugMode = async () => {
+		debugMode ? await setDebugModeFalse() : await setDebugModeTrue();
+		await loadDebugMode();
+	};
 
 	const logoutCB = async () => {
 		await goto('/logout');
@@ -28,6 +39,7 @@
 			<d-avatar src={authFilesUri(user?.avatar, user?.id)} size="2xl"></d-avatar>
 			<d-heading size="xs" class="w-full">{user?.name || user?.email}</d-heading>
 			<d-did-box did={did?.result?.didDocument.id || did?.didDocument.id}></d-did-box>
+			<ion-toggle checked={debugMode} on:ionChange={setDebugMode}>Debug mode</ion-toggle>
 		</div>
 		<d-organizations heading={m.Badges()} empty={orgs.length == 0}>
 			{#each orgs as org}
@@ -51,7 +63,7 @@
 			log-out={m.Log_Out()}
 			{version}
 			developed-by={m.Developed_by_Forkbomb_BV()}
-      on:accountSettingsClick={gotoAccountSettings}
+			on:accountSettingsClick={gotoAccountSettings}
 			on:logoutClick={logoutCB}
 			on:languageSettingsClick={gotoLanguageSettings}
 			on:appSettingsClick={openAppSettings}

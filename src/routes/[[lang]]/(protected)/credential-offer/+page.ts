@@ -1,9 +1,9 @@
+import { debugPopupContent } from '$lib/components/organisms/debug/debug';
 import { credentialOfferStore } from '$lib/credentialOfferStore';
 import { m } from '$lib/i18n';
 import { callPar, holderQrToWellKnown, type QrToWellKnown } from '$lib/openId4vci';
 import type { Feedback } from '$lib/utils/types';
 import { get } from 'svelte/store';
-
 
 export const load = async () => {
 	const credentialOffer = get(credentialOfferStore);
@@ -22,17 +22,14 @@ export const load = async () => {
 			type: 'error',
 			feedback: m.The_credential_issuer_is_currently_offline_you_may_try_again_later()
 		};
+		return;
 	}
-	let parResult;
-	let authorizeUrl;
-	if (!wn) return { wn, authorizeUrl, parResult, feedbackData };
 	const data = {
-		credential_parameters: wn?.credential_parameters
+		credential_parameters: wn.credential_parameters
 	};
 
-	const r = await callPar(data);
-	parResult = r.parResult;
-	authorizeUrl = r.authorizeUrl;
+	const par = await callPar(data);
+	const { parResult, authorizeUrl } = par;
 
 	if (!authorizeUrl) {
 		feedbackData = {
@@ -40,5 +37,6 @@ export const load = async () => {
 			feedback: m.The_credential_issuer_is_currently_offline_you_may_try_again_later()
 		};
 	}
+	debugPopupContent.set(JSON.stringify(parResult, null, 2));
 	return { wn, authorizeUrl, parResult, feedbackData };
 };

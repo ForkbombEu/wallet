@@ -1,3 +1,4 @@
+import { invalidate } from '$app/navigation';
 import { getUser } from '$lib/preferences/user';
 import { getKeypairPreference } from '$lib/preferences/keypair';
 import { getDIDPreference } from '$lib/preferences/did';
