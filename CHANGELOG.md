@@ -1,3 +1,24 @@
+## [1.56.2](https://github.com/ForkbombEu/wallet/compare/v1.56.1...v1.56.2) (2024-12-08)
+
+
+### Bug Fixes
+
+* add back button on login or register ([#543](https://github.com/ForkbombEu/wallet/issues/543)) ([ece8a5f](https://github.com/ForkbombEu/wallet/commit/ece8a5f50bdffc75f7edd017bf3ebe7b81d50b75)), closes [#533](https://github.com/ForkbombEu/wallet/issues/533)
+
+## [1.56.1](https://github.com/ForkbombEu/wallet/compare/v1.56.0...v1.56.1) (2024-12-06)
+
+
+### Bug Fixes
+
+* android cant connect to didroom.com ([#548](https://github.com/ForkbombEu/wallet/issues/548)) ([1675b83](https://github.com/ForkbombEu/wallet/commit/1675b83ba51cda54e200e97ce67fdd1f57efca36))
+
+# [1.56.0](https://github.com/ForkbombEu/wallet/compare/v1.55.25...v1.56.0) (2024-12-06)
+
+
+### Features
+
+* publish production version on play store ([#546](https://github.com/ForkbombEu/wallet/issues/546)) ([36785f1](https://github.com/ForkbombEu/wallet/commit/36785f1d0438df26fa2c5aa3592e55f3e9192944))
+
 ## [1.55.25](https://github.com/ForkbombEu/wallet/compare/v1.55.24...v1.55.25) (2024-12-05)
 
 
