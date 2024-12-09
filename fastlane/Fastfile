@@ -33,8 +33,8 @@ platform :android do
   private_lane :build_and_sync do
     sh "pnpm install -g @ionic/cli"
     sh "pnpm install"
-    sh "ionic cap sync android"
-    sh "ionic cap build android --no-open"
+    # sh "ANDROID=true ionic cap sync android"
+    sh "ANDROID=true ionic cap build android --no-open"
   end
 
   private_lane :sign_and_build_bundle do
@@ -63,15 +63,25 @@ platform :android do
     )
   end
 
-  private_lane :update_version do |version_code, version_name|
-    package = load_json(json_path: "./package.json")
+  private_lane :update_version do |options|
     increment_version_code(
       gradle_file_path: "./android/app/build.gradle",
-      version_code: version_code
+      version_code: options[:version_code]
     )
     increment_version_name(
       gradle_file_path: "./android/app/build.gradle",
-      version_name: version_name
+      version_name: options[:version_name]
+    )
+  end 
+
+  private_lane :deliver_to_play_store do |options|
+    upload_to_play_store(
+      json_key:"#{SERVICE_ACCOUNT_PATH}",
+      package_name:"com.didroom.wallet",
+      aab:"android/app/build/outputs/bundle/release/app-release.aab",
+      track: options[:track],
+      metadata_path: "./fastlane/metadata/android",
+      skip_upload_apk: true,
     )
   end
 
@@ -79,28 +89,22 @@ platform :android do
   lane :github do
     build_and_sync
     package = load_json(json_path: "./package.json")
-    increment_version_code(
-      gradle_file_path: "./android/app/build.gradle",
-      version_code: package['version'].gsub('.', '').to_i
-    )
-    increment_version_name(
-      gradle_file_path: "./android/app/build.gradle",
-      version_name: package['version']
-    )
+    update_version(version_code: package['version'].gsub('.', '').to_i, version_name: package['version'])
     sign_and_build_bundle
   end
 
   lane :distribute do
     build_and_sync
     package = load_json(json_path: "./package.json")
-    increment_version_code(
-      gradle_file_path: "./android/app/build.gradle",
-      version_code: PULL_REQUEST_NUMBER
-    )
-    increment_version_name(
-      gradle_file_path: "./android/app/build.gradle",
-      version_name: package['version'] + "-" + PULL_REQUEST_NUMBER
-    )
+    # increment_version_code(
+    #   gradle_file_path: "./android/app/build.gradle",
+    #   version_code: PULL_REQUEST_NUMBER
+    # )
+    # increment_version_name(
+    #   gradle_file_path: "./android/app/build.gradle",
+    #   version_name: package['version'] + "-" + PULL_REQUEST_NUMBER
+    # )
+    update_version(version_code: PULL_REQUEST_NUMBER, version_name: package['version'] + "-" + PULL_REQUEST_NUMBER)
     sign_and_build_bundle
     release = firebase_app_distribution(
       app: FIREBASE_APP_ID,
@@ -112,7 +116,6 @@ platform :android do
   end
 
   lane :alpha do
-    sh "echo #{PUBLIC_BACKEND_URL}"
     build_and_sync
     package = load_json(json_path: "./package.json")
     internal_latest_version_code = google_play_track_version_codes(
@@ -120,27 +123,20 @@ platform :android do
       json_key:"#{SERVICE_ACCOUNT_PATH}",
       package_name:"com.didroom.wallet"
     )
-    increment_version_code(
-      gradle_file_path: "./android/app/build.gradle",
-      version_code: internal_latest_version_code.max + 1
-    )
-    increment_version_name(
-      gradle_file_path: "./android/app/build.gradle",
-      version_name: package['version'] + "-alpha"
-    )
+    # increment_version_code(
+    #   gradle_file_path: "./android/app/build.gradle",
+    #   version_code: internal_latest_version_code.max + 1
+    # )
+    # increment_version_name(
+    #   gradle_file_path: "./android/app/build.gradle",
+    #   version_name: package['version'] + "-alpha"
+    # )
+    update_version(version_code: internal_latest_version_code.max + 1, version_name: package['version'] + "-alpha")
     sign_and_build_bundle
-    release = upload_to_play_store(
-      json_key:"#{SERVICE_ACCOUNT_PATH}",
-      package_name:"com.didroom.wallet",
-      aab:"android/app/build/outputs/bundle/release/app-release.aab",
-      track: 'alpha',
-      metadata_path: "./fastlane/metadata/android",
-      skip_upload_apk: true,
-    )
+    release = deliver_to_play_store(track: 'alpha')
   end
 
   lane :beta do
-    sh "echo #{PUBLIC_BACKEND_URL}"
     build_and_sync
     package = load_json(json_path: "./package.json")
     internal_latest_version_code = google_play_track_version_codes(
@@ -148,24 +144,24 @@ platform :android do
       json_key:"#{SERVICE_ACCOUNT_PATH}",
       package_name:"com.didroom.wallet"
     )
-    increment_version_code(
-      gradle_file_path: "./android/app/build.gradle",
-      version_code: internal_latest_version_code.max + 1
-    )
-    increment_version_name(
-      gradle_file_path: "./android/app/build.gradle",
-      version_name: package['version'] + "-beta"
-    )
+    update_version(version_code: internal_latest_version_code.max + 1, version_name: package['version'] + "-beta")
     sign_and_build_bundle
-    release = upload_to_play_store(
-      json_key:"#{SERVICE_ACCOUNT_PATH}",
-      package_name:"com.didroom.wallet",
-      aab:"android/app/build/outputs/bundle/release/app-release.aab",
-      track: 'beta',
-      metadata_path: "./fastlane/metadata/android",
-      skip_upload_apk: true,
-    )
+    release = deliver_to_play_store(track: 'beta')
   end
+
+  lane :production do
+    build_and_sync
+    package = load_json(json_path: "./package.json")
+    internal_latest_version_code = google_play_track_version_codes(
+      track: 'production',
+      json_key:"#{SERVICE_ACCOUNT_PATH}",
+      package_name:"com.didroom.wallet"
+    )
+    update_version(version_code: internal_latest_version_code.max + 1, version_name: package['version'])
+    sign_and_build_bundle
+    release = deliver_to_play_store(track: 'production')
+  end
+
 end
 
 
