@@ -22,7 +22,7 @@ export const load = async () => {
 			type: 'error',
 			feedback: m.The_credential_issuer_is_currently_offline_you_may_try_again_later()
 		};
-		return;
+		return { feedbackData };
 	}
 	const data = {
 		credential_parameters: wn.credential_parameters
