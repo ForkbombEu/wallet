@@ -157,5 +157,9 @@
 	"Delete": "Delete",
 	"Cancel": "Cancel",
 	"User_Settings": "User Settings",
-	"upload_a_picture": "upload a picture"
+	"upload_a_picture": "upload a picture",
+	"download": "download",
+	"display": "display",
+	"To_stop_displaying_this_popup_deactivate_debugMode_in_to_the_profile": "To stop displaying this popup deactivate debugMode in to the profile",
+	"Debug": "Debug"
 }
