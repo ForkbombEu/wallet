@@ -1,3 +1,88 @@
+## [1.56.2](https://github.com/ForkbombEu/wallet/compare/v1.56.1...v1.56.2) (2024-12-08)
+
+
+### Bug Fixes
+
+* add back button on login or register ([#543](https://github.com/ForkbombEu/wallet/issues/543)) ([ece8a5f](https://github.com/ForkbombEu/wallet/commit/ece8a5f50bdffc75f7edd017bf3ebe7b81d50b75)), closes [#533](https://github.com/ForkbombEu/wallet/issues/533)
+
+## [1.56.1](https://github.com/ForkbombEu/wallet/compare/v1.56.0...v1.56.1) (2024-12-06)
+
+
+### Bug Fixes
+
+* android cant connect to didroom.com ([#548](https://github.com/ForkbombEu/wallet/issues/548)) ([1675b83](https://github.com/ForkbombEu/wallet/commit/1675b83ba51cda54e200e97ce67fdd1f57efca36))
+
+# [1.56.0](https://github.com/ForkbombEu/wallet/compare/v1.55.25...v1.56.0) (2024-12-06)
+
+
+### Features
+
+* publish production version on play store ([#546](https://github.com/ForkbombEu/wallet/issues/546)) ([36785f1](https://github.com/ForkbombEu/wallet/commit/36785f1d0438df26fa2c5aa3592e55f3e9192944))
+
+## [1.55.25](https://github.com/ForkbombEu/wallet/compare/v1.55.24...v1.55.25) (2024-12-05)
+
+
+### Bug Fixes
+
+* missing loading animation ([#544](https://github.com/ForkbombEu/wallet/issues/544)) ([2d23b5b](https://github.com/ForkbombEu/wallet/commit/2d23b5ba8a1e432a67c7483e4c002a6faa98b67f))
+
+## [1.55.24](https://github.com/ForkbombEu/wallet/compare/v1.55.23...v1.55.24) (2024-12-04)
+
+
+### Bug Fixes
+
+* ios distribution ([#541](https://github.com/ForkbombEu/wallet/issues/541)) ([5038e3a](https://github.com/ForkbombEu/wallet/commit/5038e3aa0e503d390094e9e2c2024a6154c87a50))
+
+## [1.55.23](https://github.com/ForkbombEu/wallet/compare/v1.55.22...v1.55.23) (2024-11-29)
+
+
+### Bug Fixes
+
+* skip upload schreenshots on ios delivery ([#540](https://github.com/ForkbombEu/wallet/issues/540)) ([3ae64ab](https://github.com/ForkbombEu/wallet/commit/3ae64ab06a2e2f52ca278f929c799f6e9576d6cf))
+* tab bar safe margins on ios ([#538](https://github.com/ForkbombEu/wallet/issues/538)) ([8f1397a](https://github.com/ForkbombEu/wallet/commit/8f1397a388d40d69ca0e6d3710c39a06ff0765e9))
+
+## [1.55.22](https://github.com/ForkbombEu/wallet/compare/v1.55.21...v1.55.22) (2024-11-29)
+
+
+### Bug Fixes
+
+* ci public backend url for distribute and alpha was wrong ([#536](https://github.com/ForkbombEu/wallet/issues/536)) ([fb32ede](https://github.com/ForkbombEu/wallet/commit/fb32edee39cd813373a1b18d7e17eae4b7df1822))
+
+## [1.55.21](https://github.com/ForkbombEu/wallet/compare/v1.55.20...v1.55.21) (2024-11-27)
+
+
+### Bug Fixes
+
+* configure ios to debug testflight ([#530](https://github.com/ForkbombEu/wallet/issues/530)) ([8adb40d](https://github.com/ForkbombEu/wallet/commit/8adb40d5e13818808493ff963ec56b21d5260061))
+
+## [1.55.20](https://github.com/ForkbombEu/wallet/compare/v1.55.19...v1.55.20) (2024-11-25)
+
+
+### Bug Fixes
+
+* login error after error should be not disabled ([#529](https://github.com/ForkbombEu/wallet/issues/529)) ([e1e61f2](https://github.com/ForkbombEu/wallet/commit/e1e61f2bd527ca5a4ed3b8646067d1e6d17155c9))
+
+## [1.55.19](https://github.com/ForkbombEu/wallet/compare/v1.55.18...v1.55.19) (2024-11-22)
+
+
+### Bug Fixes
+
+* user settings ([#512](https://github.com/ForkbombEu/wallet/issues/512)) ([cb40db1](https://github.com/ForkbombEu/wallet/commit/cb40db1b80aeedca2054813dd0d56f314dedc330)), closes [#504](https://github.com/ForkbombEu/wallet/issues/504)
+
+## [1.55.18](https://github.com/ForkbombEu/wallet/compare/v1.55.17...v1.55.18) (2024-11-22)
+
+
+### Bug Fixes
+
+* network calls to didroom in ios ([#527](https://github.com/ForkbombEu/wallet/issues/527)) ([348157d](https://github.com/ForkbombEu/wallet/commit/348157d403cea376cc9dad6933b358d96f3866ce))
+
+## [1.55.17](https://github.com/ForkbombEu/wallet/compare/v1.55.16...v1.55.17) (2024-11-21)
+
+
+### Bug Fixes
+
+* (ios) ITSAppUsesNonExemptEncryption set to NO and staging envoiroment ([#523](https://github.com/ForkbombEu/wallet/issues/523)) ([962f9ab](https://github.com/ForkbombEu/wallet/commit/962f9abe96b9b86e376b4f7464482c682990b47a))
+
 ## [1.55.16](https://github.com/ForkbombEu/wallet/compare/v1.55.15...v1.55.16) (2024-11-13)
 
 

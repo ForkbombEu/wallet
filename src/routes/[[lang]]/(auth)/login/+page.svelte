@@ -8,7 +8,7 @@
 	import { checkIfUserExists, login, userEmailStore } from './_lib';
 	import background from '$lib/assets/bg-4.svg';
 	import { page } from '$app/stores';
-	import type { Feedback } from '$lib/utils/types';
+	import type { Feedback, ScrollableNode } from '$lib/utils/types';
 	import Checkbox from '$lib/forms/checkbox.svelte';
 
 	//
@@ -16,6 +16,7 @@
 	const registration = $page.url.searchParams.get('registration') === 'true';
 
 	let feedback: Feedback = {};
+	let content: ScrollableNode;
 
 	const schema = z.object({
 		email: z.string().email(),
@@ -58,14 +59,23 @@
 					feedback: m.wrong_email_or_password(),
 					message: String(e)
 				};
+				content.scrollToTop();
 			}
 		}
 	});
 
-	const { tainted } = form;
+	const { fields } = form;
+	const email = fields.email.value;
+	const password = fields.password.value;
+	const conditions = fields.conditions.value;
+	const isFalsy = (value: string | boolean | undefined): boolean =>
+		value === '' || value === undefined || value === false;
+	$: disabled = registration
+		? isFalsy($email) || isFalsy($conditions)
+		: isFalsy($email) || isFalsy($password);
 </script>
 
-<div class="flex min-h-screen flex-col place-content-between">
+<ion-content class="flex min-h-screen flex-col place-content-between" bind:this={content}>
 	<div class="grow">
 		<d-feedback {...feedback} />
 		<d-background-illustration {background}>
@@ -103,7 +113,8 @@
 							</Input>
 						{:else}
 							<Checkbox fieldPath="conditions" {form}
-								>{m.Accept()} <a
+								>{m.Accept()}
+								<a
 									href="https://didroom.com/guides/7_terms-and-conditions/"
 									class="text-accent underline"
 								>
@@ -111,23 +122,25 @@
 								</a></Checkbox
 							>
 						{/if}
-						<d-button
-							size="default"
-							color="accent"
-							type="submit"
-							expand
-							class="mt-4"
-							disabled={registration
-								? !($tainted && $tainted['email'] && $tainted['conditions'])
-								: !($tainted && $tainted['email'] && $tainted['password'])}
-						>
-							{m.Next()}
-							<ion-icon icon={arrowForward} slot="end" aria-label="next" />
-						</d-button>
+						<d-vertical-stack gap="4" class="mt-4">
+							<d-button size="default" color="accent" type="submit" expand {disabled}>
+								{m.Next()}
+								<ion-icon icon={arrowForward} slot="end" aria-label="next" />
+							</d-button>
+							<d-button
+								size="default"
+								color="outline"
+								expand
+								on:click={() => goto('/register-login')}
+								aria-hidden
+							>
+								{'back'}
+							</d-button>
+						</d-vertical-stack>
 					</Form>
 				</div>
 			</div>
 		</div>
 	</div>
 	<d-app-details developedBy={m.Developed_by_Forkbomb_BV()} {version} />
-</div>
+</ion-content>

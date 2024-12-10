@@ -1,6 +1,6 @@
 {
 	"name": "wallet",
-	"version": "1.55.16",
+	"version": "1.56.2",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --host",
@@ -21,7 +21,7 @@
 		"apk": "ionic capacitor copy android && cd android && ./gradlew assembleDebug && ./gradlew installDebug && cd ..",
 		"web": "ionic serve",
 		"icons": "npx capacitor-assets generate --ios --android",
-		"postinstall": "paraglide-js compile --project ./project.inlang"
+		"postinstall": "paraglide-js compile --project ./project.inlang && cp -r ./node_modules/@didroom/components/dist/ ./static/components"
 	},
 	"devDependencies": {
 		"@axe-core/playwright": "^4.10.1",
@@ -42,9 +42,9 @@
 		"@sveltejs/kit": "^2.6.2",
 		"@sveltejs/vite-plugin-svelte": "^3.1.2",
 		"@types/eslint": "8.56.5",
+		"@types/lodash": "^4.17.13",
 		"@typescript-eslint/eslint-plugin": "^8.12.2",
 		"@typescript-eslint/parser": "^8.12.2",
-		"@types/lodash": "^4.17.13",
 		"@vite-pwa/sveltekit": "^0.4.0",
 		"autoprefixer": "^10.4.20",
 		"eslint": "^9.13.0",
@@ -71,7 +71,7 @@
 	"type": "module",
 	"dependencies": {
 		"@aparajita/capacitor-biometric-auth": "^8.0.2",
-		"@capacitor-mlkit/barcode-scanning": "^6.2.0",
+		"@capacitor-mlkit/barcode-scanning": "7.0.0-next.2",
 		"@capacitor/android": "^6.1.2",
 		"@capacitor/app": "^6.0.1",
 		"@capacitor/camera": "^6.1.0",
@@ -85,6 +85,7 @@
 		"@capacitor/keyboard": "^6.0.2",
 		"@capacitor/preferences": "^6.0.2",
 		"@capacitor/status-bar": "^6.0.1",
+		"@didroom/components": "^1.31.3",
 		"@fontsource-variable/gantari": "^5.1.0",
 		"@inlang/paraglide-js-adapter-sveltekit": "^0.6.7",
 		"@ionic/cli": "^7.2.0",

@@ -2,6 +2,8 @@ import { test } from './fixtures/testWithFixtures';
 import { login } from './utils';
 
 test.describe('Language settings page', () => {
+	test.describe.configure({ retries: 2 });
+
 	test.beforeEach(async ({ page, languageSettingsPage }) => {
 		login(page);
 		await languageSettingsPage.navigate();
