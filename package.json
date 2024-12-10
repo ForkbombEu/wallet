@@ -83,6 +83,7 @@
 		"@capacitor/haptics": "^6.0.1",
 		"@capacitor/ios": "^6.1.2",
 		"@capacitor/keyboard": "^6.0.2",
+		"@capacitor/network": "^6.0.3",
 		"@capacitor/preferences": "^6.0.2",
 		"@capacitor/status-bar": "^6.0.1",
 		"@didroom/components": "^1.31.3",
