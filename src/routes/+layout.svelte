@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '@fontsource-variable/gantari';
 	import { setupIonicBase } from 'ionic-svelte';
-	
+
 	setupIonicBase();
 
 	import 'ionic-svelte/components/all';
@@ -19,16 +19,20 @@
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import { m } from '$lib/i18n';
 	import { clearHttpStorage } from '$lib/utils';
-
-
-	
+	import { Network } from '@capacitor/network';
 
 	$: clearHttpStorage();
 
 	const controller = new AbortController();
 	const signal = controller.signal;
 
-	onMount(() => {
+	let isConnected: boolean;
+
+	onMount(async () => {
+		isConnected = (await Network.getStatus()).connected;
+		Network.addListener('networkStatusChange', (status) => {
+			isConnected = status.connected;
+		});
 		document.addEventListener(
 			'ionBackButton',
 			(ev: any) => {
@@ -75,14 +79,8 @@
 	 	rel="stylesheet" 
 	 	href="http://localhost:3333/build/didroom-components.css" 
 	 />  -->
-	<script
-		type="module"
-		src="/components/didroom-components/didroom-components.esm.js"
-	></script>
-	<link
-		rel="stylesheet"
-		href="/components/didroom-components/didroom-components.css"
-	/>
+	<script type="module" src="/components/didroom-components/didroom-components.esm.js"></script>
+	<link rel="stylesheet" href="/components/didroom-components/didroom-components.css" />
 	<title>{m.DidroomWallet()}</title>
 </svelte:head>
 <svelte:window
@@ -92,8 +90,13 @@
 <ParaglideJS {i18n}>
 	<HiddenLogsButton />
 	<ion-app>
-		<d-loading loading={$navigating}>
+		<d-loading loading={$navigating || !isConnected}>
 			<FingerPrint />
+			{#if !isConnected}
+				<d-text
+					>{m.It_seems_that_the_wallet_is_unable_to_connect_to_the_Internet_please_make_sure_your_internet_connection_is_working_and_retry()}</d-text
+				>
+			{/if}
 		</d-loading>
 		<slot />
 	</ion-app>
