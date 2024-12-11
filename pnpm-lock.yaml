@@ -15,50 +15,47 @@ importers:
         specifier: 7.0.0-next.2
         version: 7.0.0-next.2(@capacitor/core@6.2.0)
       '@capacitor/android':
-        specifier: ^6.1.2
+        specifier: ^6.2.0
         version: 6.2.0(@capacitor/core@6.2.0)
       '@capacitor/app':
-        specifier: ^6.0.1
+        specifier: ^6.0.2
         version: 6.0.2(@capacitor/core@6.2.0)
       '@capacitor/camera':
-        specifier: ^6.1.0
+        specifier: ^6.1.1
         version: 6.1.1(@capacitor/core@6.2.0)
       '@capacitor/cli':
-        specifier: ^6.1.2
+        specifier: ^6.2.0
         version: 6.2.0
       '@capacitor/clipboard':
-        specifier: ^6.0.1
+        specifier: ^6.0.2
         version: 6.0.2(@capacitor/core@6.2.0)
       '@capacitor/core':
-        specifier: ^6.1.2
+        specifier: ^6.2.0
         version: 6.2.0
       '@capacitor/device':
-        specifier: ^6.0.1
+        specifier: ^6.0.2
         version: 6.0.2(@capacitor/core@6.2.0)
       '@capacitor/filesystem':
-        specifier: ^6.0.1
+        specifier: ^6.0.2
         version: 6.0.2(@capacitor/core@6.2.0)
       '@capacitor/haptics':
-        specifier: ^6.0.1
+        specifier: ^6.0.2
         version: 6.0.2(@capacitor/core@6.2.0)
       '@capacitor/ios':
-        specifier: ^6.1.2
+        specifier: ^6.2.0
         version: 6.2.0(@capacitor/core@6.2.0)
       '@capacitor/keyboard':
-        specifier: ^6.0.2
+        specifier: ^6.0.3
         version: 6.0.3(@capacitor/core@6.2.0)
       '@capacitor/preferences':
-        specifier: ^6.0.2
+        specifier: ^6.0.3
         version: 6.0.3(@capacitor/core@6.2.0)
       '@capacitor/share':
         specifier: ^6.0.3
         version: 6.0.3(@capacitor/core@6.2.0)
       '@capacitor/status-bar':
-        specifier: ^6.0.1
+        specifier: ^6.0.2
         version: 6.0.2(@capacitor/core@6.2.0)
-      '@didroom/components':
-        specifier: ^1.31.3
-        version: 1.31.4(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2)))
       '@fontsource-variable/gantari':
         specifier: ^5.1.0
         version: 5.1.0
@@ -72,19 +69,19 @@ importers:
         specifier: ^7.8.6
         version: 7.8.6
       '@slangroom/core':
-        specifier: ^1.43.1
+        specifier: ^1.43.2
         version: 1.43.2(zenroom@4.46.1)
       '@slangroom/helpers':
-        specifier: ^1.43.1
+        specifier: ^1.43.2
         version: 1.43.2(zenroom@4.46.1)
       '@slangroom/http':
-        specifier: ^1.43.1
+        specifier: ^1.43.2
         version: 1.43.2(zenroom@4.46.1)
       '@slangroom/pocketbase':
-        specifier: ^1.43.1
+        specifier: ^1.43.2
         version: 1.43.2(@capacitor/core@6.2.0)(zenroom@4.46.1)
       '@slangroom/zencode':
-        specifier: ^1.43.1
+        specifier: ^1.43.2
         version: 1.43.2(zenroom@4.46.1)
       ajv:
         specifier: ^8.17.1
@@ -108,10 +105,10 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       swiper:
-        specifier: ^11.1.14
+        specifier: ^11.1.15
         version: 11.1.15
       zenroom:
-        specifier: ^4.45.5
+        specifier: ^4.46.1
         version: 4.46.1
       zod:
         specifier: ^3.23.8
@@ -123,11 +120,14 @@ importers:
       '@capacitor/assets':
         specifier: ^3.0.5
         version: 3.0.5(@types/node@22.10.1)(typescript@5.7.2)
+      '@didroom/components':
+        specifier: ^1.31.5
+        version: 1.31.5(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2)))
       '@eslint/eslintrc':
-        specifier: ^3.1.0
+        specifier: ^3.2.0
         version: 3.2.0
       '@eslint/js':
-        specifier: ^9.13.0
+        specifier: ^9.16.0
         version: 9.16.0
       '@faker-js/faker':
         specifier: ^8.4.1
@@ -139,7 +139,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       '@playwright/test':
-        specifier: ^1.48.2
+        specifier: ^1.49.0
         version: 1.49.0
       '@semantic-release/changelog':
         specifier: ^6.0.3
@@ -160,10 +160,10 @@ importers:
         specifier: ^12.1.0
         version: 12.1.0(semantic-release@23.1.1(typescript@5.7.2))
       '@sveltejs/adapter-static':
-        specifier: ^3.0.5
+        specifier: ^3.0.6
         version: 3.0.6(@sveltejs/kit@2.9.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@4.2.19)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))
       '@sveltejs/kit':
-        specifier: ^2.6.2
+        specifier: ^2.9.0
         version: 2.9.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@4.2.19)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0))
       '@sveltejs/vite-plugin-svelte':
         specifier: ^3.1.2
@@ -175,10 +175,10 @@ importers:
         specifier: ^4.17.13
         version: 4.17.13
       '@typescript-eslint/eslint-plugin':
-        specifier: ^8.12.2
+        specifier: ^8.17.0
         version: 8.17.0(@typescript-eslint/parser@8.17.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2))(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
       '@typescript-eslint/parser':
-        specifier: ^8.12.2
+        specifier: ^8.17.0
         version: 8.17.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
       '@vite-pwa/sveltekit':
         specifier: ^0.4.0
@@ -187,7 +187,7 @@ importers:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
       eslint:
-        specifier: ^9.13.0
+        specifier: ^9.16.0
         version: 9.16.0(jiti@1.21.6)
       eslint-config-prettier:
         specifier: ^9.1.0
@@ -196,25 +196,25 @@ importers:
         specifier: file:plugins/localization
         version: file:plugins/localization
       eslint-plugin-svelte:
-        specifier: ^2.44.1
+        specifier: ^2.46.1
         version: 2.46.1(eslint@9.16.0(jiti@1.21.6))(svelte@4.2.19)(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))
       globals:
-        specifier: ^15.11.0
+        specifier: ^15.13.0
         version: 15.13.0
       postcss:
-        specifier: ^8.4.48
+        specifier: ^8.4.49
         version: 8.4.49
       postcss-load-config:
         specifier: ^5.1.0
         version: 5.1.0(jiti@1.21.6)(postcss@8.4.49)
       prettier:
-        specifier: ^3.3.3
+        specifier: ^3.4.1
         version: 3.4.1
       prettier-plugin-organize-imports:
         specifier: ^3.2.4
         version: 3.2.4(prettier@3.4.1)(typescript@5.7.2)
       prettier-plugin-svelte:
-        specifier: ^3.2.7
+        specifier: ^3.3.2
         version: 3.3.2(prettier@3.4.1)(svelte@4.2.19)
       prettier-plugin-tailwindcss:
         specifier: ^0.5.14
@@ -232,13 +232,13 @@ importers:
         specifier: 1.6.1
         version: 1.6.1(@sveltejs/kit@2.9.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@4.2.19)(vite@5.4.11(@types/node@22.10.1)(terser@5.36.0)))(svelte@4.2.19)(zod@3.23.8)
       tailwindcss:
-        specifier: ^3.4.14
+        specifier: ^3.4.16
         version: 3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2))
       tslib:
         specifier: ^2.8.1
         version: 2.8.1
       typescript:
-        specifier: ^5.6.3
+        specifier: ^5.7.2
         version: 5.7.2
       vite:
         specifier: ^5.4.11
@@ -868,8 +868,8 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@didroom/components@1.31.4':
-    resolution: {integrity: sha512-WvzMPB9E+nzwlJbw4FkZOd7PAAl4siYVmRDnbhIoULNGJlxEyTTJqSR1UopCL0ha8QlfBQyijUAcW3pv9TQmbg==}
+  '@didroom/components@1.31.5':
+    resolution: {integrity: sha512-EpdIFlxt9k+Bnx2RMakDpsh52UDIa5jwb8THv5QT2XK5HKh26OTBDeBBgMNF6Lwwj2bvtkmasxU+oLNhSUX8wQ==}
 
   '@esbuild/aix-ppc64@0.21.5':
     resolution: {integrity: sha512-1SDgH6ZSPTlggy1yI6+Dbkiz8xzpHJEVAlF/AM1tHPLsf5STom9rwtjE4hKAF20FfXXNTFqEYXyJNWh1GiZedQ==}
@@ -2423,7 +2423,7 @@ packages:
     resolution: {integrity: sha512-T0+barUSQRTUQASh8bx02dl+DhF54GtIDY13Y3m9oWTklKbb3Wv974meRpeZ3lp1JpLVECWWNHC4vaG2XHXouQ==}
 
   concat-map@0.0.1:
-    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
 
   confbox@0.1.8:
     resolution: {integrity: sha512-RMtmw0iFkeR4YV+fUOSucriAQNb9g8zFR52MWCtl+cCZOFRNL6zeB395vPzFhEjjn4fMxXudmELnl/KF/WrK6w==}
@@ -6753,7 +6753,7 @@ snapshots:
       '@ionic/utils-subprocess': 2.1.14
       '@ionic/utils-terminal': 2.3.5
       commander: 9.5.0
-      debug: 4.3.4
+      debug: 4.3.7
       env-paths: 2.2.1
       kleur: 4.1.5
       native-run: 2.0.1
@@ -6852,7 +6852,7 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@didroom/components@1.31.4(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2)))':
+  '@didroom/components@1.31.5(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2)))':
     dependencies:
       '@stencil/core': 4.22.3
       '@tailwindcss/line-clamp': 0.4.4(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2)))
@@ -7212,7 +7212,7 @@ snapshots:
 
   '@ionic/utils-array@2.1.6':
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.7
       tslib: 2.8.1
     transitivePeerDependencies:
       - supports-color
@@ -7229,7 +7229,7 @@ snapshots:
   '@ionic/utils-fs@3.1.7':
     dependencies:
       '@types/fs-extra': 8.1.5
-      debug: 4.3.4
+      debug: 4.3.7
       fs-extra: 9.1.0
       tslib: 2.8.1
     transitivePeerDependencies:
@@ -7271,7 +7271,7 @@ snapshots:
     dependencies:
       '@ionic/utils-object': 2.1.6
       '@ionic/utils-terminal': 2.3.4
-      debug: 4.3.4
+      debug: 4.3.7
       signal-exit: 3.0.7
       tree-kill: 1.2.2
       tslib: 2.8.1
@@ -7298,7 +7298,7 @@ snapshots:
 
   '@ionic/utils-stream@3.1.6':
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.7
       tslib: 2.8.1
     transitivePeerDependencies:
       - supports-color
@@ -7331,7 +7331,7 @@ snapshots:
       '@ionic/utils-stream': 3.1.6
       '@ionic/utils-terminal': 2.3.4
       cross-spawn: 7.0.6
-      debug: 4.3.4
+      debug: 4.3.7
       tslib: 2.8.1
     transitivePeerDependencies:
       - supports-color
@@ -7366,7 +7366,7 @@ snapshots:
   '@ionic/utils-terminal@2.3.4':
     dependencies:
       '@types/slice-ansi': 4.0.0
-      debug: 4.3.4
+      debug: 4.3.7
       signal-exit: 3.0.7
       slice-ansi: 4.0.0
       string-width: 4.2.3
