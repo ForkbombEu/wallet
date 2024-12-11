@@ -1,5 +1,4 @@
-# .github/workflows/distribute.yml
-name: Reusable Distribute Workflow
+name: 🖋️🚢 sign and ship Android
 
 on:
   workflow_call:
