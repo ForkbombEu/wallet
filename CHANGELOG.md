@@ -1,3 +1,10 @@
+## [1.56.4](https://github.com/ForkbombEu/wallet/compare/v1.56.3...v1.56.4) (2024-12-12)
+
+
+### Bug Fixes
+
+* message if no internet connection ([#552](https://github.com/ForkbombEu/wallet/issues/552)) ([9677ad8](https://github.com/ForkbombEu/wallet/commit/9677ad885f6101945b95a9c850dc88354125d843))
+
 ## [1.56.3](https://github.com/ForkbombEu/wallet/compare/v1.56.2...v1.56.3) (2024-12-12)
 
 
