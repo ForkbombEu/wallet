@@ -14,7 +14,7 @@ jobs:
       user-seed: ${{ vars.USER_SEED }}
 
   distribute:
-    uses: ./.github/workflows/distribute.yml
+    uses: ./.github/workflows/ship_android.yml
     needs: tests
     with:
       backend-url: ${{ github.env.test.vars.PUBLIC_BACKEND_URL }}
