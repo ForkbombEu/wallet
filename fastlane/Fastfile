@@ -336,6 +336,7 @@ end
       duration: 1200,
       in_house: false
     )
+    sh "sed -i '' '1s/.*/## [Unreleased]/' changelog.md"
     changelog = read_changelog
     pilot(
       api_key: api_key,
