@@ -23,7 +23,7 @@
 			<d-illustration illustration="empty-wallet" />
 		</d-empty-state>
 	{:else}
-		<d-vertical-stack>
+		<div class="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-12">
 			{#each credentials as credential}
 				{@const expirationDate = dayjs.unix(credential.expirationDate).format('DD.MM.YYYY HH:mm')}
 				<button on:click={() => goto(`/${credential.id}/credential-detail`)} class="relative">
@@ -44,6 +44,7 @@
 						logoSrc={credential.logo.uri}
 						issuedByLabel={m.Issued_by()}
 						expirationLabel={'Exp'}
+						class="max-w-44"
 						>{#await decodeSdJwt(credential.sdJwt) then sdjwt}
 							{#each sdjwt.credential.disclosures as disclosure}
 								<d-badge>{disclosure[1]}</d-badge>
@@ -52,6 +53,6 @@
 					</d-credential-card>
 				</button>
 			{/each}
-		</d-vertical-stack>
+		</div>
 	{/if}
 </d-tab-page>
