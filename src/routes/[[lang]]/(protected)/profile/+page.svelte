@@ -52,21 +52,6 @@
 		</d-organizations>
 	</div>
 	<div slot="settings">
-		<!-- <d-settings-menu
-			account-settings={m.Account_Settings()}
-			security-and-authentication={m.Security_and_authentication()}
-			notifications-settings={m.Notifications_settings()}
-			languages={m.Languages()}
-			support={m.Support()}
-			privacy-policy={m.Privacy_policy()}
-			log-out={m.Log_Out()}
-			{version}
-			developed-by={m.Developed_by_Forkbomb_BV()}
-      on:accountSettingsClick={gotoAccountSettings}
-			on:logoutClick={logoutCB}
-			on:languageSettingsClick={gotoLanguageSettings}
-			on:appSettingsClick={openAppSettings}
-		/> -->
 		<div class="flex flex-col justify-between">
 			<div class="flex flex-col gap-4">
 				<d-buttons-group>
@@ -88,12 +73,12 @@
 						{m.share_this_app()}
 						<ion-icon icon={shareIcon} slot="start" />
 					</d-button>
-					<d-button href="https://didroom.com/guides/1_orgadmin/support.html" size="large">
+					<d-button href="https://didroom.com/guides/Orgadmin/support.html" size="large">
 						{m.Support()}
 						<d-icon icon="help" slot="start" outline />
 					</d-button>
 					<d-button
-						href="https://didroom.com/guides/7_terms-and-conditions/privacy-policy.html"
+						href="https://didroom.com/guides/Terms-and-conditions/privacy-policy.html"
 						size="large"
 					>
 						{m.Privacy_policy()}
