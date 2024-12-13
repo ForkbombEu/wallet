@@ -10,7 +10,7 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v4
             - name:  try external action
-              uses: ForkbombEU/ship-capacitor-app
+              uses: ForkbombEU/ship-capacitor-apps@v1.1
               with:
                 backend-url: ${{ github.env.test.vars.PUBLIC_BACKEND_URL }}
                 lane: distribute
