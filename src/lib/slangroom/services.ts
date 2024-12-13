@@ -1,7 +1,7 @@
 import { backendUri } from '$lib/backendUri';
 import { log } from '$lib/log';
 import { Slangroom } from '@slangroom/core';
-import getPbList from '$lib/slangroom/getPbList.zen?raw';
+import getPbList from '$lib/slangroom/getPbList.slang?raw';
 import { pocketbase } from '@slangroom/pocketbase';
 
 
