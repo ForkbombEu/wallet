@@ -1,8 +1,9 @@
 name: Draft Workflow
 
 on:
-  workflow_dispatch:
-
+  pull_request:
+    branches: ['main']
+    
 jobs:
     build_and_dispatch:
         runs-on: ubuntu-latest
