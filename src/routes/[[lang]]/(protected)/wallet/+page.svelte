@@ -23,7 +23,7 @@
 			<d-illustration illustration="empty-wallet" />
 		</d-empty-state>
 	{:else}
-		<div class="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-12">
+		<div class="grid md:grid-cols-2 grid-cols-1 gap-12">
 			{#each credentials as credential}
 				{@const expirationDate = dayjs.unix(credential.expirationDate).format('DD.MM.YYYY HH:mm')}
 				<button on:click={() => goto(`/${credential.id}/credential-detail`)} class="relative">

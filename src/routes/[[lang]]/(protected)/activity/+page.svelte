@@ -1,6 +1,5 @@
 <script lang="ts">
 	import {
-		removeActivities,
 		clearActivities,
 		setActivityAsRead,
 		setAllActivitiesAsRead
@@ -17,12 +16,6 @@
 
 	let hasChangesFlag = false;
 
-	const cancelActivity = async (at: number) => {
-		await removeActivities([at]);
-		await invalidate(_activityKey);
-		activities = data.activities;
-	};
-
 	const clear = async () => {
 		await clearActivities();
 		await invalidate(_activityKey);
@@ -36,7 +29,7 @@
 					if (activities.find((a) => a.at === Number(e.id))?.read) return;
 					await setActivityAsRead(Number(e.id));
 					hasChangesFlag = true;
-				}, 2000);
+				}, 10000);
 			}
 		});
 		observer.observe(e);
@@ -69,24 +62,9 @@
 				{...activity}
 				logo={activity.logo.uri}
 				id={String(activity.at)}
+				href={activity.credential ? r(`/${activity.credential.id}/credential-detail`) : undefined}
 				use:setAsRead
 			>
-				<d-button
-					size="small"
-					color="accent"
-					onClick={async () => await cancelActivity(activity.at)}
-				>
-					{m.remove()}
-				</d-button>
-				{#if activity.credential}
-					<d-button
-						size="small"
-						color="primary"
-						href={r(`/${activity.credential.id}/credential-detail`)}
-					>
-						{m.show_me()}
-					</d-button>
-				{/if}
 			</d-activity-card>
 		{:else}
 			<d-empty-state
