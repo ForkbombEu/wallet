@@ -1,0 +1,23 @@
+name: Draft Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+    build_and_dispatch:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+            - name:  try external action
+              uses: ForkbombEU/ship-capacitor-app
+              with:
+                backend-url: ${{ github.env.test.vars.PUBLIC_BACKEND_URL }}
+                lane: distribute
+                keystore-file: ${{ secrets.ANDROID_KEYSTORE_FILE }}
+                service-account: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+                keystore-alias: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+                keystore-password: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
+                keystore-key-password: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+                firebase-app-id: ${{ secrets.FIREBASE_APP_ID }}
+                
