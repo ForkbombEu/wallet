@@ -59,8 +59,6 @@ export const askCredential = async (
 		data,
 		keys
 	});
-	debugPopup.set(true);
-	debugPopupContent.set(JSON.stringify(request.result.result, null, 2));
 	await debugDismiss();
 	return request.result.result as CredentialResult;
 };

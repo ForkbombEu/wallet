@@ -12,9 +12,7 @@
 	import dayjs from 'dayjs';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
-	import { debugPopup } from '$lib/components/organisms/debug/debug';
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
-	import { onMount } from 'svelte';
 	import { getDebugMode } from '$lib/preferences/debug.js';
 
 	export let data;
@@ -44,8 +42,6 @@
 		}
 	});
 
-	onMount(async () => debugPopup.set(true));
-
 	const credentialInfo = wn?.credential_requested['display'][0];
 
 	let feedback: Feedback | undefined = {};
@@ -66,6 +62,7 @@
 			isModalOpen = false;
 			feedback = {
 				type: 'error',
+				// @ts-ignore
 				message: String(e?.message || e),
 				feedback: 'error while getting credential'
 			};

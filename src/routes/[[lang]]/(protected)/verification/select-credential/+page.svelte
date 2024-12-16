@@ -73,8 +73,6 @@
 				}
 			})) as VerificationResponse;
 			const success = verificationResponse.result.result.result.server_response.status === '200';
-			debugPopupContent.set(JSON.stringify(verificationResponse, null, 2));
-			debugPopup.set(true);
 			await debugDismiss();
 			const date = dayjs().toString();
 			let feedback: Feedback = {};

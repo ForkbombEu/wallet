@@ -37,6 +37,5 @@ export const load = async () => {
 			feedback: m.The_credential_issuer_is_currently_offline_you_may_try_again_later()
 		};
 	}
-	debugPopupContent.set(JSON.stringify(parResult, null, 2));
 	return { wn, authorizeUrl, parResult, feedbackData };
 };

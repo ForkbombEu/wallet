@@ -3,8 +3,6 @@
 	import { verificationStore } from '$lib/verificationStore';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
-	import { onMount } from 'svelte';
-	import { debugPopupContent } from '$lib/components/organisms/debug/debug';
 
 	const { info, post_without_vp } = $verificationStore;
 	const { rp_name, verifier_name, asked_claims } = info;
@@ -18,9 +16,6 @@
 	const gotoChooseCredential = async () => {
 		await goto('/verification/select-credential');
 	};
-	onMount(() => {
-		debugPopupContent.set(JSON.stringify($verificationStore, null, 2));
-	});
 </script>
 
 <HeaderWithBackButton>
