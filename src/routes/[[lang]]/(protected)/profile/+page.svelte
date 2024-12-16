@@ -5,13 +5,13 @@
 	import { AndroidSettings, IOSSettings, NativeSettings } from 'capacitor-native-settings';
 	import { version } from '$app/environment';
 	import { getDebugMode, setDebugModeFalse, setDebugModeTrue } from '$lib/preferences/debug.js';
-  import { Share } from '@capacitor/share';
+	import { Share } from '@capacitor/share';
 	import { share as shareIcon } from 'ionicons/icons';
 
 	export let data;
 	const { orgs, user, did } = data;
-	
-  let debugMode: boolean;
+
+	let debugMode: boolean;
 	const loadDebugMode = async () => {
 		debugMode = await getDebugMode();
 	};
@@ -50,7 +50,6 @@
 			<d-avatar src={authFilesUri(user?.avatar, user?.id)} size="2xl"></d-avatar>
 			<d-heading size="xs" class="w-full">{user?.name || user?.email}</d-heading>
 			<d-did-box did={did?.result?.didDocument.id || did?.didDocument.id}></d-did-box>
-			<ion-toggle checked={debugMode} on:ionChange={setDebugMode}>{m.Debug_mode()}</ion-toggle>
 		</div>
 		<d-organizations heading={m.Badges()} empty={orgs.length == 0}>
 			{#each orgs as org}
@@ -95,6 +94,11 @@
 					>
 						{m.Privacy_policy()}
 						<d-icon icon="shield" slot="start" outline />
+					</d-button>
+					<d-button size="large">
+						<ion-toggle checked={debugMode} label-placement="end" on:ionChange={setDebugMode}
+							>{m.Debug_mode()}</ion-toggle
+						>
 					</d-button>
 				</d-buttons-group>
 				<d-buttons-group>
