@@ -86,6 +86,7 @@
 		"@capacitor/ios": "^6.2.0",
 		"@capacitor/keyboard": "^6.0.3",
 		"@capacitor/preferences": "^6.0.3",
+		"@capacitor/share": "^6.0.3",
 		"@capacitor/status-bar": "^6.0.2",
 		"@fontsource-variable/gantari": "^5.1.0",
 		"@inlang/paraglide-js-adapter-sveltekit": "^0.6.7",

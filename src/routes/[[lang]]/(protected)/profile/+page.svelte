@@ -2,14 +2,25 @@
 	import { m, goto } from '$lib/i18n';
 	import { authFilesUri, filesUri } from '$lib/backendUri.js';
 	import { scanButton } from '$lib/tabs';
-	export let data;
-	const { orgs, user, did } = data;
 	import { AndroidSettings, IOSSettings, NativeSettings } from 'capacitor-native-settings';
 	import { version } from '$app/environment';
+	import { Share } from '@capacitor/share';
+	import { share as shareIcon } from 'ionicons/icons';
+
+	export let data;
+	const { orgs, user, did } = data;
 
 	const logoutCB = async () => {
 		await goto('/logout');
 	};
+
+	const share = async () =>
+		await Share.share({
+			title: 'DIDroom wallet',
+			text: m.This_is_a_really_cool_wallet_for_your_credentials(),
+			url: 'https://didroom.com/apps',
+			dialogTitle: m.Share_with_buddies()
+		});
 
 	const openAppSettings = async () => {
 		await NativeSettings.open({
@@ -41,21 +52,48 @@
 		</d-organizations>
 	</div>
 	<div slot="settings">
-		<d-settings-menu
-			account-settings={m.Account_Settings()}
-			security-and-authentication={m.Security_and_authentication()}
-			notifications-settings={m.Notifications_settings()}
-			languages={m.Languages()}
-			support={m.Support()}
-			privacy-policy={m.Privacy_policy()}
-			log-out={m.Log_Out()}
-			{version}
-			developed-by={m.Developed_by_Forkbomb_BV()}
-      on:accountSettingsClick={gotoAccountSettings}
-			on:logoutClick={logoutCB}
-			on:languageSettingsClick={gotoLanguageSettings}
-			on:appSettingsClick={openAppSettings}
-		/>
+		<div class="flex flex-col justify-between">
+			<div class="flex flex-col gap-4">
+				<d-buttons-group>
+					<d-button aria-hidden size="large" on:click={gotoAccountSettings}>
+						{m.Account_Settings()}
+						<d-icon icon="profile" slot="start" outline />
+					</d-button>
+					<d-button onClick={openAppSettings} aria-hidden size="large">
+						{m.Notifications_settings()}
+						<d-icon icon="notification" slot="start" outline />
+					</d-button>
+					<d-button onClick={gotoLanguageSettings} aria-hidden size="large">
+						{m.Languages()}
+						<d-icon icon="language" slot="start" outline />
+					</d-button>
+				</d-buttons-group>
+				<d-buttons-group>
+					<d-button on:click={share} aria-hidden size="large">
+						{m.share_this_app()}
+						<ion-icon icon={shareIcon} slot="start" />
+					</d-button>
+					<d-button href="https://didroom.com/guides/Orgadmin/support.html" size="large">
+						{m.Support()}
+						<d-icon icon="help" slot="start" outline />
+					</d-button>
+					<d-button
+						href="https://didroom.com/guides/Terms-and-conditions/privacy-policy.html"
+						size="large"
+					>
+						{m.Privacy_policy()}
+						<d-icon icon="shield" slot="start" outline />
+					</d-button>
+				</d-buttons-group>
+				<d-buttons-group>
+					<d-button onClick={logoutCB} aria-hidden size="large">
+						{m.Log_Out()}
+						<d-icon icon="logout" outline slot="start" />
+					</d-button>
+				</d-buttons-group>
+			</div>
+			<d-app-details developedBy={m.Developed_by_Forkbomb_BV()} {version} />
+		</div>
 	</div>
 	<div class="pb-24" />
 </d-tab-page>
