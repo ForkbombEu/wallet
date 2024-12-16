@@ -1,3 +1,15 @@
+# [1.57.0](https://github.com/ForkbombEu/wallet/compare/v1.56.4...v1.57.0) (2024-12-16)
+
+
+### Bug Fixes
+
+* improve ui of wallet and activity page ([#554](https://github.com/ForkbombEu/wallet/issues/554)) ([54289bb](https://github.com/ForkbombEu/wallet/commit/54289bb94e45cd8fbf831a84bf233790f220ed20)), closes [#551](https://github.com/ForkbombEu/wallet/issues/551)
+
+
+### Features
+
+* add viral share button ([#545](https://github.com/ForkbombEu/wallet/issues/545)) ([dddb828](https://github.com/ForkbombEu/wallet/commit/dddb8283494868486e7dfed790e98e1e9382306c))
+
 ## [1.56.4](https://github.com/ForkbombEu/wallet/compare/v1.56.3...v1.56.4) (2024-12-12)
 
 

@@ -18,7 +18,7 @@ export class CredentialDetailPage extends BasePage {
 
 	constructor(page: Page) {
 		super(page);
-		this.closeButton = this.page.locator('d-button:has-text("Close")');
+		this.closeButton = this.page.locator('ion-tabs d-button').filter({ hasText: 'Close' });
 		this.deleteButton = this.page.locator('d-button:has-text("Delete")');
 		this.credentialName = 'Voucher test';
 	}

@@ -27,6 +27,8 @@ PODS:
     - Capacitor
   - CapacitorPreferences (6.0.3):
     - Capacitor
+  - CapacitorShare (6.0.3):
+    - Capacitor
   - CapacitorStatusBar (6.0.2):
     - Capacitor
   - GoogleDataTransport (10.1.0):
@@ -91,6 +93,7 @@ DEPENDENCIES:
   - "CapacitorNativeSettings (from `../../node_modules/.pnpm/capacitor-native-settings@6.0.1_@capacitor+core@6.2.0/node_modules/capacitor-native-settings`)"
   - "CapacitorNetwork (from `../../node_modules/.pnpm/@capacitor+network@6.0.3_@capacitor+core@6.2.0/node_modules/@capacitor/network`)"
   - "CapacitorPreferences (from `../../node_modules/.pnpm/@capacitor+preferences@6.0.3_@capacitor+core@6.2.0/node_modules/@capacitor/preferences`)"
+  - "CapacitorShare (from `../../node_modules/.pnpm/@capacitor+share@6.0.3_@capacitor+core@6.2.0/node_modules/@capacitor/share`)"
   - "CapacitorStatusBar (from `../../node_modules/.pnpm/@capacitor+status-bar@6.0.2_@capacitor+core@6.2.0/node_modules/@capacitor/status-bar`)"
 
 SPEC REPOS:
@@ -136,6 +139,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/.pnpm/@capacitor+network@6.0.3_@capacitor+core@6.2.0/node_modules/@capacitor/network"
   CapacitorPreferences:
     :path: "../../node_modules/.pnpm/@capacitor+preferences@6.0.3_@capacitor+core@6.2.0/node_modules/@capacitor/preferences"
+  CapacitorShare:
+    :path: "../../node_modules/.pnpm/@capacitor+share@6.0.3_@capacitor+core@6.2.0/node_modules/@capacitor/share"
   CapacitorStatusBar:
     :path: "../../node_modules/.pnpm/@capacitor+status-bar@6.0.2_@capacitor+core@6.2.0/node_modules/@capacitor/status-bar"
 
@@ -154,6 +159,7 @@ SPEC CHECKSUMS:
   CapacitorNativeSettings: 7669610adda7b2747fecab7c5e1b6329520d8914
   CapacitorNetwork: ef75d8208f0974a2de3f98136bf9684524798f5c
   CapacitorPreferences: f3eadae2369ac3ab8e21743a2959145b0d1286a3
+  CapacitorShare: d2a742baec21c8f3b92b361a2fbd2401cdd8288e
   CapacitorStatusBar: b16799a26320ffa52f6c8b01737d5a95bbb8f3eb
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleMLKit: eff9e23ec1d90ea4157a1ee2e32a4f610c5b3318
@@ -167,6 +173,6 @@ SPEC CHECKSUMS:
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
 
-PODFILE CHECKSUM: 0e8a259b0d49d1b714214975789361b28acac2e5
+PODFILE CHECKSUM: fc415fb0cec54d9985261708573d7b2f8f913417
 
 COCOAPODS: 1.16.2

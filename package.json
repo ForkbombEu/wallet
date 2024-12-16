@@ -1,6 +1,6 @@
 {
 	"name": "wallet",
-	"version": "1.56.4",
+	"version": "1.57.0",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --host",
@@ -26,7 +26,7 @@
 	"devDependencies": {
 		"@axe-core/playwright": "^4.10.1",
 		"@capacitor/assets": "^3.0.5",
-		"@didroom/components": "^1.31.5",
+		"@didroom/components": "^1.31.7",
 		"@eslint/eslintrc": "^3.2.0",
 		"@eslint/js": "^9.16.0",
 		"@faker-js/faker": "^8.4.1",
@@ -73,7 +73,6 @@
 	"dependencies": {
 		"@aparajita/capacitor-biometric-auth": "^8.0.2",
 		"@capacitor-mlkit/barcode-scanning": "7.0.0-next.2",
-		"@capacitor/network": "^6.0.3",
 		"@capacitor/android": "^6.2.0",
 		"@capacitor/app": "^6.0.2",
 		"@capacitor/camera": "^6.1.1",
@@ -85,7 +84,9 @@
 		"@capacitor/haptics": "^6.0.2",
 		"@capacitor/ios": "^6.2.0",
 		"@capacitor/keyboard": "^6.0.3",
+		"@capacitor/network": "^6.0.3",
 		"@capacitor/preferences": "^6.0.3",
+		"@capacitor/share": "^6.0.3",
 		"@capacitor/status-bar": "^6.0.2",
 		"@fontsource-variable/gantari": "^5.1.0",
 		"@inlang/paraglide-js-adapter-sveltekit": "^0.6.7",
