@@ -20,7 +20,7 @@
 	import { m } from '$lib/i18n';
 	import { clearHttpStorage } from '$lib/utils';
 	import { Network } from '@capacitor/network';
-	import { debugDismiss, debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
+	import { debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
 
 	$: clearHttpStorage();
 
@@ -45,16 +45,26 @@
 		return originalXhrOpen.apply(this, [method, url, ...rest]);
 	};
 
+	const prettifyJsonString = function (jsonString:any) {
+		try {
+			const parsed = JSON.parse(jsonString);
+			return JSON.stringify(parsed, null, 2);
+		} catch (e) {
+			return jsonString;
+		}
+	};
+
 	XMLHttpRequest.prototype.send = function (body) {
+		const prettifiedBody = prettifyJsonString(body)
 		debugPopupContent.push(
 			// @ts-ignore
-			`XMLHttpRequest Sent: ${JSON.stringify({ method: this._method, url: this._url, body }, null, 2)}`
+			`XMLHttpRequest Sent: ${JSON.stringify({ method: this._method, url: this._url,  prettifiedBody}, null, 2)}`
 		);
 		debugPopup.set(true);
 		this.addEventListener('load', async function () {
 			debugPopupContent.push(
 				// @ts-ignore
-				`XMLHttpRequest Response from ${this._url}: ${JSON.stringify(this.responseText, null, 2)}`
+				`XMLHttpRequest Response from ${this._url}: ${prettifyJsonString(this.responseText)}`
 			);
 			debugPopup.set(true);
 		});
