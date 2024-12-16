@@ -16,7 +16,7 @@
 	import { verificationResultsStore } from '$lib/verificationResultsStore.js';
 	import { goto } from '$app/navigation';
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
-	import { debugDismiss, debugPopupContent } from '$lib/components/organisms/debug/debug';
+	import { debugDismiss, debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
 
 	type VerificationResponse = {
 		result: {
@@ -74,6 +74,7 @@
 			})) as VerificationResponse;
 			const success = verificationResponse.result.result.result.server_response.status === '200';
 			debugPopupContent.set(JSON.stringify(verificationResponse, null, 2));
+			debugPopup.set(true);
 			await debugDismiss();
 			const date = dayjs().toString();
 			let feedback: Feedback = {};
