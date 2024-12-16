@@ -15,6 +15,7 @@
 	import { debugPopup } from '$lib/components/organisms/debug/debug';
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
 	import { onMount } from 'svelte';
+	import { getDebugMode } from '$lib/preferences/debug.js';
 
 	export let data;
 	const { wn, authorizeUrl, parResult, feedbackData } = data;
@@ -57,7 +58,7 @@
 		try {
 			serviceResponse = await askCredential(code, wn.credential_parameters, codeVerifier);
 			if (!serviceResponse) return (isModalOpen = false);
-			isModalOpen = true;
+			isModalOpen = !(await getDebugMode())
 			isCredentialVerified = true;
 			log(`serviceResponse: (fine chain): ${JSON.stringify(serviceResponse, null, 2)}`);
 		} catch (e: unknown) {
@@ -91,6 +92,7 @@
 			await goto(`/${id}/credential-detail`);
 		}, 2000);
 	};
+
 </script>
 
 <HeaderWithBackButton>
