@@ -89,7 +89,7 @@
 />
 <ParaglideJS {i18n}>
 	<HiddenLogsButton />
-	<ion-app>
+	<ion-app class="max-w-3xl mx-auto">
 		<d-loading loading={$navigating || !isConnected}>
 			<FingerPrint />
 			{#if !isConnected}
