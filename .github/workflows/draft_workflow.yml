@@ -27,4 +27,5 @@ jobs:
                 keystore-password: draft
                 keystore-key-password: draft
                 firebase-app-id: draft
+                pull-request-number: ${{ github.event.number }}
                 
