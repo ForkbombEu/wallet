@@ -7,6 +7,7 @@
 	import { getDebugMode, setDebugModeFalse, setDebugModeTrue } from '$lib/preferences/debug.js';
 	import { Share } from '@capacitor/share';
 	import { share as shareIcon } from 'ionicons/icons';
+	import type { ToggleChangeEventDetail } from '@ionic/core';
 
 	export let data;
 	const { orgs, user, did } = data;
@@ -16,8 +17,9 @@
 		debugMode = await getDebugMode();
 	};
 	$: loadDebugMode();
-	const setDebugMode = async () => {
-		debugMode ? await setDebugModeFalse() : await setDebugModeTrue();
+	const setDebugMode = async (e: CustomEvent<ToggleChangeEventDetail<any>>) => {
+		if (e.detail.checked) return await goto('/debug-activation');
+		await setDebugModeFalse();
 		await loadDebugMode();
 	};
 

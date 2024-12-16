@@ -158,15 +158,17 @@
 	"Cancel": "Cancel",
 	"User_Settings": "User Settings",
 	"upload_a_picture": "upload a picture",
-	"download": "download",
-	"display": "display",
-	"To_stop_displaying_this_popup_deactivate_debugMode_in_to_the_profile": "To stop displaying this popup deactivate debugMode in to the profile",
-	"Debug": "Debug",
 	"share_this_app": "share this app",
 	"Share_with_buddies": "Share with buddies",
 	"This_is_a_really_cool_wallet_for_your_credentials": "This is a really cool wallet for your credentials",
 	"Debug_mode": "Debug mode",
 	"Developer_mode": "Developer mode",
+	"download": "download",
+	"To_stop_displaying_this_popup_deactivate_debugMode_in_to_the_profile": "To stop displaying this popup deactivate debugMode in to the profile",
+	"Debug": "Debug",
 	"It_seems_that_the_wallet_is_unable_to_connect_to_the_Internet_please_make_sure_your_internet_connection_is_working_and_retry": "It seems that the wallet is unable to connect to the Internet: please make sure your internet connection is working and retry",
-	"AT_LEAST_THREE_QUESTIONS": "at least 3 answers are required"
+	"AT_LEAST_THREE_QUESTIONS": "at least 3 answers are required",
+	"cool_tired_pig_dine": "Activating this feature will enable the debug mode. This will allow you to see the logs of the\n\t\t\tapplication.",
+	"Deactivate": "Deactivate",
+	"Activate": "Activate"
 }
