@@ -170,5 +170,6 @@
 	"AT_LEAST_THREE_QUESTIONS": "at least 3 answers are required",
 	"cool_tired_pig_dine": "Activating this feature will enable the debug mode. This will allow you to see the logs of the\n\t\t\tapplication.",
 	"Deactivate": "Deactivate",
-	"Activate": "Activate"
+	"Activate": "Activate",
+	"Writing": "Writing"
 }

@@ -13,9 +13,9 @@
 	onMount(async () => {
 		debugMode = await getDebugMode();
 	});
-	const isWeb = Capacitor.getPlatform() === 'web';
+	const isWeb = Capacitor.getPlatform() == 'web';
 	let loading = false;
-	let path:string
+	let path: string;
 	const download = async () => {
 		if (isWeb) {
 			const blob = new Blob([$debugPopupContent || ''], { type: 'text/plain' });
@@ -28,8 +28,8 @@
 			return;
 		}
 
+		path = `debug/${new Date().toISOString()}.txt`;
 		loading = true;
-		const path = `debug/${new Date().toISOString()}.txt`;
 		await Filesystem.writeFile({
 			path,
 			data: $debugPopupContent || '',
@@ -48,7 +48,8 @@
 	</ion-header>
 	<ion-content class="ion-padding">
 		<d-loading {loading}>
-			Writing {path}
+			{m.Writing()}
+			{path}
 		</d-loading>
 		<d-vertical-stack class="justify-around">
 			<d-text>
@@ -56,8 +57,8 @@
 			</d-text>
 			<d-text size="xs">
 				<pre class="font-sm">
-                        {$debugPopupContent}
-                    </pre>
+                    {$debugPopupContent}
+                </pre>
 			</d-text>
 			<d-button on:click={download} expand aria-hidden>{m.download()}</d-button>
 			<d-button on:click={hide} expand aria-hidden>{m.SKIP()}</d-button>
