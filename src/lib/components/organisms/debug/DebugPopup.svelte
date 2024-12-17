@@ -14,6 +14,8 @@
 		debugMode = await getDebugMode();
 	});
 	const isWeb = Capacitor.getPlatform() === 'web';
+	let loading = false;
+	let path:string
 	const download = async () => {
 		if (isWeb) {
 			const blob = new Blob([$debugPopupContent || ''], { type: 'text/plain' });
@@ -25,13 +27,16 @@
 			URL.revokeObjectURL(url);
 			return;
 		}
-		const path = 'debug.txt';
+
+		loading = true;
+		const path = `debug/${new Date().toISOString()}.txt`;
 		await Filesystem.writeFile({
 			path,
 			data: $debugPopupContent || '',
 			directory: Directory.Documents,
 			encoding: Encoding.UTF8
 		});
+		loading = false;
 	};
 </script>
 
@@ -42,6 +47,9 @@
 		</ion-toolbar>
 	</ion-header>
 	<ion-content class="ion-padding">
+		<d-loading {loading}>
+			Writing {path}
+		</d-loading>
 		<d-vertical-stack class="justify-around">
 			<d-text>
 				{m.To_stop_displaying_this_popup_deactivate_debugMode_in_to_the_profile()}
