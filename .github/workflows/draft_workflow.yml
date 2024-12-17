@@ -6,22 +6,16 @@ on:
     
 jobs:
     build_and_dispatch:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
-            - name:  try external action
-              uses: ForkbombEU/ship-capacitor-apps@main
-              with:
-                backend-url: ${{ github.env.test.vars.PUBLIC_BACKEND_URL }}
-                lane: distribute
-                pull-request-number: ${{ github.event.number }}
-              secrets: inherit
-                # keystore-file: draft
-                # service-account: draft
-                # keystore-alias: draft
-                # keystore-password: draft
-                # keystore-key-password: draft
-                # firebase-app-id: draft
-                
+      uses: ForkbombEu/ship-capacitor-apps/.github/workflows/ship_android.yml@main
+      with:
+        backend-url: ${{ github.env.test.vars.PUBLIC_BACKEND_URL }}
+        lane: distribute
+      secrets:
+        keystore-file: ${{ secrets.ANDROID_KEYSTORE_FILE }}
+        service-account: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        keystore-alias: ${{ secrets.KEYSTORE_KEY_ALIAS }}
+        keystore-password: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
+        keystore-key-password: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
+        firebase-app-id: ${{ secrets.FIREBASE_APP_ID }}
+
                 
