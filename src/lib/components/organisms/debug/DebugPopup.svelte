@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 	import { getDebugMode } from '$lib/preferences/debug';
 	import { Capacitor } from '@capacitor/core';
-	import { Directory } from '@capacitor/filesystem';
+	import { Directory, Filesystem } from '@capacitor/filesystem';
 	import write_blob from 'capacitor-blob-writer';
 	import { m } from '$lib/i18n';
 
@@ -30,13 +30,15 @@
 			URL.revokeObjectURL(url);
 			return;
 		}
+		const permissions = await Filesystem.checkPermissions();
+		if (!(permissions.publicStorage === 'granted')) await Filesystem.requestPermissions();
 		path = `${new Date().toISOString()}.txt`;
 		message = m.Writing();
 		loading = true;
 		const uri = await write_blob({
 			path,
 			blob,
-			directory: Directory.Library,
+			directory: Directory.Documents,
 			on_fallback: () => false
 		});
 		if (!uri) {
