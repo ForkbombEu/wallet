@@ -18,8 +18,8 @@
 	let path: string;
 	let message: string;
 	const download = async () => {
-		const blob = new Blob([$debugPopupContent || ''], { type: 'text/plain' });
 		if (isWeb) {
+			const blob = new Blob([$debugPopupContent || ''], { type: 'text/plain' });
 			const url = URL.createObjectURL(blob);
 			const a = document.createElement('a');
 			a.href = url;
@@ -28,14 +28,14 @@
 			URL.revokeObjectURL(url);
 			return;
 		}
-
 		path = `${new Date().toISOString()}.txt`;
 		message = m.Writing();
 		loading = true;
 		const uri = await Filesystem.writeFile({
 			path,
-			data: blob,
-			directory: Directory.Documents
+			data: $debugPopupContent || '',
+			directory: Directory.Documents,
+			encoding: Encoding.UTF8
 		}).catch((e) => {
 			message = String(e)
 			setTimeout(() => {
