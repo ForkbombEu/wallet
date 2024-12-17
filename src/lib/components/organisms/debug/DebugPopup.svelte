@@ -30,7 +30,7 @@
 		}
 
 		path = `debug/${new Date().toISOString()}.txt`;
-		message = m.Writing()
+		message = m.Writing();
 		loading = true;
 		await Filesystem.writeFile({
 			path,
@@ -38,7 +38,10 @@
 			directory: Directory.Documents,
 			recursive: true
 		}).catch((e) => {
-			loading = false;
+			setTimeout((e:any) => {
+				message = String(e)
+				loading = false;
+			}, 5000);
 		});
 		setTimeout(() => {
 			message = 'm.File_saved_to' + path;
