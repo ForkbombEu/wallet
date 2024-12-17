@@ -6,6 +6,7 @@
 	import { Capacitor } from '@capacitor/core';
 	import { Directory, Encoding, Filesystem } from '@capacitor/filesystem';
 	import { m } from '$lib/i18n';
+
 	const hide = async () => {
 		debugPopup.set(false);
 	};
@@ -34,7 +35,7 @@
 		const uri = await Filesystem.writeFile({
 			path,
 			data: $debugPopupContent || '',
-			directory: Directory.Documents,
+			directory: Directory.Data,
 			encoding: Encoding.UTF8
 		}).catch((e) => {
 			message = String(e)
