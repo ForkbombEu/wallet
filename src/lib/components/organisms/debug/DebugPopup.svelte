@@ -16,9 +16,10 @@
 	const isWeb = Capacitor.getPlatform() == 'web';
 	let loading = false;
 	let path: string;
+	let message: string;
 	const download = async () => {
+		const blob = new Blob([$debugPopupContent || ''], { type: 'text/plain' });
 		if (isWeb) {
-			const blob = new Blob([$debugPopupContent || ''], { type: 'text/plain' });
 			const url = URL.createObjectURL(blob);
 			const a = document.createElement('a');
 			a.href = url;
@@ -29,14 +30,20 @@
 		}
 
 		path = `debug/${new Date().toISOString()}.txt`;
+		message = m.Writing()
 		loading = true;
 		await Filesystem.writeFile({
 			path,
-			data: $debugPopupContent || '',
+			data: blob,
 			directory: Directory.Documents,
-			encoding: Encoding.UTF8
+			recursive: true
+		}).catch((e) => {
+			loading = false;
 		});
-		loading = false;
+		setTimeout(() => {
+			message = 'm.File_saved_to' + path;
+			loading = false;
+		}, 2000);
 	};
 </script>
 
@@ -48,8 +55,7 @@
 	</ion-header>
 	<ion-content class="ion-padding">
 		<d-loading {loading}>
-			{m.Writing()}
-			{path}
+			{message}
 		</d-loading>
 		<d-vertical-stack class="justify-around">
 			<d-text>
