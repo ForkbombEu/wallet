@@ -99,6 +99,7 @@
 		"@slangroom/zencode": "^1.43.2",
 		"ajv": "^8.17.1",
 		"ajv-formats": "^2.1.1",
+		"capacitor-blob-writer": "^1.1.19",
 		"capacitor-native-settings": "^6.0.1",
 		"dayjs": "^1.11.13",
 		"ionic-svelte": "^0.5.85",
