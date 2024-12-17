@@ -29,22 +29,22 @@
 			return;
 		}
 
-		path = `debug/${new Date().toISOString()}.txt`;
+		path = `${new Date().toISOString()}.txt`;
 		message = m.Writing();
 		loading = true;
-		await Filesystem.writeFile({
+		const uri = await Filesystem.writeFile({
 			path,
 			data: blob,
-			directory: Directory.Documents,
-			recursive: true
+			directory: Directory.Documents
 		}).catch((e) => {
-			setTimeout((e:any) => {
-				message = String(e)
+			message = String(e)
+			setTimeout(() => {
 				loading = false;
 			}, 5000);
 		});
+		if (!uri) return;
+		message = 'm.File_saved_to ' + path;
 		setTimeout(() => {
-			message = 'm.File_saved_to' + path;
 			loading = false;
 		}, 2000);
 	};
