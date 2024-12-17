@@ -36,7 +36,8 @@
 		const uri = await write_blob({
 			path,
 			blob,
-			directory: Directory.Documents
+			directory: Directory.Library,
+			on_fallback: () => false
 		});
 		if (!uri) {
 			message = 'error writing file';
