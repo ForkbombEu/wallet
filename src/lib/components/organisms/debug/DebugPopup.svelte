@@ -4,7 +4,8 @@
 	import { onMount } from 'svelte';
 	import { getDebugMode } from '$lib/preferences/debug';
 	import { Capacitor } from '@capacitor/core';
-	import { Directory, Encoding, Filesystem } from '@capacitor/filesystem';
+	import { Directory } from '@capacitor/filesystem';
+	import write_blob from 'capacitor-blob-writer';
 	import { m } from '$lib/i18n';
 
 	const hide = async () => {
@@ -19,8 +20,8 @@
 	let path: string;
 	let message: string;
 	const download = async () => {
+		const blob = new Blob([$debugPopupContent || ''], { type: 'text/plain' });
 		if (isWeb) {
-			const blob = new Blob([$debugPopupContent || ''], { type: 'text/plain' });
 			const url = URL.createObjectURL(blob);
 			const a = document.createElement('a');
 			a.href = url;
@@ -32,18 +33,18 @@
 		path = `${new Date().toISOString()}.txt`;
 		message = m.Writing();
 		loading = true;
-		const uri = await Filesystem.writeFile({
+		const uri = await write_blob({
 			path,
-			data: $debugPopupContent || '',
-			directory: Directory.Data,
-			encoding: Encoding.UTF8
-		}).catch((e) => {
-			message = String(e)
+			blob,
+			directory: Directory.Documents
+		});
+		if (!uri) {
+			message = 'error writing file';
 			setTimeout(() => {
 				loading = false;
 			}, 5000);
-		});
-		if (!uri) return;
+			return;
+		}
 		message = 'm.File_saved_to ' + path;
 		setTimeout(() => {
 			loading = false;
