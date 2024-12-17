@@ -15,17 +15,13 @@ jobs:
               with:
                 backend-url: ${{ github.env.test.vars.PUBLIC_BACKEND_URL }}
                 lane: distribute
-                # keystore-file: ${{ secrets.ANDROID_KEYSTORE_FILE }}
-                # service-account: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-                # keystore-alias: ${{ secrets.KEYSTORE_KEY_ALIAS }}
-                # keystore-password: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
-                # keystore-key-password: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
-                # firebase-app-id: ${{ secrets.FIREBASE_APP_ID }}
-                keystore-file: draft
-                service-account: draft
-                keystore-alias: draft
-                keystore-password: draft
-                keystore-key-password: draft
-                firebase-app-id: draft
                 pull-request-number: ${{ github.event.number }}
+              secrets: inherit
+                # keystore-file: draft
+                # service-account: draft
+                # keystore-alias: draft
+                # keystore-password: draft
+                # keystore-key-password: draft
+                # firebase-app-id: draft
+                
                 
