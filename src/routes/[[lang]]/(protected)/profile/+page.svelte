@@ -100,7 +100,7 @@
 						{m.Privacy_policy()}
 						<d-icon icon="shield" slot="start" outline />
 					</d-button>
-					{#if isIos}
+					{#if !isIos}
 						<d-button size="large">
 							<ion-toggle checked={debugMode} label-placement="end" on:ionChange={setDebugMode}
 								>{m.Debug_mode()}</ion-toggle
