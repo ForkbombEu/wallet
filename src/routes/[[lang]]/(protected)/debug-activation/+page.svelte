@@ -28,8 +28,6 @@
 		<d-button on:click={setDebugMode} expand aria-hidden
 			>{debugMode ? m.Deactivate() : m.Activate()} {m.Debug_mode()}</d-button
 		>
-		{#if !debugMode}
-			<d-button on:click={gotoHome} expand aria-hidden color="accent">{m.Go_to_home()}</d-button>
-		{/if}
+		<d-button on:click={gotoHome} expand aria-hidden color="accent">{m.Go_to_home()}</d-button>
 	</d-vertical-stack>
 </ion-content>

@@ -41,8 +41,5 @@ project(':capacitor-share').projectDir = new File('../node_modules/.pnpm/@capaci
 include ':capacitor-status-bar'
 project(':capacitor-status-bar').projectDir = new File('../node_modules/.pnpm/@capacitor+status-bar@6.0.2_@capacitor+core@6.2.0/node_modules/@capacitor/status-bar/android')
 
-include ':capacitor-blob-writer'
-project(':capacitor-blob-writer').projectDir = new File('../node_modules/.pnpm/capacitor-blob-writer@1.1.19_@capacitor+core@6.2.0_@capacitor+filesystem@6.0.2_@capacitor+core@6.2.0_/node_modules/capacitor-blob-writer/android')
-
 include ':capacitor-native-settings'
 project(':capacitor-native-settings').projectDir = new File('../node_modules/.pnpm/capacitor-native-settings@6.0.1_@capacitor+core@6.2.0/node_modules/capacitor-native-settings/android')

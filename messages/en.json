@@ -171,5 +171,6 @@
 	"cool_tired_pig_dine": "Activating this feature will enable the debug mode. This will allow you to see the logs of the\n\t\t\tapplication.",
 	"Deactivate": "Deactivate",
 	"Activate": "Activate",
-	"Writing": "Writing"
+	"Writing": "Writing",
+	"Copy_logs": "Copy logs"
 }

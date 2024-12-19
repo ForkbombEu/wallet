@@ -3,10 +3,8 @@
 	import { debugPopup, debugPopupContent } from './debug';
 	import { onMount } from 'svelte';
 	import { getDebugMode } from '$lib/preferences/debug';
-	import { Capacitor } from '@capacitor/core';
-	import { Directory, Filesystem } from '@capacitor/filesystem';
-	import write_blob from 'capacitor-blob-writer';
 	import { m } from '$lib/i18n';
+	import CopyButton from '$lib/components/copyButton.svelte';
 
 	const hide = async () => {
 		debugPopup.set(false);
@@ -15,56 +13,18 @@
 	onMount(async () => {
 		debugMode = await getDebugMode();
 	});
-	const isWeb = Capacitor.getPlatform() == 'web';
-	let loading = false;
-	let path: string;
-	let message: string;
-	const download = async () => {
-		const blob = new Blob([$debugPopupContent || ''], { type: 'text/plain' });
-		if (isWeb) {
-			const url = URL.createObjectURL(blob);
-			const a = document.createElement('a');
-			a.href = url;
-			a.download = 'debug.txt';
-			a.click();
-			URL.revokeObjectURL(url);
-			return;
-		}
-		const permissions = await Filesystem.checkPermissions();
-		if (!(permissions.publicStorage === 'granted')) await Filesystem.requestPermissions();
-		path = `${new Date().toISOString()}.txt`;
-		message = m.Writing();
-		loading = true;
-		const uri = await write_blob({
-			path,
-			blob,
-			directory: Directory.Documents,
-			on_fallback: () => false
-		});
-		if (!uri) {
-			message = 'error writing file';
-			setTimeout(() => {
-				loading = false;
-			}, 5000);
-			return;
-		}
-		message = 'm.File_saved_to ' + path;
-		setTimeout(() => {
-			loading = false;
-		}, 2000);
-	};
 </script>
 
 <ion-modal is-open={debugMode && $debugPopup} backdrop-dismiss={false} transition:fly>
 	<ion-header>
 		<ion-toolbar>
 			<ion-title>{m.Debug()}</ion-title>
+			<ion-buttons slot="end">
+				<CopyButton textToCopy={$debugPopupContent || ''} delay={1000}>{m.Copy_logs()}</CopyButton>
+			</ion-buttons>
 		</ion-toolbar>
 	</ion-header>
 	<ion-content class="ion-padding">
-		<d-loading {loading}>
-			{message}
-		</d-loading>
 		<d-vertical-stack class="justify-around">
 			<d-text>
 				{m.To_stop_displaying_this_popup_deactivate_debugMode_in_to_the_profile()}
@@ -74,7 +34,7 @@
                     {$debugPopupContent}
                 </pre>
 			</d-text>
-			<d-button on:click={download} expand aria-hidden>{m.download()}</d-button>
+			<!-- <d-button on:click={download} expand aria-hidden>{m.download()}</d-button> -->
 			<d-button on:click={hide} expand aria-hidden>{m.SKIP()}</d-button>
 		</d-vertical-stack>
 	</ion-content>
