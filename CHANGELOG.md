@@ -1,3 +1,10 @@
+# [1.58.0](https://github.com/ForkbombEu/wallet/compare/v1.57.0...v1.58.0) (2024-12-20)
+
+
+### Features
+
+* debug mode ([#549](https://github.com/ForkbombEu/wallet/issues/549)) ([445b6f0](https://github.com/ForkbombEu/wallet/commit/445b6f0e31800ce5636151ca429e7f07ec334f35))
+
 # [1.57.0](https://github.com/ForkbombEu/wallet/compare/v1.56.4...v1.57.0) (2024-12-16)
 
 
