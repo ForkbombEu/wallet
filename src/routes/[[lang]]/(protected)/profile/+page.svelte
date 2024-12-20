@@ -4,15 +4,31 @@
 	import { scanButton } from '$lib/tabs';
 	import { AndroidSettings, IOSSettings, NativeSettings } from 'capacitor-native-settings';
 	import { version } from '$app/environment';
+	import { getDebugMode, setDebugModeFalse, setDebugModeTrue } from '$lib/preferences/debug.js';
 	import { Share } from '@capacitor/share';
 	import { share as shareIcon } from 'ionicons/icons';
+	import type { ToggleChangeEventDetail } from '@ionic/core';
+	import { Capacitor } from '@capacitor/core';
 
 	export let data;
 	const { orgs, user, did } = data;
 
+	let debugMode: boolean;
+	const loadDebugMode = async () => {
+		debugMode = await getDebugMode();
+	};
+	$: loadDebugMode();
+	const setDebugMode = async (e: CustomEvent<ToggleChangeEventDetail<any>>) => {
+		if (e.detail.checked) return await goto('/debug-activation');
+		await setDebugModeFalse();
+		await loadDebugMode();
+	};
+
 	const logoutCB = async () => {
 		await goto('/logout');
 	};
+
+	const isIos = Capacitor.getPlatform() === 'ios';
 
 	const share = async () =>
 		await Share.share({
@@ -84,6 +100,13 @@
 						{m.Privacy_policy()}
 						<d-icon icon="shield" slot="start" outline />
 					</d-button>
+					{#if !isIos}
+						<d-button size="large">
+							<ion-toggle checked={debugMode} label-placement="end" on:ionChange={setDebugMode}
+								>{m.Debug_mode()}</ion-toggle
+							>
+						</d-button>
+					{/if}
 				</d-buttons-group>
 				<d-buttons-group>
 					<d-button onClick={logoutCB} aria-hidden size="large">

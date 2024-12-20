@@ -20,6 +20,7 @@
 	import { m } from '$lib/i18n';
 	import { clearHttpStorage } from '$lib/utils';
 	import { Network } from '@capacitor/network';
+	import { debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
 
 	$: clearHttpStorage();
 
@@ -27,6 +28,48 @@
 	const signal = controller.signal;
 
 	let isConnected: boolean;
+
+	const originalXhrOpen = XMLHttpRequest.prototype.open;
+	const originalXhrSend = XMLHttpRequest.prototype.send;
+
+	// @ts-ignore
+	XMLHttpRequest.prototype.open = async function (method, url, ...rest) {
+		// @ts-ignore
+		this._url = url;
+		// @ts-ignore
+		this._method = method;
+		debugPopupContent.push(`XMLHttpRequest Opened: ${method} ${url}`);
+		debugPopup.set(true);
+
+		// @ts-ignore
+		return originalXhrOpen.apply(this, [method, url, ...rest]);
+	};
+
+	const prettifyJsonString = function (jsonString:any) {
+		try {
+			const parsed = JSON.parse(jsonString);
+			return JSON.stringify(parsed, null, 2);
+		} catch (e) {
+			return jsonString;
+		}
+	};
+
+	XMLHttpRequest.prototype.send = function (body) {
+		const prettifiedBody = prettifyJsonString(body)
+		debugPopupContent.push(
+			// @ts-ignore
+			`XMLHttpRequest Sent: ${JSON.stringify({ method: this._method, url: this._url,  prettifiedBody}, null, 2)}`
+		);
+		debugPopup.set(true);
+		this.addEventListener('load', async function () {
+			debugPopupContent.push(
+				// @ts-ignore
+				`XMLHttpRequest Response from ${this._url}: ${prettifyJsonString(this.responseText)}`
+			);
+			debugPopup.set(true);
+		});
+		return originalXhrSend.apply(this, [body]);
+	};
 
 	onMount(async () => {
 		isConnected = (await Network.getStatus()).connected;
@@ -89,16 +132,18 @@
 />
 <ParaglideJS {i18n}>
 	<HiddenLogsButton />
-	<ion-app class="max-w-3xl mx-auto">
+	<ion-app class="mx-auto max-w-3xl">
 		<d-loading loading={$navigating || !isConnected}>
 			<FingerPrint />
 			{#if !isConnected}
-			<d-vertical-stack class="ion-padding" gap={8}>
-				<d-text size='xl'
-					>{m.It_seems_that_the_wallet_is_unable_to_connect_to_the_Internet_please_make_sure_your_internet_connection_is_working_and_retry()}</d-text
-				>
-				<d-button color='accent' on:click={()=>App.exitApp()} aria-hidden expand>{m.Close()}</d-button>
-			</d-vertical-stack>
+				<d-vertical-stack class="ion-padding" gap={8}>
+					<d-text size="xl"
+						>{m.It_seems_that_the_wallet_is_unable_to_connect_to_the_Internet_please_make_sure_your_internet_connection_is_working_and_retry()}</d-text
+					>
+					<d-button color="accent" on:click={() => App.exitApp()} aria-hidden expand
+						>{m.Close()}</d-button
+					>
+				</d-vertical-stack>
 			{/if}
 		</d-loading>
 		<slot />

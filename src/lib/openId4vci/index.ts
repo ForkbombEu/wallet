@@ -15,6 +15,7 @@ import call_token_and_credential_keys from '$lib/mobile_zencode/wallet/call_toke
 import utils_print_decoded_sdjwt from '$lib/mobile_zencode/wallet/utils_print_decoded_sdjwt.zen?raw';
 import { log } from '$lib/log';
 import type { Logo } from '$lib/utils/types';
+import { debugDismiss, debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
 
 
 const slangroom = new Slangroom([http, helpers, zencode]);
@@ -58,6 +59,7 @@ export const askCredential = async (
 		data,
 		keys
 	});
+	await debugDismiss();
 	return request.result.result as CredentialResult;
 };
 
