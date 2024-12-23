@@ -113,11 +113,11 @@
 							</Input>
 						{:else}
 							<Checkbox fieldPath="conditions" {form}
-								><d-text size="l">
-									{m.Accept()}
+								><d-text size="l" class="flex items-center gap-1">
+										{m.Accept()}
 									<a
-										href="https://didroom.com/guides/7_terms-and-conditions/"
-										class="text-accent underline"
+										href="https://didroom.com/guides/Terms-and-conditions/"
+										class="flex h-12 items-center text-accent underline"
 									>
 										{m.Terms_and_Conditions()}
 									</a>
