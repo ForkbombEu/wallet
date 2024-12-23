@@ -1,3 +1,10 @@
+## [1.58.1](https://github.com/ForkbombEu/wallet/compare/v1.58.0...v1.58.1) (2024-12-23)
+
+
+### Bug Fixes
+
+* checkbox accessibility ([#567](https://github.com/ForkbombEu/wallet/issues/567)) ([07893aa](https://github.com/ForkbombEu/wallet/commit/07893aaf713c858cd91e8a9ed03adaf6fd328b5f))
+
 # [1.58.0](https://github.com/ForkbombEu/wallet/compare/v1.57.0...v1.58.0) (2024-12-20)
 
 
