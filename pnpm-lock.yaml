@@ -124,8 +124,8 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5(@types/node@22.10.1)(typescript@5.7.2)
       '@didroom/components':
-        specifier: ^1.31.7
-        version: 1.31.7(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2)))
+        specifier: ^1.31.9
+        version: 1.31.9(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2)))
       '@eslint/eslintrc':
         specifier: ^3.2.0
         version: 3.2.0
@@ -868,8 +868,8 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@didroom/components@1.31.7':
-    resolution: {integrity: sha512-97akpuR9LiyNb4dUjxngkmFlkqKhFZb09X899r7EeGkG2+FgkVVDjh1oUf3fJH8c77m5nGGlxfl1usOReTgdcg==}
+  '@didroom/components@1.31.9':
+    resolution: {integrity: sha512-kt4zqAsj8c4TgpaHv/6d0/TKX41SEj1u9T+zkm3oIqQBGKK7zDVST5WjvtxohjfQBSZXADKC6hNGq3GEsng1jw==}
 
   '@esbuild/aix-ppc64@0.21.5':
     resolution: {integrity: sha512-1SDgH6ZSPTlggy1yI6+Dbkiz8xzpHJEVAlF/AM1tHPLsf5STom9rwtjE4hKAF20FfXXNTFqEYXyJNWh1GiZedQ==}
@@ -6909,7 +6909,7 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@didroom/components@1.31.7(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2)))':
+  '@didroom/components@1.31.9(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2)))':
     dependencies:
       '@stencil/core': 4.22.3
       '@tailwindcss/line-clamp': 0.4.4(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.10.1)(typescript@5.7.2)))
