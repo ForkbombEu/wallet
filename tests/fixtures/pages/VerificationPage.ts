@@ -38,14 +38,14 @@ export class VerificationPage extends BasePage {
 	async expectErrorForNoCredentials(): Promise<void> {
 		await this.feedbackComponent.verifyFeedback({
 			feedback: 'Verification failed',
-			message: 'No credentials Copy'
+			message: 'No credentials'
 		});
 	}
 
 	async expectVerificationError(): Promise<void> {
 		await this.feedbackComponent.verifyFeedback({
 			feedback: 'Verification failed',
-			message: 'The QR code is expired Copy'
+			message: 'The QR code is expired'
 		});
 	}
 
