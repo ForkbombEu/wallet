@@ -1,3 +1,10 @@
+## [1.58.2](https://github.com/ForkbombEu/wallet/compare/v1.58.1...v1.58.2) (2025-01-23)
+
+
+### Bug Fixes
+
+* improve error handling via @didroom/components ([#568](https://github.com/ForkbombEu/wallet/issues/568)) ([204e308](https://github.com/ForkbombEu/wallet/commit/204e308fd849c43a2b789739a1badf20749658e1))
+
 ## [1.58.1](https://github.com/ForkbombEu/wallet/compare/v1.58.0...v1.58.1) (2024-12-23)
 
 
