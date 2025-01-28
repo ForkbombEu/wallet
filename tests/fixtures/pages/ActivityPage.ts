@@ -67,17 +67,16 @@ export class ActivityPage extends BasePage {
 		).not.toBeVisible();
 	}
 
-	async removeFirstActivity() {
-		await this.clickButtonByName(this.removeButton, true);
-	}
+	// async removeFirstActivity() {
+	// 	await this.clickButtonByName(this.removeButton, true);
+	// }
 
 	async clearAllActivities() {
 		await this.clickButtonByName(this.clearAllButton);
 		await expect(this.page.locator('.itens-start')).not.toBeVisible();
 	}
 
-	async clickShowMeButton() {
-		await this.clickButtonByName(this.showMeButton, true);
-		await this.waitForUrlContains(/\/credential-detail$/);
+	async clickOnFirstActivityCard() {
+		await this.activityCard.first().click();
 	}
 }

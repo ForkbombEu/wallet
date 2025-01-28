@@ -36,7 +36,7 @@ export class SecurityQuestionsPage extends BasePage {
 
 	constructor(page: Page) {
 		super(page);
-		this.errorMessage = page.locator('text="AT_LEAST_THREE_QUESTIONS"');
+		this.errorMessage = page.locator('text="at least 3 answers are required"');
 		this.form = new QuestionsFormComponent(page);
 	}
 

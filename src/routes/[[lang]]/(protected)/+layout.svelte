@@ -6,6 +6,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import type { PluginListenerHandle } from '@capacitor/core';
 	import { clearHttpStorage } from '$lib/utils/index.js';
+	import { debugPopup } from '$lib/components/organisms/debug/debug.js';
 
 	export let data;
 	let appStateChange: PluginListenerHandle;
@@ -16,6 +17,7 @@
 		appStateChange = await App.addListener('appStateChange', async (state) => {
 			await clearHttpStorage();
 			if (!state.isActive && !(r('/user-settings') === window.location.pathname)) {
+				debugPopup.set(false);
 				await goto('/unlock');
 			}
 		});

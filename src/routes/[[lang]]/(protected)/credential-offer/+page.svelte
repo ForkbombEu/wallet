@@ -12,6 +12,8 @@
 	import dayjs from 'dayjs';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
+	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
+	import { getDebugMode } from '$lib/preferences/debug.js';
 
 	export let data;
 	const { wn, authorizeUrl, parResult, feedbackData } = data;
@@ -49,10 +51,10 @@
 
 	const getCredential = async () => {
 		if (!wn || !codeVerifier || !code) return;
-		isModalOpen = true;
 		try {
 			serviceResponse = await askCredential(code, wn.credential_parameters, codeVerifier);
 			if (!serviceResponse) return (isModalOpen = false);
+			isModalOpen = !(await getDebugMode())
 			isCredentialVerified = true;
 			log(`serviceResponse: (fine chain): ${JSON.stringify(serviceResponse, null, 2)}`);
 		} catch (e: unknown) {
@@ -60,6 +62,7 @@
 			isModalOpen = false;
 			feedback = {
 				type: 'error',
+				// @ts-ignore
 				message: String(e?.message || e),
 				feedback: 'error while getting credential'
 			};
@@ -86,6 +89,7 @@
 			await goto(`/${id}/credential-detail`);
 		}, 2000);
 	};
+
 </script>
 
 <HeaderWithBackButton>
@@ -161,7 +165,7 @@
 				<d-button expand href={r('/home')}>{m.Decline()}</d-button>
 			</d-vertical-stack>
 		</div>
-
+		<DebugPopup />
 		<ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly class="visible">
 			<ion-content class="ion-padding">
 				<div class="flex h-full flex-col justify-around">

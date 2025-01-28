@@ -1,3 +1,50 @@
+## [1.58.2](https://github.com/ForkbombEu/wallet/compare/v1.58.1...v1.58.2) (2025-01-23)
+
+
+### Bug Fixes
+
+* improve error handling via @didroom/components ([#568](https://github.com/ForkbombEu/wallet/issues/568)) ([204e308](https://github.com/ForkbombEu/wallet/commit/204e308fd849c43a2b789739a1badf20749658e1))
+
+## [1.58.1](https://github.com/ForkbombEu/wallet/compare/v1.58.0...v1.58.1) (2024-12-23)
+
+
+### Bug Fixes
+
+* checkbox accessibility ([#567](https://github.com/ForkbombEu/wallet/issues/567)) ([07893aa](https://github.com/ForkbombEu/wallet/commit/07893aaf713c858cd91e8a9ed03adaf6fd328b5f))
+
+# [1.58.0](https://github.com/ForkbombEu/wallet/compare/v1.57.0...v1.58.0) (2024-12-20)
+
+
+### Features
+
+* debug mode ([#549](https://github.com/ForkbombEu/wallet/issues/549)) ([445b6f0](https://github.com/ForkbombEu/wallet/commit/445b6f0e31800ce5636151ca429e7f07ec334f35))
+
+# [1.57.0](https://github.com/ForkbombEu/wallet/compare/v1.56.4...v1.57.0) (2024-12-16)
+
+
+### Bug Fixes
+
+* improve ui of wallet and activity page ([#554](https://github.com/ForkbombEu/wallet/issues/554)) ([54289bb](https://github.com/ForkbombEu/wallet/commit/54289bb94e45cd8fbf831a84bf233790f220ed20)), closes [#551](https://github.com/ForkbombEu/wallet/issues/551)
+
+
+### Features
+
+* add viral share button ([#545](https://github.com/ForkbombEu/wallet/issues/545)) ([dddb828](https://github.com/ForkbombEu/wallet/commit/dddb8283494868486e7dfed790e98e1e9382306c))
+
+## [1.56.4](https://github.com/ForkbombEu/wallet/compare/v1.56.3...v1.56.4) (2024-12-12)
+
+
+### Bug Fixes
+
+* message if no internet connection ([#552](https://github.com/ForkbombEu/wallet/issues/552)) ([9677ad8](https://github.com/ForkbombEu/wallet/commit/9677ad885f6101945b95a9c850dc88354125d843))
+
+## [1.56.3](https://github.com/ForkbombEu/wallet/compare/v1.56.2...v1.56.3) (2024-12-12)
+
+
+### Bug Fixes
+
+* provide unreleased changhes when submitting to ios  ([#553](https://github.com/ForkbombEu/wallet/issues/553)) ([d6075aa](https://github.com/ForkbombEu/wallet/commit/d6075aaad38be1f3a115ac3b783b89ae60937c11))
+
 ## [1.56.2](https://github.com/ForkbombEu/wallet/compare/v1.56.1...v1.56.2) (2024-12-08)
 
 

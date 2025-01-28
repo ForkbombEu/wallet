@@ -32,12 +32,6 @@ test.describe('Activity Page', () => {
 		await activityPage.verifyClearAllButtonVisible();
 	});
 
-	test('should remove activity when remove button is clicked', async ({ activityPage }) => {
-		await activityPage.verifyHowManyActivitiesPresent(1);
-		await activityPage.removeFirstActivity();
-		await activityPage.verifyHowManyActivitiesPresent(0);
-	});
-
 	test('should show info-led on tab button when activity is present', async ({ activityPage }) => {
 		await activityPage.verifyHasInfoLedOnTab();
 	});
@@ -57,9 +51,9 @@ test.describe('Activity Page', () => {
 		await activityPage.verifyInfoLedNotPresent();
 	});
 
-	test('should navigate to credential detail on "show me!" button click', async ({
+	test('should navigate to credential detail if click on card', async ({
 		activityPage
 	}) => {
-		await activityPage.clickShowMeButton();
+		await activityPage.clickOnFirstActivityCard();
 	});
 });

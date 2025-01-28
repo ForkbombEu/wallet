@@ -40,7 +40,7 @@
 
 	//
 
-	export const answersSchemaError = 'AT_LEAST_THREE_QUESTIONS';
+	export const answersSchemaError = m.AT_LEAST_THREE_QUESTIONS();
 
 	export const answersSchema = z
 		.object({

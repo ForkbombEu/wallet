@@ -15,6 +15,8 @@
 	import { negativeFeedback } from '$lib/utils/index.js';
 	import { verificationResultsStore } from '$lib/verificationResultsStore.js';
 	import { goto } from '$app/navigation';
+	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
+	import { debugDismiss, debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
 
 	type VerificationResponse = {
 		result: {
@@ -71,6 +73,7 @@
 				}
 			})) as VerificationResponse;
 			const success = verificationResponse.result.result.result.server_response.status === '200';
+			await debugDismiss();
 			const date = dayjs().toString();
 			let feedback: Feedback = {};
 			if (!success) {
@@ -129,32 +132,32 @@
 				title={m.Select_credential()}
 				description={m.novel_elegant_capybara_twist({ length: credentials.length })}
 			/>
-				<d-vertical-stack>
-					{#each sortedCredentials() as credential, index (credential.sdJwt)}
-						<d-verification-card
-							class:opacity-60={selectedCredential && selectedCredential !== credential.sdJwt}
-							class="transition-opacity duration-500"
-							selected={selectedCredential === credential.sdJwt}
-							relying-party={credential.issuerUrl}
-							verifier={credential.issuer}
-							logo={credential.logo.uri}
-							flow={credential.display_name}
-							on:click={() => selectCredential(credential.sdJwt)}
-							aria-hidden
-							animate:flip={{ duration: 400, easing: sineInOut }}
-						>
-							{#await decodeSdJwt(credential.sdJwt) then sdJwt}
-								{#each sdJwt.credential.disclosures as disclosure}
-									<d-definition title={disclosure[1]} definition={disclosure[2]} dotted
-									></d-definition>
-								{/each}
-							{/await}
-						</d-verification-card>
-					{/each}
-					<div class="pb-56" />
-				</d-vertical-stack>
+			<d-vertical-stack>
+				{#each sortedCredentials() as credential, index (credential.sdJwt)}
+					<d-verification-card
+						class:opacity-60={selectedCredential && selectedCredential !== credential.sdJwt}
+						class="transition-opacity duration-500"
+						selected={selectedCredential === credential.sdJwt}
+						relying-party={credential.issuerUrl}
+						verifier={credential.issuer}
+						logo={credential.logo.uri}
+						flow={credential.display_name}
+						on:click={() => selectCredential(credential.sdJwt)}
+						aria-hidden
+						animate:flip={{ duration: 400, easing: sineInOut }}
+					>
+						{#await decodeSdJwt(credential.sdJwt) then sdJwt}
+							{#each sdJwt.credential.disclosures as disclosure}
+								<d-definition title={disclosure[1]} definition={disclosure[2]} dotted
+								></d-definition>
+							{/each}
+						{/await}
+					</d-verification-card>
+				{/each}
+				<div class="pb-56" />
 			</d-vertical-stack>
-		</div>
+		</d-vertical-stack>
+	</div>
 	{#if selectedCredential}
 		<div class="ion-padding fixed bottom-0 h-40 w-full bg-surface" transition:slide>
 			<d-vertical-stack>
@@ -165,4 +168,5 @@
 			</d-vertical-stack>
 		</div>
 	{/if}
+	<DebugPopup />
 </ion-content>

@@ -6,7 +6,7 @@ on:
 
 jobs:
   distribute:
-    uses: ./.github/workflows/distribute.yml
+    uses: ./.github/workflows/ship_android.yml
     with:
       backend-url: ${{ vars.PUBLIC_BACKEND_URL }}
       lane: beta
