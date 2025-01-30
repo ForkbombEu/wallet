@@ -84,7 +84,7 @@
 	"Login_using_your_keypair": "Melden Sie sich mit Ihrer Passphrase an",
 	"KEYPAIR_RECOVERY": "WIEDERHERSTELLUNG DES KEYRING ",
 	"Work_in_progress": "Noch nicht aktiv, kommen Sie später zurück",
-	"SKIP": "Schritt überspringen",
+	"SKIP": "Nächster Schritt",
 	"The_credential_issuer_is_currently_offline_you_may_try_again_later": "Der Credential-Issuer ist derzeit offline. Sie können es später erneut versuchen.",
 	"wrong_email_or_password": "falsche E-Mail oder falsches Passwort",
 	"forgot_your_password": "Passwort vergessen?",
