@@ -1,3 +1,10 @@
+# [1.59.0](https://github.com/ForkbombEu/wallet/compare/v1.58.3...v1.59.0) (2025-01-30)
+
+
+### Features
+
+* I18n andrea jan25 ([#572](https://github.com/ForkbombEu/wallet/issues/572)) ([aa4d382](https://github.com/ForkbombEu/wallet/commit/aa4d3824e31e4fadfe42c8224a9c83f2ab9355e0))
+
 ## [1.58.3](https://github.com/ForkbombEu/wallet/compare/v1.58.2...v1.58.3) (2025-01-30)
 
 
