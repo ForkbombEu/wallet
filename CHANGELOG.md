@@ -1,3 +1,10 @@
+## [1.58.3](https://github.com/ForkbombEu/wallet/compare/v1.58.2...v1.58.3) (2025-01-30)
+
+
+### Bug Fixes
+
+* select-credentials view was not working ([#570](https://github.com/ForkbombEu/wallet/issues/570)) ([196d507](https://github.com/ForkbombEu/wallet/commit/196d507d91e4ec96e212cc1824f7af1ce6cecb72))
+
 ## [1.58.2](https://github.com/ForkbombEu/wallet/compare/v1.58.1...v1.58.2) (2025-01-23)
 
 
