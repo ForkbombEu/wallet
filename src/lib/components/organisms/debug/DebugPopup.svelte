@@ -35,7 +35,7 @@
                 </pre>
 			</d-text>
 			<!-- <d-button on:click={download} expand aria-hidden>{m.download()}</d-button> -->
-			<d-button on:click={hide} expand aria-hidden>{m.Next}</d-button>
+			<d-button on:click={hide} expand aria-hidden>{m.Next()}</d-button>
 		</d-vertical-stack>
 	</ion-content>
 </ion-modal>
