@@ -1,3 +1,10 @@
+## [1.59.1](https://github.com/ForkbombEu/wallet/compare/v1.59.0...v1.59.1) (2025-02-03)
+
+
+### Bug Fixes
+
+* i18n in onboarding ([#573](https://github.com/ForkbombEu/wallet/issues/573)) ([7fe6e17](https://github.com/ForkbombEu/wallet/commit/7fe6e173e3cc011c46fa6eaf659132b2e6498b5f))
+
 # [1.59.0](https://github.com/ForkbombEu/wallet/compare/v1.58.3...v1.59.0) (2025-01-30)
 
 
