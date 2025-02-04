@@ -1,3 +1,10 @@
+## [1.59.2](https://github.com/ForkbombEu/wallet/compare/v1.59.1...v1.59.2) (2025-02-04)
+
+
+### Bug Fixes
+
+* feedback is stuck when getting a credential returns an error ([#575](https://github.com/ForkbombEu/wallet/issues/575)) ([3b87b3f](https://github.com/ForkbombEu/wallet/commit/3b87b3fef2c92e9b9898b41d4cf352e4365781d9))
+
 ## [1.59.1](https://github.com/ForkbombEu/wallet/compare/v1.59.0...v1.59.1) (2025-02-03)
 
 
