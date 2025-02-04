@@ -12,9 +12,10 @@ jobs:
       user-email: ${{ vars.USER_EMAIL }}
       user-password: ${{ vars.USER_PASSWORD }}
       user-seed: ${{ vars.USER_SEED }}
+      package-name: com.didroom.wallet
 
   distribute:
-    uses: ./.github/workflows/ship_android.yml
+    uses: ForkbombEu/ship-capacitor-apps/.github/workflows/ship_android.yml@main
     needs: tests
     with:
       backend-url: ${{ vars.PUBLIC_BACKEND_URL }}
