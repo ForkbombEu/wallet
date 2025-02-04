@@ -35,7 +35,7 @@
 		} catch {
 			feedback = {
 				type: 'error',
-				message: event.data,
+				message: String(event?.data),
 				feedback: 'Error authenticating with the service. Please try again.'
 			};
 			content.scrollToTop();
