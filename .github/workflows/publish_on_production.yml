@@ -16,10 +16,11 @@ on:
 jobs:
   distribute_android:
     if: ${{ github.ref == 'refs/heads/stable'&&(github.event.inputs.platform == 'android' || github.event.inputs.platform == 'both') }}
-    uses: ./.github/workflows/ship_android.yml
+    uses: ForkbombEu/ship-capacitor-apps/.github/workflows/ship_android.yml@main
     with:
       backend-url: ${{ vars.PUBLIC_BACKEND_URL }}
       lane: production
+      package-name: com.didroom.wallet
     secrets:
       keystore-file: ${{ secrets.BUNDLE_BETA_PLAYSTORE }}
       service-account: ${{ secrets.PLAYSTORE_SERVICE_ACCOUNT }}
@@ -29,12 +30,17 @@ jobs:
 
   distribute_ios:
     if: ${{ github.ref == 'refs/heads/stable'&&(github.event.inputs.platform == 'ios' || github.event.inputs.platform == 'both') }}
-    uses: ./.github/workflows/ship_ios.yml
+    uses: ForkbombEu/ship-capacitor-apps/.github/workflows/ship_ios.yml@main
     with:
       backend-url: ${{ vars.PUBLIC_BACKEND_URL }}
       lane: ios production
       DEMO_USER: ${{ github.env.ios.vars.USER_EMAIL }}
       DEMO_PASSWORD: ${{ github.env.ios.vars.USER_PASSWORD }}
+      CONTACT_EMAIL: info@forkbomb.eu
+      CONTACT_FIRST_NAME: Andrea
+      CONTACT_LAST_NAME: D'Intino
+      CONTACT_PHONE: "+4521627918"
+      package-name: com.didroom.wallet
     secrets:
       APP_STORE_CONNECT_TEAM_ID: ${{ secrets.APP_STORE_CONNECT_TEAM_ID }}
       BUNDLE_IDENTIFIER: ${{ secrets.BUNDLE_IDENTIFIER }}

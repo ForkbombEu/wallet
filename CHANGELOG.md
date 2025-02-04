@@ -1,3 +1,24 @@
+## [1.59.2](https://github.com/ForkbombEu/wallet/compare/v1.59.1...v1.59.2) (2025-02-04)
+
+
+### Bug Fixes
+
+* feedback is stuck when getting a credential returns an error ([#575](https://github.com/ForkbombEu/wallet/issues/575)) ([3b87b3f](https://github.com/ForkbombEu/wallet/commit/3b87b3fef2c92e9b9898b41d4cf352e4365781d9))
+
+## [1.59.1](https://github.com/ForkbombEu/wallet/compare/v1.59.0...v1.59.1) (2025-02-03)
+
+
+### Bug Fixes
+
+* i18n in onboarding ([#573](https://github.com/ForkbombEu/wallet/issues/573)) ([7fe6e17](https://github.com/ForkbombEu/wallet/commit/7fe6e173e3cc011c46fa6eaf659132b2e6498b5f))
+
+# [1.59.0](https://github.com/ForkbombEu/wallet/compare/v1.58.3...v1.59.0) (2025-01-30)
+
+
+### Features
+
+* I18n andrea jan25 ([#572](https://github.com/ForkbombEu/wallet/issues/572)) ([aa4d382](https://github.com/ForkbombEu/wallet/commit/aa4d3824e31e4fadfe42c8224a9c83f2ab9355e0))
+
 ## [1.58.3](https://github.com/ForkbombEu/wallet/compare/v1.58.2...v1.58.3) (2025-01-30)
 
 

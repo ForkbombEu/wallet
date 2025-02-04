@@ -14,14 +14,68 @@ jobs:
       user-seed: ${{ vars.USER_SEED }}
 
   distribute:
-    uses: ./.github/workflows/ship_android.yml
+    uses: ForkbombEu/ship-capacitor-apps/.github/workflows/ship_android.yml@main
     needs: tests
     with:
       backend-url: ${{ github.env.test.vars.PUBLIC_BACKEND_URL }}
       lane: alpha
+      package-name: com.didroom.wallet
     secrets:
       keystore-file: ${{ secrets.BUNDLE_BETA_PLAYSTORE }}
       service-account: ${{ secrets.PLAYSTORE_SERVICE_ACCOUNT }}
       keystore-alias: ${{ secrets.BUNDLE_BETA_PLAYSTORE_ALIAS }}
       keystore-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
       keystore-key-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
+
+  semantic-release:
+    permissions:
+      contents: write
+    needs: distribute
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    outputs:
+      release: ${{ steps.tag_release.outputs.release }}
+      version: ${{ steps.tag_release.outputs.version }}
+    steps:
+      - uses: dyne/pnpm@main
+        with:
+          submodules: true
+          node-version: '20.11.1'
+      - name: Tag release
+        id: tag_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npx semantic-release >semantic-release.log
+          cat semantic-release.log
+          if [[ `git tag --points-at HEAD` == "" ]]; then
+            echo "release=False" >> $GITHUB_OUTPUT
+          else
+            echo "release=True" >> $GITHUB_OUTPUT
+            awk '/Published release/ { printf("version=v%s\n",$8) }' semantic-release.log >> $GITHUB_OUTPUT
+          fi
+          echo "Result"
+          cat $GITHUB_OUTPUT
+
+  draft-release:
+    permissions:
+      contents: write
+    needs: semantic-release
+    runs-on: ubuntu-latest
+    if: ${{ needs.semantic-release.outputs.release == 'True' }}
+    steps:
+      - name: download binary artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: |
+            release
+      - name: relase all binary artifacts
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            release/artifact/*
+          draft: false
+          prerelease: false
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+          tag_name: ${{ needs.semantic-release.outputs.version }}

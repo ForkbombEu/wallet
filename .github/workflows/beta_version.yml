@@ -6,10 +6,11 @@ on:
 
 jobs:
   distribute:
-    uses: ./.github/workflows/ship_android.yml
+    uses: ForkbombEu/ship-capacitor-apps/.github/workflows/ship_android.yml@main
     with:
       backend-url: ${{ vars.PUBLIC_BACKEND_URL }}
       lane: beta
+      package-name: com.didroom.wallet
     secrets:
       keystore-file: ${{ secrets.BUNDLE_BETA_PLAYSTORE }}
       service-account: ${{ secrets.PLAYSTORE_SERVICE_ACCOUNT }}
