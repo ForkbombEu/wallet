@@ -1,3 +1,10 @@
+## [1.59.3](https://github.com/ForkbombEu/wallet/compare/v1.59.2...v1.59.3) (2025-02-05)
+
+
+### Bug Fixes
+
+* copyright data and en-US metadata for app store ([#577](https://github.com/ForkbombEu/wallet/issues/577)) ([4f9d9db](https://github.com/ForkbombEu/wallet/commit/4f9d9dbd0cecb9c4c539c0e5b2b144799ad4d348))
+
 ## [1.59.2](https://github.com/ForkbombEu/wallet/compare/v1.59.1...v1.59.2) (2025-02-04)
 
 
