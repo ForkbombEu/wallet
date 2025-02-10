@@ -1,3 +1,10 @@
+## [1.59.4](https://github.com/ForkbombEu/wallet/compare/v1.59.3...v1.59.4) (2025-02-10)
+
+
+### Bug Fixes
+
+* if user has not access to credential issuer name show just the id ([#579](https://github.com/ForkbombEu/wallet/issues/579)) ([4eead26](https://github.com/ForkbombEu/wallet/commit/4eead268a777720744b673790a38419f37dac768))
+
 ## [1.59.3](https://github.com/ForkbombEu/wallet/compare/v1.59.2...v1.59.3) (2025-02-05)
 
 
