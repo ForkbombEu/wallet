@@ -159,5 +159,9 @@
 	"Debug": "Depurar",
 	"It_seems_that_the_wallet_is_unable_to_connect_to_the_Internet_please_make_sure_your_internet_connection_is_working_and_retry": "Parece que la Wallet no puede conectarse a Internet: asegúrese de que su conexión a Internet esté funcionando y vuelva a intentarlo.",
 	"AT_LEAST_THREE_QUESTIONS": "Se requieren al menos 3 respuestas",
-	"cool_tired_pig_dine": "Al activar esta función se habilitará el modo de depuración. Esto le permitirá ver los logs de la\naplicación."
+	"cool_tired_pig_dine": "Al activar esta función se habilitará el modo de depuración. Esto le permitirá ver los logs de la\naplicación.",
+	"Deactivate": "Desactivar",
+	"Activate": "Activar",
+	"Writing": "Escribiendo",
+	"Copy_logs": "Copiar logs"
 }
