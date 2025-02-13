@@ -68,5 +68,20 @@
 	"Your_keypair": "Su frase secreta:",
 	"DID_Wallet": "DIDroom Wallet",
 	"Developed_by_Forkbomb_BV": "Desarrollado por Forkbomb BV",
-	"Confirm_your_email": "Confirma tu email"
+	"Confirm_your_email": "Confirma tu email",
+	"Reenter_your_email_address_to_confirm_registration_": "Vuelva a ingresar su dirección de email para confirmar el registro.",
+	"REGISTER": "REGISTRAR",
+	"You_can_recover_your_keypair_by_answering_the_registration_questions_correctly_again": "Puedes recuperar tu keyring respondiendo correctamente nuevamente las preguntas de seguridad o utilizando esta frase secreta.",
+	"Go_to_issuance_services": "Obtener credenciales",
+	"CREATE_AN_ACCOUNT": "CREAR UNA CUENTA",
+	"LOGIN": "LOGIN",
+	"on_boarding_subtitle_1": "DIDroom admite múltiples estándares como EUDI-ARF (eIDAS 2.0), W3C-VC, W3C-DID y BBS zero-knowledge proofs.",
+	"on_boarding_subtitle_2": "Utilice DIDroom para crear una identidad descentralizada utilizando W3C-DID (o EUDI-ARF).",
+	"on_boarding_subtitle_3": "Solicite y almacene credenciales con la Wallet de DIDroom, cree servicios de emisión y verificación con el panel de control y los microservicios de DIDroom. ",
+	"Enter_your_keypair": "Ingrese su frase secreta,",
+	"if_you_have_stored_your_keypair_securely_you_can_enter_it_below_to_access_your_wallet_": "Si ha almacenado su frase secreta de forma segura, puede ingresarla a continuación para acceder a su Wallet.",
+	"Login_using_your_keypair": "Inicie sesión con su frase secreta",
+	"KEYPAIR_RECOVERY": "RECUPERACIÓN DE KEYRING",
+	"Work_in_progress": "Aún no activo, vuelve más tarde",
+	"SKIP": "Siguiente paso"
 }
