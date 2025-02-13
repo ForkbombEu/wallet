@@ -101,7 +101,6 @@
 			});
 			await addVerificationActivity(post_without_vp.body.id, info, success);
 			log(JSON.stringify(verificationResponse));
-			await addVerificationActivity(post_without_vp.body.id, info, success);
 			return await goto('/verification/results');
 		} catch (e) {
 			verificationResultsStore.set({
