@@ -1,3 +1,10 @@
+# [1.60.0](https://github.com/ForkbombEu/wallet/compare/v1.59.4...v1.60.0) (2025-02-13)
+
+
+### Features
+
+* add spanish ([#584](https://github.com/ForkbombEu/wallet/issues/584)) ([5f9fd79](https://github.com/ForkbombEu/wallet/commit/5f9fd79f2ef4893e447b472d5632855ed321004d))
+
 ## [1.59.4](https://github.com/ForkbombEu/wallet/compare/v1.59.3...v1.59.4) (2025-02-10)
 
 
