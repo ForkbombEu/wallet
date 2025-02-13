@@ -1,0 +1,17 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"Claim_credential": "Solicitar credencial",
+	"Wallet": "Wallet",
+	"Scan_QR_code_to_claim_credential_or_request_one_below": "Escanee el código QR para solicitar una credencial o verificar una de las siguientes",
+	"Language": "Idioma",
+	"DidroomWallet": "Didroom Wallet",
+	"Open_Wallet": "Abrir Wallet",
+	"Biometry_not_available": "¡Biometría no disponible!",
+	"Login": "Login",
+	"Login_with_your_personal_questions_Tap_here": "¿Quieres iniciar sesión con tus preguntas personales? Pulsa aquí",
+	"Where_did_your_parents_meet": "¿Dónde se conocieron tus padres?",
+	"What_is_the_name_of_your_first_pet": "¿Cómo se llama tu primera mascota?",
+	"What_is_your_home_town": "¿Cual es tu ciudad natal?",
+	"What_is_the_name_of_your_first_teacher": "¿Cómo se llama tu primer profesor?",
+	"What_is_the_surname_of_your_mother_before_wedding": "¿Cuál era el apellido de soltera de tu madre?"
+}
