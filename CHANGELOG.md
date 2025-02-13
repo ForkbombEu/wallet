@@ -1,3 +1,10 @@
+## [1.60.1](https://github.com/ForkbombEu/wallet/compare/v1.60.0...v1.60.1) (2025-02-13)
+
+
+### Bug Fixes
+
+* there was two activity each verification ([#580](https://github.com/ForkbombEu/wallet/issues/580)) ([99b7936](https://github.com/ForkbombEu/wallet/commit/99b79367d7a9ce2a59a15d8b6cacbd192e1c8c1c))
+
 # [1.60.0](https://github.com/ForkbombEu/wallet/compare/v1.59.4...v1.60.0) (2025-02-13)
 
 
