@@ -1,3 +1,10 @@
+# [1.61.0](https://github.com/ForkbombEu/wallet/compare/v1.60.1...v1.61.0) (2025-02-13)
+
+
+### Features
+
+* update translations  ([#586](https://github.com/ForkbombEu/wallet/issues/586)) ([358541f](https://github.com/ForkbombEu/wallet/commit/358541f6692186edd5be3931f8715176020c8682))
+
 ## [1.60.1](https://github.com/ForkbombEu/wallet/compare/v1.60.0...v1.60.1) (2025-02-13)
 
 
