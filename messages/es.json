@@ -13,5 +13,22 @@
 	"What_is_the_name_of_your_first_pet": "¿Cómo se llama tu primera mascota?",
 	"What_is_your_home_town": "¿Cual es tu ciudad natal?",
 	"What_is_the_name_of_your_first_teacher": "¿Cómo se llama tu primer profesor?",
-	"What_is_the_surname_of_your_mother_before_wedding": "¿Cuál era el apellido de soltera de tu madre?"
+	"What_is_the_surname_of_your_mother_before_wedding": "¿Cuál era el apellido de soltera de tu madre?",
+	"Login_with_your_passphrase_Tap_here": "¿Quieres iniciar sesión con tu frase secreta? Pulsa aquí",
+	"Keypair_creation_successful": "¡Creación de keyring exitosa!",
+	"Please_store_this_in_a_safe_place_to_recover_your_account_in_the_future_this_passphrase_will_be_shown_only_one_time": "Guarde su frase secreta en un lugar seguro para recuperar su cuenta en el futuro. ¡Esta frase secreta se mostrará solo esta vez!",
+	"Copy_seed": "Copiar frase secreta",
+	"Go_to_wallet": "Ir a la Wallet",
+	"Recent_Conversations": "Conversaciones recientes",
+	"Badges": "Badges:",
+	"Public_Key": "Clave pública:",
+	"Logout": "Cerrar sesión",
+	"Verify": "Verificar",
+	"My_issued_credentials": "Mis credenciales",
+	"Explore_and_manage_your_verified_credentials": "Explora y administra tus credenciales",
+	"Home": "Inicio",
+	"Notifications": "Actividad",
+	"Profile": "Perfil",
+	"Results": "Resultados",
+	"Close": "Cerrar"
 }
