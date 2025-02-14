@@ -1,3 +1,10 @@
+## [1.62.1](https://github.com/ForkbombEu/wallet/compare/v1.62.0...v1.62.1) (2025-02-14)
+
+
+### Bug Fixes
+
+* copy correct files on postinstall ([#587](https://github.com/ForkbombEu/wallet/issues/587)) ([9c2078f](https://github.com/ForkbombEu/wallet/commit/9c2078f3c9f9cefdcf1360521dc2571190c2f711))
+
 # [1.62.0](https://github.com/ForkbombEu/wallet/compare/v1.61.0...v1.62.0) (2025-02-13)
 
 
