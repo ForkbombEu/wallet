@@ -47,7 +47,7 @@
 		{#each services as service}
 			<d-credential-service
 				name={service.display_name || ''}
-				issuer={service.expand.credential_issuer.name}
+				issuer={service.expand.credential_issuer?.name || service.credential_issuer}
 				organization={service.expand.organization.name}
 				logoSrc={service.logo}
 				href="#"
