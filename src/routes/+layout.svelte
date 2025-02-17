@@ -18,17 +18,13 @@
 	import { gotoQrResult } from '$lib/components/organisms/scanner/tools';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import { m } from '$lib/i18n';
-	import { clearHttpStorage } from '$lib/utils';
 	import { Network } from '@capacitor/network';
 	import { debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
 	import { getUser } from '$lib/preferences/user';
 	import { getUserPassword } from '$lib/preferences/userPassword';
 	import { refreshAuth } from './[[lang]]/(auth)/login/_lib';
 
-	$: {
-		refreshUser();
-		clearHttpStorage();
-	}
+	$: refreshUser();
 
 	const controller = new AbortController();
 	const signal = controller.signal;
