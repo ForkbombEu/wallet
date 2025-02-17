@@ -1,3 +1,10 @@
+## [1.62.2](https://github.com/ForkbombEu/wallet/compare/v1.62.1...v1.62.2) (2025-02-17)
+
+
+### Bug Fixes
+
+* dont need anymore to clear http storage for ios ([#583](https://github.com/ForkbombEu/wallet/issues/583)) ([3d03d8c](https://github.com/ForkbombEu/wallet/commit/3d03d8c9d902bce451b52970b43c20d5992d0aa9))
+
 ## [1.62.1](https://github.com/ForkbombEu/wallet/compare/v1.62.0...v1.62.1) (2025-02-14)
 
 
