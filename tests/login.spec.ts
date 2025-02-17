@@ -5,12 +5,12 @@ import { PassphrasePage } from './fixtures/pages/PassphrasePage';
 
 test.describe('Register-login', () => {
 	let registerLoginPage: RegisterLoginPage;
-	
+
 	test.beforeEach(async ({ page }) => {
 		registerLoginPage = new RegisterLoginPage(page);
 		await registerLoginPage.navigate();
 	});
-	
+
 	test('should navigate to registration page', async () => {
 		await registerLoginPage.clickCreateAccount();
 		await registerLoginPage.waitForUrlContains('/en/login?registration=true');
@@ -76,9 +76,9 @@ test.describe('Login with Passphrase Page', () => {
 		await passphrasePage.verifyKeyringAndDID();
 		await expect(page).toHaveURL('/en/wallet');
 	});
-	test('should save password on preferences after succesfull login', async () => {
+	test('should save password on preferences after succesfull login', async ({ page }) => {
 		await passphrasePage.enterPassphrase();
-		await passphrasePage.verifyKeyringAndDID();
+		await page.waitForTimeout(3000);
 		await passphrasePage.verifyPasswordSaved();
 	});
 
@@ -88,6 +88,7 @@ test.describe('Login with Passphrase Page', () => {
 		await expect(page).toHaveURL('/en/wallet');
 		const firstToken = await passphrasePage.getAuthToken();
 		await page.reload();
+		await page.waitForTimeout(3000);
 		const secondToken = await passphrasePage.getAuthToken();
 		expect(firstToken).not.toBe(secondToken);
 	});
