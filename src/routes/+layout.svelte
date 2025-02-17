@@ -21,8 +21,14 @@
 	import { clearHttpStorage } from '$lib/utils';
 	import { Network } from '@capacitor/network';
 	import { debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
+	import { getUser } from '$lib/preferences/user';
+	import { getUserPassword } from '$lib/preferences/userPassword';
+	import { refreshAuth } from './[[lang]]/(auth)/login/_lib';
 
-	$: clearHttpStorage();
+	$: {
+		refreshUser();
+		clearHttpStorage();
+	}
 
 	const controller = new AbortController();
 	const signal = controller.signal;
@@ -45,7 +51,7 @@
 		return originalXhrOpen.apply(this, [method, url, ...rest]);
 	};
 
-	const prettifyJsonString = function (jsonString:any) {
+	const prettifyJsonString = function (jsonString: any) {
 		try {
 			const parsed = JSON.parse(jsonString);
 			return JSON.stringify(parsed, null, 2);
@@ -55,10 +61,10 @@
 	};
 
 	XMLHttpRequest.prototype.send = function (body) {
-		const prettifiedBody = prettifyJsonString(body)
+		const prettifiedBody = prettifyJsonString(body);
 		debugPopupContent.push(
 			// @ts-ignore
-			`XMLHttpRequest Sent: ${JSON.stringify({ method: this._method, url: this._url,  prettifiedBody}, null, 2)}`
+			`XMLHttpRequest Sent: ${JSON.stringify({ method: this._method, url: this._url, prettifiedBody }, null, 2)}`
 		);
 		debugPopup.set(true);
 		this.addEventListener('load', async function () {
@@ -69,6 +75,14 @@
 			debugPopup.set(true);
 		});
 		return originalXhrSend.apply(this, [body]);
+	};
+
+	const refreshUser = async () => {
+		const user = await getUser();
+		const password = await getUserPassword();
+		if (user && password) {
+			await refreshAuth(user.email, password);
+		}
 	};
 
 	onMount(async () => {
