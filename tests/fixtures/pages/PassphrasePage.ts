@@ -28,4 +28,17 @@ export class PassphrasePage extends BasePage {
 		expect(keyring).not.toBeNull();
 		expect(did).not.toBeNull();
 	}
+	async verifyPasswordSaved() {
+		const password = await this.page.evaluate(() =>
+			localStorage.getItem('CapacitorStorage.USER_PASSWORD')
+		);
+		expect(password).not.toBeNull();
+	}
+	async getAuthToken(): Promise<string | undefined> {
+		const auth = await this.page.evaluate(() => localStorage.getItem('CapacitorStorage.pb_auth'));
+		if (auth) {
+			return JSON.parse(auth).token;
+		}
+		return undefined;
+	}
 }

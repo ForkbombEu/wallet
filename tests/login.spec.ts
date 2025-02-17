@@ -76,4 +76,19 @@ test.describe('Login with Passphrase Page', () => {
 		await passphrasePage.verifyKeyringAndDID();
 		await expect(page).toHaveURL('/en/wallet');
 	});
+	test('should save password on preferences after succesfull login', async () => {
+		await passphrasePage.enterPassphrase();
+		await passphrasePage.verifyKeyringAndDID();
+		await passphrasePage.verifyPasswordSaved();
+	});
+
+	test('should refresh token after reload', async ({ page }) => {
+		await passphrasePage.enterPassphrase();
+		await page.waitForTimeout(3000);
+		await expect(page).toHaveURL('/en/wallet');
+		const firstToken = await passphrasePage.getAuthToken();
+		await page.reload();
+		const secondToken = await passphrasePage.getAuthToken();
+		expect(firstToken).not.toBe(secondToken);
+	});
 });
