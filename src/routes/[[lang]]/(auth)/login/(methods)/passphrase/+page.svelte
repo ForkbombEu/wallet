@@ -5,7 +5,7 @@
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { z } from 'zod';
 	import type { Feedback } from '$lib/utils/types.js';
-	import { checkKeypairs, generateDid } from '../../_lib/index.js';
+	import { checkKeypairs, generateDid, saveUserPassword } from '../../_lib/index.js';
 	import background from '$lib/assets/bg-5.svg';
 	import { Input } from '$lib/forms';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
@@ -13,7 +13,7 @@
 	//
 
 	export let data;
-	let { userEmail } = data;
+	let { userEmail, password } = data;
 
 	let feedback: Feedback = {};
 
@@ -34,7 +34,8 @@
 				await setKeypairPreference(keypair);
 				await generateDid();
 				await checkKeypairs();
-				await goto('/wallet', undefined, false);
+				await saveUserPassword(password!);
+				await goto('/wallet', undefined);
 			} catch (e) {
 				feedback = {
 					type: 'error',
