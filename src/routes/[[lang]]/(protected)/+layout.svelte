@@ -5,7 +5,6 @@
 	import { goto, m, r } from '$lib/i18n';
 	import { onDestroy, onMount } from 'svelte';
 	import type { PluginListenerHandle } from '@capacitor/core';
-	import { clearHttpStorage } from '$lib/utils/index.js';
 	import { debugPopup } from '$lib/components/organisms/debug/debug.js';
 
 	export let data;
@@ -15,7 +14,6 @@
 
 	onMount(async () => {
 		appStateChange = await App.addListener('appStateChange', async (state) => {
-			await clearHttpStorage();
 			if (!state.isActive && !(r('/user-settings') === window.location.pathname)) {
 				debugPopup.set(false);
 				await goto('/unlock');

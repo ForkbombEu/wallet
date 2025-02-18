@@ -1,3 +1,59 @@
+## [1.63.1](https://github.com/ForkbombEu/wallet/compare/v1.63.0...v1.63.1) (2025-02-18)
+
+
+### Bug Fixes
+
+* screenshots with placeholders ([#581](https://github.com/ForkbombEu/wallet/issues/581)) ([c34d272](https://github.com/ForkbombEu/wallet/commit/c34d272887a5ff6dce62b2c1f2e60cd0b5ef3649))
+
+# [1.63.0](https://github.com/ForkbombEu/wallet/compare/v1.62.2...v1.63.0) (2025-02-18)
+
+
+### Features
+
+* Update spanish translations ([#588](https://github.com/ForkbombEu/wallet/issues/588)) ([efda802](https://github.com/ForkbombEu/wallet/commit/efda802c445a87b99100e03c1a8ed305a7c3e994))
+
+## [1.62.2](https://github.com/ForkbombEu/wallet/compare/v1.62.1...v1.62.2) (2025-02-17)
+
+
+### Bug Fixes
+
+* dont need anymore to clear http storage for ios ([#583](https://github.com/ForkbombEu/wallet/issues/583)) ([3d03d8c](https://github.com/ForkbombEu/wallet/commit/3d03d8c9d902bce451b52970b43c20d5992d0aa9))
+
+## [1.62.1](https://github.com/ForkbombEu/wallet/compare/v1.62.0...v1.62.1) (2025-02-14)
+
+
+### Bug Fixes
+
+* copy correct files on postinstall ([#587](https://github.com/ForkbombEu/wallet/issues/587)) ([9c2078f](https://github.com/ForkbombEu/wallet/commit/9c2078f3c9f9cefdcf1360521dc2571190c2f711))
+
+# [1.62.0](https://github.com/ForkbombEu/wallet/compare/v1.61.0...v1.62.0) (2025-02-13)
+
+
+### Features
+
+* Update translations spanish ([#585](https://github.com/ForkbombEu/wallet/issues/585)) ([c9208fa](https://github.com/ForkbombEu/wallet/commit/c9208fa636a91c8798d5be79e7eda55354dfac67))
+
+# [1.61.0](https://github.com/ForkbombEu/wallet/compare/v1.60.1...v1.61.0) (2025-02-13)
+
+
+### Features
+
+* update translations  ([#586](https://github.com/ForkbombEu/wallet/issues/586)) ([358541f](https://github.com/ForkbombEu/wallet/commit/358541f6692186edd5be3931f8715176020c8682))
+
+## [1.60.1](https://github.com/ForkbombEu/wallet/compare/v1.60.0...v1.60.1) (2025-02-13)
+
+
+### Bug Fixes
+
+* there was two activity each verification ([#580](https://github.com/ForkbombEu/wallet/issues/580)) ([99b7936](https://github.com/ForkbombEu/wallet/commit/99b79367d7a9ce2a59a15d8b6cacbd192e1c8c1c))
+
+# [1.60.0](https://github.com/ForkbombEu/wallet/compare/v1.59.4...v1.60.0) (2025-02-13)
+
+
+### Features
+
+* add spanish ([#584](https://github.com/ForkbombEu/wallet/issues/584)) ([5f9fd79](https://github.com/ForkbombEu/wallet/commit/5f9fd79f2ef4893e447b472d5632855ed321004d))
+
 ## [1.59.4](https://github.com/ForkbombEu/wallet/compare/v1.59.3...v1.59.4) (2025-02-10)
 
 

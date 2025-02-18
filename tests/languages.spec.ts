@@ -14,7 +14,7 @@ test.describe('Language settings page', () => {
 	});
 
 	test('should have four language buttons', async ({ languageSettingsPage }) => {
-		await languageSettingsPage.hasFourLanguageButtons();
+		await languageSettingsPage.hasFiveLanguageButtons();
 	});
 
 	test('should change language to Deutch', async ({ languageSettingsPage }) => {

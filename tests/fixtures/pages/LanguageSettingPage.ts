@@ -21,8 +21,8 @@ export class LanguageSettingsPage extends BasePage {
 		await this.page.locator('d-button:has-text("Languages")').click();
 	}
 
-	async hasFourLanguageButtons(): Promise<void> {
-		await expect(this.languageButtons).toHaveCount(4);
+	async hasFiveLanguageButtons(): Promise<void> {
+		await expect(this.languageButtons).toHaveCount(5);
 	}
 
 	async changeLanguage(lang: 'English' | 'Deutsch' | 'Francais' | 'Italiano'): Promise<void> {

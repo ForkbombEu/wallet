@@ -1,6 +1,6 @@
 {
 	"name": "wallet",
-	"version": "1.59.4",
+	"version": "1.63.1",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --host",
@@ -21,7 +21,7 @@
 		"apk": "ionic capacitor copy android && cd android && ./gradlew assembleDebug && ./gradlew installDebug && cd ..",
 		"web": "ionic serve",
 		"icons": "npx capacitor-assets generate --ios --android",
-		"postinstall": "paraglide-js compile --project ./project.inlang && cp -r ./node_modules/@didroom/components/dist/ ./static/components"
+		"postinstall": "paraglide-js compile --project ./project.inlang && cp -r ./node_modules/@didroom/components/dist/. ./static/components"
 	},
 	"devDependencies": {
 		"@axe-core/playwright": "^4.10.1",
