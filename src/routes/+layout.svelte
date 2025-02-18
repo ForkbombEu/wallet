@@ -22,7 +22,7 @@
 	import { debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
 	import { refreshAuth } from './[[lang]]/(auth)/login/_lib';
 
-	$: refreshAuth();
+	$: if ($navigating?.complete) refreshAuth(); else refreshAuth();
 
 	const controller = new AbortController();
 	const signal = controller.signal;
