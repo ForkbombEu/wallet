@@ -41,4 +41,10 @@ export class PassphrasePage extends BasePage {
 		}
 		return undefined;
 	}
+
+	async setInvalidAuthToken() {
+		await this.page.evaluate(() => {
+			localStorage.setItem('CapacitorStorage.pb_auth', JSON.stringify({ token: 'invalid token' }));
+		});
+	}
 }

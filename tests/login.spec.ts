@@ -92,4 +92,15 @@ test.describe('Login with Passphrase Page', () => {
 		const secondToken = await passphrasePage.getAuthToken();
 		expect(firstToken).not.toBe(secondToken);
 	});
+
+	test('should refresh token even if the token is invalid', async ({ page }) => {
+		await passphrasePage.enterPassphrase();
+		await page.waitForTimeout(3000);
+		await expect(page).toHaveURL('/en/wallet');
+		await passphrasePage.setInvalidAuthToken();
+		await page.reload();
+		await page.waitForTimeout(3000);
+		const secondToken = await passphrasePage.getAuthToken();
+		expect(secondToken).not.toBe('invalid token');
+	});
 });
