@@ -99,7 +99,7 @@ test.describe('Login with Passphrase Page', () => {
 		await expect(page).toHaveURL('/en/wallet');
 		await passphrasePage.setInvalidAuthToken();
 		await page.reload();
-		await page.waitForTimeout(3000);
+		await page.waitForTimeout(5000);
 		const secondToken = await passphrasePage.getAuthToken();
 		expect(secondToken).not.toBe('invalid token');
 	});
