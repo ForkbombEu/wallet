@@ -16,7 +16,7 @@ import getPublicKeysScript from '$lib/slangroom/getPublicKeys.slang?raw';
 import askResetPasswordScript from '$lib/slangroom/askResetPassword.slang?raw';
 import checkUserExistScript from '$lib/slangroom/checkUserExist.slang?raw';
 import refreshAuthToken from '$lib/slangroom/refreshAuthToken.slang?raw';
-import { setUserPassword } from '$lib/preferences/userPassword';
+import { getUserPassword, setUserPassword } from '$lib/preferences/userPassword';
 
 //
 
@@ -192,15 +192,20 @@ export const askResetPassword = async (email: string) => {
 	return res.result.output;
 };
 
-export const refreshAuth = async (email: string, password: string) => {
+export const refreshAuth = async () => {
+	const user = await getUser();
+	const password = await getUserPassword();
+	if (!(user || password)) return;
 	const data = {
 		pb_address: backendUri,
 		my_credentials: {
-			email,
+			email: user!.email,
 			password
 		}
 	};
-	const res = await slangroom.execute(refreshAuthToken, { data });
-	console.log(res);
-	return res.result.output;
+	try {
+		await slangroom.execute(refreshAuthToken, { data });
+	} catch {
+		await slangroom.execute(loginScript, { data });
+	}
 };

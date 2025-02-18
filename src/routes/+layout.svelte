@@ -20,16 +20,14 @@
 	import { m } from '$lib/i18n';
 	import { Network } from '@capacitor/network';
 	import { debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
-	import { getUser } from '$lib/preferences/user';
-	import { getUserPassword } from '$lib/preferences/userPassword';
 	import { refreshAuth } from './[[lang]]/(auth)/login/_lib';
 
-	$: refreshUser();
+	$: refreshAuth();
 
 	const controller = new AbortController();
 	const signal = controller.signal;
 
-	let isConnected: boolean;
+	let isConnected: boolean = true;
 
 	const originalXhrOpen = XMLHttpRequest.prototype.open;
 	const originalXhrSend = XMLHttpRequest.prototype.send;
@@ -71,14 +69,6 @@
 			debugPopup.set(true);
 		});
 		return originalXhrSend.apply(this, [body]);
-	};
-
-	const refreshUser = async () => {
-		const user = await getUser();
-		const password = await getUserPassword();
-		if (user && password) {
-			await refreshAuth(user.email, password);
-		}
 	};
 
 	onMount(async () => {
