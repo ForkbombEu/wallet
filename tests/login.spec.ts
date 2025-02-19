@@ -1,7 +1,9 @@
-import { test, expect } from '@playwright/test';
+import { expect } from '@playwright/test';
+import { test } from './fixtures/testWithFixtures';
 import { RegisterLoginPage } from './fixtures/pages/RegisterLoginPage';
 import { LoginPage } from './fixtures/pages/LoginPage';
 import { PassphrasePage } from './fixtures/pages/PassphrasePage';
+import { ProfilePage } from './fixtures/pages/ProfilePage';
 
 test.describe('Register-login', () => {
 	let registerLoginPage: RegisterLoginPage;
@@ -93,13 +95,14 @@ test.describe('Login with Passphrase Page', () => {
 		expect(firstToken).not.toBe(secondToken);
 	});
 
-	test('should refresh token even if the token is invalid', async ({ page }) => {
+	test('should refresh token even if the token is invalid', async ({ page, profilePage }) => {
 		await passphrasePage.enterPassphrase();
 		await page.waitForTimeout(3000);
 		await expect(page).toHaveURL('/en/wallet');
 		await passphrasePage.setInvalidAuthToken();
-		await page.reload();
-		await page.waitForTimeout(5000);
+		await profilePage.navigate();
+		await page.waitForTimeout(3000);
+		await expect(page).toHaveURL('/en/profile');
 		const secondToken = await passphrasePage.getAuthToken();
 		expect(secondToken).not.toBe('invalid token');
 	});
