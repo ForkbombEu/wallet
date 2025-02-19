@@ -47,8 +47,9 @@ export class PassphrasePage extends BasePage {
 		if (!auth) return;
 		const authObj = JSON.parse(auth) as { token: string };
 		const modifiedAuthObj = { ...authObj, token: 'invalid token' };
-		await this.page.evaluate(() => {
-			localStorage.setItem('CapacitorStorage.pb_auth', JSON.stringify(modifiedAuthObj));
-		});
+
+		await this.page.evaluate((obj) => {
+			localStorage.setItem('CapacitorStorage.pb_auth', JSON.stringify(obj));
+		}, modifiedAuthObj);
 	}
 }
