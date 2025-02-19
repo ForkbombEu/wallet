@@ -1,3 +1,17 @@
+## [1.63.1](https://github.com/ForkbombEu/wallet/compare/v1.63.0...v1.63.1) (2025-02-18)
+
+
+### Bug Fixes
+
+* screenshots with placeholders ([#581](https://github.com/ForkbombEu/wallet/issues/581)) ([c34d272](https://github.com/ForkbombEu/wallet/commit/c34d272887a5ff6dce62b2c1f2e60cd0b5ef3649))
+
+# [1.63.0](https://github.com/ForkbombEu/wallet/compare/v1.62.2...v1.63.0) (2025-02-18)
+
+
+### Features
+
+* Update spanish translations ([#588](https://github.com/ForkbombEu/wallet/issues/588)) ([efda802](https://github.com/ForkbombEu/wallet/commit/efda802c445a87b99100e03c1a8ed305a7c3e994))
+
 ## [1.62.2](https://github.com/ForkbombEu/wallet/compare/v1.62.1...v1.62.2) (2025-02-17)
 
 
