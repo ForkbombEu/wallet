@@ -84,25 +84,30 @@ test.describe('Login with Passphrase Page', () => {
 		await passphrasePage.verifyPasswordSaved();
 	});
 
-	test('should refresh token after reload', async ({ page }) => {
+	test('should refresh token after network status changes', async ({ page, browser }) => {
+		const browserContext = await browser.newContext();
 		await passphrasePage.enterPassphrase();
 		await page.waitForTimeout(3000);
 		await expect(page).toHaveURL('/en/wallet');
 		const firstToken = await passphrasePage.getAuthToken();
-		await page.reload();
+		await browserContext.setOffline(true);
+		await page.waitForTimeout(3000);
+		await browserContext.setOffline(false);
 		await page.waitForTimeout(3000);
 		const secondToken = await passphrasePage.getAuthToken();
 		expect(firstToken).not.toBe(secondToken);
 	});
 
-	test('should refresh token even if the token is invalid', async ({ page, profilePage }) => {
+	test('should refresh token even if the token is invalid', async ({ page, browser }) => {
+		const browserContext = await browser.newContext();
 		await passphrasePage.enterPassphrase();
 		await page.waitForTimeout(3000);
 		await expect(page).toHaveURL('/en/wallet');
 		await passphrasePage.setInvalidAuthToken();
-		await profilePage.navigate();
+		await browserContext.setOffline(true);
 		await page.waitForTimeout(3000);
-		await expect(page).toHaveURL('/en/profile');
+		await browserContext.setOffline(false);
+		await page.waitForTimeout(3000);
 		const secondToken = await passphrasePage.getAuthToken();
 		expect(secondToken).not.toBe('invalid token');
 	});
