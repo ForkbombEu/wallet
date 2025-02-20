@@ -114,10 +114,6 @@ export const saveUserPublicKeys = async () => {
 	return res.result.output;
 };
 
-export const saveUserPassword = async (password: string) => {
-	return await setUserPassword(password);
-};
-
 export const generateDid = async () => {
 	const data = {
 		pb_address: backendUri,

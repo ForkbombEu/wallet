@@ -10,11 +10,12 @@
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { alertCircleOutline } from 'ionicons/icons';
 	import { z } from 'zod';
-	import { checkKeypairs, generateDid, saveUserPassword, saveUserPublicKeys, userEmailStore } from '../../_lib';
+	import { checkKeypairs, generateDid, saveUserPublicKeys, userEmailStore } from '../../_lib';
 	import type { Feedback } from '$lib/utils/types';
 	import { log } from '$lib/log';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
+	import { setUserPassword } from '$lib/preferences/userPassword';
 
 	//
 
@@ -72,7 +73,7 @@
 				if (!registration) await checkKeypairs();
 				await generateDid();
 				seed = keypair.seed;
-				await saveUserPassword(password!)
+				await setUserPassword(password!)
 				loading = false;
 			} catch (e) {
 				loading = false;

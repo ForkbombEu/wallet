@@ -5,10 +5,11 @@
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { z } from 'zod';
 	import type { Feedback } from '$lib/utils/types.js';
-	import { checkKeypairs, generateDid, saveUserPassword } from '../../_lib/index.js';
+	import { checkKeypairs, generateDid } from '../../_lib/index.js';
 	import background from '$lib/assets/bg-5.svg';
 	import { Input } from '$lib/forms';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
+	import { setUserPassword } from '$lib/preferences/userPassword.js';
 
 	//
 
@@ -34,7 +35,7 @@
 				await setKeypairPreference(keypair);
 				await generateDid();
 				await checkKeypairs();
-				await saveUserPassword(password!);
+				await setUserPassword(password!);
 				await goto('/wallet', undefined);
 			} catch (e) {
 				feedback = {
