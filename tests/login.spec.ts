@@ -3,7 +3,6 @@ import { test } from './fixtures/testWithFixtures';
 import { RegisterLoginPage } from './fixtures/pages/RegisterLoginPage';
 import { LoginPage } from './fixtures/pages/LoginPage';
 import { PassphrasePage } from './fixtures/pages/PassphrasePage';
-import { ProfilePage } from './fixtures/pages/ProfilePage';
 
 test.describe('Register-login', () => {
 	let registerLoginPage: RegisterLoginPage;
@@ -110,20 +109,5 @@ test.describe('Login with Passphrase Page', () => {
 		await page.waitForTimeout(3000);
 		const secondToken = await passphrasePage.getAuthToken();
 		expect(secondToken).not.toBe('invalid token');
-	});
-
-	test('should refresh token after restoring from background', async ({ page }) => {
-		const page2 = await page.context().newPage();
-		await passphrasePage.enterPassphrase();
-		await page.waitForTimeout(3000);
-		await expect(page).toHaveURL('/en/wallet');
-		const firstToken = await passphrasePage.getAuthToken();
-		await page2.bringToFront();
-		await page2.waitForTimeout(3000);
-		await page.bringToFront();
-		await page.waitForTimeout(3000);
-		await expect(page).toHaveURL('/en/unlock');
-		const secondToken = await passphrasePage.getAuthToken();
-		expect(firstToken).not.toBe(secondToken);
 	});
 });

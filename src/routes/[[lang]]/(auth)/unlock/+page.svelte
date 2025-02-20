@@ -3,6 +3,7 @@
 	import { AndroidBiometryStrength, BiometricAuth } from '@aparajita/capacitor-biometric-auth';
 	// @ts-ignore
 	import IonPage from 'ionic-svelte/components/IonPage.svelte';
+	import { refreshAuth } from '../login/_lib/index.js';
 
 	export let data;
 
@@ -11,6 +12,7 @@
 	async function unlock() {
 		try {
 			await authenticate();
+			await refreshAuth();
 			await goto('/wallet');
 		} catch (e) {
 			error = 'BIOMETRY_ERROR';
@@ -37,6 +39,7 @@
 	//
 
 	async function testUnlock() {
+		await refreshAuth();
 		await goto('/home');
 	}
 </script>
