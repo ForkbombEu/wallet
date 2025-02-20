@@ -5,7 +5,7 @@ import { Slangroom } from '@slangroom/core';
 import { pocketbase } from '@slangroom/pocketbase';
 import { writable } from 'svelte/store';
 import { backendUri } from '$lib/backendUri';
-import { getUser } from '$lib/preferences/user';
+import { getUser, USER_PREFERENCES_KEY } from '$lib/preferences/user';
 
 //Slangroom scripts
 import loginScript from '$lib/slangroom/login.slang?raw';
@@ -16,7 +16,8 @@ import getPublicKeysScript from '$lib/slangroom/getPublicKeys.slang?raw';
 import askResetPasswordScript from '$lib/slangroom/askResetPassword.slang?raw';
 import checkUserExistScript from '$lib/slangroom/checkUserExist.slang?raw';
 import refreshAuthToken from '$lib/slangroom/refreshAuthToken.slang?raw';
-import { getUserPassword, setUserPassword } from '$lib/preferences/userPassword';
+import { getUserPassword, setUserPassword, USER_PASSWORD_KEY } from '$lib/preferences/userPassword';
+import { removePreference } from '$lib/preferences';
 
 //
 
@@ -202,6 +203,11 @@ export const refreshAuth = async () => {
 	try {
 		await slangroom.execute(refreshAuthToken, { data });
 	} catch {
-		await slangroom.execute(loginScript, { data });
+		try {
+			await slangroom.execute(loginScript, { data });
+		} catch {
+			await removePreference(USER_PASSWORD_KEY);
+			await removePreference(USER_PREFERENCES_KEY);
+		}
 	}
 };
