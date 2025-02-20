@@ -84,8 +84,8 @@ test.describe('Login with Passphrase Page', () => {
 		await passphrasePage.verifyPasswordSaved();
 	});
 
-	test('should refresh token after network status changes', async ({ page, browser }) => {
-		const browserContext = await browser.newContext();
+	test('should refresh token after network status changes', async ({ page }) => {
+		const browserContext = page.context();
 		await passphrasePage.enterPassphrase();
 		await page.waitForTimeout(3000);
 		await expect(page).toHaveURL('/en/wallet');
@@ -98,8 +98,8 @@ test.describe('Login with Passphrase Page', () => {
 		expect(firstToken).not.toBe(secondToken);
 	});
 
-	test('should refresh token even if the token is invalid', async ({ page, browser }) => {
-		const browserContext = await browser.newContext();
+	test('should refresh token even if the token is invalid', async ({ page }) => {
+		const browserContext = page.context();
 		await passphrasePage.enterPassphrase();
 		await page.waitForTimeout(3000);
 		await expect(page).toHaveURL('/en/wallet');
