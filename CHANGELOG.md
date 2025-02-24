@@ -1,3 +1,10 @@
+# [1.64.0](https://github.com/ForkbombEu/wallet/compare/v1.63.2...v1.64.0) (2025-02-24)
+
+
+### Features
+
+* refresh auth ([#589](https://github.com/ForkbombEu/wallet/issues/589)) ([4735c25](https://github.com/ForkbombEu/wallet/commit/4735c2581ce29ba3849f86843f76c4d99a3af9c5))
+
 ## [1.63.2](https://github.com/ForkbombEu/wallet/compare/v1.63.1...v1.63.2) (2025-02-21)
 
 
