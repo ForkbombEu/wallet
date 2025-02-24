@@ -6,7 +6,6 @@
 	import { onDestroy, onMount } from 'svelte';
 	import type { PluginListenerHandle } from '@capacitor/core';
 	import { debugPopup } from '$lib/components/organisms/debug/debug.js';
-
 	export let data;
 	let appStateChange: PluginListenerHandle;
 

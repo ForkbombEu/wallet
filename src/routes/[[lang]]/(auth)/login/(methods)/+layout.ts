@@ -5,7 +5,7 @@ import { r } from '$lib/i18n';
 
 export const load = async () => {
 	const store = get(userEmailStore);
-	const { email: userEmail, registration } = store;
+	const { email: userEmail, registration, password } = store;
 	if (!userEmail) redirect(303, r('/login'));
-	return { userEmail, registration };
+	return { userEmail, registration, password };
 };
