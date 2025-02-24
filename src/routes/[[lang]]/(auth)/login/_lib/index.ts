@@ -5,7 +5,7 @@ import { Slangroom } from '@slangroom/core';
 import { pocketbase } from '@slangroom/pocketbase';
 import { writable } from 'svelte/store';
 import { backendUri } from '$lib/backendUri';
-import { getUser } from '$lib/preferences/user';
+import { getUser, USER_PREFERENCES_KEY } from '$lib/preferences/user';
 
 //Slangroom scripts
 import loginScript from '$lib/slangroom/login.slang?raw';
@@ -15,6 +15,9 @@ import scriptGenerateDid from '$lib/slangroom/scriptGenerateDid.slang?raw';
 import getPublicKeysScript from '$lib/slangroom/getPublicKeys.slang?raw';
 import askResetPasswordScript from '$lib/slangroom/askResetPassword.slang?raw';
 import checkUserExistScript from '$lib/slangroom/checkUserExist.slang?raw';
+import refreshAuthToken from '$lib/slangroom/refreshAuthToken.slang?raw';
+import { getUserPassword, setUserPassword, USER_PASSWORD_KEY } from '$lib/preferences/userPassword';
+import { removePreference } from '$lib/preferences';
 
 //
 
@@ -23,6 +26,7 @@ const slangroom = new Slangroom(pocketbase);
 export const userEmailStore = writable<{
 	email: string | undefined;
 	registration: boolean;
+	password?: string;
 }>();
 
 export const createUser = async (email: string, password: string, passwordConfirmation: string) => {
@@ -135,7 +139,7 @@ export const generateDid = async () => {
 	return res.result.output;
 };
 /**
- * Check if the keypair is generated. 
+ * Check if the keypair is generated.
  * Checks if the keypair is already saved in the database. If it is not saved, it saves the keypair in the database.
  * Else check that the keypair matches the one saved in the backend.
  *
@@ -168,8 +172,8 @@ export const checkKeypairs = async () => {
 	const keypairoom = await getKeypairPreference();
 	if (!keypairoom) throw new Error('KEYPAIR_NOT_GENERATED');
 	const keys = getPublicKeysFromKeypair(keypairoom);
-	
-  if (
+
+	if (
 		//@ts-expect-error maybe hardcode keys to iterate for
 		Object.keys(keys).some((k) => savedKeys[k] != keys[k])
 	)
@@ -182,5 +186,28 @@ export const askResetPassword = async (email: string) => {
 		email
 	};
 	const res = await slangroom.execute(askResetPasswordScript, { data });
-  return res.result.output;
+	return res.result.output;
+};
+
+export const refreshAuth = async () => {
+	const user = await getUser();
+	const password = await getUserPassword();
+	if (!(user || password)) return;
+	const data = {
+		pb_address: backendUri,
+		my_credentials: {
+			email: user!.email,
+			password
+		}
+	};
+	try {
+		await slangroom.execute(refreshAuthToken, { data });
+	} catch {
+		try {
+			await slangroom.execute(loginScript, { data });
+		} catch {
+			await removePreference(USER_PASSWORD_KEY);
+			await removePreference(USER_PREFERENCES_KEY);
+		}
+	}
 };

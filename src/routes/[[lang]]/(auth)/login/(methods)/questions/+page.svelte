@@ -15,10 +15,11 @@
 	import { log } from '$lib/log';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
+	import { setUserPassword } from '$lib/preferences/userPassword';
 
 	//
 
-	let { email: userEmail, registration } = $userEmailStore;
+	let { email: userEmail, registration, password } = $userEmailStore;
 
 	//
 
@@ -71,8 +72,8 @@
 				if (registration) await saveUserPublicKeys();
 				if (!registration) await checkKeypairs();
 				await generateDid();
-
 				seed = keypair.seed;
+				await setUserPassword(password!)
 				loading = false;
 			} catch (e) {
 				loading = false;
