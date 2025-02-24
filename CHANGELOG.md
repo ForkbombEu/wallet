@@ -1,3 +1,10 @@
+## [1.63.2](https://github.com/ForkbombEu/wallet/compare/v1.63.1...v1.63.2) (2025-02-21)
+
+
+### Bug Fixes
+
+* in home sometimes the credentials services have not images ([#593](https://github.com/ForkbombEu/wallet/issues/593)) ([ed55b1e](https://github.com/ForkbombEu/wallet/commit/ed55b1e6b98c92f3392158800e8866d264ec46bc))
+
 ## [1.63.1](https://github.com/ForkbombEu/wallet/compare/v1.63.0...v1.63.1) (2025-02-18)
 
 
