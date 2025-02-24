@@ -23,6 +23,11 @@
 				if (confirmPassword !== password) throw new Error(`The passwords do not match`);
 				await createUser($userEmailStore.email!, password, confirmPassword);
 				await login($userEmailStore.email!, password);
+				userEmailStore.set({
+					email: $userEmailStore.email!,
+					registration: $userEmailStore.registration,
+					password
+				});
 				await goto('/login/questions');
 			} catch (e) {
 				feedback = {

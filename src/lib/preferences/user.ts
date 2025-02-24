@@ -26,7 +26,7 @@ export type UserPreference = {
 
 export async function getUser(): Promise<UserPreference | undefined> {
 	const auth = (await getStructuredPreferences(USER_PREFERENCES_KEY)) as {
-		model: UserPreference;
+		record: UserPreference;
 	} | undefined;
-	return auth?.model;
+	return auth?.record;
 }

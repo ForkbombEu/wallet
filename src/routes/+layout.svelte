@@ -20,12 +20,12 @@
 	import { m } from '$lib/i18n';
 	import { Network } from '@capacitor/network';
 	import { debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
-
+	import { refreshAuth } from './[[lang]]/(auth)/login/_lib';
 
 	const controller = new AbortController();
 	const signal = controller.signal;
 
-	let isConnected: boolean;
+	let isConnected: boolean = true;
 
 	const originalXhrOpen = XMLHttpRequest.prototype.open;
 	const originalXhrSend = XMLHttpRequest.prototype.send;
@@ -43,7 +43,7 @@
 		return originalXhrOpen.apply(this, [method, url, ...rest]);
 	};
 
-	const prettifyJsonString = function (jsonString:any) {
+	const prettifyJsonString = function (jsonString: any) {
 		try {
 			const parsed = JSON.parse(jsonString);
 			return JSON.stringify(parsed, null, 2);
@@ -53,10 +53,10 @@
 	};
 
 	XMLHttpRequest.prototype.send = function (body) {
-		const prettifiedBody = prettifyJsonString(body)
+		const prettifiedBody = prettifyJsonString(body);
 		debugPopupContent.push(
 			// @ts-ignore
-			`XMLHttpRequest Sent: ${JSON.stringify({ method: this._method, url: this._url,  prettifiedBody}, null, 2)}`
+			`XMLHttpRequest Sent: ${JSON.stringify({ method: this._method, url: this._url, prettifiedBody }, null, 2)}`
 		);
 		debugPopup.set(true);
 		this.addEventListener('load', async function () {
@@ -71,8 +71,11 @@
 
 	onMount(async () => {
 		isConnected = (await Network.getStatus()).connected;
-		Network.addListener('networkStatusChange', (status) => {
+		Network.addListener('networkStatusChange', async (status) => {
 			isConnected = status.connected;
+			if (isConnected) {
+				await refreshAuth();
+			}
 		});
 		document.addEventListener(
 			'ionBackButton',

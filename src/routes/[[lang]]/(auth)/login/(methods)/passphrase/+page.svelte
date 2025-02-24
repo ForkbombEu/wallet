@@ -9,11 +9,12 @@
 	import background from '$lib/assets/bg-5.svg';
 	import { Input } from '$lib/forms';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
+	import { setUserPassword } from '$lib/preferences/userPassword.js';
 
 	//
 
 	export let data;
-	let { userEmail } = data;
+	let { userEmail, password } = data;
 
 	let feedback: Feedback = {};
 
@@ -34,7 +35,8 @@
 				await setKeypairPreference(keypair);
 				await generateDid();
 				await checkKeypairs();
-				await goto('/wallet', undefined, false);
+				await setUserPassword(password!);
+				await goto('/wallet', undefined);
 			} catch (e) {
 				feedback = {
 					type: 'error',

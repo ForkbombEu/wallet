@@ -49,7 +49,8 @@
 
 				userEmailStore.set({
 					email: form.data.email,
-					registration
+					registration,
+					password: form.data.password
 				});
 
 				return await goto(registration ? '/login/insert-password' : '/login/passphrase');

@@ -1,16 +1,17 @@
-import { test, expect } from '@playwright/test';
+import { expect } from '@playwright/test';
+import { test } from './fixtures/testWithFixtures';
 import { RegisterLoginPage } from './fixtures/pages/RegisterLoginPage';
 import { LoginPage } from './fixtures/pages/LoginPage';
 import { PassphrasePage } from './fixtures/pages/PassphrasePage';
 
 test.describe('Register-login', () => {
 	let registerLoginPage: RegisterLoginPage;
-	
+
 	test.beforeEach(async ({ page }) => {
 		registerLoginPage = new RegisterLoginPage(page);
 		await registerLoginPage.navigate();
 	});
-	
+
 	test('should navigate to registration page', async () => {
 		await registerLoginPage.clickCreateAccount();
 		await registerLoginPage.waitForUrlContains('/en/login?registration=true');
@@ -75,5 +76,38 @@ test.describe('Login with Passphrase Page', () => {
 		await page.waitForTimeout(3000);
 		await passphrasePage.verifyKeyringAndDID();
 		await expect(page).toHaveURL('/en/wallet');
+	});
+	test('should save password on preferences after succesfull login', async ({ page }) => {
+		await passphrasePage.enterPassphrase();
+		await page.waitForTimeout(3000);
+		await passphrasePage.verifyPasswordSaved();
+	});
+
+	test('should refresh token after network status changes', async ({ page }) => {
+		const browserContext = page.context();
+		await passphrasePage.enterPassphrase();
+		await page.waitForTimeout(3000);
+		await expect(page).toHaveURL('/en/wallet');
+		const firstToken = await passphrasePage.getAuthToken();
+		await browserContext.setOffline(true);
+		await page.waitForTimeout(3000);
+		await browserContext.setOffline(false);
+		await page.waitForTimeout(3000);
+		const secondToken = await passphrasePage.getAuthToken();
+		expect(firstToken).not.toBe(secondToken);
+	});
+
+	test('should refresh token even if the token is invalid', async ({ page }) => {
+		const browserContext = page.context();
+		await passphrasePage.enterPassphrase();
+		await page.waitForTimeout(3000);
+		await expect(page).toHaveURL('/en/wallet');
+		await passphrasePage.setInvalidAuthToken();
+		await browserContext.setOffline(true);
+		await page.waitForTimeout(3000);
+		await browserContext.setOffline(false);
+		await page.waitForTimeout(3000);
+		const secondToken = await passphrasePage.getAuthToken();
+		expect(secondToken).not.toBe('invalid token');
 	});
 });
