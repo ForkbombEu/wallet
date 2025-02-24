@@ -36,7 +36,7 @@
 
 	//
 
-	async function testUnlock() {
+	async function unlockWithoutBiometry() {
 		await goto('/home');
 	}
 </script>
@@ -62,8 +62,8 @@
 				<div class="fixed bottom-4 w-full px-4 pb-24">
 					<d-button
 						color="accent"
-						on:click={testUnlock}
-						on:keydown={testUnlock}
+						on:click={unlockWithoutBiometry}
+						on:keydown={unlockWithoutBiometry}
 						aria-hidden
 						expand="full">{m.Open_Wallet()}</d-button
 					>
