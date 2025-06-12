@@ -13,7 +13,7 @@ jobs:
       user-password: ${{ vars.USER_PASSWORD }}
       user-seed: ${{ vars.USER_SEED }}
 
-  distribute:
+  distribute_android:
     uses: ForkbombEu/ship-capacitor-apps/.github/workflows/ship_android.yml@main
     needs: tests
     with:
@@ -27,10 +27,33 @@ jobs:
       keystore-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
       keystore-key-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
 
+  distribute_ios:
+    uses: ForkbombEu/ship-capacitor-apps/.github/workflows/ship_ios.yml@main
+    with:
+      backend-url: ${{github.env.test.vars.PUBLIC_BACKEND_URL}}
+      lane: ios testflight
+      initial-build-number: "3"
+      DEMO_USER: ${{github.env.test.vars.DEMO_USER}}
+      DEMO_PASSWORD: ${{github.env.test.vars.DEMO_PASSWORD}}
+      CONTACT_EMAIL: info@forkbomb.eu
+      CONTACT_FIRST_NAME: Andrea
+      CONTACT_LAST_NAME: D'Intino
+      CONTACT_PHONE: "+4521627918"
+    secrets:
+      APP_STORE_CONNECT_TEAM_ID: ${{ secrets.APP_STORE_CONNECT_TEAM_ID }}
+      BUNDLE_IDENTIFIER: ${{ secrets.BUNDLE_IDENTIFIER }}
+      BUILD_CERTIFICATE_BASE64: ${{ secrets.IOS_BUILD_CERTIFICATE }}
+      BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.IOS_BUILD_PROVISION_PROFILE }}
+      APPLE_KEY_ID: ${{ secrets.APPLE_KEY_ID }}
+      APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
+      APPLE_KEY_CONTENT: ${{ secrets.APPLE_KEY_CONTENT }}
+      APPLE_PROFILE_NAME: ${{ secrets.APPLE_PROFILE_NAME }}
+      P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+
   semantic-release:
     permissions:
       contents: write
-    needs: distribute
+    needs: [distribute_android, distribute_ios]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     outputs:
@@ -70,10 +93,11 @@ jobs:
           path: |
             release
       - name: relase all binary artifacts
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: |
             release/artifact/*
+            release/ios-release/*
           draft: false
           prerelease: false
           fail_on_unmatched_files: true
