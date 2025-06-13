@@ -27,6 +27,7 @@ jobs:
       keystore-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
       keystore-key-password: ${{ secrets.BUNDLE_BETA_PASSWORD }}
 
+
   distribute_ios:
     uses: ForkbombEu/ship-capacitor-apps/.github/workflows/ship_ios.yml@main
     with:
