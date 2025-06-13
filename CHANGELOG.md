@@ -1,3 +1,10 @@
+# [1.65.0](https://github.com/ForkbombEu/wallet/compare/v1.64.0...v1.65.0) (2025-06-13)
+
+
+### Features
+
+* gh release also ios ipa ([#594](https://github.com/ForkbombEu/wallet/issues/594)) ([7c9bb86](https://github.com/ForkbombEu/wallet/commit/7c9bb86590adaad0397296e6ea730d9d96a345cc))
+
 # [1.64.0](https://github.com/ForkbombEu/wallet/compare/v1.63.2...v1.64.0) (2025-02-24)
 
 
