@@ -14,6 +14,8 @@
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
 	import { getDebugMode } from '$lib/preferences/debug.js';
+	import { onDestroy, onMount } from 'svelte';
+	import ArrayFieldController from '$lib/forms/arrayFieldController.svelte';
 
 	export let data;
 	const { wn, authorizeUrl, parResult, feedbackData } = data;
@@ -27,7 +29,7 @@
 	let isCredentialVerified: boolean = false;
 	let serviceResponse: CredentialResult;
 
-	window.addEventListener('message', async function (event) {
+	const credentialOrFail = async function (event: MessageEvent<string>) {
 		if (event.origin === window.location.origin) return;
 		try {
 			code = JSON.parse(event.data).code;
@@ -40,7 +42,10 @@
 			};
 			content.scrollToTop();
 		}
-	});
+	};
+
+	onMount(() => window.addEventListener('message', credentialOrFail));
+	onDestroy(() => window.removeEventListener('message', credentialOrFail));
 
 	const credentialInfo = wn?.credential_requested['display'][0];
 
@@ -54,7 +59,7 @@
 		try {
 			serviceResponse = await askCredential(code, wn.credential_parameters, codeVerifier);
 			if (!serviceResponse) return (isModalOpen = false);
-			isModalOpen = !(await getDebugMode())
+			isModalOpen = !(await getDebugMode());
 			isCredentialVerified = true;
 			log(`serviceResponse: (fine chain): ${JSON.stringify(serviceResponse, null, 2)}`);
 		} catch (e: unknown) {
@@ -89,7 +94,6 @@
 			await goto(`/${id}/credential-detail`);
 		}, 2000);
 	};
-
 </script>
 
 <HeaderWithBackButton>
