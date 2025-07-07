@@ -2,6 +2,7 @@ import { debugPopupContent } from '$lib/components/organisms/debug/debug';
 import { credentialOfferStore } from '$lib/credentialOfferStore';
 import { m } from '$lib/i18n';
 import { callPar, holderQrToWellKnown, type QrToWellKnown } from '$lib/openId4vci';
+import { setCredentialAuthenticationPreference } from '$lib/preferences/credentialAuthentication';
 import type { Feedback } from '$lib/utils/types';
 import { get } from 'svelte/store';
 
@@ -31,11 +32,19 @@ export const load = async () => {
 	const par = await callPar(data);
 	const { parResult, authorizeUrl } = par;
 
+
 	if (!authorizeUrl) {
 		feedbackData = {
 			type: 'error',
 			feedback: m.The_credential_issuer_is_currently_offline_you_may_try_again_later()
 		};
 	}
+
+	await setCredentialAuthenticationPreference({
+		wn,
+		authorizeUrl,
+		parResult
+	});
+
 	return { wn, authorizeUrl, parResult, feedbackData };
 };
