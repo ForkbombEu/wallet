@@ -181,7 +181,7 @@ const extractUrlParams = (
 			...result,
 			[key]: parsedValue
 		};
-	}, {});
+	}, {} as Record<string, any>);
 
 const parseParams = (urlParams: URLSearchParams, params: any, schema: any) => {
 	return schema.safeParse(extractUrlParams(params, urlParams));

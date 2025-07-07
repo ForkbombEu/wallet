@@ -60,7 +60,22 @@ export const askCredential = async (
 		keys
 	});
 	await debugDismiss();
-	return request?.result.result as CredentialResult;
+	let returns: CredentialResult;
+	//@ts-ignore
+	if (typeof request?.result.result.credentials[0].credential === 'string') {
+		returns = {
+			type: 'sdjwt',
+			// @ts-ignore
+			credentials: request?.result.result.credentials
+		} as CredentialResult;
+	} else {
+		returns = {
+			type: 'ldp_vc',
+			// @ts-ignore
+			credentials: request?.result.result.credentials || []
+		} as CredentialResult;
+	}
+	return returns;
 };
 
 export const holderQrToWellKnown = async (qr: Service) => {
@@ -83,7 +98,7 @@ export const callPar = async (data: { credential_parameters: CredentialParameter
 	const userKeys = await getKeys();
 	keys.keyring = userKeys.keyring;
 	keys.client_id = userKeys.client_id;
-	keys.redirect_uri = 'http://192.168.1.49:5173/finalize-authentication';
+	keys.redirect_uri = window.location.protocol+ '//' + window.location.host + '/finalize-authentication';
 	const r = await slangroom.execute(call_par, { data, keys });
 	const result = r.result as CallParResult;
 	const authorizeUrl = `${result.authorization_endpoint}?client_id=${result.client_id}&request_uri=${result.request_uri}`;
@@ -91,14 +106,16 @@ export const callPar = async (data: { credential_parameters: CredentialParameter
 };
 
 export const decodeSdJwt = async (sdJwt: string) => {
-	const decoded = await slangroom.execute(utils_print_decoded_sdjwt, {
-		data: {
-			credential: sdJwt
-		}
-	}).catch((err) => {
-		log(`Slangroom exec utils_print_decoded_sdjwt: ${err}`);
-		throw new Error(`Failed to decode SD-JWT: ${err}`);
-	});
+	const decoded = await slangroom
+		.execute(utils_print_decoded_sdjwt, {
+			data: {
+				credential: sdJwt
+			}
+		})
+		.catch((err) => {
+			log(`Slangroom exec utils_print_decoded_sdjwt: ${err}`);
+			throw new Error(`Failed to decode SD-JWT: ${err}`);
+		});
 	return decoded.result as DecodedSDJWT;
 };
 
@@ -188,11 +205,33 @@ export type QrToWellKnown = {
 	credential_requested: CredentialRequested;
 };
 
-export type CredentialResult = {
-	c_nonce: string;
-	c_nonce_expires_in: number;
-	credential: string;
-};
+export type CredentialResult =
+	| {
+			type: 'sdjwt';
+			credentials: { credential: string }[];
+	  }
+	| {
+			type: 'ldp_vc';
+			credentials: {
+				'@context': Array<string>;
+				credentialSubject: {
+					family_name: string;
+					given_name: string;
+					participation: string;
+				};
+				issuer: string;
+				proof: {
+					created: string;
+					cryptosuite: string;
+					proofPurpose: string;
+					proofValue: string;
+					type: string;
+					verificationMethod: string;
+				};
+				type: Array<string>;
+				validUntil: string;
+			}[];
+	  };
 
 export type CallParResult = {
 	authorization_endpoint: string;

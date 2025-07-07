@@ -1,31 +1,28 @@
 <script lang="ts">
 	import { r } from '$lib/i18n';
 	import { m } from '$lib/i18n';
-	import { askCredential, type CredentialResult } from '$lib/openId4vci';
-	import { log } from '$lib/log';
 	import type { Feedback, ScrollableNode } from '$lib/utils/types';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
-	import { getDebugMode } from '$lib/preferences/debug.js';
+	import { goto } from '$app/navigation';
 
 	export let data;
 	const { wn, authorizeUrl, parResult, feedbackData } = data;
-	const codeVerifier = parResult?.code_verifier;
+	window.addEventListener('message', async function (event) {
+		if (event.data.type === 'credential') {
+			await goto(`/${event.data.id}/credential-detail`);
+		}
+	});
 
 	let shouldContinue = false;
 
-	let code: string | undefined;
 	let iframeLoading = true;
-	let isModalOpen: boolean = false;
-	let isCredentialVerified: boolean = false;
-	let serviceResponse: CredentialResult;
 
 	const credentialInfo = wn?.credential_requested['display'][0];
 
 	let feedback: Feedback | undefined = {};
 	let content: ScrollableNode;
-
 </script>
 
 <HeaderWithBackButton>
