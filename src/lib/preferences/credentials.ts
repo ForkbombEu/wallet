@@ -9,7 +9,7 @@ export const CREDENTIALS_PREFERENCES_KEY = 'credentials';
 export type Credential = {
 	id: number;
 	configuration_ids: string[];
-	sdJwt: string;
+	sdJwt?: string;
 	issuer: string;
 	issuerUrl: string;
 	display_name: string;

@@ -65,7 +65,7 @@
 			if (serviceResponse.type === 'sdjwt') {
 				const dsdjwt = await decodeSdJwt(serviceResponse.credentials[0].credential);
 				const c = await setCredentialPreference({
-					configuration_ids: $credentialOfferStore.credential_configuration_ids,
+					configuration_ids: $credentialOfferStore!.credential_configuration_ids,
 					display_name: wn.credential_requested.display[0].name,
 					sdJwt: serviceResponse.credentials[0].credential,
 					issuer: wn.credential_issuer_information.display[0].name,
@@ -78,7 +78,7 @@
 				id = c.id;
 			} else if (serviceResponse.type === 'ldp_vc') {
 				const c = await setCredentialPreference({
-					configuration_ids: [],
+					configuration_ids: $credentialOfferStore!.credential_configuration_ids,
 					display_name: wn.credential_requested.display[0].name,
 					sdJwt: '',
 					issuer: wn.credential_issuer_information.display[0].name,
