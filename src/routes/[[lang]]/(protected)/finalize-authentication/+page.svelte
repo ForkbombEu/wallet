@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { thumbsUpOutline } from 'ionicons/icons';
-	import { goto, r } from '$lib/i18n';
 	import { m } from '$lib/i18n';
 	import { setCredentialPreference } from '$lib/preferences/credentials';
 	import { askCredential, decodeSdJwt, type CredentialResult } from '$lib/openId4vci';
@@ -10,15 +9,12 @@
 	import { addActivity } from '$lib/preferences/activity';
 	import dayjs from 'dayjs';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
-	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
-	import { getDebugMode } from '$lib/preferences/debug.js';
 	import { onMount } from 'svelte';
 
 	export let data;
 	const { code, wn, parResult } = data;
 	const codeVerifier = parResult?.code_verifier;
 
-	let isModalOpen: boolean = true;
 	let isCredentialVerified: boolean = false;
 	let serviceResponse: CredentialResult;
 
@@ -45,12 +41,10 @@
 		if (!wn || !codeVerifier || !code) return;
 		try {
 			serviceResponse = await askCredential(code, wn.credential_parameters, codeVerifier);
-			if (!serviceResponse) return (isModalOpen = false);
-			isModalOpen = !(await getDebugMode());
+			if (!serviceResponse) return
 			isCredentialVerified = true;
 		} catch (e: unknown) {
 			isCredentialVerified = false;
-			isModalOpen = false;
 			feedback = {
 				type: 'error',
 				// @ts-ignore
@@ -63,7 +57,6 @@
 			if (!serviceResponse) return;
 			let id: number;
 			if (serviceResponse.type === 'sdjwt') {
-				console.log('serviceResponse', serviceResponse);
 				const dsdjwt = await decodeSdJwt(serviceResponse.credentials[0].credential);
 				const c = await setCredentialPreference({
 					type: 'sdjwt',
@@ -79,8 +72,6 @@
 				});
 				id = c.id;
 			} else if (serviceResponse.type === 'ldp_vc') {
-				console.log('serviceResponse2',JSON.stringify(serviceResponse.credentials[0]));
-
 				const c = await setCredentialPreference({
 					type: 'ldp_vc',
 					configuration_ids: $credentialOfferStore!.credential_configuration_ids,
@@ -99,7 +90,6 @@
 			}
 			await addActivity({ at: dayjs().unix(), id, type: 'credential' });
 
-			isModalOpen = false
 			window.parent.postMessage(
 				{
 					type: 'credential',
@@ -112,12 +102,8 @@
 	};
 </script>
 
-<HeaderWithBackButton>
-	{'finalize_authentication'}
-</HeaderWithBackButton>
-
 <ion-content fullscreen class="ion-padding" bind:this={content}>
-	<ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly class="visible">
+	<ion-modal is-open={true} backdrop-dismiss={false} transition:fly class="visible">
 		<ion-content class="ion-padding">
 			<div class="flex h-full flex-col justify-around">
 				<div>

@@ -15,8 +15,9 @@ import call_token_and_credential_keys from '$lib/mobile_zencode/wallet/call_toke
 import utils_print_decoded_sdjwt from '$lib/mobile_zencode/wallet/utils_print_decoded_sdjwt.zen?raw';
 import { log } from '$lib/log';
 import type { Logo } from '$lib/utils/types';
-import { debugDismiss, debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
+import { debugDismiss } from '$lib/components/organisms/debug/debug';
 import type { LdpVc } from '$lib/preferences/credentials';
+import type { Credential } from '$lib/preferences/credentials';
 
 const slangroom = new Slangroom([http, helpers, zencode]);
 
@@ -50,7 +51,7 @@ export const askCredential = async (
 		code,
 		credential_parameters,
 		code_verifier,
-		redirect_uri: 'http://' + window.location.host + '/finalize-authentication'
+		redirect_uri: window.location.protocol + '//' + '/finalize-authentication'
 	};
 	const keys = JSON.parse(call_token_and_credential_keys);
 	const userKeys = await getKeys();
@@ -119,6 +120,18 @@ export const decodeSdJwt = async (sdJwt: string) => {
 			throw new Error(`Failed to decode SD-JWT: ${err}`);
 		});
 	return decoded.result as DecodedSDJWT;
+};
+
+export const decodeLdpVc = async (ldpVc: LdpVc) => Array.from(Object.entries(ldpVc.credentialSubject))
+
+export const decodeFormat = async (credential: Credential) => {
+	if (credential.type === 'sdjwt') {
+		return decodeSdJwt(credential.sdJwt);
+	} else if (credential.type === 'ldp_vc') {
+		return decodeLdpVc(credential.ldpVc);
+	} else {
+		throw new Error('Unsupported credential type');
+	}
 };
 
 export type DecodedSDJWT = {

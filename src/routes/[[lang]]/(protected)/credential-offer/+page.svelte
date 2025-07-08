@@ -5,10 +5,10 @@
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
-	import { goto } from '$app/navigation';
+	import { goto } from '$lib/i18n'
 
 	export let data;
-	const { wn, authorizeUrl, parResult, feedbackData } = data;
+	const { wn, authorizeUrl, feedbackData } = data;
 	window.addEventListener('message', async function (event) {
 		if (event.data.type === 'credential') {
 			await goto(`/${event.data.id}/credential-detail`);
