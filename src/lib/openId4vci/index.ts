@@ -16,6 +16,7 @@ import utils_print_decoded_sdjwt from '$lib/mobile_zencode/wallet/utils_print_de
 import { log } from '$lib/log';
 import type { Logo } from '$lib/utils/types';
 import { debugDismiss, debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
+import type { LdpVc } from '$lib/preferences/credentials';
 
 const slangroom = new Slangroom([http, helpers, zencode]);
 
@@ -98,7 +99,8 @@ export const callPar = async (data: { credential_parameters: CredentialParameter
 	const userKeys = await getKeys();
 	keys.keyring = userKeys.keyring;
 	keys.client_id = userKeys.client_id;
-	keys.redirect_uri = window.location.protocol+ '//' + window.location.host + '/finalize-authentication';
+	keys.redirect_uri =
+		window.location.protocol + '//' + window.location.host + '/finalize-authentication';
 	const r = await slangroom.execute(call_par, { data, keys });
 	const result = r.result as CallParResult;
 	const authorizeUrl = `${result.authorization_endpoint}?client_id=${result.client_id}&request_uri=${result.request_uri}`;
@@ -212,25 +214,7 @@ export type CredentialResult =
 	  }
 	| {
 			type: 'ldp_vc';
-			credentials: {
-				'@context': Array<string>;
-				credentialSubject: {
-					family_name: string;
-					given_name: string;
-					participation: string;
-				};
-				issuer: string;
-				proof: {
-					created: string;
-					cryptosuite: string;
-					proofPurpose: string;
-					proofValue: string;
-					type: string;
-					verificationMethod: string;
-				};
-				type: Array<string>;
-				validUntil: string;
-			}[];
+			credentials: { credential: LdpVc }[];
 	  };
 
 export type CallParResult = {

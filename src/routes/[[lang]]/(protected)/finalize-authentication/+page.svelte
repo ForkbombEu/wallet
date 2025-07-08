@@ -63,8 +63,10 @@
 			if (!serviceResponse) return;
 			let id: number;
 			if (serviceResponse.type === 'sdjwt') {
+				console.log('serviceResponse', serviceResponse);
 				const dsdjwt = await decodeSdJwt(serviceResponse.credentials[0].credential);
 				const c = await setCredentialPreference({
+					type: 'sdjwt',
 					configuration_ids: $credentialOfferStore!.credential_configuration_ids,
 					display_name: wn.credential_requested.display[0].name,
 					sdJwt: serviceResponse.credentials[0].credential,
@@ -77,15 +79,18 @@
 				});
 				id = c.id;
 			} else if (serviceResponse.type === 'ldp_vc') {
+				console.log('serviceResponse2',JSON.stringify(serviceResponse.credentials[0]));
+
 				const c = await setCredentialPreference({
+					type: 'ldp_vc',
 					configuration_ids: $credentialOfferStore!.credential_configuration_ids,
 					display_name: wn.credential_requested.display[0].name,
-					sdJwt: '',
+					ldpVc: serviceResponse.credentials[0].credential,
 					issuer: wn.credential_issuer_information.display[0].name,
-					issuerUrl: serviceResponse.credentials?.[0].issuer,
+					issuerUrl: serviceResponse.credentials?.[0].credential.issuer,
 					description: wn.credential_requested.display[0].description,
 					verified: false,
-					expirationDate: dayjs(serviceResponse.credentials[0].validUntil).unix(),
+					expirationDate: dayjs(serviceResponse.credentials[0].credential.validUntil).unix(),
 					logo: wn.credential_requested.display[0].logo
 				});
 				id = c.id;

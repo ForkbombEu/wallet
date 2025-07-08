@@ -1,4 +1,4 @@
-import { getCredentialsSdjwt } from '$lib/preferences/credentials';
+import { getCredentialsFormat } from '$lib/preferences/credentials';
 import { z } from 'zod';
 import { Slangroom } from '@slangroom/core';
 import { helpers } from '@slangroom/helpers';
@@ -92,7 +92,7 @@ export const verifyCredential = async (postWVP: PostWithoutVp) =>
 	);
 
 export const getCredentialQrInfo = async (qrJSON: Credential) => {
-	const myCredentials = await getCredentialsSdjwt();
+	const myCredentials = await getCredentialsFormat();
 	if (!myCredentials) throw new Error('No credentials');
 	const data = {
 		...qrJSON,
@@ -162,26 +162,29 @@ const extractUrlParams = (
 	params: { [key: string]: 'string' | 'number' | 'array' },
 	urlSearchParams: URLSearchParams
 ) =>
-	Object.entries(params).reduce((result, [key, type]) => {
-		const value = urlSearchParams.get(key)?.trim();
-		let parsedValue;
+	Object.entries(params).reduce(
+		(result, [key, type]) => {
+			const value = urlSearchParams.get(key)?.trim();
+			let parsedValue;
 
-		switch (type) {
-			case 'array':
-				parsedValue = value ? [value] : [];
-				break;
-			case 'number':
-				parsedValue = value ? Number(value) : undefined;
-				break;
-			default:
-				parsedValue = value;
-		}
+			switch (type) {
+				case 'array':
+					parsedValue = value ? [value] : [];
+					break;
+				case 'number':
+					parsedValue = value ? Number(value) : undefined;
+					break;
+				default:
+					parsedValue = value;
+			}
 
-		return {
-			...result,
-			[key]: parsedValue
-		};
-	}, {} as Record<string, any>);
+			return {
+				...result,
+				[key]: parsedValue
+			};
+		},
+		{} as Record<string, any>
+	);
 
 const parseParams = (urlParams: URLSearchParams, params: any, schema: any) => {
 	return schema.safeParse(extractUrlParams(params, urlParams));

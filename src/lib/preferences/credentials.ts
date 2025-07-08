@@ -6,18 +6,49 @@ import type { Logo } from '$lib/utils/types';
 
 export const CREDENTIALS_PREFERENCES_KEY = 'credentials';
 
-export type Credential = {
-	id: number;
-	configuration_ids: string[];
-	sdJwt?: string;
+export type LdpVc = {
+	'@context': Array<string>;
+	credentialSubject: Record<string, unknown>;
 	issuer: string;
-	issuerUrl: string;
-	display_name: string;
-	description: string;
-	expirationDate: number;
-	verified: boolean;
-	logo: Logo;
+	proof: {
+		created: string;
+		cryptosuite: string;
+		proofPurpose: string;
+		proofValue: string;
+		type: string;
+		verificationMethod: string;
+	};
+	type: Array<string>;
+	validUntil: string;
 };
+
+export type Credential = // soon will be implemented also mdoc
+	| {
+			id: number;
+			type: 'ldp_vc';
+			configuration_ids: string[];
+			ldpVc: LdpVc;
+			issuer: string;
+			issuerUrl: string;
+			display_name: string;
+			description: string;
+			expirationDate: number;
+			verified: boolean;
+			logo: Logo;
+	  }
+	| {
+			id: number;
+			type: 'sdjwt';
+			configuration_ids: string[];
+			sdJwt: string;
+			issuer: string;
+			issuerUrl: string;
+			display_name: string;
+			description: string;
+			expirationDate: number;
+			verified: boolean;
+			logo: Logo;
+	  };
 
 const progressiveId = async () => {
 	const preferences = await getCredentialsPreference();
@@ -59,10 +90,16 @@ export async function getCredentialsbySdjwts(sdjwts: string[]): Promise<Credenti
 	);
 }
 
-export async function getCredentialsSdjwt(): Promise<string[] | undefined> {
+export async function getCredentialsFormat(): Promise<(string | LdpVc | undefined)[]> {
 	const credentials = await getCredentialsPreference();
-	if (!credentials) return;
-	return credentials.map((credential) => credential.sdJwt);
+	if (!credentials) return [];
+	return credentials.map((credential) => {
+		if (credential.type === 'ldp_vc') {
+			return credential.ldpVc;
+		} else if (credential.type === 'sdjwt') {
+			return credential.sdJwt;
+		}
+	});
 }
 
 export async function removeCredentialPreference(id: number) {
