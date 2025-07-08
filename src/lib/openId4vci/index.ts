@@ -51,7 +51,8 @@ export const askCredential = async (
 		code,
 		credential_parameters,
 		code_verifier,
-		redirect_uri: window.location.protocol + '//' + '/finalize-authentication'
+		redirect_uri:
+			window.location.protocol + '//' + window.location.host + '/finalize-authentication'
 	};
 	const keys = JSON.parse(call_token_and_credential_keys);
 	const userKeys = await getKeys();
