@@ -18,6 +18,7 @@
 
 	let isCredentialVerified: boolean = false;
 	let serviceResponse: CredentialResult;
+	let isOpen = true;
 
 	onMount(() => {
 		if (code) {
@@ -55,7 +56,7 @@
 			content.scrollToTop();
 		}
 		setTimeout(async () => {
-			if (!serviceResponse) return;
+			if (!serviceResponse) return (isOpen = false);
 			let id: number;
 			if (serviceResponse.type === 'sdjwt') {
 				const dsdjwt = await decodeSdJwt(serviceResponse.credentials[0].credential);
@@ -87,10 +88,11 @@
 				});
 				id = c.id;
 			} else {
-				return;
+				return (isOpen = false);
 			}
-			// await addActivity({ at: dayjs().unix(), id, type: 'credential' });
-
+			
+			await addActivity({ at: dayjs().unix(), id, type: 'credential' });
+			isOpen = false;
 			if (isWeb) {
 				return window.parent.postMessage({
 					type: 'credential',
