@@ -43,15 +43,14 @@ export type Keys = {
 	client_id: string;
 };
 
-const redirect_uri = isWeb
-	? window.location.protocol + '//' + window.location.host + '/finalize-authentication'
-	: 'didroom-wallet://finalize-authentication';
-
 export const askCredential = async (
 	code: string,
 	credential_parameters: CredentialParameters,
 	code_verifier: string
 ): Promise<CredentialResult> => {
+	const redirect_uri = isWeb
+		? window.location.protocol + '//' + window.location.host + '/finalize-authentication'
+		: 'didroom-wallet://finalize-authentication';
 	const data = {
 		code,
 		credential_parameters,
@@ -101,6 +100,9 @@ export const holderQrToWellKnown = async (qr: Service) => {
 };
 
 export const callPar = async (data: { credential_parameters: CredentialParameters }) => {
+	const redirect_uri = isWeb
+		? window.location.protocol + '//' + window.location.host + '/finalize-authentication'
+		: 'didroom-wallet://finalize-authentication';
 	const keys = JSON.parse(call_par_keys);
 	const userKeys = await getKeys();
 	keys.keyring = userKeys.keyring;
