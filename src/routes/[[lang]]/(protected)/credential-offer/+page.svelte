@@ -6,14 +6,30 @@
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
 	import { goto } from '$lib/i18n'
+	import { onMount } from 'svelte';
 
 	export let data;
 	const { wn, authorizeUrl, feedbackData } = data;
-	window.addEventListener('message', async function (event) {
-		if (event.data.type === 'credential') {
-			await goto(`/${event.data.id}/credential-detail`);
-		}
+
+	let navigationTarget: string
+	
+	onMount(() => {
+		const handleMessage = async (event: MessageEvent) => {
+			if (event.data && event.data.type === 'credential') {
+				window.removeEventListener('message', handleMessage);
+				navigationTarget = `/${event.data.id}/credential-detail`
+			}
+		};
+		window.addEventListener('message', handleMessage);
+		return () => {
+			window.removeEventListener('message', handleMessage);
+		};
 	});
+
+	$: if (navigationTarget) {
+		goto(navigationTarget);
+	}
+
 
 	let shouldContinue = false;
 
