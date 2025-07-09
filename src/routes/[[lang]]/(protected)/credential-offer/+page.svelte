@@ -8,6 +8,7 @@
 	import { goto } from '$lib/i18n';
 	import { onMount } from 'svelte';
 	import { Capacitor } from '@capacitor/core';
+	import { isWeb } from '$lib/utils/index';
 
 	export let data;
 	const { wn, authorizeUrl, feedbackData } = data;
@@ -15,9 +16,10 @@
 	let navigationTarget: string;
 
 	onMount(() => {
-		if (isIos&&authorizeUrl) {
+		if (isIos && authorizeUrl) {
 			window.open(authorizeUrl, '_system');
 		}
+		if (!isWeb) return;
 		const handleMessage = async (event: MessageEvent) => {
 			if (event.data && event.data.type === 'credential') {
 				window.removeEventListener('message', handleMessage);
@@ -29,9 +31,7 @@
 			window.removeEventListener('message', handleMessage);
 		};
 	});
-
 	const isIos = Capacitor.getPlatform() === 'ios';
-
 
 	$: if (navigationTarget) {
 		goto(navigationTarget);
