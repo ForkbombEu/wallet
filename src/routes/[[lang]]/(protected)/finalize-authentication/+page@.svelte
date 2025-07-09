@@ -106,7 +106,7 @@
 </script>
 
 <ion-content fullscreen class="ion-padding" bind:this={content}>
-	<ion-modal is-open={true} backdrop-dismiss={false} transition:fly class="visible">
+	<ion-modal is-open={isOpen} backdrop-dismiss={false} transition:fly class="visible">
 		<ion-content class="ion-padding">
 			<div class="flex h-full flex-col justify-around">
 				<div>
