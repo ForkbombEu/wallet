@@ -43,20 +43,20 @@ export type Keys = {
 	client_id: string;
 };
 
+const redirect_uri = isWeb
+	? window.location.protocol + '//' + window.location.host + '/finalize-authentication'
+	: 'didroom-wallet://finalize-authentication';
+
 export const askCredential = async (
 	code: string,
 	credential_parameters: CredentialParameters,
 	code_verifier: string
 ): Promise<CredentialResult> => {
-	const redirect_uri = isWeb ?
-		window.location.protocol + '//' + window.location.host + '/finalize-authentication'
-		: 'didroom-wallet://finalize-authentication';
 	const data = {
 		code,
 		credential_parameters,
 		code_verifier,
-		redirect_uri:
-			redirect_uri
+		redirect_uri: redirect_uri
 	};
 	const keys = JSON.parse(call_token_and_credential_keys);
 	const userKeys = await getKeys();
@@ -105,8 +105,7 @@ export const callPar = async (data: { credential_parameters: CredentialParameter
 	const userKeys = await getKeys();
 	keys.keyring = userKeys.keyring;
 	keys.client_id = userKeys.client_id;
-	keys.redirect_uri =
-		window.location.protocol + '//' + window.location.host + '/finalize-authentication';
+	keys.redirect_uri = redirect_uri;
 	const r = await slangroom.execute(call_par, { data, keys });
 	const result = r.result as CallParResult;
 	const authorizeUrl = `${result.authorization_endpoint}?client_id=${result.client_id}&request_uri=${result.request_uri}`;
@@ -127,7 +126,8 @@ export const decodeSdJwt = async (sdJwt: string) => {
 	return decoded.result as DecodedSDJWT;
 };
 
-export const decodeLdpVc = async (ldpVc: LdpVc) => Array.from(Object.entries(ldpVc.credentialSubject))
+export const decodeLdpVc = async (ldpVc: LdpVc) =>
+	Array.from(Object.entries(ldpVc.credentialSubject));
 
 export const decodeFormat = async (credential: Credential) => {
 	if (credential.type === 'sdjwt') {

@@ -63,10 +63,18 @@ export async function setCredentialPreference(
 ): Promise<Credential> {
 	const credentials = await getCredentialsPreference();
 	const id = await progressiveId();
-	const c = {
-		...credential,
-		id
-	};
+	let c: any;
+	if (credential.type === 'ldp_vc') {
+		c = {
+			...credential,
+			id
+		};
+	} else {
+		c = {
+			...credential,
+			id
+		};
+	}
 	if (credentials) {
 		credentials.push(c);
 		await setStructuredPreferences(CREDENTIALS_PREFERENCES_KEY, credentials, true);
@@ -86,7 +94,7 @@ export async function getCredentialsbySdjwts(sdjwts: string[]): Promise<Credenti
 	if (!credentials) return [];
 	const sdjwtsWithoutDisclosures = sdjwts.map((sdjwt) => sdjwt.split('~')[0]);
 	return credentials.filter((credential) =>
-		sdjwtsWithoutDisclosures.includes(credential.sdJwt.split('~')[0])
+		credential.type === "sdjwt" && sdjwtsWithoutDisclosures.includes(credential.sdJwt.split('~')[0])
 	);
 }
 
