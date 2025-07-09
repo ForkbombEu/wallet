@@ -1,13 +1,14 @@
 <script lang="ts">
 	import Modal from '$lib/components/molecules/Modal.svelte';
 	import { goto, m } from '$lib/i18n';
-	export let data: any;
-	const { credential } = data;
 	import { decodeSdJwt } from '$lib/openId4vci';
 	import { removeCredentialPreference } from '$lib/preferences/credentials';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
+
+	export let data: any;
+	const { credential } = data;
 
 	const isNestedDisclosure = (disclosure: Array<string | Record<string, string>>) => {
 		return typeof disclosure[2] === 'object';

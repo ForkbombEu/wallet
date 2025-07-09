@@ -8,7 +8,7 @@
 	import '../theme/custom.css';
 	import '../theme/variables.css';
 
-	import { i18n, r } from '$lib/i18n';
+	import { goto, i18n, r } from '$lib/i18n';
 	import { ParaglideJS } from '@inlang/paraglide-js-adapter-sveltekit';
 	import HiddenLogsButton from '$lib/components/molecules/HiddenLogsButton.svelte';
 	import { log } from '$lib/log';
@@ -101,7 +101,14 @@
 		);
 
 		App.addListener('appUrlOpen', async (data) => {
-			await gotoQrResult(data.url);
+			if (!data.url) return;
+			if (data.url.includes('openid-credential-offer')) {
+				await gotoQrResult(data.url);
+			}
+			if (data.url.includes('didroom-wallet')) {
+				const path = data.url.split('didroom-wallet://')[1];
+				await goto(path);
+			}
 		});
 	});
 	onDestroy(() => {

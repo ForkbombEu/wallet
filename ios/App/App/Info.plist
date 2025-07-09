@@ -59,6 +59,7 @@
 			<array>
 				<string>didroom4vp</string>
 				<string>openid-credential-offer</string>
+				<string>didroom-wallet</string>
 			</array>
 		</dict>
 	</array>

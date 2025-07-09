@@ -18,6 +18,7 @@ import type { Logo } from '$lib/utils/types';
 import { debugDismiss } from '$lib/components/organisms/debug/debug';
 import type { LdpVc } from '$lib/preferences/credentials';
 import type { Credential } from '$lib/preferences/credentials';
+import { isWeb } from '$lib/utils';
 
 const slangroom = new Slangroom([http, helpers, zencode]);
 
@@ -47,12 +48,15 @@ export const askCredential = async (
 	credential_parameters: CredentialParameters,
 	code_verifier: string
 ): Promise<CredentialResult> => {
+	const redirect_uri = isWeb ?
+		window.location.protocol + '//' + window.location.host + '/finalize-authentication'
+		: 'didroom-wallet://finalize-authentication';
 	const data = {
 		code,
 		credential_parameters,
 		code_verifier,
 		redirect_uri:
-			window.location.protocol + '//' + window.location.host + '/finalize-authentication'
+			redirect_uri
 	};
 	const keys = JSON.parse(call_token_and_credential_keys);
 	const userKeys = await getKeys();

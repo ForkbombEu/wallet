@@ -1,6 +1,7 @@
 import { Directory, Filesystem } from '@capacitor/filesystem';
 import type { Feedback } from './types';
 import { log } from '$lib/log';
+import { Capacitor } from '@capacitor/core';
 
 export function toggleDarkMode() {
 	document.body.classList.toggle('dark');
@@ -37,4 +38,7 @@ export function negativeFeedback(feedback: string, message?: string): Feedback {
 		message
 	};
 }
+
+export const isWeb = Capacitor.getPlatform() == 'web';
+
 

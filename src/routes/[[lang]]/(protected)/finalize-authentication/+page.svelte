@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { thumbsUpOutline } from 'ionicons/icons';
-	import { m } from '$lib/i18n';
+	import { goto, m } from '$lib/i18n';
 	import { setCredentialPreference } from '$lib/preferences/credentials';
 	import { askCredential, decodeSdJwt, type CredentialResult } from '$lib/openId4vci';
 	import { credentialOfferStore } from '$lib/credentialOfferStore';
@@ -10,6 +10,7 @@
 	import dayjs from 'dayjs';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import { onMount } from 'svelte';
+	import { isWeb } from '$lib/utils/index.js';
 
 	export let data;
 	const { code, wn, parResult } = data;
@@ -41,7 +42,7 @@
 		if (!wn || !codeVerifier || !code) return;
 		try {
 			serviceResponse = await askCredential(code, wn.credential_parameters, codeVerifier);
-			if (!serviceResponse) return
+			if (!serviceResponse) return;
 			isCredentialVerified = true;
 		} catch (e: unknown) {
 			isCredentialVerified = false;
@@ -88,16 +89,16 @@
 			} else {
 				return;
 			}
-			await addActivity({ at: dayjs().unix(), id, type: 'credential' });
+			// await addActivity({ at: dayjs().unix(), id, type: 'credential' });
 
-			window.parent.postMessage(
-				{
+			if (isWeb) {
+				return window.parent.postMessage({
 					type: 'credential',
 					action: 'finalized',
 					id: id
-				}
-			);
-			// await goto(`/${id}/credential-detail`);
+				});
+			}
+			return await goto(`/${id}/credential-detail`);
 		}, 2000);
 	};
 </script>
