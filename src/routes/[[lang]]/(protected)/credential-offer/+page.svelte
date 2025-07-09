@@ -7,6 +7,7 @@
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
 	import { goto } from '$lib/i18n';
 	import { onMount } from 'svelte';
+	import { Capacitor } from '@capacitor/core';
 
 	export let data;
 	const { wn, authorizeUrl, feedbackData } = data;
@@ -14,6 +15,9 @@
 	let navigationTarget: string;
 
 	onMount(() => {
+		if (isIos&&authorizeUrl) {
+			window.open(authorizeUrl, '_system');
+		}
 		const handleMessage = async (event: MessageEvent) => {
 			if (event.data && event.data.type === 'credential') {
 				window.removeEventListener('message', handleMessage);
@@ -25,6 +29,9 @@
 			window.removeEventListener('message', handleMessage);
 		};
 	});
+
+	const isIos = Capacitor.getPlatform() === 'ios';
+
 
 	$: if (navigationTarget) {
 		goto(navigationTarget);

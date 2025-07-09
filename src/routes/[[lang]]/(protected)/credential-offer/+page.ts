@@ -9,6 +9,14 @@ import { get } from 'svelte/store';
 export const load = async () => {
 	const credentialOffer = get(credentialOfferStore);
 	let feedbackData: Feedback | undefined;
+
+	if (!credentialOffer) {
+		feedbackData = {
+			type: 'error',
+			feedback:'no credential offer found'
+		};
+		return { feedbackData };
+	}
 	let wn: QrToWellKnown | undefined;
 	try {
 		wn = await holderQrToWellKnown(credentialOffer);
@@ -42,7 +50,6 @@ export const load = async () => {
 
 	await setCredentialAuthenticationPreference({
 		wn,
-		authorizeUrl,
 		parResult
 	});
 

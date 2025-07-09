@@ -8,7 +8,6 @@ export const CREDENTIALS_PREFERENCES_KEY = 'credentials-authentication';
 
 export type CredentialAuthentication = {
     wn: QrToWellKnown;
-    authorizeUrl: string;
     parResult: CallParResult;
     timestamp: number;
 };
