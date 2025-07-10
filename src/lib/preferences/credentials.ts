@@ -23,32 +23,33 @@ export type LdpVc = {
 };
 
 export type Credential = // soon will be implemented also mdoc
-	| {
-			id: number;
-			type: 'ldp_vc';
-			configuration_ids: string[];
-			ldpVc: LdpVc;
-			issuer: string;
-			issuerUrl: string;
-			display_name: string;
-			description: string;
-			expirationDate: number;
-			verified: boolean;
-			logo: Logo;
-	  }
-	| {
-			id: number;
-			type: 'sdjwt';
-			configuration_ids: string[];
-			sdJwt: string;
-			issuer: string;
-			issuerUrl: string;
-			display_name: string;
-			description: string;
-			expirationDate: number;
-			verified: boolean;
-			logo: Logo;
-	  };
+
+		| {
+				id: number;
+				type: 'ldp_vc';
+				configuration_ids: string[];
+				ldpVc: LdpVc;
+				issuer: string;
+				issuerUrl: string;
+				display_name: string;
+				description: string;
+				expirationDate: number;
+				verified: boolean;
+				logo: Logo;
+		  }
+		| {
+				id: number;
+				type: 'sdjwt';
+				configuration_ids: string[];
+				sdJwt: string;
+				issuer: string;
+				issuerUrl: string;
+				display_name: string;
+				description: string;
+				expirationDate: number;
+				verified: boolean;
+				logo: Logo;
+		  };
 
 const progressiveId = async () => {
 	const preferences = await getCredentialsPreference();
@@ -93,21 +94,47 @@ export async function getCredentialsbySdjwts(sdjwts: string[]): Promise<Credenti
 	const credentials = await getCredentialsPreference();
 	if (!credentials) return [];
 	const sdjwtsWithoutDisclosures = sdjwts.map((sdjwt) => sdjwt.split('~')[0]);
-	return credentials.filter((credential) =>
-		credential.type === "sdjwt" && sdjwtsWithoutDisclosures.includes(credential.sdJwt.split('~')[0])
+	return credentials.filter(
+		(credential) =>
+			credential.type === 'sdjwt' &&
+			sdjwtsWithoutDisclosures.includes(credential.sdJwt.split('~')[0])
 	);
 }
 
-export async function getCredentialsFormat(): Promise<(string | LdpVc | undefined)[]> {
+export async function getCredentialsbyByCredentialSubject(credentialSubject: string[]): Promise<Credential[]> {
 	const credentials = await getCredentialsPreference();
 	if (!credentials) return [];
-	return credentials.map((credential) => {
+	return credentials.filter((credential) => {
 		if (credential.type === 'ldp_vc') {
-			return credential.ldpVc;
+			credentialSubject.forEach((cs) => {
+				if (Object.keys(credential.ldpVc.credentialSubject).includes(cs)) {
+					return true;
+				}
+			});
+			return false;
 		} else if (credential.type === 'sdjwt') {
-			return credential.sdJwt;
+			// const sdJwtClaims = credential.sdJwt.split('~')[1];
+			// return credentialSubject.some((cs) => sdJwtClaims.includes(cs));
+			return false; // TODO: Implement sdjwt claims filtering
 		}
+		return false;
 	});
+};
+
+export async function getCredentialsFormat(): Promise<{ 'dc+sd-jwt': string[]; ldp_vc: LdpVc[] }> {
+	const credentials = await getCredentialsPreference();
+	if (!credentials) return {} as { 'dc+sd-jwt': string[]; ldp_vc: LdpVc[] };
+	return credentials.reduce(
+		(acc, credential) => {
+			if (credential.type === 'sdjwt') {
+				acc['dc+sd-jwt'].push(credential.sdJwt.split('~')[1]);
+			} else if (credential.type === 'ldp_vc') {
+				acc.ldp_vc[credential.id] = credential.ldpVc;
+			}
+			return acc;
+		},
+		{ 'dc+sd-jwt': [], ldp_vc: [] } as { 'dc+sd-jwt': string[]; ldp_vc: LdpVc[] }
+	);
 }
 
 export async function removeCredentialPreference(id: number) {
