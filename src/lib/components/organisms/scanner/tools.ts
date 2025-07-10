@@ -1,38 +1,53 @@
-import { getCredentialsFormat } from '$lib/preferences/credentials';
-import { z } from 'zod';
+import { getCredentialsFormat, type LdpVc } from '$lib/preferences/credentials';
+import { z, ZodSchema } from 'zod';
 import { Slangroom } from '@slangroom/core';
 import { helpers } from '@slangroom/helpers';
 import { zencode } from '@slangroom/zencode';
 import { pocketbase } from '@slangroom/pocketbase';
 import { http } from '@slangroom/http';
-import verQrToInfo from '$lib/mobile_zencode/wallet/ver_qr_to_info.zen?raw';
-import verQrToInfoKeys from '$lib/mobile_zencode/wallet/ver_qr_to_info.keys.json?raw';
+import verQrToInfo from '$lib/mobile_zencode/wallet/opneid4vp_qr_to_info.zen?raw';
+import verQrToInfoKeys from '$lib/mobile_zencode/wallet/opneid4vp_qr_to_info.keys.json?raw';
 import { log } from '$lib/log';
-import { backendUri } from '$lib/backendUri';
 import { verificationStore } from '$lib/verificationStore';
 import { credentialOfferStore } from '$lib/credentialOfferStore';
 import type { Feedback } from '$lib/utils/types';
 import { m, goto } from '$lib/i18n';
 import { verificationResultsStore } from '$lib/verificationResultsStore';
+import { getDIDPreference } from '$lib/preferences/did';
+import { getKeypairPreference } from '$lib/preferences/keypair';
 
 const slangroom = new Slangroom(helpers, zencode, pocketbase, http);
 
+// export type QrToInfoResults = {
+// 	info: Info;
+// 	post_without_vp: PostWithoutVp;
+// 	vps: string[];
+// };
+
 export type QrToInfoResults = {
-	info: Info;
-	post_without_vp: PostWithoutVp;
-	vps: string[];
+	post_url: string;
+	vps: Array<{
+		card: LdpVc;
+		presentation: {
+			'@context': Array<string>;
+			holder: string;
+			id: string;
+			proof: {
+				challenge: string;
+				created: string;
+				cryptosuite: string;
+				domain: string;
+				proofPurpose: string;
+				proofValue: string;
+				type: string;
+				verificationMethod: string;
+			};
+			type: Array<string>;
+			verifiableCredential: Array<LdpVc>;
+		};
+	}>;
 };
 
-export type Info = {
-	asked_claims: AskedClaims;
-	rp_name: string;
-	verifier_name: string;
-	avatar: {
-		collection: string;
-		fileName: string;
-		id: string;
-	};
-};
 
 export type AskedClaims = {
 	properties: Properties;
@@ -54,21 +69,23 @@ export type Body = {
 	vp: string;
 };
 
-export const credentialSchema = z.object({
-	rp: z.string().url(),
-	t: z.string(),
-	m: z.literal('f'),
-	exp: z.number(),
-	ru: z.string().url(),
-	sid: z.string().length(5),
-	id: z.string()
+export const verificationQRSchema = z.object({
+	request_uri_method: z.enum(['get', 'post']).optional(),
+	client_id: z.string(),
+	request_uri: z.string().url()
 });
+
+type VerificationParaims = {
+	request_uri_method: string;
+	client_id: string;
+	request_uri: string;
+};
 
 export const serviceSchema = z.object({
 	credential_configuration_ids: z.array(z.string()),
 	credential_issuer: z.string().url()
 });
-export type Credential = z.infer<typeof credentialSchema>;
+export type Credential = z.infer<typeof verificationQRSchema>;
 export type Service = z.infer<typeof serviceSchema>;
 export type Data =
 	| {
@@ -94,18 +111,29 @@ export const verifyCredential = async (postWVP: PostWithoutVp) =>
 export const getCredentialQrInfo = async (qrJSON: Credential) => {
 	const myCredentials = await getCredentialsFormat();
 	if (!myCredentials) throw new Error('No credentials');
+	const did = await getDIDPreference();
+	const keyring = await getKeypairPreference();
+	// eliminate null values from ldp_vc
+	const ldp_vc = myCredentials.ldp_vc.filter((vc) => vc !== null);
 	const data = {
 		...qrJSON,
-		credential_array: myCredentials,
-		pb_url: backendUri
+		credentials: {
+			...myCredentials,
+			ldp_vc: ldp_vc
+		},
+		did: did.didDocument.id,
+		keyring: keyring?.keyring
 	};
-	log(JSON.stringify(data));
 	try {
-		const res = await slangroom.execute(verQrToInfo, { data, keys: JSON.parse(verQrToInfoKeys) });
-		log(JSON.stringify(res));
+		const res = await slangroom
+			.execute(verQrToInfo, { data, keys: JSON.parse(verQrToInfoKeys) })
+			.catch((err) => {
+				throw new Error(`Failed to execute verQrToInfo: ${err}`);
+			});
 		return res.result as QrToInfoResults;
 	} catch (err) {
 		log(JSON.stringify(err));
+		console.error('Error executing zencode:', err);
 		throw new Error(`error executing zencode: ${err}`);
 	}
 };
@@ -158,39 +186,40 @@ const infoFromVerificationData = async (
 	}
 };
 
-const extractUrlParams = (
-	params: { [key: string]: 'string' | 'number' | 'array' },
+const fromSearchQueryToJSON = <T extends Record<string, any>>(
 	urlSearchParams: URLSearchParams
-) =>
-	Object.entries(params).reduce(
-		(result, [key, type]) => {
-			const value = urlSearchParams.get(key)?.trim();
-			let parsedValue;
-
-			switch (type) {
-				case 'array':
-					parsedValue = value ? [value] : [];
-					break;
-				case 'number':
-					parsedValue = value ? Number(value) : undefined;
-					break;
-				default:
-					parsedValue = value;
-			}
-
-			return {
-				...result,
-				[key]: parsedValue
-			};
-		},
-		{} as Record<string, any>
-	);
-
-const parseParams = (urlParams: URLSearchParams, params: any, schema: any) => {
-	return schema.safeParse(extractUrlParams(params, urlParams));
+): T => {
+	const result: Record<string, any> = {};
+	for (const [key, value] of urlSearchParams.entries()) {
+		const defaultValue = ({} as T)[key];
+		let parsedValue;
+		if (Array.isArray(defaultValue)) {
+			parsedValue = value !== undefined ? [value] : [];
+		} else if (typeof defaultValue === 'number') {
+			parsedValue = value !== undefined ? Number(value) : 0;
+		} else {
+			parsedValue = value !== undefined ? value : '';
+		}
+		result[key] = parsedValue;
+	}
+	return result as T;
 };
 
-const handleVerificationSuccess = async (verificationData: any) => {
+const parseParams = <T extends Record<string, any>>(
+	urlParams: URLSearchParams,
+	schema: ZodSchema
+) =>
+	schema.safeParse(fromSearchQueryToJSON<T>(urlParams)) as
+		| {
+				success: true;
+				data: T;
+		  }
+		| {
+				success: false;
+				error: string;
+		  };
+
+const handleVerificationSuccess = async (verificationData: Credential) => {
 	const info = await infoFromVerificationData(verificationData);
 	if (info.success) {
 		verificationStore.set(info.info);
@@ -206,46 +235,32 @@ const handleVerificationSuccess = async (verificationData: any) => {
 	}
 };
 
-const handleServiceSuccess = async (serviceData: any) => {
+const handleServiceSuccess = async (serviceData: Service) => {
 	credentialOfferStore.set(serviceData);
 	return await goto('/credential-offer');
 };
 
 export const gotoQrResult = async (url: string) => {
-	const urlParams = new URLSearchParams(url.split('://?')[1]);
-
-	const verificationParams = {
-		rp: 'string',
-		t: 'string',
-		m: 'string',
-		exp: 'number',
-		ru: 'string',
-		sid: 'string',
-		id: 'string'
-	};
-
-	const parsedVerification = parseParams(urlParams, verificationParams, credentialSchema);
+	let urlParams = new URLSearchParams(url.split('://?')[1]);
+	if (urlParams.size < 1) {
+		urlParams = new URLSearchParams(url.split('://')[1]);
+	}
+	const parsedVerification = parseParams<Credential>(urlParams, verificationQRSchema);
 	if (parsedVerification.success) {
 		return handleVerificationSuccess(parsedVerification.data);
 	}
 
-	const serviceParams = {
-		credential_configuration_ids: 'array',
-		credential_issuer: 'string'
-	};
-
-	const legacyParsedService = parseParams(urlParams, serviceParams, serviceSchema);
+	const legacyParsedService = parseParams<Service>(urlParams, serviceSchema);
 	if (legacyParsedService.success) {
 		return handleServiceSuccess(legacyParsedService.data);
 	}
 
-	const parsedServiceUri = extractUrlParams(
-		{ credential_offer_uri: 'string' },
+	const parsedServiceUri = fromSearchQueryToJSON<{ credential_offer_uri: 'string' }>(
 		urlParams
 	).credential_offer_uri;
 
 	if (parsedServiceUri) {
-		const service = await fetch(parsedServiceUri);
+		const service = await fetch(parsedServiceUri as string);
 		const parsedService = serviceSchema.safeParse(await service.json());
 		if (parsedService.success) {
 			return handleServiceSuccess(parsedService.data);
@@ -253,7 +268,9 @@ export const gotoQrResult = async (url: string) => {
 	}
 
 	const parsedService = serviceSchema.safeParse(
-		JSON.parse(extractUrlParams({ credential_offer: 'string' }, urlParams).credential_offer)
+		JSON.parse(
+			fromSearchQueryToJSON<{ credential_offer: string }>(urlParams).credential_offer || '{}'
+		)
 	);
 	if (parsedService.success) {
 		return handleServiceSuccess(parsedService.data);
