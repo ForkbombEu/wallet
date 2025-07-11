@@ -1,11 +1,7 @@
 <script lang="ts">
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 	import { m } from '$lib/i18n';
-	import { decodeSdJwt } from '$lib/openId4vci';
-	import { flip } from 'svelte/animate';
-	import { sineInOut } from 'svelte/easing';
 	import { slide } from 'svelte/transition';
-	import type { Credential } from '$lib/preferences/credentials';
 	import type { Feedback } from '$lib/utils/types.js';
 	import { verificationStore } from '$lib/verificationStore.js';
 	import dayjs from 'dayjs';
@@ -16,11 +12,7 @@
 	import { verificationResultsStore } from '$lib/verificationResultsStore.js';
 	import { goto } from '$app/navigation';
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
-	import {
-		debugDismiss,
-		debugPopup,
-		debugPopupContent
-	} from '$lib/components/organisms/debug/debug';
+	import { debugDismiss } from '$lib/components/organisms/debug/debug';
 	import { onMount } from 'svelte';
 
 	type VerificationResponse = {
@@ -51,32 +43,28 @@
 	export let data;
 	const { credentials } = data;
 
-	let selectedCredential: string | undefined =
-		credentials.length === 1 ? credentials[0].sdJwt : undefined;
+	let selectedCredential: number;
 
 	let verificationResponse: VerificationResponse;
 	let scrollBox: HTMLDivElement;
 
-	const { info, post_without_vp } = $verificationStore;
+	const { vps, post_url } = $verificationStore;
 	const verificationFailed = 'verification failed';
 
-	const selectCredential = (credential: string | undefined) => {
+	const selectCredential = (credential: number) => {
 		selectedCredential = credential;
-		getSortedCredentials();
-		scrollBox.scrollIntoView({
-			behavior: 'smooth',
-			block: 'start'
-		});
+		// getSortedCredentials();
+		// scrollBox.scrollIntoView({
+		// 	behavior: 'smooth',
+		// 	block: 'start'
+		// });
 	};
 
 	const verify = async () => {
 		try {
 			verificationResponse = (await verifyCredential({
-				...post_without_vp,
-				body: {
-					...post_without_vp.body,
-					vp: selectedCredential!
-				}
+				url: post_url,
+				body: vps[selectedCredential].presentation
 			})) as VerificationResponse;
 			const success = verificationResponse.result.result.result.server_response.status === '200';
 			await debugDismiss();
@@ -93,40 +81,40 @@
 					})
 				);
 			}
-			verificationResultsStore.set({
-				feedback,
-				date,
-				id: post_without_vp.body.id,
-				success
-			});
-			await addVerificationActivity(post_without_vp.body.id, info, success);
+			// verificationResultsStore.set({
+			// 	feedback,
+			// 	date,
+			// 	id: post_without_vp.body.id,
+			// 	success
+			// });
+			// await addVerificationActivity(post_without_vp.body.id, info, success);
 			log(JSON.stringify(verificationResponse));
 			return await goto('/verification/results');
 		} catch (e) {
-			verificationResultsStore.set({
-				feedback: negativeFeedback(verificationFailed, JSON.stringify(e)),
-				date: dayjs().toString(),
-				id: post_without_vp.body.id,
-				success: false
-			});
-			log(JSON.stringify(e));
-			await addVerificationActivity(post_without_vp.body.id, info, false);
+			// verificationResultsStore.set({
+			// 	feedback: negativeFeedback(verificationFailed, JSON.stringify(e)),
+			// 	date: dayjs().toString(),
+			// 	id: post_without_vp.body.id,
+			// 	success: false
+			// });
+			// log(JSON.stringify(e));
+			// await addVerificationActivity(post_without_vp.body.id, info, false);
 			return await goto('/verification/results');
 		}
 	};
 
-	let sortedCredentials: Credential[];
-	const getSortedCredentials = () => {
-		if (selectedCredential) {
-			sortedCredentials = [
-				credentials.find((c) => c.sdJwt === selectedCredential),
-				...credentials.filter((c) => c.sdJwt !== selectedCredential)
-			] as Credential[];
-			return 
-		}
-		sortedCredentials = credentials;
-	};
-	onMount(getSortedCredentials);
+	// let sortedCredentials: Credential[];
+	// const getSortedCredentials = () => {
+	// 	if (selectedCredential) {
+	// 		sortedCredentials = [
+	// 			credentials.find((c) => c.sdJwt === selectedCredential),
+	// 			...credentials.filter((c) => c.sdJwt !== selectedCredential)
+	// 		] as Credential[];
+	// 		return;
+	// 	}
+	// 	sortedCredentials = credentials;
+	// };
+	// onMount(getSortedCredentials);
 </script>
 
 <HeaderWithBackButton>
@@ -141,39 +129,33 @@
 				description={m.novel_elegant_capybara_twist({ length: credentials.length })}
 			/>
 			<d-vertical-stack>
-				{#if sortedCredentials}
-					{#each sortedCredentials as credential, index (credential.sdJwt)}
-						<d-verification-card
-							class:opacity-60={selectedCredential && selectedCredential !== credential.sdJwt}
-							class="transition-opacity duration-500"
-							selected={selectedCredential === credential.sdJwt}
-							relying-party={credential.issuerUrl}
-							verifier={credential.issuer}
-							logo={credential.logo.uri}
-							flow={credential.display_name}
-							on:click={() => selectCredential(credential.sdJwt)}
-							aria-hidden
-							animate:flip={{ duration: 400, easing: sineInOut }}
-						>
-							{#await decodeSdJwt(credential.sdJwt) then sdJwt}
+				{#each credentials as credential, index}
+					<d-verification-card
+						class:opacity-60={selectedCredential && selectedCredential !== index}
+						class="transition-opacity duration-500"
+						selected={selectedCredential === index}
+						relying-party={credential.issuer}
+						verifier={credential.issuer}
+						flow={credential.type}
+						on:click={() => selectCredential(index)}
+						aria-hidden
+					>
+						<!-- {#await decodeSdJwt(credential.sdJwt) then sdJwt}
 								{#each sdJwt.credential.disclosures as disclosure}
 									<d-definition title={disclosure[1]} definition={disclosure[2]} dotted
 									></d-definition>
 								{/each}
-							{/await}
-						</d-verification-card>
-					{/each}
-				{/if}
+							{/await} -->
+					</d-verification-card>
+				{/each}
 				<div class="pb-56" />
 			</d-vertical-stack>
 		</d-vertical-stack>
 	</div>
-	{#if selectedCredential}
+	{#if selectedCredential !== undefined}
 		<div class="ion-padding fixed bottom-0 h-40 w-full bg-surface" transition:slide>
 			<d-vertical-stack>
-				<d-button on:click={verify} aria-hidden expand color="accent" disabled={!selectedCredential}
-					>{m.Verify()}</d-button
-				>
+				<d-button on:click={verify} aria-hidden expand color="accent">{m.Verify()}</d-button>
 				<d-button expand aria-hidden>{m.Decline()}</d-button>
 			</d-vertical-stack>
 		</div>

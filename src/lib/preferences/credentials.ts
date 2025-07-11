@@ -6,18 +6,50 @@ import type { Logo } from '$lib/utils/types';
 
 export const CREDENTIALS_PREFERENCES_KEY = 'credentials';
 
-export type Credential = {
-	id: number;
-	configuration_ids: string[];
-	sdJwt: string;
+export type LdpVc = {
+	'@context': Array<string>;
+	credentialSubject: Record<string, unknown>;
 	issuer: string;
-	issuerUrl: string;
-	display_name: string;
-	description: string;
-	expirationDate: number;
-	verified: boolean;
-	logo: Logo;
+	proof: {
+		created: string;
+		cryptosuite: string;
+		proofPurpose: string;
+		proofValue: string;
+		type: string;
+		verificationMethod: string;
+	};
+	type: Array<string>;
+	validUntil: string;
 };
+
+export type Credential = // soon will be implemented also mdoc
+
+		| {
+				id: number;
+				type: 'ldp_vc';
+				configuration_ids: string[];
+				ldpVc: LdpVc;
+				issuer: string;
+				issuerUrl: string;
+				display_name: string;
+				description: string;
+				expirationDate: number;
+				verified: boolean;
+				logo: Logo;
+		  }
+		| {
+				id: number;
+				type: 'sdjwt';
+				configuration_ids: string[];
+				sdJwt: string;
+				issuer: string;
+				issuerUrl: string;
+				display_name: string;
+				description: string;
+				expirationDate: number;
+				verified: boolean;
+				logo: Logo;
+		  };
 
 const progressiveId = async () => {
 	const preferences = await getCredentialsPreference();
@@ -32,10 +64,18 @@ export async function setCredentialPreference(
 ): Promise<Credential> {
 	const credentials = await getCredentialsPreference();
 	const id = await progressiveId();
-	const c = {
-		...credential,
-		id
-	};
+	let c: any;
+	if (credential.type === 'ldp_vc') {
+		c = {
+			...credential,
+			id
+		};
+	} else {
+		c = {
+			...credential,
+			id
+		};
+	}
 	if (credentials) {
 		credentials.push(c);
 		await setStructuredPreferences(CREDENTIALS_PREFERENCES_KEY, credentials, true);
@@ -54,15 +94,47 @@ export async function getCredentialsbySdjwts(sdjwts: string[]): Promise<Credenti
 	const credentials = await getCredentialsPreference();
 	if (!credentials) return [];
 	const sdjwtsWithoutDisclosures = sdjwts.map((sdjwt) => sdjwt.split('~')[0]);
-	return credentials.filter((credential) =>
-		sdjwtsWithoutDisclosures.includes(credential.sdJwt.split('~')[0])
+	return credentials.filter(
+		(credential) =>
+			credential.type === 'sdjwt' &&
+			sdjwtsWithoutDisclosures.includes(credential.sdJwt.split('~')[0])
 	);
 }
 
-export async function getCredentialsSdjwt(): Promise<string[] | undefined> {
+export async function getCredentialsbyByCredentialSubject(credentialSubject: string[]): Promise<Credential[]> {
 	const credentials = await getCredentialsPreference();
-	if (!credentials) return;
-	return credentials.map((credential) => credential.sdJwt);
+	if (!credentials) return [];
+	return credentials.filter((credential) => {
+		if (credential.type === 'ldp_vc') {
+			credentialSubject.forEach((cs) => {
+				if (Object.keys(credential.ldpVc.credentialSubject).includes(cs)) {
+					return true;
+				}
+			});
+			return false;
+		} else if (credential.type === 'sdjwt') {
+			// const sdJwtClaims = credential.sdJwt.split('~')[1];
+			// return credentialSubject.some((cs) => sdJwtClaims.includes(cs));
+			return false; // TODO: Implement sdjwt claims filtering
+		}
+		return false;
+	});
+};
+
+export async function getCredentialsFormat(): Promise<{ 'dc+sd-jwt': string[]; ldp_vc: LdpVc[] }> {
+	const credentials = await getCredentialsPreference();
+	if (!credentials) return {} as { 'dc+sd-jwt': string[]; ldp_vc: LdpVc[] };
+	return credentials.reduce(
+		(acc, credential) => {
+			if (credential.type === 'sdjwt') {
+				acc['dc+sd-jwt'].push(credential.sdJwt.split('~')[1]);
+			} else if (credential.type === 'ldp_vc') {
+				acc.ldp_vc[credential.id] = credential.ldpVc;
+			}
+			return acc;
+		},
+		{ 'dc+sd-jwt': [], ldp_vc: [] } as { 'dc+sd-jwt': string[]; ldp_vc: LdpVc[] }
+	);
 }
 
 export async function removeCredentialPreference(id: number) {
