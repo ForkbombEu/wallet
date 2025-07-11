@@ -43,7 +43,7 @@
 	export let data;
 	const { credentials } = data;
 
-	let selectedCredential: number
+	let selectedCredential: number;
 
 	let verificationResponse: VerificationResponse;
 	let scrollBox: HTMLDivElement;
@@ -64,7 +64,7 @@
 		try {
 			verificationResponse = (await verifyCredential({
 				url: post_url,
-				body:vps[selectedCredential].presentation,
+				body: vps[selectedCredential].presentation
 			})) as VerificationResponse;
 			const success = verificationResponse.result.result.result.server_response.status === '200';
 			await debugDismiss();
@@ -129,25 +129,25 @@
 				description={m.novel_elegant_capybara_twist({ length: credentials.length })}
 			/>
 			<d-vertical-stack>
-					{#each credentials as credential, index}
-						<d-verification-card
-							class:opacity-60={selectedCredential && selectedCredential !== index}
-							class="transition-opacity duration-500"
-							selected={selectedCredential === index}
-							relying-party={credential.issuer}
-							verifier={credential.issuer}
-							flow={credential.type}
-							on:click={() => selectCredential(index)}
-							aria-hidden
-						>
-							<!-- {#await decodeSdJwt(credential.sdJwt) then sdJwt}
+				{#each credentials as credential, index}
+					<d-verification-card
+						class:opacity-60={selectedCredential && selectedCredential !== index}
+						class="transition-opacity duration-500"
+						selected={selectedCredential === index}
+						relying-party={credential.issuer}
+						verifier={credential.issuer}
+						flow={credential.type}
+						on:click={() => selectCredential(index)}
+						aria-hidden
+					>
+						<!-- {#await decodeSdJwt(credential.sdJwt) then sdJwt}
 								{#each sdJwt.credential.disclosures as disclosure}
 									<d-definition title={disclosure[1]} definition={disclosure[2]} dotted
 									></d-definition>
 								{/each}
 							{/await} -->
-						</d-verification-card>
-					{/each}
+					</d-verification-card>
+				{/each}
 				<div class="pb-56" />
 			</d-vertical-stack>
 		</d-vertical-stack>
@@ -155,9 +155,7 @@
 	{#if selectedCredential !== undefined}
 		<div class="ion-padding fixed bottom-0 h-40 w-full bg-surface" transition:slide>
 			<d-vertical-stack>
-				<d-button on:click={verify} aria-hidden expand color="accent" disabled={!selectedCredential}
-					>{m.Verify()}</d-button
-				>
+				<d-button on:click={verify} aria-hidden expand color="accent">{m.Verify()}</d-button>
 				<d-button expand aria-hidden>{m.Decline()}</d-button>
 			</d-vertical-stack>
 		</div>
