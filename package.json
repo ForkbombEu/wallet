@@ -94,7 +94,7 @@
 		"@ionic/core": "^7.8.6",
 		"@slangroom/core": "^1.48.7",
 		"@slangroom/helpers": "^1.48.7",
-		"@slangroom/http": "^1.48.7",
+		"@slangroom/http": "^1.48.8",
 		"@slangroom/pocketbase": "^1.48.7",
 		"@slangroom/zencode": "^1.48.7",
 		"ajv": "^8.17.1",
