@@ -8,4 +8,14 @@ export type VerificationResults = {
 	success: boolean;
 };
 
+export type VerificationResponse = {
+	complete_transaction_id: string;
+	output: Array<string>;
+	transaction_result: Array<{
+		path: Array<string>;
+		value: string;
+	}>;
+};
+  
+
 export const verificationResultsStore = writable<VerificationResults>();

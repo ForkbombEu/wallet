@@ -9,31 +9,15 @@
 	import { addVerificationActivity } from '$lib/preferences/activity.js';
 	import { verifyCredential } from '$lib/components/organisms/scanner/tools.js';
 	import { negativeFeedback } from '$lib/utils/index.js';
-	import { verificationResultsStore } from '$lib/verificationResultsStore.js';
+	import { verificationResultsStore, type VerificationResponse } from '$lib/verificationResultsStore.js';
 	import { goto } from '$app/navigation';
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
 	import { debugDismiss } from '$lib/components/organisms/debug/debug';
-	import { onMount } from 'svelte';
 
-	type VerificationResponse = {
+	type Verification = {
 		result: {
 			result: {
-				result: {
-					body: {
-						message: string;
-						registrationToken: string;
-					};
-					server_response: {
-						result: {
-							error: {
-								message: string;
-								code: string;
-							};
-						};
-						status: string;
-					};
-					url: string;
-				};
+				result: VerificationResponse
 				status: string;
 			};
 		};
@@ -45,7 +29,7 @@
 
 	let selectedCredential: number;
 
-	let verificationResponse: VerificationResponse;
+	let verification: Verification;
 	let scrollBox: HTMLDivElement;
 
 	const { vps, post_url } = $verificationStore;
@@ -62,42 +46,42 @@
 
 	const verify = async () => {
 		try {
-			verificationResponse = (await verifyCredential({
+			verification = (await verifyCredential({
 				url: post_url,
 				body: vps[selectedCredential].presentation
-			})) as VerificationResponse;
-			const success = verificationResponse.result.result.result.server_response.status === '200';
+			})) as Verification;
+			
+			const responseSuccess = verification.result?.result?.status === '200';
+			const success = verification.result?.result?.result?.output?.[0] === 'OK';
 			await debugDismiss();
 			const date = dayjs().toString();
 			let feedback: Feedback = {};
-			if (!success) {
+			if (!responseSuccess || !success) {
 				feedback = negativeFeedback(
 					verificationFailed,
 					JSON.stringify({
 						serverResponse:
-							verificationResponse.result.result.result.server_response.result.error.code,
-						message: verificationResponse.result.result.result.server_response.result.error.message,
-						logs: verificationResponse.logs
-					})
+							verification.result?.result?.result,
+						logs: verification.logs
+					}, null, 2)
 				);
 			}
-			// verificationResultsStore.set({
-			// 	feedback,
-			// 	date,
-			// 	id: post_without_vp.body.id,
-			// 	success
-			// });
-			// await addVerificationActivity(post_without_vp.body.id, info, success);
-			log(JSON.stringify(verificationResponse));
+			verificationResultsStore.set({
+				feedback,
+				date,
+				id: verification.result?.result?.result?.complete_transaction_id || '',
+				success: responseSuccess && success
+			});
+			log(JSON.stringify(verification));
 			return await goto('/verification/results');
 		} catch (e) {
-			// verificationResultsStore.set({
-			// 	feedback: negativeFeedback(verificationFailed, JSON.stringify(e)),
-			// 	date: dayjs().toString(),
-			// 	id: post_without_vp.body.id,
-			// 	success: false
-			// });
-			// log(JSON.stringify(e));
+			verificationResultsStore.set({
+				feedback: negativeFeedback(verificationFailed, JSON.stringify(e)),
+				date: dayjs().toString(),
+				id: "none",
+				success: false
+			});
+			log(JSON.stringify(e));
 			// await addVerificationActivity(post_without_vp.body.id, info, false);
 			return await goto('/verification/results');
 		}
