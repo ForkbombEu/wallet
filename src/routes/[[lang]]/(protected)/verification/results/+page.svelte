@@ -7,7 +7,7 @@
 	};
 
 	const shorterId = (id: string) => {
-		const part = id.split('transaction/')[1] || '';
+		const part = id?.split('transaction/')[1] || '';
 		return part.length > 10 ? part.slice(0, 10) + '...' : part;
 	};
 </script>
