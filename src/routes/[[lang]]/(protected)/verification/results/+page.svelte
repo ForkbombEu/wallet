@@ -1,26 +1,31 @@
 <script lang="ts">
-	import { goto, m, r } from '$lib/i18n';
+	import { r } from '$lib/i18n';
 	import { verificationResultsStore } from '$lib/verificationResultsStore';
 	const { feedback, date, id, success } = $verificationResultsStore;
 	const gotoHome = async () => {
 		window.location.href = r('/home')
 	};
+
+	const shorterId = (id: string) => {
+		const part = id?.split('transaction/')[1] || '';
+		return part.length > 10 ? part.slice(0, 10) + '...' : part;
+	};
 </script>
 
 <d-header back-button on:backButtonClick={gotoHome}>
-	{success ? 'verification started' : 'verification failed'}
+	{success ? 'verification succeeded' : 'verification failed'}
 </d-header>
 
 <ion-content fullscreen class="ion-padding">
 	<d-feedback {...feedback} />
 	<div class="flex w-full justify-around">
 		<d-session-card
-			sid={id}
+			sid={shorterId(id)}
 			{date}
-			in-progress={success}
-			in-progress-message={'in progress'}
+			success={success}
+			success-message={'verification success'}
 			failure-message={'verification failed'}
-			session-message={'session'}
+			session-message={'transaction id'}
 		/>
 	</div>
 </ion-content>
