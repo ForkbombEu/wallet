@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/ForkbombEu/wallet/compare/v2.0.0...v2.0.1) (2025-07-13)
+
+
+### Bug Fixes
+
+* verification results ([#598](https://github.com/ForkbombEu/wallet/issues/598)) ([7a94296](https://github.com/ForkbombEu/wallet/commit/7a94296551bd8969df477dda95dff4f947adeb43))
+
 # [2.0.0](https://github.com/ForkbombEu/wallet/compare/v1.65.0...v2.0.0) (2025-07-13)
 
 
