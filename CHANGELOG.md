@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/ForkbombEu/wallet/compare/v2.0.2...v2.0.3) (2025-07-14)
+
+
+### Bug Fixes
+
+* after tap on verify button user should have feedbacks ([#600](https://github.com/ForkbombEu/wallet/issues/600)) ([2d389d0](https://github.com/ForkbombEu/wallet/commit/2d389d07d716f9cf4e47ce4658ce87cb23ab165d))
+
 ## [2.0.2](https://github.com/ForkbombEu/wallet/compare/v2.0.1...v2.0.2) (2025-07-14)
 
 
