@@ -1,3 +1,29 @@
+## [2.0.1](https://github.com/ForkbombEu/wallet/compare/v2.0.0...v2.0.1) (2025-07-13)
+
+
+### Bug Fixes
+
+* verification results ([#598](https://github.com/ForkbombEu/wallet/issues/598)) ([7a94296](https://github.com/ForkbombEu/wallet/commit/7a94296551bd8969df477dda95dff4f947adeb43))
+
+# [2.0.0](https://github.com/ForkbombEu/wallet/compare/v1.65.0...v2.0.0) (2025-07-13)
+
+
+### Bug Fixes
+
+* bump @slangroom/http to latest ([#597](https://github.com/ForkbombEu/wallet/issues/597)) ([ec6d490](https://github.com/ForkbombEu/wallet/commit/ec6d49051a9da280e5b750b2c4d0863b18c0d4ac))
+
+
+### BREAKING CHANGES
+
+* expect redirect from authorization server authorize page
+
+# [1.65.0](https://github.com/ForkbombEu/wallet/compare/v1.64.0...v1.65.0) (2025-06-13)
+
+
+### Features
+
+* gh release also ios ipa ([#594](https://github.com/ForkbombEu/wallet/issues/594)) ([7c9bb86](https://github.com/ForkbombEu/wallet/commit/7c9bb86590adaad0397296e6ea730d9d96a345cc))
+
 # [1.64.0](https://github.com/ForkbombEu/wallet/compare/v1.63.2...v1.64.0) (2025-02-24)
 
 

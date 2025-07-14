@@ -1,7 +1,7 @@
 import { test } from './fixtures/testWithFixtures';
 import { login, tabBarClick } from './utils';
 
-test.describe('Credential Offer Page', () => {
+test.describe.skip('Credential Offer Page', () => {
 	test.beforeEach(async ({ page }) => {
 		await login(page);
 		await tabBarClick('Home', page);

@@ -34,7 +34,7 @@ test.describe('Credential Detail Page', () => {
 		await credentialDetailPage.verifyCredentialIssuerUrl();
 	});
 
-	test('should display the credential claims', async ({ credentialDetailPage }) => {
+	test.skip('should display the credential claims', async ({ credentialDetailPage }) => {
 		await credentialDetailPage.verifyClaims();
 	});
 

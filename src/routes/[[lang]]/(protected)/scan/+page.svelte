@@ -20,7 +20,7 @@
 	let:scan
 	on:success={async (e) => {
 		const qr = e.detail.qr;
-		if (!(qr.startsWith('didroom4vp://') | qr.startsWith('openid-credential-offer://'))) {
+		if (!(qr.startsWith('openid4vp://') | qr.startsWith('openid-credential-offer://'))) {
 			showModal();
 			return;
 		}

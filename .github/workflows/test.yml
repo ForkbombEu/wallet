@@ -31,9 +31,9 @@ jobs:
           go-version: '1.22'
       - uses: supplypike/setup-bin@v4
         with:
-          uri: https://github.com/dyne/zenroom/releases/latest/download/zencode-exec
+          uri: https://github.com/dyne/Zenroom/releases/download/v5.20.0/zencode-exec
           name: zencode-exec
-          version: latest
+          version: '5.20.0'
       - run: |
           git clone --recursive https://github.com/forkbombeu/signroom
           cd signroom/admin

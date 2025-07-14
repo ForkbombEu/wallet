@@ -3,6 +3,6 @@ import { getCredentialPreference, getCredentialsPreference } from '$lib/preferen
 export const load = async ({ params }) => {
 	const id = params['id'];
 	const credential = await getCredentialPreference(id);
-	const credentials = await getCredentialsPreference();
-	return { credential, credentials };
+	// const credentials = await getCredentialsPreference();
+	return { credential };
 };
