@@ -9,16 +9,20 @@
 	import { addVerificationActivity } from '$lib/preferences/activity.js';
 	import { verifyCredential } from '$lib/components/organisms/scanner/tools.js';
 	import { negativeFeedback } from '$lib/utils/index.js';
-	import { verificationResultsStore, type VerificationResponse } from '$lib/verificationResultsStore.js';
+	import {
+		verificationResultsStore,
+		type VerificationResponse
+	} from '$lib/verificationResultsStore.js';
 	import { goto } from '$app/navigation';
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
 	import { debugDismiss } from '$lib/components/organisms/debug/debug';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
+	import { join } from 'lodash';
 
 	type Verification = {
 		result: {
 			result: {
-				result: VerificationResponse
+				result: VerificationResponse;
 				status: string;
 			};
 		};
@@ -56,7 +60,7 @@
 				url: post_url,
 				body: vps[selectedCredential].presentation
 			})) as Verification;
-			
+
 			const responseSuccess = verification.result?.result?.status === '200';
 			const success = verification.result?.result?.result?.output?.[0] === 'OK';
 			await debugDismiss();
@@ -65,11 +69,14 @@
 			if (!responseSuccess || !success) {
 				feedback = negativeFeedback(
 					verificationFailed,
-					JSON.stringify({
-						serverResponse:
-							verification.result?.result?.result,
-						logs: verification.logs
-					}, null, 2)
+					JSON.stringify(
+						{
+							serverResponse: verification.result?.result?.result,
+							logs: verification.logs
+						},
+						null,
+						2
+					)
 				);
 			}
 			verificationResultsStore.set({
@@ -84,7 +91,7 @@
 			verificationResultsStore.set({
 				feedback: negativeFeedback(verificationFailed, JSON.stringify(e)),
 				date: dayjs().toString(),
-				id: "none",
+				id: 'none',
 				success: false
 			});
 			log(JSON.stringify(e));
@@ -111,7 +118,7 @@
 	{m.Verification()}
 </HeaderWithBackButton>
 
-<d-loading {loading} >
+<d-loading {loading}>
 	<FingerPrint />
 </d-loading>
 <ion-content>
@@ -129,16 +136,13 @@
 						selected={selectedCredential === index}
 						relying-party={credential.issuer}
 						verifier={credential.issuer}
-						flow={credential.type}
+						flow={credential.type[1]}
 						on:click={() => selectCredential(index)}
 						aria-hidden
 					>
-						<!-- {#await decodeSdJwt(credential.sdJwt) then sdJwt}
-								{#each sdJwt.credential.disclosures as disclosure}
-									<d-definition title={disclosure[1]} definition={disclosure[2]} dotted
-									></d-definition>
-								{/each}
-							{/await} -->
+						{#each Array.from(Object.entries(credential.credentialSubject)) as disclosure}
+							<d-definition title={disclosure[0]} definition={disclosure[1]} dotted></d-definition>
+						{/each}
 					</d-verification-card>
 				{/each}
 				<div class="pb-56" />
@@ -148,7 +152,13 @@
 	{#if selectedCredential !== undefined}
 		<div class="ion-padding fixed bottom-0 h-40 w-full bg-surface" transition:slide>
 			<d-vertical-stack>
-				<d-button on:click={verify} aria-hidden expand color="accent" disabled={selectedCredential === undefined || loading}>{m.Verify()}</d-button>
+				<d-button
+					on:click={verify}
+					aria-hidden
+					expand
+					color="accent"
+					disabled={selectedCredential === undefined || loading}>{m.Verify()}</d-button
+				>
 				<d-button expand aria-hidden>{m.Decline()}</d-button>
 			</d-vertical-stack>
 		</div>
