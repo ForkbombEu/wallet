@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/ForkbombEu/wallet/compare/v2.0.1...v2.0.2) (2025-07-14)
+
+
+### Bug Fixes
+
+* add openid4vp to intent url schemes ([#599](https://github.com/ForkbombEu/wallet/issues/599)) ([703b9d3](https://github.com/ForkbombEu/wallet/commit/703b9d3e6c527b9411c242cf44ec21a14347a9bf))
+
 ## [2.0.1](https://github.com/ForkbombEu/wallet/compare/v2.0.0...v2.0.1) (2025-07-13)
 
 
