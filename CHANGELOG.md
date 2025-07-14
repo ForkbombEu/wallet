@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/ForkbombEu/wallet/compare/v2.0.3...v2.0.4) (2025-07-14)
+
+
+### Bug Fixes
+
+* show claims when selecting credential for presentation ([#602](https://github.com/ForkbombEu/wallet/issues/602)) ([f18ad3e](https://github.com/ForkbombEu/wallet/commit/f18ad3e719282b3e4f50426988ac73dbd8034510))
+
 ## [2.0.3](https://github.com/ForkbombEu/wallet/compare/v2.0.2...v2.0.3) (2025-07-14)
 
 
