@@ -102,7 +102,7 @@
 
 		App.addListener('appUrlOpen', async (data) => {
 			if (!data.url) return;
-			if (data.url.includes('openid-credential-offer')) {
+			if (data.url.includes('openid-credential-offer') || data.url.includes('openid4vp')) {
 				await gotoQrResult(data.url);
 			}
 			if (data.url.includes('didroom-wallet')) {
