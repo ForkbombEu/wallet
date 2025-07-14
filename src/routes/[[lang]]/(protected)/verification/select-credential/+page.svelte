@@ -13,6 +13,7 @@
 	import { goto } from '$app/navigation';
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
 	import { debugDismiss } from '$lib/components/organisms/debug/debug';
+	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 
 	type Verification = {
 		result: {
@@ -31,6 +32,7 @@
 
 	let verification: Verification;
 	let scrollBox: HTMLDivElement;
+	let loading = false;
 
 	const { vps, post_url } = $verificationStore;
 	const verificationFailed = 'verification failed';
@@ -45,6 +47,10 @@
 	};
 
 	const verify = async () => {
+		if (selectedCredential === undefined) {
+			return;
+		}
+		loading = true;
 		try {
 			verification = (await verifyCredential({
 				url: post_url,
@@ -105,6 +111,9 @@
 	{m.Verification()}
 </HeaderWithBackButton>
 
+<d-loading {loading} >
+	<FingerPrint />
+</d-loading>
 <ion-content>
 	<div class="ion-padding flex h-full flex-col justify-between" bind:this={scrollBox}>
 		<d-vertical-stack>
@@ -139,7 +148,7 @@
 	{#if selectedCredential !== undefined}
 		<div class="ion-padding fixed bottom-0 h-40 w-full bg-surface" transition:slide>
 			<d-vertical-stack>
-				<d-button on:click={verify} aria-hidden expand color="accent">{m.Verify()}</d-button>
+				<d-button on:click={verify} aria-hidden expand color="accent" disabled={selectedCredential === undefined || loading}>{m.Verify()}</d-button>
 				<d-button expand aria-hidden>{m.Decline()}</d-button>
 			</d-vertical-stack>
 		</div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto, m } from '$lib/i18n';
+	import { goto, m, r } from '$lib/i18n';
 	import { AndroidBiometryStrength, BiometricAuth } from '@aparajita/capacitor-biometric-auth';
 	// @ts-ignore
 	import IonPage from 'ionic-svelte/components/IonPage.svelte';
@@ -13,7 +13,10 @@
 		try {
 			await authenticate();
 			await refreshAuth();
-			await goto('/wallet');
+			if (!(r('/verification') === window.location.pathname)) {
+				return await goto('/wallet');
+			}
+			return await goto('/verification');
 		} catch (e) {
 			error = 'BIOMETRY_ERROR';
 		}
