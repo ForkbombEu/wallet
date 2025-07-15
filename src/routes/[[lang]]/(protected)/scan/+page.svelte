@@ -6,7 +6,7 @@
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	let barcodeResult:{message: string} | void
+	let barcodeResult: { message?: string } = { message: undefined };
 	const isWeb = Capacitor.getPlatform() == 'web';
 
 	function showModal() {
@@ -24,7 +24,13 @@
 			showModal();
 			return;
 		}
-		return await gotoQrResult(qr);
+		try {
+			await gotoQrResult(qr);
+		} catch (e) {
+			showModal();
+			//@ts-ignore
+			barcodeResult.message = e.message;
+		}
 	}}
 >
 	<Modal
@@ -33,7 +39,7 @@
 			window.history.back();
 			if (!isWeb) scan();
 		}}
-		textToCopy={barcodeResult?.message}
+		textToCopy={barcodeResult.message}
 	>
 		<d-text size="m">{barcodeResult?.message || 'error'}</d-text>
 	</Modal>

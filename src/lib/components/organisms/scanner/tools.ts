@@ -1,6 +1,6 @@
 import { getCredentialsFormat, type LdpVc } from '$lib/preferences/credentials';
 import { z, ZodSchema } from 'zod';
-import { Slangroom } from '@slangroom/core';
+import { Slangroom, type Plugins } from '@slangroom/core';
 import { helpers } from '@slangroom/helpers';
 import { zencode } from '@slangroom/zencode';
 import { pocketbase } from '@slangroom/pocketbase';
@@ -15,14 +15,9 @@ import { m, goto } from '$lib/i18n';
 import { verificationResultsStore } from '$lib/verificationResultsStore';
 import { getDIDPreference } from '$lib/preferences/did';
 import { getKeypairPreference } from '$lib/preferences/keypair';
+import { credential } from '$paraglide/messages';
 
-const slangroom = new Slangroom(helpers, zencode, pocketbase, http);
-
-// export type QrToInfoResults = {
-// 	info: Info;
-// 	post_without_vp: PostWithoutVp;
-// 	vps: string[];
-// };
+const slangroom = new Slangroom(helpers, zencode, pocketbase, http as unknown as Plugins);
 
 export type QrToInfoResults = {
 	post_url: string;
@@ -47,7 +42,6 @@ export type QrToInfoResults = {
 		};
 	}>;
 };
-
 
 export type AskedClaims = {
 	properties: Properties;
@@ -74,12 +68,6 @@ export const verificationQRSchema = z.object({
 	client_id: z.string(),
 	request_uri: z.string().url()
 });
-
-type VerificationParaims = {
-	request_uri_method: string;
-	client_id: string;
-	request_uri: string;
-};
 
 export const serviceSchema = z.object({
 	credential_configuration_ids: z.array(z.string()),
@@ -126,6 +114,7 @@ export const getCredentialQrInfo = async (qrJSON: Credential) => {
 	};
 	try {
 		const res = await slangroom
+			//@ts-ignore
 			.execute(verQrToInfo, { data, keys: JSON.parse(verQrToInfoKeys) })
 			.catch((err) => {
 				throw new Error(`Failed to execute verQrToInfo: ${err}`);
@@ -228,7 +217,7 @@ const handleVerificationSuccess = async (verificationData: Credential) => {
 		verificationResultsStore.set({
 			feedback: info.feedback,
 			date: new Date().toISOString(),
-			id: verificationData.sid,
+			id: verificationData.client_id,
 			success: false
 		});
 		return await goto('/verification/results');
@@ -264,7 +253,7 @@ export const gotoQrResult = async (url: string) => {
 		const parsedService = serviceSchema.safeParse(await service.json());
 		if (parsedService.success) {
 			return handleServiceSuccess(parsedService.data);
-		}
+		} else throw new Error(JSON.stringify({ issuer: parsedService.error }));
 	}
 
 	const parsedService = serviceSchema.safeParse(
@@ -276,5 +265,9 @@ export const gotoQrResult = async (url: string) => {
 		return handleServiceSuccess(parsedService.data);
 	}
 
-	return await goto('/unlock');
+	throw new Error(
+		JSON.stringify({ issuance: legacyParsedService.error, verify: parsedVerification.error })
+	);
+
+	// return await goto('/unlock');
 };
