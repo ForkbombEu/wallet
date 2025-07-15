@@ -5,6 +5,7 @@
 	import { Capacitor } from '@capacitor/core';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { m } from '$lib/i18n';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 
 	let barcodeResult: { message?: string } = { message: undefined };
@@ -28,7 +29,7 @@
 		const qr = e.detail.qr;
 		if (!(qr.startsWith('openid4vp://') | qr.startsWith('openid-credential-offer://'))) {
 			loading = false;
-			barcodeResult = { message: 'qrcode is not compatible' };
+			barcodeResult = { message: m.qrcode_is_not_compatible() };
 			showModal();
 			return;
 		}
