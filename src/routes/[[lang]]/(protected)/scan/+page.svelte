@@ -5,9 +5,11 @@
 	import { Capacitor } from '@capacitor/core';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
+	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 
 	let barcodeResult: { message?: string } = { message: undefined };
 	const isWeb = Capacitor.getPlatform() == 'web';
+	let loading = false;
 
 	function showModal() {
 		pushState('', {
@@ -16,17 +18,25 @@
 	}
 </script>
 
+<d-loading {loading}>
+	<FingerPrint />
+</d-loading>
 <Scanner
 	let:scan
 	on:success={async (e) => {
+		loading = true;
 		const qr = e.detail.qr;
 		if (!(qr.startsWith('openid4vp://') | qr.startsWith('openid-credential-offer://'))) {
+			loading = false;
+			barcodeResult = { message: 'qrcode is not compatible' };
 			showModal();
 			return;
 		}
 		try {
 			await gotoQrResult(qr);
+			loading = false;
 		} catch (e) {
+			loading = false;
 			showModal();
 			//@ts-ignore
 			barcodeResult.message = e.message;
