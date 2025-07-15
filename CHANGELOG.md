@@ -1,3 +1,10 @@
+## [2.0.5](https://github.com/ForkbombEu/wallet/compare/v2.0.4...v2.0.5) (2025-07-15)
+
+
+### Bug Fixes
+
+* when answering security question ui is broken ([#603](https://github.com/ForkbombEu/wallet/issues/603)) ([48c3a9f](https://github.com/ForkbombEu/wallet/commit/48c3a9f85b00822353f00312bcdcd129a2ad81da))
+
 ## [2.0.4](https://github.com/ForkbombEu/wallet/compare/v2.0.3...v2.0.4) (2025-07-14)
 
 
