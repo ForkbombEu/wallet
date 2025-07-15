@@ -112,7 +112,7 @@
 	{m.SECURITY_QUESTIONS()}
 </HeaderWithBackButton>
 
-<div class="flex h-full w-screen flex-col gap-4 px-4">
+<div class="flex h-full flex-col gap-4 px-4">
 	<d-feedback {...feedback} />
 
 	{#if !seed}
