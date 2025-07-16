@@ -1,3 +1,38 @@
+## [2.0.8](https://github.com/ForkbombEu/wallet/compare/v2.0.7...v2.0.8) (2025-07-16)
+
+
+### Bug Fixes
+
+* credential issuance in debug mode ([#606](https://github.com/ForkbombEu/wallet/issues/606)) ([37e148c](https://github.com/ForkbombEu/wallet/commit/37e148ce3e774c5b69fa599799e02debc34072d3))
+
+## [2.0.7](https://github.com/ForkbombEu/wallet/compare/v2.0.6...v2.0.7) (2025-07-16)
+
+
+### Bug Fixes
+
+* truncate claims in verification card ([#605](https://github.com/ForkbombEu/wallet/issues/605)) ([b39e5be](https://github.com/ForkbombEu/wallet/commit/b39e5be6caaa1b96eb5a2803f29a50345a31d286))
+
+## [2.0.6](https://github.com/ForkbombEu/wallet/compare/v2.0.5...v2.0.6) (2025-07-16)
+
+
+### Bug Fixes
+
+* better error handlyng for qr scanner (do not overhead on errors) ([#604](https://github.com/ForkbombEu/wallet/issues/604)) ([3cf8dec](https://github.com/ForkbombEu/wallet/commit/3cf8dec1072f1b2b85d02c904ae682b1911b9a3b))
+
+## [2.0.5](https://github.com/ForkbombEu/wallet/compare/v2.0.4...v2.0.5) (2025-07-15)
+
+
+### Bug Fixes
+
+* when answering security question ui is broken ([#603](https://github.com/ForkbombEu/wallet/issues/603)) ([48c3a9f](https://github.com/ForkbombEu/wallet/commit/48c3a9f85b00822353f00312bcdcd129a2ad81da))
+
+## [2.0.4](https://github.com/ForkbombEu/wallet/compare/v2.0.3...v2.0.4) (2025-07-14)
+
+
+### Bug Fixes
+
+* show claims when selecting credential for presentation ([#602](https://github.com/ForkbombEu/wallet/issues/602)) ([f18ad3e](https://github.com/ForkbombEu/wallet/commit/f18ad3e719282b3e4f50426988ac73dbd8034510))
+
 ## [2.0.3](https://github.com/ForkbombEu/wallet/compare/v2.0.2...v2.0.3) (2025-07-14)
 
 

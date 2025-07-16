@@ -20,6 +20,7 @@ import type { LdpVc } from '$lib/preferences/credentials';
 import type { Credential } from '$lib/preferences/credentials';
 import { isWeb } from '$lib/utils';
 
+//@ts-ignore
 const slangroom = new Slangroom([http, helpers, zencode]);
 
 export const getKeys = async () => {
@@ -93,7 +94,6 @@ export const holderQrToWellKnown = async (qr: Service) => {
 			data: { '!external-qr-code-content': qr },
 			keys: JSON.parse(holder_qr_to_well_known_keys)
 		})
-		.catch((err) => log(`Slangroom exec holder_qr_to_well_known: ${err}`));
 	await log(`end holderQrToWellKnown: ${JSON.stringify(r, null, 2)}`);
 	await log(`after holderQrToWellKnown, result: ${JSON.stringify(r?.result, null, 2)}`);
 	return r?.result as QrToWellKnown;

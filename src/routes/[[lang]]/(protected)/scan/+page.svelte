@@ -5,9 +5,12 @@
 	import { Capacitor } from '@capacitor/core';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { m } from '$lib/i18n';
+	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 
-	let barcodeResult:{message: string} | void
+	let barcodeResult: { message?: string } = { message: undefined };
 	const isWeb = Capacitor.getPlatform() == 'web';
+	let loading = false;
 
 	function showModal() {
 		pushState('', {
@@ -16,15 +19,29 @@
 	}
 </script>
 
+<d-loading {loading}>
+	<FingerPrint />
+</d-loading>
 <Scanner
 	let:scan
 	on:success={async (e) => {
+		loading = true;
 		const qr = e.detail.qr;
 		if (!(qr.startsWith('openid4vp://') | qr.startsWith('openid-credential-offer://'))) {
+			loading = false;
+			barcodeResult = { message: m.qrcode_is_not_compatible() };
 			showModal();
 			return;
 		}
-		return await gotoQrResult(qr);
+		try {
+			await gotoQrResult(qr);
+			loading = false;
+		} catch (e) {
+			loading = false;
+			showModal();
+			//@ts-ignore
+			barcodeResult.message = e.message;
+		}
 	}}
 >
 	<Modal
@@ -33,7 +50,7 @@
 			window.history.back();
 			if (!isWeb) scan();
 		}}
-		textToCopy={barcodeResult?.message}
+		textToCopy={barcodeResult.message}
 	>
 		<d-text size="m">{barcodeResult?.message || 'error'}</d-text>
 	</Modal>

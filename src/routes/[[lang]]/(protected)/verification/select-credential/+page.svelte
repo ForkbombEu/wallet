@@ -141,7 +141,7 @@
 						aria-hidden
 					>
 						{#each Array.from(Object.entries(credential.credentialSubject)) as disclosure}
-							<d-definition title={disclosure[0]} definition={disclosure[1]} dotted></d-definition>
+							<d-definition title={disclosure[0]} definition={disclosure[1]} dotted class="overflow-hidden text-ellipsis"></d-definition>
 						{/each}
 					</d-verification-card>
 				{/each}

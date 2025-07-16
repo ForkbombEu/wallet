@@ -80,7 +80,7 @@
 
 	onMount(() => {
 		document.addEventListener('ionBackButton', (ev: any) => {
-			ev.detail.register(2, (processNextHandler) => {
+			ev.detail.register(2, (processNextHandler:()=>void) => {
 				stopScan();
 				processNextHandler();
 			});
