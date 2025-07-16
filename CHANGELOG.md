@@ -1,3 +1,10 @@
+## [2.0.8](https://github.com/ForkbombEu/wallet/compare/v2.0.7...v2.0.8) (2025-07-16)
+
+
+### Bug Fixes
+
+* credential issuance in debug mode ([#606](https://github.com/ForkbombEu/wallet/issues/606)) ([37e148c](https://github.com/ForkbombEu/wallet/commit/37e148ce3e774c5b69fa599799e02debc34072d3))
+
 ## [2.0.7](https://github.com/ForkbombEu/wallet/compare/v2.0.6...v2.0.7) (2025-07-16)
 
 
