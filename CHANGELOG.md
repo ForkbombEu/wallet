@@ -1,3 +1,10 @@
+## [2.0.7](https://github.com/ForkbombEu/wallet/compare/v2.0.6...v2.0.7) (2025-07-16)
+
+
+### Bug Fixes
+
+* truncate claims in verification card ([#605](https://github.com/ForkbombEu/wallet/issues/605)) ([b39e5be](https://github.com/ForkbombEu/wallet/commit/b39e5be6caaa1b96eb5a2803f29a50345a31d286))
+
 ## [2.0.6](https://github.com/ForkbombEu/wallet/compare/v2.0.5...v2.0.6) (2025-07-16)
 
 
