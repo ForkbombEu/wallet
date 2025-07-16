@@ -11,6 +11,8 @@
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import { onMount } from 'svelte';
 	import { isWeb } from '$lib/utils/index.js';
+	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
+	import { getDebugMode } from '$lib/preferences/debug';
 
 	export let data;
 	const { code, wn, parResult } = data;
@@ -20,7 +22,10 @@
 	let serviceResponse: CredentialResult;
 	let isOpen = true;
 
-	onMount(() => {
+	onMount(async () => {
+		if (await getDebugMode()) {
+			isOpen = false;
+		}
 		if (code) {
 			getCredential();
 		} else {
@@ -90,7 +95,7 @@
 			} else {
 				return (isOpen = false);
 			}
-			
+
 			await addActivity({ at: dayjs().unix(), id, type: 'credential' });
 			isOpen = false;
 			if (isWeb) {
@@ -134,4 +139,5 @@
 			</div>
 		</ion-content>
 	</ion-modal>
+	<DebugPopup />
 </ion-content>
