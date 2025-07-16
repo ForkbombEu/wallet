@@ -13,24 +13,22 @@ export const load = async () => {
 	if (!credentialOffer) {
 		feedbackData = {
 			type: 'error',
-			feedback:'no credential offer found'
+			feedback: 'no credential offer found'
 		};
 		return { feedbackData };
 	}
 	let wn: QrToWellKnown | undefined;
 	try {
 		wn = await holderQrToWellKnown(credentialOffer);
-	} catch {
+	} catch(e) {
 		feedbackData = {
 			type: 'error',
-			feedback: m.The_credential_issuer_is_currently_offline_you_may_try_again_later()
+			//@ts-ignore
+			message: e.message,
+			feedback: 'this service is not compatible or is currently offline'
 		};
 	}
 	if (!wn) {
-		feedbackData = {
-			type: 'error',
-			feedback: m.The_credential_issuer_is_currently_offline_you_may_try_again_later()
-		};
 		return { feedbackData };
 	}
 	const data = {
@@ -39,7 +37,6 @@ export const load = async () => {
 
 	const par = await callPar(data);
 	const { parResult, authorizeUrl } = par;
-
 
 	if (!authorizeUrl) {
 		feedbackData = {

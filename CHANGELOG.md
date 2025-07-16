@@ -1,3 +1,17 @@
+## [2.0.6](https://github.com/ForkbombEu/wallet/compare/v2.0.5...v2.0.6) (2025-07-16)
+
+
+### Bug Fixes
+
+* better error handlyng for qr scanner (do not overhead on errors) ([#604](https://github.com/ForkbombEu/wallet/issues/604)) ([3cf8dec](https://github.com/ForkbombEu/wallet/commit/3cf8dec1072f1b2b85d02c904ae682b1911b9a3b))
+
+## [2.0.5](https://github.com/ForkbombEu/wallet/compare/v2.0.4...v2.0.5) (2025-07-15)
+
+
+### Bug Fixes
+
+* when answering security question ui is broken ([#603](https://github.com/ForkbombEu/wallet/issues/603)) ([48c3a9f](https://github.com/ForkbombEu/wallet/commit/48c3a9f85b00822353f00312bcdcd129a2ad81da))
+
 ## [2.0.4](https://github.com/ForkbombEu/wallet/compare/v2.0.3...v2.0.4) (2025-07-14)
 
 
