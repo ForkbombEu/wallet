@@ -22,7 +22,7 @@
 		"web": "ionic serve",
 		"icons": "npx capacitor-assets generate --ios --android",
 		"postinstall": "paraglide-js compile --project ./project.inlang && cp -r ./node_modules/@didroom/components/dist/. ./static/components",
-		"build:archive": "tar -czf wallet.tar.gz build node_modules package.json static vite.config.ts .env .svelte-kit"
+		"archive": "tar -czf wallet.tar.gz build node_modules package.json static vite.config.ts .env .svelte-kit"
 	},
 	"devDependencies": {
 		"@axe-core/playwright": "^4.10.1",
