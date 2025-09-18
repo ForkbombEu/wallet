@@ -1,3 +1,10 @@
+## [2.0.10](https://github.com/ForkbombEu/wallet/compare/v2.0.9...v2.0.10) (2025-09-18)
+
+
+### Bug Fixes
+
+* bump mobile_zencode to latest commit ([#609](https://github.com/ForkbombEu/wallet/issues/609)) ([9c5da3b](https://github.com/ForkbombEu/wallet/commit/9c5da3b79e4c95d5854da2395c49fc1259cd2b4d))
+
 ## [2.0.9](https://github.com/ForkbombEu/wallet/compare/v2.0.8...v2.0.9) (2025-09-18)
 
 
