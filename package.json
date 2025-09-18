@@ -93,11 +93,11 @@
 		"@inlang/paraglide-js-adapter-sveltekit": "^0.6.7",
 		"@ionic/cli": "^7.2.0",
 		"@ionic/core": "^7.8.6",
-		"@slangroom/core": "^1.48.7",
-		"@slangroom/helpers": "^1.48.7",
-		"@slangroom/http": "^1.48.8",
-		"@slangroom/pocketbase": "^1.48.7",
-		"@slangroom/zencode": "^1.48.7",
+		"@slangroom/core": "^1.49.5",
+		"@slangroom/helpers": "^1.49.5",
+		"@slangroom/http": "^1.49.5",
+		"@slangroom/pocketbase": "^1.49.5",
+		"@slangroom/zencode": "^1.49.5",
 		"ajv": "^8.17.1",
 		"ajv-formats": "^2.1.1",
 		"capacitor-native-settings": "^6.0.1",
@@ -106,7 +106,7 @@
 		"ionicons": "^7.4.0",
 		"lodash": "^4.17.21",
 		"swiper": "^11.1.15",
-		"zenroom": "^5.23.2",
+		"zenroom": "^5.25.3",
 		"zod": "^3.23.8"
 	}
 }
