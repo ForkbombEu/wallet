@@ -1,3 +1,11 @@
+## [2.0.9](https://github.com/ForkbombEu/wallet/compare/v2.0.8...v2.0.9) (2025-09-18)
+
+
+### Bug Fixes
+
+* android sdk target ([#611](https://github.com/ForkbombEu/wallet/issues/611)) ([3f5c895](https://github.com/ForkbombEu/wallet/commit/3f5c8958455a234a2eac4f2b84a942316c7906b0))
+* change ios minimum deplyment target ([#610](https://github.com/ForkbombEu/wallet/issues/610)) ([169c726](https://github.com/ForkbombEu/wallet/commit/169c726510490b8cf2d50944c3da9424f2485964))
+
 ## [2.0.8](https://github.com/ForkbombEu/wallet/compare/v2.0.7...v2.0.8) (2025-07-16)
 
 
