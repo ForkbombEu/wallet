@@ -1,12 +1,10 @@
 <script lang="ts">
 	import { goto, m } from '$lib/i18n';
-	import { verificationStore } from '$lib/verificationStore';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
 
-	const { vps, post_url } = $verificationStore;
-	const { card } = vps[0]
-	const propertiesArray = Object.entries(card.credentialSubject);
+	export let data;
+	const { propertiesArray, post_url } = data;
 
 	const decline = async () => {
 		await goto('/');

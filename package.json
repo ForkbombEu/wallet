@@ -21,7 +21,8 @@
 		"apk": "ionic capacitor copy android && cd android && ./gradlew assembleDebug && ./gradlew installDebug && cd ..",
 		"web": "ionic serve",
 		"icons": "npx capacitor-assets generate --ios --android",
-		"postinstall": "paraglide-js compile --project ./project.inlang && cp -r ./node_modules/@didroom/components/dist/. ./static/components"
+		"postinstall": "paraglide-js compile --project ./project.inlang && cp -r ./node_modules/@didroom/components/dist/. ./static/components",
+		"archive": "tar -czf wallet.tar.gz build node_modules package.json static vite.config.ts .env .svelte-kit"
 	},
 	"devDependencies": {
 		"@axe-core/playwright": "^4.10.1",
@@ -92,11 +93,11 @@
 		"@inlang/paraglide-js-adapter-sveltekit": "^0.6.7",
 		"@ionic/cli": "^7.2.0",
 		"@ionic/core": "^7.8.6",
-		"@slangroom/core": "^1.48.7",
-		"@slangroom/helpers": "^1.48.7",
-		"@slangroom/http": "^1.48.8",
-		"@slangroom/pocketbase": "^1.48.7",
-		"@slangroom/zencode": "^1.48.7",
+		"@slangroom/core": "^1.49.5",
+		"@slangroom/helpers": "^1.49.5",
+		"@slangroom/http": "^1.49.5",
+		"@slangroom/pocketbase": "^1.49.5",
+		"@slangroom/zencode": "^1.49.5",
 		"ajv": "^8.17.1",
 		"ajv-formats": "^2.1.1",
 		"capacitor-native-settings": "^6.0.1",
@@ -105,7 +106,7 @@
 		"ionicons": "^7.4.0",
 		"lodash": "^4.17.21",
 		"swiper": "^11.1.15",
-		"zenroom": "^5.23.2",
+		"zenroom": "^5.25.3",
 		"zod": "^3.23.8"
 	}
 }

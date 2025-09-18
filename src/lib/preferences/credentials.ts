@@ -127,7 +127,7 @@ export async function getCredentialsFormat(): Promise<{ 'dc+sd-jwt': string[]; l
 	return credentials.reduce(
 		(acc, credential) => {
 			if (credential.type === 'sdjwt') {
-				acc['dc+sd-jwt'].push(credential.sdJwt.split('~')[1]);
+				acc['dc+sd-jwt'].push(credential.sdJwt);
 			} else if (credential.type === 'ldp_vc') {
 				acc.ldp_vc[credential.id] = credential.ldpVc;
 			}
