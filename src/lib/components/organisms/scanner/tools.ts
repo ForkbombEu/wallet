@@ -22,7 +22,7 @@ const slangroom = new Slangroom(helpers, zencode, pocketbase, http as unknown as
 export type QrToInfoResults = {
 	post_url: string;
 	vps: Array<{
-		card: LdpVc;
+		card: LdpVc | string;
 		presentation: {
 			'@context': Array<string>;
 			holder: string;
@@ -39,7 +39,7 @@ export type QrToInfoResults = {
 			};
 			type: Array<string>;
 			verifiableCredential: Array<LdpVc>;
-		};
+		} | string;
 	}>;
 };
 
