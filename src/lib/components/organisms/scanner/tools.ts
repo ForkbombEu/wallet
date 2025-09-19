@@ -22,7 +22,7 @@ const slangroom = new Slangroom(helpers, zencode, pocketbase, http as unknown as
 export type QrToInfoResults = {
 	post_url: string;
 	vps: Array<{
-		card: LdpVc;
+		card: LdpVc | string;
 		presentation: {
 			'@context': Array<string>;
 			holder: string;
@@ -39,7 +39,7 @@ export type QrToInfoResults = {
 			};
 			type: Array<string>;
 			verifiableCredential: Array<LdpVc>;
-		};
+		} | string;
 	}>;
 };
 
@@ -109,13 +109,14 @@ export const getCredentialQrInfo = async (qrJSON: Credential) => {
 			...myCredentials,
 			ldp_vc: ldp_vc
 		},
-		did: did.didDocument.id,
-		keyring: keyring?.keyring
 	};
+	const keys = JSON.parse(verQrToInfoKeys);
+	keys.keyring = keyring?.keyring;
+	keys.did = did.didDocument.id;
 	try {
 		const res = await slangroom
 			//@ts-ignore
-			.execute(verQrToInfo, { data, keys: JSON.parse(verQrToInfoKeys) })
+			.execute(verQrToInfo, { data, keys })
 			.catch((err) => {
 				throw new Error(`Failed to execute verQrToInfo: ${err}`);
 			});
