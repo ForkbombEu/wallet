@@ -11,11 +11,10 @@
 	--ion-tab-bar-background: var(--surface);
 	--ion-tab-bar-color-selected: var(--on);
 	--ion-tab-bar-color: var(--on-alt);
-	--ion-safe-area-top: 0px;
 	--ion-default-font: 'Gantari Variable';
 	--ion-font-family: 'Gantari Variable';
-	--ion-padding:20px;
-	--padding-top:24px;
+	--ion-padding: 20px;
+	--padding-top: 24px;
 }
 
 .ios {

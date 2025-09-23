@@ -119,7 +119,7 @@
 <svelte:head>
 	<meta
 		name="viewport"
-		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=no"
+		content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
 	/>
 	<!-- uncomment to test didroom-components locally -->
 	<!-- <script 
