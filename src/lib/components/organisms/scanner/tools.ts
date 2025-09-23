@@ -8,6 +8,8 @@ import { pocketbase } from '@slangroom/pocketbase';
 import { http } from '@slangroom/http';
 import verQrToInfo from '$lib/mobile_zencode/wallet/opneid4vp_qr_to_info.zen?raw';
 import verQrToInfoKeys from '$lib/mobile_zencode/wallet/opneid4vp_qr_to_info.keys.json?raw';
+import verResponse from '$lib/mobile_zencode/wallet/openid4vp_response.zen?raw';
+import verResponseKeys from '$lib/mobile_zencode/wallet/openid4vp_response.keys.json?raw';
 import { log } from '$lib/log';
 import { verificationStore } from '$lib/verificationStore';
 import { credentialOfferStore } from '$lib/credentialOfferStore';
@@ -87,33 +89,12 @@ export type Data =
 	  };
 
 export const verifyCredential = async (postWVP: PostWithoutVp) => {
-	console.log(postWVP);
-	try {
-	await slangroom.execute(
-		`Scenario 'http': params
-		Rule unknown ignore
-		Given I have a 'string dictionary' in path 'body.vp_token'
-		Given I have a 'string' named 'url'
-
-		When I create 'string dictionary' named 'body_params'
-		When I create json escaped string of 'vp_token'
-		When I move 'json escaped string' to 'vp_token' in 'body_params'
-		When I create http get parameters from 'body_params' using percent encoding
-		Then print the 'http get parameters'
-		Then print the 'url'
-		Then I connect to 'url' and send object 'http_get_parameters' and send headers 'headers' and do post and output into 'result'
-		`,
-		{
-			data: postWVP,
-			keys: {
-				headers: {
-					"Content-Type": "application/x-www-form-urlencoded"
-				}
-			}
-		}
-	)} catch(e) {
-		console.log(e)
-	}};
+	await slangroom
+		.execute(verResponse, { data: postWVP, keys: JSON.parse(verResponseKeys) })
+		.catch((err) => {
+			throw new Error(`Failed to execute verResponse: ${err}`)
+		})
+}
 
 export const getCredentialQrInfo = async (qrJSON: Credential) => {
 	const myCredentials = await getCredentialsFormat();
