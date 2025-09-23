@@ -1,6 +1,7 @@
 import { getCredentialsFormat, type LdpVc } from '$lib/preferences/credentials';
 import { z, ZodSchema } from 'zod';
 import { Slangroom, type Plugins } from '@slangroom/core';
+import { did } from '@slangroom/did';
 import { helpers } from '@slangroom/helpers';
 import { zencode } from '@slangroom/zencode';
 import { pocketbase } from '@slangroom/pocketbase';
@@ -17,7 +18,7 @@ import { getDIDPreference } from '$lib/preferences/did';
 import { getKeypairPreference } from '$lib/preferences/keypair';
 import { credential } from '$paraglide/messages';
 
-const slangroom = new Slangroom(helpers, zencode, pocketbase, http as unknown as Plugins);
+const slangroom = new Slangroom(did, helpers, zencode, pocketbase, http as unknown as Plugins);
 
 export type QrToInfoResults = {
 	post_url: string;
@@ -85,16 +86,34 @@ export type Data =
 			service: Service;
 	  };
 
-export const verifyCredential = async (postWVP: PostWithoutVp) =>
+export const verifyCredential = async (postWVP: PostWithoutVp) => {
+	console.log(postWVP);
+	try {
 	await slangroom.execute(
-		`Rule unknown ignore
-	Given I connect to 'url' and send object 'body' and do post and output into 'result'
-	Given I have a 'string dictionary' named 'result'
-	Then print data`,
+		`Scenario 'http': params
+		Rule unknown ignore
+		Given I have a 'string dictionary' in path 'body.vp_token'
+		Given I have a 'string' named 'url'
+
+		When I create 'string dictionary' named 'body_params'
+		When I create json escaped string of 'vp_token'
+		When I move 'json escaped string' to 'vp_token' in 'body_params'
+		When I create http get parameters from 'body_params' using percent encoding
+		Then print the 'http get parameters'
+		Then print the 'url'
+		Then I connect to 'url' and send object 'http_get_parameters' and send headers 'headers' and do post and output into 'result'
+		`,
 		{
-			data: postWVP
+			data: postWVP,
+			keys: {
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded"
+				}
+			}
 		}
-	);
+	)} catch(e) {
+		console.log(e)
+	}};
 
 export const getCredentialQrInfo = async (qrJSON: Credential) => {
 	const myCredentials = await getCredentialsFormat();
@@ -120,6 +139,7 @@ export const getCredentialQrInfo = async (qrJSON: Credential) => {
 			.catch((err) => {
 				throw new Error(`Failed to execute verQrToInfo: ${err}`);
 			});
+		console.log('res: ', res.result);
 		return res.result as QrToInfoResults;
 	} catch (err) {
 		log(JSON.stringify(err));
