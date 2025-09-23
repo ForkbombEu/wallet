@@ -94,6 +94,7 @@
 		"@ionic/cli": "^7.2.0",
 		"@ionic/core": "^7.8.6",
 		"@slangroom/core": "^1.49.5",
+		"@slangroom/did": "^1.49.5",
 		"@slangroom/helpers": "^1.49.5",
 		"@slangroom/http": "^1.49.5",
 		"@slangroom/pocketbase": "^1.49.5",

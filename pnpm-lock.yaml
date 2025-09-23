@@ -74,6 +74,9 @@ importers:
       '@slangroom/core':
         specifier: ^1.49.5
         version: 1.49.5(zenroom@5.25.3)
+      '@slangroom/did':
+        specifier: ^1.49.5
+        version: 1.49.5(zenroom@5.25.3)
       '@slangroom/helpers':
         specifier: ^1.49.5
         version: 1.49.5(zenroom@5.25.3)
@@ -1799,6 +1802,10 @@ packages:
     engines: {node: ^18.20.0 || ^20.10.0 || ^22 || ^23 || ^24}
     peerDependencies:
       zenroom: ^5.0.0
+
+  '@slangroom/did@1.49.5':
+    resolution: {integrity: sha512-aaTLYQBFzNVPhgWhJQrAJR+3ch4ARQu0t9yBa4vwi5VsDT2s9x9q7Oqd3b1HE422xVjzhjI+mRS7xOK7jeAWXg==}
+    engines: {node: ^18.20.0 || ^20.10.0 || ^22 || ^23 || ^24}
 
   '@slangroom/helpers@1.49.5':
     resolution: {integrity: sha512-wJg9l0FdIloHqOD/y3+4KSxDYfN0JvnuWU2YQi/a7inf7re0so6kKAjgnBzyMzYJRurzRTobTZMkuzXnSoAx/A==}
@@ -8323,6 +8330,13 @@ snapshots:
       chalk: 5.6.0
       chevrotain: 10.5.0
       zenroom: 5.25.3
+
+  '@slangroom/did@1.49.5(zenroom@5.25.3)':
+    dependencies:
+      '@slangroom/core': 1.49.5(zenroom@5.25.3)
+      '@slangroom/shared': 1.49.5(zenroom@5.25.3)
+    transitivePeerDependencies:
+      - zenroom
 
   '@slangroom/helpers@1.49.5(zenroom@5.25.3)':
     dependencies:
