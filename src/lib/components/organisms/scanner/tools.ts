@@ -92,7 +92,7 @@ export const verifyCredential = async (postWVP: PostWithoutVp) => {
 	return await slangroom
 		.execute(verResponse, { data: postWVP, keys: JSON.parse(verResponseKeys) })
 		.catch((err) => {
-			throw new Error(`Failed to execute verResponse: ${err}`)
+			throw new Error(m.Failed_verResponse({err}))
 		})
 }
 
@@ -118,13 +118,13 @@ export const getCredentialQrInfo = async (qrJSON: Credential) => {
 			//@ts-ignore
 			.execute(verQrToInfo, { data, keys })
 			.catch((err) => {
-				throw new Error(`Failed to execute verQrToInfo: ${err}`);
+				throw new Error(m.Failed_verQrToInfo({err}));
 			});
 		return res.result as QrToInfoResults;
 	} catch (err) {
 		log(JSON.stringify(err));
-		console.error('Error executing zencode:', err);
-		throw new Error(`error executing zencode: ${err}`);
+		console.error(m.Error_executing_zencode({err: err as string}));
+		throw new Error(m.Error_executing_zencode({err: err as string}));
 	}
 };
 
