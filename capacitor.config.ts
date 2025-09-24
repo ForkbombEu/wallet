@@ -9,10 +9,18 @@ const defaultConfig: CapacitorConfig = {
 		androidScheme: 'http',
 		cleartext: true
 	},
+	plugins: {
+		Keyboard: {
+			resizeOnFullScreen: false
+		}
+	},
 	ios: {
 		scheme: 'Didroom',
 		webContentsDebuggingEnabled: true
 	}
+	// android: {
+	// 	adjustMarginsForEdgeToEdge: "disable",
+	// }
 };
 if (process.env.ANDROID) {
 	config = defaultConfig;
