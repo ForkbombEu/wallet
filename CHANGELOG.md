@@ -1,3 +1,163 @@
+## [2.0.10](https://github.com/ForkbombEu/wallet/compare/v2.0.9...v2.0.10) (2025-09-18)
+
+
+### Bug Fixes
+
+* bump mobile_zencode to latest commit ([#609](https://github.com/ForkbombEu/wallet/issues/609)) ([9c5da3b](https://github.com/ForkbombEu/wallet/commit/9c5da3b79e4c95d5854da2395c49fc1259cd2b4d))
+
+## [2.0.9](https://github.com/ForkbombEu/wallet/compare/v2.0.8...v2.0.9) (2025-09-18)
+
+
+### Bug Fixes
+
+* android sdk target ([#611](https://github.com/ForkbombEu/wallet/issues/611)) ([3f5c895](https://github.com/ForkbombEu/wallet/commit/3f5c8958455a234a2eac4f2b84a942316c7906b0))
+* change ios minimum deplyment target ([#610](https://github.com/ForkbombEu/wallet/issues/610)) ([169c726](https://github.com/ForkbombEu/wallet/commit/169c726510490b8cf2d50944c3da9424f2485964))
+
+## [2.0.8](https://github.com/ForkbombEu/wallet/compare/v2.0.7...v2.0.8) (2025-07-16)
+
+
+### Bug Fixes
+
+* credential issuance in debug mode ([#606](https://github.com/ForkbombEu/wallet/issues/606)) ([37e148c](https://github.com/ForkbombEu/wallet/commit/37e148ce3e774c5b69fa599799e02debc34072d3))
+
+## [2.0.7](https://github.com/ForkbombEu/wallet/compare/v2.0.6...v2.0.7) (2025-07-16)
+
+
+### Bug Fixes
+
+* truncate claims in verification card ([#605](https://github.com/ForkbombEu/wallet/issues/605)) ([b39e5be](https://github.com/ForkbombEu/wallet/commit/b39e5be6caaa1b96eb5a2803f29a50345a31d286))
+
+## [2.0.6](https://github.com/ForkbombEu/wallet/compare/v2.0.5...v2.0.6) (2025-07-16)
+
+
+### Bug Fixes
+
+* better error handlyng for qr scanner (do not overhead on errors) ([#604](https://github.com/ForkbombEu/wallet/issues/604)) ([3cf8dec](https://github.com/ForkbombEu/wallet/commit/3cf8dec1072f1b2b85d02c904ae682b1911b9a3b))
+
+## [2.0.5](https://github.com/ForkbombEu/wallet/compare/v2.0.4...v2.0.5) (2025-07-15)
+
+
+### Bug Fixes
+
+* when answering security question ui is broken ([#603](https://github.com/ForkbombEu/wallet/issues/603)) ([48c3a9f](https://github.com/ForkbombEu/wallet/commit/48c3a9f85b00822353f00312bcdcd129a2ad81da))
+
+## [2.0.4](https://github.com/ForkbombEu/wallet/compare/v2.0.3...v2.0.4) (2025-07-14)
+
+
+### Bug Fixes
+
+* show claims when selecting credential for presentation ([#602](https://github.com/ForkbombEu/wallet/issues/602)) ([f18ad3e](https://github.com/ForkbombEu/wallet/commit/f18ad3e719282b3e4f50426988ac73dbd8034510))
+
+## [2.0.3](https://github.com/ForkbombEu/wallet/compare/v2.0.2...v2.0.3) (2025-07-14)
+
+
+### Bug Fixes
+
+* after tap on verify button user should have feedbacks ([#600](https://github.com/ForkbombEu/wallet/issues/600)) ([2d389d0](https://github.com/ForkbombEu/wallet/commit/2d389d07d716f9cf4e47ce4658ce87cb23ab165d))
+
+## [2.0.2](https://github.com/ForkbombEu/wallet/compare/v2.0.1...v2.0.2) (2025-07-14)
+
+
+### Bug Fixes
+
+* add openid4vp to intent url schemes ([#599](https://github.com/ForkbombEu/wallet/issues/599)) ([703b9d3](https://github.com/ForkbombEu/wallet/commit/703b9d3e6c527b9411c242cf44ec21a14347a9bf))
+
+## [2.0.1](https://github.com/ForkbombEu/wallet/compare/v2.0.0...v2.0.1) (2025-07-13)
+
+
+### Bug Fixes
+
+* verification results ([#598](https://github.com/ForkbombEu/wallet/issues/598)) ([7a94296](https://github.com/ForkbombEu/wallet/commit/7a94296551bd8969df477dda95dff4f947adeb43))
+
+# [2.0.0](https://github.com/ForkbombEu/wallet/compare/v1.65.0...v2.0.0) (2025-07-13)
+
+
+### Bug Fixes
+
+* bump @slangroom/http to latest ([#597](https://github.com/ForkbombEu/wallet/issues/597)) ([ec6d490](https://github.com/ForkbombEu/wallet/commit/ec6d49051a9da280e5b750b2c4d0863b18c0d4ac))
+
+
+### BREAKING CHANGES
+
+* expect redirect from authorization server authorize page
+
+# [1.65.0](https://github.com/ForkbombEu/wallet/compare/v1.64.0...v1.65.0) (2025-06-13)
+
+
+### Features
+
+* gh release also ios ipa ([#594](https://github.com/ForkbombEu/wallet/issues/594)) ([7c9bb86](https://github.com/ForkbombEu/wallet/commit/7c9bb86590adaad0397296e6ea730d9d96a345cc))
+
+# [1.64.0](https://github.com/ForkbombEu/wallet/compare/v1.63.2...v1.64.0) (2025-02-24)
+
+
+### Features
+
+* refresh auth ([#589](https://github.com/ForkbombEu/wallet/issues/589)) ([4735c25](https://github.com/ForkbombEu/wallet/commit/4735c2581ce29ba3849f86843f76c4d99a3af9c5))
+
+## [1.63.2](https://github.com/ForkbombEu/wallet/compare/v1.63.1...v1.63.2) (2025-02-21)
+
+
+### Bug Fixes
+
+* in home sometimes the credentials services have not images ([#593](https://github.com/ForkbombEu/wallet/issues/593)) ([ed55b1e](https://github.com/ForkbombEu/wallet/commit/ed55b1e6b98c92f3392158800e8866d264ec46bc))
+
+## [1.63.1](https://github.com/ForkbombEu/wallet/compare/v1.63.0...v1.63.1) (2025-02-18)
+
+
+### Bug Fixes
+
+* screenshots with placeholders ([#581](https://github.com/ForkbombEu/wallet/issues/581)) ([c34d272](https://github.com/ForkbombEu/wallet/commit/c34d272887a5ff6dce62b2c1f2e60cd0b5ef3649))
+
+# [1.63.0](https://github.com/ForkbombEu/wallet/compare/v1.62.2...v1.63.0) (2025-02-18)
+
+
+### Features
+
+* Update spanish translations ([#588](https://github.com/ForkbombEu/wallet/issues/588)) ([efda802](https://github.com/ForkbombEu/wallet/commit/efda802c445a87b99100e03c1a8ed305a7c3e994))
+
+## [1.62.2](https://github.com/ForkbombEu/wallet/compare/v1.62.1...v1.62.2) (2025-02-17)
+
+
+### Bug Fixes
+
+* dont need anymore to clear http storage for ios ([#583](https://github.com/ForkbombEu/wallet/issues/583)) ([3d03d8c](https://github.com/ForkbombEu/wallet/commit/3d03d8c9d902bce451b52970b43c20d5992d0aa9))
+
+## [1.62.1](https://github.com/ForkbombEu/wallet/compare/v1.62.0...v1.62.1) (2025-02-14)
+
+
+### Bug Fixes
+
+* copy correct files on postinstall ([#587](https://github.com/ForkbombEu/wallet/issues/587)) ([9c2078f](https://github.com/ForkbombEu/wallet/commit/9c2078f3c9f9cefdcf1360521dc2571190c2f711))
+
+# [1.62.0](https://github.com/ForkbombEu/wallet/compare/v1.61.0...v1.62.0) (2025-02-13)
+
+
+### Features
+
+* Update translations spanish ([#585](https://github.com/ForkbombEu/wallet/issues/585)) ([c9208fa](https://github.com/ForkbombEu/wallet/commit/c9208fa636a91c8798d5be79e7eda55354dfac67))
+
+# [1.61.0](https://github.com/ForkbombEu/wallet/compare/v1.60.1...v1.61.0) (2025-02-13)
+
+
+### Features
+
+* update translations  ([#586](https://github.com/ForkbombEu/wallet/issues/586)) ([358541f](https://github.com/ForkbombEu/wallet/commit/358541f6692186edd5be3931f8715176020c8682))
+
+## [1.60.1](https://github.com/ForkbombEu/wallet/compare/v1.60.0...v1.60.1) (2025-02-13)
+
+
+### Bug Fixes
+
+* there was two activity each verification ([#580](https://github.com/ForkbombEu/wallet/issues/580)) ([99b7936](https://github.com/ForkbombEu/wallet/commit/99b79367d7a9ce2a59a15d8b6cacbd192e1c8c1c))
+
+# [1.60.0](https://github.com/ForkbombEu/wallet/compare/v1.59.4...v1.60.0) (2025-02-13)
+
+
+### Features
+
+* add spanish ([#584](https://github.com/ForkbombEu/wallet/issues/584)) ([5f9fd79](https://github.com/ForkbombEu/wallet/commit/5f9fd79f2ef4893e447b472d5632855ed321004d))
+
 ## [1.59.4](https://github.com/ForkbombEu/wallet/compare/v1.59.3...v1.59.4) (2025-02-10)
 
 

@@ -49,7 +49,7 @@
 				name={service.display_name || ''}
 				issuer={service.expand.credential_issuer?.name || service.credential_issuer}
 				organization={service.expand.organization.name}
-				logoSrc={service.logo}
+				logo-src={service.logo}
 				href="#"
 				on:click={() => gotoCredentialOffer(service)}
 				on:keydown={() => gotoCredentialOffer(service)}

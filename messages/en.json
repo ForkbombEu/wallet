@@ -84,7 +84,7 @@
 	"Login_using_your_keypair": "Login using your passphrase",
 	"KEYPAIR_RECOVERY": "KEYRING RECOVERY",
 	"Work_in_progress": "Not yet active, come back later",
-	"SKIP": "Skip step",
+	"SKIP": "SKIP",
 	"The_credential_issuer_is_currently_offline_you_may_try_again_later": "The credential issuer is currently offline, you may try again later",
 	"wrong_email_or_password": "wrong email or password",
 	"forgot_your_password": "forgot your password?",
@@ -98,7 +98,7 @@
 	"Privacy_policy": "Privacy policy",
 	"Log_Out": "Log Out",
 	"Settings": "Settings",
-	"NOTIFICATIONS_SETTINGS": "Notification settings",
+	"NOTIFICATIONS_SETTINGS": "Notifications settings",
 	"Insert_a_valid_JSON_here": "Insert a valid JSON here",
 	"Go_to_home": "Go to Home",
 	"Choose_your_password": "Choose your password",
@@ -172,5 +172,6 @@
 	"Deactivate": "Deactivate",
 	"Activate": "Activate",
 	"Writing": "Writing",
-	"Copy_logs": "Copy logs"
+	"Copy_logs": "Copy logs",
+	"qrcode_is_not_compatible": "qrcode is not compatible"
 }

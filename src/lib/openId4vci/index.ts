@@ -15,9 +15,12 @@ import call_token_and_credential_keys from '$lib/mobile_zencode/wallet/call_toke
 import utils_print_decoded_sdjwt from '$lib/mobile_zencode/wallet/utils_print_decoded_sdjwt.zen?raw';
 import { log } from '$lib/log';
 import type { Logo } from '$lib/utils/types';
-import { debugDismiss, debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
+import { debugDismiss } from '$lib/components/organisms/debug/debug';
+import type { LdpVc } from '$lib/preferences/credentials';
+import type { Credential } from '$lib/preferences/credentials';
+import { isWeb } from '$lib/utils';
 
-
+//@ts-ignore
 const slangroom = new Slangroom([http, helpers, zencode]);
 
 export const getKeys = async () => {
@@ -46,21 +49,40 @@ export const askCredential = async (
 	credential_parameters: CredentialParameters,
 	code_verifier: string
 ): Promise<CredentialResult> => {
+	const redirect_uri = isWeb
+		? window.location.protocol + '//' + window.location.host + '/finalize-authentication'
+		: 'didroom-wallet://finalize-authentication';
 	const data = {
 		code,
 		credential_parameters,
-		code_verifier
+		code_verifier,
+		redirect_uri: redirect_uri
 	};
 	const keys = JSON.parse(call_token_and_credential_keys);
-	const userKeys = await getKeys()
-	keys.keyring = userKeys.keyring
-	keys.client_id = userKeys.client_id
+	const userKeys = await getKeys();
+	keys.keyring = userKeys.keyring;
+	keys.client_id = userKeys.client_id;
 	const request = await slangroom.execute(call_token_and_credential, {
 		data,
 		keys
 	});
 	await debugDismiss();
-	return request.result.result as CredentialResult;
+	let returns: CredentialResult;
+	//@ts-ignore
+	if (typeof request?.result.result.credentials[0].credential === 'string') {
+		returns = {
+			type: 'sdjwt',
+			// @ts-ignore
+			credentials: request?.result.result.credentials
+		} as CredentialResult;
+	} else {
+		returns = {
+			type: 'ldp_vc',
+			// @ts-ignore
+			credentials: request?.result.result.credentials || []
+		} as CredentialResult;
+	}
+	return returns;
 };
 
 export const holderQrToWellKnown = async (qr: Service) => {
@@ -72,17 +94,20 @@ export const holderQrToWellKnown = async (qr: Service) => {
 			data: { '!external-qr-code-content': qr },
 			keys: JSON.parse(holder_qr_to_well_known_keys)
 		})
-		.catch((err) => log(`Slangroom exec holder_qr_to_well_known: ${err}`));
 	await log(`end holderQrToWellKnown: ${JSON.stringify(r, null, 2)}`);
 	await log(`after holderQrToWellKnown, result: ${JSON.stringify(r?.result, null, 2)}`);
-	return r?.result as QrToWellKnown
+	return r?.result as QrToWellKnown;
 };
 
 export const callPar = async (data: { credential_parameters: CredentialParameters }) => {
+	const redirect_uri = isWeb
+		? window.location.protocol + '//' + window.location.host + '/finalize-authentication'
+		: 'didroom-wallet://finalize-authentication';
 	const keys = JSON.parse(call_par_keys);
-	const userKeys = await getKeys()
-	keys.keyring = userKeys.keyring
-	keys.client_id = userKeys.client_id
+	const userKeys = await getKeys();
+	keys.keyring = userKeys.keyring;
+	keys.client_id = userKeys.client_id;
+	keys.redirect_uri = redirect_uri;
 	const r = await slangroom.execute(call_par, { data, keys });
 	const result = r.result as CallParResult;
 	const authorizeUrl = `${result.authorization_endpoint}?client_id=${result.client_id}&request_uri=${result.request_uri}`;
@@ -90,12 +115,30 @@ export const callPar = async (data: { credential_parameters: CredentialParameter
 };
 
 export const decodeSdJwt = async (sdJwt: string) => {
-	const decoded = await slangroom.execute(utils_print_decoded_sdjwt, {
-		data: {
-			credential: sdJwt
-		}
-	});
+	const decoded = await slangroom
+		.execute(utils_print_decoded_sdjwt, {
+			data: {
+				credential: sdJwt
+			}
+		})
+		.catch((err) => {
+			log(`Slangroom exec utils_print_decoded_sdjwt: ${err}`);
+			throw new Error(`Failed to decode SD-JWT: ${err}`);
+		});
 	return decoded.result as DecodedSDJWT;
+};
+
+export const decodeLdpVc = async (ldpVc: LdpVc) =>
+	Array.from(Object.entries(ldpVc.credentialSubject));
+
+export const decodeFormat = async (credential: Credential) => {
+	if (credential.type === 'sdjwt') {
+		return decodeSdJwt(credential.sdJwt);
+	} else if (credential.type === 'ldp_vc') {
+		return decodeLdpVc(credential.ldpVc);
+	} else {
+		throw new Error('Unsupported credential type');
+	}
 };
 
 export type DecodedSDJWT = {
@@ -184,11 +227,15 @@ export type QrToWellKnown = {
 	credential_requested: CredentialRequested;
 };
 
-export type CredentialResult = {
-	c_nonce: string;
-	c_nonce_expires_in: number;
-	credential: string;
-};
+export type CredentialResult =
+	| {
+			type: 'sdjwt';
+			credentials: { credential: string }[];
+	  }
+	| {
+			type: 'ldp_vc';
+			credentials: { credential: LdpVc }[];
+	  };
 
 export type CallParResult = {
 	authorization_endpoint: string;

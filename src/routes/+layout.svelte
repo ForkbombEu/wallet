@@ -8,7 +8,7 @@
 	import '../theme/custom.css';
 	import '../theme/variables.css';
 
-	import { i18n, r } from '$lib/i18n';
+	import { goto, i18n, r } from '$lib/i18n';
 	import { ParaglideJS } from '@inlang/paraglide-js-adapter-sveltekit';
 	import HiddenLogsButton from '$lib/components/molecules/HiddenLogsButton.svelte';
 	import { log } from '$lib/log';
@@ -18,16 +18,14 @@
 	import { gotoQrResult } from '$lib/components/organisms/scanner/tools';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import { m } from '$lib/i18n';
-	import { clearHttpStorage } from '$lib/utils';
 	import { Network } from '@capacitor/network';
 	import { debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
-
-	$: clearHttpStorage();
+	import { refreshAuth } from './[[lang]]/(auth)/login/_lib';
 
 	const controller = new AbortController();
 	const signal = controller.signal;
 
-	let isConnected: boolean;
+	let isConnected: boolean = true;
 
 	const originalXhrOpen = XMLHttpRequest.prototype.open;
 	const originalXhrSend = XMLHttpRequest.prototype.send;
@@ -45,7 +43,7 @@
 		return originalXhrOpen.apply(this, [method, url, ...rest]);
 	};
 
-	const prettifyJsonString = function (jsonString:any) {
+	const prettifyJsonString = function (jsonString: any) {
 		try {
 			const parsed = JSON.parse(jsonString);
 			return JSON.stringify(parsed, null, 2);
@@ -55,10 +53,10 @@
 	};
 
 	XMLHttpRequest.prototype.send = function (body) {
-		const prettifiedBody = prettifyJsonString(body)
+		const prettifiedBody = prettifyJsonString(body);
 		debugPopupContent.push(
 			// @ts-ignore
-			`XMLHttpRequest Sent: ${JSON.stringify({ method: this._method, url: this._url,  prettifiedBody}, null, 2)}`
+			`XMLHttpRequest Sent: ${JSON.stringify({ method: this._method, url: this._url, prettifiedBody }, null, 2)}`
 		);
 		debugPopup.set(true);
 		this.addEventListener('load', async function () {
@@ -73,8 +71,11 @@
 
 	onMount(async () => {
 		isConnected = (await Network.getStatus()).connected;
-		Network.addListener('networkStatusChange', (status) => {
+		Network.addListener('networkStatusChange', async (status) => {
 			isConnected = status.connected;
+			if (isConnected) {
+				await refreshAuth();
+			}
 		});
 		document.addEventListener(
 			'ionBackButton',
@@ -100,7 +101,14 @@
 		);
 
 		App.addListener('appUrlOpen', async (data) => {
-			await gotoQrResult(data.url);
+			if (!data.url) return;
+			if (data.url.includes('openid-credential-offer') || data.url.includes('openid4vp')) {
+				await gotoQrResult(data.url);
+			}
+			if (data.url.includes('didroom-wallet')) {
+				const path = data.url.split('didroom-wallet://')[1];
+				await goto(path);
+			}
 		});
 	});
 	onDestroy(() => {

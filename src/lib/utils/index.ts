@@ -1,6 +1,7 @@
 import { Directory, Filesystem } from '@capacitor/filesystem';
 import type { Feedback } from './types';
 import { log } from '$lib/log';
+import { Capacitor } from '@capacitor/core';
 
 export function toggleDarkMode() {
 	document.body.classList.toggle('dark');
@@ -38,25 +39,6 @@ export function negativeFeedback(feedback: string, message?: string): Feedback {
 	};
 }
 
+export const isWeb = Capacitor.getPlatform() == 'web';
 
-export const clearHttpStorage = async () => {
-	try {
-		const result = await Filesystem.readdir({
-			path: 'HTTPStorages/com.didroom.wallet/',
-			directory: Directory.Library
-		});
 
-		const httpStorageFiles = result.files.filter((file) =>
-			file.name.includes('httpstorages.sqlite')
-		);
-
-		for (const file of httpStorageFiles) {
-			await Filesystem.deleteFile({
-				path: `HTTPStorages/com.didroom.wallet/${file.name}`,
-				directory: Directory.Library
-			});
-		}
-	} catch (error) {
-		log(String(error));
-	}
-};

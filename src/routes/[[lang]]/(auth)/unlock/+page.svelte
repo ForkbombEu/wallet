@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { goto, m } from '$lib/i18n';
+	import { goto, m, r } from '$lib/i18n';
 	import { AndroidBiometryStrength, BiometricAuth } from '@aparajita/capacitor-biometric-auth';
 	// @ts-ignore
 	import IonPage from 'ionic-svelte/components/IonPage.svelte';
+	import { refreshAuth } from '../login/_lib/index.js';
 
 	export let data;
 
@@ -11,7 +12,11 @@
 	async function unlock() {
 		try {
 			await authenticate();
-			await goto('/wallet');
+			await refreshAuth();
+			if (!(r('/verification') === window.location.pathname)) {
+				return await goto('/wallet');
+			}
+			return await goto('/verification');
 		} catch (e) {
 			error = 'BIOMETRY_ERROR';
 		}
@@ -36,7 +41,8 @@
 
 	//
 
-	async function testUnlock() {
+	async function unlockWithoutBiometry() {
+		await refreshAuth();
 		await goto('/home');
 	}
 </script>
@@ -62,8 +68,8 @@
 				<div class="fixed bottom-4 w-full px-4 pb-24">
 					<d-button
 						color="accent"
-						on:click={testUnlock}
-						on:keydown={testUnlock}
+						on:click={unlockWithoutBiometry}
+						on:keydown={unlockWithoutBiometry}
 						aria-hidden
 						expand="full">{m.Open_Wallet()}</d-button
 					>
