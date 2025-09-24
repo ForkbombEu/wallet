@@ -19,13 +19,23 @@
 <ion-content fullscreen class="ion-padding">
 	<d-feedback {...feedback} />
 	<div class="flex w-full justify-around">
-		<d-session-card
-			sid={shorterId(id)}
-			{date}
-			success={success}
-			success-message={'verification success'}
-			failure-message={'verification failed'}
-			session-message={'transaction id'}
-		/>
+		{#if id === ''}
+			<d-session-card
+				{date}
+				success={success}
+				success-message={'verification success'}
+				failure-message={'verification failed'}
+				session-message=''
+			/>
+		{:else}
+			<d-session-card
+				sid={shorterId(id)}
+				{date}
+				success={success}
+				success-message={'verification success'}
+				failure-message={'verification failed'}
+				session-message={'transaction id'}
+			/>
+		{/if}
 	</div>
 </ion-content>
