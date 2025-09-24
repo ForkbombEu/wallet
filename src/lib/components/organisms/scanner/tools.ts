@@ -89,7 +89,7 @@ export type Data =
 	  };
 
 export const verifyCredential = async (postWVP: PostWithoutVp) => {
-	await slangroom
+	return await slangroom
 		.execute(verResponse, { data: postWVP, keys: JSON.parse(verResponseKeys) })
 		.catch((err) => {
 			throw new Error(`Failed to execute verResponse: ${err}`)
@@ -120,7 +120,6 @@ export const getCredentialQrInfo = async (qrJSON: Credential) => {
 			.catch((err) => {
 				throw new Error(`Failed to execute verQrToInfo: ${err}`);
 			});
-		console.log('res: ', res.result);
 		return res.result as QrToInfoResults;
 	} catch (err) {
 		log(JSON.stringify(err));

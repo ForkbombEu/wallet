@@ -62,11 +62,10 @@
 			})) as Verification;
 
 			const responseSuccess = verification.result?.result?.status === '200';
-			const success = verification.result?.result?.result?.output?.[0] === 'OK';
 			await debugDismiss();
 			const date = dayjs().toString();
 			let feedback: Feedback = {};
-			if (!responseSuccess || !success) {
+			if ( !responseSuccess ) {
 				feedback = negativeFeedback(
 					verificationFailed,
 					JSON.stringify(
@@ -83,7 +82,7 @@
 				feedback,
 				date,
 				id: verification.result?.result?.result?.complete_transaction_id || '',
-				success: responseSuccess && success
+				success: responseSuccess
 			});
 			log(JSON.stringify(verification));
 			return await goto('/verification/results');
