@@ -188,5 +188,6 @@
 	"No_credentials_found": "No credentials found",
 	"Failed_verResponse": "Failed to execute verResponse: {err}",
 	"Failed_verQrToInfo": "Failed to execute verQrToInfo: {err}",
-	"Error_executing_zencode": "Error executing zencode: {err}"
+	"Error_executing_zencode": "Error executing zencode: {err}",
+	"issued_to_you": "{iss} issued {name} to you"
 }

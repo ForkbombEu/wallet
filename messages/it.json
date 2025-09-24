@@ -180,5 +180,6 @@
 	"new_activities": "Hai {count} nuove attività",
 	"expired_credential": "Hai 1 credenziale scaduta",
 	"expired_credentials": "Hai {count} credenziali scadute",
-	"No_credentials_found": "Nessuna credenziale trovata"
+	"No_credentials_found": "Nessuna credenziale trovata",
+	"issued_to_you": "{iss} ti ha rilasciato {name}"
 }
