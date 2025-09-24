@@ -13,7 +13,7 @@
 </script>
 
 <d-header back-button on:backButtonClick={gotoHome}>
-	{success ? m.verification_success() : m.verification_failed()}
+	{success ? m.verification_success() : m.Verification_failed()}
 </d-header>
 
 <ion-content fullscreen class="ion-padding">
@@ -24,7 +24,7 @@
 				{date}
 				success={success}
 				verified-message={m.verified()}
-				failure-message={m.verification_failed()}
+				failure-message={m.Verification_failed()}
 				session-message=''
 			/>
 		{:else}
@@ -33,7 +33,7 @@
 				{date}
 				success={success}
 				verified-message={m.verified()}
-				failure-message={m.verification_failed()}
+				failure-message={m.Verification_failed()}
 				session-message={m.transaction_id()}
 			/>
 		{/if}

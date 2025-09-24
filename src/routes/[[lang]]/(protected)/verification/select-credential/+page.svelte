@@ -38,7 +38,7 @@
 	let loading = false;
 
 	const { vps, post_url } = $verificationStore;
-	const verificationFailed = m.verification_failed();
+	const verificationFailed = m.Verification_failed();
 
 	const selectCredential = (credential: number) => {
 		selectedCredential = credential;
