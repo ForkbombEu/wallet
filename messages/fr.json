@@ -99,7 +99,7 @@
 	"Log_Out": "Se déconnecter",
 	"Settings": "Paramètres",
 	"NOTIFICATIONS_SETTINGS": "Notifications",
-	"Insert_a_valid_JSON_here": "Insérer un JSON valide ici",
+	"Insert_a_valid_intent_url_here": "Insérer un intent_url valide ici",
 	"Go_to_home": "Aller à l'accueil",
 	"Choose_your_password": "Choisissez votre mot de passe",
 	"Your_password_should_be_between_8_and_73_character": "Votre mot de passe doit comporter entre 8 et 73 caractères",

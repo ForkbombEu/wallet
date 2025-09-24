@@ -154,7 +154,7 @@
 		{/await}
 	{:else}
 		<div class="flex flex-col gap-4 px-8 pt-16">
-			<d-text size="l">{m.Insert_a_valid_JSON_here()}</d-text>
+			<d-text size="l">{m.Insert_a_valid_intent_url_here()}</d-text>
 			<textarea bind:value={inputText} class="h-80 w-full p-4 text-primary" />
 			<d-button on:click={submitJson} on:keydown={submitJson} aria-hidden>
 				{m.Submit()}
