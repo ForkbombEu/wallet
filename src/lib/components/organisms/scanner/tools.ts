@@ -6,8 +6,8 @@ import { helpers } from '@slangroom/helpers';
 import { zencode } from '@slangroom/zencode';
 import { pocketbase } from '@slangroom/pocketbase';
 import { http } from '@slangroom/http';
-import verQrToInfo from '$lib/mobile_zencode/wallet/opneid4vp_qr_to_info.zen?raw';
-import verQrToInfoKeys from '$lib/mobile_zencode/wallet/opneid4vp_qr_to_info.keys.json?raw';
+import verQrToInfo from '$lib/mobile_zencode/wallet/openid4vp_qr_to_info.zen?raw';
+import verQrToInfoKeys from '$lib/mobile_zencode/wallet/openid4vp_qr_to_info.keys.json?raw';
 import verResponse from '$lib/mobile_zencode/wallet/openid4vp_response.zen?raw';
 import verResponseKeys from '$lib/mobile_zencode/wallet/openid4vp_response.keys.json?raw';
 import { log } from '$lib/log';
@@ -128,22 +128,6 @@ export const getCredentialQrInfo = async (qrJSON: Credential) => {
 	}
 };
 
-const parseQrCodeErrors = (qrcodeResultMessage?: string) => {
-	if (!qrcodeResultMessage) return;
-	if (!(typeof qrcodeResultMessage === 'string')) return;
-	if (qrcodeResultMessage.includes('QR code is expired')) {
-		return m.QR_code_is_expired();
-	}
-	if (
-		qrcodeResultMessage.includes(
-			'no_signed_selective_disclosure_found_that_matched_the_requested_claims'
-		)
-	) {
-		return m.You_have_no_signed_selective_disclosure_that_matched_the_requested_claims_or_your_credential_is_expired();
-	}
-	return qrcodeResultMessage;
-};
-
 const infoFromVerificationData = async (
 	data: Credential
 ): Promise<
@@ -158,6 +142,9 @@ const infoFromVerificationData = async (
 > => {
 	try {
 		const credential = await getCredentialQrInfo(data);
+		if (credential.vps.length === 0) {
+			throw new Error(m.You_have_no_signed_selective_disclosure_that_matched_the_requested_claims_or_your_credential_is_expired())
+		}
 		verificationStore.set(credential);
 		return {
 			success: true,
@@ -170,7 +157,7 @@ const infoFromVerificationData = async (
 			feedback: {
 				type: 'error',
 				feedback: m.Verification_failed(),
-				message: parseQrCodeErrors(err.message)
+				message: err.message
 			}
 		};
 	}
