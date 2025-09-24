@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { r } from '$lib/i18n';
+	import { r, m } from '$lib/i18n';
 	import { verificationResultsStore } from '$lib/verificationResultsStore';
 	const { feedback, date, id, success } = $verificationResultsStore;
 	const gotoHome = async () => {
@@ -13,7 +13,7 @@
 </script>
 
 <d-header back-button on:backButtonClick={gotoHome}>
-	{success ? 'verification succeeded' : 'verification failed'}
+	{success ? m.verification_success() : m.verification_failed()}
 </d-header>
 
 <ion-content fullscreen class="ion-padding">
@@ -23,8 +23,8 @@
 			<d-session-card
 				{date}
 				success={success}
-				success-message={'verification success'}
-				failure-message={'verification failed'}
+				verified-message={m.verified()}
+				failure-message={m.verification_failed()}
 				session-message=''
 			/>
 		{:else}
@@ -32,9 +32,9 @@
 				sid={shorterId(id)}
 				{date}
 				success={success}
-				success-message={'verification success'}
-				failure-message={'verification failed'}
-				session-message={'transaction id'}
+				verified-message={m.verified()}
+				failure-message={m.verification_failed()}
+				session-message={m.transaction_id()}
 			/>
 		{/if}
 	</div>

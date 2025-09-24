@@ -173,5 +173,8 @@
 	"Activate": "Activate",
 	"Writing": "Writing",
 	"Copy_logs": "Copy logs",
-	"qrcode_is_not_compatible": "qrcode is not compatible"
+	"qrcode_is_not_compatible": "qrcode is not compatible",
+	"verified": "verified",
+	"verification_failed": "verification failed",
+	"transaction_id": "transaction id"
 }
