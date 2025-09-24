@@ -12,6 +12,11 @@ const defaultConfig: CapacitorConfig = {
 	ios: {
 		scheme: 'Didroom',
 		webContentsDebuggingEnabled: true
+	},
+	plugins: {
+		Keyboard: {
+			resizeOnFullScreen: false
+		}
 	}
 };
 if (process.env.ANDROID) {
