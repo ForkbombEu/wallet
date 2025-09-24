@@ -168,5 +168,10 @@
 	"Deactivate": "Disattivare",
 	"Activate": "Attivare",
 	"Writing": "Scrivere",
-	"Copy_logs": "Copia i logs"
+	"Copy_logs": "Copia i logs",
+	"verified": "verificata",
+	"verification_success": "verifica riuscita",
+	"verification_failed": "verifica fallita",
+	"transaction_id": "transaction id",
+	"choose_credential": "scegli credenziale"
 }

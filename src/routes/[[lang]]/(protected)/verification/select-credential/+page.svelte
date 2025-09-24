@@ -1,6 +1,6 @@
 <script lang="ts">
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
-	import { m } from '$lib/i18n';
+	import { m, goto } from '$lib/i18n';
 	import { slide } from 'svelte/transition';
 	import type { Feedback } from '$lib/utils/types.js';
 	import { verificationStore } from '$lib/verificationStore.js';
@@ -13,7 +13,6 @@
 		verificationResultsStore,
 		type VerificationResponse
 	} from '$lib/verificationResultsStore.js';
-	import { goto } from '$app/navigation';
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
 	import { debugDismiss } from '$lib/components/organisms/debug/debug';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
@@ -39,7 +38,7 @@
 	let loading = false;
 
 	const { vps, post_url } = $verificationStore;
-	const verificationFailed = 'verification failed';
+	const verificationFailed = m.verification_failed();
 
 	const selectCredential = (credential: number) => {
 		selectedCredential = credential;
