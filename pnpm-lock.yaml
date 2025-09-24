@@ -18,43 +18,43 @@ importers:
         specifier: ^7.0.1
         version: 7.4.3(@capacitor/core@7.4.3)
       '@capacitor/app':
-        specifier: ^7.0.0
+        specifier: ^7.1.0
         version: 7.1.0(@capacitor/core@7.4.3)
       '@capacitor/camera':
-        specifier: ^7.0.0
+        specifier: ^7.0.2
         version: 7.0.2(@capacitor/core@7.4.3)
       '@capacitor/clipboard':
-        specifier: ^7.0.0
+        specifier: ^7.0.2
         version: 7.0.2(@capacitor/core@7.4.3)
       '@capacitor/core':
         specifier: ^7.0.1
         version: 7.4.3
       '@capacitor/device':
-        specifier: ^7.0.0
+        specifier: ^7.0.2
         version: 7.0.2(@capacitor/core@7.4.3)
       '@capacitor/filesystem':
-        specifier: ^7.0.0
+        specifier: ^7.1.4
         version: 7.1.4(@capacitor/core@7.4.3)
       '@capacitor/haptics':
-        specifier: ^7.0.0
+        specifier: ^7.0.2
         version: 7.0.2(@capacitor/core@7.4.3)
       '@capacitor/ios':
         specifier: ^7.0.1
         version: 7.4.3(@capacitor/core@7.4.3)
       '@capacitor/keyboard':
-        specifier: ^7.0.0
+        specifier: ^7.0.3
         version: 7.0.3(@capacitor/core@7.4.3)
       '@capacitor/network':
-        specifier: ^7.0.0
+        specifier: ^7.0.2
         version: 7.0.2(@capacitor/core@7.4.3)
       '@capacitor/preferences':
-        specifier: ^7.0.0
+        specifier: ^7.0.2
         version: 7.0.2(@capacitor/core@7.4.3)
       '@capacitor/share':
-        specifier: ^7.0.0
+        specifier: ^7.0.2
         version: 7.0.2(@capacitor/core@7.4.3)
       '@capacitor/status-bar':
-        specifier: ^7.0.0
+        specifier: ^7.0.3
         version: 7.0.3(@capacitor/core@7.4.3)
       '@capawesome/capacitor-android-edge-to-edge-support':
         specifier: ^7.2.3
