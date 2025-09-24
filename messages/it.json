@@ -171,7 +171,7 @@
 	"Copy_logs": "Copia i logs",
 	"verified": "verificata",
 	"verification_success": "verifica riuscita",
-	"verification_failed": "verifica fallita",
+	"Verification_failed": "Verifica fallita",
 	"transaction_id": "transaction id",
 	"choose_credential": "scegli credenziale",
 	"back": "indietro",
@@ -179,5 +179,6 @@
 	"new_activity": "Hai 1 nuopva attività",
 	"new_activities": "Hai {count} nuove attività",
 	"expired_credential": "Hai 1 credenziale scaduta",
-	"expired_credentials": "Hai {count} credenziali scadute"
+	"expired_credentials": "Hai {count} credenziali scadute",
+	"No_credentials_found": "Nessuna credenziale trovata"
 }

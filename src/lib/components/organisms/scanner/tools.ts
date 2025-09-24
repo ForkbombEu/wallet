@@ -98,7 +98,7 @@ export const verifyCredential = async (postWVP: PostWithoutVp) => {
 
 export const getCredentialQrInfo = async (qrJSON: Credential) => {
 	const myCredentials = await getCredentialsFormat();
-	if (!myCredentials) throw new Error('No credentials');
+	if (!myCredentials || Object.entries(myCredentials).length === 0) throw new Error(m.No_credentials_found());
 	const did = await getDIDPreference();
 	const keyring = await getKeypairPreference();
 	// eliminate null values from ldp_vc
@@ -169,7 +169,7 @@ const infoFromVerificationData = async (
 			success: false,
 			feedback: {
 				type: 'error',
-				feedback: 'Verification failed',
+				feedback: m.Verification_failed(),
 				message: parseQrCodeErrors(err.message)
 			}
 		};

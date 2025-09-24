@@ -176,7 +176,7 @@
 	"qrcode_is_not_compatible": "qrcode is not compatible",
 	"verified": "verified",
 	"verification_success": "verification success",
-	"verification_failed": "verification failed",
+	"Verification_failed": "Verification failed",
 	"transaction_id": "transaction id",
 	"choose_credential": "Choose credential",
 	"back": "back",
@@ -184,5 +184,6 @@
 	"new_activity": "You have 1 new activity",
 	"new_activities": "You have {count} new activities",
 	"expired_credential": "You have 1 expired credential",
-	"expired_credentials": "You have {count} expired credentials"
+	"expired_credentials": "You have {count} expired credentials",
+	"No_credentials_found": "No credentials found"
 }
