@@ -61,6 +61,7 @@
 			})) as Verification;
 
 			const responseSuccess = verification.result?.result?.status === '200';
+			const responseRedirectUri = verification.result?.result?.result?.redirect_uri;
 			await debugDismiss();
 			const date = dayjs().toString();
 			let feedback: Feedback = {};
@@ -84,6 +85,7 @@
 				success: responseSuccess
 			});
 			log(JSON.stringify(verification));
+			if (responseRedirectUri) window.location.href = responseRedirectUri
 			return await goto('/verification/results');
 		} catch (e) {
 			verificationResultsStore.set({
