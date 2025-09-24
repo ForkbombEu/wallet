@@ -178,5 +178,11 @@
 	"verification_success": "verification success",
 	"verification_failed": "verification failed",
 	"transaction_id": "transaction id",
-	"choose_credential": "Choose credential"
+	"choose_credential": "Choose credential",
+	"back": "back",
+	"insert_your_passphrase": "insert your passphrase",
+	"new_activity": "You have 1 new activity",
+	"new_activities": "You have {count} new activities",
+	"expired_credential": "You have 1 expired credential",
+	"expired_credentials": "You have {count} expired credentials"
 }

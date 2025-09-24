@@ -137,7 +137,7 @@
 								on:click={() => goto('/register-login')}
 								aria-hidden
 							>
-								{'back'}
+								{m.back()}
 							</d-button>
 						</d-vertical-stack>
 					</Form>

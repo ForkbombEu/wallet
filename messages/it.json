@@ -173,5 +173,11 @@
 	"verification_success": "verifica riuscita",
 	"verification_failed": "verifica fallita",
 	"transaction_id": "transaction id",
-	"choose_credential": "scegli credenziale"
+	"choose_credential": "scegli credenziale",
+	"back": "indietro",
+	"insert_your_passphrase": "inserisci il tuo passphrase",
+	"new_activity": "Hai 1 nuopva attività",
+	"new_activities": "Hai {count} nuove attività",
+	"expired_credential": "Hai 1 credenziale scaduta",
+	"expired_credentials": "Hai {count} credenziali scadute"
 }
