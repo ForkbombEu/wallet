@@ -7,6 +7,7 @@
 	import 'ionic-svelte/components/all';
 	import '../theme/custom.css';
 	import '../theme/variables.css';
+	import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
 
 	import { goto, i18n, r } from '$lib/i18n';
 	import { ParaglideJS } from '@inlang/paraglide-js-adapter-sveltekit';
@@ -70,6 +71,13 @@
 	};
 
 	onMount(async () => {
+		const element = document.body.getElementsByTagName('ion-app')[0];
+		const styles = getComputedStyle(element);
+		// const mainColor = styles.getPropertyValue('--safe-area-background-color').trim();
+		const mainColor = styles.getPropertyValue('--ion-background-color').trim();
+		EdgeToEdge.setBackgroundColor({color: mainColor || '#000000'});
+
+
 		isConnected = (await Network.getStatus()).connected;
 		Network.addListener('networkStatusChange', async (status) => {
 			isConnected = status.connected;

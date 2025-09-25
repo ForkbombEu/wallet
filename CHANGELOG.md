@@ -1,3 +1,10 @@
+## [2.0.11](https://github.com/ForkbombEu/wallet/compare/v2.0.10...v2.0.11) (2025-09-25)
+
+
+### Bug Fixes
+
+* update mobile zencode to latest ([#612](https://github.com/ForkbombEu/wallet/issues/612)) ([829370e](https://github.com/ForkbombEu/wallet/commit/829370eebbf427f28ec8185ae9a2cce317274343))
+
 ## [2.0.10](https://github.com/ForkbombEu/wallet/compare/v2.0.9...v2.0.10) (2025-09-18)
 
 
