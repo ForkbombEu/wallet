@@ -6,7 +6,7 @@ include ':aparajita-capacitor-biometric-auth'
 project(':aparajita-capacitor-biometric-auth').projectDir = new File('../node_modules/.pnpm/@aparajita+capacitor-biometric-auth@8.0.2/node_modules/@aparajita/capacitor-biometric-auth/android')
 
 include ':capacitor-mlkit-barcode-scanning'
-project(':capacitor-mlkit-barcode-scanning').projectDir = new File('../node_modules/.pnpm/@capacitor-mlkit+barcode-scanning@7.0.0-next.2_@capacitor+core@7.4.3/node_modules/@capacitor-mlkit/barcode-scanning/android')
+project(':capacitor-mlkit-barcode-scanning').projectDir = new File('../node_modules/.pnpm/@capacitor-mlkit+barcode-scanning@7.0.0-next.4_@capacitor+core@7.4.3/node_modules/@capacitor-mlkit/barcode-scanning/android')
 
 include ':capacitor-app'
 project(':capacitor-app').projectDir = new File('../node_modules/.pnpm/@capacitor+app@7.1.0_@capacitor+core@7.4.3/node_modules/@capacitor/app/android')
@@ -45,4 +45,4 @@ include ':capawesome-capacitor-android-edge-to-edge-support'
 project(':capawesome-capacitor-android-edge-to-edge-support').projectDir = new File('../node_modules/.pnpm/@capawesome+capacitor-android-edge-to-edge-support@7.2.3_@capacitor+core@7.4.3/node_modules/@capawesome/capacitor-android-edge-to-edge-support/android')
 
 include ':capacitor-native-settings'
-project(':capacitor-native-settings').projectDir = new File('../node_modules/.pnpm/capacitor-native-settings@6.0.1_@capacitor+core@7.4.3/node_modules/capacitor-native-settings/android')
+project(':capacitor-native-settings').projectDir = new File('../node_modules/.pnpm/capacitor-native-settings@6.0.6_@capacitor+core@7.4.3/node_modules/capacitor-native-settings/android')
