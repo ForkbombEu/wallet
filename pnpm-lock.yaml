@@ -73,10 +73,10 @@ importers:
         version: 7.8.6
       '@slangroom/core':
         specifier: ^1.49.5
-        version: 1.49.5(zenroom@5.25.3)
+        version: 1.49.5(zenroom@5.25.4)
       '@slangroom/did':
         specifier: ^1.49.5
-        version: 1.49.5(zenroom@5.25.3)
+        version: 1.49.5(zenroom@5.25.4)
       '@slangroom/helpers':
         specifier: ^1.49.5
         version: 1.49.5(zenroom@5.25.4)
@@ -8276,14 +8276,14 @@ snapshots:
       chevrotain: 10.5.0
       zenroom: 5.25.4
 
-  '@slangroom/did@1.49.5(zenroom@5.25.3)':
+  '@slangroom/did@1.49.5(zenroom@5.25.4)':
     dependencies:
-      '@slangroom/core': 1.49.5(zenroom@5.25.3)
-      '@slangroom/shared': 1.49.5(zenroom@5.25.3)
+      '@slangroom/core': 1.49.5(zenroom@5.25.4)
+      '@slangroom/shared': 1.49.5(zenroom@5.25.4)
     transitivePeerDependencies:
       - zenroom
 
-  '@slangroom/helpers@1.49.5(zenroom@5.25.3)':
+  '@slangroom/helpers@1.49.5(zenroom@5.25.4)':
     dependencies:
       '@slangroom/core': 1.49.5(zenroom@5.25.4)
       '@slangroom/shared': 1.49.5(zenroom@5.25.4)
