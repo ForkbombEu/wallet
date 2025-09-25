@@ -12,14 +12,6 @@ const defaultConfig: CapacitorConfig = {
 	plugins: {
 		Keyboard: {
 			resizeOnFullScreen: false
-		},
-		EdgeToEdge: {
-			backgroundColor: '#000'
-		},
-		StatusBar: {
-			overlaysWebView: false,
-			style: 'DARK',
-			backgroundColor: '#00000000'
 		}
 	},
 	ios: {
