@@ -1,3 +1,10 @@
+## [2.0.12](https://github.com/ForkbombEu/wallet/compare/v2.0.11...v2.0.12) (2025-09-26)
+
+
+### Bug Fixes
+
+* vp must be presentated as application/x-www-form-urlencoded ([#614](https://github.com/ForkbombEu/wallet/issues/614)) ([1d8cc5f](https://github.com/ForkbombEu/wallet/commit/1d8cc5fd0a16e341433c4918152b465ea72999c9))
+
 ## [2.0.11](https://github.com/ForkbombEu/wallet/compare/v2.0.10...v2.0.11) (2025-09-25)
 
 
