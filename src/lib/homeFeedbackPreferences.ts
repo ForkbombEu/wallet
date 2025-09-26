@@ -1,3 +1,4 @@
+import { m } from "$lib/i18n";
 import { invalidate } from '$app/navigation';
 import { _protectedLayoutKey } from '../routes/[[lang]]/(protected)/+layout';
 import { getStructuredPreferences, setStructuredPreferences } from './preferences';
@@ -80,9 +81,9 @@ export async function getHomeFeedbacks(): Promise<HomeFeedbacksList> {
 			type: 'newActivities',
 			content: {
 				type: 'success',
-				feedback: `You have ${newActivities.count} new activit${
-					newActivities.count > 1 ? 'ies' : 'y'
-				}`
+				feedback: newActivities.count > 1
+					? `${m.new_activities({ count: newActivities.count })}`
+					: `${m.new_activity}`
 			}
 		});
 	}
@@ -91,9 +92,9 @@ export async function getHomeFeedbacks(): Promise<HomeFeedbacksList> {
 			type: 'expiredCredentials',
 			content: {
 				type: 'error',
-				feedback: `You have ${expiredCredentials.count} expired credential${
-					expiredCredentials.count > 1 ? 's' : ''
-				}`
+				feedback: expiredCredentials.count > 1
+					? `${m.expired_credentials({ count: expiredCredentials.count })}`
+					: `${m.expired_credential}`
 			}
 		});
 	}

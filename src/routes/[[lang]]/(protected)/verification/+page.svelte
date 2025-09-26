@@ -61,7 +61,7 @@
 		<d-vertical-stack>
 			<d-text>{m.Are_you_sure()}</d-text>
 			<d-button on:click={gotoChooseCredential} aria-hidden expand color="accent"
-				>{'Choose credentials'}</d-button
+				>{m.choose_credential()}</d-button
 			>
 			<d-button on:click={decline} expand aria-hidden>{m.Decline()}</d-button>
 		</d-vertical-stack>

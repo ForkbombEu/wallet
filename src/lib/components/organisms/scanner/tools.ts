@@ -1,12 +1,15 @@
 import { getCredentialsFormat, type LdpVc } from '$lib/preferences/credentials';
 import { z, ZodSchema } from 'zod';
 import { Slangroom, type Plugins } from '@slangroom/core';
+import { did } from '@slangroom/did';
 import { helpers } from '@slangroom/helpers';
 import { zencode } from '@slangroom/zencode';
 import { pocketbase } from '@slangroom/pocketbase';
 import { http } from '@slangroom/http';
-import verQrToInfo from '$lib/mobile_zencode/wallet/opneid4vp_qr_to_info.zen?raw';
-import verQrToInfoKeys from '$lib/mobile_zencode/wallet/opneid4vp_qr_to_info.keys.json?raw';
+import verQrToInfo from '$lib/mobile_zencode/wallet/openid4vp_qr_to_info.zen?raw';
+import verQrToInfoKeys from '$lib/mobile_zencode/wallet/openid4vp_qr_to_info.keys.json?raw';
+import verResponse from '$lib/mobile_zencode/wallet/openid4vp_response.zen?raw';
+import verResponseKeys from '$lib/mobile_zencode/wallet/openid4vp_response.keys.json?raw';
 import { log } from '$lib/log';
 import { verificationStore } from '$lib/verificationStore';
 import { credentialOfferStore } from '$lib/credentialOfferStore';
@@ -17,7 +20,7 @@ import { getDIDPreference } from '$lib/preferences/did';
 import { getKeypairPreference } from '$lib/preferences/keypair';
 import { credential } from '$paraglide/messages';
 
-const slangroom = new Slangroom(helpers, zencode, pocketbase, http as unknown as Plugins);
+const slangroom = new Slangroom(did, helpers, zencode, pocketbase, http as unknown as Plugins);
 
 export type QrToInfoResults = {
 	post_url: string;
@@ -85,20 +88,17 @@ export type Data =
 			service: Service;
 	  };
 
-export const verifyCredential = async (postWVP: PostWithoutVp) =>
-	await slangroom.execute(
-		`Rule unknown ignore
-	Given I connect to 'url' and send object 'body' and do post and output into 'result'
-	Given I have a 'string dictionary' named 'result'
-	Then print data`,
-		{
-			data: postWVP
-		}
-	);
+export const verifyCredential = async (postWVP: PostWithoutVp) => {
+	return await slangroom
+		.execute(verResponse, { data: postWVP, keys: JSON.parse(verResponseKeys) })
+		.catch((err) => {
+			throw new Error(m.Failed_verResponse({err}))
+		})
+}
 
 export const getCredentialQrInfo = async (qrJSON: Credential) => {
 	const myCredentials = await getCredentialsFormat();
-	if (!myCredentials) throw new Error('No credentials');
+	if (!myCredentials || Object.entries(myCredentials).length === 0) throw new Error(m.No_credentials_found());
 	const did = await getDIDPreference();
 	const keyring = await getKeypairPreference();
 	// eliminate null values from ldp_vc
@@ -118,30 +118,14 @@ export const getCredentialQrInfo = async (qrJSON: Credential) => {
 			//@ts-ignore
 			.execute(verQrToInfo, { data, keys })
 			.catch((err) => {
-				throw new Error(`Failed to execute verQrToInfo: ${err}`);
+				throw new Error(m.Failed_verQrToInfo({err}));
 			});
 		return res.result as QrToInfoResults;
 	} catch (err) {
 		log(JSON.stringify(err));
-		console.error('Error executing zencode:', err);
-		throw new Error(`error executing zencode: ${err}`);
+		console.error(m.Error_executing_zencode({err: err as string}));
+		throw new Error(m.Error_executing_zencode({err: err as string}));
 	}
-};
-
-const parseQrCodeErrors = (qrcodeResultMessage?: string) => {
-	if (!qrcodeResultMessage) return;
-	if (!(typeof qrcodeResultMessage === 'string')) return;
-	if (qrcodeResultMessage.includes('QR code is expired')) {
-		return m.QR_code_is_expired();
-	}
-	if (
-		qrcodeResultMessage.includes(
-			'no_signed_selective_disclosure_found_that_matched_the_requested_claims'
-		)
-	) {
-		return m.You_have_no_signed_selective_disclosure_that_matched_the_requested_claims_or_your_credential_is_expired();
-	}
-	return qrcodeResultMessage;
 };
 
 const infoFromVerificationData = async (
@@ -158,6 +142,9 @@ const infoFromVerificationData = async (
 > => {
 	try {
 		const credential = await getCredentialQrInfo(data);
+		if (credential.vps.length === 0) {
+			throw new Error(m.You_have_no_signed_selective_disclosure_that_matched_the_requested_claims_or_your_credential_is_expired())
+		}
 		verificationStore.set(credential);
 		return {
 			success: true,
@@ -169,8 +156,8 @@ const infoFromVerificationData = async (
 			success: false,
 			feedback: {
 				type: 'error',
-				feedback: 'Verification failed',
-				message: parseQrCodeErrors(err.message)
+				feedback: m.Verification_failed(),
+				message: err.message
 			}
 		};
 	}

@@ -10,6 +10,7 @@ import { _protectedLayoutKey } from '../../routes/[[lang]]/(protected)/+layout';
 import type { Info } from '$lib/components/organisms/scanner/tools';
 import { filesUri } from '$lib/backendUri';
 import type { Logo } from '$lib/utils/types';
+import { m } from '$lib/i18n';
 
 dayjs.extend(relativeTime);
 
@@ -127,9 +128,9 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 			parsedActivity.description = credential.description;
 			parsedActivity.credential = credential;
 			if (activity.type === 'credential') {
-				parsedActivity.message = `${credential.issuer} issued ${credential.display_name} to you`;
+				parsedActivity.message = m.issued_to_you({iss: credential.issuer, name: credential.display_name})
 			} else {
-				parsedActivity.message = `${credential.display_name} is expired`;
+				parsedActivity.message = `${credential.display_name} ${m.is_expired()}`;
 			}
 		} else if (activity.type === 'verification') {
 			const { verifier_name, success, rp_name, properties, avatar } = activity;
