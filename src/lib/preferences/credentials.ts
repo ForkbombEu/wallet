@@ -53,7 +53,7 @@ export type Credential = // soon will be implemented also mdoc
 
 const progressiveId = async () => {
 	const preferences = await getCredentialsPreference();
-	if (preferences) {
+	if (preferences && preferences.length > 0) {
 		return Math.max(...preferences.map((m) => m.id)) + 1;
 	}
 	return 1;
