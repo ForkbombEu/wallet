@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { BarcodeScanner, type Barcode } from '@capacitor-mlkit/barcode-scanning';
-	import { close } from 'ionicons/icons';
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 	import { m } from '$lib/i18n';
 	import camera from '$lib/assets/camera.png';
@@ -102,12 +101,14 @@
 		await invalidateAll();
 	};
 	const closeScanner = async () => {
+
 		await stopScan();
 		window.history.back();
 	};
 </script>
 
-<ion-header class="visible z-50" translucent>
+
+<!-- <ion-header class="visible z-50 mt-16" translucent>
 	<ion-toolbar >
 		<ion-title class="pl-14 text-center uppercase dark:bg-[#253151] bg-[#e9ebef]">
 			{m.QR_SCAN()}
@@ -118,7 +119,7 @@
 			</d-button>
 		</ion-buttons>
 	</ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
 	
@@ -149,6 +150,7 @@
 					class="visible z-40"
 					heading={m.Scan_QR_to_verify_or_obtain_credentials_()}
 					description={m.Make_sure_to_scan_the_full_QR_surface_()}
+					on:cancelClick={closeScanner}
 				/>
 			{/if}
 		{/await}
