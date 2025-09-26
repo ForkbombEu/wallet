@@ -108,19 +108,6 @@
 </script>
 
 
-<!-- <ion-header class="visible z-50 mt-16" translucent>
-	<ion-toolbar >
-		<ion-title class="pl-14 text-center uppercase dark:bg-[#253151] bg-[#e9ebef]">
-			{m.QR_SCAN()}
-		</ion-title>
-		<ion-buttons slot="end">
-			<d-button on:click={closeScanner} on:keydown={closeScanner} aria-hidden clear>
-				<ion-icon icon={close} slot="icon-only" class="text-on"></ion-icon>
-			</d-button>
-		</ion-buttons>
-	</ion-toolbar>
-</ion-header> -->
-
 <ion-content>
 	
 	{#if !isWeb}
