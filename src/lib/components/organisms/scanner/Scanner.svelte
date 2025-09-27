@@ -101,7 +101,6 @@
 		await invalidateAll();
 	};
 	const closeScanner = async () => {
-
 		await stopScan();
 		window.history.back();
 	};
