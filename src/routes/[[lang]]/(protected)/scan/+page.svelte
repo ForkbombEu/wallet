@@ -7,10 +7,18 @@
 	import { page } from '$app/stores';
 	import { m } from '$lib/i18n';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
+	import { onDestroy, onMount } from 'svelte';
+	import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
 
 	let barcodeResult: { message?: string } = { message: undefined };
 	const isWeb = Capacitor.getPlatform() == 'web';
 	let loading = false;
+	onMount(() => {
+		EdgeToEdge.disable();
+	});
+	onDestroy(() => {
+		EdgeToEdge.enable();
+	});
 
 	function showModal() {
 		pushState('', {
