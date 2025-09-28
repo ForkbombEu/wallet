@@ -1,3 +1,10 @@
+## [2.0.14](https://github.com/ForkbombEu/wallet/compare/v2.0.13...v2.0.14) (2025-09-28)
+
+
+### Bug Fixes
+
+* store credentials indexing ([#617](https://github.com/ForkbombEu/wallet/issues/617)) ([4f315a0](https://github.com/ForkbombEu/wallet/commit/4f315a0ad01f0d262914ab6d95e56c78c3316503)), closes [#615](https://github.com/ForkbombEu/wallet/issues/615)
+
 ## [2.0.13](https://github.com/ForkbombEu/wallet/compare/v2.0.12...v2.0.13) (2025-09-28)
 
 
