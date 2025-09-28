@@ -1,3 +1,10 @@
+## [2.0.13](https://github.com/ForkbombEu/wallet/compare/v2.0.12...v2.0.13) (2025-09-28)
+
+
+### Bug Fixes
+
+* qr scanner ui ([#618](https://github.com/ForkbombEu/wallet/issues/618)) ([4794f05](https://github.com/ForkbombEu/wallet/commit/4794f051cc6442efa6d86f14c8d5efed6fabc586))
+
 ## [2.0.12](https://github.com/ForkbombEu/wallet/compare/v2.0.11...v2.0.12) (2025-09-26)
 
 
