@@ -1,3 +1,11 @@
+## [2.0.16](https://github.com/ForkbombEu/wallet/compare/v2.0.15...v2.0.16) (2025-09-29)
+
+
+### Bug Fixes
+
+* (android) safe area background color ([#621](https://github.com/ForkbombEu/wallet/issues/621)) ([2b0ebf8](https://github.com/ForkbombEu/wallet/commit/2b0ebf8a290af8d6603a7ab6b9c60659236be23d))
+* add feedback for verification process ([#620](https://github.com/ForkbombEu/wallet/issues/620)) ([7909f91](https://github.com/ForkbombEu/wallet/commit/7909f9149584f5403c139b786632ffef162c8909))
+
 ## [2.0.15](https://github.com/ForkbombEu/wallet/compare/v2.0.14...v2.0.15) (2025-09-29)
 
 
