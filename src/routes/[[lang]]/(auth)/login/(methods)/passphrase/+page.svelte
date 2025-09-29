@@ -76,7 +76,7 @@
 					{form}
 					fieldPath="seed"
 					placeholder={seedPlaceholder}
-					label="insert your passphrase"
+					label={m.insert_your_passphrase()}
 					type="text"
 				/>
 				<d-button role="button" expand type="submit" tabindex={0} disabled={!isTainted}

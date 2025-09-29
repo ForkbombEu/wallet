@@ -1,6 +1,6 @@
 <script lang="ts">
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
-	import { m } from '$lib/i18n';
+	import { m, goto } from '$lib/i18n';
 	import { slide } from 'svelte/transition';
 	import type { Feedback } from '$lib/utils/types.js';
 	import { verificationStore } from '$lib/verificationStore.js';
@@ -13,11 +13,9 @@
 		verificationResultsStore,
 		type VerificationResponse
 	} from '$lib/verificationResultsStore.js';
-	import { goto } from '$app/navigation';
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
 	import { debugDismiss } from '$lib/components/organisms/debug/debug';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
-	import { join } from 'lodash';
 
 	type Verification = {
 		result: {
@@ -39,7 +37,7 @@
 	let loading = false;
 
 	const { vps, post_url } = $verificationStore;
-	const verificationFailed = 'verification failed';
+	const verificationFailed = m.Verification_failed();
 
 	const selectCredential = (credential: number) => {
 		selectedCredential = credential;
@@ -62,11 +60,12 @@
 			})) as Verification;
 
 			const responseSuccess = verification.result?.result?.status === '200';
-			const success = verification.result?.result?.result?.output?.[0] === 'OK';
+			//@ts-ignore
+			const responseRedirectUri = verification.result?.result?.result?.redirect_uri;
 			await debugDismiss();
 			const date = dayjs().toString();
 			let feedback: Feedback = {};
-			if (!responseSuccess || !success) {
+			if ( !responseSuccess ) {
 				feedback = negativeFeedback(
 					verificationFailed,
 					JSON.stringify(
@@ -83,9 +82,16 @@
 				feedback,
 				date,
 				id: verification.result?.result?.result?.complete_transaction_id || '',
-				success: responseSuccess && success
+				success: responseSuccess
 			});
 			log(JSON.stringify(verification));
+			const sid = verification.result?.result?.result?.complete_transaction_id
+			//@ts-ignore
+			const verifierUrl = verification.result?.url
+			await addVerificationActivity(sid, responseSuccess, verifierUrl, verification.result?.result?.result?.transaction_result.map(
+				(item) => item.path[1]
+			) || []);
+			if (responseRedirectUri) window.location.href = responseRedirectUri
 			return await goto('/verification/results');
 		} catch (e) {
 			verificationResultsStore.set({
@@ -95,7 +101,6 @@
 				success: false
 			});
 			log(JSON.stringify(e));
-			// await addVerificationActivity(post_without_vp.body.id, info, false);
 			return await goto('/verification/results');
 		}
 	};

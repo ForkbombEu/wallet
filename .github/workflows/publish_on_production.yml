@@ -13,6 +13,10 @@ on:
           - ios
           - both
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
 jobs:
   distribute_android:
     if: ${{ github.ref == 'refs/heads/stable'&&(github.event.inputs.platform == 'android' || github.event.inputs.platform == 'both') }}

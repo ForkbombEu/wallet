@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { BarcodeScanner, type Barcode } from '@capacitor-mlkit/barcode-scanning';
-	import { close } from 'ionicons/icons';
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 	import { m } from '$lib/i18n';
 	import camera from '$lib/assets/camera.png';
@@ -107,18 +106,6 @@
 	};
 </script>
 
-<ion-header class="visible z-50" translucent>
-	<ion-toolbar >
-		<ion-title class="pl-14 text-center uppercase dark:bg-[#253151] bg-[#e9ebef]">
-			{m.QR_SCAN()}
-		</ion-title>
-		<ion-buttons slot="end">
-			<d-button on:click={closeScanner} on:keydown={closeScanner} aria-hidden clear>
-				<ion-icon icon={close} slot="icon-only" class="text-on"></ion-icon>
-			</d-button>
-		</ion-buttons>
-	</ion-toolbar>
-</ion-header>
 
 <ion-content>
 	
@@ -149,12 +136,13 @@
 					class="visible z-40"
 					heading={m.Scan_QR_to_verify_or_obtain_credentials_()}
 					description={m.Make_sure_to_scan_the_full_QR_surface_()}
+					on:cancelClick={closeScanner}
 				/>
 			{/if}
 		{/await}
 	{:else}
 		<div class="flex flex-col gap-4 px-8 pt-16">
-			<d-text size="l">{m.Insert_a_valid_JSON_here()}</d-text>
+			<d-text size="l">{m.Insert_a_valid_intent_url_here()}</d-text>
 			<textarea bind:value={inputText} class="h-80 w-full p-4 text-primary" />
 			<d-button on:click={submitJson} on:keydown={submitJson} aria-hidden>
 				{m.Submit()}

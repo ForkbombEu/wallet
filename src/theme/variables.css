@@ -16,7 +16,6 @@
 	--ion-font-family: 'Gantari Variable';
 	--ion-padding:20px;
 	--padding-top:24px;
-	--safe-area-background-color: gray;
 }
 
 .ios {
@@ -36,9 +35,6 @@ body.barcode-scanner-active {
 }
 
 @media (prefers-color-scheme: dark) {
-	body {
-		--safe-area-background-color: blue;
-	}
 
 	.barcode-scanner-modal {
 		--background: transparent;

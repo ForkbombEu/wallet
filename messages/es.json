@@ -98,7 +98,7 @@
 	"Log_Out": "Finalizar la sesión",
 	"Settings": "Ajustes",
 	"NOTIFICATIONS_SETTINGS": "Notificaciones",
-	"Insert_a_valid_JSON_here": "Inserte un JSON válido aquí",
+	"Insert_a_valid_intent_url_here": "Inserte un intent_url válido aquí",
 	"Go_to_home": "Ir a Inicio",
 	"Choose_your_password": "Elige tu contraseña",
 	"Your_password_should_be_between_8_and_73_character": "Tu contraseña debe tener entre 8 y 73 caracteres.",

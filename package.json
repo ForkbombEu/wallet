@@ -1,6 +1,6 @@
 {
 	"name": "wallet",
-	"version": "2.0.11",
+	"version": "2.0.16",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --host",
@@ -28,7 +28,7 @@
 		"@axe-core/playwright": "^4.10.1",
 		"@capacitor/assets": "^3.0.5",
 		"@capacitor/cli": "^7.0.1",
-		"@didroom/components": "^1.32.2",
+		"@didroom/components": "^1.32.5",
 		"@eslint/eslintrc": "^3.2.0",
 		"@eslint/js": "^9.16.0",
 		"@faker-js/faker": "^8.4.1",
@@ -95,6 +95,7 @@
 		"@ionic/cli": "^7.2.0",
 		"@ionic/core": "^7.8.6",
 		"@slangroom/core": "^1.49.5",
+		"@slangroom/did": "^1.49.5",
 		"@slangroom/helpers": "^1.49.5",
 		"@slangroom/http": "^1.49.5",
 		"@slangroom/pocketbase": "^1.49.5",

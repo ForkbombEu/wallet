@@ -1,3 +1,39 @@
+## [2.0.16](https://github.com/ForkbombEu/wallet/compare/v2.0.15...v2.0.16) (2025-09-29)
+
+
+### Bug Fixes
+
+* (android) safe area background color ([#621](https://github.com/ForkbombEu/wallet/issues/621)) ([2b0ebf8](https://github.com/ForkbombEu/wallet/commit/2b0ebf8a290af8d6603a7ab6b9c60659236be23d))
+* add feedback for verification process ([#620](https://github.com/ForkbombEu/wallet/issues/620)) ([7909f91](https://github.com/ForkbombEu/wallet/commit/7909f9149584f5403c139b786632ffef162c8909))
+
+## [2.0.15](https://github.com/ForkbombEu/wallet/compare/v2.0.14...v2.0.15) (2025-09-29)
+
+
+### Bug Fixes
+
+* activity notification message ([#619](https://github.com/ForkbombEu/wallet/issues/619)) ([75c438a](https://github.com/ForkbombEu/wallet/commit/75c438a39fce1ae7a8fb6389fc52029963c4e02b))
+
+## [2.0.14](https://github.com/ForkbombEu/wallet/compare/v2.0.13...v2.0.14) (2025-09-28)
+
+
+### Bug Fixes
+
+* store credentials indexing ([#617](https://github.com/ForkbombEu/wallet/issues/617)) ([4f315a0](https://github.com/ForkbombEu/wallet/commit/4f315a0ad01f0d262914ab6d95e56c78c3316503)), closes [#615](https://github.com/ForkbombEu/wallet/issues/615)
+
+## [2.0.13](https://github.com/ForkbombEu/wallet/compare/v2.0.12...v2.0.13) (2025-09-28)
+
+
+### Bug Fixes
+
+* qr scanner ui ([#618](https://github.com/ForkbombEu/wallet/issues/618)) ([4794f05](https://github.com/ForkbombEu/wallet/commit/4794f051cc6442efa6d86f14c8d5efed6fabc586))
+
+## [2.0.12](https://github.com/ForkbombEu/wallet/compare/v2.0.11...v2.0.12) (2025-09-26)
+
+
+### Bug Fixes
+
+* vp must be presentated as application/x-www-form-urlencoded ([#614](https://github.com/ForkbombEu/wallet/issues/614)) ([1d8cc5f](https://github.com/ForkbombEu/wallet/commit/1d8cc5fd0a16e341433c4918152b465ea72999c9))
+
 ## [2.0.11](https://github.com/ForkbombEu/wallet/compare/v2.0.10...v2.0.11) (2025-09-25)
 
 
