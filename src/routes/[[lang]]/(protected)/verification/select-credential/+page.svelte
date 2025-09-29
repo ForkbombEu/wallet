@@ -62,7 +62,6 @@
 			const responseSuccess = verification.result?.result?.status === '200';
 			//@ts-ignore
 			const responseRedirectUri = verification.result?.result?.result?.redirect_uri;
-			console.log('verification', verification);
 			await debugDismiss();
 			const date = dayjs().toString();
 			let feedback: Feedback = {};
