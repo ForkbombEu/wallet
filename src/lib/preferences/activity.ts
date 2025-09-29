@@ -139,7 +139,6 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 					alt_text: verifier_name
 				};
 			}
-			console.log('properties', properties, rp_name, activity.success);
 			parsedActivity.message = m.You_send_to_verification_via_and_result_is({ properties: properties.join(','), rp_name: rp_name.split('//')[1].split('/')[0], result: activity.success ? m.successful() : m.failed() });
 			parsedActivity.description = rp_name;
 		}
