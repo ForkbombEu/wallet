@@ -16,7 +16,6 @@
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
 	import { debugDismiss } from '$lib/components/organisms/debug/debug';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
-	import { join } from 'lodash';
 
 	type Verification = {
 		result: {
@@ -61,6 +60,7 @@
 			})) as Verification;
 
 			const responseSuccess = verification.result?.result?.status === '200';
+			//@ts-ignore
 			const responseRedirectUri = verification.result?.result?.result?.redirect_uri;
 			await debugDismiss();
 			const date = dayjs().toString();
@@ -85,6 +85,12 @@
 				success: responseSuccess
 			});
 			log(JSON.stringify(verification));
+			const sid = verification.result?.result?.result?.complete_transaction_id
+			//@ts-ignore
+			const verifierUrl = verification.result?.url
+			await addVerificationActivity(sid, responseSuccess, verifierUrl, verification.result?.result?.result?.transaction_result.map(
+				(item) => item.path[1]
+			) || []);
 			if (responseRedirectUri) window.location.href = responseRedirectUri
 			return await goto('/verification/results');
 		} catch (e) {
@@ -95,7 +101,6 @@
 				success: false
 			});
 			log(JSON.stringify(e));
-			// await addVerificationActivity(post_without_vp.body.id, info, false);
 			return await goto('/verification/results');
 		}
 	};

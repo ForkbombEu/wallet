@@ -7,7 +7,6 @@ import type { Credential } from '$lib/preferences/credentials';
 import { setNewActivitiesInHome } from '$lib/homeFeedbackPreferences';
 import { invalidate } from '$app/navigation';
 import { _protectedLayoutKey } from '../../routes/[[lang]]/(protected)/+layout';
-import type { Info } from '$lib/components/organisms/scanner/tools';
 import { filesUri } from '$lib/backendUri';
 import type { Logo } from '$lib/utils/types';
 import { m } from '$lib/i18n';
@@ -76,19 +75,16 @@ export async function addActivity(activity: Activity) {
 	invalidate(_protectedLayoutKey);
 }
 
-export async function addVerificationActivity(sid: string, info: Info, success: boolean) {
+export async function addVerificationActivity(sid: string, success: boolean, verifierUrl: string | null, properties: string[] = []) {
 	const at = dayjs().unix();
-	const { asked_claims, avatar } = info;
-	const { properties } = asked_claims;
-	const propertiesArray = Object.values(properties).map((property) => property.title);
 	await addActivity({
 		type: 'verification',
-		verifier_name: info.verifier_name,
-		avatar,
+		verifier_name: verifierUrl || '',
+		avatar: { id: '', collection: '', fileName: '' },
 		success,
-		rp_name: info.rp_name,
+		rp_name: verifierUrl || '',
 		sid,
-		properties: propertiesArray,
+		properties: properties,
 		at
 	});
 }
@@ -133,7 +129,7 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 				parsedActivity.message = `${credential.display_name} ${m.is_expired()}`;
 			}
 		} else if (activity.type === 'verification') {
-			const { verifier_name, success, rp_name, properties, avatar } = activity;
+			const { verifier_name, rp_name, properties, avatar } = activity;
 			parsedActivity.name = verifier_name;
 
 			if (avatar) {
@@ -142,9 +138,8 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 					alt_text: verifier_name
 				};
 			}
-			parsedActivity.message = `${verifier_name} verified yours: ${properties.join(', ')} via ${rp_name} and it was a ${
-				success ? 'success' : 'failure'
-			}`;
+			parsedActivity.message = m.You_send_to_verification_via_and_result_is({ properties: properties.join(','), rp_name: rp_name.split('//')[1].split('/')[0], result: activity.success ? m.successful() : m.failed() });
+			parsedActivity.description = rp_name;
 		}
 		return parsedActivity;
 	}
