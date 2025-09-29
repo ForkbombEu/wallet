@@ -72,11 +72,8 @@
 	};
 
 	onMount(async () => {
-		const mainColor = isDark()
-			? 'rgb(73, 73, 73)' // dark mode
-			: 'rgb(181, 181, 181)'; // light mode
-		EdgeToEdge.setBackgroundColor({color: mainColor || '#000000'});
-
+		const mainColor = isDark ? '#494949' : '#b5b5b5';
+		EdgeToEdge.setBackgroundColor({ color: mainColor || '#000000' });
 
 		isConnected = (await Network.getStatus()).connected;
 		Network.addListener('networkStatusChange', async (status) => {
