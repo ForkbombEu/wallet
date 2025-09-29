@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import { thumbsUpOutline } from 'ionicons/icons';
+	import { thumbsUpOutline, thumbsDownOutline } from 'ionicons/icons';
 	import { goto, m } from '$lib/i18n';
 	import { setCredentialPreference } from '$lib/preferences/credentials';
 	import { askCredential, decodeSdJwt, type CredentialResult } from '$lib/openId4vci';
@@ -15,10 +15,10 @@
 	import { getDebugMode } from '$lib/preferences/debug';
 
 	export let data;
-	const { code, wn, parResult } = data;
+	const { error, error_description, code, wn, parResult } = data;
 	const codeVerifier = parResult?.code_verifier;
 
-	let isCredentialVerified: boolean = false;
+	let isCredentialVerified: boolean | undefined;
 	let serviceResponse: CredentialResult;
 	let isOpen = true;
 
@@ -28,7 +28,15 @@
 		}
 		if (code) {
 			getCredential();
+		} else if (error) {
+			isCredentialVerified = false;
+			feedback = {
+				type: 'error',
+				message: error_description || '',
+				feedback: error
+			}
 		} else {
+			isCredentialVerified = false;
 			feedback = {
 				type: 'error',
 				message: 'No code received from the authentication service.',
@@ -111,33 +119,43 @@
 </script>
 
 <ion-content fullscreen class="ion-padding" bind:this={content}>
-	<ion-modal is-open={isOpen} backdrop-dismiss={false} transition:fly class="visible">
-		<ion-content class="ion-padding">
-			<div class="flex h-full flex-col justify-around">
-				<div>
-					{#if !isCredentialVerified}
-						{m.We_are_generating_this_credential()}
-						<d-credential-card
-							name={credentialInfo?.name}
-							issuer={credentialInfo?.name}
-							description={credentialInfo?.name}
-							logoSrc={credentialInfo?.logo.uri}
-						/>
-						<div class="mx-auto w-fit pt-8">
-							<FingerPrint />
-						</div>
-					{:else}
-						<div class="ion-padding flex w-full flex-col gap-2">
-							<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"
-							></ion-icon>
-							<d-text class="break-words"
-								>{m.credential()}: {JSON.stringify(serviceResponse.credentials[0], null, 2)}</d-text
-							>
-						</div>
-					{/if}
+	{#if isCredentialVerified === false}
+		<d-feedback {...feedback} class="mb-4"></d-feedback>
+		<div class="ion-padding flex w-full flex-col gap-2">
+			<ion-icon icon={thumbsDownOutline} class="mx-auto my-6 text-9xl text-red-400"></ion-icon>
+			<d-text class="mx-auto break-words">
+				{m.credential_issuance_failed()}
+			</d-text>
+		</div>
+	{:else}
+		<ion-modal is-open={isOpen} backdrop-dismiss={false} transition:fly class="visible">
+			<ion-content class="ion-padding">
+				<div class="flex h-full flex-col justify-around">
+					<div>
+						{#if isCredentialVerified === undefined}
+							{m.We_are_generating_this_credential()}
+							<d-credential-card
+								name={credentialInfo?.name}
+								issuer={credentialInfo?.name}
+								description={credentialInfo?.name}
+								logoSrc={credentialInfo?.logo.uri}
+							/>
+							<div class="mx-auto w-fit pt-8">
+								<FingerPrint />
+							</div>
+						{:else if isCredentialVerified === true}
+							<div class="ion-padding flex w-full flex-col gap-2">
+								<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"
+								></ion-icon>
+								<d-text class="break-words"
+									>{m.credential()}: {JSON.stringify(serviceResponse.credentials[0], null, 2)}</d-text
+								>
+							</div>
+						{/if}
+					</div>
 				</div>
-			</div>
-		</ion-content>
-	</ion-modal>
+			</ion-content>
+		</ion-modal>
+	{/if}
 	<DebugPopup />
 </ion-content>
