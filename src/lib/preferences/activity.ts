@@ -7,7 +7,6 @@ import type { Credential } from '$lib/preferences/credentials';
 import { setNewActivitiesInHome } from '$lib/homeFeedbackPreferences';
 import { invalidate } from '$app/navigation';
 import { _protectedLayoutKey } from '../../routes/[[lang]]/(protected)/+layout';
-// import type { Info } from '$lib/components/organisms/scanner/tools';
 import { filesUri } from '$lib/backendUri';
 import type { Logo } from '$lib/utils/types';
 import { m } from '$lib/i18n';
