@@ -1,3 +1,10 @@
+## [2.0.15](https://github.com/ForkbombEu/wallet/compare/v2.0.14...v2.0.15) (2025-09-29)
+
+
+### Bug Fixes
+
+* activity notification message ([#619](https://github.com/ForkbombEu/wallet/issues/619)) ([75c438a](https://github.com/ForkbombEu/wallet/commit/75c438a39fce1ae7a8fb6389fc52029963c4e02b))
+
 ## [2.0.14](https://github.com/ForkbombEu/wallet/compare/v2.0.13...v2.0.14) (2025-09-28)
 
 
