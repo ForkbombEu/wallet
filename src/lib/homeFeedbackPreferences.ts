@@ -83,7 +83,7 @@ export async function getHomeFeedbacks(): Promise<HomeFeedbacksList> {
 				type: 'success',
 				feedback: newActivities.count > 1
 					? `${m.new_activities({ count: newActivities.count })}`
-					: `${m.new_activity}`
+					: `${m.new_activity()}`
 			}
 		});
 	}
@@ -94,7 +94,7 @@ export async function getHomeFeedbacks(): Promise<HomeFeedbacksList> {
 				type: 'error',
 				feedback: expiredCredentials.count > 1
 					? `${m.expired_credentials({ count: expiredCredentials.count })}`
-					: `${m.expired_credential}`
+					: `${m.expired_credential()}`
 			}
 		});
 	}
