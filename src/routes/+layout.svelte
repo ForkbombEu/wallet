@@ -22,6 +22,7 @@
 	import { Network } from '@capacitor/network';
 	import { debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
 	import { refreshAuth } from './[[lang]]/(auth)/login/_lib';
+	import { isDark } from '$lib/isDark';
 
 	const controller = new AbortController();
 	const signal = controller.signal;
@@ -71,10 +72,9 @@
 	};
 
 	onMount(async () => {
-		const element = document.body.getElementsByTagName('ion-app')[0];
-		const styles = getComputedStyle(element);
-		// const mainColor = styles.getPropertyValue('--safe-area-background-color').trim();
-		const mainColor = styles.getPropertyValue('--ion-background-color').trim();
+		const mainColor = isDark()
+			? 'rgb(73, 73, 73)' // dark mode
+			: 'rgb(181, 181, 181)'; // light mode
 		EdgeToEdge.setBackgroundColor({color: mainColor || '#000000'});
 
 
