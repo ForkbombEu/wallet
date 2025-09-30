@@ -14,6 +14,7 @@
 	const { wn, authorizeUrl, feedbackData } = data;
 
 	let navigationTarget: string;
+	let declineToHome = false;
 
 	onMount(() => {
 		if (isIos && authorizeUrl) {
@@ -21,9 +22,15 @@
 		}
 		if (!isWeb) return;
 		const handleMessage = async (event: MessageEvent) => {
-			if (event.data && event.data.type === 'credential') {
-				window.removeEventListener('message', handleMessage);
-				navigationTarget = `/${event.data.id}/credential-detail`;
+			if (!event.data) return;
+			switch (event.data.type) {
+				case "credential":
+					window.removeEventListener("message", handleMessage);
+					navigationTarget = `/${event.data.id}/credential-detail`;
+					break;
+				case "decline-to-home":
+					declineToHome = true;
+					break;
 			}
 		};
 		window.addEventListener('message', handleMessage);
@@ -118,7 +125,7 @@
 							aria-hidden>{m.Continue()}</d-button
 						>
 					{/if}
-					<d-button expand href={r('/home')}>{m.Decline()}</d-button>
+					<d-button expand href={r('/home')}>{declineToHome? m.Home() : m.Decline()}</d-button>
 				</d-vertical-stack>
 			</div>
 			<DebugPopup />

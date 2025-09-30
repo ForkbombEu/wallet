@@ -35,6 +35,7 @@
 				message: error_description || 'No code received from the authentication service.',
 				feedback: error || 'Please try again.'
 			};
+			window.parent.postMessage({ type: "decline-to-home" }, "*");
 			await addActivity({
 				type: 'notIssuedCredential',
 				at: dayjs().unix(),
