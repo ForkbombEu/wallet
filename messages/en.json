@@ -193,5 +193,6 @@
 	"You_send_to_verification_via_and_result_is": "You send: /n - {properties} to verification via {rp_name} and the result is {result}.",
 	"successful": "successful",
 	"failed": "failed",
-	"credential_issuance_failed": "Credential issuance failed"
+	"credential_issuance_failed": "Credential issuance failed",
+	"fail_to_issue_to_you": "{iss} failed to issue {name} to you"
 }

@@ -27,21 +27,23 @@
 			isOpen = false;
 		}
 		if (code) {
-			getCredential();
-		} else if (error) {
-			isCredentialVerified = false;
-			feedback = {
-				type: 'error',
-				message: error_description || '',
-				feedback: error
-			}
+			getCredential()
 		} else {
 			isCredentialVerified = false;
 			feedback = {
 				type: 'error',
-				message: 'No code received from the authentication service.',
-				feedback: 'Please try again.'
+				message: error_description || 'No code received from the authentication service.',
+				feedback: error || 'Please try again.'
 			};
+			await addActivity({
+				type: 'notIssuedCredential',
+				at: dayjs().unix(),
+				name: wn!.credential_requested.display[0].name,
+				logo: wn!.credential_requested.display[0].logo,
+				description: wn!.credential_requested.display[0].description,
+				issuer:  wn!.credential_issuer_information.display[0].name,
+				displayName: wn!.credential_requested.display[0].name,
+			})
 		}
 	});
 
