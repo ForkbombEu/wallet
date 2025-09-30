@@ -190,7 +190,7 @@
 	"Failed_verQrToInfo": "Failed to execute verQrToInfo: {err}",
 	"Error_executing_zencode": "Error executing zencode: {err}",
 	"issued_to_you": "{iss} issued {name} to you",
-	"You_send_to_verification_via_and_result_is": "You send: \n - {properties} to verification via {rp_name} and the result is {result}.",
+	"You_send_to_verification_via_and_result_is": "You send: \n - {properties}to verification via {rp_name} and the result is {result}.",
 	"successful": "successful",
 	"failed": "failed",
 	"credential_issuance_failed": "Credential issuance failed",

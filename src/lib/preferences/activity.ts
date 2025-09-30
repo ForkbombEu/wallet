@@ -150,7 +150,7 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 				const { verifier_name, properties } = activity;
 				parsedActivity.name = activity.verifier_name;
 				parsedActivity.logo = activity.logo;
-				parsedActivity.message = m.You_send_to_verification_via_and_result_is({ properties: properties.join(','), rp_name: verifier_name.split('//')[1].split('/')[0], result: activity.success ? m.successful() : m.failed() });
+				parsedActivity.message = m.You_send_to_verification_via_and_result_is({ properties: properties.join('\n - ')+'\n', rp_name: verifier_name.split('//')[1].split('/')[0], result: activity.success ? m.successful() : m.failed() });
 				parsedActivity.description = verifier_name;
 				break;
 		}
