@@ -166,7 +166,9 @@
 					{m.credential_issuance_failed()}
 				</d-text>
 			</div>
-			<d-button expand href={r('/home')}>{m.Home()}</d-button>
+			{#if !isWeb}
+				<d-button expand href={r('/home')}>{m.Home()}</d-button>
+			{/if}
 		</div>
 	{/if}
 

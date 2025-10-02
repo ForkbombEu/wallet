@@ -125,8 +125,8 @@
 							aria-hidden>{m.Continue()}</d-button
 						>
 					{/if}
-					{#if !declineToHome}
-						<d-button expand href={r('/home')}>{m.Decline()}</d-button>
+					{#if !declineToHome || isWeb}
+						<d-button expand href={r('/home')}>{declineToHome ? m.Home() : m.Decline()}</d-button>
 					{/if}
 				</d-vertical-stack>
 			</div>
