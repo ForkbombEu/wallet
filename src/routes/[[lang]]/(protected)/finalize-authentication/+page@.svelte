@@ -63,7 +63,6 @@
 		isInitialError = false
 	): Promise<void> {
 		state = 'error';
-		isModalOpen = false;
 		feedback = { type: 'error', message: message, feedback: errorType };
 		content?.scrollToTop();
 
@@ -157,25 +156,24 @@
 </script>
 
 <ion-content fullscreen class="ion-padding h-screen" bind:this={content}>
-	{#if state === 'error'}
-		<div class="ion-padding flex h-full flex-col justify-between py-10">
-			<d-feedback {...feedback} class="mb-4"></d-feedback>
-			<div class="ion-padding flex w-full flex-col gap-2">
-				<ion-icon icon={thumbsDownOutline} class="mx-auto my-6 text-9xl text-red-400"></ion-icon>
-				<d-text class="mx-auto break-words">
-					{m.credential_issuance_failed()}
-				</d-text>
-			</div>
-			{#if !isWeb}
-				<d-button expand href={r('/home')}>{m.Home()}</d-button>
-			{/if}
-		</div>
-	{/if}
-
 	<ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly>
 		<ion-content class="ion-padding">
 			<div class="flex h-full flex-col items-center justify-center text-center">
-				{#if state === 'loading'}
+				{#if state === 'error'}
+					<div class="ion-padding flex h-full w-full flex-col justify-between py-10">
+						<d-feedback {...feedback} class="mb-4"></d-feedback>
+						<div class="ion-padding flex w-full flex-col gap-2">
+							<ion-icon icon={thumbsDownOutline} class="mx-auto my-6 text-9xl text-red-400"
+							></ion-icon>
+							<d-text class="mx-auto break-words">
+								{m.credential_issuance_failed()}
+							</d-text>
+						</div>
+						{#if !isWeb}
+							<d-button expand href={r('/home')}>{m.Home()}</d-button>
+						{/if}
+					</div>
+				{:else if state === 'loading'}
 					<h1 class="mb-4 text-2xl font-semibold">{m.We_are_generating_this_credential()}</h1>
 					<d-credential-card
 						name={credentialInfo?.name}
