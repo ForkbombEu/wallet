@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { thumbsUpOutline, thumbsDownOutline } from 'ionicons/icons';
-	import { goto, m } from '$lib/i18n';
+	import { goto, m, r } from '$lib/i18n';
 	import { setCredentialPreference } from '$lib/preferences/credentials';
 	import { askCredential, decodeSdJwt, type CredentialResult } from '$lib/openId4vci';
 	import { credentialOfferStore } from '$lib/credentialOfferStore';
@@ -27,7 +27,7 @@
 			isOpen = false;
 		}
 		if (code) {
-			getCredential()
+			getCredential();
 		} else {
 			isCredentialVerified = false;
 			feedback = {
@@ -35,16 +35,16 @@
 				message: error_description || 'No code received from the authentication service.',
 				feedback: error || 'Please try again.'
 			};
-			window.parent.postMessage({ type: "decline-to-home" }, "*");
+			window.parent.postMessage({ type: 'decline-to-home' }, '*');
 			await addActivity({
 				type: 'notIssuedCredential',
 				at: dayjs().unix(),
 				name: wn!.credential_requested.display[0].name,
 				logo: wn!.credential_requested.display[0].logo,
 				description: wn!.credential_requested.display[0].description,
-				issuer:  wn!.credential_issuer_information.display[0].name,
-				displayName: wn!.credential_requested.display[0].name,
-			})
+				issuer: wn!.credential_issuer_information.display[0].name,
+				displayName: wn!.credential_requested.display[0].name
+			});
 		}
 	});
 
@@ -121,8 +121,9 @@
 	};
 </script>
 
-<ion-content fullscreen class="ion-padding" bind:this={content}>
+<ion-content fullscreen class="ion-padding h-screen" bind:this={content}>
 	{#if isCredentialVerified === false}
+	<div class="ion-padding py-10 flex h-full flex-col justify-between">
 		<d-feedback {...feedback} class="mb-4"></d-feedback>
 		<div class="ion-padding flex w-full flex-col gap-2">
 			<ion-icon icon={thumbsDownOutline} class="mx-auto my-6 text-9xl text-red-400"></ion-icon>
@@ -130,6 +131,8 @@
 				{m.credential_issuance_failed()}
 			</d-text>
 		</div>
+		<d-button expand href={r('/home')}>{m.Home()}</d-button>
+	</div>
 	{:else}
 		<ion-modal is-open={isOpen} backdrop-dismiss={false} transition:fly class="visible">
 			<ion-content class="ion-padding">
@@ -151,7 +154,11 @@
 								<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"
 								></ion-icon>
 								<d-text class="break-words"
-									>{m.credential()}: {JSON.stringify(serviceResponse.credentials[0], null, 2)}</d-text
+									>{m.credential()}: {JSON.stringify(
+										serviceResponse.credentials[0],
+										null,
+										2
+									)}</d-text
 								>
 							</div>
 						{/if}

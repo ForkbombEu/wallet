@@ -60,7 +60,7 @@
 		{#each activities as activity}
 			<d-activity-card
 				{...activity}
-				logo={activity.logo.uri}
+				logo={activity.logo?.uri}
 				id={String(activity.at)}
 				href={activity.credential ? r(`/${activity.credential.id}/credential-detail`) : undefined}
 				use:setAsRead

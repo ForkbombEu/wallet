@@ -24,11 +24,11 @@
 		const handleMessage = async (event: MessageEvent) => {
 			if (!event.data) return;
 			switch (event.data.type) {
-				case "credential":
-					window.removeEventListener("message", handleMessage);
+				case 'credential':
+					window.removeEventListener('message', handleMessage);
 					navigationTarget = `/${event.data.id}/credential-detail`;
 					break;
-				case "decline-to-home":
+				case 'decline-to-home':
 					declineToHome = true;
 					break;
 			}
@@ -125,7 +125,9 @@
 							aria-hidden>{m.Continue()}</d-button
 						>
 					{/if}
-					<d-button expand href={r('/home')}>{declineToHome? m.Home() : m.Decline()}</d-button>
+					{#if !declineToHome}
+						<d-button expand href={r('/home')}>{m.Decline()}</d-button>
+					{/if}
 				</d-vertical-stack>
 			</div>
 			<DebugPopup />
