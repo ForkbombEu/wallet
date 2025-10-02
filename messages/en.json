@@ -194,5 +194,7 @@
 	"successful": "successful",
 	"failed": "failed",
 	"credential_issuance_failed": "Credential issuance failed",
-	"fail_to_issue_to_you": "{iss} failed to issue {name} to you"
+	"fail_to_issue_to_you": "{iss} failed to issue {name} to you",
+	"credential_issuance_succeeded": "Credential issuance succeeded",
+	"you_will_be_redirected_shortly": "You will be redirected shortly"
 }

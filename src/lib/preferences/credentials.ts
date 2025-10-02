@@ -22,34 +22,27 @@ export type LdpVc = {
 	validUntil: string;
 };
 
-export type Credential = // soon will be implemented also mdoc
+type CredentialBase = {
+	id: number;
+	configuration_ids: string[];
+	issuer: string;
+	issuerUrl: string;
+	display_name: string;
+	description: string;
+	expirationDate: number;
+	verified: boolean;
+	logo: Logo;
+};
 
-		| {
-				id: number;
-				type: 'ldp_vc';
-				configuration_ids: string[];
-				ldpVc: LdpVc;
-				issuer: string;
-				issuerUrl: string;
-				display_name: string;
-				description: string;
-				expirationDate: number;
-				verified: boolean;
-				logo: Logo;
-		  }
-		| {
-				id: number;
-				type: 'sdjwt';
-				configuration_ids: string[];
-				sdJwt: string;
-				issuer: string;
-				issuerUrl: string;
-				display_name: string;
-				description: string;
-				expirationDate: number;
-				verified: boolean;
-				logo: Logo;
-		  };
+export type Credential =
+	| (CredentialBase & {
+			type: 'ldp_vc';
+			ldpVc: LdpVc;
+	  })
+	| (CredentialBase & {
+			type: 'sdjwt';
+			sdJwt: string;
+	  });
 
 const progressiveId = async () => {
 	const preferences = await getCredentialsPreference();
@@ -101,7 +94,9 @@ export async function getCredentialsbySdjwts(sdjwts: string[]): Promise<Credenti
 	);
 }
 
-export async function getCredentialsbyByCredentialSubject(credentialSubject: string[]): Promise<Credential[]> {
+export async function getCredentialsbyByCredentialSubject(
+	credentialSubject: string[]
+): Promise<Credential[]> {
 	const credentials = await getCredentialsPreference();
 	if (!credentials) return [];
 	return credentials.filter((credential) => {
@@ -119,7 +114,7 @@ export async function getCredentialsbyByCredentialSubject(credentialSubject: str
 		}
 		return false;
 	});
-};
+}
 
 export async function getCredentialsFormat(): Promise<{ 'dc+sd-jwt': string[]; ldp_vc: LdpVc[] }> {
 	const credentials = await getCredentialsPreference();
