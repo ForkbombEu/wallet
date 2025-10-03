@@ -1,3 +1,10 @@
+## [2.0.17](https://github.com/ForkbombEu/wallet/compare/v2.0.16...v2.0.17) (2025-10-03)
+
+
+### Bug Fixes
+
+* **credential_issuance:** handle redirect with error as parameter ([#623](https://github.com/ForkbombEu/wallet/issues/623)) ([b2a4bd4](https://github.com/ForkbombEu/wallet/commit/b2a4bd42ca1aca05b8c6b34ebd9409f78691cb41))
+
 ## [2.0.16](https://github.com/ForkbombEu/wallet/compare/v2.0.15...v2.0.16) (2025-09-29)
 
 
