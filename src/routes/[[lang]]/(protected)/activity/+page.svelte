@@ -48,7 +48,7 @@
 </script>
 
 <d-tab-page tab="activity" title={m.Notifications()} {...scanButton}>
-	<div class="flex w-full flex-col items-center">
+	<div class="flex w-full flex-col items-center whitespace-pre-wrap">
 		{#if activities.length > 0}
 			<div class="flex w-full justify-end gap-2.5 pb-4">
 				<d-button size="small" color="accent" onClick={clear}> {m.clear_all()} </d-button>
@@ -60,7 +60,7 @@
 		{#each activities as activity}
 			<d-activity-card
 				{...activity}
-				logo={activity.logo.uri}
+				logo={activity.logo?.uri}
 				id={String(activity.at)}
 				href={activity.credential ? r(`/${activity.credential.id}/credential-detail`) : undefined}
 				use:setAsRead
