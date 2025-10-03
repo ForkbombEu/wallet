@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import { thumbsUpOutline } from 'ionicons/icons';
-	import { goto, m } from '$lib/i18n';
-	import { setCredentialPreference } from '$lib/preferences/credentials';
+	import { thumbsUpOutline, thumbsDownOutline } from 'ionicons/icons';
+	import { goto, m, r } from '$lib/i18n';
+	import { setCredentialPreference, type Credential } from '$lib/preferences/credentials';
 	import { askCredential, decodeSdJwt, type CredentialResult } from '$lib/openId4vci';
 	import { credentialOfferStore } from '$lib/credentialOfferStore';
 	import type { Feedback, ScrollableNode } from '$lib/utils/types';
@@ -15,127 +15,183 @@
 	import { getDebugMode } from '$lib/preferences/debug';
 
 	export let data;
-	const { code, wn, parResult } = data;
-	const codeVerifier = parResult?.code_verifier;
+	const { error, error_description, code, wn, parResult } = data;
+	const { code_verifier: codeVerifier } = parResult ?? {};
 
-	let isCredentialVerified: boolean = false;
-	let serviceResponse: CredentialResult;
-	let isOpen = true;
-
-	onMount(async () => {
-		if (await getDebugMode()) {
-			isOpen = false;
-		}
-		if (code) {
-			getCredential();
-		} else {
-			feedback = {
-				type: 'error',
-				message: 'No code received from the authentication service.',
-				feedback: 'Please try again.'
-			};
-		}
-	});
-
-	const credentialInfo = wn?.credential_requested['display'][0];
-
-	let feedback: Feedback | undefined = {};
-	let content: ScrollableNode;
+	const SUCCESS_REDIRECT_DELAY_MS = 2000;
 
 	//
+	type IssuanceState = 'loading' | 'success' | 'error';
 
-	const getCredential = async () => {
-		if (!wn || !codeVerifier || !code) return;
-		try {
-			serviceResponse = await askCredential(code, wn.credential_parameters, codeVerifier);
-			if (!serviceResponse) return;
-			isCredentialVerified = true;
-		} catch (e: unknown) {
-			isCredentialVerified = false;
-			feedback = {
-				type: 'error',
-				// @ts-ignore
-				message: String(e?.message || e),
-				feedback: 'error while getting credential'
-			};
-			content.scrollToTop();
+	let state: IssuanceState = 'loading';
+	let feedback: Feedback | undefined;
+	let content: ScrollableNode;
+	let isModalOpen = true;
+
+	const credentialInfo = wn?.credential_requested?.display?.[0];
+	if (credentialInfo)
+		credentialInfo.issuer = wn?.credential_issuer_information?.display?.[0].name;
+
+	//
+	onMount(async () => {
+		isModalOpen = !(await getDebugMode());
+		await initializeIssuanceFlow();
+	});
+
+	async function initializeIssuanceFlow(): Promise<void> {
+		if (!code || !codeVerifier || !wn) {
+			const errorMessage = error_description || 'Required parameters are missing.';
+			const errorDetails = error || 'issuance_failed';
+			return await handleIssuanceError(errorMessage, errorDetails, true);
 		}
-		setTimeout(async () => {
-			if (!serviceResponse) return (isOpen = false);
-			let id: number;
-			if (serviceResponse.type === 'sdjwt') {
-				const dsdjwt = await decodeSdJwt(serviceResponse.credentials[0].credential);
-				const c = await setCredentialPreference({
-					type: 'sdjwt',
-					configuration_ids: $credentialOfferStore!.credential_configuration_ids,
-					display_name: wn.credential_requested.display[0].name,
-					sdJwt: serviceResponse.credentials[0].credential,
-					issuer: wn.credential_issuer_information.display[0].name,
-					issuerUrl: dsdjwt.credential.jwt.payload.iss,
-					description: wn.credential_requested.display[0].description,
-					verified: false,
-					expirationDate: dsdjwt.credential.jwt.payload.exp,
-					logo: wn.credential_requested.display[0].logo
-				});
-				id = c.id;
-			} else if (serviceResponse.type === 'ldp_vc') {
-				const c = await setCredentialPreference({
-					type: 'ldp_vc',
-					configuration_ids: $credentialOfferStore!.credential_configuration_ids,
-					display_name: wn.credential_requested.display[0].name,
-					ldpVc: serviceResponse.credentials[0].credential,
-					issuer: wn.credential_issuer_information.display[0].name,
-					issuerUrl: serviceResponse.credentials?.[0].credential.issuer,
-					description: wn.credential_requested.display[0].description,
-					verified: false,
-					expirationDate: dayjs(serviceResponse.credentials[0].credential.validUntil).unix(),
-					logo: wn.credential_requested.display[0].logo
-				});
-				id = c.id;
-			} else {
-				return (isOpen = false);
-			}
 
-			await addActivity({ at: dayjs().unix(), id, type: 'credential' });
-			isOpen = false;
-			if (isWeb) {
-				return window.parent.postMessage({
-					type: 'credential',
-					action: 'finalized',
-					id: id
-				});
-			}
-			return await goto(`/${id}/credential-detail`);
-		}, 2000);
-	};
+		try {
+			const credentialResponse = await fetchCredential();
+			const credentialId = await processAndSaveCredential(credentialResponse);
+
+			state = 'success';
+
+			setTimeout(() => {
+				handleIssuanceSuccess(credentialId);
+			}, SUCCESS_REDIRECT_DELAY_MS);
+		} catch (e: unknown) {
+			const errorMessage = e instanceof Error ? e.message : String(e);
+			await handleIssuanceError(errorMessage, 'credential_fetch_error');
+		}
+	}
+
+	async function handleIssuanceError(
+		message: string,
+		errorType: string,
+		isInitialError = false
+	): Promise<void> {
+		state = 'error';
+		feedback = { type: 'error', message: message, feedback: errorType };
+		content?.scrollToTop();
+
+		if (isInitialError) {
+			window.parent.postMessage({ type: 'decline-to-home' }, '*');
+			await addActivity({
+				type: 'notIssuedCredential',
+				at: dayjs().unix(),
+				name: credentialInfo?.name || 'Unknown Credential',
+				logo: credentialInfo?.logo || { uri: '', alt_text: 'No Logo' },
+				description: credentialInfo?.description || 'Unknown Description',
+				issuer: credentialInfo?.issuer || 'Unknown Issuer',
+				displayName: credentialInfo?.name || 'Unknown Display Name'
+			});
+		}
+	}
+
+	async function fetchCredential(): Promise<CredentialResult> {
+		if (!wn || !codeVerifier || !code) {
+			throw new Error('Cannot fetch credential due to missing parameters.');
+		}
+		return await askCredential(code, wn.credential_parameters, codeVerifier);
+	}
+
+	async function processAndSaveCredential(response: CredentialResult): Promise<number> {
+		if (!response || !response.credentials || response.credentials.length === 0) {
+			throw new Error('Invalid credential response received.');
+		}
+
+		const credentialPayload = await mapResponseToCredentialPayload(response);
+		if (!credentialPayload) {
+			throw new Error('Unsupported credential format.');
+		}
+
+		const savedCredential = await setCredentialPreference(credentialPayload);
+		await addActivity({ at: dayjs().unix(), id: savedCredential.id, type: 'credential' });
+
+		return savedCredential.id;
+	}
+
+	async function mapResponseToCredentialPayload(
+		response: CredentialResult
+	): Promise<Omit<Credential, 'id'> | null> {
+		const commonPayload = {
+			configuration_ids: $credentialOfferStore!.credential_configuration_ids,
+			display_name: credentialInfo!.name,
+			issuer: credentialInfo!.issuer,
+			description: credentialInfo!.description,
+			logo: credentialInfo!.logo,
+			verified: false
+		};
+
+		if (response.type === 'sdjwt') {
+			const credential = response.credentials[0].credential;
+
+			const decoded = await decodeSdJwt(credential);
+			return {
+				...commonPayload,
+				type: 'sdjwt',
+				//@ts-ignore
+				sdJwt: credential,
+				issuerUrl: decoded.credential.jwt.payload.iss,
+				expirationDate: decoded.credential.jwt.payload.exp
+			};
+		}
+
+		if (response.type === 'ldp_vc') {
+			const credential = response.credentials[0].credential;
+
+			return {
+				...commonPayload,
+				type: 'ldp_vc',
+				// @ts-ignore
+				ldpVc: credential,
+				issuerUrl: credential.issuer,
+				expirationDate: dayjs(credential.validUntil).unix()
+			};
+		}
+
+		return null;
+	}
+
+	async function handleIssuanceSuccess(credentialId: number): Promise<void> {
+		isModalOpen = false;
+		if (isWeb) {
+			window.parent.postMessage({ type: 'credential', action: 'finalized', id: credentialId }, '*');
+		} else {
+			await goto(`/${credentialId}/credential-detail`);
+		}
+	}
 </script>
 
-<ion-content fullscreen class="ion-padding" bind:this={content}>
-	<ion-modal is-open={isOpen} backdrop-dismiss={false} transition:fly class="visible">
+<ion-content fullscreen class="ion-padding h-screen" bind:this={content}>
+	<ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly>
 		<ion-content class="ion-padding">
-			<div class="flex h-full flex-col justify-around">
-				<div>
-					{#if !isCredentialVerified}
-						{m.We_are_generating_this_credential()}
-						<d-credential-card
-							name={credentialInfo?.name}
-							issuer={credentialInfo?.name}
-							description={credentialInfo?.name}
-							logoSrc={credentialInfo?.logo.uri}
-						/>
-						<div class="mx-auto w-fit pt-8">
-							<FingerPrint />
-						</div>
-					{:else}
+			<div class="flex h-full flex-col items-center justify-center text-center">
+				{#if state === 'error'}
+					<div class="ion-padding flex h-full w-full flex-col justify-between py-10">
+						<d-feedback {...feedback} class="mb-4"></d-feedback>
 						<div class="ion-padding flex w-full flex-col gap-2">
-							<ion-icon icon={thumbsUpOutline} class="mx-auto my-6 text-9xl text-green-400"
+							<ion-icon icon={thumbsDownOutline} class="mx-auto my-6 text-9xl text-red-400"
 							></ion-icon>
-							<d-text class="break-words"
-								>{m.credential()}: {JSON.stringify(serviceResponse.credentials[0], null, 2)}</d-text
-							>
+							<d-text class="mx-auto break-words">
+								{m.credential_issuance_failed()}
+							</d-text>
 						</div>
-					{/if}
-				</div>
+						{#if !isWeb}
+							<d-button expand href={r('/home')}>{m.Home()}</d-button>
+						{/if}
+					</div>
+				{:else if state === 'loading'}
+					<h1 class="mb-4 text-2xl font-semibold">{m.We_are_generating_this_credential()}</h1>
+					<d-credential-card
+						name={credentialInfo?.name}
+						issuer={credentialInfo?.name}
+						description={credentialInfo?.description}
+						logoSrc={credentialInfo?.logo.uri}
+					/>
+					<div class="mt-8">
+						<FingerPrint />
+					</div>
+				{:else if state === 'success'}
+					<ion-icon icon={thumbsUpOutline} class="my-6 text-9xl text-green-400" />
+					<h1 class="text-2xl font-semibold">{m.credential_issuance_succeeded()}</h1>
+					<d-text class="mt-2">{m.you_will_be_redirected_shortly()}</d-text>
+				{/if}
 			</div>
 		</ion-content>
 	</ion-modal>

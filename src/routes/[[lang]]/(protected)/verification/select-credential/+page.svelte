@@ -16,6 +16,7 @@
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
 	import { debugDismiss } from '$lib/components/organisms/debug/debug';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
+	import { decodeSdJwt, decodeLdpVc } from '$lib/openId4vci/index.js';
 
 	type Verification = {
 		result: {
@@ -78,19 +79,24 @@
 					)
 				);
 			}
+			const sid = verification.result?.result?.result?.complete_transaction_id
 			verificationResultsStore.set({
 				feedback,
 				date,
-				id: verification.result?.result?.result?.complete_transaction_id || '',
+				id: sid || '',
 				success: responseSuccess
 			});
 			log(JSON.stringify(verification));
-			const sid = verification.result?.result?.result?.complete_transaction_id
-			//@ts-ignore
-			const verifierUrl = verification.result?.url
-			await addVerificationActivity(sid, responseSuccess, verifierUrl, verification.result?.result?.result?.transaction_result.map(
-				(item) => item.path[1]
-			) || []);
+			const card = vps[selectedCredential].card;
+			const properties: string[] = [];
+			if (typeof card === 'string') {
+				const d = await decodeSdJwt(card);
+				properties.push(...(d.credential.disclosures.map((item) => item[1])))
+			} else {
+				const d = await decodeLdpVc(card)
+				properties.push(...(d.map((item) => item[0])));
+			}
+			await addVerificationActivity(sid, responseSuccess, post_url, properties);
 			if (responseRedirectUri) window.location.href = responseRedirectUri
 			return await goto('/verification/results');
 		} catch (e) {

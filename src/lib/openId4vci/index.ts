@@ -214,6 +214,7 @@ export type CredentialRequested = {
 		logo: Logo;
 		name: string;
 		text_color: string;
+		issuer: string;
 	}[];
 	format: string;
 	proof_types_supported: {

@@ -7,7 +7,6 @@ import type { Credential } from '$lib/preferences/credentials';
 import { setNewActivitiesInHome } from '$lib/homeFeedbackPreferences';
 import { invalidate } from '$app/navigation';
 import { _protectedLayoutKey } from '../../routes/[[lang]]/(protected)/+layout';
-import { filesUri } from '$lib/backendUri';
 import type { Logo } from '$lib/utils/types';
 import { m } from '$lib/i18n';
 
@@ -18,14 +17,21 @@ export type IssuedCredential = {
 	id: number;
 };
 
+export type NotIssuedCredential = {
+	type: 'notIssuedCredential';
+	name: string;
+	logo: Logo;
+	description: string;
+	issuer: string;
+	displayName: string;
+};
+
 export type Verification = {
 	type: 'verification';
 	verifier_name: string;
 	success: boolean;
-	rp_name: string;
-	sid: string;
 	properties: string[];
-	avatar: { id: string; collection: string; fileName: string };
+	logo: Logo;
 };
 
 export type ExpiredCredential = {
@@ -36,7 +42,7 @@ export type ExpiredCredential = {
 export type Activity = {
 	at: number;
 	read?: boolean;
-} & (IssuedCredential | Verification | ExpiredCredential);
+} & (IssuedCredential | Verification | ExpiredCredential | NotIssuedCredential);
 
 export type ParsedActivity = {
 	name: string;
@@ -80,12 +86,10 @@ export async function addVerificationActivity(sid: string, success: boolean, ver
 	await addActivity({
 		type: 'verification',
 		verifier_name: verifierUrl || '',
-		avatar: { id: '', collection: '', fileName: '' },
 		success,
-		rp_name: verifierUrl || '',
-		sid,
 		properties: properties,
-		at
+		at,
+		logo: {uri: '', alt_text: verifierUrl || ''}
 	});
 }
 
@@ -98,6 +102,17 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 	const credentials = (await getCredentialsPreference()) || [];
 	function findCredentialById(id: number) {
 		return credentials?.find((cred) => cred.id === id);
+	}
+	function parseCredentialActivity(parsedActivity: ParsedActivity, activity: Extract<Activity, IssuedCredential | ExpiredCredential>) {
+		const credential = findCredentialById(activity.id);
+		if (!credential) {
+			return;
+		}
+		parsedActivity.name = credential.display_name;
+		parsedActivity.logo = credential.logo;
+		parsedActivity.description = credential.description;
+		parsedActivity.credential = credential;
+		return credential;
 	}
 
 	function formatActivity(activity: Activity) {
@@ -114,32 +129,30 @@ export async function getParsedActivities(): Promise<ParsedActivity[]> {
 		parsedActivity.at = activity.at;
 		parsedActivity.read = activity.read;
 
-		if (activity.type === 'credential' || activity.type === 'expired') {
-			const credential = findCredentialById(activity.id);
-			if (!credential) {
-				return;
-			}
-			parsedActivity.name = credential.display_name;
-			parsedActivity.logo = credential.logo;
-			parsedActivity.description = credential.description;
-			parsedActivity.credential = credential;
-			if (activity.type === 'credential') {
-				parsedActivity.message = m.issued_to_you({iss: credential.issuer, name: credential.display_name})
-			} else {
-				parsedActivity.message = `${credential.display_name} ${m.is_expired()}`;
-			}
-		} else if (activity.type === 'verification') {
-			const { verifier_name, rp_name, properties, avatar } = activity;
-			parsedActivity.name = verifier_name;
-
-			if (avatar) {
-				parsedActivity.logo = {
-					uri: filesUri(avatar.fileName, avatar.collection, avatar.id),
-					alt_text: verifier_name
-				};
-			}
-			parsedActivity.message = m.You_send_to_verification_via_and_result_is({ properties: properties.join(','), rp_name: rp_name.split('//')[1].split('/')[0], result: activity.success ? m.successful() : m.failed() });
-			parsedActivity.description = rp_name;
+		switch (activity.type) {
+			case 'credential':
+				const issuedCredential = parseCredentialActivity(parsedActivity, activity);
+				if (!issuedCredential) return;
+				parsedActivity.message = m.issued_to_you({iss: issuedCredential.issuer, name: issuedCredential.display_name});
+				break;
+			case 'expired':
+				const expiredCredential = parseCredentialActivity(parsedActivity, activity);
+				if (!expiredCredential) return;
+				parsedActivity.message = `${expiredCredential.display_name} ${m.is_expired()}`;
+				break;
+			case 'notIssuedCredential':
+				parsedActivity.name = activity.name;
+				parsedActivity.logo = activity.logo;
+				parsedActivity.description = activity.description;
+				parsedActivity.message = m.fail_to_issue_to_you({iss: activity.issuer, name: activity.displayName});
+				break;
+			case 'verification':
+				const { verifier_name, properties } = activity;
+				parsedActivity.name = activity.verifier_name;
+				parsedActivity.logo = activity.logo;
+				parsedActivity.message = m.You_send_to_verification_via_and_result_is({ properties: properties.join('\n - ')+'\n', rp_name: verifier_name.split('//')[1].split('/')[0], result: activity.success ? m.successful() : m.failed() });
+				parsedActivity.description = verifier_name;
+				break;
 		}
 		return parsedActivity;
 	}
