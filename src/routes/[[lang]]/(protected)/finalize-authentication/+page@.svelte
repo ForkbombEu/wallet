@@ -29,6 +29,9 @@
 	let isModalOpen = true;
 
 	const credentialInfo = wn?.credential_requested?.display?.[0];
+	if (credentialInfo)
+		credentialInfo.issuer = wn?.credential_issuer_information?.display?.[0].name;
+
 	//
 	onMount(async () => {
 		isModalOpen = !(await getDebugMode());
