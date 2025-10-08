@@ -1,3 +1,10 @@
+## [2.0.19](https://github.com/ForkbombEu/wallet/compare/v2.0.18...v2.0.19) (2025-10-08)
+
+
+### Bug Fixes
+
+* **dcql_query:** parse also claims not included in dc+sd-jwt disclosures ([#629](https://github.com/ForkbombEu/wallet/issues/629)) ([97a53a7](https://github.com/ForkbombEu/wallet/commit/97a53a7513f4f3e6a9cb6c978281ae35bc519121))
+
 ## [2.0.18](https://github.com/ForkbombEu/wallet/compare/v2.0.17...v2.0.18) (2025-10-06)
 
 
