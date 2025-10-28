@@ -1,7 +1,7 @@
 import { debugPopupContent } from '$lib/components/organisms/debug/debug';
 import { credentialOfferStore } from '$lib/credentialOfferStore';
 import { m } from '$lib/i18n';
-import { callPar, holderQrToWellKnown, type QrToWellKnown } from '$lib/openId4vci';
+import { callPar, holderQrToWellKnown, type QrToWellKnown, type CallParResult } from '$lib/openId4vci';
 import { setCredentialAuthenticationPreference } from '$lib/preferences/credentialAuthentication';
 import type { Feedback } from '$lib/utils/types';
 import { get } from 'svelte/store';
@@ -23,8 +23,7 @@ export const load = async () => {
 	} catch(e) {
 		feedbackData = {
 			type: 'error',
-			//@ts-ignore
-			message: e.message,
+			message: (e as Error).message,
 			feedback: 'this service is not compatible or is currently offline'
 		};
 	}
@@ -35,7 +34,17 @@ export const load = async () => {
 		credential_parameters: wn.credential_parameters
 	};
 
-	const par = await callPar(data);
+	let par: { parResult: CallParResult; authorizeUrl: string;} | undefined;
+	try {
+		par = await callPar(data);
+	} catch(e) {
+		feedbackData = {
+			type: 'error',
+			message: (e as Error).message,
+			feedback: 'call to par endpoint failed'
+		};
+	}
+	if (!par) return { feedbackData }
 	const { parResult, authorizeUrl } = par;
 
 	if (!authorizeUrl) {
