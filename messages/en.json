@@ -196,5 +196,8 @@
 	"credential_issuance_failed": "Credential issuance failed",
 	"fail_to_issue_to_you": "{iss} failed to issue {name} to you",
 	"credential_issuance_succeeded": "Credential issuance succeeded",
-	"you_will_be_redirected_shortly": "You will be redirected shortly"
+	"you_will_be_redirected_shortly": "You will be redirected shortly",
+	"call_to_par_endpoint_failed": "call to par endpoint failed",
+	"this_service_is_not_compatible_or_is_currently_offline": "this service is not compatible or is currently offline",
+	"no_credential_offer_found": "no credential offer found"
 }

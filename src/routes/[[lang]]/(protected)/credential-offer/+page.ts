@@ -13,7 +13,7 @@ export const load = async () => {
 	if (!credentialOffer) {
 		feedbackData = {
 			type: 'error',
-			feedback: 'no credential offer found'
+			feedback: m.no_credential_offer_found()
 		};
 		return { feedbackData };
 	}
@@ -24,7 +24,7 @@ export const load = async () => {
 		feedbackData = {
 			type: 'error',
 			message: (e as Error).message,
-			feedback: 'this service is not compatible or is currently offline'
+			feedback: m.this_service_is_not_compatible_or_is_currently_offline()
 		};
 	}
 	if (!wn) {
@@ -41,7 +41,7 @@ export const load = async () => {
 		feedbackData = {
 			type: 'error',
 			message: (e as Error).message,
-			feedback: 'call to par endpoint failed'
+			feedback: m.call_to_par_endpoint_failed()
 		};
 	}
 	if (!par) return { feedbackData }
