@@ -24,25 +24,31 @@ const slangroom = new Slangroom(did, helpers, zencode, pocketbase, http as unkno
 
 export type QrToInfoResults = {
 	post_url: string;
+	state?: string | undefined;
 	vps: Array<{
-		card: LdpVc | string;
-		presentation: {
-			'@context': Array<string>;
-			holder: string;
-			id: string;
-			proof: {
-				challenge: string;
-				created: string;
-				cryptosuite: string;
-				domain: string;
-				proofPurpose: string;
-				proofValue: string;
-				type: string;
-				verificationMethod: string;
-			};
-			type: Array<string>;
-			verifiableCredential: Array<LdpVc>;
-		} | string;
+		matching_credential_sets: Array<{
+			[key: string]: Array<{
+				card: LdpVc | string;
+				signed: {
+					'@context': Array<string>;
+					holder: string;
+					id: string;
+					proof: {
+						challenge: string;
+						created: string;
+						cryptosuite: string;
+						domain: string;
+						proofPurpose: string;
+						proofValue: string;
+						type: string;
+						verificationMethod: string;
+					};
+					type: Array<string>;
+					verifiableCredential: Array<LdpVc>;
+				} | string;
+			}>
+		}>;
+		required: boolean;
 	}>;
 };
 
