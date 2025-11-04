@@ -48,11 +48,29 @@
 		</div>
 		<div>
 			<d-text size="l">{m.Confirm_data_to_be_disclosed()}:</d-text>
-			<div class="flex flex-col items-start gap-2.5 rounded-[5px] bg-primary px-5 py-5">
-				{#each propertiesArray as property}
-					<div class="flex items-center gap-2.5">
-						<d-info-led type="warning" />
-						<d-text>{property[0]}</d-text>
+			<div class="flex flex-col gap-6">
+				{#each propertiesArray as vps_property}
+					<div class="flex flex-col items-start gap-2.5 rounded-[5px] bg-primary px-5 py-5">
+					<d-badge class="self-end">{vps_property.required? m.required(): m.not_required()}</d-badge>
+					{#each vps_property.claims as cred_property, j (j)}
+						{#each cred_property as [cred_key, claim_propery]}
+							<d-text>{cred_key} {m.with_claims()}:</d-text>
+							{#each claim_propery as claim_list, i (i)}
+								{#each claim_list as [key, value]}
+									<div class="flex items-center gap-2.5">
+										<d-info-led type="warning" />
+										<d-text>{key}: {JSON.stringify(value, null, 2)}</d-text>
+									</div>
+								{/each}
+								{#if i < claim_propery.length - 1}
+									<d-text>{m.or()}:</d-text>
+								{/if}
+							{/each}
+						{/each}
+						{#if j < vps_property.claims.length - 1}
+							<d-text>{m.or()}:</d-text>
+						{/if}
+					{/each}
 					</div>
 				{/each}
 			</div>
