@@ -1,3 +1,10 @@
+## [2.0.20](https://github.com/ForkbombEu/wallet/compare/v2.0.19...v2.0.20) (2025-11-04)
+
+
+### Bug Fixes
+
+* imporve credential-offer schema and error reporting in credential-offer flow ([#634](https://github.com/ForkbombEu/wallet/issues/634)) ([70060d6](https://github.com/ForkbombEu/wallet/commit/70060d6738ff597ea96808a0d22a713583ea8bb2))
+
 ## [2.0.19](https://github.com/ForkbombEu/wallet/compare/v2.0.18...v2.0.19) (2025-10-08)
 
 
