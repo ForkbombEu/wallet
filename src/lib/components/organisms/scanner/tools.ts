@@ -66,10 +66,8 @@ export type PostWithoutVp = {
 };
 
 export type Body = {
-	id: string;
-	m: string;
-	registrationToken: string;
-	vp: string;
+	vp_token: Record<string, [string | Record<string, any>]>
+	state?: string;
 };
 
 export const verificationQRSchema = z.object({

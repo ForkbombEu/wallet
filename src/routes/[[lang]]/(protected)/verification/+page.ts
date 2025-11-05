@@ -14,7 +14,7 @@ interface ClaimSet {
   >;
 }
 
-async function handleSdJwt(card: string): Promise<Array<[string, string]>> {
+async function handleSdJwt(card: string): Promise<Array<SdJwtClaim>> {
     const decodedSdJwt = await decodeSdJwt(card);
     const disclosures = decodedSdJwt.credential.disclosures;
     return disclosures.map(([_, s, t]) => [s, t]);
@@ -29,7 +29,7 @@ export async function load() {
             claims: []
         };
         for (const cred of set.matching_credential_sets) {
-            const cred_set_array: Array<[string, Array<Array<[string, string]>> | Array<Array<[string, unknown]>>]> = []
+            const cred_set_array: ClaimSet["claims"][number] = []
             for (const [key, value] of Object.entries(cred)) {
                 if (typeof value[0].card === 'string') {
                     const claim_array = value.map(e => handleSdJwt(e.card as string));
