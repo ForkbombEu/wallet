@@ -203,5 +203,8 @@
 	"required": "required",
 	"not_required": "not required",
 	"or": "or",
-	"with_claims": "with claims"
+	"or_with_claims": "or with claims",
+	"or_credentials": "or credentials",
+	"with_claims": "with claims",
+	"verifier_is_asking_for": "verifier is asking for"
 }

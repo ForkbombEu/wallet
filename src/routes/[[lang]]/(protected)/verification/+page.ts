@@ -1,48 +1,83 @@
-import { decodeSdJwt } from '$lib/openId4vci';
 import { verificationStore } from '$lib/verificationStore';
 import { get } from 'svelte/store';
-import type { LdpVc } from '$lib/preferences/credentials';
+import type { QrToInfoResults } from '$lib/components/organisms/scanner/tools';
 
-type SdJwtClaim = [string, string];
-type GenericClaim = [string, unknown];
-interface ClaimSet {
-  required: boolean;
-  claims: Array<
-    Array<
-      [string, Array<Array<SdJwtClaim>> | Array<Array<GenericClaim>>]
-    >
-  >;
+interface CredentialSetGroup {
+    required: boolean;
+    options: {
+        credentials: {
+            id: string;
+            claims: {
+                path: string;
+                value: string | undefined;
+            }[][];
+        }[];
+    }[];
 }
 
-async function handleSdJwt(card: string): Promise<Array<SdJwtClaim>> {
-    const decodedSdJwt = await decodeSdJwt(card);
-    const disclosures = decodedSdJwt.credential.disclosures;
-    return disclosures.map(([_, s, t]) => [s, t]);
+function claimsKeyValue(claim: QrToInfoResults["dcql_query"]["credentials"][number]["claims"][number]) {
+    return {
+        path: claim.path.join('.'),
+        value: claim.values ? claim.values.join(', ') : undefined
+    }
 }
+function getClaims(credential: QrToInfoResults["dcql_query"]["credentials"][number]) {
+    if(credential.claim_sets) {
+        return credential.claim_sets.map(set =>
+            set.map( id => {
+                const c = credential.claims.find(x => x.id === id);
+                if (!c) throw new Error(`Missing claim ${id}`);
+                return claimsKeyValue(c);
+            })
+        );
+    }
+    return [credential.claims.map((c) => claimsKeyValue(c))];
+}
+
 
 export async function load() {
-    const { vps, post_url } = get(verificationStore);
-    const propertiesArray: ClaimSet[] = [];
-    for (const set of vps) {
-        const s: ClaimSet = {
-            required: set.required,
-            claims: []
-        };
-        for (const cred of set.matching_credential_sets) {
-            const cred_set_array: ClaimSet["claims"][number] = []
-            for (const [key, value] of Object.entries(cred)) {
-                if (typeof value[0].card === 'string') {
-                    const claim_array = value.map(e => handleSdJwt(e.card as string));
-                    const resolved = await Promise.all(claim_array);
-                    cred_set_array.push([key, resolved]);
-                } else {
-                    const claim_array = value.map(e => Object.entries((e.card as LdpVc).credentialSubject));
-                    cred_set_array.push([key, claim_array]);
+    const { dcql_query, post_url } = get(verificationStore);
+    const { credentials, credential_sets } = dcql_query;
+    const propertiesArray: CredentialSetGroup[] = [];
+
+    if (credential_sets && credential_sets.length > 0) {
+        for (const set of credential_sets) {
+            const required = set.required !== false;
+            const setGroup: CredentialSetGroup = {
+                required,
+                options: [],
+            };
+            for (const combo of set.options) {
+                const comboCredentials: CredentialSetGroup["options"][number]["credentials"] = [];
+                for (const credId of combo) {
+                    const credential = credentials.find(c => c.id === credId);
+                    if (!credential) {
+                        console.log(`Missing credential ${credId}`);
+                        throw new Error(`Missing credential ${credId}`);
+                    }
+                    comboCredentials.push({
+                        id: credId,
+                        claims: getClaims(credential),
+                    });
                 }
+                setGroup.options.push({ credentials: comboCredentials });
             }
-            s.claims.push(cred_set_array)
+            propertiesArray.push(setGroup);
         }
-        propertiesArray.push(s)
+    } else {
+        // Fallback: no credential_sets, so treat each credential as its own "set"
+        for (const credential of credentials) {
+            propertiesArray.push({
+                required: true,
+                options: [
+                    {
+                        credentials: [
+                            { id: credential.id, claims: getClaims(credential) },
+                        ],
+                    },
+                ],
+            });
+        }
     }
     return { propertiesArray, post_url };
 }

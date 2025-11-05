@@ -50,6 +50,26 @@ export type QrToInfoResults = {
 		}>;
 		required: boolean;
 	}>;
+	dcql_query: {
+		credentials: {
+			id: string;
+			format: string;
+			meta: {
+				vct_values?: string[];
+				type_values?: string[][];
+			};
+			claims: {
+				id?: string;
+				path: string[];
+				values?: string[];
+			}[];
+			claim_sets?: string[][];
+		}[];
+		credential_sets?: {
+			options: string[][];
+			required?: boolean;
+		}[]
+	}
 };
 
 export type AskedClaims = {
