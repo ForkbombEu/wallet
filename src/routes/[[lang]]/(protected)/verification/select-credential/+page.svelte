@@ -77,7 +77,7 @@
 					for (let k = 0; k < credentials[i].claims[j].length; k++) {
 						const index = selectedCredential[i][j][k]
 						const key = credentials[i].claims[j][k][0];
-						const card = credentials[i].claims[j][k][1][index];
+						const card = credentials[i].claims[j][k][1][index].claims;
 						const signed = credentials[i].claims[j][k][2][index];
 						vp_token[key] = [signed];
 						prop[key] = [...Object.keys(card)]
