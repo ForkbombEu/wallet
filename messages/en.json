@@ -115,7 +115,7 @@
 	"Verification": "Verification",
 	"Verifier_App": "Verifier App",
 	"Is_asking_for_verification": "Is asking for verification",
-	"About_this_verifications": "About this verifications:",
+	"About_this_verifications": "About this verification",
 	"Relying_party": "Relying party",
 	"Url": "URL",
 	"Confirm_data_to_be_disclosed": "Confirm data to be presented",
@@ -201,10 +201,12 @@
 	"this_service_is_not_compatible_or_is_currently_offline": "this service is not compatible or is currently offline",
 	"no_credential_offer_found": "no credential offer found",
 	"required": "required",
-	"not_required": "not required",
+	"optional": "optional",
 	"or": "or",
 	"or_with_claims": "or with claims",
 	"or_credentials": "or credentials",
 	"with_claims": "with claims",
-	"verifier_is_asking_for": "verifier is asking for"
+	"Requested_credentials": "Requested credentials",
+	"Verifier_url": "Verifier url",
+	"verification_page_description": "In the next page you will be able to choose the credentials you want to present to the verifier to proceed with the verification, or to stop the verification process."
 }

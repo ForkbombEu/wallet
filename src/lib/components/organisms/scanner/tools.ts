@@ -18,7 +18,6 @@ import { m, goto } from '$lib/i18n';
 import { verificationResultsStore } from '$lib/verificationResultsStore';
 import { getDIDPreference } from '$lib/preferences/did';
 import { getKeypairPreference } from '$lib/preferences/keypair';
-import { credential } from '$paraglide/messages';
 
 const slangroom = new Slangroom(did, helpers, zencode, pocketbase, http as unknown as Plugins);
 
