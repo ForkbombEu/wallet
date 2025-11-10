@@ -16,7 +16,6 @@
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
 	import { debugDismiss } from '$lib/components/organisms/debug/debug';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
-	import { decodeSdJwt, decodeLdpVc } from '$lib/openId4vci/index.js';
 
 	type Verification = {
 		result: {
@@ -45,6 +44,9 @@
 	const selectCredential = (cred: number, cred_set: number, cred_id: number, claim_set: number) => {
 		selectedCredential[cred] ||= []
 		selectedCredential[cred][cred_set] ||= []
+		selectedCredential[cred].forEach((_, i) => {
+			if (i !== cred_set) delete selectedCredential[cred][i]
+		})
 		selectedCredential[cred][cred_set][cred_id] = claim_set;
 		// getSortedCredentials();
 		// scrollBox.scrollIntoView({
@@ -53,35 +55,30 @@
 		// });
 	};
 	const checkSelectedAllCredential = (sel: SelectedCredentials) => {
-		for (let i = 0; i < credentials.length; i++) {
-			if (credentials[i].required) {
-				if (!sel.hasOwnProperty(i)) return false
-				for (let j = 0; j < credentials[i].claims.length; j++){
-					if (!sel[i].hasOwnProperty(j)) return false
-					for (let k = 0; k < credentials[i].claims[j].length; k++) {
-						if (!sel[i][j].hasOwnProperty(k)) return false
-					}
-				}
-			}
-		}
-		return true
+		return credentials.every((cred, i) => {
+			if (!cred.required) return true;
+			if (!Object.prototype.hasOwnProperty.call(sel, i)) return false
+			return cred.claims.some((claim, j) =>
+				Object.prototype.hasOwnProperty.call(sel[i], j) &&
+				claim.every((_, k) => Object.prototype.hasOwnProperty.call(sel[i][j], k))
+			)
+		})
 	}
 	$: allCredentialsSelected = checkSelectedAllCredential(selectedCredential);
 
 	const preparePresentation = () => {
-		const vp_token: Record<string, [string | Record<string, any>]> = {}
-		const prop: Record<string, string[]> = {}
+		const vp_token: Record<string, [string | Record<string, any>]> = {};
+		const prop: Record<string, string[]> = {};
 		for (let i = 0; i < credentials.length; i++) {
 			if (selectedCredential.hasOwnProperty(i)) {
-				for (let j = 0; j < credentials[i].claims.length; j++){
-					for (let k = 0; k < credentials[i].claims[j].length; k++) {
-						const index = selectedCredential[i][j][k]
-						const key = credentials[i].claims[j][k][0];
-						const card = credentials[i].claims[j][k][1][index].claims;
-						const signed = credentials[i].claims[j][k][2][index];
-						vp_token[key] = [signed];
-						prop[key] = [...Object.keys(card)]
-					}
+				const j = selectedCredential[i].findIndex(v => v !== null && v !== undefined);
+				for (let k = 0; k < credentials[i].claims[j].length; k++) {
+					const index = selectedCredential[i][j][k]
+					const key = credentials[i].claims[j][k][0];
+					const card = credentials[i].claims[j][k][1][index].claims;
+					const signed = credentials[i].claims[j][k][2][index];
+					vp_token[key] = [signed];
+					prop[key] = [...Object.keys(card)]
 				}
 			}
 		}
@@ -136,6 +133,7 @@
 			if (responseRedirectUri) window.location.href = responseRedirectUri
 			return await goto('/verification/results');
 		} catch (e) {
+			console.log(e)
 			verificationResultsStore.set({
 				feedback: negativeFeedback(verificationFailed, JSON.stringify(e)),
 				date: dayjs().toString(),
@@ -147,11 +145,17 @@
 		}
 	};
 
-	const selected = (card: SelectedCredentials[number], cred_set: number, cred_id: number, claim_set: number, not: boolean = false) => {
+	const selected = (card: SelectedCredentials[number], cred_set: number, cred_id: number, claim_set: number) => {
 		return Boolean(card)
 			&& Boolean(card[cred_set])
-			&& card[cred_set][cred_id] !== undefined
-			&& (not ? card[cred_set][cred_id] !== claim_set : card[cred_set][cred_id] === claim_set)
+			&& card[cred_set][cred_id] === claim_set
+	}
+	const opaque = (card: SelectedCredentials[number], cred_set: number, cred_id: number, claim_set: number) => {
+		if(!card) return false;
+		const claim = card[cred_set]?.[cred_id];
+		if (card?.[cred_set] === undefined) return true
+		if (claim === undefined) return false;
+		return claim !== claim_set;
 	}
 
 	// let sortedCredentials: Credential[];
@@ -185,13 +189,13 @@
 			<d-vertical-stack>
 				{#each credentials as vps_property, index}
 					<div class="flex flex-col items-start gap-2.5 rounded-[5px] bg-secondary px-5 py-5">
-					<d-badge class="self-end">{vps_property.required? m.required(): m.not_required()}</d-badge>
+					<d-badge class="self-end">{vps_property.required? m.required(): m.optional()}</d-badge>
 					{#each vps_property.claims as cred_property, cred_set}
 						{#each cred_property as [cred_key, claim_propery], cred_id}
 							<d-text>{cred_key} {m.with_claims()}:</d-text>
 							{#each claim_propery as claim_list, claim_set}
 								<d-verification-card
-									class:opacity-60={selected(selectedCredential[index], cred_set, cred_id, claim_set, true)}
+									class:opacity-60={opaque(selectedCredential[index], cred_set, cred_id, claim_set)}
 									class="transition-opacity duration-500"
 									selected={selected(selectedCredential[index], cred_set, cred_id, claim_set)}
 									relying-party={claim_list.issuer}
