@@ -151,25 +151,31 @@ Create a `.env` file in the root of the project containing the `PUBLIC_BACKEND_U
     pnpm install
     ```
 
-3. Sync dependencies with Capacitor:
+3. Build the web assets:
+
+    ```bash
+    pnpm build
+    ```
+
+4. Sync dependencies with Capacitor:
 
     ```bash
     pnpm cap sync
     ```
 
-4. Run the app in the browser (note that it will have some limitations compared to the native app):
+5. Run the app in the browser (note that it will have some limitations compared to the native app):
 
     ```bash
     pnpm web
     ```
 
-5. Run the app on Android:
+6. Run the app on Android:
 
     ```bash
     pnpm android
     ```
 
-6. Run the app on iOS:
+7. Run the app on iOS:
 
     ```bash
     pnpm ios
