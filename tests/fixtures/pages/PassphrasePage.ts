@@ -11,10 +11,7 @@ export class PassphrasePage extends BasePage {
 	}
 
 	async enterPassphrase(seed: string = userSeed) {
-		const seedInput = this.page.locator('input[name="seed"]');
-		await seedInput.click({ clickCount: 3 });
-		await seedInput.press('Backspace');
-		await seedInput.fill(seed);
+		await this.page.fill('input[name="seed"]', seed);
 		await this.page.getByRole('button', { name: 'Login' }).first().click();
 	}
 
