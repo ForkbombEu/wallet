@@ -74,7 +74,22 @@ export const verificationQRSchema = z.object({
 
 export const serviceSchema = z.object({
 	credential_configuration_ids: z.array(z.string()),
-	credential_issuer: z.string().url()
+	credential_issuer: z.string().url(),
+	grants: z.object({
+		authorization_code: z.object({
+			issuer_state: z.string().optional(),
+			authorization_server: z.string().optional()
+		}).optional(),
+		['urn:ietf:params:oauth:grant-type:pre-authorized_code']: z.object({
+			['pre-authorized_code']: z.string(),
+			tx_code: z.object({
+				input_mode: z.string().optional(),
+				length: z.number().optional(),
+				description: z.string().optional()
+			}).optional(),
+			authorization_server: z.string().optional()
+		}).optional()
+	}).optional()
 });
 export type Credential = z.infer<typeof verificationQRSchema>;
 export type Service = z.infer<typeof serviceSchema>;

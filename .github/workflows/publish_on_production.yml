@@ -13,10 +13,6 @@ on:
           - ios
           - both
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref_name }}
-  cancel-in-progress: true
-
 jobs:
   distribute_android:
     if: ${{ github.ref == 'refs/heads/stable'&&(github.event.inputs.platform == 'android' || github.event.inputs.platform == 'both') }}
@@ -44,7 +40,6 @@ jobs:
       CONTACT_FIRST_NAME: Andrea
       CONTACT_LAST_NAME: D'Intino
       CONTACT_PHONE: "+4521627918"
-      package-name: com.didroom.wallet
     secrets:
       APP_STORE_CONNECT_TEAM_ID: ${{ secrets.APP_STORE_CONNECT_TEAM_ID }}
       BUNDLE_IDENTIFIER: ${{ secrets.BUNDLE_IDENTIFIER }}
