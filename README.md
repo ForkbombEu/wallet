@@ -189,9 +189,9 @@ Chrome 142 restricts the ability to make requests to the user's local network, g
 - Search for Local Network Access Checks, and disable it.
 - Relaunch the browser.
 
-The app should now work properly.
-
 ![Chrome 142 Local Network Access](./screenshots/screenshot-chrome-flag.png)
+
+The app should now work properly.
 
 ***
 
