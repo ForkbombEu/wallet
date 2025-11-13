@@ -185,7 +185,11 @@ Create a `.env` file in the root of the project containing the `PUBLIC_BACKEND_U
 
 Chrome 142 restricts the ability to make requests to the user's local network, gated behind a permission prompt, thus preventing the web app from functioning properly.
 
-Open `chrome://flags` in your browser, search for Local Network Access Checks, and disable it. Relaunch the browser. The app should now work properly.
+- Open `chrome://flags` in your browser.
+- Search for Local Network Access Checks, and disable it.
+- Relaunch the browser.
+
+The app should now work properly.
 
 ![Chrome 142 Local Network Access](./screenshots/screenshot-chrome-flag.png)
 
