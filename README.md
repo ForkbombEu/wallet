@@ -181,6 +181,16 @@ Create a `.env` file in the root of the project containing the `PUBLIC_BACKEND_U
     pnpm ios
     ```
 
+### Runnnig app in Chrome
+
+Chrome 142 restricts the ability to make requests to the user's local network, gated behind a permission prompt, thus preventing the web app from functioning properly.
+
+Open `chrome://flags` in your browser, search for Local Network Access Checks, and disable it. Relaunch the browser. The app should now work properly.
+
+![Chrome 142 Local Network Access](./screenshots/screenshot-chrome-flag.png)
+
+***
+
 ## 💄 Theme Configurations
 
 The theme of the app is defined in the `src/theme/variables.css` file. You can change the colors and fonts of the app by defining the following variables for light and dark themes:
