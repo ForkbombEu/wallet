@@ -1,8 +1,8 @@
 <div align="center">
 
-# DIDroom Wallet Holder App
+# DIDroom Wallet Holder App <!-- omit in toc -->
 
-### iOS and Android App for DIDroom Wallet Holders
+### iOS and Android App for DIDroom Wallet Holders <!-- omit in toc -->
 
 </div>
 
@@ -21,15 +21,28 @@ A hybrid mobile app built with the Ionic framework and SvelteKit, allowing users
 ### 🚩 Table of Contents
 
 - [🎮 Quick Start](#-quick-start)
+- [📦 Deployment and Testing Strategy](#-deployment-and-testing-strategy)
+  - [Request for Testers](#request-for-testers)
 - [🚀 Using the Application](#-using-the-application)
+  - [Create a New User](#create-a-new-user)
+  - [Login](#login)
+  - [Settings](#settings)
+  - [Permissions](#permissions)
+  - [Wallet](#wallet)
+  - [Verify Your Credentials](#verify-your-credentials)
+  - [Activities](#activities)
 - [📸 Screenshots](#-screenshots)
 - [🔧 Development](#-development)
+  - [Prerequisites](#prerequisites)
+  - [Environment Variables](#environment-variables)
+  - [Installation](#installation)
+  - [Runnnig app in Chrome](#runnnig-app-in-chrome)
 - [💄 Theme Configurations](#-theme-configurations)
 - [🚨 Test](#-test)
 - [👤 Contributing](#-contributing)
-- [🚑 Community & Support](#-community--support)
+- [🚑 Community \& support](#-community--support)
 - [😍 Acknowledgements](#-acknowledgements)
-- [💼 License](#-license)
+  - [Notes](#notes)
 
 </div>
 
@@ -150,38 +163,45 @@ Create a `.env` file in the root of the project containing the `PUBLIC_BACKEND_U
     ```bash
     pnpm install
     ```
-3. Create env variables file:
+
+3. Install the submodules:
+
+    ```bash
+    git submodule update --init
+    ```
+
+4. Create env variables file:
 
     ```bash
     cp .env.example .env
     ```
 
 
-4. Build the web assets:
+5. Build the web assets:
 
     ```bash
     pnpm build
     ```
 
-5. Sync dependencies with Capacitor:
+6. Sync dependencies with Capacitor:
 
     ```bash
     pnpm cap sync
     ```
 
-6. Run the app in the browser (note that it will have some limitations compared to the native app):
+7. Run the app in the browser (note that it will have some limitations compared to the native app):
 
     ```bash
     pnpm web
     ```
 
-7. Run the app on Android:
+8. Run the app on Android:
 
     ```bash
     pnpm android
     ```
 
-8. Run the app on iOS:
+9. Run the app on iOS:
 
     ```bash
     pnpm ios
