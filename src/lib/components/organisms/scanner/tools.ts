@@ -18,32 +18,57 @@ import { m, goto } from '$lib/i18n';
 import { verificationResultsStore } from '$lib/verificationResultsStore';
 import { getDIDPreference } from '$lib/preferences/did';
 import { getKeypairPreference } from '$lib/preferences/keypair';
-import { credential } from '$paraglide/messages';
 
 const slangroom = new Slangroom(did, helpers, zencode, pocketbase, http as unknown as Plugins);
 
 export type QrToInfoResults = {
 	post_url: string;
+	state?: string | undefined;
 	vps: Array<{
-		card: LdpVc | string;
-		presentation: {
-			'@context': Array<string>;
-			holder: string;
-			id: string;
-			proof: {
-				challenge: string;
-				created: string;
-				cryptosuite: string;
-				domain: string;
-				proofPurpose: string;
-				proofValue: string;
-				type: string;
-				verificationMethod: string;
-			};
-			type: Array<string>;
-			verifiableCredential: Array<LdpVc>;
-		} | string;
+		matching_credential_sets: Array<{
+			[key: string]: Array<{
+				card: LdpVc | string;
+				signed: {
+					'@context': Array<string>;
+					holder: string;
+					id: string;
+					proof: {
+						challenge: string;
+						created: string;
+						cryptosuite: string;
+						domain: string;
+						proofPurpose: string;
+						proofValue: string;
+						type: string;
+						verificationMethod: string;
+					};
+					type: Array<string>;
+					verifiableCredential: Array<LdpVc>;
+				} | string;
+			}>
+		}>;
+		required: boolean;
 	}>;
+	dcql_query: {
+		credentials: {
+			id: string;
+			format: string;
+			meta: {
+				vct_values?: string[];
+				type_values?: string[][];
+			};
+			claims: {
+				id?: string;
+				path: string[];
+				values?: string[];
+			}[];
+			claim_sets?: string[][];
+		}[];
+		credential_sets?: {
+			options: string[][];
+			required?: boolean;
+		}[]
+	}
 };
 
 export type AskedClaims = {
@@ -60,10 +85,8 @@ export type PostWithoutVp = {
 };
 
 export type Body = {
-	id: string;
-	m: string;
-	registrationToken: string;
-	vp: string;
+	vp_token: Record<string, [string | Record<string, any>]>
+	state?: string;
 };
 
 export const verificationQRSchema = z.object({
