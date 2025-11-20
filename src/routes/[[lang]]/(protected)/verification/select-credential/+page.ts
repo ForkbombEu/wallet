@@ -1,7 +1,7 @@
+import { getCredentialsPreference, type LdpVc, type Credential } from '$lib/preferences/credentials';
 import { decodeSdJwt } from '$lib/openId4vci';
 import { verificationStore } from '$lib/verificationStore';
 import { get } from 'svelte/store';
-import type { LdpVc } from '$lib/preferences/credentials';
 
 type signedLdpVc = {
 	'@context': Array<string>;
@@ -23,7 +23,8 @@ type signedLdpVc = {
 type Claim = {
 	issuer: string;
 	type: string[];
-	claims: Record<string, unknown>
+	claims: Record<string, unknown>;
+	logo: string | undefined;
 };;
 interface ClaimSet {
   required: boolean;
@@ -34,28 +35,33 @@ interface ClaimSet {
   >;
 }
 
-async function handleSdJwt(card: string): Promise<Claim> {
+async function handleSdJwt(card: string, myCredentials: Credential[] | undefined): Promise<Claim> {
     const decodedSdJwt = await decodeSdJwt(card);
     const d = decodedSdJwt.credential.disclosures.reduce((acc, [_, s, t]) => {
 		acc[s] = t;
 		return acc;
 	}, {} as Record<string, unknown>);
+	const credLogo = myCredentials!.find(c => c.type === 'sdjwt' && c.sdJwt === card)?.logo.uri;
 	return {
 		issuer: decodedSdJwt.credential.jwt.payload.iss,
 		type: [ '', decodedSdJwt.credential.jwt.payload.type ],
-		claims: d
+		claims: d,
+		logo: credLogo
 	}
 }
 
-function handleLdpVC(card: LdpVc) {
+function handleLdpVC(card: LdpVc, myCredentials: Credential[] | undefined): Claim {
+	const credLogo = myCredentials!.find(c => c.type === 'ldp_vc' && JSON.stringify(c.ldpVc) === JSON.stringify(card))?.logo.uri;
 	return {
 		issuer: card.issuer,
 		type: card.type,
-		claims: card.credentialSubject
+		claims: card.credentialSubject,
+		logo: credLogo
 	}
 }
 
 export const load = async () => {
+	const myCredentials = await getCredentialsPreference();
 	const { vps, post_url } = get(verificationStore);
 	const credentials = [];
 	console.log(vps)
@@ -68,13 +74,13 @@ export const load = async () => {
             const cred_set_array: ClaimSet["claims"][number] = []
             for (const [key, value] of Object.entries(cred)) {
                 if (typeof value[0].card === 'string') {
-                    const claim_array = value.map(e => handleSdJwt(e.card as string));
+                    const claim_array = value.map(e => handleSdJwt(e.card as string, myCredentials));
 					const signed_array = value.map(e => e.signed);
                     const resolved = await Promise.all(claim_array);
                     cred_set_array.push([key, resolved, signed_array]);
                 } else {
-                    const claim_array = value.map(e => handleLdpVC(e.card as LdpVc));
-					const signed_array = value.map(e => e.signed)
+                    const claim_array = value.map(e => handleLdpVC(e.card as LdpVc, myCredentials));
+					const signed_array = value.map(e => e.signed);
                     cred_set_array.push([key, claim_array, signed_array]);
                 }
             }

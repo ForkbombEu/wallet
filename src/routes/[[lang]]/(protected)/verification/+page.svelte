@@ -57,9 +57,11 @@
 							<d-text>{credential.id} {m.with_claims()}:</d-text>
 							{#each credential.claims as claim_sets, i (i)}
 								{#each claim_sets as claim}
-									<div class="flex items-center gap-2.5">
+									<div class="flex items-center gap-2.5 min-w-0">
 										<d-info-led type="warning" />
-										<d-text>{claim.path}{claim.value ? `: ${claim.value}`: ""}</d-text>
+										<d-text class="break-all whitespace-normal">
+											{claim.path}{claim.value ? `: ${claim.value}`: ""}
+										</d-text>
 									</div>
 								{/each}
 								{#if i < credential.claims.length - 1}

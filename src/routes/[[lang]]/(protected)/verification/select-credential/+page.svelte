@@ -196,11 +196,11 @@
 							{#each claim_propery as claim_list, claim_set}
 								<d-verification-card
 									class:opacity-60={opaque(selectedCredential[index], cred_set, cred_id, claim_set)}
-									class="transition-opacity duration-500"
+									class="transition-opacity duration-500 break-all"
 									selected={selected(selectedCredential[index], cred_set, cred_id, claim_set)}
 									relying-party={claim_list.issuer}
-									verifier={verifier}
 									flow={claim_list.type[1]}
+									logo={claim_list.logo}
 									on:click={() => selectCredential(index, cred_set, cred_id, claim_set)}
 									aria-hidden
 								>
