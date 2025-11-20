@@ -38,10 +38,10 @@ interface ClaimSet {
 async function handleSdJwt(card: string, myCredentials: Credential[] | undefined): Promise<Claim> {
     const decodedSdJwt = await decodeSdJwt(card);
     const d = decodedSdJwt.credential.disclosures.reduce((acc, [_, s, t]) => {
-		acc[s] = t;
+		acc[s] = typeof(t) === 'object' ? JSON.stringify(t) : t;
 		return acc;
 	}, {} as Record<string, unknown>);
-	const credLogo = myCredentials!.find(c => c.type === 'sdjwt' && c.sdJwt === card)?.logo.uri;
+	const credLogo = myCredentials!.find(c => c.type === 'sdjwt' && c.sdJwt.split('~')[0] === card.split('~')[0])?.logo.uri;
 	return {
 		issuer: decodedSdJwt.credential.jwt.payload.iss,
 		type: [ '', decodedSdJwt.credential.jwt.payload.type ],
@@ -51,6 +51,11 @@ async function handleSdJwt(card: string, myCredentials: Credential[] | undefined
 }
 
 function handleLdpVC(card: LdpVc, myCredentials: Credential[] | undefined): Claim {
+	for (const [key, value] of Object.entries(card.credentialSubject)) {
+		if (typeof value === "object" && value !== null) {
+			card.credentialSubject[key] = JSON.stringify(value);
+		}
+	}
 	const credLogo = myCredentials!.find(c => c.type === 'ldp_vc' && JSON.stringify(c.ldpVc) === JSON.stringify(card))?.logo.uri;
 	return {
 		issuer: card.issuer,
@@ -84,9 +89,9 @@ export const load = async () => {
                     cred_set_array.push([key, claim_array, signed_array]);
                 }
             }
-            s.claims.push(cred_set_array)
+            s.claims.push(cred_set_array);
         }
-        credentials.push(s)
+        credentials.push(s);
     }
 	return { credentials, verifier: post_url };
 };
