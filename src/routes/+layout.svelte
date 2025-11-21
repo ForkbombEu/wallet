@@ -16,13 +16,13 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { navigating } from '$app/stores';
 	import { App } from '@capacitor/app';
-	import { gotoQrResult } from '$lib/components/organisms/scanner/tools';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import { m } from '$lib/i18n';
 	import { Network } from '@capacitor/network';
 	import { debugPopup, debugPopupContent } from '$lib/components/organisms/debug/debug';
 	import { refreshAuth } from './[[lang]]/(auth)/login/_lib';
 	import { isDark } from '$lib/isDark';
+	import { pendingDeepLink } from '$lib/pendingDeepLinkStore';
 
 	const controller = new AbortController();
 	const signal = controller.signal;
@@ -108,7 +108,8 @@
 		App.addListener('appUrlOpen', async (data) => {
 			if (!data.url) return;
 			if (data.url.includes('openid-credential-offer') || data.url.includes('openid4vp')) {
-				await gotoQrResult(data.url);
+				pendingDeepLink.set(data.url);
+				await goto('/unlock');
 			}
 			if (data.url.includes('didroom-wallet')) {
 				const path = data.url.split('didroom-wallet://')[1];

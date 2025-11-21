@@ -4,6 +4,8 @@
 	// @ts-ignore
 	import IonPage from 'ionic-svelte/components/IonPage.svelte';
 	import { refreshAuth } from '../login/_lib/index.js';
+	import { pendingDeepLink } from '$lib/pendingDeepLinkStore.js';
+	import { gotoQrResult } from '$lib/components/organisms/scanner/tools';
 
 	export let data;
 
@@ -13,6 +15,17 @@
 		try {
 			await authenticate();
 			await refreshAuth();
+
+			// manage deeplinks from qrcodes
+			let urlValue: string | null = null;
+			pendingDeepLink.subscribe((value) => {
+				urlValue = value;
+			})();
+			pendingDeepLink.set(null); // clear
+			if (urlValue) {
+				return await gotoQrResult(urlValue);
+			}
+
 			if (!(r('/verification') === window.location.pathname)) {
 				return await goto('/wallet');
 			}
