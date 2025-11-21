@@ -20,6 +20,9 @@ importers:
       '@capacitor/app':
         specifier: ^7.1.0
         version: 7.1.0(@capacitor/core@7.4.3)
+      '@capacitor/browser':
+        specifier: ^7.0.2
+        version: 7.0.2(@capacitor/core@7.4.3)
       '@capacitor/camera':
         specifier: ^7.0.2
         version: 7.0.2(@capacitor/core@7.4.3)
@@ -203,7 +206,7 @@ importers:
         version: 9.1.2(eslint@9.36.0(jiti@1.21.7))
       eslint-plugin-localization:
         specifier: file:plugins/localization
-        version: file:plugins/localization
+        version: localization@file:plugins/localization
       eslint-plugin-svelte:
         specifier: ^2.46.1
         version: 2.46.1(eslint@9.36.0(jiti@1.21.7))(svelte@4.2.20)(ts-node@10.9.2(@types/node@24.5.2)(typescript@5.9.2))
@@ -805,6 +808,11 @@ packages:
     resolution: {integrity: sha512-ohz/OUq61Y1Fc6aVSt0uDrUdeOA7oTH4pkWDbv/8I3UrPjH7oPkzYhShuDRUjekNp9RBi198VSFdt0CetpEOzw==}
     engines: {node: '>=10.3.0'}
     hasBin: true
+
+  '@capacitor/browser@7.0.2':
+    resolution: {integrity: sha512-5kySTunCtH+2sezmTjgDfwvspW7GW/hslQECZeLIRM2qefnxjGTc3fmCTeILYK5EuvcxMs+8sF5BhmzzKqOzuQ==}
+    peerDependencies:
+      '@capacitor/core': '>=7.0.0'
 
   '@capacitor/camera@7.0.2':
     resolution: {integrity: sha512-1/UbZZ8MSbRTMMvjQHQFJ0cs2ZNURNoyuUex0rAJwECsyHO0I5SRvu7YoMY5qTcRWScBcqT+3QZcJvETtRg7ug==}
@@ -3071,9 +3079,6 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
-  eslint-plugin-localization@file:plugins/localization:
-    resolution: {directory: plugins/localization, type: directory}
-
   eslint-plugin-svelte@2.46.1:
     resolution: {integrity: sha512-7xYr2o4NID/f9OEYMqxsEQsCsj4KaMy4q5sANaKkAb6/QeCjYFxRmDm2S3YC3A3pl1kyPZ/syOx/i7LcWYSbIw==}
     engines: {node: ^14.17.0 || >=16.0.0}
@@ -4003,6 +4008,9 @@ packages:
   local-pkg@0.5.1:
     resolution: {integrity: sha512-9rrA30MRRP3gBD3HTGnC6cDFpaE1kVDWxWgqWJUN0RvDNAo+Nz/9GxB+nHOH0ifbVFy0hSA1V6vFDvnx54lTEQ==}
     engines: {node: '>=14'}
+
+  localization@file:plugins/localization:
+    resolution: {directory: plugins/localization, type: directory}
 
   locate-character@3.0.0:
     resolution: {integrity: sha512-SW13ws7BjaeJ6p7Q6CO2nchbYEc3X3J6WrmTTDto7yMPqVSZTUyY5Tjbid+Ab8gLnATtygYtiDIJGQRRn2ZOiA==}
@@ -6998,6 +7006,10 @@ snapshots:
       - supports-color
       - typescript
 
+  '@capacitor/browser@7.0.2(@capacitor/core@7.4.3)':
+    dependencies:
+      '@capacitor/core': 7.4.3
+
   '@capacitor/camera@7.0.2(@capacitor/core@7.4.3)':
     dependencies:
       '@capacitor/core': 7.4.3
@@ -9677,8 +9689,6 @@ snapshots:
     dependencies:
       eslint: 9.36.0(jiti@1.21.7)
 
-  eslint-plugin-localization@file:plugins/localization: {}
-
   eslint-plugin-svelte@2.46.1(eslint@9.36.0(jiti@1.21.7))(svelte@4.2.20)(ts-node@10.9.2(@types/node@24.5.2)(typescript@5.9.2)):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.0(eslint@9.36.0(jiti@1.21.7))
@@ -10672,6 +10682,8 @@ snapshots:
     dependencies:
       mlly: 1.8.0
       pkg-types: 1.3.1
+
+  localization@file:plugins/localization: {}
 
   locate-character@3.0.0: {}
 
