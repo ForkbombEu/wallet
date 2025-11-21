@@ -205,7 +205,12 @@
 									aria-hidden
 								>
 									{#each Array.from(Object.entries(claim_list.claims)) as disclosure}
-										<d-definition title={disclosure[0]} definition={disclosure[1]} dotted class="overflow-hidden text-ellipsis"></d-definition>
+										<div class="flex items-center gap-2.5 min-w-0">
+											<d-info-led type="warning" />
+											<d-text size="s" class="break-all whitespace-normal">
+												<b>{disclosure[0]}</b> {disclosure[1]}
+											</d-text>
+										</div>
 									{/each}
 								</d-verification-card>
 								{#if claim_set < claim_propery.length - 1}
