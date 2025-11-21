@@ -149,16 +149,11 @@
 						{m.credential_issuance_failed()}
 					</d-text>
 				</div>
-				{#if !isWeb}
-					<d-button expand href={r('/home')}>{m.Home()}</d-button>
-				{/if}
-			</div>
-			<d-vertical-stack class="w-full">
 				<d-button
 					expand
 					href={r('/home')}>{m.Home()}</d-button
 				>
-			</d-vertical-stack>
+			</div>
 		{:else if state === 'loading'}
 			<h1 class="mb-4 text-2xl font-semibold">{m.We_are_generating_this_credential()}</h1>
 			<d-credential-card
