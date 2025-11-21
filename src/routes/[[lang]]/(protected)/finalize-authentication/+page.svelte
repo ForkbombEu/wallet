@@ -138,7 +138,7 @@
 </d-header>
 
 <ion-content fullscreen class="ion-padding" bind:this={content}>
-	<div class="flex h-full flex-col items-center justify-center text-center">
+	<div class="flex h-full flex-col items-center justify-center text-center pb-16">
 		{#if state === 'error'}
 			<div class="ion-padding flex h-full w-full flex-col justify-between py-10">
 				<d-feedback {...feedback} class="mb-4"></d-feedback>
