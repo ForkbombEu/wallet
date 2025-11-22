@@ -89,7 +89,7 @@
 						{m.share_this_app()}
 						<ion-icon icon={shareIcon} slot="start" />
 					</d-button>
-					<d-button href="https://didroom.com/guides/Orgadmin/support.html" size="large">
+					<d-button href="https://didroom.com/guides/support.html" size="large">
 						{m.Support()}
 						<d-icon icon="help" slot="start" outline />
 					</d-button>

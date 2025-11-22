@@ -1,6 +1,6 @@
 {
 	"name": "wallet",
-	"version": "2.0.20",
+	"version": "2.1.0",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --host",
@@ -109,7 +109,7 @@
 		"ionicons": "^7.4.0",
 		"lodash": "^4.17.21",
 		"swiper": "^11.1.15",
-		"zenroom": "^5.25.3",
+		"zenroom": "^5.28.4",
 		"zod": "^3.23.8"
 	}
 }

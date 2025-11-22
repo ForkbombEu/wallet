@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/ForkbombEu/wallet/compare/v2.0.20...v2.1.0) (2025-11-22)
+
+
+### Features
+
+* handle also more complex dcql_query ([#635](https://github.com/ForkbombEu/wallet/issues/635)) ([a19ac9d](https://github.com/ForkbombEu/wallet/commit/a19ac9d37b522cb59e94380080651b3cfb0dcdd9))
+
 ## [2.0.20](https://github.com/ForkbombEu/wallet/compare/v2.0.19...v2.0.20) (2025-11-04)
 
 

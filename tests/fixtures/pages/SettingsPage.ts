@@ -53,7 +53,7 @@ export class SettingsPage extends BasePage {
 
 	async goToSupportPage() {
 		await this.supportButton.click();
-		await expect(this.page).toHaveURL('https://didroom.com/guides/Orgadmin/support.html');
+		await expect(this.page).toHaveURL('https://didroom.com/guides/support.html');
 	}
 
 	async goToPrivacyPolicy() {
