@@ -16,7 +16,6 @@
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
 	import { debugDismiss } from '$lib/components/organisms/debug/debug';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
-	import { decodeSdJwt, decodeLdpVc } from '$lib/openId4vci/index.js';
 
 	type Verification = {
 		result: {
@@ -28,36 +27,77 @@
 		logs: string;
 	};
 
-	export let data;
-	const { credentials } = data;
+	type SelectedCredentials = number[][][]
 
-	let selectedCredential: number;
+	export let data;
+	const { credentials, verifier } = data;
+
+	let selectedCredential: SelectedCredentials = [];
 
 	let verification: Verification;
 	let scrollBox: HTMLDivElement;
 	let loading = false;
 
-	const { vps, post_url } = $verificationStore;
+	const { vps, post_url, state } = $verificationStore;
 	const verificationFailed = m.Verification_failed();
 
-	const selectCredential = (credential: number) => {
-		selectedCredential = credential;
+	const selectCredential = (cred: number, cred_set: number, cred_id: number, claim_set: number) => {
+		selectedCredential[cred] ||= []
+		selectedCredential[cred][cred_set] ||= []
+		selectedCredential[cred].forEach((_, i) => {
+			if (i !== cred_set) delete selectedCredential[cred][i]
+		})
+		selectedCredential[cred][cred_set][cred_id] = claim_set;
 		// getSortedCredentials();
 		// scrollBox.scrollIntoView({
 		// 	behavior: 'smooth',
 		// 	block: 'start'
 		// });
 	};
+	const checkSelectedAllCredential = (sel: SelectedCredentials) => {
+		return credentials.every((cred, i) => {
+			if (!cred.required) return true;
+			if (!Object.prototype.hasOwnProperty.call(sel, i)) return false
+			return cred.claims.some((claim, j) =>
+				Object.prototype.hasOwnProperty.call(sel[i], j) &&
+				claim.every((_, k) => Object.prototype.hasOwnProperty.call(sel[i][j], k))
+			)
+		})
+	}
+	$: allCredentialsSelected = checkSelectedAllCredential(selectedCredential);
+
+	const preparePresentation = () => {
+		const vp_token: Record<string, [string | Record<string, any>]> = {};
+		const prop: Record<string, string[]> = {};
+		for (let i = 0; i < credentials.length; i++) {
+			if (selectedCredential.hasOwnProperty(i)) {
+				const j = selectedCredential[i].findIndex(v => v !== null && v !== undefined);
+				for (let k = 0; k < credentials[i].claims[j].length; k++) {
+					const index = selectedCredential[i][j][k]
+					const key = credentials[i].claims[j][k][0];
+					const card = credentials[i].claims[j][k][1][index].claims;
+					const signed = credentials[i].claims[j][k][2][index];
+					vp_token[key] = [signed];
+					prop[key] = [...Object.keys(card)]
+				}
+			}
+		}
+		return { prop, vp_token };
+	}
 
 	const verify = async () => {
-		if (selectedCredential === undefined) {
+		if (!checkSelectedAllCredential(selectedCredential)) {
 			return;
 		}
 		loading = true;
 		try {
+			const { prop, vp_token } = preparePresentation()
 			verification = (await verifyCredential({
 				url: post_url,
-				body: vps[selectedCredential].presentation
+				body: {
+					state,
+					vp_token
+				}
 			})) as Verification;
 
 			const responseSuccess = verification.result?.result?.status === '200';
@@ -87,19 +127,13 @@
 				success: responseSuccess
 			});
 			log(JSON.stringify(verification));
-			const card = vps[selectedCredential].card;
-			const properties: string[] = [];
-			if (typeof card === 'string') {
-				const d = await decodeSdJwt(card);
-				properties.push(...(d.credential.disclosures.map((item) => item[1])))
-			} else {
-				const d = await decodeLdpVc(card)
-				properties.push(...(d.map((item) => item[0])));
+			for (const [_key, prop_array] of Object.entries(prop)) {
+				await addVerificationActivity(sid, responseSuccess, post_url, prop_array);
 			}
-			await addVerificationActivity(sid, responseSuccess, post_url, properties);
 			if (responseRedirectUri) window.location.href = responseRedirectUri
 			return await goto('/verification/results');
 		} catch (e) {
+			console.log(e)
 			verificationResultsStore.set({
 				feedback: negativeFeedback(verificationFailed, JSON.stringify(e)),
 				date: dayjs().toString(),
@@ -110,6 +144,19 @@
 			return await goto('/verification/results');
 		}
 	};
+
+	const selected = (card: SelectedCredentials[number], cred_set: number, cred_id: number, claim_set: number) => {
+		return Boolean(card)
+			&& Boolean(card[cred_set])
+			&& card[cred_set][cred_id] === claim_set
+	}
+	const opaque = (card: SelectedCredentials[number], cred_set: number, cred_id: number, claim_set: number) => {
+		if(!card) return false;
+		const claim = card[cred_set]?.[cred_id];
+		if (card?.[cred_set] === undefined) return true
+		if (claim === undefined) return false;
+		return claim !== claim_set;
+	}
 
 	// let sortedCredentials: Credential[];
 	// const getSortedCredentials = () => {
@@ -140,27 +187,48 @@
 				description={m.novel_elegant_capybara_twist({ length: credentials.length })}
 			/>
 			<d-vertical-stack>
-				{#each credentials as credential, index}
-					<d-verification-card
-						class:opacity-60={selectedCredential && selectedCredential !== index}
-						class="transition-opacity duration-500"
-						selected={selectedCredential === index}
-						relying-party={credential.issuer}
-						verifier={credential.issuer}
-						flow={credential.type[1]}
-						on:click={() => selectCredential(index)}
-						aria-hidden
-					>
-						{#each Array.from(Object.entries(credential.credentialSubject)) as disclosure}
-							<d-definition title={disclosure[0]} definition={disclosure[1]} dotted class="overflow-hidden text-ellipsis"></d-definition>
+				{#each credentials as vps_property, index}
+					<div class="flex flex-col items-start gap-2.5 rounded-[5px] bg-secondary px-5 py-5">
+					<d-badge class="self-end">{vps_property.required? m.required(): m.optional()}</d-badge>
+					{#each vps_property.claims as cred_property, cred_set}
+						{#each cred_property as [cred_key, claim_propery], cred_id}
+							<d-text>{cred_key} {m.with_claims()}:</d-text>
+							{#each claim_propery as claim_list, claim_set}
+								<d-verification-card
+									class:opacity-60={opaque(selectedCredential[index], cred_set, cred_id, claim_set)}
+									class="transition-opacity duration-500 break-all"
+									selected={selected(selectedCredential[index], cred_set, cred_id, claim_set)}
+									relying-party={claim_list.issuer}
+									flow={claim_list.type[1]}
+									logo={claim_list.logo}
+									on:click={() => selectCredential(index, cred_set, cred_id, claim_set)}
+									aria-hidden
+								>
+									{#each Array.from(Object.entries(claim_list.claims)) as disclosure}
+										<div class="flex items-center gap-2.5 min-w-0">
+											<d-info-led type="warning" />
+											<d-text size="s" class="break-all whitespace-normal">
+												<b>{disclosure[0]}</b> {disclosure[1]}
+											</d-text>
+										</div>
+									{/each}
+								</d-verification-card>
+								{#if claim_set < claim_propery.length - 1}
+									<d-text>{m.or()}:</d-text>
+								{/if}
+							{/each}
 						{/each}
-					</d-verification-card>
+						{#if cred_set < vps_property.claims.length - 1}
+							<d-text>{m.or()}:</d-text>
+						{/if}
+					{/each}
+					</div>
 				{/each}
 				<div class="pb-56" />
 			</d-vertical-stack>
 		</d-vertical-stack>
 	</div>
-	{#if selectedCredential !== undefined}
+	{#if allCredentialsSelected}
 		<div class="ion-padding fixed bottom-0 h-40 w-full bg-surface" transition:slide>
 			<d-vertical-stack>
 				<d-button
@@ -168,7 +236,7 @@
 					aria-hidden
 					expand
 					color="accent"
-					disabled={selectedCredential === undefined || loading}>{m.Verify()}</d-button
+					disabled={!allCredentialsSelected || loading}>{m.Verify()}</d-button
 				>
 				<d-button expand aria-hidden>{m.Decline()}</d-button>
 			</d-vertical-stack>
