@@ -41,7 +41,7 @@
 						{...credential}
 						{expirationDate}
 						name={credential.display_name}
-						logoSrc={credential.logo.uri}
+						logoSrc={credential.logo?.uri}
 						issuedByLabel={m.Issued_by()}
 						expirationLabel={'Exp'}
 						class="max-w-44"

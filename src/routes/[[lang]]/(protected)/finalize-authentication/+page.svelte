@@ -160,7 +160,7 @@
 				name={credentialInfo?.name}
 				issuer={credentialInfo?.name}
 				description={credentialInfo?.description}
-				logoSrc={credentialInfo?.logo.uri}
+				logoSrc={credentialInfo?.logo?.uri}
 			/>
 			<div class="mt-8">
 				<FingerPrint />

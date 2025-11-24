@@ -45,8 +45,8 @@
 					<div class="flex items-center gap-2 text-xl font-semibold not-italic text-on">
 						<d-avatar
 							name={credentialInfo?.name}
-							src={credentialInfo?.logo.uri}
-							alt={credentialInfo?.logo.alt_text}
+							src={credentialInfo?.logo?.uri}
+							alt={credentialInfo?.logo?.alt_text}
 							shape="square"
 						></d-avatar>
 						<d-heading class="font-semibold" size="xs">
