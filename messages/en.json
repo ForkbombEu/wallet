@@ -208,5 +208,6 @@
 	"with_claims": "with claims",
 	"Requested_credentials": "Requested credentials",
 	"Verifier_url": "Verifier url",
-	"verification_page_description": "In the next page you will be able to choose the credentials you want to present to the verifier to proceed with the verification, or to stop the verification process."
+	"verification_page_description": "In the next page you will be able to choose the credentials you want to present to the verifier to proceed with the verification, or to stop the verification process.",
+	"request_uri_not_found_in_par_response": "request_uri not found in par response"
 }
