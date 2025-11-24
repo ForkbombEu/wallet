@@ -79,7 +79,7 @@
 					label={m.insert_your_passphrase()}
 					type="text"
 				/>
-				<d-button role="button" expand type="submit" tabindex={0} disabled={!isTainted}
+				<d-button expand type="submit" disabled={!isTainted} color="accent"
 					>{m.Login()}</d-button
 				>
 

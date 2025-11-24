@@ -38,15 +38,29 @@
 		await initializeIssuanceFlow();
 	});
 
+	async function handleIssuanceError(
+		message: string,
+		errorType: string
+	): Promise<void> {
+		state = 'error';
+		feedback = { type: 'error', message: message, feedback: errorType };
+		content?.scrollToTop();
+	}
+
+	async function handleIssuanceSuccess(credentialId: number): Promise<void> {
+		isModalOpen = false;
+		await goto(`/${credentialId}/credential-detail`);
+	}
+
 	async function initializeIssuanceFlow(): Promise<void> {
 		if (!code || !codeVerifier || !wn) {
 			const errorMessage = error_description || 'Required parameters are missing.';
 			const errorDetails = error || 'issuance_failed';
-			return await handleIssuanceError(errorMessage, errorDetails, true);
+			return await handleIssuanceError(errorMessage, errorDetails);
 		}
 
 		try {
-			const credentialResponse = await fetchCredential();
+			const credentialResponse = await askCredential(code, wn.credential_parameters, codeVerifier);
 			const credentialId = await processAndSaveCredential(credentialResponse);
 
 			state = 'success';
@@ -58,36 +72,6 @@
 			const errorMessage = e instanceof Error ? e.message : String(e);
 			await handleIssuanceError(errorMessage, 'credential_fetch_error');
 		}
-	}
-
-	async function handleIssuanceError(
-		message: string,
-		errorType: string,
-		isInitialError = false
-	): Promise<void> {
-		state = 'error';
-		feedback = { type: 'error', message: message, feedback: errorType };
-		content?.scrollToTop();
-
-		if (isInitialError) {
-			window.parent.postMessage({ type: 'decline-to-home' }, '*');
-			await addActivity({
-				type: 'notIssuedCredential',
-				at: dayjs().unix(),
-				name: credentialInfo?.name || 'Unknown Credential',
-				logo: credentialInfo?.logo || { uri: '', alt_text: 'No Logo' },
-				description: credentialInfo?.description || 'Unknown Description',
-				issuer: credentialInfo?.issuer || 'Unknown Issuer',
-				displayName: credentialInfo?.name || 'Unknown Display Name'
-			});
-		}
-	}
-
-	async function fetchCredential(): Promise<CredentialResult> {
-		if (!wn || !codeVerifier || !code) {
-			throw new Error('Cannot fetch credential due to missing parameters.');
-		}
-		return await askCredential(code, wn.credential_parameters, codeVerifier);
 	}
 
 	async function processAndSaveCredential(response: CredentialResult): Promise<number> {
@@ -147,53 +131,45 @@
 
 		return null;
 	}
-
-	async function handleIssuanceSuccess(credentialId: number): Promise<void> {
-		isModalOpen = false;
-		if (isWeb) {
-			window.parent.postMessage({ type: 'credential', action: 'finalized', id: credentialId }, '*');
-		} else {
-			await goto(`/${credentialId}/credential-detail`);
-		}
-	}
 </script>
 
-<ion-content fullscreen class="ion-padding h-screen" bind:this={content}>
-	<ion-modal is-open={isModalOpen} backdrop-dismiss={false} transition:fly>
-		<ion-content class="ion-padding">
-			<div class="flex h-full flex-col items-center justify-center text-center">
-				{#if state === 'error'}
-					<div class="ion-padding flex h-full w-full flex-col justify-between py-10">
-						<d-feedback {...feedback} class="mb-4"></d-feedback>
-						<div class="ion-padding flex w-full flex-col gap-2">
-							<ion-icon icon={thumbsDownOutline} class="mx-auto my-6 text-9xl text-red-400"
-							></ion-icon>
-							<d-text class="mx-auto break-words">
-								{m.credential_issuance_failed()}
-							</d-text>
-						</div>
-						{#if !isWeb}
-							<d-button expand href={r('/home')}>{m.Home()}</d-button>
-						{/if}
-					</div>
-				{:else if state === 'loading'}
-					<h1 class="mb-4 text-2xl font-semibold">{m.We_are_generating_this_credential()}</h1>
-					<d-credential-card
-						name={credentialInfo?.name}
-						issuer={credentialInfo?.name}
-						description={credentialInfo?.description}
-						logoSrc={credentialInfo?.logo.uri}
-					/>
-					<div class="mt-8">
-						<FingerPrint />
-					</div>
-				{:else if state === 'success'}
-					<ion-icon icon={thumbsUpOutline} class="my-6 text-9xl text-green-400" />
-					<h1 class="text-2xl font-semibold">{m.credential_issuance_succeeded()}</h1>
-					<d-text class="mt-2">{m.you_will_be_redirected_shortly()}</d-text>
-				{/if}
+<d-header>
+	{m.Credential_offer()}
+</d-header>
+
+<ion-content fullscreen class="ion-padding" bind:this={content}>
+	<div class="flex h-full flex-col items-center justify-center text-center pb-16">
+		{#if state === 'error'}
+			<div class="ion-padding flex h-full w-full flex-col justify-between py-10">
+				<d-feedback {...feedback} class="mb-4"></d-feedback>
+				<div class="ion-padding flex w-full flex-col gap-2">
+					<ion-icon icon={thumbsDownOutline} class="mx-auto my-6 text-9xl text-red-400"
+					></ion-icon>
+					<d-text class="mx-auto break-words">
+						{m.credential_issuance_failed()}
+					</d-text>
+				</div>
+				<d-button
+					expand
+					href={r('/home')}>{m.Home()}</d-button
+				>
 			</div>
-		</ion-content>
-	</ion-modal>
+		{:else if state === 'loading'}
+			<h1 class="mb-4 text-2xl font-semibold">{m.We_are_generating_this_credential()}</h1>
+			<d-credential-card
+				name={credentialInfo?.name}
+				issuer={credentialInfo?.name}
+				description={credentialInfo?.description}
+				logoSrc={credentialInfo?.logo?.uri}
+			/>
+			<div class="mt-8">
+				<FingerPrint />
+			</div>
+		{:else if state === 'success'}
+			<ion-icon icon={thumbsUpOutline} class="my-6 text-9xl text-green-400" />
+			<h1 class="text-2xl font-semibold">{m.credential_issuance_succeeded()}</h1>
+			<d-text class="mt-2">{m.you_will_be_redirected_shortly()}</d-text>
+		{/if}
+	</div>
 	<DebugPopup />
 </ion-content>
