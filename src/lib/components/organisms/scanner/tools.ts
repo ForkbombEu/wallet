@@ -256,10 +256,7 @@ const handleServiceSuccess = async (serviceData: Service) => {
 };
 
 export const gotoQrResult = async (url: string) => {
-	let urlParams = new URLSearchParams(url.split('://?')[1]);
-	if (urlParams.size < 1) {
-		urlParams = new URLSearchParams(url.split('://')[1]);
-	}
+	let urlParams = new URLSearchParams(url.split('?')[1]);
 	const parsedVerification = parseParams<Credential>(urlParams, verificationQRSchema);
 	if (parsedVerification.success) {
 		return handleVerificationSuccess(parsedVerification.data);
