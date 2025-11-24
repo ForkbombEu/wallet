@@ -17,7 +17,7 @@
 		else await Browser.open({ url: authorizeUrl }); // iOS + Android
 	}
 
-	const credentialInfo = wn?.credential_requested['display'][0];
+	const credentialInfo = wn?.credential_requested['display']?.[0];
 
 	let feedback: Feedback | undefined = {};
 	let content: ScrollableNode;
