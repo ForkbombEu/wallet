@@ -181,5 +181,10 @@
 	"expired_credential": "Hai 1 credenziale scaduta",
 	"expired_credentials": "Hai {count} credenziali scadute",
 	"No_credentials_found": "Nessuna credenziale trovata",
-	"issued_to_you": "{iss} ti ha rilasciato {name}"
+	"issued_to_you": "{iss} ti ha rilasciato {name}",
+	"request_uri_not_found_in_par_response": "request_uri non trovato nella risposta par",
+	"Please_authenticate": "Si prega di autenticarsi",
+	"Biometric_login": "Accesso biometrico",
+	"Log_in_using_biometric_authentication": "Accedi tramite autenticazione biometrica",
+	"Use_passcode": "Usa il codice di accesso"
 }
