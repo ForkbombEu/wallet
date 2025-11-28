@@ -17,7 +17,7 @@
 		else await Browser.open({ url: authorizeUrl }); // iOS + Android
 	}
 
-	const credentialInfo = wn?.credential_requested['display'][0];
+	const credentialInfo = wn?.credential_requested['display']?.[0];
 
 	let feedback: Feedback | undefined = {};
 	let content: ScrollableNode;
@@ -36,7 +36,7 @@
 			buttonText={m.Go_to_home()}
 			href={r('/home')}
 		>
-			<d-illustration illustration="pidgeon" />
+		<d-illustration illustration="pidgeon" />
 		</d-empty-state>
 	{:else}
 		<div class="flex h-full flex-col justify-between gap-4 pb-16">

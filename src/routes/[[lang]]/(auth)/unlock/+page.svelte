@@ -38,12 +38,12 @@
 	async function authenticate() {
 		try {
 			await BiometricAuth.authenticate({
-				reason: 'Please authenticate',
-				cancelTitle: 'Cancel',
+				reason: m.Please_authenticate(),
+				cancelTitle: m.Cancel(),
 				allowDeviceCredential: true,
-				iosFallbackTitle: 'Use passcode',
-				androidTitle: 'Biometric login',
-				androidSubtitle: 'Log in using biometric authentication',
+				iosFallbackTitle: m.Use_passcode(),
+				androidTitle: m.Biometric_login(),
+				androidSubtitle: m.Log_in_using_biometric_authentication(),
 				androidConfirmationRequired: false,
 				androidBiometryStrength: AndroidBiometryStrength.weak
 			});

@@ -19,6 +19,7 @@ import { debugDismiss } from '$lib/components/organisms/debug/debug';
 import type { LdpVc } from '$lib/preferences/credentials';
 import type { Credential } from '$lib/preferences/credentials';
 import { isWeb } from '$lib/utils';
+import { m } from '$lib/i18n';
 
 //@ts-ignore
 const slangroom = new Slangroom([http, helpers, zencode]);
@@ -110,6 +111,7 @@ export const callPar = async (data: { credential_parameters: CredentialParameter
 	keys.redirect_uri = redirect_uri;
 	const r = await slangroom.execute(call_par, { data, keys });
 	const result = r.result as CallParResult;
+	if (!result.request_uri) throw new Error(m.request_uri_not_found_in_par_response());
 	const authorizeUrl = `${result.authorization_endpoint}?client_id=${result.client_id}&request_uri=${result.request_uri}`;
 	return { parResult: r.result as CallParResult, authorizeUrl };
 };
