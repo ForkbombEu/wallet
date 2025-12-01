@@ -1,3 +1,12 @@
+## [2.1.1](https://github.com/ForkbombEu/wallet/compare/v2.1.0...v2.1.1) (2025-12-01)
+
+
+### Bug Fixes
+
+* ask for authentication when opening the app from external scan of a deeplink ([#644](https://github.com/ForkbombEu/wallet/issues/644)) ([60b8148](https://github.com/ForkbombEu/wallet/commit/60b8148c1f7bc5ce8cfa4df3514a16282bffcb30))
+* **credential-offer:** improve credential-offer page usability ([#646](https://github.com/ForkbombEu/wallet/issues/646)) ([ff4e982](https://github.com/ForkbombEu/wallet/commit/ff4e98277f1ff89b67768d145458cfd937b88042))
+* redirect to authorization page instead of opening it in an iframe ([#643](https://github.com/ForkbombEu/wallet/issues/643)) ([d0e7b76](https://github.com/ForkbombEu/wallet/commit/d0e7b767ce24869445a22a3783c1a502793ca67b)), closes [#633](https://github.com/ForkbombEu/wallet/issues/633)
+
 # [2.1.0](https://github.com/ForkbombEu/wallet/compare/v2.0.20...v2.1.0) (2025-11-22)
 
 
