@@ -6,6 +6,7 @@ import { helpers } from '@slangroom/helpers';
 import { zencode } from '@slangroom/zencode';
 import { pocketbase } from '@slangroom/pocketbase';
 import { http } from '@slangroom/http';
+import { rdf } from '@slangroom/rdf';
 import verQrToInfo from '$lib/mobile_zencode/wallet/openid4vp_qr_to_info.zen?raw';
 import verQrToInfoKeys from '$lib/mobile_zencode/wallet/openid4vp_qr_to_info.keys.json?raw';
 import verResponse from '$lib/mobile_zencode/wallet/openid4vp_response.zen?raw';
@@ -19,7 +20,7 @@ import { verificationResultsStore } from '$lib/verificationResultsStore';
 import { getDIDPreference } from '$lib/preferences/did';
 import { getKeypairPreference } from '$lib/preferences/keypair';
 
-const slangroom = new Slangroom(did, helpers, zencode, pocketbase, http as unknown as Plugins);
+const slangroom = new Slangroom(did, helpers, zencode, pocketbase, http, rdf);
 
 export type QrToInfoResults = {
 	post_url: string;
