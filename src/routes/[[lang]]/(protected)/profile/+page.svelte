@@ -71,7 +71,7 @@
 		<div class="flex flex-col justify-between">
 			<div class="flex flex-col gap-4">
 				<d-buttons-group>
-					<d-button aria-hidden size="large" on:click={gotoAccountSettings}>
+					<d-button aria-hidden size="large" onclick={gotoAccountSettings}>
 						{m.Account_Settings()}
 						<d-icon icon="profile" slot="start" outline />
 					</d-button>
@@ -85,7 +85,7 @@
 					</d-button>
 				</d-buttons-group>
 				<d-buttons-group>
-					<d-button on:click={share} aria-hidden size="large">
+					<d-button onclick={share} aria-hidden size="large">
 						{m.share_this_app()}
 						<ion-icon icon={shareIcon} slot="start" />
 					</d-button>
@@ -102,7 +102,7 @@
 					</d-button>
 					{#if !isIos}
 						<d-button size="large">
-							<ion-toggle checked={debugMode} label-placement="end" on:ionChange={setDebugMode}
+							<ion-toggle checked={debugMode} label-placement="end" onionChange={setDebugMode}
 								>{m.Debug_mode()}</ion-toggle
 							>
 						</d-button>

@@ -1,9 +1,8 @@
-import type { ZodValidation } from 'sveltekit-superforms';
 import type { SuperForm } from 'sveltekit-superforms/client';
-import type { AnyZodObject } from 'zod';
+import type { AnyZodObject, z } from 'zod';
 
 export type SuperformGeneric<T extends AnyZodObject = AnyZodObject, M = unknown> = SuperForm<
-	ZodValidation<T>,
+	z.infer<T>,
 	M
 >;
 

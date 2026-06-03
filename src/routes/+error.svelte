@@ -5,7 +5,7 @@
 	import { onMount } from 'svelte';
 	onMount(
 		async () =>
-			await log(`${page.url} 
+			await log(`${$page.url} 
 	
 	${$page.status}: ${JSON.stringify($page.error)}`)
 	);

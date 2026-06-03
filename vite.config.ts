@@ -16,6 +16,11 @@ export default defineConfig({
 			}
 		})
 	],
+	server: {
+		fs: {
+			allow: ['zenflows-crypto']
+		}
+	},
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	}

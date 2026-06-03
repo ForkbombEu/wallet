@@ -7,7 +7,7 @@
 	//
 
 	type SchemaGeneric = $$Generic<AnyZodObject>;
-	export let form: SuperForm<SchemaGeneric>;
+	export let form: SuperForm<z.infer<SchemaGeneric>>;
 	export let fieldPath: FormPathLeaves<z.infer<SchemaGeneric>>;
 	export let hidable = false;
 
@@ -31,7 +31,7 @@
 		label-placement="stacked"
 		{value}
 		{hidable}
-		on:dInput={(e) => {
+		on:dInput={(e: CustomEvent<string>) => {
 			updateValue(e.detail);
 		}}><slot /></d-input
 	>

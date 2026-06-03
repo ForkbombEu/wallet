@@ -83,6 +83,7 @@ export async function addCredentialsToLocalStorage(page: Page) {
 		const CREDENTIALS_PREFERENCES_KEY = 'credentials';
 		const credentials: Credential[] = [
 			{
+				type: 'sdjwt' as const,
 				configuration_ids: ['discount_from_voucher_test'],
 				display_name: 'Voucher test',
 				sdJwt:

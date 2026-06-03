@@ -31,34 +31,37 @@
 </script>
 
 <script lang="ts">
-	import { type FormPath, type ZodValidation } from 'sveltekit-superforms';
-	import { z } from 'zod';
+	import { type FormPathLeaves } from 'sveltekit-superforms';
+	import { z, type AnyZodObject } from 'zod';
 	import { formFieldProxy, type SuperForm } from 'sveltekit-superforms/client';
 
 	type T = $$Generic<AnyZodObject>;
 
-	export let field: FormPath<z.infer<T>>;
-	export let form: SuperForm<ZodValidation<T>, any>;
+	export let field: FormPathLeaves<z.infer<T>>;
+	export let form: SuperForm<z.infer<T>, any>;
 	const { errors } = formFieldProxy(form, field);
+
+	$: errorsValue = $errors;
+	$: errorEntries = isNestedError(errorsValue) ? Object.entries(errorsValue) : [];
 </script>
 
-{#if isBaseError($errors)}
+{#if isBaseError(errorsValue)}
 	<div class="space-y-1">
-		{#each $errors as error}
+		{#each errorsValue as error}
 			<d-text size="xs" class="text-error">{error}</d-text><br />
 		{/each}
 	</div>
 {/if}
 
-{#if isNestedError($errors)}
+{#if isNestedError(errorsValue)}
 	<div class="space-y-2">
-		{#each Object.entries($errors) as [key, errors]}
-			{#if isBaseError(errors)}
+		{#each errorEntries as [key, errs]}
+			{#if isBaseError(errs)}
 				<div class="space-y-1">
 					{#if key !== '_errors'}
 						<d-text size="xs" class="text-error"><span class="font-bold">{key}</span></d-text>
 					{/if}
-					{#each errors as error}
+					{#each errs as error}
 						<d-text size="xs" class="text-error">{error}</d-text><br />
 					{/each}
 				</div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { BarcodeScanner, type Barcode } from '@capacitor-mlkit/barcode-scanning';
+	import { BarcodeScanner, type Barcode, type BarcodesScannedEvent } from '@capacitor-mlkit/barcode-scanning';
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 	import { m } from '$lib/i18n';
 	import camera from '$lib/assets/camera.png';
@@ -27,11 +27,11 @@
 	const scanSingleBarcode = async () => {
 		return new Promise(async (resolve) => {
 			document.querySelector('body')?.classList.add('barcode-scanner-active');
-			const listener = await BarcodeScanner.addListener('barcodeScanned', async (result) => {
+			const listener = await BarcodeScanner.addListener('barcodesScanned', async (result: BarcodesScannedEvent) => {
 				await listener.remove();
 				document.querySelector('body')?.classList.remove('barcode-scanner-active');
 				await BarcodeScanner.stopScan();
-				resolve(result.barcode);
+				resolve(result.barcodes[0]);
 			});
 
 			await BarcodeScanner.startScan(); //

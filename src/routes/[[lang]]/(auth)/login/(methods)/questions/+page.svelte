@@ -6,7 +6,7 @@
 
 	import CopyButton from '$lib/components/copyButton.svelte';
 	import { goto, m, r } from '$lib/i18n';
-	import { UserChallenges as C, type UserChallenge } from '$lib/keypairoom';
+	import { UserChallenges, type UserChallenge } from '$lib/keypairoom';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
 	import { alertCircleOutline } from 'ionicons/icons';
 	import { z } from 'zod';
@@ -32,11 +32,11 @@
 	//
 
 	export const questions: Array<{ id: UserChallenge; text: string }> = [
-		{ id: C.whereParentsMet, text: m.Where_did_your_parents_meet() },
-		{ id: C.nameFirstPet, text: m.What_is_the_name_of_your_first_pet() },
-		{ id: C.whereHomeTown, text: m.What_is_your_home_town() },
-		{ id: C.nameFirstTeacher, text: m.What_is_the_name_of_your_first_teacher() },
-		{ id: C.nameMotherMaid, text: m.What_is_the_surname_of_your_mother_before_wedding() }
+		{ id: UserChallenges.whereParentsMet, text: m.Where_did_your_parents_meet() },
+		{ id: UserChallenges.nameFirstPet, text: m.What_is_the_name_of_your_first_pet() },
+		{ id: UserChallenges.whereHomeTown, text: m.What_is_your_home_town() },
+		{ id: UserChallenges.nameFirstTeacher, text: m.What_is_the_name_of_your_first_teacher() },
+		{ id: UserChallenges.nameMotherMaid, text: m.What_is_the_surname_of_your_mother_before_wedding() }
 	];
 
 	//
@@ -45,11 +45,11 @@
 
 	export const answersSchema = z
 		.object({
-			[C.whereParentsMet]: z.string(),
-			[C.nameFirstPet]: z.string(),
-			[C.whereHomeTown]: z.string(),
-			[C.nameFirstTeacher]: z.string(),
-			[C.nameMotherMaid]: z.string()
+			[UserChallenges.whereParentsMet]: z.string(),
+			[UserChallenges.nameFirstPet]: z.string(),
+			[UserChallenges.whereHomeTown]: z.string(),
+			[UserChallenges.nameFirstTeacher]: z.string(),
+			[UserChallenges.nameMotherMaid]: z.string()
 		})
 		.partial()
 		.refine((v) => {
@@ -89,15 +89,15 @@
 	});
 
 	// Zencode requires undefined js value in input data to be set as 'null' (as a string)
-	function convertUndefinedToNullString<T>(
-		record: Record<string, T | undefined>
-	): Record<string, T> {
-		const newRecord: Record<string, T> = {};
-		for (const [key, value] of Object.entries(record)) {
-			// @ts-ignore
-			newRecord[key] = value || 'null';
+	const ALL_CHALLENGES = Object.values(UserChallenges) as string[];
+	function convertUndefinedToNullString(
+		record: Record<string, string | undefined>
+	): Record<string, string> {
+		const result: Record<string, string> = {};
+		for (const key of ALL_CHALLENGES) {
+			result[key] = record[key] || 'null';
 		}
-		return newRecord;
+		return result;
 	}
 
 	const goToWallet = () => {

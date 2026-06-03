@@ -14,6 +14,7 @@ export async function generateKeypair(
 	answers: UserChallengesAnswers
 ): Promise<Keypair> {
 	const HMAC = await getHMAC(email);
+	if (!HMAC) throw new Error('Failed to get HMAC from server');
 	return await zencodeExec<KeypairoomClientData, KeypairoomClientOutput>(keypairoomClient, {
 		userChallenges: answers,
 		username: email,

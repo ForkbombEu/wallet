@@ -7,7 +7,7 @@
 	//
 
 	type SchemaGeneric = $$Generic<AnyZodObject>;
-	export let form: SuperForm<SchemaGeneric>;
+	export let form: SuperForm<z.infer<SchemaGeneric>>;
 	export let fieldPath: FormPathLeaves<z.infer<SchemaGeneric>>;
 </script>
 
@@ -15,7 +15,7 @@
 	<FieldController {form} {fieldPath} let:errorText let:updateValue let:value>
 		<d-checkbox
 			name={fieldPath}
-			on:dChange={(e) => updateValue(e.detail)}
+			on:dChange={(e: CustomEvent<boolean>) => updateValue(e.detail)}
 			error={errorText}
 			id={fieldPath}
 			checked={value}

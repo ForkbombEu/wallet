@@ -14,7 +14,7 @@
 	};
 
 	const closeModalOnEvent = (ev: any) => {
-		ev.detail.register(20, (processNextHandler) => {
+		ev.detail.register(20, (processNextHandler: () => void) => {
 			isModalOpen = false;
 			processNextHandler();
 		});
