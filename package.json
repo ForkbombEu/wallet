@@ -2,6 +2,37 @@
 	"name": "wallet",
 	"version": "2.1.1",
 	"private": true,
+	"pnpm": {
+		"overrides": {
+			"axios": ">=1.16.0",
+			"cookie": ">=0.7.0",
+			"devalue": ">=5.6.4",
+			"handlebars": ">=4.7.9",
+			"serialize-javascript": ">=7.0.5",
+			"qs": ">=6.15.2",
+			"ip-address": ">=10.1.1",
+			"uuid": ">=11.1.1",
+			"tmp": ">=0.2.4",
+			"js-yaml": ">=4.1.1",
+			"undici": ">=6.24.0",
+			"postcss": ">=8.5.10",
+			"lodash": ">=4.18.0",
+			"lodash-es": ">=4.18.0",
+			"picomatch": ">=4.0.4",
+			"yaml": ">=2.8.3",
+			"brace-expansion": ">=2.0.3",
+			"diff": ">=5.2.2",
+			"sha.js": ">=2.4.12",
+			"basic-ftp": ">=5.2.0",
+			"jws": ">=3.2.3",
+			"seroval": ">=1.4.1",
+			"tar": ">=7.5.7",
+			"@isaacs/brace-expansion": ">=5.0.1",
+			"solid-js": ">=1.9.4",
+			"minimatch": ">=10.2.3",
+			"swiper": "12.2.0"
+		}
+	},
 	"scripts": {
 		"dev": "vite dev --host",
 		"build": "paraglide-js compile --project ./project.inlang && vite build",
@@ -32,7 +63,7 @@
 		"@eslint/eslintrc": "^3.2.0",
 		"@eslint/js": "^9.16.0",
 		"@faker-js/faker": "^8.4.1",
-		"@inlang/paraglide-js": "1.11.3",
+		"@inlang/paraglide-js": "1.11.8",
 		"@lottiefiles/svelte-lottie-player": "^0.3.1",
 		"@playwright/test": "^1.49.0",
 		"@semantic-release/changelog": "^6.0.3",
@@ -69,7 +100,7 @@
 		"tslib": "^2.8.1",
 		"typescript": "^5.7.2",
 		"vite": "^6.4.3",
-		"vitest": "^3.2.6"
+		"vitest": "^4.1.8"
 	},
 	"type": "module",
 	"dependencies": {
@@ -93,7 +124,7 @@
 		"@capawesome/capacitor-android-edge-to-edge-support": "^7.2.3",
 		"@fontsource-variable/gantari": "^5.1.0",
 		"@inlang/paraglide-js-adapter-sveltekit": "^0.6.7",
-		"@ionic/cli": "^7.2.0",
+		"@ionic/cli": "^7.2.1",
 		"@ionic/core": "^7.8.6",
 		"@slangroom/core": "^1.51.0",
 		"@slangroom/did": "^1.51.0",
@@ -109,7 +140,7 @@
 		"ionic-svelte": "^0.5.85",
 		"ionicons": "^7.4.0",
 		"lodash": "^4.17.21",
-		"swiper": "^11.1.15",
+		"swiper": "^12.2.0",
 		"zenroom": "^5.28.4",
 		"zod": "^3.23.8"
 	}
