@@ -51,8 +51,8 @@
 	<div class="flex w-full flex-col items-center whitespace-pre-wrap">
 		{#if activities.length > 0}
 			<div class="flex w-full justify-end gap-2.5 pb-4">
-				<d-button size="small" color="accent" onClick={clear}> {m.clear_all()} </d-button>
-				<d-button size="small" color="primary" onClick={setAllRead}>
+				<d-button size="small" color="accent" onclick={clear}> {m.clear_all()} </d-button>
+				<d-button size="small" color="primary" onclick={setAllRead}>
 					{m.mark_all_as_read()}
 				</d-button>
 			</div>

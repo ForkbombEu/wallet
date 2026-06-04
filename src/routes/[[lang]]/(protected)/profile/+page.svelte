@@ -75,11 +75,11 @@
 						{m.Account_Settings()}
 						<d-icon icon="profile" slot="start" outline />
 					</d-button>
-					<d-button onClick={openAppSettings} aria-hidden size="large">
+					<d-button onclick={openAppSettings} aria-hidden size="large">
 						{m.Notifications_settings()}
 						<d-icon icon="notification" slot="start" outline />
 					</d-button>
-					<d-button onClick={gotoLanguageSettings} aria-hidden size="large">
+					<d-button onclick={gotoLanguageSettings} aria-hidden size="large">
 						{m.Languages()}
 						<d-icon icon="language" slot="start" outline />
 					</d-button>
@@ -102,14 +102,14 @@
 					</d-button>
 					{#if !isIos}
 						<d-button size="large">
-							<ion-toggle checked={debugMode} label-placement="end" onionChange={setDebugMode}
+				<ion-toggle checked={debugMode} label-placement="end" onionchange={setDebugMode}
 								>{m.Debug_mode()}</ion-toggle
 							>
 						</d-button>
 					{/if}
 				</d-buttons-group>
 				<d-buttons-group>
-					<d-button onClick={logoutCB} aria-hidden size="large">
+					<d-button onclick={logoutCB} aria-hidden size="large">
 						{m.Log_Out()}
 						<d-icon icon="logout" outline slot="start" />
 					</d-button>
