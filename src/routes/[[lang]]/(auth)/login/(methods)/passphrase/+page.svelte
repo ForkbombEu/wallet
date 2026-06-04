@@ -16,7 +16,7 @@
 	let { data } = $props();
 	let { userEmail, password } = data;
 
-	let feedback: Feedback = {};
+	let feedback = $state<Feedback>({});
 
 	//
 
