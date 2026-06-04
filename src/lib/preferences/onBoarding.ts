@@ -5,7 +5,7 @@ const ISBOARDED_KEY = 'isBoarded';
 
 export const completeOnBoarding = async ()=>{
     await setPreference(ISBOARDED_KEY, 'true', false)
-    goto("/home")
+    await goto("/home")
 }
 export async function isAlreadyBoarded(): Promise<boolean> {
 	const isAlreadyBoardedString = await getPreference(ISBOARDED_KEY, false);

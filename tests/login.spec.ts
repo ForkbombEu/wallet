@@ -52,7 +52,7 @@ test.describe('Login with Passphrase Page', () => {
 		const loginPage = new LoginPage(page);
 		passphrasePage = new PassphrasePage(page);
 		await page.goto('/');
-		await page.getByRole('button', { name: 'Skip' }).click();
+		await page.getByRole('button', { name: 'SKIP' }).click();
 		await loginPage.navigate();
 		await loginPage.loginWithCredentials();
 	});

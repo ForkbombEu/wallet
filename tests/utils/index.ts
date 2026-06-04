@@ -30,7 +30,7 @@ export const login = async (page: Page) => {
 	const passphrasePage = new PassphrasePage(page);
 	const loginPage = new LoginPage(page);
 	await page.goto('/');
-	await page.getByRole('button', { name: 'Skip' }).click();
+	await page.getByRole('button', { name: 'SKIP' }).click();
 	await loginPage.navigate();
 	await loginPage.loginWithCredentials();
 	await passphrasePage.enterPassphrase();
