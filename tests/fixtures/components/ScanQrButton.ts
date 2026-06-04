@@ -9,7 +9,7 @@ export class ScanQrButton extends BaseComponent {
 
 	constructor(page: Page) {
 		super(page, ScanQrButton.componentLocator);
-		this.submit = this.page.getByRole('button', { name: 'SUBMIT' });
+		this.submit = this.page.locator('d-button:has-text("Submit")');
 		this.textbox = this.page.getByRole('textbox');
 	}
 
