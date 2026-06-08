@@ -102,7 +102,9 @@
 					</d-button>
 					{#if !isIos}
 						<d-button size="large">
-							<ion-toggle checked={debugMode} label-placement="end" on:ionChange={setDebugMode}>{m.Debug_mode()}</ion-toggle>
+				<ion-toggle checked={debugMode} label-placement="end" onionchange={setDebugMode}
+								>{m.Debug_mode()}</ion-toggle
+							>
 						</d-button>
 					{/if}
 				</d-buttons-group>
