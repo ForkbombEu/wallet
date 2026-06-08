@@ -4,7 +4,7 @@
 	import { scanButton } from '$lib/tabs';
 	import { AndroidSettings, IOSSettings, NativeSettings } from 'capacitor-native-settings';
 	import { version } from '$app/environment';
-	import { getDebugMode, setDebugModeFalse, setDebugModeTrue } from '$lib/preferences/debug.js';
+	import { getDebugMode, setDebugModeFalse } from '$lib/preferences/debug.js';
 	import { Share } from '@capacitor/share';
 	import { share as shareIcon } from 'ionicons/icons';
 	import type { ToggleChangeEventDetail } from '@ionic/core';
@@ -102,7 +102,7 @@
 					</d-button>
 					{#if !isIos}
 						<d-button size="large">
-				<ion-toggle checked={debugMode} label-placement="end" onionchange={setDebugMode}
+							<ion-toggle checked={debugMode} label-placement="end" onionChange={setDebugMode}
 								>{m.Debug_mode()}</ion-toggle
 							>
 						</d-button>
