@@ -4,7 +4,7 @@
 	import { scanButton } from '$lib/tabs';
 	import { AndroidSettings, IOSSettings, NativeSettings } from 'capacitor-native-settings';
 	import { version } from '$app/environment';
-	import { getDebugMode, setDebugModeFalse, setDebugModeTrue } from '$lib/preferences/debug.js';
+	import { getDebugMode, setDebugModeFalse } from '$lib/preferences/debug.js';
 	import { Share } from '@capacitor/share';
 	import { share as shareIcon } from 'ionicons/icons';
 	import type { ToggleChangeEventDetail } from '@ionic/core';
@@ -71,21 +71,21 @@
 		<div class="flex flex-col justify-between">
 			<div class="flex flex-col gap-4">
 				<d-buttons-group>
-					<d-button aria-hidden size="large" on:click={gotoAccountSettings}>
+					<d-button aria-hidden size="large" onclick={gotoAccountSettings}>
 						{m.Account_Settings()}
 						<d-icon icon="profile" slot="start" outline />
 					</d-button>
-					<d-button onClick={openAppSettings} aria-hidden size="large">
+					<d-button onclick={openAppSettings} aria-hidden size="large">
 						{m.Notifications_settings()}
 						<d-icon icon="notification" slot="start" outline />
 					</d-button>
-					<d-button onClick={gotoLanguageSettings} aria-hidden size="large">
+					<d-button onclick={gotoLanguageSettings} aria-hidden size="large">
 						{m.Languages()}
 						<d-icon icon="language" slot="start" outline />
 					</d-button>
 				</d-buttons-group>
 				<d-buttons-group>
-					<d-button on:click={share} aria-hidden size="large">
+					<d-button onclick={share} aria-hidden size="large">
 						{m.share_this_app()}
 						<ion-icon icon={shareIcon} slot="start" />
 					</d-button>
@@ -102,14 +102,14 @@
 					</d-button>
 					{#if !isIos}
 						<d-button size="large">
-							<ion-toggle checked={debugMode} label-placement="end" on:ionChange={setDebugMode}
+							<ion-toggle checked={debugMode} label-placement="end" onionChange={setDebugMode}
 								>{m.Debug_mode()}</ion-toggle
 							>
 						</d-button>
 					{/if}
 				</d-buttons-group>
 				<d-buttons-group>
-					<d-button onClick={logoutCB} aria-hidden size="large">
+					<d-button onclick={logoutCB} aria-hidden size="large">
 						{m.Log_Out()}
 						<d-icon icon="logout" outline slot="start" />
 					</d-button>

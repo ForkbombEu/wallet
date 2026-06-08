@@ -1,24 +1,21 @@
 <script lang="ts" context="module">
 	import { log } from '$lib/log';
 
-	import {
-		superValidateSync,
-		type FormOptions,
-		type SuperForm,
-		superForm
-	} from 'sveltekit-superforms/client';
-	import { z, type AnyZodObject, type ZodEffects } from 'zod';
-	import type { ZodValidation } from 'sveltekit-superforms';
+	import { type FormOptions, type SuperForm, superForm } from 'sveltekit-superforms/client';
+	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { z, type AnyZodObject, type ZodTypeAny } from 'zod';
+
+	type FormSchema<T extends AnyZodObject> = z.infer<T>;
 
 	export type SubmitFunction<T extends AnyZodObject> = NonNullable<
-		FormOptions<ZodValidation<T>, unknown>['onUpdate']
+		FormOptions<FormSchema<T>, unknown>['onUpdate']
 	>;
 
 	interface CreateFormParameters<T extends AnyZodObject> {
-		schema: T | ZodEffects<T>;
+		schema: ZodTypeAny;
 		onSubmit: SubmitFunction<T>;
 		initialData: Partial<z.infer<T>> | undefined;
-		options: FormOptions<ZodValidation<T>, unknown>;
+		options: FormOptions<FormSchema<T>, unknown>;
 	}
 
 	export function createForm<T extends AnyZodObject>(parameters: Partial<CreateFormParameters<T>>) {
@@ -29,14 +26,11 @@
 			onSubmit = () => {}
 		} = parameters;
 
-		const form = superValidateSync(initialData, schema, { errors: false });
-
-		return superForm<ZodValidation<T>>(form, {
+		return superForm<FormSchema<T>>(initialData as FormSchema<T>, {
 			SPA: true,
 			applyAction: false,
 			scrollToError: 'smooth',
-			// @ts-ignore
-			validators: schema,
+			validators: zodClient(schema),
 			onUpdate: async (input) => {
 				try {
 					if (input.form.valid) await onSubmit(input);
@@ -53,15 +47,13 @@
 
 <script lang="ts">
 	type SchemaGeneric = $$Generic<AnyZodObject>;
-	export let form: SuperForm<SchemaGeneric>;
+	export let form: SuperForm<z.infer<SchemaGeneric>>;
 	export let formClass: string | undefined = undefined;
 
 	export let id: string | undefined = undefined;
 
-	const { enhance, delayed } = form;
-	const { tainted } = form;
-	const fieldsKeys = Object.keys(form.fields);
-	$: isTainted = $tainted && fieldsKeys.every((k) => $tainted[k]);
+	const { enhance, delayed, tainted } = form;
+	$: isTainted = $tainted ? Object.values($tainted).some(Boolean) : false;
 </script>
 
 <form {id} class={formClass} method="post" use:enhance>

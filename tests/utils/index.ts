@@ -30,7 +30,8 @@ export const login = async (page: Page) => {
 	const passphrasePage = new PassphrasePage(page);
 	const loginPage = new LoginPage(page);
 	await page.goto('/');
-	await page.getByRole('button', { name: 'Skip' }).click();
+	const skipButton = page.locator('d-button:has-text("SKIP")');
+	await skipButton.click();
 	await loginPage.navigate();
 	await loginPage.loginWithCredentials();
 	await passphrasePage.enterPassphrase();
@@ -83,6 +84,7 @@ export async function addCredentialsToLocalStorage(page: Page) {
 		const CREDENTIALS_PREFERENCES_KEY = 'credentials';
 		const credentials: Credential[] = [
 			{
+				type: 'sdjwt' as const,
 				configuration_ids: ['discount_from_voucher_test'],
 				display_name: 'Voucher test',
 				sdJwt:

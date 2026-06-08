@@ -15,7 +15,7 @@ export const load = async ({ url }) => {
 	const lang = await getLang();
 	const urlSplit = url.pathname.split('/');
 	const urlLangCode = urlSplit[1];
-	if (urlLangCode !== lang && availableLanguageTags.includes(urlLangCode)) {
+	if (urlLangCode !== lang && availableLanguageTags.includes(urlLangCode as Langs)) {
 		redirect(303, `/${lang}/${urlSplit.slice(2).join('/')}`);
 	}
 };

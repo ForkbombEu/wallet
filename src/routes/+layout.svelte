@@ -141,8 +141,8 @@
 	<title>{m.DidroomWallet()}</title>
 </svelte:head>
 <svelte:window
-	on:error|capture={(e) => log(e.error)}
-	on:unhandledrejection|capture={(e) => log(e.reason)}
+	onerror={(e) => log((e as unknown as ErrorEvent).error)}
+	onunhandledrejection={(e) => log((e as unknown as PromiseRejectionEvent).reason)}
 />
 <ParaglideJS {i18n}>
 	<HiddenLogsButton />

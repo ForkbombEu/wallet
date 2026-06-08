@@ -51,8 +51,8 @@
 			clear
 			color="accent"
 			class="underline"
-			on:click={completeOnBoarding}
-			on:keydown={completeOnBoarding}
+			onclick={completeOnBoarding}
+			onkeydown={completeOnBoarding}
 		>
 			{m.SKIP()}
 		</d-button>

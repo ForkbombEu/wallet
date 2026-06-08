@@ -4,7 +4,7 @@
 	import { cameraOutline } from 'ionicons/icons';
 	import { Camera, CameraResultType } from '@capacitor/camera';
 	import type { z } from 'zod';
-	import type { FormPath, ZodValidation } from 'sveltekit-superforms';
+	import type { FormPath } from 'sveltekit-superforms';
 	import { formFieldProxy, type SuperForm } from 'sveltekit-superforms/client';
 	import { createEventDispatcher } from 'svelte';
 	import { m } from '$lib/i18n';
@@ -13,7 +13,7 @@
 
 	type T = $$Generic<AnyZodObject>;
 
-	export let form: SuperForm<ZodValidation<T>, any>;
+	export let form: SuperForm<z.infer<T>, any>;
 	export let field: FormPath<z.infer<T>>;
 
 	const { validate } = form;

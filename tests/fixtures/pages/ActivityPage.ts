@@ -42,7 +42,7 @@ export class ActivityPage extends BasePage {
 	}
 
 	async verifyClearAllButtonVisible() {
-		await this.page.getByRole('button', { name: this.clearAllButton }).isVisible();
+		await this.page.locator(`d-button:has-text("${this.clearAllButton}")`).isVisible();
 	}
 
 	async verifyHowManyActivitiesPresent(howMany: number) {

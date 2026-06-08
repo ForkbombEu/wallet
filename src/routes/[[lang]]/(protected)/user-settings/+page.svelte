@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { createForm, Form, Input, zodFile } from '$lib/forms';
+	import { formFieldProxy } from 'sveltekit-superforms/client';
 	import { z } from 'zod';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
@@ -60,7 +61,7 @@
 		};
 		fr.readAsDataURL(choosenAvatarFile);
 	}
-	let name = form.fields.name?.value;
+	let name = formFieldProxy(form, 'name').value;
 
 	const handleAvatarChange = (e: { detail: { image: string | ArrayBuffer | null } }) => {
 		choosenAvatarDataURL = e.detail.image;

@@ -25,7 +25,7 @@ export class FormComponent {
 	}
 
 	async submitForm(buttonText: string): Promise<void> {
-		await this.page.locator('d-button').getByRole('button', { name: buttonText }).click();
+		await this.page.locator(`d-button:has-text("${buttonText}")`).click();
 	}
 
 	async expectRedirect(expectedUrl: string): Promise<void> {

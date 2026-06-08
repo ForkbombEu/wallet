@@ -15,7 +15,8 @@ test.describe('Onboarding Page', () => {
 
 	test('should complete onboarding and navigate to register-login', async ({ page }) => {
 		await page.goto('/');
-		await page.getByRole('button', { name: 'Skip' }).click();
+		const skipButton = page.locator('d-button:has-text("SKIP")');
+		await skipButton.click();
 		await expect(page).toHaveURL('/en/register-login');
 		const isBoarded = await page.evaluate(() => localStorage.getItem('CapacitorStorage.isBoarded'));
 		expect(isBoarded).toBe('true');

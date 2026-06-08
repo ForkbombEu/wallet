@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { version } from '$app/environment';
 	import { Form, createForm } from '$lib/forms';
+	import { formFieldProxy } from 'sveltekit-superforms/client';
 	import { goto, m, r } from '$lib/i18n';
 	import Input from '$lib/forms/input.svelte';
 	import { arrowForward } from 'ionicons/icons';
@@ -65,10 +66,9 @@
 		}
 	});
 
-	const { fields } = form;
-	const email = fields.email.value;
-	const password = fields.password.value;
-	const conditions = fields.conditions.value;
+	const email = formFieldProxy(form, 'email').value;
+	const password = formFieldProxy(form, 'password').value;
+	const conditions = formFieldProxy(form, 'conditions').value;
 	const isFalsy = (value: string | boolean | undefined): boolean =>
 		value === '' || value === undefined || value === false;
 	$: disabled = registration

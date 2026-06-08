@@ -63,7 +63,7 @@ jobs:
       - uses: dyne/pnpm@main
         with:
           submodules: true
-          node-version: '20.11.1'
+          node-version: '22'
       - name: Tag release
         id: tag_release
         env:

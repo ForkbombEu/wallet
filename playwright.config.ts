@@ -8,7 +8,8 @@ const config: PlaywrightTestConfig = {
 	},
 	webServer: {
 		command: 'pnpm build && pnpm preview',
-		port: 4173
+		port: 4173,
+		timeout: 120000
 	},
 	testDir: 'tests',
 	testMatch: /(.+\.)?(test|spec)\.[jt]s/

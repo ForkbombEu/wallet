@@ -1,4 +1,4 @@
 java openjdk-21
 gradle 8
 pnpm 9
-node 20.11.1
+node 22
