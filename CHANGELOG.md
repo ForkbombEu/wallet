@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/ForkbombEu/wallet/compare/v2.1.1...v2.1.2) (2026-06-08)
+
+
+### Bug Fixes
+
+* credential offer page misleading cclosing tags ([#649](https://github.com/ForkbombEu/wallet/issues/649)) ([a3c91c7](https://github.com/ForkbombEu/wallet/commit/a3c91c7b7584a4a3b0048cfccdcd36730e2b55ce))
+
 ## [2.1.1](https://github.com/ForkbombEu/wallet/compare/v2.1.0...v2.1.1) (2025-12-01)
 
 
