@@ -10,7 +10,8 @@ export async function zencodeExec<
 		const { result } = await zencode_exec(contract, { data: JSON.stringify(data) });
 		return JSON.parse(result);
 	} catch (e: any) {
-		const msg = e?.logs || e?.result || e?.message || String(e);
+		const rawMsg = e?.logs ?? e?.result ?? e?.message ?? e;
+		const msg = typeof rawMsg === 'string' ? rawMsg : JSON.stringify(rawMsg);
 		throw new Error(`Zenroom error: ${msg}`);
 	}
 }
