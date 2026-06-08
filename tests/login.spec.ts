@@ -53,7 +53,7 @@ test.describe('Login with Passphrase Page', () => {
 		passphrasePage = new PassphrasePage(page);
 		await page.goto('/');
 		const skipButton = page.locator('d-button:has-text("SKIP")');
-	await skipButton.click();
+		await skipButton.click();
 		await loginPage.navigate();
 		await loginPage.loginWithCredentials();
 	});

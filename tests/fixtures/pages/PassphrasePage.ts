@@ -13,7 +13,7 @@ export class PassphrasePage extends BasePage {
 	async enterPassphrase(seed: string = userSeed) {
 		await this.page.fill('input[name="seed"]', seed);
 		const loginButton = this.page.locator('d-button:has-text("Login")').first();
-	await loginButton.click();
+		await loginButton.click();
 	}
 
 	async checkErrorMessage(errorText: string) {
