@@ -28,15 +28,15 @@
 </HeaderWithBackButton>
 
 <ion-content fullscreen class="ion-padding" bind:this={content}>
-	<d-feedback {...feedback} />
+	<d-feedback {...feedback} ></d-feedback>
 	{#if feedbackData}
-		<d-feedback {...feedbackData} />
+		<d-feedback {...feedbackData}></d-feedback>
 		<d-empty-state
 			heading={m.The_service_seems_to_be_out_of_reach()}
 			buttonText={m.Go_to_home()}
 			href={r('/home')}
 		>
-		<d-illustration illustration="pidgeon" />
+			<d-illustration illustration="pidgeon"></d-illustration>
 		</d-empty-state>
 	{:else}
 		<div class="flex h-full flex-col justify-between gap-4 pb-16">
@@ -68,8 +68,10 @@
 					expand
 					on:click={handleRedirect}
 					color="accent"
-					aria-hidden>{m.Continue()}</d-button
+					aria-hidden="true"
 				>
+					{m.Accept()}
+				</d-button>
 				<d-button
 					expand
 					href={r('/home')}>{m.Decline()}</d-button
