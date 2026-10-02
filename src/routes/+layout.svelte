@@ -16,6 +16,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { navigating } from '$app/stores';
 	import { App } from '@capacitor/app';
+	import { Capacitor } from '@capacitor/core';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
 	import { m } from '$lib/i18n';
 	import { Network } from '@capacitor/network';
@@ -73,7 +74,9 @@
 
 	onMount(async () => {
 		const mainColor = isDark ? '#494949' : '#b5b5b5';
-		EdgeToEdge.setBackgroundColor({ color: mainColor || '#000000' });
+		if (Capacitor.getPlatform() === 'android') {
+			await EdgeToEdge.setBackgroundColor({ color: mainColor || '#000000' });
+		}
 
 		isConnected = (await Network.getStatus()).connected;
 		Network.addListener('networkStatusChange', async (status) => {

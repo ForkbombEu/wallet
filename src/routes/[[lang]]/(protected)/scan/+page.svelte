@@ -14,10 +14,10 @@
 	const isWeb = Capacitor.getPlatform() == 'web';
 	let loading = false;
 	onMount(() => {
-		EdgeToEdge.disable();
+		if (Capacitor.getPlatform() === 'android') EdgeToEdge.disable();
 	});
 	onDestroy(() => {
-		EdgeToEdge.enable();
+		if (Capacitor.getPlatform() === 'android') EdgeToEdge.enable();
 	});
 
 	function showModal() {

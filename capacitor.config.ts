@@ -1,4 +1,4 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import type { CapacitorConfig } from '@capacitor/cli';
 
 let config: CapacitorConfig;
 const defaultConfig: CapacitorConfig = {
@@ -10,6 +10,10 @@ const defaultConfig: CapacitorConfig = {
 		cleartext: true
 	},
 	plugins: {
+		// Capawesome handles Android insets, including the full-screen QR scanner.
+		SystemBars: {
+			insetsHandling: 'disable'
+		},
 		Keyboard: {
 			resizeOnFullScreen: false
 		}
@@ -22,7 +26,10 @@ const defaultConfig: CapacitorConfig = {
 if (process.env.ANDROID) {
 	config = defaultConfig;
 } else {
-	config = { ...defaultConfig, plugins: { CapacitorHttp: { enabled: true } } };
+	config = {
+		...defaultConfig,
+		plugins: { ...defaultConfig.plugins, CapacitorHttp: { enabled: true } }
+	};
 }
 
 export default config;
