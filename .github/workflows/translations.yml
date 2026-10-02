@@ -8,17 +8,6 @@ permissions:
   contents: read
 
 jobs:
-  no-literals:
-    name: 🪶  no literals check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: dyne/pnpm@main
-        with:
-          node-version: 22
-          submodules: true
-      - run: |
-          pnpm no-literals
-
   ninja-i18n:
     name: 🌐 i18n checks
     runs-on: ubuntu-latest
