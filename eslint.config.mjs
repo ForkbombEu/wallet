@@ -3,18 +3,6 @@ import localization from "eslint-plugin-localization";
 import globals from "globals";
 import tsParser from "@typescript-eslint/parser";
 import parser from "svelte-eslint-parser";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-});
 
 export default [{
     ignores: [
@@ -29,9 +17,13 @@ export default [{
         "**/pnpm-lock.yaml",
         "**/package-lock.json",
         "**/yarn.lock",
-        "**/static/components/**"
+        "**/static/components/**",
+        "android/app/src/main/assets/public/**",
+        "ios/App/App/public/**",
+        "ios/App/Pods/**",
+        "src/paraglide/**"
     ],
-}, ...compat.extends(), {
+}, {
     plugins: {
         "@typescript-eslint": typescriptEslint,
         localization,

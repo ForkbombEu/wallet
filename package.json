@@ -3,7 +3,7 @@
 	"version": "2.1.2",
 	"private": true,
 	"engines": {
-		"node": ">=22.0.0"
+		"node": "^22.13.0 || >=24.0.0"
 	},
 	"pnpm": {
 		"overrides": {
@@ -63,8 +63,7 @@
 		"@capacitor/assets": "^3.0.5",
 		"@capacitor/cli": "^8.5.2",
 		"@didroom/components": "^1.33.0",
-		"@eslint/eslintrc": "^3.2.0",
-		"@eslint/js": "^9.16.0",
+		"@eslint/js": "^10.0.1",
 		"@faker-js/faker": "^8.4.1",
 		"@inlang/paraglide-js": "1.11.8",
 		"@lottiefiles/svelte-lottie-player": "^0.3.1",
@@ -80,14 +79,14 @@
 		"@sveltejs/vite-plugin-svelte": "^5.1.1",
 		"@types/eslint": "8.56.5",
 		"@types/lodash": "^4.17.13",
-		"@typescript-eslint/eslint-plugin": "^8.17.0",
-		"@typescript-eslint/parser": "^8.17.0",
+		"@typescript-eslint/eslint-plugin": "^8.71.0",
+		"@typescript-eslint/parser": "^8.71.0",
 		"@vite-pwa/sveltekit": "^1.1.0",
 		"autoprefixer": "^10.4.20",
-		"eslint": "^9.16.0",
-		"eslint-config-prettier": "^9.1.0",
+		"eslint": "^10.11.0",
+		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-localization": "file:plugins/localization",
-		"eslint-plugin-svelte": "^2.46.1",
+		"eslint-plugin-svelte": "^3.23.0",
 		"globals": "^15.13.0",
 		"postcss": "^8.4.49",
 		"postcss-load-config": "^5.1.0",

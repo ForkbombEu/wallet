@@ -138,7 +138,7 @@ The activities page shows the history of your interactions with the app. Here yo
 
 Ensure you have the following tools installed on your machine:
 
-- Node.js >= 22
+- Node.js 22.13+ (22.x) or 24+
 - Pnpm 9
 - Java 21
 - Android Studio Otter (2025.2.1) or newer, with Android SDK 36
