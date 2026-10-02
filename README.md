@@ -138,11 +138,15 @@ The activities page shows the history of your interactions with the app. Here yo
 
 Ensure you have the following tools installed on your machine:
 
-- Node version >= 20.11
-- Pnpm
-- Java
-- Android Studio
-- Xcode
+- Node.js 22.13+ (22.x) or 24+
+- Pnpm 9
+- Java 21
+- Android Studio Otter (2025.2.1) or newer, with Android SDK 36
+- Xcode 26 or newer and CocoaPods (for iOS)
+
+The app uses Capacitor 8 and targets Android 16 (API level 36), with Android 7.0
+(API level 24) as the minimum supported version. The iOS deployment target is 15.5.
+Use the checked-in Gradle wrapper (8.14.3) for Android builds.
 
 Refer to the [Ionic Installation Guide](https://ionicframework.com/docs/installation/cli) for more information.
 
@@ -206,6 +210,21 @@ Create a `.env` file in the root of the project containing the `PUBLIC_BACKEND_U
     ```bash
     pnpm ios
     ```
+
+### Android build verification
+
+With Java 21 and Android SDK 36 installed:
+
+```bash
+pnpm build
+ANDROID=1 pnpm cap sync android
+cd android
+./gradlew assembleDebug bundleRelease
+```
+
+Before publishing the signed release bundle, test on an Android 16 device or
+emulator: login/biometrics, QR scanning (including returning from the scanner),
+keyboard resizing, system bars, and credential-offer/presentation deep links.
 
 ### Runnnig app in Chrome
 
