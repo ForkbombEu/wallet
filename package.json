@@ -5,7 +5,7 @@
 	"pnpm": {
 		"overrides": {
 			"axios": ">=1.16.0",
-			"cookie": ">=0.7.0",
+			"cookie": ">=0.7.0 <2",
 			"devalue": ">=5.6.4",
 			"handlebars": ">=4.7.9",
 			"serialize-javascript": ">=7.0.5",
@@ -73,7 +73,7 @@
 		"@semantic-release/npm": "^11.0.3",
 		"@semantic-release/release-notes-generator": "^12.1.0",
 		"@sveltejs/adapter-static": "^3.0.10",
-		"@sveltejs/kit": "^2.69.1",
+		"@sveltejs/kit": "^2.70.3",
 		"@sveltejs/vite-plugin-svelte": "^5.1.1",
 		"@types/eslint": "8.56.5",
 		"@types/lodash": "^4.17.13",
