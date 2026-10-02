@@ -63,7 +63,7 @@
 		"@capacitor/cli": "^8.5.2",
 		"@didroom/components": "^1.33.0",
 		"@eslint/js": "^10.0.1",
-		"@faker-js/faker": "^8.4.1",
+		"@faker-js/faker": "^10.5.0",
 		"@inlang/paraglide-js": "1.11.8",
 		"@lottiefiles/svelte-lottie-player": "^0.3.1",
 		"@playwright/test": "^1.49.0",
@@ -74,7 +74,7 @@
 		"@semantic-release/npm": "^11.0.3",
 		"@semantic-release/release-notes-generator": "^12.1.0",
 		"@sveltejs/adapter-static": "^3.0.10",
-		"@sveltejs/kit": "^2.70.3",
+		"@sveltejs/kit": "^3.0.0",
 		"@sveltejs/vite-plugin-svelte": "^5.1.1",
 		"@types/eslint": "8.56.5",
 		"@types/lodash": "^4.17.13",
@@ -87,7 +87,7 @@
 		"eslint-plugin-localization": "file:plugins/localization",
 		"eslint-plugin-svelte": "^3.23.0",
 		"globals": "^15.13.0",
-		"postcss": "^8.4.49",
+		"postcss": "^8.5.23",
 		"postcss-load-config": "^5.1.0",
 		"prettier": "^3.4.1",
 		"prettier-plugin-organize-imports": "^3.2.4",
@@ -101,7 +101,7 @@
 		"tslib": "^2.8.1",
 		"typescript": "^5.7.2",
 		"vite": "^6.4.3",
-		"vitest": "^4.1.8"
+		"vitest": "^5.0.3"
 	},
 	"type": "module",
 	"dependencies": {
