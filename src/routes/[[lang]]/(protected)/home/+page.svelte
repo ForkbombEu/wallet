@@ -1,4 +1,5 @@
 <script lang="ts">
+	import WalletFeedback from '$lib/components/molecules/Feedback.svelte';
 	import type { Service } from '$lib/slangroom/services';
 	import { goto, m } from '$lib/i18n';
 	import type { Feedback } from '$lib/utils/types';
@@ -38,7 +39,7 @@
 </script>
 
 <d-tab-page tab="home" title={m.Home()} {...scanButton}>
-	<d-feedback {...feedback?.content} on:dClose={onFeedbackClose} />
+	<WalletFeedback {...feedback?.content} on:dClose={onFeedbackClose} />
 	<d-page-description
 		title={m.Claim_credential()}
 		description={m.Scan_QR_code_to_claim_credential_or_request_one_below()}
@@ -51,9 +52,10 @@
 				organization={service.expand.organization.name}
 				logo-src={service.logo}
 				href="#"
-				on:click={() => gotoCredentialOffer(service)}
-				on:keydown={() => gotoCredentialOffer(service)}
-				aria-hidden
+				on:click={(event: MouseEvent) => {
+					event.preventDefault();
+					void gotoCredentialOffer(service);
+				}}
 			/>
 		{/each}
 	</d-vertical-stack>

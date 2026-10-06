@@ -1,54 +1,53 @@
 <script lang="ts">
-	import { page, navigating } from '$app/stores';
-	import { goto } from '$lib/i18n';
+	import { page } from '$app/stores';
+	import { goto, m, r } from '$lib/i18n';
 	import type { TabProps } from '.';
 
-	/**
-    An array of tab objects containing label, and tab properties.
-    @type {{label: string; tab: string;, hasAlert: boolean;}[]}
-    */
 	export let tabs: TabProps[] = [];
 
-	const { pathname } = $page.url;
-	const pathSplit = pathname.split('/');
-	let currentTabName = pathSplit[pathSplit.length - 1];
+	$: currentTabName = tabs.find(({ tab }) => $page.url.pathname.split('/').includes(tab))?.tab;
 
-	$: if ($navigating && $navigating.to) {
-		tabs.forEach(async (tab) => {
-			if ($navigating.to?.url.pathname.includes(tab.tab)) {
-				currentTabName = tab.tab;
-				await $navigating?.complete.catch(async () => await goto(tab.tab));
-			}
-		});
-	}
+	const activateTab = (event: MouseEvent, tab: string) => {
+		if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+		event.preventDefault();
+		void goto('/' + tab);
+	};
 
-	const tabBarClick = async (selectedTab: string) => {
-		await goto('/' + selectedTab);
+	const focusAdjacentTab = (event: KeyboardEvent, index: number) => {
+		if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+		event.preventDefault();
+		const next =
+			event.key === 'Home'
+				? 0
+				: event.key === 'End'
+					? tabs.length - 1
+					: (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+		const bar = (event.currentTarget as HTMLElement).parentElement;
+		const tab = bar?.querySelectorAll<HTMLElement & { focusTab(): Promise<void> }>('d-tab-button')[
+			next
+		];
+		void tab?.focusTab();
 	};
 </script>
 
 <ion-tabs>
 	<slot />
-	{#key currentTabName}
-		<ion-tab-bar slot="bottom" class="flex justify-between px-4">
-			{#each tabs as tabObj}
-				{@const { tab, hasAlert, label } = tabObj}
+	<nav slot="bottom" aria-label={m.Main_navigation()}>
+		<ion-tab-bar class="flex justify-between px-2" aria-label={m.Main_navigation()}>
+			{#each tabs as { tab, hasAlert, label }, index}
 				<d-tab-button
 					{tab}
-					on:keydown={() => {
-						tabBarClick(tab);
-					}}
-					on:click={() => {
-						tabBarClick(tab);
-					}}
-					aria-hidden
+					href={r('/' + tab)}
+					accessible-label={hasAlert ? m.Navigation_with_updates({ label }) : label}
+					on:click={(event: MouseEvent) => activateTab(event, tab)}
+					on:keydown={(event: KeyboardEvent) => focusAdjacentTab(event, index)}
 					active={currentTabName === tab}
-					{hasAlert}
-					role="tab"
+					has-alert={hasAlert}
+					focus-index={currentTabName === tab || (!currentTabName && index === 0) ? 0 : -1}
 				>
 					{label}
 				</d-tab-button>
 			{/each}
 		</ion-tab-bar>
-	{/key}
+	</nav>
 </ion-tabs>

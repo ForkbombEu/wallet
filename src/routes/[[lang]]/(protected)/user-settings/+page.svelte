@@ -90,7 +90,7 @@
 			<d-button color="accent" type="submit" expand class="mt-4">
 				{m.save()}
 			</d-button>
-			<d-button expand on:click={() => goto('/profile')} aria-hidden>
+			<d-button expand on:click={() => goto('/profile')}>
 				{m.cancel()}
 			</d-button>
 		</d-vertical-stack></Form

@@ -53,7 +53,7 @@
 	}}
 >
 	<Modal
-		isModalOpen={$page.state.isModalOpen}
+		isModalOpen={Boolean($page.state.isModalOpen)}
 		closeCb={() => {
 			window.history.back();
 			if (!isWeb) scan();

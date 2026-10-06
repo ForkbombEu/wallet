@@ -5,6 +5,7 @@
 	import { removeCredentialPreference } from '$lib/preferences/credentials';
 	import { pushState } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { claimLabel, claimValue } from '$lib/credentialPresentation';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 
 	export let data: any;
@@ -58,20 +59,25 @@
 				<d-vertical-stack>
 					{#if credential.type === 'ldp_vc'}
 						{#each Array.from(Object.entries(credential.ldpVc.credentialSubject)) as disclosure}
-							<d-definition title={disclosure[0]} definition={disclosure[1]}></d-definition>
+							<d-definition title={claimLabel(disclosure[0])} definition={claimValue(disclosure[1])}
+							></d-definition>
 						{/each}
 					{:else if credential.type === 'sdjwt'}
 						{#await decodeSdJwt(credential.sdJwt) then sdjwt}
 							{#each sdjwt.credential.disclosures as disclosure}
 								{#if isNestedDisclosure(disclosure)}
-									<d-text size="xs">{disclosure[1]}</d-text>
+									<d-text size="xs">{claimLabel(disclosure[1])}</d-text>
 									<div class=" border-2 border-stroke p-1">
 										{#each Object.entries(disclosure[2]) as [key, value]}
-											<d-definition title={key} definition={value}></d-definition>
+											<d-definition title={claimLabel(key)} definition={claimValue(value)}
+											></d-definition>
 										{/each}
 									</div>
 								{:else}
-									<d-definition title={disclosure[1]} definition={disclosure[2]}></d-definition>
+									<d-definition
+										title={claimLabel(disclosure[1])}
+										definition={claimValue(disclosure[2])}
+									></d-definition>
 								{/if}
 							{/each}
 						{/await}
@@ -79,19 +85,15 @@
 				</d-vertical-stack>
 			</d-vertical-stack>
 			<div class="flex flex-col">
-				<d-button expand color="accent" on:click={() => goto('/wallet')} aria-hidden
-					>{m.Close()}</d-button
-				>
-				<d-button expand color="primary" on:click={openModal} aria-hidden>{m.Delete()}</d-button>
+				<d-button expand color="accent" on:click={() => goto('/wallet')}>{m.Close()}</d-button>
+				<d-button expand color="primary" on:click={openModal}>{m.Delete()}</d-button>
 			</div>
 		</div>
-		<Modal isModalOpen={$page.state.isModalOpen} closeCb={closeModal}>
+		<Modal isModalOpen={Boolean($page.state.isModalOpen)} closeCb={closeModal}>
 			<d-text>{m.If_you_continue_the_credential_will_be_permanently_deleted()}</d-text>
 			<div class="flex flex-col">
-				<d-button expand color="primary" on:click={deleteCredential} aria-hidden
-					>{m.Continue()}</d-button
-				>
-				<d-button expand color="accent" on:click={closeModal} aria-hidden>{m.cancel()}</d-button>
+				<d-button expand color="primary" on:click={deleteCredential}>{m.Continue()}</d-button>
+				<d-button expand color="accent" on:click={closeModal}>{m.cancel()}</d-button>
 			</div>
 		</Modal>
 	</div>

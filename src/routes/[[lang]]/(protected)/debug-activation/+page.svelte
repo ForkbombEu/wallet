@@ -25,9 +25,9 @@
 		<d-text>
 			{m.cool_tired_pig_dine()}
 		</d-text>
-		<d-button on:click={setDebugMode} expand aria-hidden
+		<d-button on:click={setDebugMode} expand
 			>{debugMode ? m.Deactivate() : m.Activate()} {m.Debug_mode()}</d-button
 		>
-		<d-button on:click={gotoHome} expand aria-hidden color="accent">{m.Go_to_home()}</d-button>
+		<d-button on:click={gotoHome} expand color="accent">{m.Go_to_home()}</d-button>
 	</d-vertical-stack>
 </ion-content>

@@ -1,3 +1,3 @@
-<ion-content fullscreen={true}>
-    <slot></slot>
-</ion-content>
+<div class="ion-page">
+	<slot />
+</div>

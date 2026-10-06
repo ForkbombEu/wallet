@@ -1,7 +1,6 @@
 <script lang="ts">
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 	import { m, goto } from '$lib/i18n';
-	import { slide } from 'svelte/transition';
 	import type { Feedback } from '$lib/utils/types.js';
 	import { verificationStore } from '$lib/verificationStore.js';
 	import dayjs from 'dayjs';
@@ -16,231 +15,170 @@
 	import DebugPopup from '$lib/components/organisms/debug/DebugPopup.svelte';
 	import { debugDismiss } from '$lib/components/organisms/debug/debug';
 	import FingerPrint from '$lib/assets/lottieFingerPrint/FingerPrint.svelte';
+	import { claimLabel, claimValue, recipientDomain } from '$lib/credentialPresentation';
+	import {
+		isSelectionComplete,
+		toggleCredential,
+		preparePresentation,
+		type SelectedCredentials
+	} from '$lib/credentialSelection';
 
 	type Verification = {
 		result: {
-			result: {
-				result: VerificationResponse;
-				status: string;
-			};
+			result: { result: VerificationResponse & { redirect_uri?: string }; status: string };
 		};
 		logs: string;
 	};
 
-	type SelectedCredentials = number[][][]
-
 	export let data;
 	const { credentials, verifier } = data;
-
 	let selectedCredential: SelectedCredentials = [];
-
-	let verification: Verification;
-	let scrollBox: HTMLDivElement;
 	let loading = false;
+	const { post_url, state } = $verificationStore;
 
-	const { vps, post_url, state } = $verificationStore;
-	const verificationFailed = m.Verification_failed();
+	$: allCredentialsSelected = isSelectionComplete(credentials, selectedCredential);
 
-	const selectCredential = (cred: number, cred_set: number, cred_id: number, claim_set: number) => {
-		selectedCredential[cred] ||= []
-		selectedCredential[cred][cred_set] ||= []
-		selectedCredential[cred].forEach((_, i) => {
-			if (i !== cred_set) delete selectedCredential[cred][i]
-		})
-		selectedCredential[cred][cred_set][cred_id] = claim_set;
-		// getSortedCredentials();
-		// scrollBox.scrollIntoView({
-		// 	behavior: 'smooth',
-		// 	block: 'start'
-		// });
+	const selectCredential = (group: number, option: number, credential: number, variant: number) => {
+		selectedCredential = toggleCredential(selectedCredential, group, option, credential, variant);
 	};
-	const checkSelectedAllCredential = (sel: SelectedCredentials) => {
-		return credentials.every((cred, i) => {
-			if (!cred.required) return true;
-			if (!Object.prototype.hasOwnProperty.call(sel, i)) return false
-			return cred.claims.some((claim, j) =>
-				Object.prototype.hasOwnProperty.call(sel[i], j) &&
-				claim.every((_, k) => Object.prototype.hasOwnProperty.call(sel[i][j], k))
-			)
-		})
-	}
-	$: allCredentialsSelected = checkSelectedAllCredential(selectedCredential);
-
-	const preparePresentation = () => {
-		const vp_token: Record<string, [string | Record<string, any>]> = {};
-		const prop: Record<string, string[]> = {};
-		for (let i = 0; i < credentials.length; i++) {
-			if (selectedCredential.hasOwnProperty(i)) {
-				const j = selectedCredential[i].findIndex(v => v !== null && v !== undefined);
-				for (let k = 0; k < credentials[i].claims[j].length; k++) {
-					const index = selectedCredential[i][j][k]
-					const key = credentials[i].claims[j][k][0];
-					const card = credentials[i].claims[j][k][1][index].claims;
-					const signed = credentials[i].claims[j][k][2][index];
-					vp_token[key] = [signed];
-					prop[key] = [...Object.keys(card)]
-				}
-			}
-		}
-		return { prop, vp_token };
-	}
+	const clearGroup = (group: number) => {
+		selectedCredential = selectedCredential.slice();
+		selectedCredential[group] = undefined;
+	};
+	const decline = async () => {
+		selectedCredential = [];
+		await goto('/wallet');
+	};
 
 	const verify = async () => {
-		if (!checkSelectedAllCredential(selectedCredential)) {
-			return;
-		}
+		if (loading || !isSelectionComplete(credentials, selectedCredential)) return;
 		loading = true;
 		try {
-			const { prop, vp_token } = preparePresentation()
-			verification = (await verifyCredential({
+			const { prop, vp_token } = preparePresentation(credentials, selectedCredential);
+			const verification = (await verifyCredential({
 				url: post_url,
-				body: {
-					state,
-					vp_token
-				}
+				body: { state, vp_token }
 			})) as Verification;
-
 			const responseSuccess = verification.result?.result?.status === '200';
-			//@ts-ignore
 			const responseRedirectUri = verification.result?.result?.result?.redirect_uri;
 			await debugDismiss();
-			const date = dayjs().toString();
-			let feedback: Feedback = {};
-			if ( !responseSuccess ) {
-				feedback = negativeFeedback(
-					verificationFailed,
-					JSON.stringify(
-						{
-							serverResponse: verification.result?.result?.result,
-							logs: verification.logs
-						},
-						null,
-						2
-					)
-				);
-			}
-			const sid = verification.result?.result?.result?.complete_transaction_id
+			const feedback: Feedback = responseSuccess ? {} : negativeFeedback(m.Sharing_failed_help());
+			const sid = verification.result?.result?.result?.complete_transaction_id;
 			verificationResultsStore.set({
 				feedback,
-				date,
+				date: dayjs().toString(),
 				id: sid || '',
 				success: responseSuccess
 			});
 			log(JSON.stringify(verification));
-			for (const [_key, prop_array] of Object.entries(prop)) {
-				await addVerificationActivity(sid, responseSuccess, post_url, prop_array);
+			for (const properties of Object.values(prop)) {
+				await addVerificationActivity(sid, responseSuccess, post_url, properties);
 			}
-			if (responseRedirectUri) window.location.href = responseRedirectUri
-			return await goto('/verification/results');
-		} catch (e) {
-			console.log(e)
+			if (responseRedirectUri) window.location.href = responseRedirectUri;
+			await goto('/verification/results');
+		} catch (error) {
 			verificationResultsStore.set({
-				feedback: negativeFeedback(verificationFailed, JSON.stringify(e)),
+				feedback: negativeFeedback(m.Sharing_failed_help()),
 				date: dayjs().toString(),
-				id: 'none',
+				id: '',
 				success: false
 			});
-			log(JSON.stringify(e));
-			return await goto('/verification/results');
+			log(String(error));
+			await goto('/verification/results');
+		} finally {
+			loading = false;
 		}
 	};
-
-	const selected = (card: SelectedCredentials[number], cred_set: number, cred_id: number, claim_set: number) => {
-		return Boolean(card)
-			&& Boolean(card[cred_set])
-			&& card[cred_set][cred_id] === claim_set
-	}
-	const opaque = (card: SelectedCredentials[number], cred_set: number, cred_id: number, claim_set: number) => {
-		if(!card) return false;
-		const claim = card[cred_set]?.[cred_id];
-		if (card?.[cred_set] === undefined) return true
-		if (claim === undefined) return false;
-		return claim !== claim_set;
-	}
-
-	// let sortedCredentials: Credential[];
-	// const getSortedCredentials = () => {
-	// 	if (selectedCredential) {
-	// 		sortedCredentials = [
-	// 			credentials.find((c) => c.sdJwt === selectedCredential),
-	// 			...credentials.filter((c) => c.sdJwt !== selectedCredential)
-	// 		] as Credential[];
-	// 		return;
-	// 	}
-	// 	sortedCredentials = credentials;
-	// };
-	// onMount(getSortedCredentials);
 </script>
 
-<HeaderWithBackButton>
-	{m.Verification()}
-</HeaderWithBackButton>
-
-<d-loading {loading}>
-	<FingerPrint />
-</d-loading>
-<ion-content>
-	<div class="ion-padding flex h-full flex-col justify-between" bind:this={scrollBox}>
-		<d-vertical-stack>
-			<d-page-description
-				title={m.Select_credential()}
-				description={m.novel_elegant_capybara_twist({ length: credentials.length })}
-			/>
-			<d-vertical-stack>
-				{#each credentials as vps_property, index}
-					<div class="flex flex-col items-start gap-2.5 rounded-[5px] bg-secondary px-5 py-5">
-					<d-badge class="self-end">{vps_property.required? m.required(): m.optional()}</d-badge>
-					{#each vps_property.claims as cred_property, cred_set}
-						{#each cred_property as [cred_key, claim_propery], cred_id}
-							<d-text>{cred_key} {m.with_claims()}:</d-text>
-							{#each claim_propery as claim_list, claim_set}
+<div class="ion-page">
+	<HeaderWithBackButton>{m.Verification()}</HeaderWithBackButton>
+	<d-loading {loading}><FingerPrint /></d-loading>
+	<ion-content class="ion-padding">
+		<div class="flex flex-col gap-6 pb-4">
+			<div class="flex flex-col gap-2">
+				<d-heading size="s" level={1}>{m.Review_sharing()}</d-heading>
+				<d-text>{m.Sharing_explanation()}</d-text>
+				<d-text size="s" class="text-on-alt">{m.Recipient()}</d-text>
+				<d-text class="break-all font-semibold">{recipientDomain(verifier)}</d-text>
+				<details>
+					<summary class="py-2">{m.Verifier_url()}</summary>
+					<p class="break-all">{verifier}</p>
+				</details>
+			</div>
+			{#each credentials as group, groupIndex}
+				<section class="flex min-w-0 flex-col gap-3">
+					<d-badge class="self-start">{group.required ? m.required() : m.optional()}</d-badge>
+					{#if !group.claims.length}
+						<d-heading size="xs">{m.No_matching_credentials()}</d-heading>
+						<d-text>{m.No_matching_credentials_help()}</d-text>
+					{/if}
+					{#each group.claims as option, optionIndex}
+						{#each option as [key, variants], credentialIndex}
+							<d-text class="font-semibold">{claimLabel(key)} {m.with_claims()}:</d-text>
+							{#each variants as credential, variantIndex}
 								<d-verification-card
-									class:opacity-60={opaque(selectedCredential[index], cred_set, cred_id, claim_set)}
-									class="transition-opacity duration-500 break-all"
-									selected={selected(selectedCredential[index], cred_set, cred_id, claim_set)}
-									relying-party={claim_list.issuer}
-									flow={claim_list.type[1]}
-									logo={claim_list.logo}
-									on:click={() => selectCredential(index, cred_set, cred_id, claim_set)}
-									aria-hidden
+									selected={selectedCredential[groupIndex]?.[optionIndex]?.[credentialIndex] ===
+										variantIndex}
+									relying-party={credential.issuer}
+									flow={claimLabel(credential.type[1] || key)}
+									logo={credential.logo}
+									disabled={loading}
+									on:click={() =>
+										selectCredential(groupIndex, optionIndex, credentialIndex, variantIndex)}
 								>
-									{#each Array.from(Object.entries(claim_list.claims)) as disclosure}
-										<div class="flex items-center gap-2.5 min-w-0">
-											<d-info-led type="warning" />
-											<d-text size="s" class="break-all whitespace-normal">
-												<b>{disclosure[0]}</b> {disclosure[1]}
-											</d-text>
-										</div>
+									{#each Object.entries(credential.claims) as [name, value]}
+										<d-text size="s" class="break-words"
+											><b>{claimLabel(name)}:</b> {claimValue(value)}</d-text
+										>
 									{/each}
 								</d-verification-card>
-								{#if claim_set < claim_propery.length - 1}
-									<d-text>{m.or()}:</d-text>
-								{/if}
+								{#if variantIndex < variants.length - 1}<d-text>{m.or()}</d-text>{/if}
 							{/each}
 						{/each}
-						{#if cred_set < vps_property.claims.length - 1}
-							<d-text>{m.or()}:</d-text>
-						{/if}
+						{#if optionIndex < group.claims.length - 1}<d-text>{m.or_credentials()}</d-text>{/if}
 					{/each}
-					</div>
-				{/each}
-				<div class="pb-56" />
-			</d-vertical-stack>
-		</d-vertical-stack>
-	</div>
-	{#if allCredentialsSelected}
-		<div class="ion-padding fixed bottom-0 h-40 w-full bg-surface" transition:slide>
-			<d-vertical-stack>
-				<d-button
-					on:click={verify}
-					aria-hidden
-					expand
-					color="accent"
-					disabled={!allCredentialsSelected || loading}>{m.Verify()}</d-button
-				>
-				<d-button expand aria-hidden>{m.Decline()}</d-button>
-			</d-vertical-stack>
+					{#if selectedCredential[groupIndex]}
+						<d-button
+							clear
+							color="accent"
+							on:click={() => clearGroup(groupIndex)}
+							disabled={loading}
+						>
+							{m.Clear_group_selection()}
+						</d-button>
+					{/if}
+				</section>
+			{:else}
+				<d-empty-state
+					heading={m.No_matching_credentials()}
+					text={m.No_matching_credentials_help()}
+				/>
+			{/each}
 		</div>
-	{/if}
-	<DebugPopup />
-</ion-content>
+		<DebugPopup />
+	</ion-content>
+	<ion-footer class="ion-no-border" role="region" aria-label={m.Share_selected_information()}>
+		<div class="sharing-actions bg-surface">
+			{#if !allCredentialsSelected}<p class="text-on-alt">{m.Select_required_credentials()}</p>{/if}
+			<d-button
+				expand
+				color="accent"
+				disabled={!allCredentialsSelected || loading}
+				on:click={verify}
+			>
+				{m.Share_selected_information()}
+			</d-button>
+			<d-button expand disabled={loading} on:click={decline}>{m.Decline()}</d-button>
+		</div>
+	</ion-footer>
+</div>
+
+<style>
+	.sharing-actions {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		padding: 0.75rem 1rem max(0.75rem, env(safe-area-inset-bottom));
+	}
+</style>

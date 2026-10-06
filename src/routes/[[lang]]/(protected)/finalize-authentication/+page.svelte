@@ -1,4 +1,5 @@
 <script lang="ts">
+	import WalletFeedback from '$lib/components/molecules/Feedback.svelte';
 	import { fly } from 'svelte/transition';
 	import { thumbsUpOutline, thumbsDownOutline } from 'ionicons/icons';
 	import { goto, m, r } from '$lib/i18n';
@@ -29,8 +30,7 @@
 	let isModalOpen = true;
 
 	const credentialInfo = wn?.credential_requested?.display?.[0];
-	if (credentialInfo)
-		credentialInfo.issuer = wn?.credential_issuer_information?.display?.[0].name;
+	if (credentialInfo) credentialInfo.issuer = wn?.credential_issuer_information?.display?.[0].name;
 
 	//
 	onMount(async () => {
@@ -38,10 +38,7 @@
 		await initializeIssuanceFlow();
 	});
 
-	async function handleIssuanceError(
-		message: string,
-		errorType: string
-	): Promise<void> {
+	async function handleIssuanceError(message: string, errorType: string): Promise<void> {
 		state = 'error';
 		feedback = { type: 'error', message: message, feedback: errorType };
 		content?.scrollToTop();
@@ -141,18 +138,14 @@
 	<div class="flex h-full flex-col items-center justify-center text-center pb-16">
 		{#if state === 'error'}
 			<div class="ion-padding flex h-full w-full flex-col justify-between py-10">
-				<d-feedback {...feedback} class="mb-4"></d-feedback>
+				<WalletFeedback {...feedback} class="mb-4"></WalletFeedback>
 				<div class="ion-padding flex w-full flex-col gap-2">
-					<ion-icon icon={thumbsDownOutline} class="mx-auto my-6 text-9xl text-red-400"
-					></ion-icon>
+					<ion-icon icon={thumbsDownOutline} class="mx-auto my-6 text-9xl text-red-400"></ion-icon>
 					<d-text class="mx-auto break-words">
 						{m.credential_issuance_failed()}
 					</d-text>
 				</div>
-				<d-button
-					expand
-					href={r('/home')}>{m.Home()}</d-button
-				>
+				<d-button expand href={r('/home')}>{m.Home()}</d-button>
 			</div>
 		{:else if state === 'loading'}
 			<h1 class="mb-4 text-2xl font-semibold">{m.We_are_generating_this_credential()}</h1>

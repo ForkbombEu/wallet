@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Form, createForm } from '$lib/forms';
+	import WalletFeedback from '$lib/components/molecules/Feedback.svelte';
+	import { Form, Input, createForm } from '$lib/forms';
 	import { goto, m, r } from '$lib/i18n';
 	import { regenerateKeypair } from '$lib/keypairoom';
 	import { setKeypairPreference } from '$lib/preferences/keypair.js';
@@ -7,86 +8,66 @@
 	import type { Feedback } from '$lib/utils/types.js';
 	import { checkKeypairs, generateDid } from '../../_lib/index.js';
 	import background from '$lib/assets/bg-5.svg';
-	import { Input } from '$lib/forms';
 	import HeaderWithBackButton from '$lib/components/molecules/HeaderWithBackButton.svelte';
 	import { setUserPassword } from '$lib/preferences/userPassword.js';
 
-	//
-
 	let { data } = $props();
-	let { userEmail, password } = data;
-
+	const { userEmail, password } = data;
 	let feedback = $state<Feedback>({});
-
-	//
+	let loading = $state(false);
 
 	const passphraseSchema = z.object({
 		seed: z
 			.string()
-			.min(1)
-			.refine((v) => v.split(' ').length === 12)
+			.transform((value) => value.trim().replace(/\s+/g, ' '))
+			.refine((value) => value.split(' ').length === 12, m.Passphrase_invalid())
 	});
 
 	const form = createForm({
 		schema: passphraseSchema,
 		onSubmit: async ({ form }) => {
+			if (loading) return;
+			loading = true;
+			feedback = {};
 			try {
 				const keypair = await regenerateKeypair(userEmail, form.data.seed);
 				await setKeypairPreference(keypair);
 				await generateDid();
 				await checkKeypairs();
 				await setUserPassword(password!);
-				await goto('/wallet', undefined);
-			} catch (e) {
-				feedback = {
-					type: 'error',
-					message: String(e),
-					feedback: 'error while regenerating keyring'
-				};
-				throw new Error('KEYRING_REGENERATION_ERROR');
+				await goto('/wallet');
+			} catch {
+				feedback = { type: 'error', feedback: m.Passphrase_failed_help() };
+			} finally {
+				loading = false;
 			}
 		}
 	});
-
-	//
-
-	const seedPlaceholder = 'skin buyer sunset person run push elevator under debris soft surge man';
 </script>
 
-<HeaderWithBackButton>
-	{m.REGISTER()}
-</HeaderWithBackButton>
-
-<div class="flex flex-col">
-	<d-feedback {...feedback} />
-	<div class="mb-10 sm:mb-0">
-		<d-background-illustration {background}>
-			<d-illustration illustration="chat" /></d-background-illustration
-		>
-	</div>
-	<div>
-		<div class="flex w-full flex-col items-center gap-6 px-8">
-			<d-heading size="m">{m.Enter_your_keypair()}</d-heading>
-			<d-text size="l"
-				>{m.if_you_have_stored_your_keypair_securely_you_can_enter_it_below_to_access_your_wallet_()}</d-text
-			>
-			<d-heading size="s">{m.Login_using_your_keypair()}</d-heading>
-			<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full" let:isTainted>
-				<Input
-					{form}
-					fieldPath="seed"
-					placeholder={seedPlaceholder}
-					label={m.insert_your_passphrase()}
-					type="text"
-				/>
-				<d-button expand type="submit" disabled={!isTainted} color="accent"
-					>{m.Login()}</d-button
-				>
-
-				<d-button color="outline" href={r('/login/questions')} role="button" expand>
-					{m.KEYPAIR_RECOVERY()}
-				</d-button>
-			</Form>
-		</div>
-	</div>
+<HeaderWithBackButton>{m.Login()}</HeaderWithBackButton>
+<div class="auth-task">
+	<WalletFeedback {...feedback} />
+	<d-background-illustration {background} compact aria-hidden="true">
+		<d-illustration illustration="chat" />
+	</d-background-illustration>
+	<d-heading size="s" level={1}>{m.Login_using_your_keypair()}</d-heading>
+	<p class="text-on-alt">{m.Authentication_step({ current: 2, total: 2 })}</p>
+	<d-text>{m.Passphrase_help()}</d-text>
+	<Form {form} formClass="flex w-full flex-col gap-4" let:isTainted>
+		<Input
+			{form}
+			fieldPath="seed"
+			label={m.Passphrase_label()}
+			type="password"
+			hidable
+			disabled={loading}
+		/>
+		<d-button expand type="submit" disabled={!isTainted || loading} color="accent">
+			{m.Login()}
+		</d-button>
+		<d-button color="outline" href={r('/login/questions')} expand disabled={loading}>
+			{m.Recover_with_questions()}
+		</d-button>
+	</Form>
 </div>

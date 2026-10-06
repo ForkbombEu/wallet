@@ -1,4 +1,5 @@
 <script lang="ts">
+	import WalletFeedback from '$lib/components/molecules/Feedback.svelte';
 	import { Form, createForm } from '$lib/forms';
 	import { m } from '$lib/i18n';
 	import Input from '$lib/forms/input.svelte';
@@ -32,8 +33,7 @@
 				loading = false;
 				feedback = {
 					type: 'error',
-					feedback: 'Something went wrong',
-					message: String(exports)
+					feedback: m.Password_reset_failed_help()
 				};
 			}
 		}
@@ -50,68 +50,63 @@
 <HeaderWithBackButton>
 	{m.Reset_password()}
 </HeaderWithBackButton>
-<div class="flex min-h-screen flex-col place-content-between">
-	<d-feedback {...feedback} />
-	<div class="grow">
-		<d-background-illustration {background}>
-			<d-illustration illustration="chat" /></d-background-illustration
-		>
-		<div>
-			{#if requestSent}
-				<div class="mt-8 flex flex-col">
-					<div class="flex w-full flex-col items-center gap-4 px-8">
-						<div class="flex w-full flex-col gap-2 pt-8">
-							<div class="mx-auto">
-								<d-illustration illustration="circle-check" />
+<ion-content>
+	<div class="flex flex-col place-content-between">
+		<WalletFeedback {...feedback} />
+		<div class="grow">
+			<d-background-illustration {background} compact aria-hidden="true">
+				<d-illustration illustration="chat" /></d-background-illustration
+			>
+			<div>
+				{#if requestSent}
+					<div class="mt-8 flex flex-col">
+						<div class="flex w-full flex-col items-center gap-4 px-8">
+							<div class="flex w-full flex-col gap-2 pt-8">
+								<div class="mx-auto">
+									<d-illustration illustration="circle-check" />
+								</div>
+								<d-heading size="s">{m.Request_sent()}</d-heading>
+								<d-text size="l">{m.Check_your_email_for_further_instructions()}</d-text>
 							</div>
-							<d-heading size="s">{m.Request_sent()}</d-heading>
-							<d-text size="l">{m.Check_your_email_for_further_instructions()}</d-text>
-						</div>
-						<div class="w-full">
-							<d-button
-								expand
-								on:click={back}
-								on:keydown={back}
-								aria-hidden
-								color="accent"
-								class="mt-4"
-							>
-								{m.OK()}
-							</d-button>
+							<div class="w-full">
+								<d-button expand on:click={back} color="accent" class="mt-4">
+									{m.OK()}
+								</d-button>
+							</div>
 						</div>
 					</div>
-				</div>
-			{:else}
-				<div class="flex flex-col">
-					<div class="flex w-full flex-col items-center gap-4 px-8">
-						<div class="flex w-full flex-col gap-2 pt-8">
-							<d-heading sixe="s">{m.reset_your_password()}</d-heading>
-							<d-text size="l">{m.enter_your_email_to_get_started()}.</d-text>
-						</div>
+				{:else}
+					<div class="flex flex-col">
+						<div class="flex w-full flex-col items-center gap-4 px-8">
+							<div class="flex w-full flex-col gap-2 pt-8">
+								<d-heading size="s" level={1}>{m.reset_your_password()}</d-heading>
+								<d-text size="l">{m.enter_your_email_to_get_started()}.</d-text>
+							</div>
 
-						<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full" let:isTainted>
-							<Input
-								{form}
-								fieldPath="email"
-								placeholder={m.emailexample_com()}
-								label={m.Email()}
-								type="email"
-							/>
-							<d-button
-								size="default"
-								color="accent"
-								type="submit"
-								expand
-								class="mt-4"
-								disabled={!isTainted}
-							>
-								{m.Next()}
-								<ion-icon icon={arrowForward} slot="end" />
-							</d-button>
-						</Form>
+							<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full" let:isTainted>
+								<Input
+									{form}
+									fieldPath="email"
+									placeholder={m.emailexample_com()}
+									label={m.Email()}
+									type="email"
+								/>
+								<d-button
+									size="default"
+									color="accent"
+									type="submit"
+									expand
+									class="mt-4"
+									disabled={!isTainted}
+								>
+									{m.Next()}
+									<ion-icon icon={arrowForward} slot="end" />
+								</d-button>
+							</Form>
+						</div>
 					</div>
-				</div>
-			{/if}
+				{/if}
+			</div>
 		</div>
 	</div>
-</div>
+</ion-content>

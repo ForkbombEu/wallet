@@ -156,6 +156,12 @@ Create a `.env` file in the root of the project containing the `PUBLIC_BACKEND_U
 
 ### Installation
 
+The wallet uses the local `didroom-components` submodule through
+`link:./didroom-components`. `pnpm install` builds Stencil and synchronizes the
+assets automatically. After component edits, run `pnpm components:build`.
+See [local components and synthetic UX tests](docs/local-components.md) for the
+two-repository workflow and checks.
+
 1. Clone the repository:
 
     ```bash

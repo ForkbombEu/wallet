@@ -4,3 +4,6 @@
 [submodule "src/lib/mobile_zencode"]
 	path = src/lib/mobile_zencode
 	url = https://github.com/ForkbombEu/mobile_zencode.git
+[submodule "didroom-components"]
+	path = didroom-components
+	url = https://github.com/ForkbombEu/didroom-components.git
