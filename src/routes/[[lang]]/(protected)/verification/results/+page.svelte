@@ -1,9 +1,10 @@
 <script lang="ts">
+	import WalletFeedback from '$lib/components/molecules/Feedback.svelte';
 	import { r, m } from '$lib/i18n';
 	import { verificationResultsStore } from '$lib/verificationResultsStore';
 	const { feedback, date, id, success } = $verificationResultsStore;
 	const gotoHome = async () => {
-		window.location.href = r('/home')
+		window.location.href = r('/home');
 	};
 
 	const shorterId = (id: string) => {
@@ -17,21 +18,21 @@
 </d-header>
 
 <ion-content fullscreen class="ion-padding">
-	<d-feedback {...feedback} />
+	<WalletFeedback {...feedback} />
 	<div class="flex w-full justify-around">
 		{#if id === ''}
 			<d-session-card
 				{date}
-				success={success}
+				{success}
 				verified-message={m.verified()}
 				failure-message={m.Verification_failed()}
-				session-message=''
+				session-message=""
 			/>
 		{:else}
 			<d-session-card
 				sid={shorterId(id)}
 				{date}
-				success={success}
+				{success}
 				verified-message={m.verified()}
 				failure-message={m.Verification_failed()}
 				session-message={m.transaction_id()}

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { m, goto } from '$lib/i18n';
 	import { authFilesUri, filesUri } from '$lib/backendUri.js';
-	import { scanButton } from '$lib/tabs';
 	import { AndroidSettings, IOSSettings, NativeSettings } from 'capacitor-native-settings';
 	import { version } from '$app/environment';
 	import { getDebugMode, setDebugModeFalse } from '$lib/preferences/debug.js';
@@ -49,8 +48,8 @@
 	const gotoAccountSettings = () => goto('/user-settings');
 </script>
 
-<d-tab-page tab="profile" title={m.Profile()} {...scanButton} settings>
-	<div class="flex h-full flex-col justify-between gap-24">
+<d-tab-page tab="profile" title={m.Profile()} settings settings-title={m.Settings()}>
+	<div class="flex flex-col gap-8">
 		<div class="flex flex-col items-center gap-2 pt-8 text-center">
 			<d-avatar src={authFilesUri(user?.avatar, user?.id)} size="2xl"></d-avatar>
 			<d-heading size="xs" class="w-full">{user?.name || user?.email}</d-heading>
@@ -71,21 +70,21 @@
 		<div class="flex flex-col justify-between">
 			<div class="flex flex-col gap-4">
 				<d-buttons-group>
-					<d-button aria-hidden size="large" onclick={gotoAccountSettings}>
+					<d-button size="large" on:click={gotoAccountSettings}>
 						{m.Account_Settings()}
 						<d-icon icon="profile" slot="start" outline />
 					</d-button>
-					<d-button onclick={openAppSettings} aria-hidden size="large">
+					<d-button on:click={openAppSettings} size="large">
 						{m.Notifications_settings()}
 						<d-icon icon="notification" slot="start" outline />
 					</d-button>
-					<d-button onclick={gotoLanguageSettings} aria-hidden size="large">
+					<d-button on:click={gotoLanguageSettings} size="large">
 						{m.Languages()}
 						<d-icon icon="language" slot="start" outline />
 					</d-button>
 				</d-buttons-group>
 				<d-buttons-group>
-					<d-button onclick={share} aria-hidden size="large">
+					<d-button on:click={share} size="large">
 						{m.share_this_app()}
 						<ion-icon icon={shareIcon} slot="start" />
 					</d-button>
@@ -101,15 +100,15 @@
 						<d-icon icon="shield" slot="start" outline />
 					</d-button>
 					{#if !isIos}
-						<d-button size="large">
-							<ion-toggle checked={debugMode} label-placement="end" onionChange={setDebugMode}
+						<div class="px-5 py-4">
+							<ion-toggle checked={debugMode} label-placement="end" on:ionChange={setDebugMode}
 								>{m.Debug_mode()}</ion-toggle
 							>
-						</d-button>
+						</div>
 					{/if}
 				</d-buttons-group>
 				<d-buttons-group>
-					<d-button onclick={logoutCB} aria-hidden size="large">
+					<d-button on:click={logoutCB} size="large">
 						{m.Log_Out()}
 						<d-icon icon="logout" outline slot="start" />
 					</d-button>
@@ -118,5 +117,4 @@
 			<d-app-details developedBy={m.Developed_by_Forkbomb_BV()} {version} />
 		</div>
 	</div>
-	<div class="pb-24" />
 </d-tab-page>

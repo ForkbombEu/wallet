@@ -1,4 +1,5 @@
 <script lang="ts">
+	import WalletFeedback from '$lib/components/molecules/Feedback.svelte';
 	import { version } from '$app/environment';
 	import { Form, createForm } from '$lib/forms';
 	import { formFieldProxy } from 'sveltekit-superforms/client';
@@ -17,6 +18,7 @@
 	const registration = $page.url.searchParams.get('registration') === 'true';
 
 	let feedback: Feedback = {};
+	let loading = false;
 	let content: ScrollableNode;
 
 	const schema = z.object({
@@ -36,6 +38,8 @@
 	const form = createForm({
 		schema,
 		onSubmit: async ({ form }) => {
+			if (loading) return;
+			loading = true;
 			feedback = {
 				type: undefined,
 				feedback: undefined
@@ -62,6 +66,8 @@
 					message: String(e)
 				};
 				content.scrollToTop();
+			} finally {
+				loading = false;
 			}
 		}
 	});
@@ -78,16 +84,23 @@
 
 <ion-content class="flex min-h-screen flex-col place-content-between" bind:this={content}>
 	<div class="grow">
-		<d-feedback {...feedback} />
-		<d-background-illustration {background}>
+		<WalletFeedback {...feedback} />
+		<d-background-illustration {background} compact aria-hidden="true">
 			<d-illustration illustration="pidgeon"> </d-illustration></d-background-illustration
 		>
 		<div>
 			<div class="flex flex-col">
-				<div class="flex w-full flex-col items-center gap-4 px-8">
-					<div class="flex w-full flex-col gap-2 pt-8">
-						<d-heading sixe="s">{m.Enter_your_email()}</d-heading>
-						<d-text size="l">{m.enter_your_email_to_get_started()}.</d-text>
+				<div class="auth-task">
+					<div class="flex w-full flex-col gap-2">
+						<d-heading size="s" level={1}>{registration ? m.REGISTER() : m.Login()}</d-heading>
+						<p class="text-on-alt">
+							{m.Authentication_step({ current: 1, total: registration ? 3 : 2 })}
+						</p>
+						<d-text
+							>{registration
+								? m.enter_your_email_to_get_started()
+								: m.Login_required_fields()}</d-text
+						>
 					</div>
 
 					<Form {form} formClass="flex flex-col gap-2 pb-6 pt-4 w-full" let:isTainted>
@@ -97,14 +110,15 @@
 							placeholder={m.emailexample_com()}
 							label={m.Email()}
 							type="email"
+							autocomplete="email"
 						/>
 
 						{#if !registration}
 							<Input
 								{form}
 								fieldPath="password"
-								placeholder="password"
-								label="password"
+								label={m.Password()}
+								autocomplete="current-password"
 								type="password"
 								hidable
 							>
@@ -115,7 +129,7 @@
 						{:else}
 							<Checkbox fieldPath="conditions" {form}
 								><d-text size="l" class="flex items-center gap-1">
-										{m.Accept()}
+									{m.Accept()}
 									<a
 										href="https://didroom.com/guides/Terms-and-conditions/"
 										class="flex h-12 items-center text-accent underline"
@@ -126,16 +140,21 @@
 							</Checkbox>
 						{/if}
 						<d-vertical-stack gap="4" class="mt-4">
-							<d-button size="default" color="accent" type="submit" expand {disabled}>
+							<d-button
+								size="default"
+								color="accent"
+								type="submit"
+								expand
+								disabled={disabled || loading}
+							>
 								{m.Next()}
-								<ion-icon icon={arrowForward} slot="end" aria-label="next" />
+								<ion-icon icon={arrowForward} slot="end" aria-hidden="true" />
 							</d-button>
 							<d-button
 								size="default"
 								color="outline"
 								expand
 								on:click={() => goto('/register-login')}
-								aria-hidden
 							>
 								{m.back()}
 							</d-button>

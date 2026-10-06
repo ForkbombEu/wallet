@@ -126,10 +126,7 @@
 </script>
 
 <svelte:head>
-	<meta
-		name="viewport"
-		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=no"
-	/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 	<!-- uncomment to test didroom-components locally -->
 	<!-- <script 
 	 	type="module" 
@@ -157,9 +154,7 @@
 					<d-text size="xl"
 						>{m.It_seems_that_the_wallet_is_unable_to_connect_to_the_Internet_please_make_sure_your_internet_connection_is_working_and_retry()}</d-text
 					>
-					<d-button color="accent" on:click={() => App.exitApp()} aria-hidden expand
-						>{m.Close()}</d-button
-					>
+					<d-button color="accent" on:click={() => App.exitApp()} expand>{m.Close()}</d-button>
 				</d-vertical-stack>
 			{/if}
 		</d-loading>

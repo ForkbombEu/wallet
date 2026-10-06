@@ -67,9 +67,7 @@
 
 			{#if data.biometryCheckResult.isAvailable}
 				<div class="fixed bottom-4 w-full px-4">
-					<d-button color="accent" on:click={unlock} on:keydown={unlock} aria-hidden expand="full"
-						>{m.Open_Wallet()}</d-button
-					>
+					<d-button color="accent" on:click={unlock} expand="full">{m.Open_Wallet()}</d-button>
 				</div>
 				{#if error}
 					<div>
@@ -79,12 +77,8 @@
 			{:else}
 				<ion-text>{m.Biometry_not_available()}</ion-text>
 				<div class="fixed bottom-4 w-full px-4 pb-24">
-					<d-button
-						color="accent"
-						on:click={unlockWithoutBiometry}
-						on:keydown={unlockWithoutBiometry}
-						aria-hidden
-						expand="full">{m.Open_Wallet()}</d-button
+					<d-button color="accent" on:click={unlockWithoutBiometry} expand="full"
+						>{m.Open_Wallet()}</d-button
 					>
 				</div>
 			{/if}

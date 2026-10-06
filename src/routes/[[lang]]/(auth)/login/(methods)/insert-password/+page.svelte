@@ -1,4 +1,5 @@
 <script lang="ts">
+	import WalletFeedback from '$lib/components/molecules/Feedback.svelte';
 	import { Form, createForm } from '$lib/forms';
 	import { goto, m } from '$lib/i18n';
 	import { Input } from '$lib/forms';
@@ -39,36 +40,42 @@
 	});
 </script>
 
-<d-header back-button on:backButtonClick={() => window.history.back()} settingsTitle={m.Settings()}>
+<d-header
+	back-button
+	on:backButtonClick={() => window.history.back()}
+	settings-title={m.Settings()}
+	back-button-label={m.back()}
+>
 	{m.REGISTER()}
 </d-header>
-<d-feedback {...feedback} />
+<WalletFeedback {...feedback} />
 
 <div class="flex flex-col">
-	<div class="mb-10 sm:mb-0">
-		<d-background-illustration {background}>
+	<div>
+		<d-background-illustration {background} compact aria-hidden="true">
 			<d-illustration illustration="chat" /></d-background-illustration
 		>
 	</div>
 	<div>
-		<div class="flex w-full flex-col items-center gap-6 px-8">
-			<d-heading sixe="s">{m.Choose_your_password()}</d-heading>
+		<div class="auth-task">
+			<d-heading size="s" level={1}>{m.Choose_your_password()}</d-heading>
+			<p class="text-on-alt">{m.Authentication_step({ current: 2, total: 3 })}</p>
 			<d-text size="l">{m.Your_password_should_be_between_8_and_73_character()}</d-text>
 
 			<Form {form} formClass="flex flex-col gap-4 pb-6 pt-4 w-full" let:isTainted>
 				<Input
 					{form}
 					fieldPath="password"
-					placeholder="password"
-					label="password"
+					label={m.Password()}
+					autocomplete="new-password"
 					type="password"
 					hidable
 				/>
 				<Input
 					{form}
 					fieldPath="confirmPassword"
-					placeholder="password"
-					label="confirm your password"
+					label={m.Confirm_password()}
+					autocomplete="new-password"
 					type="password"
 					hidable
 				/>
@@ -82,7 +89,7 @@
 					disabled={!isTainted}
 				>
 					{m.Next()}
-					<ion-icon icon={arrowForward} slot="end" aria-label="next" />
+					<ion-icon icon={arrowForward} slot="end" aria-hidden="true" />
 				</d-button>
 			</Form>
 		</div>

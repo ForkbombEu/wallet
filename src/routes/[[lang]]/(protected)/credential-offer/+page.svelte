@@ -1,4 +1,5 @@
 <script lang="ts">
+	import WalletFeedback from '$lib/components/molecules/Feedback.svelte';
 	import { r } from '$lib/i18n';
 	import { m } from '$lib/i18n';
 	import type { Feedback, ScrollableNode } from '$lib/utils/types';
@@ -13,7 +14,8 @@
 	async function handleRedirect() {
 		if (!authorizeUrl) return;
 
-		if(isWeb) window.location.href = authorizeUrl; // Web
+		if (isWeb)
+			window.location.href = authorizeUrl; // Web
 		else await Browser.open({ url: authorizeUrl }); // iOS + Android
 	}
 
@@ -28,12 +30,12 @@
 </HeaderWithBackButton>
 
 <ion-content fullscreen class="ion-padding" bind:this={content}>
-	<d-feedback {...feedback} ></d-feedback>
+	<WalletFeedback {...feedback}></WalletFeedback>
 	{#if feedbackData}
-		<d-feedback {...feedbackData}></d-feedback>
+		<WalletFeedback type="error" feedback={feedbackData.feedback} message={feedbackData.message} />
 		<d-empty-state
 			heading={m.The_service_seems_to_be_out_of_reach()}
-			buttonText={m.Go_to_home()}
+			button-text={m.Go_to_home()}
 			href={r('/home')}
 		>
 			<d-illustration illustration="pidgeon"></d-illustration>
@@ -64,18 +66,10 @@
 				<d-text size="s">{m.Continue_and_open_an_external_site()}</d-text>
 			</d-vertical-stack>
 			<d-vertical-stack class="w-full">
-				<d-button
-					expand
-					on:click={handleRedirect}
-					color="accent"
-					aria-hidden="true"
-				>
+				<d-button expand on:click={handleRedirect} color="accent" aria-hidden="true">
 					{m.Accept()}
 				</d-button>
-				<d-button
-					expand
-					href={r('/home')}>{m.Decline()}</d-button
-				>
+				<d-button expand href={r('/home')}>{m.Decline()}</d-button>
 			</d-vertical-stack>
 		</div>
 		<DebugPopup />

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import WalletFeedback from '$lib/components/molecules/Feedback.svelte';
 	import { createForm, Form } from '$lib/forms';
 	import FormError from '$lib/forms/formError.svelte';
 	import { Input } from '$lib/forms';
@@ -36,7 +37,10 @@
 		{ id: UserChallenges.nameFirstPet, text: m.What_is_the_name_of_your_first_pet() },
 		{ id: UserChallenges.whereHomeTown, text: m.What_is_your_home_town() },
 		{ id: UserChallenges.nameFirstTeacher, text: m.What_is_the_name_of_your_first_teacher() },
-		{ id: UserChallenges.nameMotherMaid, text: m.What_is_the_surname_of_your_mother_before_wedding() }
+		{
+			id: UserChallenges.nameMotherMaid,
+			text: m.What_is_the_surname_of_your_mother_before_wedding()
+		}
 	];
 
 	//
@@ -60,6 +64,7 @@
 	const form = createForm({
 		schema: answersSchema,
 		onSubmit: async ({ form }) => {
+			if (loading) return;
 			try {
 				feedback = { feedback: '' };
 				loading = true;
@@ -73,14 +78,15 @@
 				if (!registration) await checkKeypairs();
 				await generateDid();
 				seed = keypair.seed;
-				await setUserPassword(password!)
+				await setUserPassword(password!);
 				loading = false;
 			} catch (e) {
 				loading = false;
 				feedback = {
 					type: 'error',
-					message: String(e),
-					feedback: 'error while generating keyring'
+					feedback: registration
+						? m.Questions_registration_failed_help()
+						: m.Questions_failed_help()
 				};
 				log(String(e));
 				throw new Error('KEYRING_GENERATION_ERROR');
@@ -100,6 +106,9 @@
 		return result;
 	}
 
+	const answers = form.form;
+	$: answeredQuestions = Object.values($answers).filter(Boolean).length;
+
 	const goToWallet = () => {
 		goto('/wallet', undefined);
 	};
@@ -112,22 +121,24 @@
 	{m.SECURITY_QUESTIONS()}
 </HeaderWithBackButton>
 
-<div class="flex h-full flex-col gap-4 px-4">
-	<d-feedback {...feedback} />
+<div class="auth-task">
+	<WalletFeedback {...feedback} />
 
 	{#if !seed}
 		<d-vertical-stack>
-			<d-heading sixe="s">{m.Answer_to_these_questions()}</d-heading>
+			<d-heading size="s" level={1}>{m.Answer_to_these_questions()}</d-heading>
+			<p class="text-on-alt">
+				{m.Authentication_step({ current: registration ? 3 : 2, total: registration ? 3 : 2 })}
+			</p>
+			<p aria-live="polite" aria-atomic="true">
+				{m.Questions_progress({ count: answeredQuestions })}
+			</p>
 			<d-text size="l"
 				>{m.to_ensure_the_security_of_your_account_and_simplify_key_recovery_please_answer_the_following_questions_()}</d-text
 			>
 		</d-vertical-stack>
 
-		<Form
-			{form}
-			id="questions"
-			formClass="flex flex-col  space-y-8 rounded bg-surface w-full pb-6 pt-4"
-		>
+		<Form {form} id="questions" formClass="flex w-full flex-col gap-4 rounded bg-surface pb-2">
 			<div class="flex gap-2">
 				<d-text size="l" class="text-error"> <ion-icon icon={alertCircleOutline} /></d-text>
 				<d-text
@@ -152,27 +163,25 @@
 		</Form>
 		<d-button
 			color="accent"
-			role="button"
 			type="submit"
 			form="questions"
 			expand
-			tabindex={0}
-			class="pb-10"
+			disabled={answeredQuestions < 3 || loading}
 		>
 			{m.Next()}
 		</d-button>
 	{:else}
-		<div class="flex h-screen flex-col place-content-between">
-			<div class="pt-11">
+		<div class="flex flex-col gap-6">
+			<div>
 				<d-vertical-stack>
-					<d-heading sixe="s">{m.Store_this_keypair()}</d-heading>
-					<d-text size="l">{m.your_unique_keypair_has_been_generated_successfully_()}</d-text>
+					<d-heading size="s">{m.Passphrase_save_title()}</d-heading>
+					<d-text size="l">{m.Wallet_keys_ready()}</d-text>
 				</d-vertical-stack>
 
 				<div class="flex w-full flex-col space-y-8 pb-6 pt-4">
 					<div class="flex flex-col gap-6">
 						<div>
-							<d-text>{m.Your_keypair()}</d-text>
+							<d-text>{m.Passphrase_label()}</d-text>
 							<div class="rounded-lg border border-on bg-highlight p-4 font-mono">
 								<div>
 									{seed}
@@ -184,20 +193,14 @@
 
 						<div class="flex gap-2">
 							<d-text size="l" class="text-error"> <ion-icon icon={alertCircleOutline} /></d-text>
-							<d-text
-								>{m.Please_store_this_in_a_safe_place_to_recover_your_account_in_the_future_this_passphrase_will_be_shown_only_one_time()}</d-text
-							>
+							<d-text>{m.Passphrase_save_warning()}</d-text>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="flex flex-col gap-3 pb-24">
-				<d-text size="m"
-					>{m.You_can_recover_your_keypair_by_answering_the_registration_questions_correctly_again()}</d-text
-				>
-				<d-button color="accent" on:click={goToWallet} on:keydown={goToWallet} aria-hidden expand
-					>{m.Go_to_wallet()}</d-button
-				>
+			<div class="flex flex-col gap-3 pb-4">
+				<d-text size="m">{m.Recovery_options_help()}</d-text>
+				<d-button color="accent" on:click={goToWallet} expand>{m.Go_to_wallet()}</d-button>
 			</div>
 		</div>
 	{/if}

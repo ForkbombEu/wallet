@@ -37,17 +37,14 @@
 		<ion-toolbar>
 			<ion-title>{m.Results()}</ion-title>
 			<ion-buttons slot="end">
-				<ion-button color="danger" on:click={closeModal} on:keydown={closeModal} aria-hidden
-					>{m.Close()}</ion-button
-				>
+				<ion-button color="danger" on:click={closeModal}>{m.Close()}</ion-button>
 				{#if textToCopy}
 					<CopyButton {textToCopy} delay={1000} />
 				{/if}
 			</ion-buttons>
-		</ion-toolbar>	
+		</ion-toolbar>
 	</ion-header>
 	<ion-content class="ion-padding visible">
-		
 		<d-vertical-stack class="mt-4">
 			<slot />
 		</d-vertical-stack>
